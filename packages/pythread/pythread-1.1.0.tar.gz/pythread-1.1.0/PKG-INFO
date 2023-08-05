@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: pythread
+Version: 1.1.0
+Summary: Useful module for comfortable managing with threading.
+Home-page: https://github.com/DedInc/pythread
+Author: Maehdakvan
+Author-email: visitanimation@google.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/DedInc/pythread/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+<h1 align="center">pythread - Useful module for comfortable managing with threading.</h1>
+
+<br>
+
+<h1 align="center"> -How to use- </h1>
+
+```python
+import pythread as ptr
+
+ptr.createThread('NameOfThread', func, 5) #NameOfThread - name of thread, func - function, 5 - delay of run function
+ptr.stopThread('NameOfThread') #stop thread
+t = ptr.getThreadByName('NameOfThread') #select thread by name
+```
+
