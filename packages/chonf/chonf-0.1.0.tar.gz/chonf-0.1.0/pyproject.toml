@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "chonf"
+version = "0.1.0"
+description = "User config management made simple and powerful"
+authors = ["João C. Rodrigues Jr. <jc.rodrigues1997@usp.br>"]
+license = "OSI Approved :: Apache Software License"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+toml = "^0.10.2"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
