@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "chocs"
+version = "1.5.2"
+description = "Lightweight and powerful WSGI/AWS lambda framework for rapid building rest applications."
+authors = [
+    "Dawid Kraczkowski <dawid.kraczkowski@gmail.com>"
+]
+license = "MIT"
+readme = "README.md"
+
+homepage = "https://github.com/kodemore/chocs"
+repository = "https://github.com/kodemore/chocs"
+documentation = "https://github.com/kodemore/chocs"
+
+keywords = ["http", "serverless", "aws", "framework", "router", "request", "response", "cookies", "routing", "rest", "wsgi"]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Middleware",
+]
+
+# Requirements
+[tool.poetry.dependencies]
+python = "^3.8"
+pyyaml = ">=5.3.1,<7.0.0"
+
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^3.0"
+pytest-mock = "^3.6"
+black = "21.12b0"
+isort = "^5.6.4"
+mypy = "^0.931"
+bjoern = "^3.1.0"
+pylint = "^2.7.2"
+types-PyYAML = "^6.0.3"
