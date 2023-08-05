@@ -1,0 +1,103 @@
+Metadata-Version: 2.1
+Name: discord.io
+Version: 0.6.2
+Summary: Asynchronous Discord API Wrapper For Python
+Home-page: https://github.com/VincentRPS/discord.io
+Author: VincentRPS
+License: MIT
+Project-URL: Documentation, https://discordio.rtfd.io
+Project-URL: Issue Tracker, https://github.com/VincentRPS/discord.io/issues
+Project-URL: Pull Request Tracker, https://github.com/VincentRPS/discord.io/pulls
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Framework :: AsyncIO
+Classifier: Framework :: aiohttp
+Classifier: Topic :: Communications :: Chat
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Provides-Extra: speed
+Provides-Extra: audio
+License-File: LICENSE
+
+<h1 align='center'>discord.io</h1>
+
+A asynchronous Discord API Wrapper for Python
+
+## Features
+
+- Sane Handling of 429s
+- Customizable
+- Gateway Support
+
+## Installing
+
+To Install discord.io Just run the following command:
+
+```py
+pip install discord.io
+```
+
+To install our speed requirements just run the following command:
+
+```py
+pip install discord.io[speed]
+```
+
+For voice support run the following command:
+
+```py
+pip install discord.io[audio]
+```
+
+## Example
+This is a quick usecase example for the library!
+
+```py
+import discord
+
+bot = discord.BotApp()
+
+@bot.event
+async def on_ready():
+    print('ready!')
+
+bot.run('my_bot_token')
+```
+
+This is another example but with a prefixed command
+
+```py
+import discord
+
+bot = discord.BotApp()
+
+@bot.event
+async def on_ready():
+    print('ready!')
+
+@bot.event
+async def on_message(msg):
+    if msg.content.startswith('!ping'):
+        await msg.reply('pong!')
+
+bot.run('my_bot_token')
+```
+
+## Useful Links
+
+The discord.io [Discord Server](https://discord.gg/cvCAwntVhm)
+
+
