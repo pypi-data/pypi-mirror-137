@@ -1,0 +1,27 @@
+<ie>
+    <plugins>
+        <plugin name="AUTO" location="libov_auto_plugin.so">
+            <properties>
+                <property key="MULTI_WORK_MODE_AS_AUTO" value="YES"/>
+            </properties>
+        </plugin>
+        <plugin name="BATCH" location="libov_auto_batch_plugin.so">
+        </plugin>
+        <plugin name="CPU" location="libov_intel_cpu_plugin.so">
+        </plugin>
+        <plugin name="GNA" location="libov_intel_gna_plugin.so">
+        </plugin>
+        <plugin name="GPU" location="libov_intel_gpu_plugin.so">
+        </plugin>
+        <plugin name="HETERO" location="libov_hetero_plugin.so">
+        </plugin>
+        <plugin name="MULTI" location="libov_auto_plugin.so">
+        </plugin>
+        <plugin name="MYRIAD" location="libov_intel_myriad_plugin.so">
+        </plugin>
+        <plugin name="HDDL" location="libov_intel_hddl_plugin.so">
+        </plugin>
+        <plugin name="VPUX" location="libov_intel_vpux_plugin.so">
+        </plugin>
+    </plugins>
+</ie>
