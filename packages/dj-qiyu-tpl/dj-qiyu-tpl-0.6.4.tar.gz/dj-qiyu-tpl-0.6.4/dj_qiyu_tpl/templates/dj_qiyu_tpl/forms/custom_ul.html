@@ -1,0 +1,10 @@
+<form class="form">
+
+    {% csrf_token %}
+
+    {% include "dj_qiyu_tpl/forms/form_error.html" %}
+
+    {% for name, field in fields.items %}
+        {{ field }}
+    {% endfor %}
+</form>
