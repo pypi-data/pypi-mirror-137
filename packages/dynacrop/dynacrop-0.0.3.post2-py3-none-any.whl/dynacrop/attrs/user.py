@@ -1,0 +1,13 @@
+class UserAttrs:
+    username: str
+    id: int
+    email: str
+    api_key: str
+    current_plan: str
+    current_plan_start_date: str
+    current_plan_end_date: str
+    polygon_count: int
+    max_number_of_polygons: int
+    max_calls_per_minute: int
+    remaining_calls_per_minute: int
+    remaining_processing_capacity: int
