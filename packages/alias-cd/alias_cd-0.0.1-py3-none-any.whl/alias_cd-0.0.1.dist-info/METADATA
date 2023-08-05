@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: alias-cd
+Version: 0.0.1
+Summary: A CLI to help give aliases to directories
+Home-page: UNKNOWN
+Author: Ben Mitchell
+License: MIT
+Platform: unix
+Platform: linux
+Platform: osx
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+License-File: LICENSE
+Requires-Dist: typer (==0.4.0)
+Requires-Dist: pyyaml (==6.0)
+Provides-Extra: formatting
+Requires-Dist: black (==21.12b0) ; extra == 'formatting'
+Provides-Extra: linting
+Requires-Dist: flake8 (>=3.9) ; extra == 'linting'
+Requires-Dist: flake8-bugbear ; extra == 'linting'
+Requires-Dist: flake8-docstrings (>=1.3.1) ; extra == 'linting'
+Requires-Dist: flake8-typing-imports (>=1.1) ; extra == 'linting'
+Requires-Dist: pep8-naming ; extra == 'linting'
+Provides-Extra: testing
+Requires-Dist: pytest (>=6.0) ; extra == 'testing'
+Requires-Dist: pytest-cov (>=2.0) ; extra == 'testing'
+Provides-Extra: type-checking
+Requires-Dist: mypy (>=0.910) ; extra == 'type-checking'
+Requires-Dist: types-PyYAML ; extra == 'type-checking'
+
+UNKNOWN
+
