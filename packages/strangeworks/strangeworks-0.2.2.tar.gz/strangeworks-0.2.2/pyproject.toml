@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "strangeworks"
+version = "0.2.2"
+description = "Strangeworks core"
+readme = "README.md"
+authors = ["Strange Devs <stranger@strangeworks.com>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "2.26.0"
+pylatexenc = "2.7"
+matplotlib = "^3.4.3"
+pyyaml = "^5.4.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools", "wheel"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--disable-warnings"
+testpaths = [
+    "tests",
+]
