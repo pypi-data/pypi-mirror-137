@@ -1,0 +1,164 @@
+.\" Copyright (c) 2022  Peter Pentchev
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.Dd February 1, 2021
+.Dt U8LOC 1
+.Os
+.Sh NAME
+.Nm u8loc
+.Nd run a program in a UTF-8-capable environment
+.Sh SYNOPSIS
+.Nm
+.Op Fl p
+.Fl r
+.Ar program
+.Op Ar args...
+.Nm
+.Op Fl p
+.Fl q
+.Cm LC_ALL
+.Nm
+.Op Fl p
+.Fl q
+.Cm LANGUAGE
+.Nm
+.Fl q
+.Cm preferred
+.Nm
+.Fl q
+.Cm list
+.Nm
+.Fl -features
+.Sh DESCRIPTION
+The
+.Nm
+utility prepares the environment variables so that a child process being
+run will hopefully generate clean UTF-8 output.
+It is designed to be run by a program that expects to be able to reliably
+parse the output of another program without worrying about character set
+conversions.
+.Pp
+The
+.Nm
+utility invokes the
+.Xr locale 1
+tool to list the names of the locales for which the current system has
+valid definitions, and then filters and reorders those names based on
+either a predefined list of language preferences or, if the
+.Fl p
+option is specified, on the language names found in the current
+environment's locale-related variables
+.Pq Ev LC_ALL , Ev LANG , Ev LC_MESSAGES , Ev LC_CTYPE , etc. .
+.Pp
+The
+.Nm
+utility accepts the following command-line options:
+.Bl -tag -width indent
+.It Fl p
+Examine the current environment's locale-related variables and use
+the names of languages found there as a preference list for choosing
+a suitable locale.
+.It Fl q
+Do not execute a program; output the detected environment settings instead,
+depending on the supplied argument:
+.Bl -tag -width indent
+.It Ev LC_ALL
+Output the selected UTF-8-capable locale name that would be placed into the
+.Ev LC_ALL
+environment variable.
+.It Ev LANGUAGE
+Output the empty string that would be placed into the
+.Ev LANGUAGE
+environment variable.
+.It Cm list
+List the available parameters for the
+.Fl q
+option.
+.It Cm preferred
+Output the list of languages gathered from examining the locale-related
+environment variables.
+.El
+.It Fl r
+Set the
+.Ev LC_ALL
+and
+.Ev LANGUAGE
+variables in the environment and execute the specified program.
+.El
+.Sh ENVIRONMENT
+If the
+.Fl p
+option is specified, the locale-related environment variables are examined
+in order.
+If any of them contains the name of a locale that specifies UTF-8 as
+encoding
+.Pq by either a Dq UTF-8 or Dq utf8 suffix ,
+the language name is added to the list of preferences.
+The variables examined are:
+.Bl -tag -width indent
+.It * Ev LC_ALL
+.It * Ev LANG
+.It * Ev LC_MESSAGES
+.It * Ev LC_COLLATE
+.It * Ev LC_NAME
+.It * Ev LC_IDENTIFICATION
+.It * Ev LC_CTYPE
+.It * Ev LC_NUMERIC
+.It * Ev LC_TIME
+.It * Ev LC_MONETARY
+.It * Ev LC_PAPER
+.It * Ev LC_ADDRESS
+.It * Ev LC_TELEPHONE
+.It * Ev LC_MEASUREMENT
+.El
+.Sh EXIT STATUS
+If an error occurs during the detection of a suitable UTF-8-capable locale, the
+.Nm
+utility will exit with a non-zero error code.
+If the
+.Fl r
+option is specified, the specified program will be executed and replace the
+.Nm
+process.
+.Sh EXAMPLES
+Output the name of a UTF-8-capable locale:
+.Pp
+.Dl u8loc -q LC_ALL
+.Pp
+Run a program in a UTF-8-friendly environment:
+.Pp
+.Dl u8loc -r -- cal -3
+.Pp
+.Sh STANDARDS
+No standards documentation was harmed in the process of creating
+.Nm .
+.Sh BUGS
+Please report any bugs in
+.Nm
+to the author.
+.Sh AUTHOR
+The
+.Nm
+utility was written by
+.An Peter Pentchev Aq roam@ringlet.net .
