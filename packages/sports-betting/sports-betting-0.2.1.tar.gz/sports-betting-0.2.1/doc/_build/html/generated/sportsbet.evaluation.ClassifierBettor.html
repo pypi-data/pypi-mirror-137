@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sportsbet.evaluation.ClassifierBettor &mdash; sports-betting 0.2.0 documentation</title><link rel="stylesheet" href="../_static/css/sports-betting.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data extraction" href="../auto_examples/index.html" />
+    <link rel="prev" title="sportsbet.datasets.load" href="sportsbet.datasets.load.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> sports-betting
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Main Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../main_documentation/user_guide.html">User guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../main_documentation/api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../main_documentation/api.html#module-sportsbet.datasets">datasets</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../main_documentation/api.html#module-sportsbet.evaluation">evaluation</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">sportsbet.evaluation</span></code>.ClassifierBettor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples-using-sportsbet-evaluation-classifierbettor">Examples using <code class="docutils literal notranslate"><span class="pre">sportsbet.evaluation.ClassifierBettor</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Data extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html#model-evaluation">Model evaluation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional_information/developers.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional_information/release_history.html">Release history</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">sports-betting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../main_documentation/api.html">API</a> &raquo;</li>
+      <li><code class="docutils literal notranslate"><span class="pre">sportsbet.evaluation</span></code>.ClassifierBettor</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generated/sportsbet.evaluation.ClassifierBettor.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="sportsbet-evaluation-classifierbettor">
+<h1><a class="reference internal" href="../main_documentation/api.html#module-sportsbet.evaluation" title="sportsbet.evaluation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sportsbet.evaluation</span></code></a>.ClassifierBettor<a class="headerlink" href="#sportsbet-evaluation-classifierbettor" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="sportsbet.evaluation.ClassifierBettor">
+<em class="property">class </em><code class="descclassname">sportsbet.evaluation.</code><code class="descname">ClassifierBettor</code><span class="sig-paren">(</span><em>classifier</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sportsbet/evaluation/_classifier.html#ClassifierBettor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sportsbet.evaluation.ClassifierBettor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bettor based on a Scikit-Learn classifier.</p>
+<p>Read more in the <a class="reference internal" href="../main_documentation/user_guide.html#user-guide"><span class="std std-ref">user guide</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>classifier</strong> <span class="classifier-delimiter">:</span> <span class="classifier">classifier object</span></dt>
+<dd><p class="first last">A scikit-learn classifier object implementing <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-fit" title="(in scikit-learn v1.0)"><span class="xref std std-term">fit</span></a>, <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-score" title="(in scikit-learn v1.0)"><span class="xref std std-term">score</span></a>
+and <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-predict_proba" title="(in scikit-learn v1.0)"><span class="xref std std-term">predict_proba</span></a>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">make_column_transformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sportsbet.evaluation</span> <span class="kn">import</span> <span class="n">ClassifierBettor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sportsbet.datasets</span> <span class="kn">import</span> <span class="n">FDSoccerDataLoader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Select only backtesting data for the Italian league and years 2020, 2021</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;league&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Italy&#39;</span><span class="p">],</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">2021</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataloader</span> <span class="o">=</span> <span class="n">FDSoccerDataLoader</span><span class="p">(</span><span class="n">param_grid</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Select the odds of Pinnacle bookmaker</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">O</span> <span class="o">=</span> <span class="n">dataloader</span><span class="o">.</span><span class="n">extract_train_data</span><span class="p">(</span>
+<span class="gp">... </span><span class="n">odds_type</span><span class="o">=</span><span class="s1">&#39;pinnacle&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">drop_na_thres</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">Football-Data.co.uk...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a pipeline to handle categorical features and missing values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="gp">... </span><span class="n">make_column_transformer</span><span class="p">(</span>
+<span class="gp">... </span><span class="p">(</span><span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;league&#39;</span><span class="p">,</span> <span class="s1">&#39;home_team&#39;</span><span class="p">,</span> <span class="s1">&#39;away_team&#39;</span><span class="p">]),</span>
+<span class="gp">... </span><span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;passthrough&#39;</span>
+<span class="gp">... </span><span class="p">),</span>
+<span class="gp">... </span><span class="n">SimpleImputer</span><span class="p">(),</span>
+<span class="gp">... </span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Backtest the bettor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bettor</span> <span class="o">=</span> <span class="n">ClassifierBettor</span><span class="p">(</span><span class="n">clf_pipeline</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bettor</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">O</span><span class="p">)</span>
+<span class="go">ClassifierBettor(classifier=...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Display backtesting results</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bettor</span><span class="o">.</span><span class="n">backtest_results_</span>
+<span class="go">  Training Start ... Avg Bet Yield [%]  Std Bet Yield [%]</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="sportsbet.evaluation.ClassifierBettor.backtest">
+<code class="descname">backtest</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>O</em>, <em>tscv=None</em>, <em>init_cash=1000</em>, <em>refit=True</em><span class="sig-paren">)</span><a class="headerlink" href="#sportsbet.evaluation.ClassifierBettor.backtest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backtest the bettor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> object</span></dt>
+<dd><p class="first last">The input data. Each row of <cite>X</cite> represents information that is available
+before the start of a specific match. The rows should be
+sorted by an index named as <code class="docutils literal notranslate"><span class="pre">'date'</span></code>.</p>
+</dd>
+<dt><strong>Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> object</span></dt>
+<dd><p class="first last">The multi-output targets. Each row of <cite>Y</cite> represents information
+that is available after the end of a specific match. The column
+names follow the convention for the output data <cite>Y</cite> of the method
+<code class="xref py py-func docutils literal notranslate"><span class="pre">extract_train_data()</span></code>.</p>
+</dd>
+<dt><strong>O</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> object</span></dt>
+<dd><p class="first last">The odds data. Each row of <cite>O</cite> represents information
+that is available after the end of a specific match. The column
+names follow the convention for the output data <code class="docutils literal notranslate"><span class="pre">Y</span></code> of the method
+<code class="xref py py-func docutils literal notranslate"><span class="pre">extract_train_data()</span></code>.</p>
+</dd>
+<dt><strong>tscv</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html#sklearn.model_selection.TimeSeriesSplit" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeSeriesSplit</span></code></a> object, default=None</span></dt>
+<dd><p class="first last">Provides train/test indices to split time series data samples
+that are observed at fixed time intervals, in train/test sets. The
+default value of the parameter is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt><strong>init_cash</strong> <span class="classifier-delimiter">:</span> <span class="classifier">init, default=1000</span></dt>
+<dd><p class="first last">The initial cash to use for backtesting.</p>
+</dd>
+<dt><strong>refit</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool, default=True</span></dt>
+<dd><p class="first last">Refit the bettor using the whole input data and multi-output targets.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>self</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bettor object.</span></dt>
+<dd><p class="first last">The backtested bettor.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sportsbet.evaluation.ClassifierBettor.bet">
+<code class="descname">bet</code><span class="sig-paren">(</span><em>X</em>, <em>O</em><span class="sig-paren">)</span><a class="headerlink" href="#sportsbet.evaluation.ClassifierBettor.bet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the value bets for the provided input data and odds.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_features)</span></dt>
+<dd><p class="first last">The input data.</p>
+</dd>
+<dt><strong>O</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_outputs)</span></dt>
+<dd><p class="first last">The odds data.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>B</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_outputs)</span></dt>
+<dd><p class="first last">The value bets.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sportsbet.evaluation.ClassifierBettor.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em><span class="sig-paren">)</span><a class="headerlink" href="#sportsbet.evaluation.ClassifierBettor.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the bettor to the input data and multi-output targets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_features)</span></dt>
+<dd><p class="first last">The input data.</p>
+</dd>
+<dt><strong>Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_outputs)</span></dt>
+<dd><p class="first last">The multi-output targets.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>self</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Bettor object</span></dt>
+<dd><p class="first last">The fitted bettor object.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sportsbet.evaluation.ClassifierBettor.get_params">
+<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#sportsbet.evaluation.ClassifierBettor.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters for this estimator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>deep</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool, default=True</span></dt>
+<dd><p class="first last">If True, will return the parameters for this estimator and
+contained subobjects that are estimators.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>params</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
+<dd><p class="first last">Parameter names mapped to their values.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sportsbet.evaluation.ClassifierBettor.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#sportsbet.evaluation.ClassifierBettor.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict class probabilities for multi-output targets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_features)</span></dt>
+<dd><p class="first last">The input data.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_outputs)</span></dt>
+<dd><p class="first last">The positive class probabilities.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sportsbet.evaluation.ClassifierBettor.predict_proba">
+<code class="descname">predict_proba</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#sportsbet.evaluation.ClassifierBettor.predict_proba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict class probabilities for multi-output targets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_features)</span></dt>
+<dd><p class="first last">The input data.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_outputs)</span></dt>
+<dd><p class="first last">The positive class probabilities.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sportsbet.evaluation.ClassifierBettor.score">
+<code class="descname">score</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>sample_weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sportsbet.evaluation.ClassifierBettor.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the mean accuracy on the given test data and labels.</p>
+<p>In multi-label classification, this is the subset accuracy
+which is a harsh metric since you require for each sample that
+each label set be correctly predicted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like of shape (n_samples, n_features)</span></dt>
+<dd><p class="first last">Test samples.</p>
+</dd>
+<dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like of shape (n_samples,) or (n_samples, n_outputs)</span></dt>
+<dd><p class="first last">True labels for <cite>X</cite>.</p>
+</dd>
+<dt><strong>sample_weight</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like of shape (n_samples,), default=None</span></dt>
+<dd><p class="first last">Sample weights.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>score</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Mean accuracy of <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> wrt. <cite>y</cite>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sportsbet.evaluation.ClassifierBettor.set_params">
+<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#sportsbet.evaluation.ClassifierBettor.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of this estimator.</p>
+<p>The method works on simple estimators as well as on nested objects
+(such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
+parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
+possible to update each component of a nested object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>**params</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
+<dd><p class="first last">Estimator parameters.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>self</strong> <span class="classifier-delimiter">:</span> <span class="classifier">estimator instance</span></dt>
+<dd><p class="first last">Estimator instance.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="examples-using-sportsbet-evaluation-classifierbettor">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">sportsbet.evaluation.ClassifierBettor</span></code><a class="headerlink" href="#examples-using-sportsbet-evaluation-classifierbettor" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to use a classifier-based bettor and evaluate its performance on s..."><div class="figure" id="id1">
+<img alt="Classifier bettor" src="../_images/sphx_glr_evaluate_classifier_bettor_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../auto_examples/modelling/evaluate_classifier_bettor.html#sphx-glr-auto-examples-modelling-evaluate-classifier-bettor-py"><span class="std std-ref">Classifier bettor</span></a></span></p>
+</div>
+</div><div style='clear:both'></div></div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sportsbet.datasets.load.html" class="btn btn-neutral float-left" title="sportsbet.datasets.load" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../auto_examples/index.html" class="btn btn-neutral float-right" title="Data extraction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Georgios Douzas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic functionality &mdash; sports-betting 0.2.0 documentation</title><link rel="stylesheet" href="../_static/css/sports-betting.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Extraction of sports betting data" href="datasets.html" />
+    <link rel="prev" title="User guide" href="user_guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> sports-betting
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Main Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Basic functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html">Extraction of sports betting data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Creation of predictive models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Data extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html#model-evaluation">Model evaluation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional_information/developers.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional_information/release_history.html">Release history</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">sports-betting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="user_guide.html">User guide</a> &raquo;</li>
+      <li>Basic functionality</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/main_documentation/basic.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="basic-functionality">
+<h1>Basic functionality<a class="headerlink" href="#basic-functionality" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>sports-betting</cite> package provides a set of classes that help to
+download sports betting data. Additionally, it includes tools
+to evaluate the performance of predictive models.</p>
+<p>The dataloader objects and their methods can be used to download sports
+betting data. For each data source or combination of data sources a
+corresponding dataloader class is provided. For example, the
+<a class="reference internal" href="../generated/sportsbet.datasets.FDSoccerDataLoader.html#sportsbet.datasets.FDSoccerDataLoader" title="sportsbet.datasets.FDSoccerDataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FDSoccerDataLoader</span></code></a> class can be used to
+download soccer historical data and fixtures from <a class="reference external" href="http://www.football-data.co.uk/data.php">Football-Data.co.uk</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sportsbet.datasets</span> <span class="kn">import</span> <span class="n">FDSoccerDataLoader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataloader</span> <span class="o">=</span> <span class="n">FDSoccerDataLoader</span><span class="p">(</span><span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;league&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">],</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">2020</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">O_train</span> <span class="o">=</span> <span class="n">dataloader</span><span class="o">.</span><span class="n">extract_train_data</span><span class="p">(</span><span class="n">odds_type</span><span class="o">=</span><span class="s1">&#39;pinnacle&#39;</span><span class="p">)</span>
+<span class="go">Football-Data.co.uk...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_fix</span><span class="p">,</span> <span class="n">Y_fix</span><span class="p">,</span> <span class="n">O_fix</span> <span class="o">=</span> <span class="n">dataloader</span><span class="o">.</span><span class="n">extract_fixtures_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Bettor objects like <a class="reference internal" href="../generated/sportsbet.evaluation.ClassifierBettor.html#sportsbet.evaluation.ClassifierBettor" title="sportsbet.evaluation.ClassifierBettor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassifierBettor</span></code></a>
+provide an easy way to backtest a model and get the value bets:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sportsbet.evaluation</span> <span class="kn">import</span> <span class="n">ClassifierBettor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.dummy</span> <span class="kn">import</span> <span class="n">DummyClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bettor</span> <span class="o">=</span> <span class="n">ClassifierBettor</span><span class="p">(</span><span class="n">DummyClassifier</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bettor</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">O_train</span><span class="p">)</span>
+<span class="go">ClassifierBettor(classifier=DummyClassifier())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value_bets</span> <span class="o">=</span> <span class="n">bettor</span><span class="o">.</span><span class="n">bet</span><span class="p">(</span><span class="n">X_fix</span><span class="p">,</span> <span class="n">O_fix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>More information about dataloaders and bettors is provided below.</p>
+<p><strong>Dataloaders</strong></p>
+<p>A dataloader class corresponds to a data source or a combination
+of data sources. Their methods return datasets suitable for machine
+learning modelling. There various dataloaders available while all of
+them inherit from the same base class, thus providing the same public API.</p>
+<p>A dataloader is initialized with the parameter <code class="docutils literal notranslate"><span class="pre">param_grid</span></code> that selects the
+training data to extract. This the same parameter as the initialization parameter
+of <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ParameterGrid.html#sklearn.model_selection.ParameterGrid" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterGrid</span></code></a>.</p>
+<p>You can get the available parameters and their values
+from the class method <code class="xref py py-func docutils literal notranslate"><span class="pre">get_all_params()</span></code>.
+For example, the available parameters for the
+<a class="reference internal" href="../generated/sportsbet.datasets.DummySoccerDataLoader.html#sportsbet.datasets.DummySoccerDataLoader" title="sportsbet.datasets.DummySoccerDataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DummySoccerDataLoader</span></code></a> are the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sportsbet.datasets</span> <span class="kn">import</span> <span class="n">DummySoccerDataLoader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DummySoccerDataLoader</span><span class="o">.</span><span class="n">get_all_params</span><span class="p">()</span>
+<span class="go">[{&#39;division&#39;: [1], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2000]}, ...]</span>
+</pre></div>
+</div>
+<p>The default value of <code class="docutils literal notranslate"><span class="pre">param_grid</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code> and corresponds to the selection
+of all training data. In the following example, we select only the training data of
+the Spanish end English leagues for all available divisions and years:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataloader</span> <span class="o">=</span> <span class="n">DummySoccerDataLoader</span><span class="p">(</span><span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;league&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Spain&#39;</span><span class="p">,</span> <span class="s1">&#39;England&#39;</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p>We can then extract the training or fixtures data.</p>
+<p><strong>Bettors</strong></p>
+<p>The various bettor classes provide an easy way to evaluate the
+performance of models. They inherit from the same base class for bettor that
+defines a general  and flexible interface. Therefore any type of a bettor can
+be implemented like classifier-based or rule-based bettors.</p>
+<p>For example a classifier-based can be initialized with any Scikit-Learn’s classifier:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bettor</span> <span class="o">=</span> <span class="n">ClassifierBettor</span><span class="p">(</span><span class="n">KNeighborsClassifier</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>A minimum requirement is that a bettor should estimate the probabilities of sports
+betting events. Thus all bettors, even rule-based, are also classifiers and they are
+compatible with the Scikit-Learn’s <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#class-apis-and-estimator-types">classifier</a> interface.
+Specifically, they provide the <code class="xref py py-func docutils literal notranslate"><span class="pre">fit()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">predict()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">score()</span></code>
+methods. Additionally, bettors provide the <code class="xref py py-func docutils literal notranslate"><span class="pre">backtest()</span></code> and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">bet()</span></code> methods. The first calculates various
+backtesting statistics, while the second estimates the value bets.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="user_guide.html" class="btn btn-neutral float-left" title="User guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="datasets.html" class="btn btn-neutral float-right" title="Extraction of sports betting data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Georgios Douzas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

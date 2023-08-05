@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sportsbet.evaluation._classifier &mdash; sports-betting 0.2.0 documentation</title><link rel="stylesheet" href="../../../_static/css/sports-betting.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/js/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> sports-betting
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Main Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../main_documentation/user_guide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main_documentation/api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Data extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html#model-evaluation">Model evaluation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../additional_information/developers.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../additional_information/release_history.html">Release history</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sports-betting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>sportsbet.evaluation._classifier</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sportsbet.evaluation._classifier</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Create a portofolio and backtest its performance</span>
+<span class="sd">using sports betting data.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Author: Georgios Douzas &lt;gdouzas@icloud.com&gt;</span>
+<span class="c1"># License: MIT</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">is_classifier</span><span class="p">,</span> <span class="n">clone</span>
+
+<span class="kn">from</span> <span class="nn">._base</span> <span class="kn">import</span> <span class="n">_BaseBettor</span>
+
+
+<div class="viewcode-block" id="ClassifierBettor"><a class="viewcode-back" href="../../../generated/sportsbet.evaluation.ClassifierBettor.html#sportsbet.evaluation.ClassifierBettor">[docs]</a><span class="k">class</span> <span class="nc">ClassifierBettor</span><span class="p">(</span><span class="n">_BaseBettor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Bettor based on a Scikit-Learn classifier.</span>
+
+<span class="sd">    Read more in the :ref:`user guide &lt;user_guide&gt;`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    classifier : classifier object</span>
+<span class="sd">        A scikit-learn classifier object implementing :term:`fit`, :term:`score`</span>
+<span class="sd">        and :term:`predict_proba`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.tree import DecisionTreeClassifier</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.preprocessing import OneHotEncoder</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.impute import SimpleImputer</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.pipeline import make_pipeline</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.compose import make_column_transformer</span>
+<span class="sd">    &gt;&gt;&gt; from sportsbet.evaluation import ClassifierBettor</span>
+<span class="sd">    &gt;&gt;&gt; from sportsbet.datasets import FDSoccerDataLoader</span>
+<span class="sd">    &gt;&gt;&gt; # Select only backtesting data for the Italian league and years 2020, 2021</span>
+<span class="sd">    &gt;&gt;&gt; param_grid = {&#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2020, 2021]}</span>
+<span class="sd">    &gt;&gt;&gt; dataloader = FDSoccerDataLoader(param_grid)</span>
+<span class="sd">    &gt;&gt;&gt; # Select the odds of Pinnacle bookmaker</span>
+<span class="sd">    &gt;&gt;&gt; X, Y, O = dataloader.extract_train_data(</span>
+<span class="sd">    ... odds_type=&#39;pinnacle&#39;,</span>
+<span class="sd">    ... drop_na_thres=1.0</span>
+<span class="sd">    ... )</span>
+<span class="sd">    Football-Data.co.uk...</span>
+<span class="sd">    &gt;&gt;&gt; # Create a pipeline to handle categorical features and missing values</span>
+<span class="sd">    &gt;&gt;&gt; clf_pipeline = make_pipeline(</span>
+<span class="sd">    ... make_column_transformer(</span>
+<span class="sd">    ... (OneHotEncoder(handle_unknown=&#39;ignore&#39;), [&#39;league&#39;, &#39;home_team&#39;, &#39;away_team&#39;]),</span>
+<span class="sd">    ... remainder=&#39;passthrough&#39;</span>
+<span class="sd">    ... ),</span>
+<span class="sd">    ... SimpleImputer(),</span>
+<span class="sd">    ... DecisionTreeClassifier(random_state=0)</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; # Backtest the bettor</span>
+<span class="sd">    &gt;&gt;&gt; bettor = ClassifierBettor(clf_pipeline)</span>
+<span class="sd">    &gt;&gt;&gt; bettor.backtest(X, Y, O)</span>
+<span class="sd">    ClassifierBettor(classifier=...</span>
+<span class="sd">    &gt;&gt;&gt; # Display backtesting results</span>
+<span class="sd">    &gt;&gt;&gt; bettor.backtest_results_</span>
+<span class="sd">      Training Start ... Avg Bet Yield [%]  Std Bet Yield [%]</span>
+<span class="sd">    ...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classifier</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span>
+
+    <span class="k">def</span> <span class="nf">_check_classifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_classifier</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s1">&#39;`ClassifierBettor` requires a classifier. &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;Instead </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">)</span><span class="si">}</span><span class="s1"> is given.&#39;</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_classifier</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Predict class probabilities for multi-output targets.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : {array-like, sparse matrix} of shape (n_samples, n_features)</span>
+<span class="sd">            The input data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Y : {array-like, sparse matrix} of shape (n_samples, n_outputs)</span>
+<span class="sd">            The positive class probabilities.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># if X.size == 0:</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">prob</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">prob</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier_</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)],</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Georgios Douzas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FiveThirtyEight soccer data &mdash; sports-betting 0.2.0 documentation</title><link rel="stylesheet" href="../_static/css/sports-betting.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Football-Data soccer data" href="extract_fd_soccer_data.html" />
+    <link rel="prev" title="Data extraction" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> sports-betting
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Main Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main_documentation/user_guide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main_documentation/api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Data extraction</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">FiveThirtyEight soccer data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#getting-the-available-parameters">Getting the available parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-the-available-odds-types">Getting the available odds types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extracting-the-training-data">Extracting the training data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extracting-the-fixtures-data">Extracting the fixtures data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="extract_fd_soccer_data.html">Football-Data soccer data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#model-evaluation">Model evaluation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional_information/developers.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional_information/release_history.html">Release history</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">sports-betting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Data extraction</a> &raquo;</li>
+      <li>FiveThirtyEight soccer data</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_examples/extract_fte_soccer_data.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-extract-fte-soccer-data-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="fivethirtyeight-soccer-data">
+<span id="sphx-glr-auto-examples-extract-fte-soccer-data-py"></span><h1>FiveThirtyEight soccer data<a class="headerlink" href="#fivethirtyeight-soccer-data" title="Permalink to this headline">¶</a></h1>
+<p>This example illustrates the usage of FiveThirtyEight soccer dataloader.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Georgios Douzas &lt;gdouzas@icloud.com&gt;</span>
+<span class="c1"># Licence: MIT</span>
+
+<span class="kn">from</span> <span class="nn">sportsbet.datasets</span> <span class="kn">import</span> <a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader" title="sportsbet.datasets.FTESoccerDataLoader" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-class"><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader" title="sportsbet.datasets.FTESoccerDataLoader" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-class"><span class="n">FTESoccerDataLoader</span></a></a>
+</pre></div>
+</div>
+<div class="section" id="getting-the-available-parameters">
+<h2>Getting the available parameters<a class="headerlink" href="#getting-the-available-parameters" title="Permalink to this headline">¶</a></h2>
+<p>We can get the available parameters in order to select the training data
+to be extracted, using the <code class="xref py py-func docutils literal notranslate"><span class="pre">get_all_params()</span></code> class method.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader.get_all_params" title="sportsbet.datasets.FTESoccerDataLoader.get_all_params" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-classmethod"><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader.get_all_params" title="sportsbet.datasets.FTESoccerDataLoader.get_all_params" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-classmethod"><span class="n">FTESoccerDataLoader</span><span class="o">.</span><span class="n">get_all_params</span></a></a><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;division&#39;: [1], &#39;league&#39;: [&#39;Argentina&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Argentina&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Argentina&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Argentina&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Australia&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Australia&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Australia&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Australia&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Austria&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Austria&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Austria&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Austria&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Austria&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Belgium&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Belgium&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Belgium&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Belgium&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Brazil&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Brazil&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Brazil&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Brazil&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Brazil&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Champions-League&#39;], &#39;year&#39;: [2017]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Champions-League&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Champions-League&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Champions-League&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Champions-League&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Champions-League&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;China&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;China&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Denmark&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Denmark&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Denmark&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Denmark&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2017]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Europa&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Europa-League&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Europa-League&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Europa-League&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Europa-League&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Europa-League&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;FAWSL&#39;], &#39;year&#39;: [2017]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;FAWSL&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;FAWSL&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;FAWSL&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;FAWSL&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;FAWSL&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2017]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2017]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Greece&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Greece&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Greece&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2017]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Japan&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Japan&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Japan&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Japan&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Mexico&#39;], &#39;year&#39;: [2017]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Mexico&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Mexico&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Mexico&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Mexico&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Mexico&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;NWSL&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;NWSL&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;NWSL&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;NWSL&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;NWSL&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Netherlands&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Netherlands&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Netherlands&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Netherlands&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Netherlands&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Norway&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Norway&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Norway&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Norway&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Norway&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Portugal&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Portugal&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Portugal&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Portugal&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Portugal&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Russia&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Russia&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Russia&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Russia&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Russia&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Scotland&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Scotland&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Scotland&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Scotland&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Scotland&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;South-Africa&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;South-Africa&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;South-Africa&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2017]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Sweden&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Sweden&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Sweden&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Sweden&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Sweden&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Switzerland&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Switzerland&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Switzerland&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Switzerland&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Switzerland&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Turkey&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Turkey&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Turkey&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Turkey&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;Turkey&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;USA&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;USA&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;USA&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;USA&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;USA&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;United-Soccer-League&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;United-Soccer-League&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;United-Soccer-League&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [1], &#39;league&#39;: [&#39;United-Soccer-League&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;France&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Germany&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Italy&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2018]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [2], &#39;league&#39;: [&#39;Spain&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [3], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [3], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [3], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [3], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2022]}, {&#39;division&#39;: [4], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2019]}, {&#39;division&#39;: [4], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2020]}, {&#39;division&#39;: [4], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2021]}, {&#39;division&#39;: [4], &#39;league&#39;: [&#39;England&#39;], &#39;year&#39;: [2022]}]
+</pre></div>
+</div>
+<p>We select to extract training data only for the year 2021 of all the
+divisions of English league.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">param_grid</span></a></a> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;league&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;England&#39;</span><span class="p">],</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2021</span><span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-available-odds-types">
+<h2>Getting the available odds types<a class="headerlink" href="#getting-the-available-odds-types" title="Permalink to this headline">¶</a></h2>
+<p>We can get the available odds types in order to match the output of the
+training data, using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_odds_types()</span></code> class method.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader.get_odds_types" title="sportsbet.datasets.FTESoccerDataLoader.get_odds_types" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-classmethod"><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader.get_odds_types" title="sportsbet.datasets.FTESoccerDataLoader.get_odds_types" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-classmethod"><span class="n">FTESoccerDataLoader</span><span class="o">.</span><span class="n">get_odds_types</span></a></a><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+<p>Therefore no odds data are available.</p>
+</div>
+<div class="section" id="extracting-the-training-data">
+<h2>Extracting the training data<a class="headerlink" href="#extracting-the-training-data" title="Permalink to this headline">¶</a></h2>
+<p>We extract the training data using the default values for the parameters
+<code class="docutils literal notranslate"><span class="pre">odds_type`</span></code> and <code class="docutils literal notranslate"><span class="pre">drop_na_thres`</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader" title="sportsbet.datasets.FTESoccerDataLoader" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader" title="sportsbet.datasets.FTESoccerDataLoader" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataloader</span></a></a> <span class="o">=</span> <a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader" title="sportsbet.datasets.FTESoccerDataLoader" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-class"><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader" title="sportsbet.datasets.FTESoccerDataLoader" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-class"><span class="n">FTESoccerDataLoader</span></a></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">param_grid</span></a></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">param_grid</span></a></a><span class="p">)</span>
+<a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a></a><span class="p">,</span> <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_</span></a></a> <span class="o">=</span> <a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader.extract_train_data" title="sportsbet.datasets.FTESoccerDataLoader.extract_train_data" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-method"><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader.extract_train_data" title="sportsbet.datasets.FTESoccerDataLoader.extract_train_data" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-method"><span class="n">dataloader</span><span class="o">.</span><span class="n">extract_train_data</span></a></a><span class="p">()</span>
+</pre></div>
+</div>
+<p>The input data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>             league         home_team       away_team  ...  division  year  match_quality
+date                                                   ...
+2020-09-11  England           Watford   Middlesbrough  ...         2  2021      54.127384
+2020-09-12  England         Liverpool    Leeds United  ...         1  2021      75.234291
+2020-09-12  England  Northampton Town   AFC Wimbledon  ...         3  2021      13.830636
+2020-09-12  England    Fleetwood Town   Burton Albion  ...         3  2021      21.850547
+2020-09-12  England      Lincoln City   Oxford United  ...         3  2021      22.981671
+...             ...               ...             ...  ...       ...   ...            ...
+2021-05-23  England         Liverpool  Crystal Palace  ...         1  2021      72.962664
+2021-05-23  England            Fulham       Newcastle  ...         1  2021      67.736397
+2021-05-29  England         Brentford    Swansea City  ...         2  2021      55.394018
+2021-05-30  England         Blackpool    Lincoln City  ...         3  2021      31.193826
+2021-05-31  England         Morecambe  Newport County  ...         4  2021      14.866651
+
+[2051 rows x 15 columns]
+</pre></div>
+</div>
+<p>The targets:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>      away_win__full_time_goals  draw__full_time_goals  ...  under_3.5__full_time_goals  under_4.5__full_time_goals
+0                         False                  False  ...                        True                        True
+1                         False                  False  ...                       False                       False
+2                         False                   True  ...                       False                        True
+3                         False                  False  ...                        True                        True
+4                         False                  False  ...                        True                        True
+...                         ...                    ...  ...                         ...                         ...
+2046                      False                  False  ...                        True                        True
+2047                       True                  False  ...                        True                        True
+2048                      False                  False  ...                        True                        True
+2049                      False                  False  ...                        True                        True
+2050                      False                  False  ...                        True                        True
+
+[2051 rows x 11 columns]
+</pre></div>
+</div>
+</div>
+<div class="section" id="extracting-the-fixtures-data">
+<h2>Extracting the fixtures data<a class="headerlink" href="#extracting-the-fixtures-data" title="Permalink to this headline">¶</a></h2>
+<p>We extract the fixtures data with columns that match the columns of the
+training data. On the other hand, the fixtures data are not affected by
+the <code class="docutils literal notranslate"><span class="pre">param_grid</span></code> selection.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_fix</span></a></a><span class="p">,</span> <span class="o">*</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_</span></a></a> <span class="o">=</span> <a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader.extract_fixtures_data" title="sportsbet.datasets.FTESoccerDataLoader.extract_fixtures_data" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-method"><a href="../generated/sportsbet.datasets.FTESoccerDataLoader.html#sportsbet.datasets.FTESoccerDataLoader.extract_fixtures_data" title="sportsbet.datasets.FTESoccerDataLoader.extract_fixtures_data" class="sphx-glr-backref-module-sportsbet-datasets sphx-glr-backref-type-py-method"><span class="n">dataloader</span><span class="o">.</span><span class="n">extract_fixtures_data</span></a></a><span class="p">()</span>
+</pre></div>
+</div>
+<p>The input data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_fix</span></a></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>              league          home_team      away_team  ...  division  year  match_quality
+date                                                    ...
+2022-02-02    Greece     Apollon Smyrni  PAOK Salonika  ...         1  2022      25.295641
+2022-02-02  Portugal         Belenenses    Sporting CP  ...         1  2022      50.337426
+2022-02-02  Scotland             Celtic        Rangers  ...         1  2022      64.779975
+2022-02-02   England  Huddersfield Town   Derby County  ...         2  2022      39.020776
+2022-02-02   England           Barnsley   Cardiff City  ...         2  2022      37.316492
+...              ...                ...            ...  ...       ...   ...            ...
+2022-05-29     Spain    Sporting GijÃ³n     Las Palmas  ...         2  2022      30.450919
+2022-05-29     Spain           Mirandes    Fuenlabrada  ...         2  2022      26.416505
+2022-05-29     Spain             Burgos      Girona FC  ...         2  2022      32.287435
+2022-05-29     Spain    Real Valladolid      SD Huesca  ...         2  2022      38.501709
+2022-05-29     Spain           Tenerife   FC Cartagena  ...         2  2022      34.364092
+
+[3289 rows x 15 columns]
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.870 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-extract-fte-soccer-data-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<a class="reference download internal" download="" href="../_downloads/c9bec6a025d6783a5ff4e9a4372ac6bc/extract_fte_soccer_data.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">extract_fte_soccer_data.py</span></code></a></div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<a class="reference download internal" download="" href="../_downloads/bbcd04506edee486828da191975c3b03/extract_fte_soccer_data.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">extract_fte_soccer_data.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Data extraction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="extract_fd_soccer_data.html" class="btn btn-neutral float-right" title="Football-Data soccer data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Georgios Douzas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
