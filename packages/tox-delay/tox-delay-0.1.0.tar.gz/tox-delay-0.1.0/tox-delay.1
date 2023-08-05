@@ -1,0 +1,112 @@
+.\" Copyright (c) 2022  Peter Pentchev
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.Dd January 27, 2022
+.Dt TOX-DELAY 1
+.Os
+.Sh NAME
+.Nm tox-delay
+.Nd run some Tox tests after others have completed
+.Sh SYNOPSIS
+.Nm
+.Op Fl p Ar value | Fl -parallel Ar value
+.Fl e Ar envlist
+.Op Fl - Ar tox-options...
+.Nm
+.Op Fl V | Fl h | Fl -version | Fl -help | Fl -features
+.Sh DESCRIPTION
+The
+.Nm
+tool postpones the run of the specified Tox environments after the run of
+all the others has completed successfully.
+This may be useful if e.g. there are unit or functional test environments,
+which it would make no sense to run if the static checkers
+.Pq pylint, mypy, etc
+find any problems.
+.Pp
+The
+.Nm
+tool accepts the following command-line options:
+.Bl -tag -width indent
+.It Fl e Ar envlist | Fl -envlist Ar envlist
+Specify the environments for which to delay the run.
+.It Fl p Ar value | Fl -parallel Ar value
+Pass a parallel execution option to Tox for the first set of
+environment runs.
+.It Fl h | Fl -help
+Display program usage information and exit.
+.It Fl V | Fl -version
+Display program version information and exit.
+.It Fl -features
+List the features supported by the program and exit.
+.El
+.Sh ENVIRONMENT
+The operation of the
+.Nm
+utility is not directly influenced by any environment variables.
+.Sh FILES
+The operation of the
+.Nm
+utility is not directly influenced by the contents of any files.
+.Sh EXAMPLES
+Run some static checkers in parallel, leave the unit and functional
+tests for last:
+.Pp
+.Dl tox-delay -p all -e unit-tests,functional
+.Pp
+Pass some options to Tox:
+.Pp
+.Dl tox-delay -e unit-tests,functional -- --workdir /tmp/tox
+.Pp
+Also pass some arguments to the Tox test environments (accessed via
+.Ev {posargs}
+in the
+.Pa tox.ini
+file:
+.Pp
+.Dl tox-delay -e unit-tests,functional -- --workdir /tmp/tox -- -k chosen
+.Pp
+Run the unit and functional tests in parallel, too:
+.Pp
+.Dl tox-delay -p all -e unit-tests,functional -- -p all
+.Pp
+.Sh DIAGNOSTICS
+.Ex -std
+.Sh SEE ALSO
+.Xr tox 1
+.Sh STANDARDS
+No standards were harmed during the production of the
+.Nm
+utility.
+.Sh HISTORY
+The
+.Nm
+utility was written by Peter Pentchev in 2022.
+.Sh AUTHORS
+.An Peter Pentchev
+.Aq roam@ringlet.net
+.Sh BUGS
+No, thank you :)
+But if you should actually find any, please report them
+to the author.

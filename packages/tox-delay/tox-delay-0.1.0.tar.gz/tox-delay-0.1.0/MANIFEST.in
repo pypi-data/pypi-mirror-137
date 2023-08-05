@@ -1,0 +1,9 @@
+include .editorconfig
+include Makefile
+include NEWS.md
+include shellcheckrc
+include tox.ini
+include tox-delay.1
+recursive-include python/unit_tests *.py
+recursive-include shell *.sh
+recursive-include tests *.py
