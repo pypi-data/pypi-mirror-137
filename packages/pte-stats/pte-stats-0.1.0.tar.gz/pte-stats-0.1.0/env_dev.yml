@@ -1,0 +1,21 @@
+name: pte-stats-dev
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # basic dependencies
+  - joblib
+  - numba
+  - numpy
+  - pip
+  - python >= 3.9
+  - scikit-image
+  - statsmodels
+  # development dependencies
+  - black
+  - isort
+  - pylint
+  - pytest
+  - pip:
+    - flit
+    
