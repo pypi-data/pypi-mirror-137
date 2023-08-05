@@ -1,0 +1,65 @@
+cmake_minimum_required(VERSION 3.0.0)
+
+project(prebuilts LANGUAGES CXX)
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/../vendors/cmake/detect_architecture.cmake)
+
+string(TOLOWER ${CMAKE_SYSTEM_NAME} SYSTEM_NAME)
+if (${SYSTEM_NAME} STREQUAL "linux")
+    execute_process(COMMAND bash "-c" "[ $OSTYPE = 'linux-musl' ]" RESULT_VARIABLE ret)
+    if(ret EQUAL "0")
+        set(SYSTEM_NAME "linux-musl")
+    endif()
+endif()
+set(PREBUILTS_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/${SYSTEM_NAME})
+set(PREBUILTS_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/${SYSTEM_NAME} PARENT_SCOPE)
+
+if(ARCH64)
+    set(LIBS_PREFIX ${PREBUILTS_PREFIX}/lib64)
+else()
+    set(LIBS_PREFIX ${PREBUILTS_PREFIX}/lib32)
+endif()
+
+if(NOT ${SYSTEM_NAME} STREQUAL "windows")
+    message(STATUS "Fetch prebuilts")
+    execute_process(COMMAND bash "-c" "${CMAKE_CURRENT_SOURCE_DIR}/fetch_prebuilts.sh" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/.. RESULT_VARIABLE ret)
+    if(NOT ret EQUAL "0")
+        message(FATAL_ERROR "Failed to to fetch prebuilts")
+    endif()
+endif()
+
+if(ENABLE_IAST AND ${ENABLE_LANGUAGES} STREQUAL "php")
+    message(STATUS "Fetch php7 static library")
+    execute_process(COMMAND bash "-c" "${CMAKE_CURRENT_SOURCE_DIR}/fetch_php_staticlibs.sh" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/.. RESULT_VARIABLE ret)
+    if(NOT ret EQUAL "0")
+        message(FATAL_ERROR "Failed to fetch php7 static library")
+    endif()
+endif()
+
+file(REMOVE_RECURSE ${PREBUILTS_PREFIX}/include/cpr ${LIBS_PREFIX}/libcpr.a)
+
+add_library(prebuilts INTERFACE)
+target_include_directories(prebuilts INTERFACE ${PREBUILTS_PREFIX}/include)
+
+file(GLOB LIBS LIST_DIRECTORIES false ${LIBS_PREFIX}/*)
+
+if(${SYSTEM_NAME} STREQUAL "darwin" OR ${SYSTEM_NAME} STREQUAL "linux-musl")
+    find_package(CURL)
+    find_package(ZLIB)
+    target_link_libraries(prebuilts INTERFACE CURL::libcurl ZLIB::ZLIB)
+    target_link_libraries(prebuilts INTERFACE ${LIBS})
+endif()
+
+if(${SYSTEM_NAME} STREQUAL "windows")
+    target_compile_definitions(prebuilts INTERFACE CURL_STATICLIB)
+    target_link_libraries(prebuilts INTERFACE ${LIBS})
+    target_link_libraries(prebuilts INTERFACE winmm.lib dbghelp.lib shlwapi.lib ws2_32.lib crypt32.lib)
+endif()
+
+if(${SYSTEM_NAME} STREQUAL "linux")
+    target_include_directories(prebuilts INTERFACE ${PREBUILTS_PREFIX}/include/c++/v1)
+    target_compile_options(prebuilts INTERFACE -nostdinc++)
+    list(TRANSFORM LIBS PREPEND "-Wl,")
+    target_link_libraries(prebuilts INTERFACE -Wl,--start-group ${LIBS} -Wl,--end-group)
+    target_link_libraries(prebuilts INTERFACE -nodefaultlibs -lm -lc -lrt -lgcc_s -ldl -lpthread)
+endif()
