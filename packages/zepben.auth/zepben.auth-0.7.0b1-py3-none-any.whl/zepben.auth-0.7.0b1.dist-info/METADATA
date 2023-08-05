@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: zepben.auth
+Version: 0.7.0b1
+Summary: Utilities for authenticating to the Evolve App Server and Energy Workbench Server
+Home-page: https://bitbucket.org/zepben/zepben-auth-python
+Author: Ramon Bouckaert
+Author-email: ramon.bouckaert@zepben.com
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests (<2.27.0,>=2.26.0)
+Requires-Dist: urllib3 (<1.27.0,>=1.26.6)
+Requires-Dist: PyJWT (<2.2.0,>=2.1.0)
+Requires-Dist: dataclassy (==0.6.2)
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+
+# Zepben Auth Library #
+
+This library provides Authentication mechanisms for Zepben SDKs used with Energy Workbench and other Zepben services.
+
+Typically this library will be used by the SDKs to plug into connection mechanisms. It is unlikely that end users will
+need to use this library directly.
+
+# Usage #
+
+```python
+from zepben.auth import create_authenticator
+
+authenticator = create_authenticator("https://localhost/auth")
+
+authenticator.token_request_data.update({
+    {
+        "grant_type": "password",
+        "username": "<username>",
+        "password": "<password>",
+        "scope": "offline_access openid profile email",
+        "client_id": "<client_id>"
+    }
+})
+authenticator.refresh_request_data.update({
+    "grant_type": "refresh_token",
+    "scope": "offline_access openid profile email",
+    "client_id": "<client_id>"
+})
+
+token = authenticator.fetch_token()
+```
+
