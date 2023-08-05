@@ -1,0 +1,72 @@
+"use strict";(self.webpackChunkxircuits=self.webpackChunkxircuits||[]).push([[899],{35899:function(e,t,o){var s=this&&this.__createBinding||(Object.create?function(e,t,o,s){void 0===s&&(s=o),Object.defineProperty(e,s,{enumerable:!0,get:function(){return t[o]}})}:function(e,t,o,s){void 0===s&&(s=o),e[s]=t[o]}),n=this&&this.__exportStar||function(e,t){for(var o in e)"default"===o||Object.prototype.hasOwnProperty.call(t,o)||s(t,e,o)};Object.defineProperty(t,"__esModule",{value:!0}),n(o(85614),t),n(o(37842),t),n(o(11595),t),n(o(69437),t),n(o(93272),t),n(o(63067),t),n(o(33334),t),n(o(21088),t),n(o(56621),t),n(o(20096),t),n(o(25623),t),n(o(75223),t),n(o(17023),t),n(o(80857),t)},85614:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultLabelFactory=void 0;const s=o(56271),n=o(37842),r=o(11595),i=o(90659);class l extends i.AbstractReactFactory{constructor(){super("default")}generateReactWidget(e){return s.createElement(r.DefaultLabelWidget,{model:e.model})}generateModel(e){return new n.DefaultLabelModel}}t.DefaultLabelFactory=l},37842:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultLabelModel=void 0;const s=o(68251);class n extends s.LabelModel{constructor(e={}){super(Object.assign({offsetY:null==e.offsetY?-23:e.offsetY,type:"default"},e))}setLabel(e){this.options.label=e}deserialize(e){super.deserialize(e),this.options.label=e.data.label}serialize(){return Object.assign(Object.assign({},super.serialize()),{label:this.options.label})}}t.DefaultLabelModel=n},11595:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultLabelWidget=void 0;const s=o(56271),n=o(1408);var r;!function(e){e.Label=n.default.div`
+		background: rgba(0, 0, 0, 0.8);
+		border-radius: 5px;
+		color: white;
+		font-size: 12px;
+		padding: 4px 8px;
+		font-family: sans-serif;
+		user-select: none;
+	`}(r||(r={}));class i extends s.Component{render(){return s.createElement(r.Label,null,this.props.model.getOptions().label)}}t.DefaultLabelWidget=i},69437:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultLinkFactory=void 0;const s=o(56271),n=o(93272),r=o(63067),i=o(1408),l=o(90659),a=o(64320);var d;!function(e){e.Keyframes=a.keyframes`
+		from {
+			stroke-dashoffset: 24;
+		}
+		to {
+			stroke-dashoffset: 0;
+		}
+	`;const t=a.css`
+		stroke-dasharray: 10, 2;
+		animation: ${e.Keyframes} 1s linear infinite;
+	`;e.Path=i.default.path`
+		${e=>e.selected&&t};
+		fill: none;
+		pointer-events: auto;
+	`}(d||(d={}));class p extends l.AbstractReactFactory{constructor(e="default"){super(e)}generateReactWidget(e){return s.createElement(r.DefaultLinkWidget,{link:e.model,diagramEngine:this.engine})}generateModel(e){return new n.DefaultLinkModel}generateLinkSegment(e,t,o){return s.createElement(d.Path,{selected:t,stroke:t?e.getOptions().selectedColor:e.getOptions().color,strokeWidth:e.getOptions().width,d:o})}}t.DefaultLinkFactory=p},93272:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultLinkModel=void 0;const s=o(68251),n=o(37842),r=o(81463);class i extends s.LinkModel{constructor(e={}){super(Object.assign({type:"default",width:e.width||3,color:e.color||"gray",selectedColor:e.selectedColor||"rgb(0,192,255)",curvyness:50},e))}calculateControlOffset(e){return e.getOptions().alignment===s.PortModelAlignment.RIGHT?[this.options.curvyness,0]:e.getOptions().alignment===s.PortModelAlignment.LEFT?[-this.options.curvyness,0]:e.getOptions().alignment===s.PortModelAlignment.TOP?[0,-this.options.curvyness]:[0,this.options.curvyness]}getSVGPath(){if(2==this.points.length){const e=new r.BezierCurve;return e.setSource(this.getFirstPoint().getPosition()),e.setTarget(this.getLastPoint().getPosition()),e.setSourceControl(this.getFirstPoint().getPosition().clone()),e.setTargetControl(this.getLastPoint().getPosition().clone()),this.sourcePort&&e.getSourceControl().translate(...this.calculateControlOffset(this.getSourcePort())),this.targetPort&&e.getTargetControl().translate(...this.calculateControlOffset(this.getTargetPort())),e.getSVGCurve()}}serialize(){return Object.assign(Object.assign({},super.serialize()),{width:this.options.width,color:this.options.color,curvyness:this.options.curvyness,selectedColor:this.options.selectedColor})}deserialize(e){super.deserialize(e),this.options.color=e.data.color,this.options.width=e.data.width,this.options.curvyness=e.data.curvyness,this.options.selectedColor=e.data.selectedColor}addLabel(e){if(e instanceof s.LabelModel)return super.addLabel(e);let t=new n.DefaultLabelModel;return t.setLabel(e),super.addLabel(t)}setWidth(e){this.options.width=e,this.fireEvent({width:e},"widthChanged")}setColor(e){this.options.color=e,this.fireEvent({color:e},"colorChanged")}}t.DefaultLinkModel=i},21088:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultLinkPointWidget=void 0;const s=o(56271),n=o(1408);var r;!function(e){e.PointTop=n.default.circle`
+		pointer-events: all;
+	`}(r||(r={}));class i extends s.Component{constructor(e){super(e),this.state={selected:!1}}render(){const{point:e}=this.props;return s.createElement("g",null,s.createElement("circle",{cx:e.getPosition().x,cy:e.getPosition().y,r:5,fill:this.state.selected||this.props.point.isSelected()?this.props.colorSelected:this.props.color}),s.createElement(r.PointTop,{className:"point",onMouseLeave:()=>{this.setState({selected:!1})},onMouseEnter:()=>{this.setState({selected:!0})},"data-id":e.getID(),"data-linkid":e.getLink().getID(),cx:e.getPosition().x,cy:e.getPosition().y,r:15,opacity:0}))}}t.DefaultLinkPointWidget=i},33334:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultLinkSegmentWidget=void 0;const s=o(56271);class n extends s.Component{render(){const e=s.cloneElement(this.props.factory.generateLinkSegment(this.props.link,this.props.selected||this.props.link.isSelected(),this.props.path),{ref:this.props.forwardRef}),t=s.cloneElement(e,Object.assign(Object.assign({strokeLinecap:"round",onMouseLeave:()=>{this.props.onSelection(!1)},onMouseEnter:()=>{this.props.onSelection(!0)}},this.props.extras),{ref:null,"data-linkid":this.props.link.getID(),strokeOpacity:this.props.selected?.1:0,strokeWidth:20,fill:"none",onContextMenu:()=>{this.props.link.isLocked()||(event.preventDefault(),this.props.link.remove())}}));return s.createElement("g",null,e,t)}}t.DefaultLinkSegmentWidget=n},63067:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultLinkWidget=void 0;const s=o(56271),n=o(68251),r=o(21088),i=o(33334);class l extends s.Component{constructor(e){super(e),this.refPaths=[],this.state={selected:!1}}renderPoints(){var e;return null===(e=this.props.renderPoints)||void 0===e||e}componentDidUpdate(){this.props.link.setRenderedPaths(this.refPaths.map((e=>e.current)))}componentDidMount(){this.props.link.setRenderedPaths(this.refPaths.map((e=>e.current)))}componentWillUnmount(){this.props.link.setRenderedPaths([])}addPointToLink(e,t){if(!e.shiftKey&&!this.props.link.isLocked()&&this.props.link.getPoints().length-1<=this.props.diagramEngine.getMaxNumberPointsPerLink()){const o=new n.PointModel({link:this.props.link,position:this.props.diagramEngine.getRelativeMousePoint(e)});this.props.link.addPoint(o,t),e.persist(),e.stopPropagation(),this.forceUpdate((()=>{this.props.diagramEngine.getActionEventBus().fireAction({event:e,model:o})}))}}generatePoint(e){return s.createElement(r.DefaultLinkPointWidget,{key:e.getID(),point:e,colorSelected:this.props.link.getOptions().selectedColor,color:this.props.link.getOptions().color})}generateLink(e,t,o){const n=s.createRef();return this.refPaths.push(n),s.createElement(i.DefaultLinkSegmentWidget,{key:`link-${o}`,path:e,selected:this.state.selected,diagramEngine:this.props.diagramEngine,factory:this.props.diagramEngine.getFactoryForLink(this.props.link),link:this.props.link,forwardRef:n,onSelection:e=>{this.setState({selected:e})},extras:t})}render(){var e=this.props.link.getPoints(),t=[];if(this.refPaths=[],2===e.length)t.push(this.generateLink(this.props.link.getSVGPath(),{onMouseDown:e=>{var t,o;null===(o=(t=this.props).selected)||void 0===o||o.call(t,e),this.addPointToLink(e,1)}},"0")),null==this.props.link.getTargetPort()&&t.push(this.generatePoint(e[1]));else{for(let o=0;o<e.length-1;o++)t.push(this.generateLink(n.LinkWidget.generateLinePath(e[o],e[o+1]),{"data-linkid":this.props.link.getID(),"data-point":o,onMouseDown:e=>{var t,s;null===(s=(t=this.props).selected)||void 0===s||s.call(t,e),this.addPointToLink(e,o+1)}},o));if(this.renderPoints()){for(let o=1;o<e.length-1;o++)t.push(this.generatePoint(e[o]));null==this.props.link.getTargetPort()&&t.push(this.generatePoint(e[e.length-1]))}}return s.createElement("g",{"data-default-link-test":this.props.link.getOptions().testName},t)}}t.DefaultLinkWidget=l},56621:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultNodeFactory=void 0;const s=o(56271),n=o(20096),r=o(25623),i=o(90659);class l extends i.AbstractReactFactory{constructor(){super("default")}generateReactWidget(e){return s.createElement(r.DefaultNodeWidget,{engine:this.engine,node:e.model})}generateModel(e){return new n.DefaultNodeModel}}t.DefaultNodeFactory=l},20096:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultNodeModel=void 0;const s=o(96486),n=o(68251),r=o(80857);class i extends n.NodeModel{constructor(e={},t){"string"==typeof e&&(e={name:e,color:t}),super(Object.assign({type:"default",name:"Untitled",color:"rgb(0,192,255)"},e)),this.portsOut=[],this.portsIn=[]}doClone(e,t){t.portsIn=[],t.portsOut=[],super.doClone(e,t)}removePort(e){super.removePort(e),e.getOptions().in?this.portsIn.splice(this.portsIn.indexOf(e),1):this.portsOut.splice(this.portsOut.indexOf(e),1)}addPort(e){return super.addPort(e),e.getOptions().in?-1===this.portsIn.indexOf(e)&&this.portsIn.push(e):-1===this.portsOut.indexOf(e)&&this.portsOut.push(e),e}addInPort(e,t=!0){const o=new r.DefaultPortModel({in:!0,name:e,label:e,alignment:n.PortModelAlignment.LEFT});return t||this.portsIn.splice(0,0,o),this.addPort(o)}addOutPort(e,t=!0){const o=new r.DefaultPortModel({in:!1,name:e,label:e,alignment:n.PortModelAlignment.RIGHT});return t||this.portsOut.splice(0,0,o),this.addPort(o)}deserialize(e){super.deserialize(e),this.options.name=e.data.name,this.options.color=e.data.color,this.portsIn=s.map(e.data.portsInOrder,(e=>this.getPortFromID(e))),this.portsOut=s.map(e.data.portsOutOrder,(e=>this.getPortFromID(e)))}serialize(){return Object.assign(Object.assign({},super.serialize()),{name:this.options.name,color:this.options.color,portsInOrder:s.map(this.portsIn,(e=>e.getID())),portsOutOrder:s.map(this.portsOut,(e=>e.getID()))})}getInPorts(){return this.portsIn}getOutPorts(){return this.portsOut}}t.DefaultNodeModel=i},25623:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultNodeWidget=void 0;const s=o(56271),n=o(96486),r=o(17023),i=o(1408);var l;!function(e){e.Node=i.default.div`
+		background-color: ${e=>e.background};
+		border-radius: 5px;
+		font-family: sans-serif;
+		color: white;
+		border: solid 2px black;
+		overflow: visible;
+		font-size: 11px;
+		border: solid 2px ${e=>e.selected?"rgb(0,192,255)":"black"};
+	`,e.Title=i.default.div`
+		background: rgba(0, 0, 0, 0.3);
+		display: flex;
+		white-space: nowrap;
+		justify-items: center;
+	`,e.TitleName=i.default.div`
+		flex-grow: 1;
+		padding: 5px 5px;
+	`,e.Ports=i.default.div`
+		display: flex;
+		background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+	`,e.PortsContainer=i.default.div`
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+
+		&:first-of-type {
+			margin-right: 10px;
+		}
+
+		&:only-child {
+			margin-right: 0px;
+		}
+	`}(l||(l={}));class a extends s.Component{constructor(){super(...arguments),this.generatePort=e=>s.createElement(r.DefaultPortLabel,{engine:this.props.engine,port:e,key:e.getID()})}render(){return s.createElement(l.Node,{"data-default-node-name":this.props.node.getOptions().name,selected:this.props.node.isSelected(),background:this.props.node.getOptions().color},s.createElement(l.Title,null,s.createElement(l.TitleName,null,this.props.node.getOptions().name)),s.createElement(l.Ports,null,s.createElement(l.PortsContainer,null,n.map(this.props.node.getInPorts(),this.generatePort)),s.createElement(l.PortsContainer,null,n.map(this.props.node.getOutPorts(),this.generatePort))))}}t.DefaultNodeWidget=a},75223:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultPortFactory=void 0;const s=o(80857),n=o(90659);class r extends n.AbstractModelFactory{constructor(){super("default")}generateModel(){return new s.DefaultPortModel({name:"unknown"})}}t.DefaultPortFactory=r},17023:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultPortLabel=void 0;const s=o(56271),n=o(68251),r=o(1408);var i;!function(e){e.PortLabel=r.default.div`
+		display: flex;
+		margin-top: 1px;
+		align-items: center;
+	`,e.Label=r.default.div`
+		padding: 0 5px;
+		flex-grow: 1;
+	`,e.Port=r.default.div`
+		width: 15px;
+		height: 15px;
+		background: rgba(255, 255, 255, 0.1);
+
+		&:hover {
+			background: rgb(192, 255, 0);
+		}
+	`}(i||(i={}));class l extends s.Component{render(){const e=s.createElement(n.PortWidget,{engine:this.props.engine,port:this.props.port},s.createElement(i.Port,null)),t=s.createElement(i.Label,null,this.props.port.getOptions().label);return s.createElement(i.PortLabel,null,this.props.port.getOptions().in?e:t,this.props.port.getOptions().in?t:e)}}t.DefaultPortLabel=l},80857:(e,t,o)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.DefaultPortModel=void 0;const s=o(68251),n=o(93272);class r extends s.PortModel{constructor(e,t,o){t&&(e={in:!!e,name:t,label:o}),e=e,super(Object.assign({label:e.label||e.name,alignment:e.in?s.PortModelAlignment.LEFT:s.PortModelAlignment.RIGHT,type:"default"},e))}deserialize(e){super.deserialize(e),this.options.in=e.data.in,this.options.label=e.data.label}serialize(){return Object.assign(Object.assign({},super.serialize()),{in:this.options.in,label:this.options.label})}link(e,t){let o=this.createLinkModel(t);return o.setSourcePort(this),o.setTargetPort(e),o}canLinkToPort(e){return!(e instanceof r)||this.options.in!==e.getOptions().in}createLinkModel(e){let t=super.createLinkModel();return!t&&e?e.generateModel({}):t||new n.DefaultLinkModel}}t.DefaultPortModel=r}}]);

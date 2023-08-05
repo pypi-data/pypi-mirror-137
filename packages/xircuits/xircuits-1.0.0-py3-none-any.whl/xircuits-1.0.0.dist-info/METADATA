@@ -1,0 +1,197 @@
+Metadata-Version: 2.1
+Name: xircuits
+Version: 1.0.0
+Summary: A JupyterLab extension for rendering and editing xircuit files.
+Home-page: https://github.com/XpressAI/xircuits
+Author: Xpress AI
+Author-email: eduardo@xpress.ai
+License: BSD-3-Clause
+Keywords: Jupyter,JupyterLab,JupyterLab3
+Platform: Linux
+Platform: Mac OS X
+Platform: Windows
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Framework :: Jupyter
+Classifier: Framework :: Jupyter :: JupyterLab
+Classifier: Framework :: Jupyter :: JupyterLab :: 3
+Classifier: Framework :: Jupyter :: JupyterLab :: Extensions
+Classifier: Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: anyio (==3.3.0)
+Requires-Dist: appnope (==0.1.2)
+Requires-Dist: argon2-cffi (==20.1.0)
+Requires-Dist: async-generator (==1.10)
+Requires-Dist: attrs (==21.2.0)
+Requires-Dist: Babel (==2.9.1)
+Requires-Dist: backcall (==0.2.0)
+Requires-Dist: bleach (==4.1.0)
+Requires-Dist: certifi (==2020.12.5)
+Requires-Dist: cffi (==1.14.4)
+Requires-Dist: chardet (==4.0.0)
+Requires-Dist: click (==8.0.3)
+Requires-Dist: colorama (==0.4.4)
+Requires-Dist: debugpy (==1.4.3)
+Requires-Dist: decorator (==4.4.2)
+Requires-Dist: defusedxml (==0.6.0)
+Requires-Dist: deprecation (==2.1.0)
+Requires-Dist: entrypoints (==0.3)
+Requires-Dist: flask (==2.0.2)
+Requires-Dist: idna (==2.10)
+Requires-Dist: importlib-metadata (==3.3.0)
+Requires-Dist: ipykernel (==6.4.1)
+Requires-Dist: ipython (>=7.31.1)
+Requires-Dist: ipython-genutils (==0.2.0)
+Requires-Dist: itsdangerous (==2.0.1)
+Requires-Dist: jedi (==0.18.0)
+Requires-Dist: jinja2 (==3.0.3)
+Requires-Dist: json5 (==0.9.6)
+Requires-Dist: jsonschema (==3.2.0)
+Requires-Dist: jupyter-client (==6.1.7)
+Requires-Dist: jupyter-core (==4.7.0)
+Requires-Dist: jupyter-packaging (==0.10.4)
+Requires-Dist: jupyter-server (==1.10.2)
+Requires-Dist: jupyterlab (==3.1.10)
+Requires-Dist: jupyterlab-pygments (==0.1.2)
+Requires-Dist: jupyterlab-server (==2.7.2)
+Requires-Dist: MarkupSafe (==2.0.1)
+Requires-Dist: matplotlib-inline (==0.1.3)
+Requires-Dist: mistune (==0.8.4)
+Requires-Dist: nbclassic (==0.3.1)
+Requires-Dist: nbclient (==0.5.1)
+Requires-Dist: nbconvert (==6.0.7)
+Requires-Dist: nbformat (==5.0.8)
+Requires-Dist: nest-asyncio (==1.5.1)
+Requires-Dist: notebook (==6.4.3)
+Requires-Dist: packaging (==21.0)
+Requires-Dist: pandocfilters (==1.4.3)
+Requires-Dist: parso (==0.8.2)
+Requires-Dist: pickleshare (==0.7.5)
+Requires-Dist: prometheus-client (==0.11.0)
+Requires-Dist: prompt-toolkit (==3.0.20)
+Requires-Dist: pycparser (==2.20)
+Requires-Dist: Pygments (==2.10.0)
+Requires-Dist: pyparsing (==2.4.7)
+Requires-Dist: pyrsistent (==0.17.3)
+Requires-Dist: python-dateutil (==2.8.1)
+Requires-Dist: pytz (==2020.5)
+Requires-Dist: pyzmq (==20.0.0)
+Requires-Dist: requests (==2.25.1)
+Requires-Dist: requests-unixsocket (==0.2.0)
+Requires-Dist: Send2Trash (==1.5.0)
+Requires-Dist: six (==1.15.0)
+Requires-Dist: sniffio (==1.2.0)
+Requires-Dist: terminado (==0.9.1)
+Requires-Dist: testpath (==0.4.4)
+Requires-Dist: tomlkit (==0.7.2)
+Requires-Dist: tornado (==6.1)
+Requires-Dist: traitlets (==5.0.5)
+Requires-Dist: typing-extensions (==3.7.4.3)
+Requires-Dist: urllib3 (>=1.26.5)
+Requires-Dist: wcwidth (==0.2.5)
+Requires-Dist: webencodings (==0.5.1)
+Requires-Dist: websocket-client (==1.2.1)
+Requires-Dist: Werkzeug (==2.0.2)
+Requires-Dist: zipp (==3.4.0)
+Requires-Dist: tensorflow
+Requires-Dist: numpy
+Requires-Dist: scikit-learn
+Requires-Dist: opencv-python
+Requires-Dist: pillow
+Requires-Dist: tqdm
+Requires-Dist: pandas
+Requires-Dist: py4j
+Requires-Dist: pyspark
+
+| **[Documentation](https://xircuits.io/docs/index)** |
+**[Dev Discord](https://discord.gg/vgEg2ZtxCw)** |
+
+![Xircuits](https://user-images.githubusercontent.com/68586800/151280601-7ff2b7b2-10e5-4544-b3df-aa6a5a654dae.png)
+
+Xircuits is a Jupyterlab-based extension that enables visual, low-code, training workflows. It allows anyone to easily create executable python code in seconds.
+
+
+## Installation
+We recommend installing xircuits in a virtual environment. 
+```
+$ pip install xircuits
+```
+### Launch
+```
+$ xircuits
+```
+## Development
+
+
+### Prerequisites
+
+Xircuits requires nodejs and yarn to build. The test nvm version is 14.15.3. 
+You may also want to set yarn globally accessible by:
+
+```
+npm install --global yarn
+```
+
+### Build
+```
+git clone https://github.com/XpressAI/xircuits
+```
+Make and activate python env. The tested python versions are 3.9.6
+
+```
+python -m venv venv
+venv/Scripts/activate
+```
+
+Download python packages. 
+
+```
+pip install -r requirements.txt
+```
+
+Run the following commands to install the package in local editable mode and install xircuits into the JupyterLab environment.
+
+```
+# Install package in development mode
+pip install -e .
+# Link your development version of the extension with JupyterLab
+jupyter labextension develop . --overwrite
+# Enable the server extension
+jupyter server extension enable xircuits
+
+# Rebuild Typescript source after making changes
+jlpm build
+# Rebuild JupyterLab after making any changes
+jupyter lab build
+
+```
+
+You can watch the source directory and run JupyterLab in watch mode to watch for changes in the extension's source and automatically rebuild the extension and application.
+```
+# Watch the source directory in another terminal tab
+jlpm run watch
+# Run jupyterlab in watch mode in one terminal tab
+jupyter lab --watch
+```
+
+
+## Preview
+
+### Normal Workflow
+![HelloXircuits](https://user-images.githubusercontent.com/68586800/151285391-1d4f477c-4f82-44c8-8d4f-729e52f32c3e.gif)
+
+### Machine Learning
+![XircuitKeras](https://user-images.githubusercontent.com/68586800/151285439-28a1ad93-4585-4fdb-8d73-41b5b7ba2044.gif)
+
+
+
+
+
+
