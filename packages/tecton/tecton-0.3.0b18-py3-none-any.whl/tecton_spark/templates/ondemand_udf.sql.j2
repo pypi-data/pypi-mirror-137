@@ -1,0 +1,43 @@
+{%- macro list_to_string_list(input_list) -%}
+    {%- for item in input_list -%}
+        "{{ item }}"{%- if not loop.last %}, {%- endif %}
+    {%- endfor -%}
+{%- endmacro -%}
+
+CREATE OR REPLACE TEMPORARY FUNCTION _{{ function_name }}(arg1 ARRAY)
+RETURNS OBJECT
+LANGUAGE PYTHON
+RUNTIME_VERSION=3.8
+handler = 'udf'
+as $$
+from typing import List, Dict
+import pandas
+
+def udf(params: List) -> Dict:
+    input_columns = [{{- list_to_string_list(input_columns) -}}]
+    all_inputs_df = pandas.DataFrame([params], columns=input_columns)
+    input_map = {
+        {%- for input_name, columns in input_map.items() -%}
+        "{{ input_name }}": [{{- list_to_string_list(columns) -}}],
+        {%- endfor -%}
+    }
+    prefix_map = {
+        {%- for input_name, prefix in prefix_map.items() -%}
+        "{{ input_name }}": "{{ prefix }}",
+        {%- endfor -%}
+    }
+    inputs = {}
+    for input_name, columns in input_map.items():
+        df = all_inputs_df[columns]
+        df.columns = df.columns.str[len(prefix_map[input_name]):]
+        inputs[input_name] = df
+
+    result_df = {{ function_name }}(**inputs)
+    result_df = result_df.astype('object')
+    result_dict = {}
+    for col in result_df.columns:
+        result_dict[col] = result_df[col][0]
+    return result_dict
+
+{{ user_function }}
+$$;
