@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "poetry-git-auto-version"
+description = "A Poetry plugin to auto-append commit count to git versions."
+authors = ["Joshua Butt <josh@joshb.in>"]
+version = "1.0.0"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+poetry = "^1.2"
+
+[tool.poetry.plugins."poetry.plugin"]
+git-auto-version = "poetry_git_auto_version.plugin:GitAutoVersionPlugin"
+
+[tool.black]
+line-length = 125
+skip-string-normalization = true
+
+[tool.isort]
+profile = "black"
+combine_as_imports = true
+combine_star = true
+
+[tool.pyright]
+ignore = ["./docs/**", "./examples/**"]
