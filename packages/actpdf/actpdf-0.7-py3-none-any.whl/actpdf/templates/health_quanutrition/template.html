@@ -1,0 +1,145 @@
+{% extends "base_qua.html" %}
+{% block css %}
+body {
+    background: #fff9e5 !important;
+    color: #000;
+  }
+   @page {
+    /* margin: 1cm 1cm 1cm 1cm; */
+    background: #fff9e5 !important;
+    margin: 50px;
+     @bottom-center {
+        content: "Page " counter(page) " of " counter(pages);
+       font-family: sans-serif;
+        font-size: 0.8em;
+      }
+     @bottom-right {
+       content: element(footer);
+       position: absolute;
+       right: 0;
+       top: 0;
+       font-family: sans-serif;
+       font-size: 1em;
+    }
+  }
+   @page :first {
+    background: #fff !important;
+    margin: 50px;
+    
+     border-bottom: None;
+     @bottom-center {
+       content: normal;
+    }
+  }
+  .footer {
+     position: running(footer);
+    /*margin-bottom:70px;
+    padding-right: 20px;
+     display: block;*/
+     text-align: center;
+     color: #000;
+     font-style: italic;
+     font-weight: bold;
+  }
+
+  .s2_1{font-size:18px;font-family:Avenir-Roman_12;color:#5E6063;letter-spacing: 20px;}
+.s3_1{font-size:29px;font-weight: bold;font-style: italic; font-family:Lato-BlackItalic_13;color:#3C3D3A;-webkit-text-stroke:1.1px #3C3D3A;text-stroke:1.1px #3C3D3A;}
+.s4_1{font-size:48px;font-weight: bold;font-family:JosefinSans-Bold_1n;color:#8c7c46;}
+.s5_1{font-size:18px;font-weight: bold;font-family:Avenir-Roman_12;color:#5E6063;-webkit-text-stroke:0.7px #5E6063;text-stroke:0.7px #5E6063;letter-spacing: 15px;}
+/*h1 {font-size:52px !important;font-weight: bold;}*/
+.big1 {font-size:35px !important;font-weight: bold;margin: 0; color: #3C3D3A}
+.big2 {font-size:24px !important;font-weight: 900;font-style: italic; margin: 3px; color: #8c7c46 !important}
+table {width: 100%}
+th {
+  font-size: 16px;
+    font-family: JosefinSans-Bold_1n;
+    color: #3C3D3A;
+}
+
+table.custom_table,
+.custom_table th,
+.custom_table td {
+  
+  backgroung: #fff;
+}
+{% endblock %}
+
+{% block body %}
+  <h3 class="ui center aligned header big2">Health Results</h3>
+{% endblock %}
+
+{% block info_heading %}<div style="color:tomato; font-weight: 900; font-style: italic; margin-top: 40px">For Information purposes only. Not for medical use.</div>{% endblock %}
+
+
+{% block understanding_your_report %}
+  <h2 class="ui center aligned header big2">
+    Understanding your report
+  </h2>
+
+  {{ your_report }}
+{% endblock %}
+
+
+{% block outcometable %}
+      {% for item in table2 %}
+      <tbody style="page-break-inside:avoid">
+      <tr>
+        <td rowspan={{item['all_outcomes']|length}}>
+        	<h3 style="margin:0;font-weight:bold">
+        		<i>{{item['trait']}}</i>
+        	</h3>
+          <span>{{item['summary']}}</span>
+        </td>
+        {% for oc in item['all_outcomes'] %}
+        {% set cleaned_oc = oc|remove_unwanted_chars %}
+        <td class="table_center {% if cleaned_oc.outcome == 'r' %}cust_negative{% elif cleaned_oc.outcome == 'g' %}cust_positive{% else %}cust_warning{%endif%}">
+          {% if oc.endswith('_sss') %}
+          <i class="{% if cleaned_oc.outcome == 'r' %}red exclamation circle{% elif cleaned_oc.outcome == 'g' %}check circle{% else %}check circle{%endif%} large icon"></i>
+          {%endif%}
+        </td>
+
+        <td>{{cleaned_oc.data}}</td>
+
+        {% if not loop.last %}
+              </tr><tr>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    	</tbody>
+      {% endfor %}
+	{% endblock%}
+
+
+{% block recommendations %}
+{% for key, value in table1.items() %} 
+<div style="border-left:8px solid #fcd75a; padding: 10px;">
+  <h2>{{loop.index}}. {{key}}</h2>
+  {{value[0][6]}}
+  {# value[0][6]|remove_unwanted_chars #}
+</div>
+{{value[0][4]}}
+<br>
+<div style="font-size: 20px; font-weight: 900;">
+
+  Gene markers analyzed: {{value[0][0]}}<br>
+  Gene markers present in your genome data: {{value[0][1]}}<br>
+  Potential risk variants detected in your genome data: {{value[0][2]}}<br>
+  Potential pathogenic variants detected in your genome data:<br>
+  </div>
+  <br>
+<div style="background-color: #fcd75a; padding: 10px;">
+  <strong>Recommendation</strong><br>
+
+  {{value[0][5]}}
+</div><br>
+<div style="text-align: left;">
+  <strong>Genes analyzed:</strong>{% for gene in value[0][3][:25] %}{{gene.strip()}}, {% endfor %} 
+  {% if value[0][3]|length > 25 %} 
+    <a class="ui label"><strong>{{value[0][3]|length - 25}}</strong> more genes</a>
+  {% endif %}
+</div>
+
+<p style="page-break-before: always" ></p>
+{% endfor %}
+
+{% endblock %}
