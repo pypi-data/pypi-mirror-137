@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: FastAPI-REST-JSONAPI
+Version: 0.8
+Summary: FastAPI-REST-JSONAPI
+Home-page: https://github.com/Zenor27/fastapi-rest-jsonapi
+Author: Zenor27
+Author-email: antoine.montes@epita.fr
+License: MIT
+Keywords: rest json api jsonapi fastapi database sql
+Platform: any
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: Web Environment
+Classifier: Framework :: FastAPI
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# FastAPI REST JSONAPI 🚀
+
+# Documentation
+
+You can find the [documentation here](https://fastapi-rest-jsonapi.readthedocs.io/en/latest/).
+
+# Setup
+
+```
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+# Launch tests
+
+### With coverage
+
+```
+pytest --cov=fastapi_rest_jsonapi --cov-report html tests/
+```
+
+### Without coverage
+
+```
+pytest
+```
+
+# Launch example app
+
+```
+uvicorn example.app:app --reload
+```
+
