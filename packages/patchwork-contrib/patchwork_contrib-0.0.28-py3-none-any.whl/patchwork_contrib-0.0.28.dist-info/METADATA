@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: patchwork-contrib
+Version: 0.0.28
+Summary: Patchwork Contrib
+Home-page: 
+Author: Pawel Pecio
+Author-email: 
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: patchwork-core (>=0.0.18)
+Requires-Dist: aiohttp
+Provides-Extra: fastapi
+Requires-Dist: fastapi (>=0.70) ; extra == 'fastapi'
+Requires-Dist: pydantic ; extra == 'fastapi'
+Requires-Dist: python-jose[cryptography] ; extra == 'fastapi'
+Provides-Extra: tortoise
+Requires-Dist: tortoise-orm ; extra == 'tortoise'
+
+# Patchwork Contrib
+
+Set of tools and helpers to integrate [Patchwork](https://patchwork-framework.gitlab.io/core) with external
+libraries.
+
+## Warning!
+Current project state should be considered as Proof-of-Concept. 
+
+This framework is based on working solution which handles 100+ services and hundreds of events per second,
+however it's written from scratch and fully asynchronous in opposite to original one which is fully synchronous. 
+There is no guarantee that this framework pass performance tests and will be useful.
+
+
+https://patchwork-framework.gitlab.io/contrib
+
+
