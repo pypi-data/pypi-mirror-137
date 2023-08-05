@@ -1,0 +1,53 @@
+{% import 'macros/_account_macros.html' as account_macros %}
+{% macro report_table(review_data) %}
+<table is="sortable-table">
+  <thead>
+    <tr>
+      {% for name in review_data[0].keys() %}
+      {% set data = review_data[0][name] %}
+      <th data-sort="{{ 'string' if 'AccountName' in data.__class__.__name__ else 'num' }}">{{ name }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in review_data[0:review_data|length-1] %}
+    <tr>
+      {% for data in row.values() %}
+        <td>
+        {% if 'AccountName' in data.__class__.__name__ %}
+          {{ account_macros.account_name(extension.ledger, data) }}
+        {% else %}
+          {{ data }}
+        {% endif %}
+        </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      {% for data in review_data[review_data|length-1].values() %}
+        <td>{{ data }}</td>
+      {% endfor %}
+    </tr>
+  </tfoot>
+</table>
+{% endmacro %}
+{% set view = request.args.get('view', 'income_statement') %}
+{% set views = {
+  'income_statement': ('Income Statement', extension.get_income_statement_report),
+  'balance_sheet': ('Balance Sheet', extension.get_balance_sheet_report) } %}
+<div class="headerline">
+  {% for key, value in views.items() %}
+  <h3><b>
+    {% if not (view == key) %}
+    <a href="{{ url_for('extension_report', report_name='FavaReview', view=key) }}">{{ value[0] }}</a>
+    {% else %}
+    {{ value[0] }}
+    {% endif %}
+  </b></h3>
+  {% endfor %}
+</div>
+
+<h2>{{ views[view][0] }} Review - {{ extension.current_operating_currency() }}</h2>
+{{ report_table(views[view][1]()) }}
