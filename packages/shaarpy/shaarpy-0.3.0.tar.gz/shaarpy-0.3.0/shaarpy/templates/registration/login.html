@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Log in" %} - {{ SHAARPY_NAME }} {% endblock %}
+{% block content %}
+<div class="col-xs-8 col-md-8 col-lg-8 offset-xs-2 offset-md-2 offset-lg-2">
+    <h1 class="page-header">{% trans "Log in" %}</h1>
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        <p>{{ form.non_field_errors }}</p>
+    </div>
+    {% endif %}
+
+    <form role="form" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label col-md-2" for="id_username">{% trans 'user' %}</label>
+            <div>{{ form.username }}</div>
+            {% if form.username.errors %}
+                <p class="help-block">{{ form.username.errors.as_text }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label class="form-label col-md-2" for="id_password">{% trans 'Password' %}</label>
+            <div>{{ form.password }}</div>
+            {% if form.password.errors %}
+                <p class="help-block">{{ form.password.errors.as_text }}</p>
+            {% endif %}
+        </div>
+        <input type="submit" class="btn btn-primary"  value="{% trans 'Log in' %}" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+</div>
+{% endblock %}
