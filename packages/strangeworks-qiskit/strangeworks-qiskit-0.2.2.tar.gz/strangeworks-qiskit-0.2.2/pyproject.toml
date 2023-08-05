@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "strangeworks-qiskit"
+version = "0.2.2"
+description = "Strangeworks extensions"
+readme = "README.md"
+authors = ["Strange Devs <stranger@strangeworks.com>"]
+license = "Apache-2.0"
+packages = [
+    {include = "strangeworks"},
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+strangeworks = "^0.2.0"
+qiskit = "0.32.0"
+qiskit-aer = "0.9.1"
+qiskit-aqua = "0.9.5"
+qiskit-ibmq-provider = "0.18.0"
+qiskit-ignis = "0.6.0"
+qiskit-nature = "0.2.1"
+qiskit-terra = "0.18.3"
+seaborn = "0.11.2"
+qiskit-optimization = "^0.2.3"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools", "wheel"]
+build-backend = "poetry.core.masonry.api"
