@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "BigtableQL"
+version = "0.1.5"
+description = "Query Layer for Google Cloud Bigtable"
+authors = ["jychen7 <jychen7@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/jychen7/BigtableQL"
+repository = "https://github.com/jychen7/BigtableQL"
+keywords = ["arrow", "bigtable", "datafusion", "sql"]
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+include = ["LICENSE"]
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.10"
+sqloxide = "0.1.13"
+google-cloud-bigtable = "2.4.0"
+pyarrow = "6.0.1"
+datafusion = "0.4.0"
+# specify numpy 1.21.5 for python 3.7
+# as of 2022-01, latest numpy 1.22.1 only supports python >=3.8
+numpy = "1.21.5"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "21.12b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,5 @@
+RESERVED_ROWKEY = "_row_key"
+RESERVED_TIMESTAMP = "_timestamp"
+DEFAULT_SEPARATOR = "#"
+
+SELECT_STAR = "Wildcard"
