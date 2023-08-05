@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: peter-parquet
+Version: 0.2.0
+Summary: Quiclky inspect parquet files in command line
+Home-page: https://github.com/sjlva/Peter-Parquet
+Author: Rafael Silva
+Author-email: rafaelsilva@posteo.net
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click (==8.0.3)
+Requires-Dist: pyarrow (==6.0.1)
+Requires-Dist: pandas (==1.4.0)
+Requires-Dist: rich-dataframe (==0.2.0)
+
+# Peter Parquet
+Quickly inspect parquet files in command line
+
+<img title="a title" alt="Alt text" src="https://i.imgur.com/gjKIEl6.png">
+
+## Installation
+
+```bash
+pip install peter-parquet
+```
+
+
+## Usage
+
+```bash
+Usage: view_parquet [OPTIONS] FILE
+
+Options:
+  --rows INTEGER  Number of rows to display
+  --cols INTEGER  Number of columns to display
+  --help          Show this message and exit
+```
+
+## Usage Examples 
+
+### View local parquet file
+
+```bash
+view_parquet path/to/parquet/file.parquet
+```
+
+
