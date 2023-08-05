@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "RashSetup"
+version = "1.6.0"
+description = "Sets up some Rash Things for us"
+authors = ["RahulARanger <saihanumarahul66@gmail.com>"]
+maintainers = ["RahulARanger <saihanumarahul66@gmail.com>"]
+license = "MIT"
+repository="https://github.com/RahulARanger/RashSetup"
+exclude=["RashSetup/Drivers", "Installer", "Greetings", "Setup Files"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+selenium="4.1.0"
+webdriver_manager="3.5.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
