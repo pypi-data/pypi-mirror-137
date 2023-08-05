@@ -1,0 +1,24 @@
+from setuptools import setup, find_packages
+
+with open('README.md') as f:
+    long_description = f.read()
+
+setup(
+    name='blockdiag-fences',
+    version='0.0.1',
+    packages=find_packages(),
+    url='https://github.com/oliversalzburg/markdown-blockdiag',
+    license='MIT',
+    install_requires=[
+        'Markdown',
+        'blockdiag',
+        'seqdiag',
+        'actdiag',
+        'nwdiag',
+    ],
+    author='Oliver Salzburg',
+    author_email='oliver.salzburg@gmail.com',
+    description='blockdiag extension for Python Markdown',
+    long_description=long_description,
+    long_description_content_type='text/markdown'
+)
