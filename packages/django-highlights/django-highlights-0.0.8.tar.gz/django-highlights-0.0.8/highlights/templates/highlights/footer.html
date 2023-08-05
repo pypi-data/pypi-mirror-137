@@ -1,0 +1,30 @@
+
+<footer id="footer-container" class="fixed-bottom footer mt-auto py-3 bg-light" hidden>
+    <center>
+        <form>
+            <input id='selected-highlight' type='text' name='highlight' style="display: none;">
+            <button id="highlight-button" class="btn btn-lg btn-outline-primary" hx-post="{{save_highlight_url}}" hx-swap="none" disabled _="
+                on highlightSaved add [@hidden='true'] to #footer-container
+                "
+            >Save Highlight
+            </button>
+        </form>
+    </center>
+</footer>
+
+{% block extra_js %}
+    {% load static %}
+    <script>
+        const highlightNotice = document.getElementById("highlight-notice"); //  only allow highlighting within
+        const highlightScope = document.getElementById("highlightable"); //  only allow highlighting within
+        const highlightBtn = document.getElementById("highlight-button"); // holds hx-post for submit
+        const highlightInput = document.getElementById("selected-highlight"); // hidden input stored here
+        const footerContainer = document.getElementById("footer-container"); //  container of button and input
+        window.addEventListener("highlightSaved", () => {
+            let highlightToast = new bootstrap.Toast(highlightNotice, {})
+            highlightToast.show();
+        })
+    </script>
+    <script type="text/javascript" src="{% static 'js/textSelector.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/removeSelected.js' %}"></script>
+{% endblock extra_js %}
