@@ -1,0 +1,185 @@
+use fluvio::{
+    Fluvio,
+    PartitionConsumer,
+    TopicProducer,
+    FluvioError,
+    dataplane::ErrorCode,
+    Offset,
+    consumer::Record,
+};
+use fluvio_future::{
+    task::run_block_on,
+    io::{
+        Stream,
+        StreamExt,
+    },
+};
+use std::pin::Pin;
+
+mod _Fluvio {
+    use super::*;
+    pub fn connect() -> Result<Fluvio, FluvioError> {
+        run_block_on(Fluvio::connect())
+    }
+    pub fn partition_consumer(
+        fluvio: &Fluvio,
+        topic: String,
+        partition: i32
+    ) -> Result<PartitionConsumer, FluvioError> {
+        run_block_on(fluvio.partition_consumer(topic, partition))
+    }
+    pub fn topic_producer(
+        fluvio: &Fluvio,
+        topic: String,
+    ) -> Result<TopicProducer, FluvioError> {
+        run_block_on(fluvio.topic_producer(topic))
+    }
+}
+
+foreign_class!(class Fluvio {
+    self_type Fluvio;
+    private constructor = empty;
+    fn _Fluvio::connect() -> Result<Fluvio, FluvioError>;
+    fn _Fluvio::partition_consumer(
+        &self,
+        _: String,
+        _ : i32
+    ) -> Result<PartitionConsumer, FluvioError>;
+    fn _Fluvio::topic_producer(
+        &self,
+        _: String
+    ) -> Result<TopicProducer, FluvioError>;
+});
+
+
+mod _PartitionConsumer {
+    use super::*;
+    pub fn stream(
+        consumer: &PartitionConsumer,
+        offset: &Offset,
+    ) -> Result<PartitionConsumerStream, FluvioError> {
+        Ok(PartitionConsumerStream {
+            inner: Box::pin(run_block_on(consumer.stream(offset.clone()))?)
+        })
+    }
+}
+foreign_class!(class PartitionConsumer {
+    self_type PartitionConsumer;
+    private constructor = empty;
+    fn _PartitionConsumer::stream(
+        &self, _: &Offset
+    ) -> Result<PartitionConsumerStream, FluvioError>;
+});
+
+type PartitionConsumerIteratorInner =
+    Pin<Box<dyn Stream<Item = Result<Record, ErrorCode>> + Send>>;
+
+pub struct PartitionConsumerStream {
+    pub inner: PartitionConsumerIteratorInner,
+}
+impl PartitionConsumerStream {
+    pub fn next(&mut self) -> Option<Result<Record, ErrorCode>> {
+        run_block_on(self.inner.next())
+    }
+}
+
+foreign_class!(class PartitionConsumerStream{
+    self_type PartitionConsumerStream;
+    private constructor = empty;
+    fn PartitionConsumerStream::next(
+        &mut self
+    ) -> Option<Result<Record, ErrorCode>>;
+});
+
+#[derive(Clone)]
+pub struct ProducerBatchRecord {
+    pub key: Vec<u8>,
+    pub value: Vec<u8>,
+}
+impl ProducerBatchRecord {
+    pub fn new(key: Vec<u8>, value: Vec<u8>) -> Self {
+        Self {
+            key,
+            value,
+        }
+    }
+}
+foreign_class!(
+    #[derive(Clone)]
+    class ProducerBatchRecord {
+        self_type ProducerBatchRecord;
+        constructor ProducerBatchRecord::new(_: Vec<u8>, _: Vec<u8>) -> ProducerBatchRecord;
+        fn ProducerBatchRecord::clone(&self) -> ProducerBatchRecord;
+    }
+);
+
+mod _TopicProducer {
+    use super::*;
+    pub fn send(
+        producer: &TopicProducer,
+        key: &[u8],
+        value: &[u8],
+    ) -> Result<(), FluvioError> {
+        run_block_on(producer.send(key, value)).map(|_| ())
+    }
+    pub fn send_all(
+        producer: &TopicProducer,
+        records: &[ProducerBatchRecord],
+    ) -> Result<(), FluvioError> {
+        run_block_on(
+            producer.send_all(
+                records.iter().map(|record| -> (Vec<u8>, Vec<u8>) {
+                    (record.key.clone(), record.value.clone())
+                })
+            )
+        ).map(|_| ())
+    }
+}
+
+foreign_class!(class TopicProducer {
+    self_type TopicProducer;
+    private constructor = empty;
+    fn _TopicProducer::send(
+        &self,
+        _: &[u8],
+        _ : &[u8]
+    ) -> Result<(), FluvioError>;
+    fn _TopicProducer::send_all(
+        &self,
+        records: &[ProducerBatchRecord],
+    ) -> Result<(), FluvioError>;
+});
+
+
+use std::string::FromUtf8Error;
+mod _Record {
+    use super::*;
+    pub fn value_string(record: &Record) -> Result<String, FromUtf8Error> {
+        String::from_utf8(record.value().to_vec())
+    }
+    pub fn key_string(
+        record: &Record
+    ) -> Option<Result<String, FromUtf8Error>> {
+        let key = record.key()?;
+        Some(String::from_utf8(key.to_vec()))
+    }
+}
+
+foreign_class!(class Record {
+    self_type Record;
+    private constructor = empty;
+    fn Record::offset(&self) -> i64;
+    fn Record::value(&self) -> &[u8];
+    fn Record::key(&self) -> Option<&[u8]>;
+    fn _Record::value_string(&self) -> Result<String, FromUtf8Error>;
+    fn _Record::key_string(&self) -> Option<Result<String, FromUtf8Error>>;
+});
+foreign_class!(class Offset {
+    self_type Offset;
+    private constructor = empty;
+    fn Offset::absolute(_ :i64) -> Result<Offset, FluvioError>;
+    fn Offset::beginning() -> Offset;
+    fn Offset::from_beginning(_: u32) -> Offset;
+    fn Offset::end() -> Offset;
+    fn Offset::from_end(_: u32) -> Offset;
+});
