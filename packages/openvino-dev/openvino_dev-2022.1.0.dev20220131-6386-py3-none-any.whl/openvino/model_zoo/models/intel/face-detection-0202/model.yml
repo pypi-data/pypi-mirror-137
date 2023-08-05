@@ -1,0 +1,44 @@
+# Copyright (c) 2021 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+description: >-
+  Face Detection based on MobileNetV2 (SSD).
+task_type: detection
+files:
+  - name: FP32/face-detection-0202.xml
+    size: 200594
+    checksum: 4aa6a03972c4e0dec8c1db810b7d7e0fc9e305d2664d0763a9a800bbd4495b2bd5bb65681d7b44ab632b11369da7de34
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/face-detection-0202/FP32/face-detection-0202.xml
+  - name: FP32/face-detection-0202.bin
+    size: 7269168
+    checksum: 5c1ad0d39f76f7b3b0ca65619ffc09e673dda95f4c173cc62bf71f7d7b6fc9bbe32d5ab0297e7688ec830f9a1694d201
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/face-detection-0202/FP32/face-detection-0202.bin
+  - name: FP16/face-detection-0202.xml
+    size: 200531
+    checksum: 3853adb33376ec74ea869dac16d2a63e16f3a8929b6e0df781607cbb07bb8f56a2a8929394e4ae0db243729e0cb24657
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/face-detection-0202/FP16/face-detection-0202.xml
+  - name: FP16/face-detection-0202.bin
+    size: 3634626
+    checksum: dd1b4361bceb05db54e4237227d0ebef5ec0add8965a9ca15e3f42391a1d0c8832dfa70d67708d4773d81db2e789a9a1
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/face-detection-0202/FP16/face-detection-0202.bin
+  - name: FP16-INT8/face-detection-0202.xml
+    size: 482719
+    checksum: ad953355f5762581c8fe44aa7d9abec364160df81bda67885b4d43d6a64d3fcf5cb788682909c36f462e92515b4f13ea
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/face-detection-0202/FP16-INT8/face-detection-0202.xml
+  - name: FP16-INT8/face-detection-0202.bin
+    size: 1921614
+    checksum: ea74f45a5b7baa2319a27f9f33548eeca7da8a87c672fc654775581d36ba983ae2dc843c0e5eeca79bfb654201b61ad7
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/face-detection-0202/FP16-INT8/face-detection-0202.bin
+framework: dldt
+license: https://raw.githubusercontent.com/openvinotoolkit/open_model_zoo/master/LICENSE

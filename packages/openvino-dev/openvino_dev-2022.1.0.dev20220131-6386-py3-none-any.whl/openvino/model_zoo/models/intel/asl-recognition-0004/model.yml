@@ -1,0 +1,44 @@
+# Copyright (c) 2021 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+description: >-
+  S3D MobileNet V3 based ASL recogniton network.
+task_type: action_recognition
+files:
+  - name: FP32/asl-recognition-0004.xml
+    size: 296552
+    checksum: 3563b1c3892b446bcf932bb6787b76b05a6a2e30d3aba997198f9a423c17572bd46e5e1aaae5ff92774796dc0cb6450a
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/asl-recognition-0004/FP32/asl-recognition-0004.xml
+  - name: FP32/asl-recognition-0004.bin
+    size: 16530600
+    checksum: 92b031d627246e74b13aea6eb4e3b728f15ba8ee3288b0b5e642ca07036e21065096654eb897bf14e4c3f62446644a7a
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/asl-recognition-0004/FP32/asl-recognition-0004.bin
+  - name: FP16/asl-recognition-0004.xml
+    size: 296401
+    checksum: b0deda00dca26c9a7f10f7ab53bb4c19c8c672acf814bd4afe789b9da8914b2c9b77181c5d00163c03b2fca058b11e66
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/asl-recognition-0004/FP16/asl-recognition-0004.xml
+  - name: FP16/asl-recognition-0004.bin
+    size: 8265312
+    checksum: 33d518c6faceac4740280144d972c3576ae4fea64df9aa2a81625702179bfc6119f665450a66f1984632203e98943131
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/asl-recognition-0004/FP16/asl-recognition-0004.bin
+  - name: FP16-INT8/asl-recognition-0004.xml
+    size: 691459
+    checksum: 4a79dc5f76d8038c16e0195bc66ff73c9a04268190253fc7a89d8a2a18881bff07bfa0869eafca0e39f822db165eeade
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/asl-recognition-0004/FP16-INT8/asl-recognition-0004.xml
+  - name: FP16-INT8/asl-recognition-0004.bin
+    size: 4290197
+    checksum: da193cca0c03dd955edf278f2548278bb57b59b2ab0925c62185250a78f3f782aef22e90e689bfc78886928f82b0b3cd
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/asl-recognition-0004/FP16-INT8/asl-recognition-0004.bin
+framework: dldt
+license: https://raw.githubusercontent.com/openvinotoolkit/open_model_zoo/master/LICENSE

@@ -1,0 +1,44 @@
+# Copyright (c) 2021 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+description: >-
+  Pedestrian detection (RMNet with lrelu + SSD)
+task_type: detection
+files:
+  - name: FP32/person-detection-retail-0013.xml
+    size: 382996
+    checksum: cf011606b06e5f293ab572715225d6f536077c32c35296c54d8d0bcb9f6a92695a7960a6cd8deb15b89641ef71045406
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/person-detection-retail-0013/FP32/person-detection-retail-0013.xml
+  - name: FP32/person-detection-retail-0013.bin
+    size: 2891364
+    checksum: e26fbd0ec879ea7de5338e7cb4b3607128a4b9c690e07c17c9ee89d3a5c686e0e9d1d05b8654f08ff227435d8c6e8169
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/person-detection-retail-0013/FP32/person-detection-retail-0013.bin
+  - name: FP16/person-detection-retail-0013.xml
+    size: 382841
+    checksum: ac4e5f267cd91b7254487d7e7effde4bbbc56f69bd66fabd017c55fe8a7675009255bae12315caef61e0e33cc78fbb29
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/person-detection-retail-0013/FP16/person-detection-retail-0013.xml
+  - name: FP16/person-detection-retail-0013.bin
+    size: 1445736
+    checksum: c6c66dcb8e24b5d87c553477ecd006dc679ece3ec03137b079e0fe3084b4acda2fc570330d6dbc6844dbbc03f289106e
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/person-detection-retail-0013/FP16/person-detection-retail-0013.bin
+  - name: FP16-INT8/person-detection-retail-0013.xml
+    size: 971255
+    checksum: 1f05b6971a5e742e39beacc1dd5a51fe68c6675cf26c2204351e3346a014f16b0b42c6540082b7da2cc49c7458e5c03d
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/person-detection-retail-0013/FP16-INT8/person-detection-retail-0013.xml
+  - name: FP16-INT8/person-detection-retail-0013.bin
+    size: 770360
+    checksum: d022f70657a423618edc9998b48c77f4fb88d85dc2c1d0ec6ac88ec17af738217076549286fe424afdf1af81e1e4c767
+    source: https://storage.openvinotoolkit.org/repositories/open_model_zoo/2021.4/models_bin/3/person-detection-retail-0013/FP16-INT8/person-detection-retail-0013.bin
+framework: dldt
+license: https://raw.githubusercontent.com/openvinotoolkit/open_model_zoo/master/LICENSE
