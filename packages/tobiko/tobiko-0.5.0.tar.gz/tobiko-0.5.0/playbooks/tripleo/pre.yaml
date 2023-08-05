@@ -1,0 +1,12 @@
+---
+
+- hosts: primary
+  roles:
+    - tobiko-zuul
+    - tobiko-configure
+
+    - name: "import tripleo-ci common role"
+      role: common
+
+    - name: "install tripleo"
+      role: run-test

@@ -1,0 +1,42 @@
+- project:
+    templates:
+      - ansible-role-jobs
+      - build-openstack-docs-pti
+      - build-release-notes-jobs-python3
+      - check-requirements
+      - devstack-tobiko
+      - devstack-tobiko-ceph
+      - devstack-tobiko-functional
+      - devstack-tobiko-heat
+      - devstack-tobiko-minimal
+      - devstack-tobiko-octavia
+      - devstack-tobiko-neutron
+      - devstack-tobiko-nova
+      - devstack-tobiko-ovs
+      - devstack-tobiko-storage
+      - docs-on-readthedocs
+      - openstack-cover-jobs
+      - openstack-lower-constraints-jobs
+      - openstack-python3-yoga-jobs
+      - openstack-python3-yoga-jobs-arm64
+      - publish-to-pypi
+      - tobiko-docker
+      - tobiko-infrared
+    vars:
+        rtd_webhook_id: '84947'
+    periodic:
+      jobs:
+        - requirements-check:
+            voting: true
+        - tripleo-ci-centos-8-content-provider
+        - tobiko-tripleo-functional:
+            vars: &consumer_vars
+              consumer_job: true
+              build_container_images: false
+              remove_tags:
+                - build
+            dependencies: &deps_cprovider
+              - tripleo-ci-centos-8-content-provider
+        - tobiko-tripleo-faults:
+            vars: *consumer_vars
+            dependencies: *deps_cprovider
