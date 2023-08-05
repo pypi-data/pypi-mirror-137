@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ekata-gateway-processor-helper"
+version = "0.1.8"
+description = "Backend helper functions for ekata gateway processor"
+authors = ["EkataIO Wizard <support@ekata.io>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://ekata.io"
+repository = "https://gitlab.ekata.io/ekata-io-projects/ekata-gateway-processor-helper-python"
+keywords = ["crypto", "payment", "processor", "btc"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.6.0"
+pep8 = "^1.7.1"
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
