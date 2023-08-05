@@ -1,0 +1,19 @@
+<ie>
+    <plugins>
+        <plugin name="AUTO" location="libov_auto_plugin.so">
+            <properties>
+                <property key="MULTI_WORK_MODE_AS_AUTO" value="YES"/>
+            </properties>
+        </plugin>
+        <plugin name="BATCH" location="libov_auto_batch_plugin.so">
+        </plugin>
+        <plugin name="CPU" location="libov_intel_cpu_plugin.so">
+        </plugin>
+        <plugin name="HETERO" location="libov_hetero_plugin.so">
+        </plugin>
+        <plugin name="MULTI" location="libov_auto_plugin.so">
+        </plugin>
+        <plugin name="MYRIAD" location="libov_intel_myriad_plugin.so">
+        </plugin>
+    </plugins>
+</ie>
