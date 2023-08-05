@@ -1,0 +1,45 @@
+requests>=2.26.0
+
+[all]
+opencv-python==4.5.5.62
+pyfakewebcam==0.1.0
+tfjs-graph-converter==1.4.2
+requests>=2.26.0
+
+[all:python_version < "3.7"]
+Pillow==8.4.0
+tensorflow==2.6.2
+tensorflow-estimator==2.6.0
+
+[all:python_version >= "3.7"]
+Pillow==9.0.0
+tensorflow==2.7.0
+tensorflow-estimator==2.7.0
+
+[image]
+
+[image:python_version < "3.7"]
+Pillow==8.4.0
+
+[image:python_version >= "3.7"]
+Pillow==9.0.0
+
+[tf]
+
+[tf:python_version < "3.7"]
+tensorflow==2.6.2
+tensorflow-estimator==2.6.0
+
+[tf:python_version >= "3.7"]
+tensorflow==2.7.0
+tensorflow-estimator==2.7.0
+
+[tfjs]
+tfjs-graph-converter==1.4.2
+
+[video]
+opencv-python==4.5.5.62
+
+[webcam]
+opencv-python==4.5.5.62
+pyfakewebcam==0.1.0
