@@ -1,0 +1,3492 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eCommerce Example &mdash; scalecast 0.5.8 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/logo2.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="LSTM Example" href="LSTM.html" />
+    <link rel="prev" title="Getting Started" href="../../initialization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../index.html">
+            <img src="../../_static/logo2.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.5.8
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Overview:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../initialization.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">eCommerce Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Library-Imports">Library Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Exploratory-Data-Analysis">Exploratory Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Forecast-with-Scalecast">Forecast with Scalecast</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#HWES">HWES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ARIMA">ARIMA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MLR">MLR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Elasticnet-and-Auto-Forecasting">Elasticnet and Auto-Forecasting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Auto-Forecasting-the-Scikit-learn-Models">Auto-Forecasting the Scikit-learn Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Prophet-and-Silverkite">Prophet and Silverkite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#TensorFlow-Recurrent-Neural-Nets">TensorFlow Recurrent Neural Nets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#SimpleRNN">SimpleRNN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LSTM">LSTM</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Combination-Modeling">Combination Modeling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Export-Results">Export Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LSTM.html">LSTM Example</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Forecaster:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Forecaster.html">Forecaster Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ForecasterGlobals.html">Forecaster Object Globals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_forecast.html">Forecasting Different Model Types</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GridGenerator:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GridGenerator/GridGenerator.html">GridGenerator</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Notebook:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Notebook/Notebook.html">Notebook</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ChangeLog:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../change_log.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">scalecast</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>eCommerce Example</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/Forecaster/examples/eCommerce.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="../../initialization.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LSTM.html" class="btn btn-neutral float-right" title="LSTM Example" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="eCommerce-Example">
+<h1>eCommerce Example<a class="headerlink" href="#eCommerce-Example" title="Permalink to this headline"></a></h1>
+<p>This notebook details a time series analysis and forecasting application performed with scalecast using the eCommerce dataset. The notebook starts with an exploratory data analysis; moves to time series decomposition; forecasts with an exponential smoothing model; an ARIMA model; a multiple linear regression model; moves to automated forecasting with scikit-learn models, Facebook Prophet, and LinkedIn Greykite/Silverkite; explores TensorFlow recurrent neural nets; and finally finishes with
+combination modeling.</p>
+<p>The utilized dataset is available on kaggle: <a class="reference external" href="https://www.kaggle.com/carrie1/ecommerce-data/">https://www.kaggle.com/carrie1/ecommerce-data/</a></p>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#Library-Imports">Library Imports</a></div>
+<div class="line"><a class="reference external" href="#Exploratory-Data-Analysis">Exploratory Data Analysis</a></div>
+<div class="line"><a class="reference external" href="#Forecast-with-Scalecast">Forecast with scalecast</a></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="#HWES">Holt-Winters Exponential Smoothing</a></p></li>
+<li><p><a class="reference external" href="#ARIMA">ARIMA</a></p></li>
+<li><p><a class="reference external" href="#MLR">MLR</a></p></li>
+<li><p><a class="reference external" href="#Elasticnet-and-Auto-Forecasting">Elasticnet and Auto-Forecasting</a></p></li>
+<li><p><a class="reference external" href="#Auto-Forecasting-the-Scikit-learn-Models">Auto-Forecasting the Scikit-learn Models</a></p></li>
+<li><p><a class="reference external" href="#Prophet-and-Silverkite">Prophet and Silverkite</a></p></li>
+<li><p><a class="reference external" href="#TensorFlow-Recurrent-Neural-Nets">TensorFlow Recurrent Neural Nets</a></p>
+<ul>
+<li><p><a class="reference external" href="#SimpleRNN">SimpleRNN</a></p></li>
+<li><p><a class="reference external" href="#LSTM">LSTM</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#Combination-Modeling">Combination Modeling</a></p></li>
+</ul>
+<p><a class="reference external" href="#Export-Results">Export Results</a></p>
+<section id="Library-Imports">
+<h2>Library Imports<a class="headerlink" href="#Library-Imports" title="Permalink to this headline"></a></h2>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">First, let’s import the libraries and read the data. Some data preprocessing in pandas will be necessary before calling scalecast.</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scalecast.Forecaster</span> <span class="kn">import</span> <span class="n">Forecaster</span>
+<span class="kn">from</span> <span class="nn">scalecast</span> <span class="kn">import</span> <span class="n">GridGenerator</span>
+<span class="kn">from</span> <span class="nn">scalecast.notebook</span> <span class="kn">import</span> <span class="n">tune_test_forecast</span>
+
+<span class="n">plot_dim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span><span class="n">plot_dim</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;eCommerce.csv&#39;</span><span class="p">,</span><span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Exploratory-Data-Analysis">
+<h2>Exploratory Data Analysis<a class="headerlink" href="#Exploratory-Data-Analysis" title="Permalink to this headline"></a></h2>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">Let’s view the data’s first five rows.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>InvoiceNo</th>
+      <th>StockCode</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>InvoiceDate</th>
+      <th>UnitPrice</th>
+      <th>CustomerID</th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>536365</td>
+      <td>85123A</td>
+      <td>WHITE HANGING HEART T-LIGHT HOLDER</td>
+      <td>6</td>
+      <td>2010-12-01 08:26:00</td>
+      <td>2.55</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>536365</td>
+      <td>71053</td>
+      <td>WHITE METAL LANTERN</td>
+      <td>6</td>
+      <td>2010-12-01 08:26:00</td>
+      <td>3.39</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>536365</td>
+      <td>84406B</td>
+      <td>CREAM CUPID HEARTS COAT HANGER</td>
+      <td>8</td>
+      <td>2010-12-01 08:26:00</td>
+      <td>2.75</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>536365</td>
+      <td>84029G</td>
+      <td>KNITTED UNION FLAG HOT WATER BOTTLE</td>
+      <td>6</td>
+      <td>2010-12-01 08:26:00</td>
+      <td>3.39</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>536365</td>
+      <td>84029E</td>
+      <td>RED WOOLLY HOTTIE WHITE HEART.</td>
+      <td>6</td>
+      <td>2010-12-01 08:26:00</td>
+      <td>3.39</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Now, let’s view the data’s dimensions.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(541909, 8)
+</pre></div></div>
+</div>
+<p>Let’s see how much time these 550,000 observations span.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;first date in data:&#39;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;last date in data:&#39;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+first date in data: 2010-12-01 08:26:00
+last date in data: 2011-12-09 12:50:00
+</pre></div></div>
+</div>
+<p>In spite of there being over half a million rows, there is only about a year’s worth of data to analyze. Before proceding, we should decide a datetime frequency to aggregate the data to, otherwise we will be trying to forecast with an incosistent interval of time between observations. This decision depends on what question we are trying to answer. For this example, let’s try answering the question of if we can accurately predict daily gross sales revenues in the United Kingdom over 30 days. This
+means we will be removing sales that were negative in value (probably representing returns), creating a “Sales” column by multiplying quantity by price, and aggregating the entire dataframe to the daily level. Then, we subset to <code class="docutils literal notranslate"><span class="pre">country=='United</span> <span class="pre">Kingdom'</span></code> and fill any days that show no sales with 0.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># drop negative sales quantities</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;United Kingdom&#39;</span><span class="p">)]</span>
+<span class="c1"># create the Sales column</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;UnitPrice&#39;</span><span class="p">]</span>
+<span class="c1"># aggregate the dataframe to the daily level</span>
+<span class="n">dt_aggr</span> <span class="o">=</span> <span class="s1">&#39;D&#39;</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;InvoiceDate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">dt_aggr</span><span class="p">)</span>
+<span class="n">tbl</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1"># view first 5 rows</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DateTime</th>
+      <th>Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010-12-01</td>
+      <td>54818.08</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010-12-02</td>
+      <td>47570.53</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2010-12-03</td>
+      <td>41308.69</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2010-12-05</td>
+      <td>25853.20</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2010-12-06</td>
+      <td>53322.12</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tbl</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(305, 2)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;first date in data:&#39;</span><span class="p">,</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;last date in data:&#39;</span><span class="p">,</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+first date in data: 2010-12-01 00:00:00
+last date in data: 2011-12-09 00:00:00
+</pre></div></div>
+</div>
+<p>It is possible that after making this aggregation to the daily level, some date observations in the range are missing. Some forecasting libraries will process missing data for you automatically, but because scalecast mixes so many model concepts, it is necessary to have every possible date in a given range represented. If we run the code below, we will limit the dataframe to only days and any missing dates will have their sales filled with 0.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;DateTime&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">end</span><span class="o">=</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="n">freq</span><span class="o">=</span><span class="n">dt_aggr</span><span class="p">)})</span>
+<span class="n">full_data</span> <span class="o">=</span> <span class="n">all_dates</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">tbl</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;DateTime&#39;</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;DateTime&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">full_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DateTime</th>
+      <th>Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010-12-01</td>
+      <td>54818.08</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010-12-02</td>
+      <td>47570.53</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2010-12-03</td>
+      <td>41308.69</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2010-12-04</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2010-12-05</td>
+      <td>25853.20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Let’s see how that looks plotted.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;DateTime&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;eCommerce Sales Original&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_16_0.png" src="../../_images/Forecaster_examples_eCommerce_16_0.png" />
+</div>
+</div>
+<p>We notice the last observation in the dataframe is an outlier. Let’s look at it more closely.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;Sales&#39;</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DateTime</th>
+      <th>Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>373</th>
+      <td>2011-12-09</td>
+      <td>196134.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>There are different ways to handle outliers in time series, but we will try ignoring it to see how well our models can predict it.</p>
+<p>The last preprocessing function we want to perform is removing the first month or so of observations because so many of them are 0 or close-to-0 in value. Starting January 4, 2011, we see a more normal pattern.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_data</span> <span class="o">=</span> <span class="n">full_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">full_data</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)]</span>
+<span class="n">full_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;DateTime&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;eCommerce Sales Starting Jan 4&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_21_0.png" src="../../_images/Forecaster_examples_eCommerce_21_0.png" />
+</div>
+</div>
+<p>Much better. In the real world, we might want to know more about that outlier – why it exists, the best way to mitigate it, etc. This example is more interested in producing forecasts and showing the scalecast process, so we are going to sweep the issue of this outlier under the rug and forget about it. Let’s now try to get a better idea of how the data is distributed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>340.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>24278.908776</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>20781.112463</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>12518.370000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>21182.990000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>31394.397500</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>196134.100000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_24_0.png" src="../../_images/Forecaster_examples_eCommerce_24_0.png" />
+</div>
+</div>
+<p>The remaining data looks somewhat normally distributed with a slight right skew. We see that one outlier far above all other values.</p>
+</section>
+<section id="Forecast-with-Scalecast">
+<h2>Forecast with Scalecast<a class="headerlink" href="#Forecast-with-Scalecast" title="Permalink to this headline"></a></h2>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">To load the object, we call the Forecaster() function with the <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">current_dates</span></code> parameters specified. If we hadn’t already dropped the first observations of the data before calling the object, we could have done it by using the <code class="docutils literal notranslate"><span class="pre">keep_smaller_history()</span></code> function as shown below. We can then plot the values that we will be using for forecasting.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Forecaster</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">full_data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">],</span><span class="n">current_dates</span><span class="o">=</span><span class="n">full_data</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">])</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Forecaster(
+    DateStartActuals=2011-01-04T00:00:00.000000000
+    DateEndActuals=2011-12-09T00:00:00.000000000
+    Freq=D
+    ForecastLength=0
+    Xvars=[]
+    Differenced=0
+    TestLength=1
+    ValidationLength=1
+    ValidationMetric=rmse
+    ForecastsEvaluated=[]
+    CILevel=0.95
+    BootstrapSamples=100
+)
+</pre></div></div>
+</div>
+<p>The first thing you should do after initializing the object is set its test length. What that length is is up to you. The longer the length, the more confident you can be about your reported error/accuracy metrics. The library requires a test length of at least 1. Let’s set our test length to be the same size as our forecast length: 30 days.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_test_length</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Before beginning the forecasting process, we should get a better idea of the signals within the time series itself. Using ACF, PACF, and Periodogram plots, we can observe how the series is auto-correlated. We leave the test set out of all visualizations (<code class="docutils literal notranslate"><span class="pre">train_only=True</span></code>) to not leak data when making decisions about which signals exist in the data.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_acf</span><span class="p">(</span><span class="n">train_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_31_0.png" src="../../_images/Forecaster_examples_eCommerce_31_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_pacf</span><span class="p">(</span><span class="n">train_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_32_0.png" src="../../_images/Forecaster_examples_eCommerce_32_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">plot_periodogram</span><span class="p">(</span><span class="n">diffy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">train_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_33_0.png" src="../../_images/Forecaster_examples_eCommerce_33_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">train_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_34_0.png" src="../../_images/Forecaster_examples_eCommerce_34_0.png" />
+</div>
+</div>
+<p>From these graphs, we get a sense that the data has a seasonal pattern over seven periods, or one week. The data appears to be significantly autocorrelated back 1, 6, 7, and 13, and 14 periods, possibly more. This is good information to use when deciding how to specify the forecasts.</p>
+<p>Now, let’s test the data’s stationarity using the Augmented Dickey-Fuller test. The null hypothesis of this test is that the data is not stationary. To return the p-val and critical value from this test, pass <code class="docutils literal notranslate"><span class="pre">full_res=True</span></code> as an argument. The way we have the test specified, it will simply print out the implications from the test.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">isstationary</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">adf_test</span><span class="p">(</span><span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+series might not be stationary
+</pre></div></div>
+</div>
+<p>Since our test implies non-stationarity, let’s view all these plots again, but pass differenced data into them by using the <code class="docutils literal notranslate"><span class="pre">diffy=1</span></code> argument.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_acf</span><span class="p">(</span><span class="n">diffy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">train_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_39_0.png" src="../../_images/Forecaster_examples_eCommerce_39_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_pacf</span><span class="p">(</span><span class="n">diffy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">train_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_40_0.png" src="../../_images/Forecaster_examples_eCommerce_40_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">diffy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">train_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_41_0.png" src="../../_images/Forecaster_examples_eCommerce_41_0.png" />
+</div>
+</div>
+<p>This doesn’t give us a very different view of the data, but reinforces that there is strong autocorrelation in our dataset. Some of that can be controlled by using the series’ first difference.</p>
+<p>You can see below all functions available to plot the information in the object:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="o">.</span><span class="n">get_funcs</span><span class="p">(</span><span class="s1">&#39;plotter&#39;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+plot_acf
+plot_pacf
+plot_periodogram
+seasonal_decompose
+plot
+plot_test_set
+plot_fitted
+</pre></div></div>
+</div>
+<p>All setter functions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="o">.</span><span class="n">get_funcs</span><span class="p">(</span><span class="s1">&#39;setter&#39;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+set_last_future_date
+set_test_length
+set_validation_length
+set_cilevel
+set_bootstrap_samples
+set_estimator
+set_validation_metric
+</pre></div></div>
+</div>
+<p>All getter functions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="o">.</span><span class="n">get_funcs</span><span class="p">(</span><span class="s1">&#39;getter&#39;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+get_regressor_names
+get_freq
+</pre></div></div>
+</div>
+<section id="HWES">
+<h3>HWES<a class="headerlink" href="#HWES" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">Let’s run a couple of exponential smoothing forecasts using Holt-Winters Exponential Smoothing from StatsModels. Most exponential smoothing is considered a somewhat simple way to forecast time series. They are models that smooth out recent trends and predict them to the future. The added benefit of using Holt-Winters is that setting extra parameters to this basic idea, such as seasonality, is possible. We will try one HWES model with seasonality and one without.</div>
+</div>
+<p>Before running any forecast, we need to generate a forecast period. We are attempting to predict 30 days into the future.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">generate_future_dates</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>To run an HWES model, we first set the estimator to hwes, then call the <code class="docutils literal notranslate"><span class="pre">manual_forecast()</span></code> function. We can run as many hwes models as we like and differentiate them by using the <code class="docutils literal notranslate"><span class="pre">call_me</span></code> argument. By default, the model will be called whatever the estimator is (“hwes” is “hwes”, “arima” is “arima”, etc.)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_estimator</span><span class="p">(</span><span class="s1">&#39;hwes&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">trend</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">save_summary_stats</span><span class="p">()</span>
+
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">trend</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">,</span><span class="n">seasonal</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">,</span><span class="n">call_me</span><span class="o">=</span><span class="s1">&#39;hwes_seasonal&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">save_summary_stats</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>We can view the results of the model by plotting the test-set predictions with the actual test-set observations, setting ci=True to show 95% confidence intervals. Any confidence level can be set by using <code class="docutils literal notranslate"><span class="pre">f.setcilevel(...)</span></code>. The intervals are evaluated with bootstrapping on the fitted values, and could be different than what is returned from the underlying statsmodels function. This is to make all forecast comparisons consistent across all model types. If the forecast shows tight confidence
+intervals but are less accurate on the test set, this is a good indication that your model is overfit.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_test_set</span><span class="p">(</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_53_0.png" src="../../_images/Forecaster_examples_eCommerce_53_0.png" />
+</div>
+</div>
+<p>We can see the models’ performance over the 30-day forecast horizon as well:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">],</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+hwes LevelTestSetRMSE: 36031.56799119545
+hwes_seasonal LevelTestSetRMSE: 29432.19251120192
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_55_1.png" src="../../_images/Forecaster_examples_eCommerce_55_1.png" />
+</div>
+</div>
+<p>You may have noticed we called a function save_summary_stats() after running each ARIMA model. Most models allow feature information to be saved from them using <code class="docutils literal notranslate"><span class="pre">save_feature_importance()</span></code> or <code class="docutils literal notranslate"><span class="pre">save_summary_stats()</span></code>. Some models don’t allow either. They should be called before running a new model because they automatically save that information for the last model run only. As a rule of thumb, saving summary stats is much less computationally expensive than saving feature importance, which
+will be explored later.</p>
+<p>We can see the summary statistics for the better-peforming HWES model exporting the saved summary stats to a dataframe.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">export_summary_stats</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;hwes_seasonal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coeff</th>
+      <th>code</th>
+      <th>optimized</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>smoothing_level</th>
+      <td>0.111071</td>
+      <td>alpha</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>smoothing_trend</th>
+      <td>0.000100</td>
+      <td>beta</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>smoothing_seasonal</th>
+      <td>0.197540</td>
+      <td>gamma</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>initial_level</th>
+      <td>22137.727000</td>
+      <td>l.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>initial_trend</th>
+      <td>190.311940</td>
+      <td>b.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>initial_seasons.0</th>
+      <td>31545.165000</td>
+      <td>s.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>initial_seasons.1</th>
+      <td>-1669.115200</td>
+      <td>s.1</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>initial_seasons.2</th>
+      <td>-911.148380</td>
+      <td>s.2</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>initial_seasons.3</th>
+      <td>1028.341700</td>
+      <td>s.3</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>initial_seasons.4</th>
+      <td>-20410.079000</td>
+      <td>s.4</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>initial_seasons.5</th>
+      <td>-10495.992000</td>
+      <td>s.5</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>initial_seasons.6</th>
+      <td>912.828050</td>
+      <td>s.6</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="ARIMA">
+<h3>ARIMA<a class="headerlink" href="#ARIMA" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">Now, let’s run another common, albeit slightly more advanced time-series model: ARIMA. This model uses the series’ own history, errors, and stationarity to forecast. Using the output from the plots above, as well as the results from the ADF test, we can specify a 1,1,0 x 1,1,0 ordered model. The seasonal period will be 7 periods–one week.</div>
+</div>
+<p>To run an ARIMA model, we first set the estimator to ARIMA, then call the <code class="docutils literal notranslate"><span class="pre">manual_forecast()</span></code> function. We can run as many ARIMA models as we like, and differentiate them by using the <code class="docutils literal notranslate"><span class="pre">call_me</span></code> argument. By default, the model will be called whatever the estimator is (“arima” is “arima”, “mlr” is “mlr”, etc.)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_estimator</span><span class="p">(</span><span class="s1">&#39;arima&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">save_summary_stats</span><span class="p">()</span>
+
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="n">call_me</span><span class="o">=</span><span class="s1">&#39;arima_ma_terms&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">save_summary_stats</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>We can view the results of the model by plotting the test-set predictions with the actual test-set observations.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_test_set</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;arima&#39;</span><span class="p">,</span><span class="s1">&#39;arima_ma_terms&#39;</span><span class="p">],</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_62_0.png" src="../../_images/Forecaster_examples_eCommerce_62_0.png" />
+</div>
+</div>
+<p>Those models appear to capture the daily trend fairly well. Let’s see how they look into future periods compared to the HWES models previously evaluated.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">],</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+hwes LevelTestSetRMSE: 36031.56799119545
+hwes_seasonal LevelTestSetRMSE: 29432.19251120192
+arima LevelTestSetRMSE: 49010.85466653722
+arima_ma_terms LevelTestSetRMSE: 46563.90435412486
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_64_1.png" src="../../_images/Forecaster_examples_eCommerce_64_1.png" />
+</div>
+</div>
+<p>The ARIMA model without MA terms has really gone in a strange direction. It is also the worst performing model we have evaluated yet, using the test-set RMSE as our comparison metric. Let’s delete this model from memory.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;arima&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We can see the summary statistics for the remaining ARIMA model by exporting the saved summary stats to a dataframe, just like we did for the HWES model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">export_summary_stats</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;arima_ma_terms&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>z</th>
+      <th>P&gt;|z|</th>
+      <th>[0.025</th>
+      <th>0.975]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ar.L1</th>
+      <td>4.210000e-02</td>
+      <td>1.120000e-01</td>
+      <td>3.750000e-01</td>
+      <td>0.707</td>
+      <td>-1.780000e-01</td>
+      <td>2.620000e-01</td>
+    </tr>
+    <tr>
+      <th>ma.L1</th>
+      <td>-8.260000e-01</td>
+      <td>8.900000e-02</td>
+      <td>-9.300000e+00</td>
+      <td>0.000</td>
+      <td>-1.000000e+00</td>
+      <td>-6.520000e-01</td>
+    </tr>
+    <tr>
+      <th>ma.S.L7</th>
+      <td>-8.010000e-01</td>
+      <td>5.000000e-02</td>
+      <td>-1.598900e+01</td>
+      <td>0.000</td>
+      <td>-8.990000e-01</td>
+      <td>-7.030000e-01</td>
+    </tr>
+    <tr>
+      <th>sigma2</th>
+      <td>2.927000e+08</td>
+      <td>2.130000e-10</td>
+      <td>1.380000e+18</td>
+      <td>0.000</td>
+      <td>2.930000e+08</td>
+      <td>2.930000e+08</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="MLR">
+<h3>MLR<a class="headerlink" href="#MLR" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">We can use many other models through scalecast. One of the most basic of these is Multiple Linear Regression. Unlike ARIMA, we don’t specify orders on this model, but we can add similar regressors, including autoregressive and seasonal terms, as well as a time trend. The MLR works very similar to the ARIMA model in that it tries to find a linear relationship between all these components and the future. It makes the assumption that the errors in each time period are independent of one another,
+however. This assumption may be spurious, but the MLR has proven to make accurate predictions on real-world data.</div>
+</div>
+<p>First, let’s begin with autoregressive terms, which are lags of the dependent variable values. We can 28 lags to make sure we are capturing all statistically signficant terms.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">add_ar_terms</span><span class="p">(</span><span class="mi">28</span><span class="p">)</span> <span class="c1"># 1-4 lags</span>
+</pre></div>
+</div>
+</div>
+<p>To account for stationarity, which is done by setting the middle term to 1 in ARIMA, we have to difference our data before modeling with linear regression.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>We can confirm the first-differenced data’s (probable) stationarity with another ADF test.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">isstationary</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">adf_test</span><span class="p">(</span><span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+series appears to be stationary
+</pre></div></div>
+</div>
+<p>Let’s plot its first difference.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_76_0.png" src="../../_images/Forecaster_examples_eCommerce_76_0.png" />
+</div>
+</div>
+<p>Let’s now add additional seasonality to the model regressors. The main seasonality that we have been able to confirm is weekly, so we can add the ‘dayofweek’ regressor to our object. We have three options: we can use a sin/cos transformation that accounts for regular fluctuations in the data in a cyclical form; we can add the data as 6-7 dummies using <code class="docutils literal notranslate"><span class="pre">dummy=True</span></code> and specifying the <code class="docutils literal notranslate"><span class="pre">drop_first</span></code> parameter; or we can just use the raw 1-5 numerical output, which is the default (a decision tree
+model may handle this last kind of regressor better than a linear model). Any decision we make in this regard has its pros and cons. For this example, we will use the dummy transformation. Also, to add complexity that the ARIMA couldn’t caputre, we add weekly, monthly, and quarterly seasonality with the sin/cos transformation.</p>
+<p>Other seasonal regressors are available and can be specified in the same way, including ‘day’, ‘hour’, ‘minute’ and more.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">add_seasonal_regressors</span><span class="p">(</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">dummy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">add_seasonal_regressors</span><span class="p">(</span><span class="s1">&#39;week&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;quarter&#39;</span><span class="p">,</span><span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">sincos</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s also add a time trend.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">add_time_trend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>All options for adding regressors are:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="o">.</span><span class="n">get_funcs</span><span class="p">(</span><span class="s1">&#39;adder&#39;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+add_ar_terms
+add_AR_terms
+add_seasonal_regressors
+add_time_trend
+add_other_regressor
+add_covid19_regressor
+add_combo_regressors
+add_poly_terms
+add_exp_terms
+add_logged_terms
+dd_pt_terms
+add_diffed_terms
+add_lagged_terms
+</pre></div></div>
+</div>
+<p>See the <a class="reference external" href="https://github.com/mikekeith52/scalecast/blob/main/docs/xvars.md">documentation</a></p>
+<p>Let’s see what calling our object now that we have evaluated some models looks like.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Forecaster(
+    DateStartActuals=2011-01-04T00:00:00.000000000
+    DateEndActuals=2011-12-09T00:00:00.000000000
+    Freq=D
+    ForecastLength=30
+    Xvars=[&#39;AR1&#39;, &#39;AR2&#39;, &#39;AR3&#39;, &#39;AR4&#39;, &#39;AR5&#39;, &#39;AR6&#39;, &#39;AR7&#39;, &#39;AR8&#39;, &#39;AR9&#39;, &#39;AR10&#39;, &#39;AR11&#39;, &#39;AR12&#39;, &#39;AR13&#39;, &#39;AR14&#39;, &#39;AR15&#39;, &#39;AR16&#39;, &#39;AR17&#39;, &#39;AR18&#39;, &#39;AR19&#39;, &#39;AR20&#39;, &#39;AR21&#39;, &#39;AR22&#39;, &#39;AR23&#39;, &#39;AR24&#39;, &#39;AR25&#39;, &#39;AR26&#39;, &#39;AR27&#39;, &#39;AR28&#39;, &#39;dayofweek_1&#39;, &#39;dayofweek_2&#39;, &#39;dayofweek_3&#39;, &#39;dayofweek_4&#39;, &#39;dayofweek_5&#39;, &#39;dayofweek_6&#39;, &#39;weeksin&#39;, &#39;weekcos&#39;, &#39;monthsin&#39;, &#39;monthcos&#39;, &#39;quartersin&#39;, &#39;quartercos&#39;, &#39;t&#39;]
+    Differenced=1
+    TestLength=30
+    ValidationLength=1
+    ValidationMetric=rmse
+    ForecastsEvaluated=[&#39;hwes&#39;, &#39;hwes_seasonal&#39;, &#39;arima_ma_terms&#39;]
+    CILevel=0.95
+    BootstrapSamples=100
+)
+</pre></div></div>
+</div>
+<p>When adding these and other kinds of regressors, it is possible to change the names of some of them. This can come in handy to reference later. If any regressors begin with uppercase “AR”, the forecasting mechanisms in most of the models will assume such terms are autoregressive in nature and those terms are handled differently. So, be careful when naming variables.</p>
+<p>Let’s move to modeling with a linear model. Any arguments that the linear model from the scikit-learn library accepts can also be accepted here. In addition, the following arguments are available for all sklearn models: - <code class="docutils literal notranslate"><span class="pre">Xvars</span></code> (arguments include “all”, None, and list-like objects) – default is always None, but for models that require regressors, this is treated the same as “all” - <code class="docutils literal notranslate"><span class="pre">normalizer</span></code> (arguments are None, “minmax”, “normalize”, “pt”, and “scale”) – default is always “minmax” -
+<code class="docutils literal notranslate"><span class="pre">call_me</span></code> – does not affect the model’s evaluation at all, just names the model for reference later</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_estimator</span><span class="p">(</span><span class="s1">&#39;mlr&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">normalizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">Xvars</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Like the ARIMA model, we can see its performance on the test set. Note that all forecasting in this module, even on the test set, is dynamic in nature so that no training-set information is leaked but autoregressive and seasonal patterns can still be predicted. We can trust that this is a true performance on 20 days of out-of-sample data.</p>
+<p>The way the forecasting mechanism works (when AR terms are involved) is by making a prediction one step into the future then filling in those predictions to create new AR terms, until the entire forecast interval has been predicted. This is true for testing and forecasting, but validating is non-dynamic by default. Both validating and testing can be either dynamic or non-dynamic; this will be explored later. With large test, validation, or forecast intervals, the forecasting may slow down
+considerably if everything is kept dynamic. However, if AR terms have <em>not</em> been added to the regressors, forecasting times are similar to any non-time-series prediction application.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_test_set</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="s1">&#39;mlr&#39;</span><span class="p">,</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_89_0.png" src="../../_images/Forecaster_examples_eCommerce_89_0.png" />
+</div>
+</div>
+<p>Since the other models were run on level data and the MLR was run on differenced data, to compare them, the plots of the test set and forecasts will revert to level automatically, but <code class="docutils literal notranslate"><span class="pre">level=True</span></code> is available as an argument if all models were run on differenced data but you want to see their performance on the level test set.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_test_set</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mlr&#39;</span><span class="p">,</span><span class="s1">&#39;hwes_seasonal&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_91_0.png" src="../../_images/Forecaster_examples_eCommerce_91_0.png" />
+</div>
+</div>
+<p>Confidence intervals are no longer available since models were run at different levels.</p>
+<p>Let’s now plot both models’ forecasted values on level data. Let’s order the way these models are displayed based on their test-set performance as well.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">],</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+hwes_seasonal LevelTestSetRMSE: 29432.19251120192
+mlr LevelTestSetRMSE: 32487.00905488084
+hwes LevelTestSetRMSE: 36031.56799119545
+arima_ma_terms LevelTestSetRMSE: 46563.90435412486
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_94_1.png" src="../../_images/Forecaster_examples_eCommerce_94_1.png" />
+</div>
+</div>
+<p>We see that the MLR model performed better on the test set than the remaining ARIMA model, but still not as well as the best HWES model.</p>
+<p>With scikit-learn models, such as MLR, permutation feature importance information from the <a class="reference external" href="https://eli5.readthedocs.io/en/latest/blackbox/permutation_importance.html">eli5</a> package can be saved and exported to a dataframe, analogous to saving summary stats from an ARIMA model. Each weight is the average decrease in accuracy when that particular variable is substituted for random values over 10 iterations, so the variables that cause the largest decreases are considered the most important.
+The output of the exported data is therefore ranked in terms of which variables are most-to-least important, according to this methodology.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">save_feature_importance</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">export_feature_importance</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;mlr&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>weight</th>
+      <th>std</th>
+    </tr>
+    <tr>
+      <th>feature</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AR1</th>
+      <td>1.314080</td>
+      <td>0.073512</td>
+    </tr>
+    <tr>
+      <th>AR2</th>
+      <td>1.071012</td>
+      <td>0.060343</td>
+    </tr>
+    <tr>
+      <th>AR3</th>
+      <td>0.863518</td>
+      <td>0.033001</td>
+    </tr>
+    <tr>
+      <th>AR12</th>
+      <td>0.543600</td>
+      <td>0.034335</td>
+    </tr>
+    <tr>
+      <th>AR4</th>
+      <td>0.453675</td>
+      <td>0.019668</td>
+    </tr>
+    <tr>
+      <th>AR13</th>
+      <td>0.398375</td>
+      <td>0.036643</td>
+    </tr>
+    <tr>
+      <th>AR6</th>
+      <td>0.384533</td>
+      <td>0.018344</td>
+    </tr>
+    <tr>
+      <th>AR5</th>
+      <td>0.370097</td>
+      <td>0.021654</td>
+    </tr>
+    <tr>
+      <th>dayofweek_5</th>
+      <td>0.313611</td>
+      <td>0.034527</td>
+    </tr>
+    <tr>
+      <th>AR23</th>
+      <td>0.307204</td>
+      <td>0.015959</td>
+    </tr>
+    <tr>
+      <th>AR15</th>
+      <td>0.295117</td>
+      <td>0.030526</td>
+    </tr>
+    <tr>
+      <th>AR14</th>
+      <td>0.277490</td>
+      <td>0.025026</td>
+    </tr>
+    <tr>
+      <th>AR11</th>
+      <td>0.248124</td>
+      <td>0.023914</td>
+    </tr>
+    <tr>
+      <th>AR24</th>
+      <td>0.208423</td>
+      <td>0.019388</td>
+    </tr>
+    <tr>
+      <th>AR9</th>
+      <td>0.206587</td>
+      <td>0.013182</td>
+    </tr>
+    <tr>
+      <th>AR22</th>
+      <td>0.206181</td>
+      <td>0.038638</td>
+    </tr>
+    <tr>
+      <th>AR20</th>
+      <td>0.173113</td>
+      <td>0.009632</td>
+    </tr>
+    <tr>
+      <th>AR8</th>
+      <td>0.169191</td>
+      <td>0.023569</td>
+    </tr>
+    <tr>
+      <th>AR10</th>
+      <td>0.127925</td>
+      <td>0.015004</td>
+    </tr>
+    <tr>
+      <th>AR19</th>
+      <td>0.126180</td>
+      <td>0.026513</td>
+    </tr>
+    <tr>
+      <th>AR17</th>
+      <td>0.124999</td>
+      <td>0.011934</td>
+    </tr>
+    <tr>
+      <th>AR21</th>
+      <td>0.113865</td>
+      <td>0.010676</td>
+    </tr>
+    <tr>
+      <th>AR16</th>
+      <td>0.111326</td>
+      <td>0.020616</td>
+    </tr>
+    <tr>
+      <th>AR18</th>
+      <td>0.104127</td>
+      <td>0.008001</td>
+    </tr>
+    <tr>
+      <th>AR7</th>
+      <td>0.094152</td>
+      <td>0.010217</td>
+    </tr>
+    <tr>
+      <th>monthcos</th>
+      <td>0.090720</td>
+      <td>0.026520</td>
+    </tr>
+    <tr>
+      <th>dayofweek_6</th>
+      <td>0.077548</td>
+      <td>0.024611</td>
+    </tr>
+    <tr>
+      <th>t</th>
+      <td>0.060184</td>
+      <td>0.017902</td>
+    </tr>
+    <tr>
+      <th>AR27</th>
+      <td>0.057364</td>
+      <td>0.006633</td>
+    </tr>
+    <tr>
+      <th>weeksin</th>
+      <td>0.051128</td>
+      <td>0.007120</td>
+    </tr>
+    <tr>
+      <th>weekcos</th>
+      <td>0.046868</td>
+      <td>0.005986</td>
+    </tr>
+    <tr>
+      <th>dayofweek_4</th>
+      <td>0.035563</td>
+      <td>0.005710</td>
+    </tr>
+    <tr>
+      <th>AR26</th>
+      <td>0.029666</td>
+      <td>0.002313</td>
+    </tr>
+    <tr>
+      <th>AR25</th>
+      <td>0.026536</td>
+      <td>0.006346</td>
+    </tr>
+    <tr>
+      <th>dayofweek_1</th>
+      <td>0.019746</td>
+      <td>0.001437</td>
+    </tr>
+    <tr>
+      <th>AR28</th>
+      <td>0.019454</td>
+      <td>0.007024</td>
+    </tr>
+    <tr>
+      <th>dayofweek_2</th>
+      <td>0.013402</td>
+      <td>0.004501</td>
+    </tr>
+    <tr>
+      <th>quartersin</th>
+      <td>0.008244</td>
+      <td>0.002880</td>
+    </tr>
+    <tr>
+      <th>dayofweek_3</th>
+      <td>0.005167</td>
+      <td>0.002338</td>
+    </tr>
+    <tr>
+      <th>monthsin</th>
+      <td>0.000366</td>
+      <td>0.001204</td>
+    </tr>
+    <tr>
+      <th>quartercos</th>
+      <td>0.000269</td>
+      <td>0.000377</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>At first glance, it looks as though all added regressors were useful to the MLR model, but we can explore regularization now to further refine our forecasting approach.</p>
+</section>
+<section id="Elasticnet-and-Auto-Forecasting">
+<h3>Elasticnet and Auto-Forecasting<a class="headerlink" href="#Elasticnet-and-Auto-Forecasting" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">To optimize the hyperparameters of and auto-forecast with models in scalecast, we use a grid-search approach on a validation set of data–a period of time before the test set. The grids are completely customizable, but standard template grids are available by calling the function below:</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GridGenerator</span><span class="o">.</span><span class="n">get_example_grids</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">GridGenerator.get_empty_grids()</span></code> is also available. We could call this then open the created file (Grids.py) and fill in the empty dictionary with hyperparameter values that we want to use. The example grids can usually be used for adequate performance, but contributions to improving the default values are welcome. You are also more-than-welcome to open the Grids.py file locally and making adjustments as you see fit.</p>
+<p>These grids are saved to your working directory as Grids.py. Their structure is that of <code class="docutils literal notranslate"><span class="pre">Dict[str:list-like]</span></code> and scalecast automatically knows how to look for them. You can also pass your own grid manually by using <code class="docutils literal notranslate"><span class="pre">ingest_grid()</span></code> and passing a <code class="docutils literal notranslate"><span class="pre">str</span></code> value, which corresponds to a namespace of a grid in the Grids.py file, or a grid of <code class="docutils literal notranslate"><span class="pre">dict</span></code> type. By default, the code below will ingest the grid named elasticnet from the Grids.py file in this same directory.</p>
+<p>You can also create really big grids and limit them randomly by calling <code class="docutils literal notranslate"><span class="pre">limit_grid_size(n:int|float)</span></code>. If <code class="docutils literal notranslate"><span class="pre">int</span></code>, must be &gt;0 to denote the number of combinations in the grid to keep. If <code class="docutils literal notranslate"><span class="pre">float</span></code>, must be between 0 and 1 to represent a portion of the grid’s original size to randomly keep. <code class="docutils literal notranslate"><span class="pre">random_seed</span></code> is available as an argument in this method and is <code class="docutils literal notranslate"><span class="pre">None</span></code> by default.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_validation_length</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">set_estimator</span><span class="p">(</span><span class="s1">&#39;elasticnet&#39;</span><span class="p">)</span>
+<span class="c1"># unlike testing, tuning is non-dynamic by default, but this can be changed by passing dynamic_tuning=True as an argument below</span>
+<span class="n">f</span><span class="o">.</span><span class="n">tune</span><span class="p">()</span> <span class="c1"># automatically imports the elasticnet grid from Grids.py</span>
+<span class="c1"># unlike tuning, testing is dynamic by default, but this can be changed by passing dynamic_testing=False as an argument below</span>
+<span class="n">f</span><span class="o">.</span><span class="n">auto_forecast</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">save_feature_importance</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_test_set</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mlr&#39;</span><span class="p">,</span><span class="s1">&#39;elasticnet&#39;</span><span class="p">],</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_104_0.png" src="../../_images/Forecaster_examples_eCommerce_104_0.png" />
+</div>
+</div>
+<p>Regularization really took the seasonal pattern out of this model and reverted the prediction to nearly a straight line. Let’s compare all model forecasts as we did before.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">],</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+hwes_seasonal LevelTestSetRMSE: 29432.19251120192
+mlr LevelTestSetRMSE: 32487.00905488084
+hwes LevelTestSetRMSE: 36031.56799119545
+elasticnet LevelTestSetRMSE: 39522.6929766469
+arima_ma_terms LevelTestSetRMSE: 46563.90435412486
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_106_1.png" src="../../_images/Forecaster_examples_eCommerce_106_1.png" />
+</div>
+</div>
+<p>In this instance, the regularization performed by the Elasticnet model resulted in worse performance than the MLR. We can see what hyperparameter values were selected from the tuning process by exporting the evaluated validation grid to a dataframe.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">export_validation_grid</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;elasticnet&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;metric_value&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>alpha</th>
+      <th>l1_ratio</th>
+      <th>normalizer</th>
+      <th>validation_length</th>
+      <th>validation_metric</th>
+      <th>metric_value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>286</th>
+      <td>2.0</td>
+      <td>0.00</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28047.227257</td>
+    </tr>
+    <tr>
+      <th>271</th>
+      <td>1.9</td>
+      <td>0.00</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28068.118873</td>
+    </tr>
+    <tr>
+      <th>256</th>
+      <td>1.8</td>
+      <td>0.00</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28091.256243</td>
+    </tr>
+    <tr>
+      <th>241</th>
+      <td>1.7</td>
+      <td>0.00</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28117.021134</td>
+    </tr>
+    <tr>
+      <th>226</th>
+      <td>1.6</td>
+      <td>0.00</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28145.886826</td>
+    </tr>
+    <tr>
+      <th>289</th>
+      <td>2.0</td>
+      <td>0.25</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28178.109481</td>
+    </tr>
+    <tr>
+      <th>211</th>
+      <td>1.5</td>
+      <td>0.00</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28178.447218</td>
+    </tr>
+    <tr>
+      <th>274</th>
+      <td>1.9</td>
+      <td>0.25</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28205.401145</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>1.4</td>
+      <td>0.00</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28215.457771</td>
+    </tr>
+    <tr>
+      <th>259</th>
+      <td>1.8</td>
+      <td>0.25</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28235.588063</td>
+    </tr>
+    <tr>
+      <th>181</th>
+      <td>1.3</td>
+      <td>0.00</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28257.894291</td>
+    </tr>
+    <tr>
+      <th>244</th>
+      <td>1.7</td>
+      <td>0.25</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28269.155026</td>
+    </tr>
+    <tr>
+      <th>229</th>
+      <td>1.6</td>
+      <td>0.25</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28306.701080</td>
+    </tr>
+    <tr>
+      <th>166</th>
+      <td>1.2</td>
+      <td>0.00</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28307.039331</td>
+    </tr>
+    <tr>
+      <th>214</th>
+      <td>1.5</td>
+      <td>0.25</td>
+      <td>minmax</td>
+      <td>15</td>
+      <td>rmse</td>
+      <td>28348.975179</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Since this model has a 0 value for its l1_ratio, it is functionally identical to a ridge model. The selected alpha value was 2.0, meaning its coefficient values were enhanced. Like the MLR, we can export Elasticnet feature importance:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">export_feature_importance</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;elasticnet&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>weight</th>
+      <th>std</th>
+    </tr>
+    <tr>
+      <th>feature</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>dayofweek_5</th>
+      <td>2.749117e-02</td>
+      <td>7.907711e-04</td>
+    </tr>
+    <tr>
+      <th>dayofweek_6</th>
+      <td>7.436973e-03</td>
+      <td>6.541601e-04</td>
+    </tr>
+    <tr>
+      <th>AR7</th>
+      <td>4.317314e-03</td>
+      <td>2.615517e-04</td>
+    </tr>
+    <tr>
+      <th>AR14</th>
+      <td>2.717978e-03</td>
+      <td>4.329003e-04</td>
+    </tr>
+    <tr>
+      <th>AR21</th>
+      <td>2.573850e-03</td>
+      <td>3.267257e-04</td>
+    </tr>
+    <tr>
+      <th>AR28</th>
+      <td>2.196061e-03</td>
+      <td>1.418368e-04</td>
+    </tr>
+    <tr>
+      <th>AR1</th>
+      <td>9.725242e-04</td>
+      <td>1.756827e-04</td>
+    </tr>
+    <tr>
+      <th>AR12</th>
+      <td>8.878815e-04</td>
+      <td>3.761012e-05</td>
+    </tr>
+    <tr>
+      <th>dayofweek_4</th>
+      <td>8.175025e-04</td>
+      <td>4.177929e-04</td>
+    </tr>
+    <tr>
+      <th>dayofweek_2</th>
+      <td>8.131714e-04</td>
+      <td>5.075441e-04</td>
+    </tr>
+    <tr>
+      <th>AR2</th>
+      <td>8.120865e-04</td>
+      <td>2.122303e-04</td>
+    </tr>
+    <tr>
+      <th>AR23</th>
+      <td>7.662798e-04</td>
+      <td>1.259909e-04</td>
+    </tr>
+    <tr>
+      <th>AR9</th>
+      <td>7.189180e-04</td>
+      <td>2.141193e-04</td>
+    </tr>
+    <tr>
+      <th>AR19</th>
+      <td>6.809245e-04</td>
+      <td>1.632880e-04</td>
+    </tr>
+    <tr>
+      <th>dayofweek_3</th>
+      <td>5.958526e-04</td>
+      <td>4.543544e-04</td>
+    </tr>
+    <tr>
+      <th>AR26</th>
+      <td>3.956908e-04</td>
+      <td>9.078496e-05</td>
+    </tr>
+    <tr>
+      <th>AR5</th>
+      <td>3.227825e-04</td>
+      <td>1.072438e-04</td>
+    </tr>
+    <tr>
+      <th>AR16</th>
+      <td>2.884897e-04</td>
+      <td>6.450203e-05</td>
+    </tr>
+    <tr>
+      <th>dayofweek_1</th>
+      <td>2.188073e-04</td>
+      <td>3.046482e-04</td>
+    </tr>
+    <tr>
+      <th>monthcos</th>
+      <td>1.825427e-04</td>
+      <td>1.120517e-04</td>
+    </tr>
+    <tr>
+      <th>AR6</th>
+      <td>1.677917e-04</td>
+      <td>1.095012e-04</td>
+    </tr>
+    <tr>
+      <th>weekcos</th>
+      <td>1.174737e-04</td>
+      <td>1.778393e-04</td>
+    </tr>
+    <tr>
+      <th>AR8</th>
+      <td>1.129823e-04</td>
+      <td>4.858206e-05</td>
+    </tr>
+    <tr>
+      <th>quartercos</th>
+      <td>6.973386e-05</td>
+      <td>2.521774e-04</td>
+    </tr>
+    <tr>
+      <th>AR18</th>
+      <td>6.639154e-05</td>
+      <td>4.093531e-05</td>
+    </tr>
+    <tr>
+      <th>AR4</th>
+      <td>2.102775e-05</td>
+      <td>1.002385e-05</td>
+    </tr>
+    <tr>
+      <th>AR22</th>
+      <td>1.986738e-05</td>
+      <td>2.717691e-05</td>
+    </tr>
+    <tr>
+      <th>AR25</th>
+      <td>1.664419e-05</td>
+      <td>1.248833e-05</td>
+    </tr>
+    <tr>
+      <th>AR15</th>
+      <td>1.512428e-05</td>
+      <td>3.388058e-05</td>
+    </tr>
+    <tr>
+      <th>AR27</th>
+      <td>1.303510e-05</td>
+      <td>3.138985e-05</td>
+    </tr>
+    <tr>
+      <th>AR17</th>
+      <td>1.016360e-05</td>
+      <td>2.489665e-05</td>
+    </tr>
+    <tr>
+      <th>AR13</th>
+      <td>3.045983e-06</td>
+      <td>2.660378e-06</td>
+    </tr>
+    <tr>
+      <th>AR24</th>
+      <td>2.851832e-06</td>
+      <td>3.287063e-06</td>
+    </tr>
+    <tr>
+      <th>AR20</th>
+      <td>1.742056e-06</td>
+      <td>1.811364e-06</td>
+    </tr>
+    <tr>
+      <th>monthsin</th>
+      <td>3.803045e-07</td>
+      <td>1.101982e-05</td>
+    </tr>
+    <tr>
+      <th>AR10</th>
+      <td>1.464026e-07</td>
+      <td>7.522306e-06</td>
+    </tr>
+    <tr>
+      <th>weeksin</th>
+      <td>-1.380882e-07</td>
+      <td>5.346109e-07</td>
+    </tr>
+    <tr>
+      <th>AR11</th>
+      <td>-1.707905e-06</td>
+      <td>7.185485e-06</td>
+    </tr>
+    <tr>
+      <th>AR3</th>
+      <td>-5.989313e-06</td>
+      <td>1.292480e-05</td>
+    </tr>
+    <tr>
+      <th>quartersin</th>
+      <td>-7.928743e-06</td>
+      <td>4.664887e-05</td>
+    </tr>
+    <tr>
+      <th>t</th>
+      <td>-7.204049e-05</td>
+      <td>1.807528e-04</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The elasticnet may have been over-parameterized as it now finds some features as slightly harmful to the model, although those low of values could be due to chance.</p>
+</section>
+<section id="Auto-Forecasting-the-Scikit-learn-Models">
+<h3>Auto-Forecasting the Scikit-learn Models<a class="headerlink" href="#Auto-Forecasting-the-Scikit-learn-Models" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">In the same way we automatically tuned and forecasted with an elasticnet model, we can choose many models to forecast with using <code class="docutils literal notranslate"><span class="pre">notebook.tune_test_forecast()</span></code>. We will be tuning and forecasting with all available scikit-learn models. Below is a list of all models available, whether they are from scikit-learn, and whether they can be tuned.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scalecast.Forecaster</span> <span class="kn">import</span> <span class="n">_estimators_</span><span class="p">,</span> <span class="n">_can_be_tuned_</span><span class="p">,</span> <span class="n">_sklearn_estimators_</span>
+
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">_estimators_</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1">; can be tuned: </span><span class="si">{</span><span class="n">m</span> <span class="ow">in</span> <span class="n">_can_be_tuned_</span><span class="si">}</span><span class="s1">; from scikit-learn: </span><span class="si">{</span><span class="n">m</span> <span class="ow">in</span> <span class="n">_sklearn_estimators_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+arima; can be tuned: True; from scikit-learn: False
+combo; can be tuned: False; from scikit-learn: False
+elasticnet; can be tuned: True; from scikit-learn: True
+gbt; can be tuned: True; from scikit-learn: True
+hwes; can be tuned: True; from scikit-learn: False
+knn; can be tuned: True; from scikit-learn: True
+lightgbm; can be tuned: True; from scikit-learn: True
+lstm; can be tuned: False; from scikit-learn: False
+mlp; can be tuned: True; from scikit-learn: True
+mlr; can be tuned: True; from scikit-learn: True
+prophet; can be tuned: True; from scikit-learn: False
+rf; can be tuned: True; from scikit-learn: True
+rnn; can be tuned: False; from scikit-learn: False
+silverkite; can be tuned: True; from scikit-learn: False
+svr; can be tuned: True; from scikit-learn: True
+xgboost; can be tuned: True; from scikit-learn: True
+</pre></div></div>
+</div>
+<p>Let’s call the function and the scikit-learn models only and save all feature info so that we can export that information later. To run the next function, note the following dependencies:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">tqdm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ipython</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ipywidgets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbextension</span> <span class="pre">enable</span> <span class="pre">--py</span> <span class="pre">widgetsnbextension</span></code></p></li>
+<li><p>if using Jupyter Lab: <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">labextension</span> <span class="pre">install</span> <span class="pre">&#64;jupyter-widgets/jupyterlab-manager</span></code></p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tune_test_forecast</span><span class="p">(</span><span class="n">f</span><span class="p">,</span>
+                   <span class="n">_sklearn_estimators_</span><span class="p">,</span>
+                   <span class="n">dynamic_tuning</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                   <span class="n">dynamic_testing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">feature_importance</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># dynamic_tuning = False and dynamic_testing = True are defaults in this function</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "356d45727dc2467faafb38f269eecd62", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>See the results on the test set.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_test_set</span><span class="p">(</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">models</span><span class="o">=</span><span class="n">_sklearn_estimators_</span><span class="p">,</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_116_0.png" src="../../_images/Forecaster_examples_eCommerce_116_0.png" />
+</div>
+</div>
+<p>All of these models appear to have performed well on test-set data. Using a variety of models and tuning them carefully, a couple (or more) usually emerge as appearing reasonable to implement. Let’s now see the forecasts and level test-set RMSE from all these models.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="n">_sklearn_estimators_</span><span class="p">,</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">],</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mlr LevelTestSetRMSE: 32487.009054880975
+lightgbm LevelTestSetRMSE: 36585.121542121844
+rf LevelTestSetRMSE: 37323.21380044613
+mlp LevelTestSetRMSE: 39120.33092263862
+elasticnet LevelTestSetRMSE: 39522.6929766469
+svr LevelTestSetRMSE: 44003.8044654691
+gbt LevelTestSetRMSE: 48686.507886779866
+xgboost LevelTestSetRMSE: 62488.67436538539
+knn LevelTestSetRMSE: 92000.73638283063
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_118_1.png" src="../../_images/Forecaster_examples_eCommerce_118_1.png" />
+</div>
+</div>
+<p>Surprisingly perhaps, nothing outperformed the MLR model. Sometimes the simplest model is the best model. Let’s see the forecasted plots for each model, but to avoid clutter, we focus on only the models that came out further ahead than the others. We pass the <code class="docutils literal notranslate"><span class="pre">models='top_5'</span></code> argument to this function and rerun. Note, now that the HWES model will not be displayed (which was run on level data), we will have to set <code class="docutils literal notranslate"><span class="pre">level=True</span></code> to view the forecasts at level.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="s1">&#39;top_5&#39;</span><span class="p">,</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">],</span><span class="n">level</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+hwes_seasonal LevelTestSetRMSE: 29432.19251120192
+mlr LevelTestSetRMSE: 32487.009054880975
+hwes LevelTestSetRMSE: 36031.56799119545
+lightgbm LevelTestSetRMSE: 36585.121542121844
+rf LevelTestSetRMSE: 37323.21380044613
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_120_1.png" src="../../_images/Forecaster_examples_eCommerce_120_1.png" />
+</div>
+</div>
+<p>These various patterns are interesting, and one has to believe the last value being an outlier signficantly influenced the resulting trends of the random forest and lightGBM models.</p>
+</section>
+<section id="Prophet-and-Silverkite">
+<h3>Prophet and Silverkite<a class="headerlink" href="#Prophet-and-Silverkite" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">In addition to the scikit-learn and statsmodels forecasting models we have already explored, two other forecasting models from popular libraries are available for use: Facebook <a class="reference external" href="https://facebook.github.io/prophet/">Prophet</a> and LinkedIn Silverkite (from the <a class="reference external" href="https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library">greykite</a> package). Prophet using a Bayesian regression approach with changepoints; Silverkite uses a linear model with
+regularization, also with changepoints. Calling them and using them are as easy as any other forecasting model in this package. The <code class="docutils literal notranslate"><span class="pre">Xvars</span></code> argument is available in both models–you can also tune them using the grid-search method. But, since they select a lot of their own regressors and optimize themselves by default, it is sometimes time-saving to manually forecast them with default parameters. We can also run them on un-differenced data and let them create their own regressors. Note,
+undifferencing the series deletes all added regressors.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">undiff</span><span class="p">()</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Forecaster(
+    DateStartActuals=2011-01-04T00:00:00.000000000
+    DateEndActuals=2011-12-09T00:00:00.000000000
+    Freq=D
+    ForecastLength=30
+    Xvars=[]
+    Differenced=0
+    TestLength=30
+    ValidationLength=15
+    ValidationMetric=rmse
+    ForecastsEvaluated=[&#39;hwes&#39;, &#39;hwes_seasonal&#39;, &#39;arima_ma_terms&#39;, &#39;mlr&#39;, &#39;elasticnet&#39;, &#39;gbt&#39;, &#39;knn&#39;, &#39;lightgbm&#39;, &#39;mlp&#39;, &#39;rf&#39;, &#39;svr&#39;, &#39;xgboost&#39;]
+    CILevel=0.95
+    BootstrapSamples=100
+)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_estimator</span><span class="p">(</span><span class="s1">&#39;prophet&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_estimator</span><span class="p">(</span><span class="s1">&#39;silverkite&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">save_summary_stats</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Note, summary stats are available for silverkite but not Prophet – contributions are welcome to get summary stats for Prophet.</p>
+<p>After forecasting with Silverkite, we need to reset some matplotlib parameters for plotting to work.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;nbAgg&#39;</span><span class="p">)</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span><span class="n">plot_dim</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s see how these 2 new models performed compared with the top-2 models identified before.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_test_set</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hwes_seasonal&#39;</span><span class="p">,</span><span class="s1">&#39;mlr&#39;</span><span class="p">,</span><span class="s1">&#39;prophet&#39;</span><span class="p">,</span><span class="s1">&#39;silverkite&#39;</span><span class="p">],</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_129_0.png" src="../../_images/Forecaster_examples_eCommerce_129_0.png" />
+</div>
+</div>
+<p>And their trends into the future:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hwes_seasonal&#39;</span><span class="p">,</span><span class="s1">&#39;mlr&#39;</span><span class="p">,</span><span class="s1">&#39;prophet&#39;</span><span class="p">,</span><span class="s1">&#39;silverkite&#39;</span><span class="p">],</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">],</span><span class="n">level</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+hwes_seasonal LevelTestSetRMSE: 29432.19251120192
+mlr LevelTestSetRMSE: 32487.009054880975
+prophet LevelTestSetRMSE: 34148.79734132142
+silverkite LevelTestSetRMSE: 44999.94290460528
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_131_1.png" src="../../_images/Forecaster_examples_eCommerce_131_1.png" />
+</div>
+</div>
+<p>Neither the prophet or silverkite models proved to be as accurate as the MLR or HWES models.</p>
+</section>
+<section id="TensorFlow-Recurrent-Neural-Nets">
+<h3>TensorFlow Recurrent Neural Nets<a class="headerlink" href="#TensorFlow-Recurrent-Neural-Nets" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="#eCommerce-Example">Back to top</a></p>
+<p>The most advanced models available in scalecast are recurrent neural networks. There are two kinds: the SimpleRNN and the Long Short-Term Memory. The SimpleRNN, perhaps ironically, has the more complicated implementation in this framework. It allows for nearly all customization of the model that TensorFlow itselt would offer. What scalecast will do for you is preprocess the data correctly, scale all of the data when training the model, and unscale it appropriately to compare to any other models
+you run. It also tests the model on the same test set and bootsraps confidence intervals. The fact that it tests all the models also means it fits all the models twice, which can slow you down sometimes, but having two fits is also a blessing: <strong>it really lets you know how generalizable your model is when new data is added.</strong> Let’s explore the SimpleRNN more carefully.</p>
+<section id="SimpleRNN">
+<h4>SimpleRNN<a class="headerlink" href="#SimpleRNN" title="Permalink to this headline"></a></h4>
+<p><a class="reference external" href="#eCommerce-Example">Back to top</a></p>
+<p>See the <a class="reference external" href="https://scalecast.readthedocs.io/en/latest/Forecaster/_forecast.html#module-src.scalecast.Forecaster.Forecaster._forecast_rnn">documentation</a> for the ‘rnn’ estimator. In practice, calling this model looks like:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_estimator</span><span class="p">(</span><span class="s1">&#39;rnn&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                  <span class="n">hidden_layers_struct</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;simple&#39;</span><span class="p">:{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="mi">64</span><span class="p">},</span><span class="s1">&#39;simple&#39;</span><span class="p">:{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="mi">64</span><span class="p">},</span><span class="s1">&#39;simple&#39;</span><span class="p">:{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="mi">64</span><span class="p">}},</span>
+                  <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                  <span class="n">epochs</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                  <span class="n">plot_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">call_me</span><span class="o">=</span><span class="s1">&#39;simple_rnn&#39;</span><span class="p">)</span>
+
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                  <span class="n">hidden_layers_struct</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lstm&#39;</span><span class="p">:{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="mi">64</span><span class="p">},</span><span class="s1">&#39;lstm&#39;</span><span class="p">:{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="mi">64</span><span class="p">},</span><span class="s1">&#39;lstm&#39;</span><span class="p">:{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="mi">64</span><span class="p">}},</span>
+                  <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                  <span class="n">epochs</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                  <span class="n">plot_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">call_me</span><span class="o">=</span><span class="s1">&#39;lstm&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 1/15
+7/7 [==============================] - 1s 46ms/step - loss: 0.2078 - val_loss: 0.1211
+Epoch 2/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.1542 - val_loss: 0.0969
+Epoch 3/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.1322 - val_loss: 0.0845
+Epoch 4/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.1232 - val_loss: 0.0810
+Epoch 5/15
+7/7 [==============================] - 0s 9ms/step - loss: 0.1185 - val_loss: 0.0811
+Epoch 6/15
+7/7 [==============================] - 0s 10ms/step - loss: 0.1161 - val_loss: 0.0733
+Epoch 7/15
+7/7 [==============================] - 0s 10ms/step - loss: 0.1130 - val_loss: 0.0711
+Epoch 8/15
+7/7 [==============================] - 0s 9ms/step - loss: 0.1104 - val_loss: 0.0746
+Epoch 9/15
+7/7 [==============================] - 0s 9ms/step - loss: 0.1073 - val_loss: 0.0714
+Epoch 10/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.1037 - val_loss: 0.0718
+Epoch 11/15
+7/7 [==============================] - 0s 9ms/step - loss: 0.1006 - val_loss: 0.0641
+Epoch 12/15
+7/7 [==============================] - 0s 9ms/step - loss: 0.0961 - val_loss: 0.0619
+Epoch 13/15
+7/7 [==============================] - 0s 10ms/step - loss: 0.0925 - val_loss: 0.0618
+Epoch 14/15
+7/7 [==============================] - 0s 9ms/step - loss: 0.0909 - val_loss: 0.0589
+Epoch 15/15
+7/7 [==============================] - 0s 9ms/step - loss: 0.0893 - val_loss: 0.0580
+Epoch 1/15
+7/7 [==============================] - 1s 32ms/step - loss: 0.1212 - val_loss: 0.0673
+Epoch 2/15
+7/7 [==============================] - 0s 7ms/step - loss: 0.0921 - val_loss: 0.0555
+Epoch 3/15
+7/7 [==============================] - 0s 7ms/step - loss: 0.0784 - val_loss: 0.0483
+Epoch 4/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0713 - val_loss: 0.0462
+Epoch 5/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0677 - val_loss: 0.0443
+Epoch 6/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0658 - val_loss: 0.0437
+Epoch 7/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0646 - val_loss: 0.0419
+Epoch 8/15
+7/7 [==============================] - 0s 7ms/step - loss: 0.0624 - val_loss: 0.0414
+Epoch 9/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0599 - val_loss: 0.0398
+Epoch 10/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0585 - val_loss: 0.0388
+Epoch 11/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0578 - val_loss: 0.0373
+Epoch 12/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0568 - val_loss: 0.0395
+Epoch 13/15
+7/7 [==============================] - 0s 7ms/step - loss: 0.0560 - val_loss: 0.0367
+Epoch 14/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0556 - val_loss: 0.0377
+Epoch 15/15
+7/7 [==============================] - 0s 8ms/step - loss: 0.0549 - val_loss: 0.0353
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_135_1.png" src="../../_images/Forecaster_examples_eCommerce_135_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 1/15
+7/7 [==============================] - 2s 71ms/step - loss: 0.1927 - val_loss: 0.1278
+Epoch 2/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.1520 - val_loss: 0.1011
+Epoch 3/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.1279 - val_loss: 0.0797
+Epoch 4/15
+7/7 [==============================] - 0s 13ms/step - loss: 0.1194 - val_loss: 0.0804
+Epoch 5/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.1178 - val_loss: 0.0758
+Epoch 6/15
+7/7 [==============================] - 0s 15ms/step - loss: 0.1174 - val_loss: 0.0755
+Epoch 7/15
+7/7 [==============================] - 0s 15ms/step - loss: 0.1169 - val_loss: 0.0742
+Epoch 8/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.1163 - val_loss: 0.0741
+Epoch 9/15
+7/7 [==============================] - 0s 15ms/step - loss: 0.1162 - val_loss: 0.0740
+Epoch 10/15
+7/7 [==============================] - 0s 15ms/step - loss: 0.1165 - val_loss: 0.0738
+Epoch 11/15
+7/7 [==============================] - 0s 15ms/step - loss: 0.1160 - val_loss: 0.0737
+Epoch 12/15
+7/7 [==============================] - 0s 15ms/step - loss: 0.1160 - val_loss: 0.0740
+Epoch 13/15
+7/7 [==============================] - 0s 15ms/step - loss: 0.1159 - val_loss: 0.0737
+Epoch 14/15
+7/7 [==============================] - 0s 15ms/step - loss: 0.1158 - val_loss: 0.0739
+Epoch 15/15
+7/7 [==============================] - 0s 15ms/step - loss: 0.1158 - val_loss: 0.0742
+Epoch 1/15
+7/7 [==============================] - 2s 63ms/step - loss: 0.1221 - val_loss: 0.0743
+Epoch 2/15
+7/7 [==============================] - 0s 11ms/step - loss: 0.1009 - val_loss: 0.0540
+Epoch 3/15
+7/7 [==============================] - 0s 12ms/step - loss: 0.0815 - val_loss: 0.0468
+Epoch 4/15
+7/7 [==============================] - 0s 12ms/step - loss: 0.0726 - val_loss: 0.0465
+Epoch 5/15
+7/7 [==============================] - 0s 12ms/step - loss: 0.0720 - val_loss: 0.0447
+Epoch 6/15
+7/7 [==============================] - 0s 12ms/step - loss: 0.0712 - val_loss: 0.0446
+Epoch 7/15
+7/7 [==============================] - 0s 12ms/step - loss: 0.0708 - val_loss: 0.0426
+Epoch 8/15
+7/7 [==============================] - 0s 13ms/step - loss: 0.0705 - val_loss: 0.0441
+Epoch 9/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.0704 - val_loss: 0.0430
+Epoch 10/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.0703 - val_loss: 0.0419
+Epoch 11/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.0697 - val_loss: 0.0429
+Epoch 12/15
+7/7 [==============================] - 0s 13ms/step - loss: 0.0696 - val_loss: 0.0424
+Epoch 13/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.0695 - val_loss: 0.0420
+Epoch 14/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.0693 - val_loss: 0.0424
+Epoch 15/15
+7/7 [==============================] - 0s 14ms/step - loss: 0.0694 - val_loss: 0.0423
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_135_3.png" src="../../_images/Forecaster_examples_eCommerce_135_3.png" />
+</div>
+</div>
+<p>Anything the lstm can do in scalecast, the rnn can also do. Using the lstm estimator instead of rnn is simpler, and that is explored below.</p>
+</section>
+<section id="LSTM">
+<h4>LSTM<a class="headerlink" href="#LSTM" title="Permalink to this headline"></a></h4>
+<p><a class="reference external" href="#eCommerce-Example">Back to top</a></p>
+<p>See the <a class="reference external" href="https://scalecast.readthedocs.io/en/latest/Forecaster/_forecast.html#module-src.scalecast.Forecaster.Forecaster._forecast_lstm">documentation</a> for the ‘lstm’ estimator. There are more parameters to explicitly specify, but that makes it a lot easier to navigate as well. In practice, calling this model looks like:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_estimator</span><span class="p">(</span><span class="s1">&#39;lstm&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                  <span class="n">lstm_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">),</span>
+                  <span class="n">dropout</span><span class="o">=</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+                  <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                  <span class="n">epochs</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                  <span class="n">plot_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">call_me</span><span class="o">=</span><span class="s1">&#39;lstm_regularized&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 1/15
+7/7 [==============================] - 5s 188ms/step - loss: 0.1909 - val_loss: 0.1114
+Epoch 2/15
+7/7 [==============================] - 0s 34ms/step - loss: 0.1384 - val_loss: 0.0840
+Epoch 3/15
+7/7 [==============================] - 0s 36ms/step - loss: 0.1234 - val_loss: 0.0775
+Epoch 4/15
+7/7 [==============================] - 0s 39ms/step - loss: 0.1189 - val_loss: 0.0797
+Epoch 5/15
+7/7 [==============================] - 0s 39ms/step - loss: 0.1188 - val_loss: 0.0753
+Epoch 6/15
+7/7 [==============================] - 0s 43ms/step - loss: 0.1179 - val_loss: 0.0775
+Epoch 7/15
+7/7 [==============================] - 0s 43ms/step - loss: 0.1181 - val_loss: 0.0754
+Epoch 8/15
+7/7 [==============================] - 0s 42ms/step - loss: 0.1178 - val_loss: 0.0775
+Epoch 9/15
+7/7 [==============================] - 0s 42ms/step - loss: 0.1180 - val_loss: 0.0748
+Epoch 10/15
+7/7 [==============================] - 0s 41ms/step - loss: 0.1179 - val_loss: 0.0743
+Epoch 11/15
+7/7 [==============================] - 0s 40ms/step - loss: 0.1176 - val_loss: 0.0753
+Epoch 12/15
+7/7 [==============================] - 0s 42ms/step - loss: 0.1176 - val_loss: 0.0762
+Epoch 13/15
+7/7 [==============================] - 0s 40ms/step - loss: 0.1171 - val_loss: 0.0758
+Epoch 14/15
+7/7 [==============================] - 0s 41ms/step - loss: 0.1169 - val_loss: 0.0750
+Epoch 15/15
+7/7 [==============================] - 0s 44ms/step - loss: 0.1173 - val_loss: 0.0757
+Epoch 1/15
+7/7 [==============================] - 4s 187ms/step - loss: 0.1096 - val_loss: 0.0658
+Epoch 2/15
+7/7 [==============================] - 0s 30ms/step - loss: 0.0816 - val_loss: 0.0456
+Epoch 3/15
+7/7 [==============================] - 0s 34ms/step - loss: 0.0744 - val_loss: 0.0483
+Epoch 4/15
+7/7 [==============================] - 0s 36ms/step - loss: 0.0717 - val_loss: 0.0437
+Epoch 5/15
+7/7 [==============================] - 0s 36ms/step - loss: 0.0718 - val_loss: 0.0440
+Epoch 6/15
+7/7 [==============================] - 0s 38ms/step - loss: 0.0709 - val_loss: 0.0435
+Epoch 7/15
+7/7 [==============================] - 0s 38ms/step - loss: 0.0710 - val_loss: 0.0421
+Epoch 8/15
+7/7 [==============================] - 0s 38ms/step - loss: 0.0718 - val_loss: 0.0445
+Epoch 9/15
+7/7 [==============================] - 0s 38ms/step - loss: 0.0710 - val_loss: 0.0423
+Epoch 10/15
+7/7 [==============================] - 0s 39ms/step - loss: 0.0702 - val_loss: 0.0423
+Epoch 11/15
+7/7 [==============================] - 0s 39ms/step - loss: 0.0701 - val_loss: 0.0426
+Epoch 12/15
+7/7 [==============================] - 0s 39ms/step - loss: 0.0709 - val_loss: 0.0431
+Epoch 13/15
+7/7 [==============================] - 0s 39ms/step - loss: 0.0704 - val_loss: 0.0427
+Epoch 14/15
+7/7 [==============================] - 0s 38ms/step - loss: 0.0698 - val_loss: 0.0430
+Epoch 15/15
+7/7 [==============================] - 0s 38ms/step - loss: 0.0706 - val_loss: 0.0430
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_138_1.png" src="../../_images/Forecaster_examples_eCommerce_138_1.png" />
+</div>
+</div>
+<p>Finally, we can see how all these models performed on the test set:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_test_set</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;simple_rnn&#39;</span><span class="p">,</span><span class="s1">&#39;lstm&#39;</span><span class="p">,</span><span class="s1">&#39;lstm_regularized&#39;</span><span class="p">],</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_140_0.png" src="../../_images/Forecaster_examples_eCommerce_140_0.png" />
+</div>
+</div>
+<p>And into the future:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;simple_rnn&#39;</span><span class="p">,</span><span class="s1">&#39;lstm&#39;</span><span class="p">,</span><span class="s1">&#39;lstm_regularized&#39;</span><span class="p">],</span><span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+simple_rnn LevelTestSetRMSE: 39136.43125093719
+lstm LevelTestSetRMSE: 40525.52590577089
+lstm_regularized LevelTestSetRMSE: 42748.6379268873
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_142_1.png" src="../../_images/Forecaster_examples_eCommerce_142_1.png" />
+</div>
+</div>
+<p>None of these models arrived at the level of the MLR or HWES models. That’s not to say they couldn’t if more time weren’t spent with them. Theoretically, they can specify thousands of parameters and find the true long-term trends in the data that none of the other models would be capable of. For some datasets, this makes a big difference. But some datasets are too random to be fit effectively by one of these more advanced models. Sometimes the simplest is most accurate, fastest, and most
+interpretable.</p>
+</section>
+</section>
+<section id="Combination-Modeling">
+<h3>Combination Modeling<a class="headerlink" href="#Combination-Modeling" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">The last model concept we will explore is combination modeling. There are three types of combinations: - simple: a simple average of a group of models. - weighted: a weighted average of a group of models. Weights can be passed manually (as we do below) or set automatically based on a metric passed to the <code class="docutils literal notranslate"><span class="pre">determine_best_by</span></code> parameter. - splice: a splice of two or more models at one or more future splice points. All metrics, fitted values, and test-set metrics from this model will be
+identical to the simple average.</div>
+</div>
+<p>We will be using simple and weighted average combination modeling only.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">set_estimator</span><span class="p">(</span><span class="s1">&#39;combo&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;simple&#39;</span><span class="p">,</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hwes&#39;</span><span class="p">,</span><span class="s1">&#39;hwes_seasonal&#39;</span><span class="p">,</span><span class="s1">&#39;arima_ma_terms&#39;</span><span class="p">,</span><span class="s1">&#39;prophet&#39;</span><span class="p">,</span><span class="s1">&#39;silverkite&#39;</span><span class="p">,</span><span class="s1">&#39;simple_rnn&#39;</span><span class="p">,</span><span class="s1">&#39;lstm&#39;</span><span class="p">,</span><span class="s1">&#39;lstm_regularized&#39;</span><span class="p">],</span><span class="n">call_me</span><span class="o">=</span><span class="s1">&#39;avg_lvl_models&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">manual_forecast</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">,</span><span class="n">models</span><span class="o">=</span><span class="n">_sklearn_estimators_</span><span class="p">,</span><span class="n">determine_best_by</span><span class="o">=</span><span class="s1">&#39;ValidationMetricValue&#39;</span><span class="p">,</span><span class="n">call_me</span><span class="o">=</span><span class="s1">&#39;weighted_differenced_models&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>It could be argued that combination modeling is prone to problems related to data leakage–we shouldn’t select model combinations based based on their performance on the test set and then recompare them to the test set. By default, deterimine_best_by in both of these combination types is <code class="docutils literal notranslate"><span class="pre">'ValidationMetricValue'</span></code>. This is a way to ensure data leakage does not occur. Since we didn’t tune all the models we want to combine in the first function, we simply write out the models we want to combine in
+a list.</p>
+<p>The weighted average model can accept weights as arguments that add to 0 or not–if not, they will be rebalanced to do so. If determine_best_by is specified, weights can be left to None and the weights will be chosen automatically. Again, be careful to not overfit models this way.</p>
+<p>All information available for other models, including fitted values and test-set metrics, are also available for these combo models.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot_test_set</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="s1">&#39;top_5&#39;</span><span class="p">,</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_147_0.png" src="../../_images/Forecaster_examples_eCommerce_147_0.png" />
+</div>
+</div>
+<p>Again, we see the usual suspects. One more time on future data:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="s1">&#39;top_5&#39;</span><span class="p">,</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">],</span><span class="n">level</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+hwes_seasonal LevelTestSetRMSE: 29432.19251120192
+mlr LevelTestSetRMSE: 32487.009054880975
+prophet LevelTestSetRMSE: 34148.79734132142
+hwes LevelTestSetRMSE: 36031.56799119545
+lightgbm LevelTestSetRMSE: 36585.121542121844
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_149_1.png" src="../../_images/Forecaster_examples_eCommerce_149_1.png" />
+</div>
+</div>
+<p>And just as a grand finale, let’s see all evaluated models plotted together:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">print_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">],</span><span class="n">level</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+hwes_seasonal LevelTestSetRMSE: 29432.19251120192
+mlr LevelTestSetRMSE: 32487.009054880975
+prophet LevelTestSetRMSE: 34148.79734132142
+hwes LevelTestSetRMSE: 36031.56799119545
+lightgbm LevelTestSetRMSE: 36585.121542121844
+rf LevelTestSetRMSE: 37323.21380044613
+avg_lvl_models LevelTestSetRMSE: 37405.41340106671
+mlp LevelTestSetRMSE: 39120.33092263862
+simple_rnn LevelTestSetRMSE: 39136.43125093719
+elasticnet LevelTestSetRMSE: 39522.6929766469
+lstm LevelTestSetRMSE: 40525.52590577089
+lstm_regularized LevelTestSetRMSE: 42748.6379268873
+svr LevelTestSetRMSE: 44003.8044654691
+silverkite LevelTestSetRMSE: 44999.94290460528
+arima_ma_terms LevelTestSetRMSE: 46563.90435412486
+gbt LevelTestSetRMSE: 48686.507886779866
+weighted_differenced_models LevelTestSetRMSE: 60531.99069667154
+xgboost LevelTestSetRMSE: 62488.67436538539
+knn LevelTestSetRMSE: 92000.73638283063
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/Forecaster_examples_eCommerce_151_1.png" src="../../_images/Forecaster_examples_eCommerce_151_1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Export-Results">
+<h2>Export Results<a class="headerlink" href="#Export-Results" title="Permalink to this headline"></a></h2>
+<div class="line-block">
+<div class="line"><a class="reference external" href="#eCommerce-Example">Back to top</a></div>
+<div class="line">Now that we have models that offer interesting ranges of predictions (and a few that look pretty bad), let’s export all available results to Excel to view later. The first function below exports a workbook with five tabs that offer information including forecasted values, level forecasted values, descriptive information about each model, and test-set prediction. The second two functions export feature info and validation grids, and they have to_excel in the method name because they
+automatically put each model’s info on a seperate tab.</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">to_excel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">determine_best_by</span><span class="o">=</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="n">excel_name</span><span class="o">=</span><span class="s1">&#39;eCommerce_results.xlsx&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">all_feature_info_to_excel</span><span class="p">(</span><span class="n">excel_name</span><span class="o">=</span><span class="s1">&#39;eCommerce_feature_info.xlsx&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">all_validation_grids_to_excel</span><span class="p">(</span><span class="n">sort_by_metric_value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">excel_name</span><span class="o">=</span><span class="s1">&#39;eCommerce_validation_grids.xlsx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>One of the most interesting of the exports above is the model summaries dataframe. It has many columns that you can view in the exported Excel workbook, but a sample of this dataframe is displayed below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;model_summaries&#39;</span><span class="p">][[</span><span class="s1">&#39;ModelNickname&#39;</span><span class="p">,</span><span class="s1">&#39;Estimator&#39;</span><span class="p">,</span><span class="s1">&#39;HyperParams&#39;</span><span class="p">,</span><span class="s1">&#39;LevelTestSetRMSE&#39;</span><span class="p">,</span><span class="s1">&#39;LevelTestSetR2&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ModelNickname</th>
+      <th>Estimator</th>
+      <th>HyperParams</th>
+      <th>LevelTestSetRMSE</th>
+      <th>LevelTestSetR2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>hwes_seasonal</td>
+      <td>hwes</td>
+      <td>{'trend': 'add', 'seasonal': 'add'}</td>
+      <td>29432.192511</td>
+      <td>0.354237</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>mlr</td>
+      <td>mlr</td>
+      <td>{}</td>
+      <td>32487.009055</td>
+      <td>0.213230</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>prophet</td>
+      <td>prophet</td>
+      <td>{}</td>
+      <td>34148.797341</td>
+      <td>0.130682</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>hwes</td>
+      <td>hwes</td>
+      <td>{'trend': 'add'}</td>
+      <td>36031.567991</td>
+      <td>0.032180</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>lightgbm</td>
+      <td>lightgbm</td>
+      <td>{'max_depth': 3}</td>
+      <td>36585.121542</td>
+      <td>0.002215</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>rf</td>
+      <td>rf</td>
+      <td>{'max_depth': 2, 'n_estimators': 1000}</td>
+      <td>37323.213800</td>
+      <td>-0.038451</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>avg_lvl_models</td>
+      <td>combo</td>
+      <td>{'how': 'simple', 'models': ['hwes', 'hwes_sea...</td>
+      <td>37405.413401</td>
+      <td>-0.043030</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>mlp</td>
+      <td>mlp</td>
+      <td>{'activation': 'tanh', 'hidden_layer_sizes': (...</td>
+      <td>39120.330923</td>
+      <td>-0.140862</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>simple_rnn</td>
+      <td>rnn</td>
+      <td>{'lags': 30, 'hidden_layers_struct': {'simple'...</td>
+      <td>39136.431251</td>
+      <td>-0.141801</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>elasticnet</td>
+      <td>elasticnet</td>
+      <td>{'alpha': 2.0, 'l1_ratio': 0.0}</td>
+      <td>39522.692977</td>
+      <td>-0.164451</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>lstm</td>
+      <td>rnn</td>
+      <td>{'lags': 30, 'hidden_layers_struct': {'lstm': ...</td>
+      <td>40525.525906</td>
+      <td>-0.224293</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>lstm_regularized</td>
+      <td>lstm</td>
+      <td>{'lags': 30, 'lstm_layer_sizes': (64, 64, 64),...</td>
+      <td>42748.637927</td>
+      <td>-0.362300</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>svr</td>
+      <td>svr</td>
+      <td>{'kernel': 'linear', 'C': 0.5, 'epsilon': 0.01}</td>
+      <td>44003.804465</td>
+      <td>-0.443473</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>silverkite</td>
+      <td>silverkite</td>
+      <td>{}</td>
+      <td>44999.942905</td>
+      <td>-0.509566</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>arima_ma_terms</td>
+      <td>arima</td>
+      <td>{'order': (1, 1, 1), 'seasonal_order': (0, 1, ...</td>
+      <td>46563.904354</td>
+      <td>-0.616318</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>gbt</td>
+      <td>gbt</td>
+      <td>{'max_depth': 2, 'max_features': 'sqrt'}</td>
+      <td>48686.507887</td>
+      <td>-0.767036</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>weighted_differenced_models</td>
+      <td>combo</td>
+      <td>{'how': 'weighted', 'models': ['elasticnet', '...</td>
+      <td>60531.990697</td>
+      <td>-1.731480</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>xgboost</td>
+      <td>xgboost</td>
+      <td>{'max_depth': 3}</td>
+      <td>62488.674365</td>
+      <td>-1.910923</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>knn</td>
+      <td>knn</td>
+      <td>{'n_neighbors': 20, 'weights': 'uniform'}</td>
+      <td>92000.736383</td>
+      <td>-5.309728</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Here is a list of all export functions. Most of these output results to a pandas dataframe.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="o">.</span><span class="n">get_funcs</span><span class="p">(</span><span class="s1">&#39;exporter&#39;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+export
+export_summary_stats
+export_feature_importance
+export_validation_grid
+all_feature_info_to_excel
+all_validation_grids_to_excel
+export_Xvars_df
+export_forecasts_with_cis
+export_test_set_preds_with_cis
+export_fitted_vals
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"1077ede3b06e45bc8f3b0d26f263d70b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_6f6e368741e24a48b1624c160208f535", "max": 9, "style": "IPY_MODEL_52424b9fc02d4835bb36e678943277e1", "value": 9}}, "356d45727dc2467faafb38f269eecd62": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_7467ae85cc384bf38bf9d982907a1fe4", "IPY_MODEL_1077ede3b06e45bc8f3b0d26f263d70b", "IPY_MODEL_96d574d59205492ca5c0e94c5240c1bc"], "layout": "IPY_MODEL_8730b8931210455b9a2a36dd885d6b9c"}}, "52424b9fc02d4835bb36e678943277e1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "6f6e368741e24a48b1624c160208f535": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "707d3e000f3e4fcc96111cabc3e40196": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "7467ae85cc384bf38bf9d982907a1fe4": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_fade6c5d7a694096a9074b9346063b4e", "style": "IPY_MODEL_afd1eb5236054a64b7ece5ffc758744e", "value": "100%"}}, "7ee7f93a2993425aab8ce096da53a3bc": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "8730b8931210455b9a2a36dd885d6b9c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "96d574d59205492ca5c0e94c5240c1bc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_7ee7f93a2993425aab8ce096da53a3bc", "style": "IPY_MODEL_707d3e000f3e4fcc96111cabc3e40196", "value": " 9/9 [00:47&lt;00:00,  6.13s/it]"}}, "afd1eb5236054a64b7ece5ffc758744e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "fade6c5d7a694096a9074b9346063b4e": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}}, "version_major": 2, "version_minor": 0}
+</script></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../initialization.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LSTM.html" class="btn btn-neutral float-right" title="LSTM Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Michael Keith.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
