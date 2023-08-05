@@ -1,0 +1,81 @@
+众所周知, Python中的字节码(bytecode) 是一种数据类型, Python代码的编译结果就是bytecode对象。
+
+bytecode对象可以由虚拟机加载后直接运行，而pyc文件就是bytecode在硬盘上的保存形式。
+先通过一个示例, 分析什么是字节码。::
+
+    >>> import dis
+    >>> def f(x):print('hello',x)
+    
+    >>> f.__code__
+    <code object f at 0x02B27498, file "<pyshell#2>", line 1>
+    >>> f.__code__.co_code
+    b't\x00d\x01|\x00\x83\x02\x01\x00d\x00S\x00'
+    >>> dis.dis(f)
+      1           0 LOAD_GLOBAL              0 (print)
+                  2 LOAD_CONST               1 ('hello')
+                  4 LOAD_FAST                0 (x)
+                  6 CALL_FUNCTION            2
+                  8 POP_TOP
+                 10 LOAD_CONST               0 (None)
+                 12 RETURN_VALUE
+    >>> 
+
+上述示例中f.__code__就是bytecode对象, f.__code__.co_code就是二进制的字节码, 通过dis模块可以反编译、分析这些二进制代码。
+
+Python解释执行代码时, 会**首先将原始的源代码翻译成bytecode形式, 再直接执行bytecode**, 以提高性能。
+
+字节码的结构
+"""""""""""""""""""""""
+
+.. image:: https://img-blog.csdnimg.cn/20210719105023666.png
+    :alt: 字节码结构图
+
+(在 Python 3.8中, 增加了一个属性 `co_posonlyargcount`)
+
+详尽的说明参见`Python官方文档 <https://docs.python.org/zh-cn/3.7/library/dis.html>`_。
+
+包装字节码
+""""""""""""""""""""
+
+在python中, bytecode对象的属性是不可修改的。如::
+
+    >>> def f():pass
+    >>> f.__code__.co_code = b''
+    Traceback (most recent call last): ... ...
+    AttributeError: readonly attribute
+
+为了使bytecode对象更易用, 本项目中的Code类, 用于包装 (wrap)字节码对象。
+下面的示例是从doctest中摘取的\:::
+
+    >>> def f():print("Hello")
+    >>> c=Code.fromfunc(f)
+    >>> c.co_consts
+    (None, 'Hello')
+    >>> c.co_consts=(None, 'Hello World!')
+    >>> c.exec()
+    Hello World!
+    >>>
+    >>> import os,pickle
+    >>> temp=os.getenv('temp')
+    >>> with open(os.path.join(temp,"temp.pkl"),'wb') as f:
+    ...     pickle.dump(c,f)
+    ... 
+    >>> f=open(os.path.join(temp,"temp.pkl"),'rb')
+    >>> pickle.load(f).to_func()()
+    Hello World!
+    >>> 
+    >>> c.to_pycfile(os.path.join(temp,"temppyc.pyc"))
+    >>> sys.path.append(temp)
+    >>> import temppyc
+    Hello World!
+    >>> Code.from_pycfile(os.path.join(temp,"temppyc.pyc")).exec()
+    Hello World!
+
+版本 VERSION
+============
+    1.0.2
+
+作者 AUTHOR
+===========
+    *七分诚意 qq:3076711200 百度账号:徐丹34  邮箱:3416445406@qq.com*
+    作者主页: <https://blog.csdn.net/qfcy\_/>`_
