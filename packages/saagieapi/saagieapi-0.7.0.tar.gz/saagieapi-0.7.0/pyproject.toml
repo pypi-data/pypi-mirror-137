@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "saagieapi"
+version = "0.7.0"
+description = "Python API to interact with Saagie"
+authors = ["Saagie"]
+license = "GLWTPL"
+readme = "README.md"
+repository = "https://github.com/saagie/api-saagie"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+requests = "^2.26.0"
+gql = "^2.0.0"
+pytz = "^2019.1"
+croniter = "^1.0.1"
+
+[tool.poetry.dev-dependencies]
+python-semantic-release = "^7.19.2"
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.semantic_release]
+version_toml = "pyproject.toml:tool.poetry.version"
+tag_format = "{version}"
+build_command = "poetry build"
+commit_author = "Team Service <service@saagie.com>"
+commit_parser = "semantic_release.history.emoji_parser"
