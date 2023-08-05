@@ -1,0 +1,513 @@
+import dataclasses
+import typing
+
+from . import configuration as _configuration
+from . import format as _format
+from . import iterate as iterate_
+from . import score as _score
+from . import tag as _tag
+
+configuration = _configuration.Configuration()
+
+
+@dataclasses.dataclass
+class Block:
+    r'''
+    LilyPond file block.
+
+    ..  container:: example
+
+        Use strings to add contents to a block:
+
+        >>> string = r"""right-margin = 2\cm
+        ...     left-margin = 2\cm"""
+        >>> block = abjad.Block("paper", items=[string])
+        >>> string = abjad.lilypond(block)
+        >>> print(string)
+        \paper
+        {
+            right-margin = 2\cm
+            left-margin = 2\cm
+        }
+
+    ..  container:: example
+
+        Define a context block like this:
+
+        >>> string = r"""\Staff
+        ...     \name FluteStaff
+        ...     \type Engraver_group
+        ...     \alias Staff
+        ...     \remove Forbid_line_break_engraver
+        ...     \consists Horizontal_bracket_engraver
+        ...     \accepts FluteUpperVoice
+        ...     \accepts FluteLowerVoice
+        ...     \override Beam.positions = #'(-4 . -4)
+        ...     \override Stem.stem-end-position = -6
+        ...     autoBeaming = ##f
+        ...     tupletFullLength = ##t
+        ...     \accidentalStyle dodecaphonic"""
+        >>> block = abjad.Block("context", items=[string])
+        >>> string = abjad.lilypond(block)
+        >>> print(string)
+        \context
+        {
+            \Staff
+            \name FluteStaff
+            \type Engraver_group
+            \alias Staff
+            \remove Forbid_line_break_engraver
+            \consists Horizontal_bracket_engraver
+            \accepts FluteUpperVoice
+            \accepts FluteLowerVoice
+            \override Beam.positions = #'(-4 . -4)
+            \override Stem.stem-end-position = -6
+            autoBeaming = ##f
+            tupletFullLength = ##t
+            \accidentalStyle dodecaphonic
+        }
+
+    ..  container:: example
+
+        Define an anonymous block like this:
+
+        >>> string = r"""command-1
+        ...     command-2
+        ...     command-3"""
+        >>> block = abjad.Block("", items=[string])
+        >>> string = abjad.lilypond(block)
+        >>> print(string)
+        {
+            command-1
+            command-2
+            command-3
+        }
+
+    ..  container:: example
+
+        Markup formats like this:
+
+        >>> block = abjad.Block("score", items=[abjad.Markup(r"\markup foo")])
+        >>> string = abjad.lilypond(block)
+        >>> print(string)
+        \score
+        {
+            \markup foo
+        }
+
+    ..  container:: example
+
+        >>> staff = abjad.Staff("c'4 d' e' f'")
+        >>> block = abjad.Block("score")
+        >>> block.items.append("<<")
+        >>> block.items.append(r'{ \include "layout.ly" }')
+        >>> block.items.append(staff)
+        >>> block.items.append(">>")
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     lilypond_language_token=False,
+        ...     lilypond_version_token=False,
+        ... )
+        >>> lilypond_file.items.append(block)
+        >>> string = abjad.lilypond(lilypond_file)
+        >>> print(string)
+        \score
+        {
+            <<
+            { \include "layout.ly" }
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
+            >>
+        }
+
+    '''
+
+    name: str
+    items: list = dataclasses.field(default_factory=list)
+
+    def __post_init__(self):
+        self.items = list(self.items or [])
+
+    @staticmethod
+    def _format_item(item, depth=1):
+        indent = depth * _format.INDENT
+        result = []
+        if isinstance(item, str):
+            if item.isspace():
+                string = ""
+            else:
+                string = indent + item
+            result.append(string)
+        else:
+            pieces = item._get_format_pieces()
+            for piece in pieces:
+                if piece.isspace():
+                    piece = ""
+                else:
+                    piece = indent + piece
+                result.append(piece)
+        return result
+
+    def _get_format_pieces(self, tag=None):
+        result = []
+        if not len(self.items):
+            if self.name:
+                string = rf"\{self.name} {{}}"
+            else:
+                string = "{}"
+            result.append(string)
+            return result
+        strings = []
+        if self.name:
+            strings.append(rf"\{self.name}")
+        strings.append("{")
+        if tag is not None:
+            strings = _tag.double_tag(strings, tag)
+        result.extend(strings)
+        for item in self.items:
+            result.extend(self._format_item(item))
+        string = "}"
+        strings = [string]
+        if tag is not None:
+            strings = _tag.double_tag(strings, tag)
+        result.extend(strings)
+        return result
+
+    def _get_lilypond_format(self, tag=None):
+        return "\n".join(self._get_format_pieces(tag=tag))
+
+
+@dataclasses.dataclass(slots=True)
+class LilyPondFile:
+    r"""
+    LilyPond file.
+
+    ..  container:: example
+
+        >>> staff = abjad.Staff("c'8 d'8 e'8 f'8")
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[
+        ...         r'\include "abjad.ily"',
+        ...         '''#(set-default-paper-size "a5" 'portrait)''',
+        ...         "#(set-global-staff-size 16)",
+        ...         staff,
+        ...     ],
+        ... )
+
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
+
+        ::
+
+            >>> string = abjad.lilypond(lilypond_file)
+            >>> print(string)
+            \version "..."
+            \language "english"
+            \include "abjad.ily"
+            #(set-default-paper-size "a5" 'portrait)
+            #(set-global-staff-size 16)
+            \new Staff
+            {
+                c'8
+                d'8
+                e'8
+                f'8
+            }
+
+    """
+
+    items: list = dataclasses.field(default_factory=list)
+    lilypond_language_token: typing.Union[bool, str] = True
+    lilypond_version_token: typing.Union[bool, str] = True
+    tag: typing.Optional[_tag.Tag] = None  # TODO: externalize
+
+    def __contains__(self, argument) -> bool:
+        """
+        Is true when LilyPond file contains ``argument``.
+
+        ..  container:: example
+
+            >>> staff = abjad.Staff("c'4 d' e' f'", name="Staff")
+            >>> lilypond_file = abjad.LilyPondFile([staff])
+
+            >>> "Staff" in lilypond_file
+            True
+
+            >>> "Allegro" in lilypond_file
+            False
+
+            >>> 0 in lilypond_file
+            False
+
+        """
+        try:
+            self[argument]
+            return True
+        except (AssertionError, KeyError, ValueError, TypeError):
+            return False
+
+    def __getitem__(self, argument):
+        r"""
+        Gets item identified by ``argument``.
+
+        ..  container:: example
+
+            Searches score:
+
+            >>> voice_1 = abjad.Voice("c''4 b' a' g'", name="Voice_1")
+            >>> literal = abjad.LilyPondLiteral(r"\voiceOne", "opening")
+            >>> abjad.attach(literal, voice_1)
+            >>> voice_2 = abjad.Voice("c'4 d' e' f'", name="Voice_2")
+            >>> literal = abjad.LilyPondLiteral(r"\voiceTwo", "opening")
+            >>> abjad.attach(literal, voice_2)
+            >>> staff = abjad.Staff(
+            ...     [voice_1, voice_2],
+            ...     simultaneous=True,
+            ...     name="Staff",
+            ... )
+            >>> score = abjad.Score([staff], name="Score")
+            >>> block = abjad.Block("score")
+            >>> block.items.append(score)
+            >>> lilypond_file = abjad.LilyPondFile([block])
+            >>> abjad.show(score) # doctest: +SKIP
+
+            ..  docs::
+
+                >>> string = abjad.lilypond(score)
+                >>> print(string)
+                \context Score = "Score"
+                <<
+                    \context Staff = "Staff"
+                    <<
+                        \context Voice = "Voice_1"
+                        {
+                            \voiceOne
+                            c''4
+                            b'4
+                            a'4
+                            g'4
+                        }
+                        \context Voice = "Voice_2"
+                        {
+                            \voiceTwo
+                            c'4
+                            d'4
+                            e'4
+                            f'4
+                        }
+                    >>
+                >>
+
+            >>> lilypond_file["score"]
+            Block(name='score', items=[<Score-"Score"<<1>>>])
+
+            >>> lilypond_file["Score"]
+            <Score-"Score"<<1>>>
+
+            >>> lilypond_file["Staff"]
+            <Staff-"Staff"<<2>>>
+
+            >>> lilypond_file["Voice_1"]
+            Voice("c''4 b'4 a'4 g'4", name='Voice_1')
+
+            >>> lilypond_file["Voice_2"]
+            Voice("c'4 d'4 e'4 f'4", name='Voice_2')
+
+        ..  container:: example
+
+            Searches score:
+
+            >>> voice_1 = abjad.Voice("c''4 b' a' g'", name="Voice_1")
+            >>> literal = abjad.LilyPondLiteral(r"\voiceOne", "opening")
+            >>> abjad.attach(literal, voice_1)
+            >>> voice_2 = abjad.Voice("c'4 d' e' f'", name="Voice_2")
+            >>> literal = abjad.LilyPondLiteral(r"\voiceTwo", "opening")
+            >>> abjad.attach(literal, voice_2)
+            >>> staff = abjad.Staff(
+            ...     [voice_1, voice_2],
+            ...     simultaneous=True,
+            ...     name="Staff",
+            ... )
+            >>> score = abjad.Score([staff], name="Score")
+            >>> lilypond_file = abjad.LilyPondFile([score])
+            >>> abjad.show(score) # doctest: +SKIP
+
+            ..  docs::
+
+                >>> string = abjad.lilypond(score)
+                >>> print(string)
+                \context Score = "Score"
+                <<
+                    \context Staff = "Staff"
+                    <<
+                        \context Voice = "Voice_1"
+                        {
+                            \voiceOne
+                            c''4
+                            b'4
+                            a'4
+                            g'4
+                        }
+                        \context Voice = "Voice_2"
+                        {
+                            \voiceTwo
+                            c'4
+                            d'4
+                            e'4
+                            f'4
+                        }
+                    >>
+                >>
+
+            >>> lilypond_file["Score"]
+            <Score-"Score"<<1>>>
+
+            >>> lilypond_file["Staff"]
+            <Staff-"Staff"<<2>>>
+
+            >>> lilypond_file["Voice_1"]
+            Voice("c''4 b'4 a'4 g'4", name='Voice_1')
+
+            >>> lilypond_file["Voice_2"]
+            Voice("c'4 d'4 e'4 f'4", name='Voice_2')
+
+        ..  container:: example
+
+            REGRESSION. Works when score block contains parallel container:
+
+            >>> include_container = abjad.Container()
+            >>> string = r'\include "layout.ly"'
+            >>> literal = abjad.LilyPondLiteral(string, "opening")
+            >>> abjad.attach(literal, include_container)
+            >>> staff = abjad.Staff("c'4 d' e' f'", name="Staff")
+            >>> container = abjad.Container(
+            ...     [include_container, staff],
+            ...     simultaneous=True,
+            ... )
+            >>> block = abjad.Block("score")
+            >>> block.items.append(container)
+            >>> lilypond_file = abjad.LilyPondFile(
+            ...     items=[block],
+            ...     lilypond_language_token=False,
+            ...     lilypond_version_token=False,
+            ... )
+            >>> string = abjad.lilypond(lilypond_file)
+            >>> print(string)
+            \score
+            {
+                <<
+                    {
+                        \include "layout.ly"
+                    }
+                    \context Staff = "Staff"
+                    {
+                        c'4
+                        d'4
+                        e'4
+                        f'4
+                    }
+                >>
+            }
+
+            >>> lilypond_file['Staff']
+            Staff("c'4 d'4 e'4 f'4", name='Staff')
+
+        ..  container:: example
+
+            Finds blocks by name:
+
+            >>> blocks = [abjad.Block("header"), abjad.Block("score")]
+            >>> lilypond_file = abjad.LilyPondFile(items=blocks)
+            >>> lilypond_file["score"]
+            Block(name='score', items=[])
+
+            >>> score = abjad.Score([abjad.Staff("c'4 d' e' f'")], name="Score")
+            >>> lilypond_file["score"].items.append(score)
+            >>> string = abjad.lilypond(lilypond_file)
+            >>> print(string)
+            \version "..."
+            \language "english"
+            \header {}
+            \score
+            {
+                \context Score = "Score"
+                <<
+                    \new Staff
+                    {
+                        c'4
+                        d'4
+                        e'4
+                        f'4
+                    }
+                >>
+            }
+
+        Returns block or component.
+        """
+        assert isinstance(argument, str), repr(argument)
+        for item in self.items:
+            if getattr(item, "name", None) == argument:
+                return item
+            elif hasattr(item, "items"):
+                for item_ in item.items:
+                    if getattr(item_, "name", None) == argument:
+                        return item_
+                    if isinstance(item_, _score.Component):
+                        for component in iterate_.components(item_):
+                            if getattr(component, "name", None) == argument:
+                                return component
+            elif isinstance(item, _score.Component):
+                for component in iterate_.components(item):
+                    if getattr(component, "name", None) == argument:
+                        return component
+        raise KeyError(f"no block or component with name {argument!r}.")
+
+    def _get_format_pieces(self, tag=None):
+        result = []
+        strings = []
+        if self.lilypond_version_token is True:
+            string = configuration.get_lilypond_version_string()
+            string = rf'\version "{string}"'
+            strings.append(string)
+        elif isinstance(self.lilypond_version_token, str):
+            strings.append(self.lilypond_version_token)
+        if self.lilypond_language_token is True:
+            string = r'\language "english"'
+            strings.append(string)
+        tag = _tag.Tag("abjad.LilyPondFile._get_format_pieces()")
+        tag = self.get_tag(tag)
+        strings = _tag.double_tag(strings, tag)
+        result.extend(strings)
+        for item in self.items:
+            if "_get_lilypond_format" in dir(item):
+                try:
+                    string = item._get_lilypond_format(tag=tag)
+                except TypeError:
+                    string = item._get_lilypond_format()
+                assert isinstance(string, str), repr(string)
+                result.append(string)
+            else:
+                result.append(str(item))
+        return result
+
+    def _get_lilypond_format(self):
+        strings = self._get_format_pieces()
+        string = "\n".join(strings)
+        lines = []
+        for line in string.split("\n"):
+            if line.isspace():
+                lines.append("")
+            else:
+                lines.append(line)
+        return "\n".join(lines)
+
+    def get_tag(self, site=None):
+        """
+        Gets tag.
+        """
+        tag = _tag.Tag(self.tag)
+        tag = tag.append(site)
+        return tag
