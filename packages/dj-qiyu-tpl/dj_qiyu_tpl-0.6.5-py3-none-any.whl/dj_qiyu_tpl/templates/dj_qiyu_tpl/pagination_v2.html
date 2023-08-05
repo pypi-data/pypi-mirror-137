@@ -1,0 +1,29 @@
+{% load i18n %}
+
+{% if page.has_other_pages %}
+    <div class="container">
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            {% if page.has_previous %}
+                <a class="pagination-previous" href="?page=1&{{ query }}">{% trans 'first page' %}</a>
+            {% endif %}
+
+            {% if page.has_next %}
+                <a class="pagination-next" href="?page={{ page.next_page_number }}">{% trans 'next page' %}</a>
+            {% endif %}
+
+            <ul class="pagination-list">
+                {% for pn in page_range %}
+                    {% if pn == "…" %}
+                        <li><span class="pagination-ellipsis">&hellip;</span></li>
+                    {% else %}
+                        {% if pn == page.number %}
+                            <li><a class="pagination-link is-current">{{ pn }}</a></li>
+                        {% else %}
+                            <li><a class="pagination-link" href="?page={{ pn }}&{{ query }}">{{ pn }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+{% endif %}
