@@ -1,0 +1,9 @@
+[build-system]
+requires = [
+    "setuptools>=60",
+    "wheel"
+]
+# Currently not specified as it disallows --no-use-pep517 in pip, which is
+# necessary when installing packages as editable.
+# See https://github.com/pypa/pip/issues/7953 for more.
+#build-backend = "setuptools.build_meta"
