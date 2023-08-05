@@ -1,0 +1,27 @@
+name: Unit tests
+
+on: [push, pull_request]
+
+env:
+  CODECOV_PY_VER: 3.8
+
+jobs:
+  unit-tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Set up python-${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run unit tests
+        run: |
+          BEKA_TESTS=-uz ./run_tests.sh
+      - if: ${{ matrix.python-version == env.CODECOV_PY_VER }}
+        name: Upload codecov
+        uses: codecov/codecov-action@v2
