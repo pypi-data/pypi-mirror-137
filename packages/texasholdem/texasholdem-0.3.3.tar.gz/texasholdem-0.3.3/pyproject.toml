@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "texasholdem"
+version = "0.3.3"
+description = "A texasholdem python package"
+authors = ["Evyn Machi <evyn.machi@gmail.com>"]
+keywords = ['texasholdem', 'holdem', 'poker']
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/SirRender00/texasholdem"
+repository = "https://github.com/SirRender00/texasholdem"
+
+include = [
+    "texasholdem",
+    "LICENSE",
+    "README.md",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pylint = "^2.11.1"
+
+[tool.pylint.master]
+ignore = ["keyboard.py", "text_gui.py"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
