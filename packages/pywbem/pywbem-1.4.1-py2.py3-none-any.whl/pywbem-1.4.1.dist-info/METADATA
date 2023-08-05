@@ -1,0 +1,129 @@
+Metadata-Version: 2.1
+Name: pywbem
+Version: 1.4.1
+Summary: pywbem - A WBEM client
+Home-page: https://pywbem.github.io/pywbem/
+Author: Tim Potter
+Author-email: tpot@hp.com
+Maintainer: Andreas Maier, Karl Schopmeyer
+Maintainer-email: maiera@de.ibm.com, k.schopmeyer@swbell.net
+License: LGPL version 2.1, or (at your option) any later version
+Project-URL: Bug Tracker, https://github.com/pywbem/pywbem/issues
+Project-URL: Documentation, https://pywbem.readthedocs.io/en/latest/
+Project-URL: Source Code, https://github.com/pywbem/pywbem
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Systems Administration
+Requires: setuptools
+Requires: wheel
+Requires-Python: >=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*
+Description-Content-Type: text/x-rst
+License-File: LICENSE.txt
+Requires-Dist: ply (>=3.10)
+Requires-Dist: nocaselist (>=1.0.3)
+Requires-Dist: nocasedict (>=1.0.1)
+Requires-Dist: yamlloader (<1.0.0,>=0.5.5) ; python_version <= "3.5"
+Requires-Dist: six (>=1.14.0) ; python_version <= "3.9"
+Requires-Dist: mock (<4.0.0,>=2.0.0) ; python_version == "2.7"
+Requires-Dist: PyYAML (<6.0,>=5.3.1) ; python_version == "2.7"
+Requires-Dist: requests (>=2.22.0) ; python_version == "2.7"
+Requires-Dist: urllib3 (>=1.25.9) ; python_version == "2.7"
+Requires-Dist: PyYAML (<5.3,>=5.2) ; python_version == "3.4"
+Requires-Dist: requests (<2.22.0,>=2.20.1) ; python_version == "3.4"
+Requires-Dist: urllib3 (<1.25.0,>=1.24.2) ; python_version == "3.4"
+Requires-Dist: PyYAML (>=5.3.1) ; python_version > "3.4"
+Requires-Dist: six (>=1.16.0) ; python_version >= "3.10"
+Requires-Dist: requests (>=2.25.0) ; python_version >= "3.10"
+Requires-Dist: urllib3 (>=1.26.5) ; python_version >= "3.10"
+Requires-Dist: requests (>=2.22.0) ; python_version >= "3.5" and python_version <= "3.9"
+Requires-Dist: urllib3 (>=1.25.9) ; python_version >= "3.5" and python_version <= "3.9"
+Requires-Dist: yamlloader (>=0.5.5) ; python_version >= "3.6"
+Provides-Extra: test
+Requires-Dist: packaging (>=17.0) ; extra == 'test'
+Requires-Dist: testfixtures (>=6.9.0) ; extra == 'test'
+Requires-Dist: easy-vault (>=0.7.0) ; extra == 'test'
+Requires-Dist: easy-server (>=0.8.0) ; extra == 'test'
+Requires-Dist: pytest-easy-server (>=0.8.0) ; extra == 'test'
+Requires-Dist: jsonschema (!=4.0.0,>=2.6.0) ; extra == 'test'
+Requires-Dist: requests-mock (>=1.6.0) ; extra == 'test'
+Requires-Dist: requests-toolbelt (>=0.8.0) ; extra == 'test'
+Requires-Dist: yagot (>=0.5.0) ; extra == 'test'
+Requires-Dist: funcsigs (>=1.0.2) ; (python_version < "3.3") and extra == 'test'
+Requires-Dist: pytest (<5.0.0,>=4.3.1) ; (python_version < "3.5") and extra == 'test'
+Requires-Dist: decorator (<5.0.0,>=4.0.11) ; (python_version < "3.5") and extra == 'test'
+Requires-Dist: virtualenv (!=20.0.19,>=16.1.0) ; (python_version < "3.5") and extra == 'test'
+Requires-Dist: colorama (<0.4.0,>=0.3.9) ; (python_version <= "3.4") and extra == 'test'
+Requires-Dist: importlib-metadata (<1,>=0.12) ; (python_version <= "3.7") and extra == 'test'
+Requires-Dist: pytz (>=2016.10) ; (python_version <= "3.9") and extra == 'test'
+Requires-Dist: FormEncode (>=1.3.1) ; (python_version <= "3.9") and extra == 'test'
+Requires-Dist: backports.statistics (>=0.1.0) ; (python_version == "2.7") and extra == 'test'
+Requires-Dist: lxml (>=4.6.2) ; (python_version == "2.7") and extra == 'test'
+Requires-Dist: lxml (<4.4.0,>=4.2.4) ; (python_version == "3.4") and extra == 'test'
+Requires-Dist: pluggy (>=0.7.1) ; (python_version >= "2.7" and python_version <= "3.6") and extra == 'test'
+Requires-Dist: pytest (>=6.2.5) ; (python_version >= "3.10") and extra == 'test'
+Requires-Dist: pytz (>=2019.1) ; (python_version >= "3.10") and extra == 'test'
+Requires-Dist: FormEncode (>=2.0.0) ; (python_version >= "3.10") and extra == 'test'
+Requires-Dist: lxml (>=4.6.4) ; (python_version >= "3.10") and extra == 'test'
+Requires-Dist: colorama (>=0.4.0) ; (python_version >= "3.5") and extra == 'test'
+Requires-Dist: decorator (>=4.0.11) ; (python_version >= "3.5") and extra == 'test'
+Requires-Dist: virtualenv (>=16.1.0) ; (python_version >= "3.5" and python_version < "3.8") and extra == 'test'
+Requires-Dist: pytest (!=6.0,>=4.3.1) ; (python_version >= "3.5" and python_version <= "3.6") and extra == 'test'
+Requires-Dist: lxml (>=4.6.2) ; (python_version >= "3.5" and python_version <= "3.9") and extra == 'test'
+Requires-Dist: pluggy (>=0.13.0) ; (python_version >= "3.7") and extra == 'test'
+Requires-Dist: pytest (!=6.0,>=4.4.0) ; (python_version >= "3.7" and python_version <= "3.9") and extra == 'test'
+Requires-Dist: virtualenv (>=20.0.0) ; (python_version >= "3.8") and extra == 'test'
+
+.. # README file for Pypi
+
+.. # Note: On Pypi, variable substitution with raw content is not enabled, so
+.. # we have to specify the package version directly in the links.
+
+.. # begin of customization for the current version
+.. |pywbem-version-mn| replace:: 1.4
+.. _Readme file on GitHub: https://github.com/pywbem/pywbem/blob/stable_1.4/README.rst
+.. _Documentation on RTD: https://pywbem.readthedocs.io/en/stable_1.4/
+.. _Change log on RTD: https://pywbem.readthedocs.io/en/stable_1.4/changes.html
+.. # end of customization for the current version
+
+Pywbem is a WBEM client and WBEM indication listener and provides related
+WBEM client-side functionality. It is written in pure Python and runs on
+Python 2 and Python 3.
+
+WBEM is a standardized approach for systems management defined by the
+`DMTF <https://www.dmtf.org>`_ that is used in the industry for a wide variety
+of systems management tasks. See
+`WBEM Standards <https://www.dmtf.org/standards/wbem>`_ for more information.
+An important use of this approach is the
+`SMI-S <https://www.snia.org/tech_activities/standards/curr_standards/smi>`_
+standard defined by `SNIA <https://www.snia.org>`_ for managing storage.
+
+A WBEM client allows issuing operations to a WBEM server for the purpose of
+performing systems management tasks. A WBEM indication listener is used to wait
+for and process notifications emitted by a WBEM server for the purpose of
+systems management.
+
+For more information on pywbem version |pywbem-version-mn|:
+
+* `Readme file on GitHub`_
+* `Documentation on RTD`_
+* `Change log on RTD`_
+
+.. _CIM/WBEM standards: https://www.dmtf.org/standards/wbem/
+
+
