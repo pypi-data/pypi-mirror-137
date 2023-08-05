@@ -1,0 +1,17 @@
+{% block header %}
+#########################
+#
+# Job Batch: {{ name }}
+{% if grid -%}
+# Params:
+{{ grid|comment }}
+{% endif -%}
+#
+#########################
+{% endblock %}
+
+{% block body %}
+{% for path in job_paths -%}
+    . "{{ path }}"
+{% endfor %}
+{% endblock %}
