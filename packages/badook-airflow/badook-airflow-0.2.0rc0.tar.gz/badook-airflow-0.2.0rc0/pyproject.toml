@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "badook-airflow"
+version = "0.2.0-pre.0"
+description = "Apache Airflow integration for badook tests"
+authors = ["badook engineering <engineering@badook.ai>"]
+license = "Apache 2"
+readme = "README.md"
+homepage = "https://github.com/badook-ai/badook-airflow"
+repository = "https://github.com/badook-ai/badook-airflow"
+
+[tool.poetry.dependencies]
+python = "~3.9.0"
+apache-airflow = "^2.1.2"
+cached-property = "^1.5.2"
+log-symbols = "^0.0.14"
+spinners = "^0.0.24"
+badook-tests = {version = "^0.3.0*", allow-prereleases = true}
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2"
+pre-commit = "^2.17.0"
+pylint = "^2.12.2"
+autopep8 = "^1.6.0"
+
+
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = "git"
+style = "semver"
+dirty = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+norecursedirs = "tests/test_directories/*" # these tests are used by the airflow tests and need to be ignored by pytest

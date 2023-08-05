@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: badook-airflow
+Version: 0.2.0rc0
+Summary: Apache Airflow integration for badook tests
+Home-page: https://github.com/badook-ai/badook-airflow
+License: Apache 2
+Author: badook engineering
+Author-email: engineering@badook.ai
+Requires-Python: >=3.9.0,<3.10.0
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: apache-airflow (>=2.1.2,<3.0.0)
+Requires-Dist: badook-tests
+Requires-Dist: cached-property (>=1.5.2,<2.0.0)
+Requires-Dist: log-symbols (>=0.0.14,<0.0.15)
+Requires-Dist: spinners (>=0.0.24,<0.0.25)
+Project-URL: Repository, https://github.com/badook-ai/badook-airflow
+Description-Content-Type: text/markdown
+
+# badook Airflow
+
+## Dag code example:
+
+```
+from airflow import DAG
+from airflow.utils.dates import days_ago
+
+from badook_airflow.operators.badook_operator import BadookTestOperator
+
+
+default_args = {
+    'owner': 'airflow',
+    'start_date': days_ago(0)
+}
+
+with DAG(
+    dag_id='badook_test_runner',
+    default_args=default_args,
+    schedule_interval='@once'
+) as dag:
+    badook_test = BadookTestOperator(
+        target_directory='test_dir',
+        data_cluster_url='https://test.url',
+        management_cluster_url='https://test.managment.url',
+        client_id='APIKEY',
+        client_secret='SECRETKEY',
+        task_id="run_tests"
+    )
+    badook_test
+```
+
