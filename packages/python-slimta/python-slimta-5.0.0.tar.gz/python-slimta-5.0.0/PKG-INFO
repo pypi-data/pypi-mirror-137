@@ -1,0 +1,137 @@
+Metadata-Version: 2.1
+Name: python-slimta
+Version: 5.0.0
+Summary: Lightweight, asynchronous SMTP libraries.
+Home-page: http://slimta.org/
+Author: Ian Good
+Author-email: ian@icgood.net
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Topic :: Communications :: Email :: Mail Transport Agents
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/markdown
+Provides-Extra: spf
+Provides-Extra: redis
+Provides-Extra: aws
+Provides-Extra: disk
+License-File: LICENSE.md
+
+
+#### [API Documentation and Manual][5]
+
+--------------------
+
+About
+=====
+
+The `python-slimta` project is a Python library offering the building blocks
+necessary to create a full-featured [MTA][1]. Most MTAs must be configured, but
+an MTA built with `python-slimta` is coded. An MTA built with `python-slimta`
+can incorporate any protocol or policy, custom or built-in. An MTA built with
+`python-slimta` can integrate with other Python libraries and take advantage of
+Python's great community.
+
+The `python-slimta` project is released under the [MIT License][4]. It is
+tested for Python 3.6+.
+
+[![build](https://github.com/slimta/python-slimta/actions/workflows/python-package.yml/badge.svg)](https://github.com/slimta/python-slimta/actions/workflows/python-package.yml)
+[![PyPI](https://img.shields.io/pypi/v/python-slimta.svg)](https://pypi.python.org/pypi/python-slimta)
+[![PyPI](https://img.shields.io/pypi/pyversions/python-slimta.svg)](https://pypi.python.org/pypi/python-slimta)
+[![PyPI](https://img.shields.io/pypi/l/python-slimta.svg)](https://pypi.python.org/pypi/python-slimta)
+
+
+Getting Started
+===============
+
+Use a [virtualenv][2] to get started developing against `python-slimta`:
+
+    $ cd python-slimta/
+    $ virtualenv .venv
+    $ source .venv/bin/activate
+    (.venv)$ python setup.py develop
+
+To run the suite of unit tests included with `slimta`:
+
+    (.venv)$ pip install -r test/requirements.txt
+    (.venv)$ py.test
+
+Running the Example
+===================
+
+The example in [`examples/slimta-mail.py`](examples/slimta-mail.py) provides a
+fully functional mail server for inbound and outbound email. To avoid needing
+to run as superuser, the example uses ports `1025`, `1465` and `1587` instead.
+
+It needs several things to run:
+
+* An activated `virtualenv` as created above in *Getting Started*.
+
+* A TLS certificate and key file. The easiest way to generate one:
+
+```
+openssl req -x509 -nodes -subj '/CN=localhost' -newkey rsa:1024 -keyout cert.pem -out cert.pem
+```
+
+* A populated [`examples/site_data.py`](examples/site_data.py) config file.
+
+Check out the in-line documentation with `--help`, and then run:
+
+    (.venv)$ ./slimta-mail.py
+
+Manually or with a mail client, you should now be able to deliver messages. On
+port `1025`, messages will go to unique files in the current directory. On port
+`1587`, messages will be delivered to others using MX records! To try out a TLS
+connection:
+
+    $ openssl s_client -host localhost -port 1587 -starttls smtp
+
+Contributing
+============
+
+If you want to fix a bug or make a change, follow the [fork pull request][6]
+model. We've had quite a few [awesome contributors][7] over the years, and are
+always open to more.
+
+Special thanks to [JocelynDelalande][8] for extensive work bringing Python 3
+compatibility to the project!
+
+[1]: http://en.wikipedia.org/wiki/Message_transfer_agent
+[2]: http://pypi.python.org/pypi/virtualenv
+[3]: http://en.wikipedia.org/wiki/Open_mail_relay
+[4]: http://opensource.org/licenses/MIT
+[5]: http://slimta.org/
+[6]: https://help.github.com/articles/using-pull-requests/
+[7]: https://github.com/slimta/python-slimta/graphs/contributors
+[8]: https://github.com/JocelynDelalande
+## The MIT License (MIT)
+
+Copyright (c) 2021 Ian Good
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+
