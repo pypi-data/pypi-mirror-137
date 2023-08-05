@@ -1,0 +1,91 @@
+[tool.poetry]
+name = "data2model"
+version = "0.1.0b"
+packages = [{include = "data_to_model"}]
+description = "Python library and CLI tool for converting data to different Python data classes"
+authors = ["Dmitrii Kurlov <dmitriik@protonmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/dmitriiweb/data2model"
+keywords = ["code", "generator", "cli", "tools"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: Unix",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Utilities",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.11"
+aiofiles = "^0.8.0"
+aiocsv = "^1.2.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+pytest_async = "^0.1.1"
+tox = "^3.24.5"
+mkdocs-material = "^8.1.7"
+mkdocstrings = "^0.17.0"
+pre-commit = "^2.17.0"
+black = "^21.12b0"
+isort = "^5.10.1"
+mypy = "^0.931"
+flake8 = "^4.0.1"
+types-aiofiles = "^0.8.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+force_single_line = false
+atomic = true
+include_trailing_comma = true
+lines_after_imports = 2
+lines_between_types = 1
+use_parentheses = true
+src_paths = ["extract_emails", "tests"]
+skip_glob = ["*/setup.py"]
+filter_files = true
+known_first_party = "extract_emails"
+
+[tool.black]
+line-length = 88
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | tests/.*/setup.py
+)/
+'''
+
+[tool.mypy]
+mypy_path = "data_to_model"
+check_untyped_defs = true
+disallow_any_generics = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+no_implicit_reexport = true
