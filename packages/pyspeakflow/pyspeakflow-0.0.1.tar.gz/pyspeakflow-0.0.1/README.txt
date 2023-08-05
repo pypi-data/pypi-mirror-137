@@ -1,0 +1,1 @@
+This a very simple speak fucntion packege to make voice assistant etc. 
