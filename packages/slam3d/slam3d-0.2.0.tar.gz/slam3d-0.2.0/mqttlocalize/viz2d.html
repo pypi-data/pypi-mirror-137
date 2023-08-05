@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js" type="text/javascript"></script>
+	<style>
+		* { margin: 0; padding: 0;}
+
+		body, html { height:100%; }
+
+		#my_canvas {
+		    position:absolute;
+		    width:100%;
+		    height:100%;
+		}
+		#panel {
+		    position:fixed;
+		    top=0;
+		    left=0;
+		    width:300px;
+		    height:50px;
+		    //background:Gray;
+		}
+	</style>
+	</head>		
+<body>
+ 
+<canvas id="my_canvas" >Your browser does not support the HTML5 canvas tag.</canvas>
+<div id="panel">
+	<input type="text" size=27 id="mqtt_server" value="oz.andrew.cmu.edu">:
+	<input type="text" size=4 id="mqtt_port" value="9001">
+	<button onclick="reConnect()">Connect</button>	<p/>
+	<input type="text" size=34 id="mqtt_topic" value="/topic/loc/camera_pixel_pixel">
+	<input type="range" min="1" max="100" value="50" class="slider" id="zoom_slider">
+ </div>
+<script>
+
+var canvas = $("#my_canvas");
+var ctx;
+
+var anchor_list={'anchors':[{ 'x': 2.111, 'y': -0.704, 'label': '0'}, { 'x': -2.122, 'y': -2.88, 'label': '1'}, { 'x': -3.666, 'y': 0.098, 'label': '2'}, {'x': -0.978, 'y': 3.319, 'label': '3'}]};
+
+var tag_x=0.0;
+var tag_y=0.0;
+var tag_oSin=1;
+var tag_oCos=1;
+var zoom_fact = 50;
+
+window.addEventListener('DOMContentLoaded', function(){	
+	initEventListeners();
+	updateCanvasDimensions();
+	
+	var slider = document.getElementById("zoom_slider");
+	slider.oninput = function() {
+  		zoom_fact = this.value;
+  		draw();
+	}
+
+	startConnect();
+	//timeout();
+	draw();
+});
+
+	function timeout() {
+		draw();
+		setTimeout(function() { timeout() }, 10000);
+	};
+
+	function draw() {
+		var tmpCanvas = canvas.get(0);
+		if (tmpCanvas.getContext == null) {
+			return; 
+		};		
+		ctx = tmpCanvas.getContext('2d');
+		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+		// 4.0 added to make anchors and tags visible in the first quadrant (Tepper demo day!)
+		for (i in anchor_list.anchors) {	
+			drawAnchor((anchor_list.anchors[i].x+6.0)*zoom_fact,canvasHeight-((anchor_list.anchors[i].y+6.0)*zoom_fact), '#008B8B', anchor_list.anchors[i].label);
+		}
+		// 4.0 added to make anchors and tags visible on the first quadrant (Tepper demo day!)
+		drawTag((tag_x+6.0)*zoom_fact, canvasHeight-((tag_y+6.0)*zoom_fact), '#DC143C', 'Jerry');
+	};
+
+	function drawAnchor(x, y, color, name) {
+		ctx.fillStyle = color;
+		ctx.beginPath();
+		ctx.arc(x, y, 0.2*zoom_fact, 0, 2 * Math.PI);
+		ctx.fill();
+		text(x, y, name, '#1B2631');
+	}
+
+	function drawTag(x, y, color, name) {
+		drawAnchor(x, y, color, name);
+		ctx.beginPath();
+		ctx.moveTo(x, y);
+		ctx.strokeStyle = "#FF0000";
+		ctx.lineWidth = 5;
+		ctx.lineTo(x+tag_oCos*0.3*zoom_fact, y-tag_oSin*0.3*zoom_fact);
+		ctx.stroke();
+	}
+
+	function text(x, y, text, color) {
+		size = ( 0.2 * zoom_fact ).toFixed(0);
+		ctx.font = size + "px Arial";
+		ctx.fillStyle = color;
+		ctx.textAlign = "left";
+		ctx.fillText(text, x-ctx.measureText(text).width/2, y+3);
+	}
+
+	function updateCanvasDimensions() {
+		canvas.attr({height: $(window).height(), width: $(window).width()});
+		canvasWidth = canvas.width();
+		canvasHeight = canvas.height();
+		draw();
+	};
+	
+	function initEventListeners() {
+		$(window).bind('resize', updateCanvasDimensions);
+	};
+
+// Called after DOMContentLoaded
+function startConnect() {
+    // Generate a random client ID
+    clientID = 'clientID-' + parseInt(Math.random() * 100);
+
+    host = document.getElementById('mqtt_server').value;
+    port = document.getElementById('mqtt_port').value;
+
+    // Print output for the user in the messages div
+    console.log('Connecting to: ' + host + ' on port: ' + port);
+    console.log('Using the following client value: ' + clientID);
+
+    // Initialize new Paho client connection
+    client = new Paho.MQTT.Client(host, Number(port), clientID);
+
+    // Set callback handlers
+    client.onConnectionLost = onConnectionLost;
+    client.onMessageArrived = onMessageArrived;
+
+    // Connect the client, if successful, call onConnect function
+    client.connect({
+        onSuccess: onConnect,
+    });
+}
+
+// Called on connect button click
+function reConnect() {
+    try {
+        client.disconnect();
+    } catch (err) {
+        console.log("Not connected..");
+    }
+    startConnect();
+}
+
+// Called when the client connects
+function onConnect() {
+	topic = document.getElementById('mqtt_topic').value;
+
+    // Print output for the user in the messages div
+    console.log('Subscribing to: ' + topic);
+
+    // Subscribe to the requested topic
+    client.subscribe(topic);
+}
+
+// Called when the client loses its connection
+function onConnectionLost(responseObject) {
+    console.log('Disconnected...');
+
+    if (responseObject.errorCode !== 0) {
+        console.log('ERROR: ' + responseObject.errorMessage);
+    }
+}
+
+// Called when a message arrives
+function onMessageArrived(message) {
+    console.log(message.payloadString);
+	let locUpdt = JSON.parse(message.payloadString);
+	// {"object_id" : "camera_pixel_pixel",  "action": "update", "type": "rig", "data": {"position": {"x": 0.992325, "y": 1.236724, "z": 2.352735}, "rotation": {"x": 0.000000, "y": -0.987420, "z": 0.000000, "w": 0.158120}}}
+
+	tag_x = locUpdt.data.position.z;
+	tag_y = locUpdt.data.position.x;
+	tag_oSin = Math.sin(locUpdt.data.theta);
+	tag_oCos = Math.cos(locUpdt.data.theta);
+
+	console.log('tx:'+tag_x+' ty:'+tag_y);
+	console.log('cos:'+tag_oCos+' sin:'+tag_oSin);
+	draw();
+}
+
+
+</script> 
+
+</body>
+</html>
