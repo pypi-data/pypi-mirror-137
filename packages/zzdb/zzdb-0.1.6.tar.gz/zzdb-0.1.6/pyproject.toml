@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "zzdb"
+version = "0.1.6"
+description = "python DB API wrapper (MySQL, PostgreSQL, SQLite)"
+authors = ["Andrei Puchko <andrei.puchko@gmx.de>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.black]
+line-length = 110
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^4.0.1"
+black = "^21.9b0"
+psycopg2-binary = "^2.9.1"
+mysql-connector-python = "^8.0.27"
+coverage = "^6.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
