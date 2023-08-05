@@ -1,0 +1,12 @@
+http:
+  chunk_size: 102400
+  urls:
+    base: https://www.toontownrewritten.com/api
+    manifest: https://cdn.toontownrewritten.com/content/patchmanifest.txt
+    patches: https://download.toontownrewritten.com/patches
+  base_headers:
+    Content-Type: application/json
+    User-Agent: ttr.py (https://github.com/jaczerob/ttr.py.git)
+  login_headers:
+    Content-Type: application/x-www-form-urlencoded
+    User-Agent: ttr.py (https://github.com/jaczerob/ttr.py.git)
