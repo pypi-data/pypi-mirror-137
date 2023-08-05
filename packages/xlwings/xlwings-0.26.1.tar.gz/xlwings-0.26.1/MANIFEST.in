@@ -1,0 +1,15 @@
+include LICENSE.txt
+include README.rst
+include xlwings/*.xlsm
+include xlwings/*.xlam
+include xlwings/addin/xlwings.xlam
+include xlwings/addin/xlwings_unprotected.xlam
+include xlwings*.dll
+include xlwings/xlwings*.applescript
+include xlwings/Dictionary.cls
+include xlwings/js/xlwings.*
+include xlwings/quickstart_fastapi/*.*
+
+recursive-include docs *
+prune docs
+
