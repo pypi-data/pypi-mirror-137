@@ -1,0 +1,711 @@
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+/*!
+         * Signature Pad v2.3.2
+         * https://github.com/szimek/signature_pad
+         *
+         * Copyright 2017 Szymon Nowak
+         * Released under the MIT license
+         *
+         * The main idea and some parts of the code (e.g. drawing variable width Bézier curve) are taken from:
+         * http://corner.squareup.com/2012/07/smoother-signatures.html
+         *
+         * Implementation of interpolation using cubic Bézier curves is taken from:
+         * http://benknowscode.wordpress.com/2012/09/14/path-interpolation-using-cubic-bezier-and-control-point-estimation-in-javascript
+         *
+         * Algorithm for approximated length of a Bézier curve is taken from:
+         * http://www.lemoda.net/maths/bezier-length/index.html
+         *
+         */
+
+/*!
+  Copyright (c) 2015 Jed Watson.
+  Based on code that is Copyright 2013-2015, Facebook, Inc.
+  All rights reserved.
+*/
+
+/*!
+  Copyright (c) 2018 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
+/*!
+ * surveyjs - Survey JavaScript library v1.8.65
+ * Copyright (c) 2015-2021 Devsoft Baltic OÜ  - http://surveyjs.io/
+ * License: MIT (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+/*! ../../../element-factory */
+
+/*! ../../../reactquestion_element */
+
+/*! ../../base */
+
+/*! ../../calculatedValue */
+
+/*! ../../choicesRestful */
+
+/*! ../../conditionProcessValue */
+
+/*! ../../conditions */
+
+/*! ../../conditionsParser */
+
+/*! ../../defaultCss/cssstandard */
+
+/*! ../../defaultTitle */
+
+/*! ../../dragdrop/choices */
+
+/*! ../../dragdrop/survey-elements */
+
+/*! ../../dxSurveyService */
+
+/*! ../../element-factory */
+
+/*! ../../error */
+
+/*! ../../expressionItems */
+
+/*! ../../expressions/expressions */
+
+/*! ../../flowpanel */
+
+/*! ../../functionsfactory */
+
+/*! ../../helpers */
+
+/*! ../../itemvalue */
+
+/*! ../../jsonobject */
+
+/*! ../../list */
+
+/*! ../../localizablestring */
+
+/*! ../../localization/arabic */
+
+/*! ../../localization/basque */
+
+/*! ../../localization/bulgarian */
+
+/*! ../../localization/catalan */
+
+/*! ../../localization/croatian */
+
+/*! ../../localization/czech */
+
+/*! ../../localization/danish */
+
+/*! ../../localization/dutch */
+
+/*! ../../localization/english */
+
+/*! ../../localization/estonian */
+
+/*! ../../localization/finnish */
+
+/*! ../../localization/french */
+
+/*! ../../localization/georgian */
+
+/*! ../../localization/german */
+
+/*! ../../localization/greek */
+
+/*! ../../localization/hebrew */
+
+/*! ../../localization/hindi */
+
+/*! ../../localization/hungarian */
+
+/*! ../../localization/icelandic */
+
+/*! ../../localization/indonesian */
+
+/*! ../../localization/italian */
+
+/*! ../../localization/japanese */
+
+/*! ../../localization/kazakh */
+
+/*! ../../localization/korean */
+
+/*! ../../localization/latvian */
+
+/*! ../../localization/lithuanian */
+
+/*! ../../localization/macedonian */
+
+/*! ../../localization/norwegian */
+
+/*! ../../localization/persian */
+
+/*! ../../localization/polish */
+
+/*! ../../localization/portuguese */
+
+/*! ../../localization/portuguese-br */
+
+/*! ../../localization/romanian */
+
+/*! ../../localization/russian */
+
+/*! ../../localization/serbian */
+
+/*! ../../localization/simplified-chinese */
+
+/*! ../../localization/spanish */
+
+/*! ../../localization/swahili */
+
+/*! ../../localization/swedish */
+
+/*! ../../localization/tajik */
+
+/*! ../../localization/thai */
+
+/*! ../../localization/traditional-chinese */
+
+/*! ../../localization/turkish */
+
+/*! ../../localization/ukrainian */
+
+/*! ../../localization/vietnamese */
+
+/*! ../../localization/welsh */
+
+/*! ../../main.scss */
+
+/*! ../../page */
+
+/*! ../../panel */
+
+/*! ../../popup */
+
+/*! ../../question */
+
+/*! ../../questionCustomWidgets */
+
+/*! ../../question_baseselect */
+
+/*! ../../question_boolean */
+
+/*! ../../question_buttongroup */
+
+/*! ../../question_checkbox */
+
+/*! ../../question_comment */
+
+/*! ../../question_custom */
+
+/*! ../../question_dropdown */
+
+/*! ../../question_empty */
+
+/*! ../../question_expression */
+
+/*! ../../question_file */
+
+/*! ../../question_html */
+
+/*! ../../question_image */
+
+/*! ../../question_imagepicker */
+
+/*! ../../question_matrix */
+
+/*! ../../question_matrixdropdown */
+
+/*! ../../question_matrixdropdownbase */
+
+/*! ../../question_matrixdynamic */
+
+/*! ../../question_multipletext */
+
+/*! ../../question_paneldynamic */
+
+/*! ../../question_radiogroup */
+
+/*! ../../question_ranking */
+
+/*! ../../question_rating */
+
+/*! ../../question_signaturepad */
+
+/*! ../../question_text */
+
+/*! ../../questionfactory */
+
+/*! ../../questionnonvalue */
+
+/*! ../../reactSurvey */
+
+/*! ../../reactquestion_element */
+
+/*! ../../settings */
+
+/*! ../../stylesmanager */
+
+/*! ../../survey */
+
+/*! ../../survey-element */
+
+/*! ../../survey-error */
+
+/*! ../../surveyProgress */
+
+/*! ../../surveyProgressButtons */
+
+/*! ../../surveyStrings */
+
+/*! ../../surveyWindow */
+
+/*! ../../surveytimer */
+
+/*! ../../template-renderer */
+
+/*! ../../textPreProcessor */
+
+/*! ../../trigger */
+
+/*! ../../utils/cssClassBuilder */
+
+/*! ../../utils/is-mobile */
+
+/*! ../../utils/utils */
+
+/*! ../../validator */
+
+/*! ../action-bar/action-bar */
+
+/*! ../actions/action */
+
+/*! ../actions/adaptive-container */
+
+/*! ../actions/container */
+
+/*! ../base */
+
+/*! ../conditionProcessValue */
+
+/*! ../defaultCss/cssbootstrap */
+
+/*! ../defaultCss/cssbootstrapmaterial */
+
+/*! ../defaultCss/cssmodern */
+
+/*! ../defaultCss/cssstandard */
+
+/*! ../functionsfactory */
+
+/*! ../helpers */
+
+/*! ../jsonobject */
+
+/*! ../list */
+
+/*! ../popup */
+
+/*! ../popup/popup */
+
+/*! ../react/boolean */
+
+/*! ../react/boolean-checkbox */
+
+/*! ../react/components/action-bar/action-bar */
+
+/*! ../react/components/default-title/default-title */
+
+/*! ../react/components/list/list */
+
+/*! ../react/components/matrix-actions/detail-button/detail-button */
+
+/*! ../react/components/matrix-actions/drag-drop-icon/drag-drop-icon */
+
+/*! ../react/components/matrix-actions/remove-button/remove-button */
+
+/*! ../react/components/matrix/row */
+
+/*! ../react/components/popup/popup */
+
+/*! ../react/components/survey-header/logo-image */
+
+/*! ../react/components/survey-header/survey-header */
+
+/*! ../react/components/svg-icon/svg-icon */
+
+/*! ../react/components/title-actions/title-actions */
+
+/*! ../react/element-factory */
+
+/*! ../react/flow-panel */
+
+/*! ../react/image */
+
+/*! ../react/imagepicker */
+
+/*! ../react/page */
+
+/*! ../react/panel */
+
+/*! ../react/reactSurvey */
+
+/*! ../react/reactSurveyNavigation */
+
+/*! ../react/reactSurveyNavigationBase */
+
+/*! ../react/reactSurveyProgress */
+
+/*! ../react/reactSurveyProgressButtons */
+
+/*! ../react/reactSurveyWindow */
+
+/*! ../react/reactquestion */
+
+/*! ../react/reactquestion_buttongroup */
+
+/*! ../react/reactquestion_checkbox */
+
+/*! ../react/reactquestion_comment */
+
+/*! ../react/reactquestion_custom */
+
+/*! ../react/reactquestion_dropdown */
+
+/*! ../react/reactquestion_element */
+
+/*! ../react/reactquestion_empty */
+
+/*! ../react/reactquestion_expression */
+
+/*! ../react/reactquestion_factory */
+
+/*! ../react/reactquestion_file */
+
+/*! ../react/reactquestion_html */
+
+/*! ../react/reactquestion_matrix */
+
+/*! ../react/reactquestion_matrixdropdown */
+
+/*! ../react/reactquestion_matrixdropdownbase */
+
+/*! ../react/reactquestion_matrixdynamic */
+
+/*! ../react/reactquestion_multipletext */
+
+/*! ../react/reactquestion_paneldynamic */
+
+/*! ../react/reactquestion_radiogroup */
+
+/*! ../react/reactquestion_ranking */
+
+/*! ../react/reactquestion_rating */
+
+/*! ../react/reactquestion_text */
+
+/*! ../react/reactsurveymodel */
+
+/*! ../react/reacttimerpanel */
+
+/*! ../react/row */
+
+/*! ../react/signaturepad */
+
+/*! ../react/string-editor */
+
+/*! ../react/string-viewer */
+
+/*! ../rendererFactory */
+
+/*! ../surveyStrings */
+
+/*! ../svg-icon/svg-icon */
+
+/*! ../title-content/title-content */
+
+/*! ../utils/cssClassBuilder */
+
+/*! ../utils/responsivity-manager */
+
+/*! ../utils/utils */
+
+/*! ./../settings */
+
+/*! ./action */
+
+/*! ./action-bar-item */
+
+/*! ./action-bar-item-dropdown */
+
+/*! ./action-bar-separator */
+
+/*! ./actions/action */
+
+/*! ./actions/adaptive-container */
+
+/*! ./base */
+
+/*! ./boolean */
+
+/*! ./choices */
+
+/*! ./choicesRestful */
+
+/*! ./chunks/localization */
+
+/*! ./chunks/model */
+
+/*! ./components/action-bar/action-bar */
+
+/*! ./components/matrix-actions/drag-drop-icon/drag-drop-icon */
+
+/*! ./components/matrix/row */
+
+/*! ./components/survey-header/survey-header */
+
+/*! ./components/svg-icon/svg-icon */
+
+/*! ./components/title-actions/title-actions */
+
+/*! ./conditionProcessValue */
+
+/*! ./conditions */
+
+/*! ./conditionsParser */
+
+/*! ./container */
+
+/*! ./core */
+
+/*! ./cssstandard */
+
+/*! ./custom-widget */
+
+/*! ./defaultCss/cssstandard */
+
+/*! ./dragdrop/matrix-rows */
+
+/*! ./dragdrop/ranking-choices */
+
+/*! ./dxSurveyService */
+
+/*! ./element-factory */
+
+/*! ./error */
+
+/*! ./expressions */
+
+/*! ./expressions/expressionParser */
+
+/*! ./expressions/expressions */
+
+/*! ./functionsfactory */
+
+/*! ./helpers */
+
+/*! ./itemvalue */
+
+/*! ./jsonobject */
+
+/*! ./localizablestring */
+
+/*! ./localization/english */
+
+/*! ./martixBase */
+
+/*! ./page */
+
+/*! ./panel */
+
+/*! ./panel-base */
+
+/*! ./question */
+
+/*! ./questionCustomWidgets */
+
+/*! ./question_baseselect */
+
+/*! ./question_checkbox */
+
+/*! ./question_dropdown */
+
+/*! ./question_expression */
+
+/*! ./question_matrixdropdownbase */
+
+/*! ./question_text */
+
+/*! ./question_textbase */
+
+/*! ./questionfactory */
+
+/*! ./questionnonvalue */
+
+/*! ./react-ui */
+
+/*! ./reactSurvey */
+
+/*! ./reactSurveyNavigation */
+
+/*! ./reactSurveyNavigationBase */
+
+/*! ./reactquestion */
+
+/*! ./reactquestion_checkbox */
+
+/*! ./reactquestion_comment */
+
+/*! ./reactquestion_element */
+
+/*! ./reactquestion_factory */
+
+/*! ./reactquestion_matrixdropdownbase */
+
+/*! ./reactquestion_radiogroup */
+
+/*! ./reactsurveymodel */
+
+/*! ./reacttimerpanel */
+
+/*! ./rendererFactory */
+
+/*! ./row */
+
+/*! ./settings */
+
+/*! ./string-viewer */
+
+/*! ./stylesmanager */
+
+/*! ./survey */
+
+/*! ./survey-element */
+
+/*! ./survey-error */
+
+/*! ./surveyStrings */
+
+/*! ./surveytimer */
+
+/*! ./textPreProcessor */
+
+/*! ./utils/cssClassBuilder */
+
+/*! ./utils/is-mobile */
+
+/*! ./utils/popup */
+
+/*! ./utils/utils */
+
+/*! ./validator */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/*! js-yaml 4.1.0 https://github.com/nodeca/js-yaml @license MIT */
+
+/*! react */
+
+/*! react-dom */
+
+/*! signature_pad */
+
+/*! sortablejs */
+
+/*! survey-core */
+
+/**
+ * @license
+ * Lodash <https://lodash.com/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/**
+ * @license MIT
+ * doc-path <https://github.com/mrodrig/doc-path>
+ * Copyright (c) 2015-present, Michael Rodrigues.
+ */
+
+/** @license React v0.20.2
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**!
+         * Sortable 1.13.0
+         * @author	RubaXa   <trash@rubaxa.org>
+         * @author	owenm    <owen23355@gmail.com>
+         * @license MIT
+         */
