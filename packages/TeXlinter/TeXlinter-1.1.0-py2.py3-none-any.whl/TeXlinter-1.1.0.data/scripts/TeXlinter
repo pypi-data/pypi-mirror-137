@@ -1,0 +1,107 @@
+#!python
+
+import sys
+import json
+import yaml
+import time
+import pathlib
+
+def texLinter(user_input, rules):
+    
+    new_line_counter = 2
+    indent_bool = False
+    indent_begining_rules, indent_ending_rules, comment_rules, exclude_rules, newline_rules = get_rules(rules)
+    with open(user_input, "r") as infile, open("new" + user_input, "w+") as outfile:
+        for line in infile:
+            if (line == '\n'):
+                outfile.write('\n' * new_line_counter)
+            if any(rule in line for rule in exclude_rules):
+                if any(rule in line for rule in comment_rules):
+                    for word in line.split():
+                        for rule in comment_rules:
+                            if word.startswith(rule) and not len(word) == 1:
+                                outfile.write(word[:1] + ' ' + word[1:] + ' ')
+                            else:
+                                outfile.write(word + ' ')
+                else:
+                    outfile.write(line)
+            else:
+                if line != '\n':
+                    first, *middle, last = line.split()
+                    outfile.write('\t' + first + ' ')
+                    for word in middle:
+                        if any(rule in word for rule in newline_rules):
+                            outfile.write(word + '\n')
+                            outfile.write('\t')
+                        else:
+                            outfile.write(word + ' ')
+                    outfile.write(last + '\n')
+
+def get_rules(rules):
+    indent_begining_rules = []
+    indent_ending_rules = []
+    comment_rules = []
+    exclude_rules = []
+    newline_rules = []
+    for data in rules:
+        for rule in rules[data]:
+            if data == "comment_rules":
+                comment_rules.append(rules[data][rule])
+            elif data == "indented_begining_rules":
+                indent_begining_rules.append(rules[data][rule])
+            elif data == "indented_ending_rules":
+                indent_ending_rules.append(rules[data][rule])
+            elif data == "exlude_rules":
+                exclude_rules.append(rules[data][rule])
+            elif data == "newline_rules":
+                newline_rules.append(rules[data][rule])
+    return indent_begining_rules, indent_ending_rules, comment_rules, exclude_rules, newline_rules
+
+if __name__ == '__main__':
+    start_time = time.time()
+    if len(sys.argv) > 1:
+        user_input = sys.argv[1]
+        try:
+            if len(sys.argv) > 1:
+                user_input = sys.argv[1]
+                index = user_input.find('.')
+                rule_index = sys.argv[2].find('=')
+                rule_file = sys.argv[2][rule_index + 1:]
+        except:
+            if user_input == "--help" or user_input == "--h" or user_input == "help":
+                print("For usage: TeXlinter <document-name> \
+                       If you have your own rules: TeXlinter <document-name> --rules=Your own rules")
+                exit()
+        if len(sys.argv) == 3:
+            try:
+                new_index = rule_file.find('.')
+                if rule_file[new_index:] == ".JSON" or rule_file[new_index:] == ".json":
+                    rules = open(rule_file)
+                    data = json.loads(rules.read())
+                elif rule_file[new_index:] == ".YAML" or rule_file[new_index:] == ".yaml":
+                    rules = open(rule_file)
+                    data = yaml.load(rules, Loader=yaml.FullLoader)
+                rules.close()
+            except:
+                if rule_file == "--help" or rule_file == "--h" or rule_file == "help":
+                    print("For usage: TeXlinter <document-name> \
+                           If you have your own rules: TeXlinter <document-name> --rules=Your own rules")
+                else:
+                    print("Could not open rule file. It either does not exist or misstype happend check input")
+                exit()
+        else:
+            here = pathlib.Path(__file__).parent
+            rules = open(str(here.home()) + "/.local/bin/rules.JSON")
+            data = json.loads(rules.read())
+            rules.close()
+        if user_input[index:] == ".tex" or user_input[index:] == ".bib" or user_input[index:] == ".tikz":
+            texLinter(user_input, data)
+        else:
+            print("Invalid input format. Only accepting .tex, .bib or .tikz")
+        print("DONE AT ", (time.time() - start_time), "check new" + user_input + " for fixed file")
+    else:
+        print("For usage: TeXlinter <document-name> \
+               If you have your own rules: TeXlinter <document-name> --rules=Your own rules")
+        exit()
+    
+    
