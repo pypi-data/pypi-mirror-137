@@ -1,0 +1,16 @@
+name: Integration tests
+
+on: [push, pull_request]
+
+jobs:
+  integration-tests:
+    name: Integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Integration tests
+        run: |
+          time docker run -t --rm --privileged --cap-add NET_ADMIN -e CHEWIE_ROOT="/chewie-src/" \
+            -e PIP_INSTALL=1 -v $(pwd):/chewie-src:ro \
+            faucet/test-base bash /chewie-src/docker/run_integration_tests.sh
