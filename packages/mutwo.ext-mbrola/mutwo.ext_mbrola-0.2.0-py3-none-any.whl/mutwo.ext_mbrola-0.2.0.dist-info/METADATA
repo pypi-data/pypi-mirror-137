@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: mutwo.ext-mbrola
+Version: 0.2.0
+Summary: mbrola extension for event based framework for generative art
+Home-page: https://github.com/mutwo-org/mutwo.ext-mbrola
+Author: Levin Eric Zimmermann
+Author-email: levin.eric.zimmermann@posteo.eu
+License: GPL
+Project-URL: Documentation, https://mutwo.readthedocs.io/en/latest/
+Platform: UNKNOWN
+Requires-Python: >=3.9, <4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: mutwo.ext-core (<1.00.0,>=0.55.0)
+Requires-Dist: mutwo.ext-music (<1.0.0,>=0.7.0)
+Requires-Dist: voxpopuli (<1,>=0.3.7)
+Provides-Extra: testing
+Requires-Dist: nose ; extra == 'testing'
+Requires-Dist: coveralls ; extra == 'testing'
+Requires-Dist: sox (==1.4.1) ; extra == 'testing'
+Requires-Dist: tensorflow (>=2.0.0) ; extra == 'testing'
+Requires-Dist: crepe (==0.0.12) ; extra == 'testing'
+
+# mutwo.ext-mbrola
+
+[![Build Status](https://circleci.com/gh/mutwo-org/mutwo.ext-mbrola.svg?style=shield)](https://circleci.com/gh/mutwo-org/mutwo.ext-mbrola)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![PyPI version](https://badge.fury.io/py/mutwo.ext-mbrola.svg)](https://badge.fury.io/py/mutwo.ext-mbrola)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+Mbrola extension for [mutwo](https://github.com/mutwo-org/mutwo).
+
+### Installation
+
+mutwo.ext-mbrola is available on [pypi](https://pypi.org/project/mutwo.ext-mbrola/) and can be installed via pip:
+
+```sh
+pip3 install mutwo.ext-mbrola
+```
+
+
