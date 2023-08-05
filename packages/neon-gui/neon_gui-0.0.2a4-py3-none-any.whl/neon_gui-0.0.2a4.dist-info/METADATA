@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: neon-gui
+Version: 0.0.2a4
+Summary: Neon GUI Module
+Home-page: https://github.com/NeonGeckoCom/neon_gui
+Author: Neongecko
+Author-email: developers@neon.ai
+License: BSD-3-Clause
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: neon-utils (>=0.14.3a15,~=0.14)
+Requires-Dist: ovos-utils (~=0.0.12)
+Requires-Dist: tornado (~=6.0)
+Requires-Dist: mycroft-messagebus-client (!=0.9.2,!=0.9.3,~=0.9)
+Provides-Extra: docker
+Requires-Dist: ovos-core[skills] (~=0.0.1) ; extra == 'docker'
+
+# Neon GUI
+GUI Module for Neon Core. This module extracts the GUI components from the 
+[Mycroft Mark 2 Skill](https://github.com/MycroftAI/skill-mark-2) and the `enclosure` module
+from [mycroft-core](https://github.com/MycroftAI/mycroft-core/tree/dev/mycroft/enclosure). 
+
+## Neon Enhancements
+Isolating the GUI to a standalone module allows for standardized implementation of common 
+components.
+
+## Compatibility
+This package can be treated as a drop-in replacement for the GUI components in `skill-mark-2`.
+`RestingScreen`, and gui bus events are handled here.
+
+## Running in Docker
+The included `Dockerfile` may be used to build a docker container for the neon_messagebus module. The below command may be used
+to start the container.
+
+```shell
+docker run -d \
+--name=neon_gui \
+--network=host \
+-v ${NEON_CONFIG_DIR}:/config \
+neon_gui
+```
+>*Note:* The above example assumes `NEON_CONFIG_DIR` contains valid configuration
+
+
