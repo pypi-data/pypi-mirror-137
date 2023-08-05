@@ -1,0 +1,35 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Indication, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Event" ), 
+    Description ( 
+       "CIM_InstModification notifies when an instance is modified." )]
+class CIM_InstModification : CIM_InstIndication {
+
+      [Description ( 
+          "The property values of the object embedded in "
+          "PreviousInstance shall reflect the consistent state of "
+          "that object before the change that is reported in the "
+          "indication." ), 
+       EmbeddedObject]
+   string PreviousInstance;
+
+      [Description ( 
+          "This property lists the names of those properties of the "
+          "object embedded in the SourceInstance whose change "
+          "generated the indication.\n"
+          "Each property name shall be included at most once.\n"
+          "If the infrastructure cannot reliably determine which "
+          "properties have changed, this property shall be NULL.\n"
+          "Notes:\n"
+          "\\tKey properties do not change, so will not be listed.\n"
+          "\\tRead-only property values can change, so might be listed.\n"
+          "\\tBecause of the protocol dependent serialization "
+          "EmbeddedObjects, properties that transition from or to "
+          "NULL are not necessarily listed in the EmbeddedObject of "
+          "the corresponding PreviousInstance or SourceInstance." ), 
+       ModelCorrespondence { "CIM_InstModification.SourceInstance", 
+          "CIM_InstModification.PreviousInstance" }]
+   string ChangedPropertyNames[];
+
+
+};

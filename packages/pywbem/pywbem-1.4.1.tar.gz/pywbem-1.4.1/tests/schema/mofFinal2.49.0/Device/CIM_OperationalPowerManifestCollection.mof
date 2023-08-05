@@ -1,0 +1,29 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Power" ), 
+    Description ( 
+       "The OperationalPowerManifestCollection class aggregates, via "
+       "MemberOfCollection, a set of OperationalPowerManifests. The "
+       "OperationalPowerManifestCollection is used to filter the "
+       "retrieval of statistics. For example, an "
+       "OperationalPowerManifestCollection is specified as part of the "
+       "OperationalPowerStatisticsService.GetStatisticsCollection "
+       "method to filter the statistics returned by that method." )]
+class CIM_OperationalPowerManifestCollection : CIM_SystemSpecificCollection {
+
+      [Override ( "ElementName" ), 
+       Description ( 
+          "A user-friendly name for the "
+          "OperationalPowerManifestCollection. It can be set "
+          "through the ElementName parameter of the "
+          "StatisticsService.CreateManifestCollection method." )]
+   string ElementName;
+
+      [Required, Description ( 
+          "Denotes whether or not this "
+          "OperationalPowerManifestCollection is a provider defined "
+          "default OperationalPowerStatisticsManifestCollection." )]
+   boolean IsDefault;
+
+
+};

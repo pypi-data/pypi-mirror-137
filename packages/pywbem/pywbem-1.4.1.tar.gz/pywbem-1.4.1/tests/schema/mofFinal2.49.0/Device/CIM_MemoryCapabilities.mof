@@ -1,0 +1,100 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.47.0" ), 
+    UMLPackagePath ( "CIM::Device::ConfigurableMemory" ), 
+    Description ( 
+       "A subclass of Capabilities that defines the capabilities of a "
+       "set if primordial memory extents represented by a "
+       "MemoryResources pool." )]
+class CIM_MemoryCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "Indicates the platform\'s support for various memory "
+          "access modes. \n"
+          "\"Direct Volatile\" indicates support for traditional "
+          "DRAM type volatile memory. \n"
+          "\"Multi-Level Volatile\" indicates support for "
+          "multi-level volatile memory where one or more "
+          "performance tiers act as a cache for one or more "
+          "capacity tiers. \n"
+          "\"Block\" indicates support for synthetic block access. \n"
+          "\"Direct Persistent\" indicates support for load-store "
+          "access of non-volatile data. \n"
+          "\"Multi-Level Persistent\" indicates support for "
+          "multi-level persistent memory where one or more "
+          "performance tiers act as a cache for a non-volatile "
+          "capacity tier." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "0x8000.." }, 
+       Values { "Unknown", "Other", "Direct Volatile", 
+          "Multi-Level Volatile", "Block", "Direct Persistent", 
+          "Multi-Level Persistent", "DMTF Reserved", 
+          "Vendor Reserved" }]
+   uint16 MemoryModes[];
+
+      [Description ( 
+          "Indicates support for various types of memory "
+          "replication. \n"
+          "\"None\" No replication is supported. \n"
+          "\"Local Replication\" Replication is supported in the "
+          "context of a single system. \n"
+          "\"Remote Replication\" Replication is supported across "
+          "multiple systems." ), 
+       ValueMap { "0", "1", "2", "3", "4", "..", "0x8000.." }, 
+       Values { "Unknown", "Other", "None", "Local Replication", 
+          "Remote Replication", "DMTF Reserved", "Vendor Reserved" }]
+   uint16 ReplicationSupport[];
+
+      [Description ( 
+          "Indicates the platform\'s support for memory reliability features.\n"
+          "\"Die Sparing\" Spare memory parts are supported at the "
+          "memory die level. \n"
+          "\"Rank Sparing\" Spare memory parts are supported at the "
+          "memory rank level. \n"
+          "\"DIMM Sparing\" Spare memory parts are supported at the "
+          "memory DIMM level. \n"
+          "\"Memory Migration\" There is support for migrating the "
+          "contents of a failing part to a spare part." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "0x8000.." }, 
+       Values { "Unknown", "Other", "None", "Die Sparing", 
+          "Rank Sparing", "DIMM Sparing", "Memory Migration", 
+          "DMTF Reserved", "Vendor Reserved" }]
+   uint16 ReliabilitySupport[];
+
+      [Description ( 
+          "Describes the alignment requirement when configuring a "
+          "memory region. This value is given as the exponent in an "
+          "exponential expression with 2 as the base. Example: 64MB "
+          "would be given as 26, 2**26=64MB." )]
+   uint16 Alignment;
+
+      [Description ( 
+          "Describes the memory channel interleave sizes that are "
+          "supported. This value is given as the exponent in an "
+          "exponential expression with 2 as the base. Example: 64B "
+          "would be given as 6, 2**6=64B" )]
+   uint16 ChannelInterleaveSupport[];
+
+      [Description ( 
+          "Describes the number of memory channels a given "
+          "interleave scheme can utilize. A 1 indicates that a 1 "
+          "way channel interleave is supported; 2 indicates that a "
+          "2 way channel interleave is supported; and so on." )]
+   uint16 ChannelInterleaveWaySupport[];
+
+      [Description ( 
+          "Describes the memory controller interleave sizes that "
+          "are supported. This value is given as the exponent in an "
+          "exponential expression with 2 as the base. Example: 64B "
+          "would be given as 6, 2**6=64B" )]
+   uint16 MemoryControllerInterleaveSupport[];
+
+      [Description ( 
+          "Describes platform memory architecture types supported.\n"
+          "\"UMA\" Uniform Memory Access.\n"
+          "\"NUMA\" Non-Uniform Memory Access." ), 
+       ValueMap { "0", "1", "2", "3", "..", "0x8000.." }, 
+       Values { "Unknown", "Other", "UMA", "NUMA", "DMTF Reserved", 
+          "Vendor Reserved" }]
+   uint16 MemoryAffinitySupport[];
+
+
+};

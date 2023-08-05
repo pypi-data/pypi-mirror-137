@@ -1,0 +1,52 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Physical::PhysicalMedia" ), 
+    Description ( 
+       "The PhysicalTape class represents additional data for a Tape "
+       "Media. Information on the tape length and whether it must be "
+       "unloaded from BOT are properties of this class." )]
+class CIM_PhysicalTape : CIM_PhysicalMedia {
+
+      [Description ( "The physical length of the Tape in feet." ), 
+       Units ( "Feet" ), 
+       PUnit ( "foot" )]
+   real32 TapeLength;
+
+      [Description ( 
+          "Boolean set to TRUE if the Tape can be unloaded at any "
+          "position on the Media. It is set to FALSE if the tape "
+          "must be at a certain position for unload - such as at "
+          "the beginning of tape (BOT) area, or at mid-tape point "
+          "for TapeDrives with mid-tape load." )]
+   boolean UnloadAnywhere;
+
+      [Description ( 
+          "Boolean set to trueif the tape object represented by "
+          "this instance is realized using disk storage as in the "
+          "case of a Virtual Tape Library. This property is set to "
+          "false if this instance is a real physical tape as in the "
+          "case of a physical tape library." )]
+   boolean IsBasedOnDisk = false;
+
+      [Description ( 
+          "Populated when \"Usage\" has the value of \"Other\"." ), 
+       ModelCorrespondence { "CIM_PhysicalTape.Usage" }]
+   string OtherUsageDescription;
+
+      [Description ( 
+          "Indicates the intended usage or any restrictions that "
+          "may have been imposed on the usage of this component. "
+          "For example, a tape element may be reserved for use by "
+          "the copy service. In that case, the Usage of the element "
+          "is marked as \"Reserved for Copy Services\". In the case "
+          "of \"Other\", see OtherUsageDescription for more "
+          "information." ), 
+       ValueMap { "1", "2", "3", "..", "32768..65535" }, 
+       Values { "Other", "Unrestricted", 
+          "Reserved for Copy Services", "DMTF Reserved", 
+          "Vendor Reserved" }, 
+       ModelCorrespondence { "CIM_PhysicalTape.OtherUsageDescription" }]
+   uint16 Usage;
+
+
+};

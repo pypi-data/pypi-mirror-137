@@ -1,0 +1,22 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileSystem" ), 
+    Description ( 
+       "An association between a quota config entry and a filesystem "
+       "directory." )]
+class CIM_FSQuotaAppliesToTree : CIM_Dependency {
+
+      [Key, Override ( "Antecedent" ), 
+       Description ( 
+          "A logical file representing the root of a directory tree "
+          "to which a quota configuration entry applies." )]
+   CIM_LogicalFile REF Antecedent;
+
+      [Key, Override ( "Dependent" ), 
+       Description ( 
+          "The quota configuration entry that applies to the "
+          "filesystem directory." )]
+   CIM_FSQuotaConfigEntry REF Dependent;
+
+
+};

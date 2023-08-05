@@ -1,0 +1,113 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Indication, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileServices" ), 
+    Description ( 
+       "Instances of this class represent one line in a filesystem "
+       "quota report. All properties in it are optional except the "
+       "amount used and the entity the number applies to. \n"
+       "Filesystem quota reports are descriptions of the current state "
+       "of the system. On a working system, no two complete quota "
+       "reports will ever be the same. \n"
+       "On systems which support default quotas, quota reports may be "
+       "quite large, as they must report on every user/group in the "
+       "system. A cursor mechanism is provided to make it possible to "
+       "retrieve records a batch at a time." )]
+class CIM_FSQuotaReportRecord : CIM_ReportRecord {
+
+      [Description ( 
+          "The hard limit for the quota that generated this record, "
+          "corresponding to the ResourceType in the same position "
+          "in the ResourceType array. What it means when this limit "
+          "is exceeded is system dependent. Some filesystems fail "
+          "all further writes, for example, while others do not "
+          "fail until the file is closed. This property is optional "
+          "and may therefore be NULL." ), 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { "CIM_FSQuotaReportRecord.ResourceType" }]
+   uint64 HardLimit[];
+
+      [Description ( 
+          "The soft limit for the quota that generated this record. "
+          "What it means when this limit is exceeded is system "
+          "dependent. Some filesystems treat it as a warning "
+          "threshold, for example, while others merely collect it "
+          "as a statistic. This property is optional and may "
+          "therefore be NULL." ), 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { "CIM_FSQuotaReportRecord.ResourceType" }]
+   uint64 SoftLimit[];
+
+      [Description ( 
+          "Some systems automatically convert soft limits into hard "
+          "limits after the soft limit has been exceeded for some "
+          "period of time. If present, this DateTime value "
+          "specifies the length of this grace period. This property "
+          "is optional and may therefore be NULL." )]
+   datetime SoftLimitGracePeriod;
+
+      [Description ( 
+          "Whether or not thresholds on this quota are being "
+          "enforced. Sometimes quota systems are used simply to "
+          "track usage, and in this case the records in a quota "
+          "report will report an inactive quota." )]
+   boolean Active;
+
+      [Description ( 
+          "Whether or not thresholds on this quota are being "
+          "monitored. If a system reports quotas that aren\'t being "
+          "monitored, this value may be false." )]
+   boolean Monitored;
+
+      [Description ( 
+          "The type of resource whose consumption is being managed." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "0x8000" }, 
+       Values { "Unknown", "Other", "Bytes", "Files", "Directories", 
+          "Files+Directories", "Inodes", "Reserved", "Vendor Defined" }, 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { "CIM_FSQuotaReportRecord.SoftLimit", 
+          "CIM_FSQuotaReportRecord.HardLimit" }]
+   uint16 ResourceType[];
+
+      [Description ( 
+          "The type of quota being monitored. Quotas are set either "
+          "on users or groups or trees, or on users on a specific "
+          "tree or groups on a specific tree." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "0x8000.." }, 
+       Values { "Unknown", "Other", "User", "Group", "Tree", 
+          "User-Tree", "Group-Tree", "Reserved", "Vendor Defined" }]
+   uint16 QuotaType;
+
+      [Description ( 
+          "The amount of resource used by the indicated principal "
+          "in the indicated container and tree at the time the "
+          "report was taken. This number is given on a best effort "
+          "basis, and may never exactly match the current status of "
+          "the system." ), 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { "CIM_FSQuotaReportRecord.ResourceType" }]
+   uint64 AmountUsed[];
+
+      [Description ( 
+          "The tree (as represented by a pathname) over which the "
+          "quota is monitored. This property may be NULL, "
+          "indicating that the quota is over the entire FileSystem "
+          "specified in the entry, or the entire ComputerSystem "
+          "whose InstanceID and ElementName are cited, if no "
+          "filesystem is specified." )]
+   string TreeName;
+
+      [Description ( 
+          "The UID/GID/SID or name of the principal, if "
+          "PrincipalType is \'User\' or \'Group\'. This property "
+          "MUST be NULL if the quota in question is a Tree quota." )]
+   string PrincipalID;
+
+      [Description ( 
+          "The Name of the FileSystem over which this quota is "
+          "monitored. This property is optional and may therefore "
+          "be NULL. However, providers SHOULD populate this "
+          "property whenever possible." )]
+   string FileSystem;
+
+
+};

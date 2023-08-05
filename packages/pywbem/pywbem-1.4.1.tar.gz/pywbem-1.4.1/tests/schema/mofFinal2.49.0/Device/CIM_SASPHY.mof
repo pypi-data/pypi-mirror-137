@@ -1,0 +1,41 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Ports" ), 
+    Description ( 
+       "The SASPHY class describes the characteristics for the "
+       "physical connection between SAS devices." )]
+class CIM_SASPHY : CIM_LogicalDevice {
+
+      [Description ( 
+          "The minimum physical link rate capability of a phy." ), 
+       Counter, MappingStrings { 
+          "SAS-2.ISO/IEC 14776-152 | HARDWARE MINIMUM PHYSICAL LINK RATE" }]
+   uint64 HardwareMinimumPhysicalLinkRate;
+
+      [Description ( 
+          "The maximum physical link rate capability of a phy" ), 
+       Counter, MappingStrings { 
+          "SAS-2.ISO/IEC 14776-152 | HARDWARE MAXIMUM PHYSICAL LINK RATE" }]
+   uint64 HardwareMaximumPhysicalLinkRate;
+
+      [Description ( 
+          "specifies the minimum physical link rate the phy shall "
+          "support during a link reset sequence" ), 
+       Counter, MappingStrings { 
+          "SAS-2.ISO/IEC 14776-152 | PROGRAMMED MINIMUM PHYSICAL LINK RATE" }]
+   uint64 ProgrammedMinimumPhysicalLinkRate;
+
+      [Description ( 
+          "specifies the maximum physical link rates the phy shall "
+          "support during a link reset sequence" ), 
+       Counter, MappingStrings { 
+          "SAS-2.ISO/IEC 14776-152 | PROGRAMMED MAXMUM PHYSICAL LINK RATE" }]
+   uint64 ProgrammedMaximumPhysicalLinkRate;
+
+      [Description ( "desctiption TBD" ), 
+       Counter, MappingStrings { 
+          "SAS-2.ISO/IEC 14776-152 | NEGOTIATED PHYSICAL LINK RATE" }]
+   uint64 NegotiatedPhysicalLinkRate;
+
+
+};

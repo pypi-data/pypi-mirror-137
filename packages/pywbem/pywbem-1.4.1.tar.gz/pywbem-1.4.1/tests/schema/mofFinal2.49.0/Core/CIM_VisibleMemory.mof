@@ -1,0 +1,49 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Core" ), 
+    Description ( 
+       "Describes an operating system visible memory extent. The term "
+       "visible as used here indicates that the memory has been mapped "
+       "directly or indirectly into the system address space." )]
+class CIM_VisibleMemory : CIM_Memory {
+
+      [Description ( 
+          "Describes the granularity (block vs. byte) used by "
+          "software accessing this memory. AccessGranularity is "
+          "used to identify the units of read and write, while "
+          "BlockSize and NumberOfBlocks is used to identify the "
+          "capacity of the memory." ), 
+       ValueMap { "0", "1", "2", "..", "32768..65535" }, 
+       Values { "Unknown", "Block Addressable", "Byte Addressable", 
+          "DMTF Reserved", "Vendor Reserved" }]
+   uint16 AccessGranularity;
+
+      [Description ( 
+          "Indicates whether the contents of this extent are "
+          "replicated either locally or on a remote system. "
+          "Replication conveys the capabilities of memory "
+          "controllers to mirror address ranges and the ability of "
+          "system software/hardware to do RDMA type replication to "
+          "another system. If Replication has a value, then "
+          "PackageRedundancy and DataRedundancy would be used to "
+          "expose the level of redundancy." ), 
+       ValueMap { "0", "1", "2", "3", "..", "32768..65535" }, 
+       Values { "Unknown", "Not Replicated", "Local Replication", 
+          "Remote Replication", "DMTF Reserved", "Vendor Reserved" }]
+   uint16 Replication;
+
+      [Description ( 
+          "If the controller has topology related constraints which "
+          "limit its suitability for a given purpose, they can be "
+          "exposed using this property. For example, if the visible "
+          "memory is such that it can be accessed from one "
+          "processor in a multi-processor system its accessed is "
+          "constrained to usages from that processor. In that case, "
+          "ProcessorAffinity is set to the DeviceID of the "
+          "processor." ), 
+       MaxLen ( 256 ), 
+       ModelCorrespondence { "CIM_Processor.DeviceID" }]
+   string ProcessAffinity;
+
+
+};

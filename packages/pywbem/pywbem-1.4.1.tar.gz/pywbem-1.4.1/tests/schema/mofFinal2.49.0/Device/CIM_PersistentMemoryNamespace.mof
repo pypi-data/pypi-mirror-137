@@ -1,0 +1,16 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.47.0" ), 
+    UMLPackagePath ( "CIM::Device::ConfigurableMemory" ), 
+    Description ( 
+       "This class describes a persistent memory storage extent. A "
+       "persistent directly or indirectly into the system address "
+       "space." )]
+class CIM_PersistentMemoryNamespace : CIM_Memory {
+
+      [Override ( "Volatile" ), 
+       Description ( 
+          "Persistent memory namespaces are always non-volatile." )]
+   boolean Volatile = false;
+
+
+};

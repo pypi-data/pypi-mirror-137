@@ -1,0 +1,70 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Storage" ), 
+    Description ( 
+       "The StorageProtectionSetting class holds properties for the "
+       "protection-related configuration and status of a storage "
+       "element (StorageVolume or LogicalDisk). It is associated to "
+       "the StorageVolume or LogicalDisk class by "
+       "ElementProtectionSettingData. A management application can "
+       "retrieve the protection-related information by traversing the "
+       "ElementProtectionSettingData association. If is not found, it "
+       "indicates no protection management is applied for the storage "
+       "element. These settings can only be changed by invoking the "
+       "StorageProtectionService.Protect method." )]
+class CIM_StorageProtectionSetting : CIM_SettingData {
+
+      [Description ( 
+          "Whether the storage element is being protected or not." )]
+   boolean ProtectionControlled;
+
+      [Description ( 
+          "Read and write accessibility of the storage element 0: "
+          "Unknown \n"
+          "1: Read/Write Enabled \n"
+          "2: Read Only \n"
+          "3: Write Once \n"
+          "4: Read/Write Disabled." ), 
+       ValueMap { "0", "1", "2", "3", "4" }, 
+       Values { "Unknown", "Read/Write Enabled", "Read Only", 
+          "Write Once", "Read/Write Disabled" }]
+   uint16 Access;
+
+      [Description ( 
+          "StorageVolume protection method for SCSI inquiry "
+          "commands. \n"
+          "0: Unknown \n"
+          "1: No SCSI Inquiry Protection \n"
+          "2: Inquiry Disabled \n"
+          "3: Zero Capacity Returned." ), 
+       ValueMap { "0", "1", "2", "3" }, 
+       Values { "Unknown", "No SCSI Inquiry Protection", 
+          "Inquiry Disabled", "Zero Capacity Returned" }]
+   uint16 InquiryProtection[];
+
+      [Description ( 
+          "Whether or not the storage element can be used as a replica."
+           )]
+   boolean DenyAsCopyTarget;
+
+      [Description ( 
+          "Whether a LUN assignment to the StorageVolume is allowed or not."
+           )]
+   boolean LUNMappingConfigurable;
+
+      [Description ( 
+          "Duration type of the storage element protection \n"
+          "1: None \n"
+          "2: Limited Expiration \n"
+          "3: Permanent." ), 
+       ValueMap { "1", "2", "3" }, 
+       Values { "None", "Limited expiration", "Permanent" }]
+   uint16 ProtectionExpirationSpecified;
+
+      [Description ( 
+          "Amount of remaining time before a management application "
+          "can change the access permission." )]
+   datetime RemainingProtectionTime;
+
+
+};

@@ -1,0 +1,120 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileElements" ), 
+    Description ( 
+       "A class derived from FileSystem that represents the file store "
+       "controlled by a ComputerSystem through local means (e.g., "
+       "direct device driver access). In this case, the file store is "
+       "managed directly by the ComputerSystem without the need for "
+       "another computer to act as a file server. This definition does "
+       "not breakdown in the case of a Clustered File System. In this "
+       "scenario, the FileSystem is a LocalFileSystem, weak to the "
+       "Cluster." )]
+class CIM_LocalFileSystem : CIM_FileSystem {
+
+      [Description ( 
+          "This enumerated integer specifies if the filesystem "
+          "supports security principal information and therefore "
+          "requires support from a file server that uses one or "
+          "more directory services. If the filesystem requires such "
+          "support, there must be a concrete subclass of Dependency "
+          "between the LocalFileSystem element and the specified "
+          "file server ComputerSystem.\n"
+          "The enumerated values are:\n"
+          "\"Not Used\" indicates that the filesystem will not "
+          "support security principal information and so will not "
+          "require support from a directory service.\n"
+          "\"Optional\" indicates that the filesystem may support "
+          "security principal information. If it does, it will "
+          "require support from a directory service and the "
+          "Dependency association described above must exist.\n"
+          "\"Required\" indicates that the filesystem supports "
+          "security principal information and will require support "
+          "from a directory service. The Dependency association "
+          "described above must exist." ), 
+       ValueMap { "0", "1", "2", "3", "4" }, 
+       Values { "Unknown", "Other", "Not Used", "Optional", 
+          "Required" }]
+   uint16 DirectoryServiceUsage;
+
+      [Description ( 
+          "This enumerated integer specifies if the provider "
+          "requires that a file system device be made locally "
+          "accessible before it can be used as a file system. If "
+          "local access is required to be set up, a vendor could "
+          "provide a default mechanism, for instance, making "
+          "\"/dev/fs1\" available as \"/etc/mounts/fs1\" "
+          "automatically in an Unix-like OS, but it can be "
+          "overridden by the system administrator.If local access "
+          "is not required, the file system is automatically made "
+          "available by some default name (for instance, the volume "
+          "at \"C\" is also the filesystem \"C:\"on Windows "
+          "systems, and cannot be overridden." ), 
+       ValueMap { "0", "1", "2", "3", "4" }, 
+       Values { "Unknown", "Other", "Required", 
+          "Required -- vendor default", "Not Required" }]
+   uint16 LocalAccessDefinitionRequired;
+
+      [Description ( 
+          "This enumerated integer specifies if the file system "
+          "type is capable of being built on multiple LogicalDisks. "
+          "If \"Supported\", the provider can make differential use "
+          "of the capabilities of the underlying multiple logical "
+          "disks, for instance, by putting file system meta data on "
+          "one kind of LogicalDisk and placing file data on another.\n"
+          "The CIM_LocalFileSystem can only reside on a single "
+          "LogicalDisk,but that LogicalDisk could be built up from "
+          "multiple underlying logical disk using an appropriate "
+          "profile. This property specifies support for "
+          "capabilities that make use of that sub-structure." ), 
+       ValueMap { "0", "1", "2", "3" }, 
+       Values { "Unknown", "Other", "Supported", "Not Supported" }]
+   uint16 MultipleDisksSupported;
+
+      [Description ( 
+          "The string is used by this FileSystem for constructing a "
+          "path name from the sequence of directories that leads to "
+          "some contained LogicalFile (file or directory). "
+          "Currently the most commonly used are \'\\\' for Windows "
+          "and \'/\' in Unix." )]
+   string PathNameSeparatorString;
+
+
+      [Description ( 
+          "The GetFileProperties gets a set of file records from a "
+          "filesystem. As there may be millions of records in this "
+          "report, a chunking mechanism is.provided so that the "
+          "client does not become overwhelmed by the quantity of "
+          "data furnished by the server." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", 
+          "4097..32767", "32768..65535" }, 
+       Values { "Success", "Not Supported", "Unknown", "Timeout", 
+          "Failed", "Invalid Parameter", "In Use", "DMTF Reserved", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 GetFileProperties(
+         [OUT, Description ( 
+             "The DirectoryName is an optional pathname for a "
+             "directory a directory to restrict the data "
+             "returned. If this parameter is NULL, then files "
+             "are returned for all filesin the Filesystem." )]
+      string DirectoryName, 
+         [OUT, Description ( 
+             "The initial call to GetFileProperties shall pass "
+             "in NULL as a Handle. Subsequent calls shall pass "
+             "back the Handle exactly as received from the "
+             "server, without modification, asan indication of "
+             "where to continue the report from." )]
+      string Handle, 
+         [OUT, Description ( 
+             "The NumberOfFiles is the number of files returned "
+             "in a block of FileRecs. If NULL the provider will "
+             "supply a default number (and put that number in "
+             "the parameter as output)." )]
+      uint64 NumberOfFiles, 
+         [IN ( false ), OUT, Description ( 
+             "This array parameter provides the file records as "
+             "embedded instances of CIM_LogicalFile." ), 
+          EmbeddedInstance ( "CIM_LogicalFile" )]
+      string FileRecs[]);
+
+};

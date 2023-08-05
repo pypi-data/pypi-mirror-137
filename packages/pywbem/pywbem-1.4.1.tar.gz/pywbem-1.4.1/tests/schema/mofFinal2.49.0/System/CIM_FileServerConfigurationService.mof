@@ -1,0 +1,361 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileServices" ), 
+    Description ( 
+       "This service provides active management for a FileServer. It "
+       "supports the creation, modification, and deletion of "
+       "FileServer elements and ConcreteJobs for long-runningtasks.\n"
+       "In addition, it supports the creation, modification, and "
+       "deletion of IP Interfaces associated with a given FileServer." )]
+class CIM_FileServerConfigurationService : CIM_Service {
+
+
+      [Description ( 
+          "CreateFileServer creates a FileServer and returns a "
+          "reference to it as the value of the parameter "
+          "TheElement.The FileServer shall be an instance of "
+          "ComputerSystem with Dedicated=\"FileServer\". Even if "
+          "this operation does not complete but creates a "
+          "ConcreteJob, an implementation may return a valid "
+          "reference in TheElement. If the job fails subsequently, "
+          "it is possible for this reference to become invalid. \n"
+          "The desired settings for the FileServer are specified by "
+          "several parameters (string-valued EmbeddedInstance "
+          "elements of the appropriate class).\n"
+          "A new FileServerSettings element that represents the "
+          "settings of the FileServer shall be associated via "
+          "ElementSettingData to the FileServer. In addition, new "
+          "instances of CIFSSettingData, NFSSettingData, "
+          "NISSettingData, IPInterfaceSettingData, and "
+          "DNSSettingData shall be associated with the "
+          "FileServerSettings element via ConcreteComponent. The "
+          "IPInterfaceSettingData shall be used to 1) create an "
+          "instance of IPProtocolEndPoint that shall be associated "
+          "with the FileServer via HostedAccessPoint. 2) create an "
+          "instance of NetworkVLAN and associate it with the "
+          "IPProtocolEndPoint via MemberOfCollection, and 3) create "
+          "an instance of TCPProtocolEndPoint associating it with "
+          "the FileServer via HostedAccessPoint. The "
+          "HostingComputerSystem identifies the ComputerSystem that "
+          "is hosting the FileServer. A HostedDependency "
+          "association shall be created to associate this "
+          "ComputerSystem with the FileServer. The EthernetPort "
+          "parameter is used to create an association between the "
+          "EthernetPort\'s LANEndPoint and IPProtocolEndpoint, and "
+          "to associate the EthernetPort with the CIFS and NFS "
+          "ProtocolEndPoints via DeviceSAPImplementation. The "
+          "NASComputerSystem is used to associate the new "
+          "FileServer with the NAS system via ComponentCS" ), 
+       ValueMap { "0", "1", "..", "4096", "4098..32767", 
+          "32768..65535" }, 
+       Values { "Job Completed with No Error", "Failed", 
+          "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 CreateFileServer(
+         [Description ( 
+             "An end user relevant name for the file server "
+             "being created. The value shall be stored in the "
+             "\'ElementName\' property for the created element. "
+             "This parameter shall not be NULL or the empty "
+             "string." )]
+      string ElementName, 
+         [IN ( false ), OUT, Description ( 
+             "Reference to the job (may be null if job completed)."
+              )]
+      CIM_ConcreteJob REF Job, 
+         [OUT, Description ( "The newly created FileServer." )]
+      CIM_LogicalElement REF TheElement, 
+         [OUT, Description ( 
+             "The FileServerSettings for the newly created "
+             "FileServer. If NULL or the empty string, a default "
+             "FileServerSettings shall be used and returned on "
+             "output." ), 
+          EmbeddedInstance ( "CIM_FileServerSettings" )]
+      string FileServerSettings, 
+         [OUT, Description ( 
+             "The IPInterfaceSettingData that specifies the IP "
+             "Interface that the FileServer will use for "
+             "servicing all CIFS and NFS requests. If NULL or "
+             "the empty string, a default IPInterfaceSettingData "
+             "shall be used and returned on output" ), 
+          EmbeddedInstance ( "CIM_FSIPInterfaceSettingData" )]
+      string IPInterfaceSettingData, 
+         [OUT, Description ( 
+             "The CIFSSettingData that specifies the CIFS "
+             "settings for the FileServer being created. If this "
+             "is NULL, the FileServer shall not have CIFS "
+             "enabled and the resulting CIFSSettingData instance "
+             "created shall have its \"Enabled\" property set to "
+             "false. The CIFSSettingData instance will be "
+             "returned on output." ), 
+          EmbeddedInstance ( "CIM_CIFSSettingData" )]
+      string CIFSSettingData, 
+         [OUT, Description ( 
+             "The NFSSettingData that specifies the NFS settings "
+             "for the FileServer being created. If this is NULL, "
+             "the FileServer shall not have NFS enabled and the "
+             "resulting NFSSettingData instance created shall "
+             "have its \"Enabled\" property set to false. The "
+             "NFSSettingData instance will be returned on "
+             "output." ), 
+          EmbeddedInstance ( "CIM_NFSSettingData" )]
+      string NFSSettingData, 
+         [OUT, Description ( 
+             "The DNSSettingData that specifies the DNS settings "
+             "for the FileServer being created. If this is NULL, "
+             "the FileServer shall not have access to a DNS "
+             "server and a DNSSettingData instance shall not be "
+             "instantiated for the FileServer." ), 
+          EmbeddedInstance ( "CIM_DNSSettingData" )]
+      string DNSSettingData, 
+         [OUT, Description ( 
+             "The NISSettingData that specifies the NIS settings "
+             "for the FileServer being created. If this is NULL, "
+             "the FileServer shall not have access to a NIS "
+             "server and a NISSettingData instance shall not be "
+             "instantiated for the FileServer." ), 
+          EmbeddedInstance ( "CIM_NISSettingData" )]
+      string NISSettingData, 
+         [Description ( 
+             "Either the NAS Head or Self-contained NAS system "
+             "that the FileServer shall be a component system "
+             "of." )]
+      CIM_ComputerSystem REF NASComputerSystem, 
+         [Description ( 
+             "The HostingComputerSystem identifies the "
+             "ComputerSystem that will host the FileServer." )]
+      CIM_ComputerSystem REF HostingComputerSystem, 
+         [Description ( 
+             "The EthernetPort identifies the hardware port that "
+             "the File Server will use for mount requests." )]
+      CIM_EthernetPort REF EthernetPort);
+
+      [Description ( 
+          "ModifyFileServer modifies a FileServer specified by the "
+          "input reference parameter FileServer.The desired new "
+          "settings for the FileServer are specified by the various "
+          "parameters (string-valued EmbeddedInstance objects of "
+          "class FileSystemSetting).\n"
+          "One or all of the SettingData parameters may contain "
+          "EmbeddedInstance objects reflecting the aspect(s) of the "
+          "FileServer that are to be Modified. The parameters are "
+          "essentially the same as found in CreateFileServer except "
+          "the HostingComputerSystem and EthernetPort cannot be "
+          "modified through this method. To modify those, use the "
+          "ModifyIPInterface method." ), 
+       ValueMap { "0", "1", "..", "4096", "4098..32767", 
+          "32768..65535" }, 
+       Values { "Job Completed with No Error", "Failed", 
+          "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 ModifyFileServer(
+         [OUT, Description ( "The FileServer to be modified." )]
+      CIM_ComputerSystem REF FileServer, 
+         [IN ( false ), OUT, Description ( 
+             "Reference to the job (may be null if job completed)."
+              )]
+      CIM_ConcreteJob REF Job, 
+         [Description ( 
+             "A new end user relevant name for the FileServer "
+             "specified by TheElement. If NULL, then the "
+             "previous name is not changed." )]
+      string ElementName, 
+         [Description ( 
+             "If non-NULL, this specifies the new "
+             "FileServerSettings for the FileServer. If NULL, "
+             "then the FileServerSettings of the FileServer "
+             "shall ot be modified." ), 
+          EmbeddedInstance ( "CIM_FileServerSettings" )]
+      string FileServerSettings, 
+         [Description ( 
+             "IF non-NULL, this specifies the new CIFS settings "
+             "for the FileServer. If the \"Enabled\" property "
+             "set to false, CIFS will be disabled for the "
+             "FileServer. If NULL, then the CIFS setting of the "
+             "FileServer shall not be modified." ), 
+          EmbeddedInstance ( "CIM_CIFSSettingData" )]
+      string CIFSSettingData, 
+         [Description ( 
+             "IF non-NULL, this specifies the new NFS settings "
+             "for the FileServer. If the \"Enabled\" property "
+             "set to false, NFS will be disabled for the "
+             "FileServer. If NULL, then the NFS setting of the "
+             "FileServer shall not be modified." ), 
+          EmbeddedInstance ( "CIM_NFSSettingData" )]
+      string NFSSettingData, 
+         [Description ( 
+             "IF non-NULL, this specifies the new DNS settings "
+             "for the FileServer. If NULL, then the DNS setting "
+             "of the FileServer shall not be modified." ), 
+          EmbeddedInstance ( "CIM_DNSSettingData" )]
+      string DNSSettingData, 
+         [Description ( 
+             "IF non-NULL, this specifies the new NIS settings "
+             "for the FileServer. If NULL, then the NIS setting "
+             "of the FileServer shall not be modified." ), 
+          EmbeddedInstance ( "CIM_NISSettingData" )]
+      string NISSettingData);
+
+      [Description ( 
+          "DeleteFileServer deletes a FileServer specified by the "
+          "parameter FileServer. This operation may not succeed if "
+          "the FileServer is hosting any FileSystems. The "
+          "ComputerSystem instance that represents the FileServer "
+          "will be deleted along with the associated instances "
+          "FileServerSettings, CIFSSettingData, NFSSettingData, "
+          "NISSettingData, IPInterfaceSettingData, "
+          "IPProtocolEndPoint, TCPProtocolEndPoint, NetworkVLAN, "
+          "and the CIFS/NFS ProtocolEndpoints. All related "
+          "Associations shall be deleted as well. If necessary, a "
+          "ConcreteJob will be started to delete the FileServer. A "
+          "reference to the ConcreteJob will be returned in the "
+          "output parameter Job." ), 
+       ValueMap { "0", "1", "..", "0x1000", "0x1001..0x7FFF", 
+          "0x8000.." }, 
+       Values { "Job Completed with No Error", 
+          "Failed, Unspecified Reasons", "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 DeleteFileServer(
+         [Description ( "The FileServer that is to be deleted." )]
+      CIM_ComputerSystem REF FileServer, 
+         [IN ( false ), OUT, Description ( 
+             "Reference to the job (may be null if job completed)."
+              )]
+      CIM_ConcreteJob REF Job);
+
+      [Description ( 
+          "AddIPInterface adds a new IP Interface to an existing "
+          "FileServer specified by the parameter FileServer. The "
+          "parameters specify the IPInterfaceSettingData, "
+          "HostingComputerSystem, and EthernetPort that make up the "
+          "new IP Interface. In a manner similar to the actions in "
+          "CreateFileServer, a new instance of "
+          "IPInterfaceSettingData is associated with the FileServer "
+          "via ConcreteComponent and is used to instantiate a new "
+          "IPProtocolEndpoint, NetworkVLAN, and TCPProtocolEndpoint "
+          "with appropriate associations, again as described in "
+          "CreateFileServer. The HostingComputerSystem is "
+          "associated with the FileServer via HostedDepedency. This "
+          "operation may fail if the FileServer already has the "
+          "same IP Interface or if any of the parameters are "
+          "incompatible with the current state of the FileServer. "
+          "If necessary, a ConcreteJob will be started to add the "
+          "IP Interface. A reference to the ConcreteJob will be "
+          "returned in the output parameter Job." ), 
+       ValueMap { "0", "1", "..", "0x1000", "0x1001..0x7FFF", 
+          "0x8000.." }, 
+       Values { "Job Completed with No Error", 
+          "Failed, Unspecified Reasons", "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 AddIPInterface(
+         [Description ( 
+             "The FileServer that is to which the IP Interface "
+             "shall be added." )]
+      CIM_ComputerSystem REF FileServer, 
+         [IN ( false ), OUT, Description ( 
+             "Reference to the job (may be null if job completed)."
+              )]
+      CIM_ConcreteJob REF Job, 
+         [OUT, Description ( 
+             "The IPInterfaceSettingData that specifies the "
+             "settings of the IP Interface to be added to the "
+             "FileServer." ), 
+          EmbeddedInstance ( "CIM_FSIPInterfaceSettingData" )]
+      string IPInterfaceSettingData, 
+         [Description ( 
+             "The HostingComputerSystem identifies the "
+             "ComputerSystem that will host the new IP Interface "
+             "for the FileServer." )]
+      CIM_ComputerSystem REF HostingComputerSystem, 
+         [Description ( 
+             "The EthernetPort identifies the hardware port that "
+             "will host the new IP Interface." )]
+      CIM_EthernetPort REF EthernetPort);
+
+      [Description ( 
+          "ModifyIPInterface modifies an existing IP Interface on "
+          "the FileServer specified by the parameter FileServer. "
+          "The parameters identify the IP Interface to modify and "
+          "specify the new IPInterfaceSettingData, "
+          "HostingComputerSystem, and EthernetPort for the IP "
+          "Interface. If necessary, a ConcreteJob will be started "
+          "to add the IP Interface. A reference to the ConcreteJob "
+          "will be returned in the output parameter Job." ), 
+       ValueMap { "0", "1", "..", "0x1000", "0x1001..0x7FFF", 
+          "0x8000.." }, 
+       Values { "Job Completed with No Error", 
+          "Failed, Unspecified Reasons", "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 ModifyIPInterface(
+         [OUT, Description ( 
+             "The FileServer who\'s IP Interface shall be modified."
+              )]
+      CIM_ComputerSystem REF FileServer, 
+         [Description ( 
+             "The IPInterfaceSettingData that is to be modified. "
+             "This is used to identify which "
+             "IPInterfaceSettingData instance to modify" )]
+      CIM_FSIPInterfaceSettingData REF IPInterfaceSettingData, 
+         [IN ( false ), OUT, Description ( 
+             "Reference to the job (may be null if job completed)."
+              )]
+      CIM_ConcreteJob REF Job, 
+         [Description ( 
+             "If non-NULL, the IPInterfaceSettingData that will "
+             "replace an existing IPInterfaceSettingData "
+             "instance in the FileServer. If NULL, then the "
+             "IPInterfaceSettingData will not be modified." ), 
+          EmbeddedInstance ( "CIM_FSIPInterfaceSettingData" )]
+      string NewIPInterfaceSettingData, 
+         [Description ( 
+             "If non-NULL, the new ComputerSystem that will host "
+             "the IPInterface. If NULL, the current "
+             "ComputerSystem hosting the IPInterface will remain "
+             "unchanged." )]
+      CIM_ComputerSystem REF HostingComputerSystem, 
+         [Description ( 
+             "If non-NULL, the EthernetPort identifies the new "
+             "hardware port for the IPInterface. If NULL, the "
+             "current EthernetPort setting will not be changed." )]
+      CIM_EthernetPort REF EthernetPort);
+
+      [Description ( 
+          "DeleteIPInterface deletes an existing IP Interface on "
+          "the FileServer specified by the parameter FileServer. "
+          "The parameters identify the IP Interface to delete. This "
+          "operation may fail if the IP Interface specified is the "
+          "only IP Interface currently associated with the "
+          "FileServer. Deleting a IP Interface includes deleting "
+          "the IPInterfaceSettingData, IPProtocolEndPoint, "
+          "NetworkVLAN, and TCPProtocolEndPoint instances. The "
+          "related associations shall also be deleted. If "
+          "necessary, a ConcreteJob will be started to add the IP "
+          "Interface. A reference to the ConcreteJob will be "
+          "returned in the output parameter Job." ), 
+       ValueMap { "0", "1", "..", "0x1000", "0x1001..0x7FFF", 
+          "0x8000.." }, 
+       Values { "Job Completed with No Error", 
+          "Failed, Unspecified Reasons", "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 DeleteIPInterface(
+         [OUT, Description ( 
+             "The FileServer who\'s IP Interface shall be deleted."
+              )]
+      CIM_ComputerSystem REF FileServer, 
+         [Description ( 
+             "The IPInterfaceSettingData that is to be deleted. "
+             "This is used to identify which "
+             "IPInterfaceSettingData instance to delete." )]
+      CIM_FSIPInterfaceSettingData REF IPInterfaceSettingData, 
+         [IN ( false ), OUT, Description ( 
+             "Reference to the job (may be null if job completed)."
+              )]
+      CIM_ConcreteJob REF Job);
+
+};

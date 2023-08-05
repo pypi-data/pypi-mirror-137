@@ -1,0 +1,63 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.47.0" ), 
+    UMLPackagePath ( "CIM::Device::ConfigurableMemory" ), 
+    Description ( 
+       "The MemoryAllocationSettingData class represents settings used "
+       "when allocating a memory extent. Instances can represent a "
+       "default or staged setting in which case they are not "
+       "associated with an existing extent. Instances can also "
+       "represent the specific settings used when allocating an "
+       "existing extent in which case they are assocated to that "
+       "memory extent." )]
+class CIM_MemoryAllocationSettingData : CIM_ResourceAllocationSettingData {
+
+      [Override ( "ResourceType" ), 
+       Description ( 
+          "The type of resource this allocation setting represents. \n"
+          "\"Memory\" volatile memory. \n"
+          "\"Non-Volatile Memory\" memory that is energy backed or "
+          "otherwise persistent media." ), 
+       ValueMap { "0", "1", "4", "35", "..", "0x8000..0xFFFF" }, 
+       Values { "Unknown", "Other", "Memory", "Non-Volatile Memory", 
+          "DMTF reserved", "Vendor Reserved" }, 
+       ModelCorrespondence { 
+          "CIM_ResourceAllocationSettingData.OtherResourceType", 
+          "CIM_ResourceAllocationSettingData.ResourceSubType" }]
+   uint16 ResourceType;
+
+      [Description ( 
+          "Indicates the amount of data written to a given channel "
+          "before switching to the next channel when a channel "
+          "interleave scheme is in use. This value is given as the "
+          "exponent in an exponential expression with 2 as the "
+          "base. Example: 64B would be given as 6, 2**6=64B." )]
+   uint16 ChannelInterleaveSize;
+
+      [Description ( 
+          "Indicates the number of channels involved in the channel "
+          "interleave scheme." )]
+   uint16 ChannelCount;
+
+      [Description ( 
+          "Indicates the amount of data written by a given memory "
+          "controller before switching to the next controller when "
+          "a memory controller interleave scheme is in use. This "
+          "value is given as the exponent in an exponential "
+          "expression with 2 as the base. Example: 64B would be "
+          "given as 6, 2**6=64B" )]
+   uint16 ControllerInterleaveSize;
+
+      [Description ( 
+          "Indicates whether replication is requested/in-use. \n"
+          "\"Not Replicated\" No replication taking place. \n"
+          "\"Local Replication\" Replication to resources within "
+          "the same system. \n"
+          "\"Remote Replication\" Replication to resources external "
+          "to the system containing the primary copy." ), 
+       ValueMap { "0", "2", "3", "4", "..", "0x8000..0xFFFF" }, 
+       Values { "Unknown", "Not Replicated", "Local Replication", 
+          "Remote Replication", "DMTF reserved", "Vendor Reserved" }]
+   uint16 Replication;
+
+
+};

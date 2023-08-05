@@ -1,0 +1,56 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileServices" ), 
+    Description ( 
+       "The FileServerSettings is a derived class of Settingdata that "
+       "specifies general properties for a Fileserver. It also serves "
+       "as the main Settings object for a Fileserver that is "
+       "associated with the other Fileserver properties via "
+       "theConcreteComponent association." )]
+class CIM_FileServerSettings : CIM_SettingData {
+
+      [Description ( 
+          "An array of lookup service names that specifies the "
+          "order of services to use when resolving host names. "
+          "UploadedFile refers to a file of host names that has "
+          "been previously uploaded to the FileServer.If None is "
+          "specified, then any other service names will be ignored." ), 
+       ValueMap { "0", "2", "3", "4", "5", "..", "0x8000.." }, 
+       Values { "Unknown", "None", "DNS", "NIS", "UploadedFile", 
+          "Reserved", "Vendor Defined" }, 
+       ArrayType ( "Ordered" )]
+   uint16 HostLookupOrder[];
+
+      [Description ( 
+          "An array of lookup service names that specifies the "
+          "order of services to use when resolving user names and "
+          "passwords. UploadedFile refers to a file of user names "
+          "and passwords that has been previously uploaded to the "
+          "FileServer. If None is specified, then any other service "
+          "names will be ignored." ), 
+       ValueMap { "0", "2", "3", "4", "5", "..", "0x8000.." }, 
+       Values { "Unknown", "None", "DNS", "NIS", "UploadedFile", 
+          "Reserved", "Vendor Defined" }, 
+       ArrayType ( "Ordered" )]
+   uint16 UserLoginLookupOrder[];
+
+      [Description ( 
+          "Controls the mapping of accounts between NFS and CIFS. "
+          "If set to None (the default), no account mapping will be "
+          "performed by the FileServer. If set to All, account "
+          "mapping will be performed for all CIFS domains.If set to "
+          "Domain, account mapping will be done for only those "
+          "users in the domainspecified by AccountMappingDomain." ), 
+       ValueMap { "0", "2", "3", "4", "..", "0x8000.." }, 
+       Values { "Unknown", "None", "All", "Domain", "Reserved", 
+          "Vendor Defined" }]
+   uint16 NFSCIFSAccountMapping = 0;
+
+      [Description ( 
+          "If NFSCIFSAccountMapping= 2 (Domain), then this property "
+          "will contain the name of the CIFS domain to use for NFS "
+          "to CIFS account mapping." )]
+   string AccountMappingDomain;
+
+
+};

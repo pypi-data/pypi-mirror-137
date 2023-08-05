@@ -1,0 +1,44 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.47.0" ), 
+    UMLPackagePath ( "CIM::Device::ConfigurableMemory" ), 
+    Description ( 
+       "A subclass of Capabilities that defines the capabilities of a "
+       "PersistentMemoryService." )]
+class CIM_PersistentConfigurationCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "Enumeration indicating the available synchronous memory "
+          "provisioning operations. Synchronous operations result "
+          "in an immediate change to the platform memory "
+          "configuration. \n"
+          "\"Unknown\" No synchronous operations supported \n"
+          "\"AllocateFromPool\" persistent namespace allocation is "
+          "supported. \n"
+          "\"ReturnToPool\" persistent namespace deallocation is "
+          "supported. \n"
+          "\"ModifyNamespace\" persistent namespace modification is "
+          "supported." ), 
+       ValueMap { "0", "2", "3", "4" }, 
+       Values { "Unknown", "AllocateFromPool", "ReturnToPool", 
+          "ModifyNamespace" }]
+   uint16 SupportedSynchronousOperations[];
+
+      [Description ( 
+          "Enumeration indicating the available asynchronous memory "
+          "provisioning operations. Asynchronous operations stage a "
+          "memory provisioning request which takes effect after "
+          "some triggering action such as a system reboot. \n"
+          "\"Unknown\" No synchronous operations supported \n"
+          "\"AllocateFromPool\" persistent namespace allocation is "
+          "supported. \n"
+          "\"ReturnToPool\" persistent namespace deallocation is "
+          "supported. \n"
+          "\"ModifyNamespace\" persistent namespace modification is "
+          "supported." ), 
+       ValueMap { "0", "2", "3", "4" }, 
+       Values { "Unknown", "AllocateFromPool", "ReturnToPool", 
+          "ModifyNamespace" }]
+   uint16 SupportedAsynchronousOperations[];
+
+
+};

@@ -1,0 +1,41 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Cascading" ), 
+    Description ( 
+       "A subclass of SystemSpecificCollection which collects together "
+       "remote resources that are seen by a system. This class "
+       "collects all the remote resources of a specific type for the "
+       "system that can be found (via the MemberOfCollection "
+       "associations)." )]
+class CIM_RemoteResources : CIM_SystemSpecificCollection {
+
+      [Description ( 
+          "Enumeration indicating the type of element that is "
+          "collected by this RemoteResources collection." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
+          "10" }, 
+       Values { "Unknown", "Reserved", "Any Type", "StorageVolume", 
+          "StorageExtent", "StoragePool", "ComputerSystem", 
+          "LogicalDisk", "FileShare", "Volume Group", "Filesystem" }]
+   uint16 ElementType;
+
+      [Description ( 
+          "An array of strings indicating the purposes of the "
+          "collection of elements. Each string should be of the "
+          "form :. Some examples include: \n"
+          "SNIA:Imported Volumes - to indicate that the volumes are "
+          "candidates for storage \n"
+          "SNIA:Target Volumes - to indicate that the volumes are "
+          "candidate target volumes of a replica pair \n"
+          "SNIA:Source Volumes - to indicate that the volumes are "
+          "candidate source volumes of a replica pair. \n"
+          "SNIA:Target Volume Group - to indicate that the group "
+          "are candidate targets of a replica pair. \n"
+          "SNIA:Source Volume Group - to indicate that thegroup are "
+          "candidate sources of a replica pair. \n"
+          "SNIA:Remote Storage Pools - to indicate that thethe "
+          "storage pools are candidates for allocation of volumes." )]
+   string CollectionDiscriminator[];
+
+
+};

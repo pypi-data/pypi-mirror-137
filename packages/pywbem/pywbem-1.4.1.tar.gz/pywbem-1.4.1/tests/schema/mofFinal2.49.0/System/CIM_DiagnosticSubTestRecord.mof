@@ -1,0 +1,20 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::Diagnostics" ), 
+    Description ( 
+       "This is a subclass of CIM_DiagnosticRecord that identfies "
+       "another log for a subtest of the diagnostic test." )]
+class CIM_DiagnosticSubTestRecord : CIM_DiagnosticRecord {
+
+      [Description ( 
+          "This is the message id of the completion status message. "
+          "The possible values include:\n"
+          "* \"DIAG0\" - The test passed.\n"
+          "* \"DIAG3\" - The device test failed.\n"
+          "* \"DIAG4\" - The test was completed with warnings.\n"
+          "* \"DIAG44\" - The test did not start.\n"
+          "* \"DIAG45\" - The test aborted." )]
+   string TestCompletionStatus;
+
+
+};

@@ -1,0 +1,59 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileSystem" ), 
+    Description ( 
+       "The NFSSettingData is a derived class of Settingdata that "
+       "specifies NFS specific properties for a Fileserver." )]
+class CIM_NFSSettingData : CIM_SettingData {
+
+      [Description ( 
+          "True indicates that NFS is enabled for a FileServer. "
+          "False indicates NFS is disabled." )]
+   boolean Enabled;
+
+      [Description ( 
+          "The charset that will be used by a Fileserver for NFS "
+          "processing. The default is ISO-8859-1." ), 
+       ValueMap { "0", "1", "2", "..", "0x8000.." }, 
+       Values { "Standard-ASCII", "UTF8", "ISO-8859-1", "Reserved", 
+          "Vendor Defined" }]
+   uint16 Charset = 2;
+
+      [Description ( 
+          "This specifies the number of concurrent TCP connections "
+          "that are allowed for the NFS protocol. If set to 0, then "
+          "TCP will be disabled for NFS." )]
+   uint16 MaximumTCPConnections;
+
+      [Description ( 
+          "The port the File Server listens for mount requests. The "
+          "default is 2049." )]
+   uint16 Port = 2049;
+
+      [Description ( 
+          "User ID to use for requests from non-NFS access. The "
+          "default is -1." )]
+   sint16 NonNFSuid = -1;
+
+      [Description ( 
+          "UGroup ID to use for requests from non-NFS access. The "
+          "default is -1." )]
+   sint16 NonNFSgid = -1;
+
+      [Description ( 
+          "This boolean specifies that the File Server will only "
+          "allow NFS mount requests from client machine TCP/IP "
+          "ports less than 1024. True allows mount requests from "
+          "ports less than 1024 False allows mount requests from "
+          "any client port." )]
+   boolean UseReservedPorts;
+
+      [Description ( 
+          "This boolean specifies if the root user is allowed to "
+          "issue chown (change ownership) requests. True indicates "
+          "that only root users may issue chown request. False "
+          "indicates that any user may issue chown requests" )]
+   boolean OnlyRootChown;
+
+
+};

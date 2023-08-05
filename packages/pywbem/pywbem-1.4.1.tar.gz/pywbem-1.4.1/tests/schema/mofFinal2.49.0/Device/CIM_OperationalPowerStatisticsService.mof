@@ -1,0 +1,191 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Power" ), 
+    Description ( 
+       "A subclass of StatisticsService that provides services for "
+       "filtering and retrieving statistics from a "
+       "StatisticsManifestCollection that contains instances of "
+       "OperationalPowerStatisticalData." )]
+class CIM_OperationalPowerStatisticsService : CIM_StatisticsService {
+
+
+      [Description ( 
+          "Retrieves statistics in a well-defined bulk format. The "
+          "collection of statistics returned is determined by the "
+          "list of element types passed in to the method and the "
+          "manifests for those types contained in the supplied "
+          "OperationalPowerManifestCollection. If both the Elements "
+          "and OperationalPowerManifestCollection parameters are "
+          "supplied, then the types of elements returned is an "
+          "intersection of the element types listed in the Elements "
+          "parameter and the types for which "
+          "OperationalPowerManifest instances exist in the supplied "
+          "OperationalPowersManifestCollection. The statistics are "
+          "returned through a well-defined array of strings, whose "
+          "format is specified by the StatisticsFormat parameter, "
+          "that can be parsed to retrieve the desired statistics as "
+          "well as limited information about the elements that "
+          "those metrics describe." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "..", "4096", 
+          "4097", "4098", "4099..32767", "32768..65535" }, 
+       Values { "Job Completed with No Error", "Not Supported", 
+          "Unknown", "Timeout", "Failed", "Invalid Parameter", 
+          "Method Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Element Not Supported", 
+          "Statistics Format Not Supported", "Method Reserved", 
+          "Vendor Specific" }]
+   uint32 GetStatisticsCollection(
+         [IN ( false ), OUT, Description ( 
+             "Reference to the job (may be null if job completed)."
+              )]
+      CIM_ConcreteJob REF Job, 
+         [Description ( 
+             "Element types for which statistics should be "
+             "returned. If not supplied (i.e. parameter is null) "
+             "this parameter is not considered when filtering "
+             "the instances of StatisticalData that will "
+             "populate the Statistics output parameter. If the "
+             "array is not null, but is empty, then no "
+             "statistics will be returned by this method. A "
+             "client SHOULD NOT specify this parameter if it is "
+             "not meaningful (i.e. the service only provides "
+             "statistics for a single type of element)." ), 
+          ValueMap { "2", "10", "201", "202", "203", "204", 
+             "205", "206", "207", "..", "0x8000.." }, 
+          Values { "Computer System", "Disk Drive", "PDU", 
+             "Power Supply", "Fan", "CPU", "RAID Group", 
+             "Disk Tray", "Controller", "DMTF Reserved", 
+             "Vendor Specific" }, 
+          ModelCorrespondence { 
+             "CIM_OperationalPowerStatisticalData.ElementType" }]
+      uint16 ElementTypes[], 
+         [Description ( 
+             "The OperationalPowerManifestCollection that "
+             "contains the manifests that list the metrics to be "
+             "returned for each element type. If not supplied "
+             "(i.e. parameter is null), then all available "
+             "statistics will be returned unfiltered. Only "
+             "elements that match the element type properties "
+             "(if meaningful) of the OperationalPowerManifest "
+             "instances contained within the "
+             "OperationalPowerManifestCollection will have data "
+             "returned by this method. If the supplied "
+             "OperationalPowerManifestCollection does not "
+             "contain any OperationalPowerStatisticsManifest "
+             "instances, then no statistics will be returned by "
+             "this method." )]
+      CIM_OperationalPowerManifestCollection REF ManifestCollection, 
+         [Description ( 
+             "Specifies the format of the Statistics output "
+             "parameter. \n"
+             "- CSV = Comma Separated Values." ), 
+          ValueMap { "0", "1", "2", "..", "0x8000.." }, 
+          Values { "Unknown", "Other", "CSV", "DMTF Reserved", 
+             "Vendor Specific" }]
+      uint16 StatisticsFormat, 
+         [OUT, Description ( 
+             "The statistics for all the elements as determined "
+             "by the Elements, ManifestCollection parameters, "
+             "and StatisticsFormat parameters." ), 
+          ModelCorrespondence { 
+             "CIM_OperationalPowerStatisticsService.GetStatisticsCollection(ElementTypes)", 
+             "CIM_OperationalPowerStatisticsService.GetStatisticsCollection(ManifestCollection)", 
+             "CIM_OperationalPowerStatisticsService.GetStatisticsCollection(StatisticsFormat)" }]
+      string Statistics[]);
+
+      [Description ( 
+          "Creates a new OperationalPowerManifestCollection "
+          "instance, whose members can serve as a filter for "
+          "metrics retrieved through the GetStatisticsCollection "
+          "method." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6..32767", 
+          "32768..65535" }, 
+       Values { "Ok", "Not Supported", "Unknown", "Timeout", 
+          "Failed", "Invalid Parameter", "Method Reserved", 
+          "Vendor Specific" }]
+   uint32 CreateManifestCollection(
+         [Description ( 
+             "The collection of statistics that will be filtered "
+             "using the new OperationalPowerManifestCollection." )]
+      CIM_StatisticsCollection REF Statistics, 
+         [Description ( 
+             "Client-defined name for the new "
+             "OperationalPowerManifestCollection." )]
+      string ElementName, 
+         [OUT, Description ( 
+             "Reference to the new OperationalPowerManifestCollection."
+              )]
+      CIM_OperationalPowerManifestCollection REF ManifestCollection);
+
+      [Description ( 
+          "Method that creates or modifies a "
+          "OperationalPowerManifest for this statistics service. A "
+          "client supplies a OperationalPowerManifestCollection in "
+          "which the new OperationalPowerManifest will be placed or "
+          "an existing OperationalPowerManifest will be modified, "
+          "the element type of the statistics that the "
+          "OperationalPowerManifest will filter, and a list of "
+          "metrics, which serves as a filter for statistical data "
+          "of that element type." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "..", "4096", 
+          "4097", "4098", "4099..32767", "32768..65535" }, 
+       Values { "Success", "Not Supported", "Unknown", "Timeout", 
+          "Failed", "Invalid Parameter", "Method Reserved", 
+          "Element Not Supported", "Metric not supported", 
+          "ElementType Parameter Missing", "Method Reserved", 
+          "Vendor Specific" }]
+   uint32 AddOrModifyManifest(
+         [Description ( 
+             "OperationalPowerManifestCollection that the "
+             "OperationalPowerManifest is or should be a member "
+             "of." )]
+      CIM_OperationalPowerManifestCollection REF ManifestCollection, 
+         [Description ( 
+             "The type of elements whose statistics the "
+             "OperationalPowerManifest will filter." ), 
+          ValueMap { "2", "10", "201", "202", "203", "204", 
+             "205", "206", "207", "..", "0x8000.." }, 
+          Values { "Computer System", "Disk Drive", "PDU", 
+             "Power Supply", "Fan", "CPU", "RAID Group", 
+             "Disk Tray", "Controller", "DMTF Reserved", 
+             "Vendor Specific" }, 
+          ModelCorrespondence { 
+             "CIM_OperationalPowerManifest.ElementType" }]
+      uint16 ElementType, 
+         [Description ( 
+             "A client-defined string that identifies the "
+             "OperationalPowerManifest created or modified by "
+             "this method." )]
+      string ElementName, 
+         [Description ( 
+             "The metrics that will be included by the filter. "
+             "The metrics supplied here are the properties of "
+             "CIM_StatisticalData or one of its subclasses that "
+             "will remain after the OperationalPowerManifest "
+             "filter is applied." )]
+      string StatisticsList[], 
+         [OUT, Description ( 
+             "The OperationalPowerManifest that is created or "
+             "modified on successful execution of the method." )]
+      CIM_OperationalPowerManifest REF Manifest);
+
+      [Description ( 
+          "Extrinsic method that removes manifests from a "
+          "OperationalPowerManifestCollection." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "..", "4096", 
+          "4097..32767", "32768..65535" }, 
+       Values { "Success", "Not Supported", "Unknown", "Timeout", 
+          "Failed", "Invalid Parameter", "Method Reserved", 
+          "Manifest not found", "Method Reserved", "Vendor Specific" }]
+   uint32 RemoveManifests(
+         [Description ( 
+             "OperationalPowerManifestCollection from which the "
+             "OperationalPowerManifests will be removed." )]
+      CIM_OperationalPowerManifestCollection REF ManifestCollection, 
+         [Description ( 
+             "List of OperationalPowerManifests to be removed "
+             "from the OperationalPowerManifestCollection." )]
+      CIM_OperationalPowerManifest REF Manifests[]);
+
+};

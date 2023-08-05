@@ -1,0 +1,16 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::StorageStatistics" ), 
+    Description ( 
+       "The CIM_TapeDriveResourceUsage class contains data "
+       "representing Tape Drive Read & Write speed." )]
+class CIM_TapeDriveResourceUsage : CIM_StatisticalData {
+
+      [Description ( "Speed in Mbytes/sec" )]
+   real32 ReadSpeed;
+
+      [Description ( "Speed in Mbytes/sec" )]
+   real32 WriteSpeed;
+
+
+};

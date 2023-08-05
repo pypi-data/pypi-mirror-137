@@ -1,0 +1,20 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::StorageServices" ), 
+    Description ( 
+       "CIM_AssociatedMaskingGroup is the association that assembles "
+       "the ProtocolControllers view and the participating "
+       "MaskingGroups." )]
+class CIM_AssociatedMaskingGroup : CIM_Dependency {
+
+      [Key, Override ( "Antecedent" ), 
+       Description ( "The ProtocolController." )]
+   CIM_ProtocolController REF Antecedent;
+
+      [Key, Override ( "Dependent" ), 
+       Description ( 
+          "The MaskingGroup associated with the ProtocolController." )]
+   CIM_MaskingGroup REF Dependent;
+
+
+};

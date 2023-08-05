@@ -1,0 +1,31 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Aggregation, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileElements" ), 
+    Description ( 
+       "A link between ComputerSystem that has local access to a File "
+       "System.The LocalAccessPoint property is the name used by the "
+       "File Server to identify the File System. Sometimes referred to "
+       "as a mount-point, for many Unix-based systems, it will be a "
+       "qualified full pathname. For Windows systems it could also be "
+       "the drive letter used for the LogicalDisk that the filesystem "
+       "is resident on." )]
+class CIM_LocalAccessAvailableToFS {
+
+      [Key, Aggregate, Description ( 
+          "The Computer System that acts as a File Server and "
+          "haslocal access to the FileSystem." )]
+   CIM_ComputerSystem REF FileServer;
+
+      [Key, Description ( 
+          "The FileSystem that is made locally accessible to the "
+          "File Server ComputerSystem." )]
+   CIM_LocalFileSystem REF FileSystem;
+
+      [Description ( 
+          "The LocalAccessPoint property specifies a path to the "
+          "FileSystem that provides a unique name for the "
+          "FileSystem relative to the ComputerSystem." )]
+   string LocalAccessPoint;
+
+
+};

@@ -1,0 +1,41 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.47.0" ), 
+    UMLPackagePath ( "CIM::Device::ConfigurableMemory" ), 
+    Description ( 
+       "A subclass of Capabilities that defines the Capabilities of a "
+       "MemoryConfigurationService. An instance of "
+       "MemoryConfigurationCapabilities is associated with a "
+       "MemoryConfigurationService using ElementCapabilities." )]
+class CIM_MemoryConfigurationCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "Enumeration indicating the available synchronous memory "
+          "provisioning operations. Synchronous operations result "
+          "in an immediate change to the platform memory "
+          "configuration. An implementation should not use unknown "
+          "for both synchronous and asynchronous operations. \n"
+          "\"Unknown\" no synchronous operations supported. "
+          "\"AllocateFromPool\" synchronous allocation operations "
+          "supported. \"ReturnToPool\" synchronous deallocation "
+          "operations supported." ), 
+       ValueMap { "0", "2", "3" }, 
+       Values { "Unknown", "AllocateFromPool", "ReturnToPool" }]
+   uint16 SupportedSynchronousOperations[];
+
+      [Description ( 
+          "Enumeration indicating the available asynchronous memory "
+          "provisioning operations. Asynchronous operations stage a "
+          "memory provisioning request which takes effect after "
+          "some triggering action such as a system reboot.An "
+          "implementation should not use unknown for both "
+          "synchronous and asynchronous operations. \n"
+          "\"Unknown\" no asynchronous operations supported. "
+          "\"AllocateFromPool\" asynchronous allocation operations "
+          "supported. \"ReturnToPool\" asynchronous deallocation "
+          "operations supported." ), 
+       ValueMap { "0", "2", "3" }, 
+       Values { "Unknown", "AllocateFromPool", "ReturnToPool" }]
+   uint16 SupportedAsynchronousOperations[];
+
+
+};

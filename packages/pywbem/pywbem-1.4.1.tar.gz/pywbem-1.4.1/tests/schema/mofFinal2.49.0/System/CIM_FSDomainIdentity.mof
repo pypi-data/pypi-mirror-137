@@ -1,0 +1,36 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileSystem" ), 
+    Description ( 
+       "An Identity as known in a specific authentication domain. "
+       "Currently supported authentication domains are LDAP/Unix and "
+       "Active Directory." )]
+class CIM_FSDomainIdentity : CIM_Identity {
+
+      [Description ( 
+          "The string used by an authentication system to identify "
+          "a principal during the process of authorization to use a "
+          "resource. This string is assigned after a successful "
+          "authentication. For example, after user Joe presents his "
+          "username and password successfully, the system assigns "
+          "him the UID 20328, which is what gets presented to a "
+          "filesystem, say, when Joe attempts to read or write a "
+          "file." )]
+   string PrincipalID;
+
+      [Description ( "The type of domain for which the ID is valid." ), 
+       ValueMap { "0", "1", "2", "3", "..", "0x8000.." }, 
+       Values { "Unknown", "Other", "Unix", "Active Directory", 
+          "Reserved", "Vendor Defined" }]
+   uint16 DomainType;
+
+      [Description ( 
+          "The type of principal represented by this Identity instance."
+           ), 
+       ValueMap { "0", "1", "2", "3", "..", "0x8000.." }, 
+       Values { "Unknown", "Other", "User", "Group", "Reserved", 
+          "Vendor Defined" }]
+   uint16 PrincipalType;
+
+
+};

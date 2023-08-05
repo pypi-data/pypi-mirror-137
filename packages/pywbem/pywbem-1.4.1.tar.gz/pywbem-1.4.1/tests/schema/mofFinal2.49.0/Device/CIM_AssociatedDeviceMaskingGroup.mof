@@ -1,0 +1,19 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::StorageServices" ), 
+    Description ( 
+       "Associate a group of devices (storage volumes) to a masking view."
+        )]
+class CIM_AssociatedDeviceMaskingGroup : CIM_AssociatedMaskingGroup {
+
+      [Key, Override ( "Antecedent" ), 
+       Description ( "The ProtocolController." )]
+   CIM_SCSIProtocolController REF Antecedent;
+
+      [Key, Override ( "Dependent" ), 
+       Description ( 
+          "The MaskingGroup associated with the ProtocolController." )]
+   CIM_DeviceMaskingGroup REF Dependent;
+
+
+};

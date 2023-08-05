@@ -1,0 +1,59 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Indication, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileSystem" ), 
+    Description ( 
+       "An FSQuotaIndication signals all quota threshold crossing "
+       "events surfaced by the underlying instrumentation." )]
+class CIM_FSQuotaIndication : CIM_ProcessIndication {
+
+      [Description ( 
+          "The InstanceID of the FSDomainIdentity involved in "
+          "causing the event. If there is none, NULL MUST be passed "
+          "in this property." ), 
+       ModelCorrespondence { "CIM_FSDomainIdentity.InstanceID" }]
+   string IdentityID;
+
+      [Description ( 
+          "The InstanceID of the FSQuotaConfigEntry involved in "
+          "causing the event." )]
+   string EntryID;
+
+      [Description ( 
+          "The name of the tree involved in causing the event. If "
+          "this is NULL or the empty string, it indicates the root "
+          "of the FileSystem." )]
+   string Path;
+
+      [Description ( "Which threshold has been crossed." ), 
+       ValueMap { "1", "2", "3", "..", "65536.." }, 
+       Values { "Hard", "Soft", "Monitor", "Reserved", 
+          "Vendor Defined" }]
+   uint32 WhichLimit;
+
+      [Description ( "Which type of resource usage is involved." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "0x8000" }, 
+       Values { "Unknown", "Other", "Bytes", "Files", "Directories", 
+          "Files+Directories", "Inodes", "Reserved", "Vendor Defined" }]
+   uint32 ResourceType;
+
+      [Description ( 
+          "The type of quota that triggered the indication." ), 
+       ValueMap { "1", "2", "3", "4", "5", "..", "65536.." }, 
+       Values { "User", "Group", "Tree", "User-Tree", "Group-Tree", 
+          "Reserved", "Vendor Defined" }]
+   uint32 QuotaType;
+
+      [Description ( "The quota limit that was crossed." )]
+   uint64 Limit;
+
+      [Description ( 
+          "The amount of the resource actually used at present. "
+          "This parameter is optional and may be missing or NULL." )]
+   uint64 AmountUsed;
+
+      [Description ( 
+          "The Name of the FileSystem in which the event occurred." )]
+   string FileSystem;
+
+
+};

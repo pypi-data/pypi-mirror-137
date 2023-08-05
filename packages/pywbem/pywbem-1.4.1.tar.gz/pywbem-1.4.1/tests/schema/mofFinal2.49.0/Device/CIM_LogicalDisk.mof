@@ -1,0 +1,94 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::StorageExtents" ), 
+    Description ( 
+       "A LogicalDisk is a presentation of a contiguous range of "
+       "logical blocks that is identifiable by applications such as "
+       "filesystems via the Name field. (DeviceID (key) may use the "
+       "same name or some other unique text such as a UUID.) For "
+       "example in a Windows environment, the Name field may contain a "
+       "drive letter. In a Unix environment, it may contain the access "
+       "path (for example, \'/dev/...\'); and in a NetWare "
+       "environment, may contain the volume name. LogicalDisks are "
+       "typically built on a DiskPartition or other LogicalDisks (for "
+       "instance, those exposed by a software volume manager). "
+       "However, it can be based on other StorageExtents, like "
+       "CIM_Memory, in the case of a RAM disk. \n"
+       "\n"
+       "LogicalDisks SHOULD set the \'Exported\' value in "
+       "ExtentStatus[] if they are intended for application use." )]
+class CIM_LogicalDisk : CIM_StorageExtent {
+
+      [Override ( "NameFormat" ), 
+       Description ( 
+          "LogicalDisk names shall use OS Device Name format." ), 
+       ValueMap { "1", "12" }, 
+       Values { "Other", "OS Device Name" }]
+   uint16 NameFormat = 12;
+
+      [Override ( "NameNamespace" ), 
+       Description ( 
+          "LogicalDisk names shall use OS Device Namespace." ), 
+       ValueMap { "1", "8" }, 
+       Values { "Other", "OS Device Namespace" }]
+   uint16 NameNamespace = 8;
+
+      [Override ( "ClientSettableUsage" ), 
+       Description ( 
+          "Indicates which values from the \"Usage\" value map can "
+          "be manipulated by a client using the "
+          "method\"StorageConfigurationService.RequestUsageChange\"." ), 
+       ModelCorrespondence { "CIM_LogicalDisk.Usage" }]
+   uint16 ClientSettableUsage[];
+
+      [Description ( 
+          "The number of Extents in the process of migrating for "
+          "this logical disk when the logical disk relocation is on "
+          "going." )]
+   uint64 NumExtentsMigrating;
+
+      [Override ( "OtherUsageDescription" ), 
+       Description ( 
+          "Populated when \"Usage\" has the value of \"Other\"." ), 
+       ModelCorrespondence { "CIM_LogicalDisk.Usage" }]
+   string OtherUsageDescription;
+
+      [Description ( 
+          "True if the logical disk is thinly provisioned." )]
+   boolean ThinlyProvisioned = false;
+
+      [Override ( "Usage" ), 
+       Description ( 
+          "Indicates the intended usage or any restrictions that "
+          "may have been imposed on the usage of this component. "
+          "All ValueMap/Values entries are defined in "
+          "CIM_StorageExtent. To promote interoperability across "
+          "subclasses, all new entries for this class shall be "
+          "defined there." ), 
+       ValueMap { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", 
+          "11", "12", "13", "14", "15", "16", "17", "18", "19", 
+          "20", "21", "22", "23", "24", "..", "32768..65535" }, 
+       Values { "Other", "Unrestricted", 
+          "Reserved for ComputerSystem (the block server)", 
+          "Reserved by Replication Services", 
+          "Reserved by Migration Services", "Local Replica Source", 
+          "Remote Replica Source", "Local Replica Target", 
+          "Remote Replica Target", "Local Replica Source or Target", 
+          "Remote Replica Source or Target", "Delta Replica Target", 
+          "Element Component", 
+          "Reserved to be Unrestricted Pool Contributor", 
+          "Composite Volume Member", "Composite LogicalDisk Member", 
+          "Reserved for Sparing", 
+          "In use as Unrestricted Pool Contributor", 
+          "Reserved to be Delta Replica Pool Contributor", 
+          "Reserved to be Local Replication Pool Contributor", 
+          "Reserved to be Remote Replication Pool Contributor", 
+          "In use as Delta Replica Pool Contributor", 
+          "In use as Local Replication Pool Contributor", 
+          "In use as Remote Replication Pool Contributor", 
+          "DMTF Reserved", "Vendor Reserved" }, 
+       ModelCorrespondence { "CIM_LogicalDisk.OtherUsageDescription" }]
+   uint16 Usage;
+
+
+};

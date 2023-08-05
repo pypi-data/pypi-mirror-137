@@ -1,0 +1,154 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::SystemResources" ), 
+    Description ( 
+       "A subclass of Capabilities that implemets the "
+       "CreateGoalSettings method that a client may use to secure "
+       "CIM_Setting_Data subclasses that can be used in creating or "
+       "modifying a FileServer." )]
+class CIM_FileServerCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "True indicates that there will be a FileServerSettings "
+          "instance associated with the FileServer "
+          "ComputerSystem.False indicates there is no "
+          "FileServerSettings instance." )]
+   boolean FileServerSettingsSupported;
+
+      [Description ( 
+          "True indicates that the File Server ComputerSystem "
+          "supports CIFS Shares.False indicates that CIFS is not "
+          "supported." )]
+   boolean CIFSSupported;
+
+      [Description ( 
+          "True indicates that the File Server ComputerSystem "
+          "supports NFS Exports.False indicates that NFS Exports is "
+          "not supported." )]
+   boolean NFSSupported;
+
+      [Description ( 
+          "True indicates that the File Server ComputerSystem "
+          "supports NIS.False indicates that NIS is not supported." )]
+   boolean NISSupported;
+
+      [Description ( 
+          "True indicates that the File Server ComputerSystem "
+          "supports DNS.False indicates that DNS is not supported." )]
+   boolean DNSSupported;
+
+      [Description ( 
+          "True indicates that the File Server ComputerSystem "
+          "supports network VLAN tagging.False indicates that VLAN "
+          "tagging is not supported." )]
+   boolean NetworkVLANSupported;
+
+      [Description ( 
+          "True indicates that the File Server ComputerSystem "
+          "supports ScaleOut.False indicates that ScaleOut is not "
+          "supported." )]
+   boolean ScaleOutSupported;
+
+
+      [Override ( "CreateGoalsettings" ), 
+       Description ( 
+          "Method to create a set of supported SettingData "
+          "elements, from two sets of SettingData elements, "
+          "provided by the caller. \n"
+          "CreateGoalSettings should be used when the SettingData "
+          "instances that represents the goal will not persist "
+          "beyond the execution of the client and where those "
+          "instances are not intended to be shared with other, "
+          "non-cooperating clients. \n"
+          "Both TemplateGoalSettings and SupportedGoalSettings are "
+          "arrays of elements that are strings containing "
+          "EmbeddedInstances of a CIM_SettingData subclass. These "
+          "embedded instances do not exist in the infrastructure "
+          "supporting this method but are maintained by the "
+          "caller/client. \n"
+          "This method should return CIM_Error(s) representing that "
+          "a single named property of a setting (or other) "
+          "parameter (either reference or embedded object) has an "
+          "invalid value or that an invalid combination of named "
+          "properties of a setting (or other) parameter (either "
+          "reference or embedded object) has been requested. \n"
+          "If the input TemplateGoalSettings is NULL or the empty "
+          "string, this method returns a default SettingData "
+          "element that is supported by this Capabilities element. \n"
+          "If the TemplateGoalSettings specifies values that cannot "
+          "be supported, this method shall return an appropriate "
+          "CIM_Error and should return a best match for a "
+          "SupportedGoalSettings. \n"
+          "The client proposes a goal using the "
+          "TemplateGoalSettings parameter and gets back Success if "
+          "the TemplateGoalSettings is exactly supportable. It gets "
+          "back \"Alternative Proposed\" if the output "
+          "SupportedGoalSettings represents a supported "
+          "alternative. This alternative should be a best match, as "
+          "defined by the implementation. \n"
+          "If the implementation is conformant to a "
+          "RegisteredProfile, then that profile may specify the "
+          "algorithms used to determine best match. A client may "
+          "compare the returned value of each property against the "
+          "requested value to determine if it is left unchanged, "
+          "degraded or upgraded. \n"
+          "\n"
+          "Otherwise, if the TemplateGoalSettings is not applicable "
+          "an \"Invalid Parameter\" error is returned. \n"
+          "\n"
+          "When a mutually acceptable SupportedGoalSettings has "
+          "been achieved, the client may use the contained "
+          "SettingData instances as input to methods for creating a "
+          "new FileServer or modifying an existing one. Also the "
+          "embedded SettingData instances returned in the "
+          "SupportedGoalSettings may be instantiated via "
+          "CreateInstance, either by a client or as a side-effect "
+          "of the execution of an extrinsic method for which the "
+          "returned SupportedGoalSettings is passed as an embedded "
+          "instance." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", 
+          "32768..65535" }, 
+       Values { "Success", "Not Supported", "Unknown", "Timeout", 
+          "Failed", "Invalid Parameter", "Alternative Proposed", 
+          "DMTF Reserved", "Vendor Specific" }]
+   uint16 CreateGoalSettings(
+         [Description ( 
+             "This contains an array of 6 elements, each of "
+             "which being an EmbeddedInstance of a CIM_Setting "
+             "subclass. Each of the array elements shall contain "
+             "either an empty string to represent a NULL entry, "
+             "or shall contain an EmbeddedInstance. Each array "
+             "element contains a specific CIM_Setting subclass "
+             "as follows: 0: EmbeddedInstance "
+             "(CIM_FileServerSettings)1: EmbeddedInstance "
+             "(CIM_IPInterfaceSettingData) 2: EmbeddedInstance "
+             "(CIM_CIFSSettingData) 3: EmbeddedInstance "
+             "(CIM_NFSSettingData) 4: EmbeddedInstance "
+             "(CIM_NISSettingData) 5: EmbeddedInstance "
+             "(CIM_DNSSettingData)" ), 
+          EmbeddedInstance ( "CIM_SettingData" )]
+      string TemplateGoalSettings[], 
+         [OUT, Description ( 
+             "This contains an array of 6 elements, each of "
+             "which being an EmbeddedInstance of a CIM_Setting "
+             "subclass. On input, each of the array elements "
+             "shall contain an either an empty string to "
+             "represent a NULL entry, or shall contain an "
+             "EmbeddedInstance. If it contains an "
+             "EmbeddedInstance, then this instance specifies a "
+             "previously returned CIM_Setting that the "
+             "implementation could support. On output, it "
+             "specifies a new CIM_Setting that the "
+             "implementation can support. Each array element "
+             "contains a specific CIM_Setting subclass as "
+             "follows: 0: EmbeddedInstance "
+             "(CIM_FileServerSettings) 1: EmbeddedInstance "
+             "(CIM_IPInterfaceSettingData) 2: EmbeddedInstance "
+             "(CIM_CIFSSettingData) 3: EmbeddedInstance "
+             "(CIM_NFSSettingData) 4: EmbeddedInstance "
+             "(CIM_NISSettingData) 5: EmbeddedInstance "
+             "(CIM_DNSSettingData)" ), 
+          EmbeddedInstance ( "CIM_SettingData" )]
+      string SupportedGoalSettings[]);
+
+};

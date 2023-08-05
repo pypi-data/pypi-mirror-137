@@ -1,0 +1,62 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileServices" ), 
+    Description ( 
+       "A subclass of Capabilities that defines the Capabilities of a "
+       "FileServer. An instance of FileServerConfigurationCapabilities "
+       "is associated with a FileServerConfigurationService using "
+       "ElementCapabilities. FileServerConfigurationCapabilities "
+       "specifies the combination of properties that a "
+       "FileServerConfigurationService can support for creating, "
+       "modifying, and deleting different types of Fileservers and the "
+       "support for managing these as jobs." )]
+class CIM_FileServerConfigurationCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "An array of methods of this Service that are supported "
+          "as synchronous methods." ), 
+       ValueMap { "2", "3", "4", "5", "6", "7", "8", "..", "0x8000.." }, 
+       Values { "CreateFileServer", "DeleteFileServer", 
+          "ModifyFileServer", "AddIPInterface", "ModifyIPInterface", 
+          "DeleteIPInterface", "CreateGoalSettings", "Reserved", 
+          "Vendor Defined" }]
+   uint16 SynchronousMethodsSupported[];
+
+      [Description ( 
+          "An array of methods of this Service that are supported "
+          "as asynchronous methods." ), 
+       ValueMap { "2", "3", "4", "5", "6", "7", "8", "..", "0x8000.." }, 
+       Values { "CreateFileServer", "DeleteFileServer", 
+          "ModifyFileServer", "AddIPInterface", "ModifyIPInterface", 
+          "DeleteIPInterface", "CreateGoalSettings", "Reserved", 
+          "Vendor Defined" }]
+   uint16 AsynchronousMethodsSupported[];
+
+      [Description ( 
+          "True indicates that CIFS settings can be configured. "
+          "False indicates CIFS settings are read only" )]
+   boolean CanConfigureCIFS;
+
+      [Description ( 
+          "True indicates that NFS settings can be configured. "
+          "False indicates NFS settings are read only" )]
+   boolean CanConfigureNFS;
+
+      [Description ( 
+          "True indicates that NIS settings can be configured. "
+          "False indicates NIS settings are read only" )]
+   boolean CanConfigureNIS;
+
+      [Description ( 
+          "True indicates that DNS settings can be configured. "
+          "False indicates DNS settings are read only" )]
+   boolean CanConfigureDNS;
+
+      [Description ( 
+          "True indicates that Network VLAN tagging settings can be "
+          "configured. False indicates Network VLAN settings are "
+          "read only" )]
+   boolean CanConfigureNetworkVLAN;
+
+
+};

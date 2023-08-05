@@ -1,0 +1,17 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Ports" ), 
+    Description ( 
+       "Represents the port of a Serial Attached SCSI device to system "
+       "connection." )]
+class CIM_SASPort : CIM_NetworkPort {
+
+      [Override ( "PortType" ), 
+       Description ( "The type of port." ), 
+       ValueMap { "0", "1", "94", "16000.." }, 
+       Values { "Unknown", "Other", "SAS", "Vendor Reserved" }, 
+       ModelCorrespondence { "CIM_NetworkPort.OtherNetworkPortType" }]
+   uint16 PortType;
+
+
+};

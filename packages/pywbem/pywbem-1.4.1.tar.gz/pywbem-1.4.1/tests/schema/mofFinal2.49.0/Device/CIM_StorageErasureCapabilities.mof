@@ -1,0 +1,31 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Capabilities" ), 
+    Description ( 
+       "Capabilities for the storage element erasure functionality" )]
+class CIM_StorageErasureCapabilities : CIM_Capabilities {
+
+      [Description ( "List of erasure methods supported" )]
+   string ErasureMethods[];
+
+      [Description ( 
+          "Erasure method to use if none is specified for the "
+          "storage element being returned to the storage pool" )]
+   string DefaultErasureMethod;
+
+      [Description ( 
+          "Indicates that a storage elements can be erased when "
+          "returning to the storage pool. Whether they are erased "
+          "or not is dependent upon the ErasureSetting associated "
+          "to that storage element" )]
+   boolean CanEraseOnReturnToStoragePool;
+
+      [Description ( 
+          "List of supported element types for ErasureService.Erase method ."
+           ), 
+       ValueMap { "1", "2", "3" }, 
+       Values { "StorageVolume", "LogicalDisk", "StorageExtent" }]
+   uint16 ElementTypesSupported[];
+
+
+};

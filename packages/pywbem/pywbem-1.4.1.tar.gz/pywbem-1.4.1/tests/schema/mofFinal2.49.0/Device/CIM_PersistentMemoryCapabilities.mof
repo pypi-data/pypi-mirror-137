@@ -1,0 +1,60 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.47.0" ), 
+    UMLPackagePath ( "CIM::Device::ConfigurableMemory" ), 
+    Description ( 
+       "CIM_PersistentMemoryCapabilities describes the capabilities of "
+       "pool(s) of persistent memory. Capabilities can be derived from "
+       "the underlying persistent memory devices, memory controllers, "
+       "platform firmware, or other available software." )]
+class CIM_PersistentMemoryCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "Indicates the available security features of the "
+          "persistent memory pool(s). \n"
+          "\"None\" No security features are supported. \n"
+          "\"Encryption\" Data encryption is supported. \n"
+          "\"Crypto Erase\" Erasing data by destroying "
+          "cryptographic keys is supported." ), 
+       ValueMap { "0", "1", "2", "3", "4", "..", "32768..65535" }, 
+       Values { "Unknown", "Other", "None", "Encryption", 
+          "Crypto Erase", "DMTF reserved", "Vendor Reserved" }]
+   uint16 SecurityFeatures[];
+
+      [Description ( 
+          "Describes the access type(s) (block vs. byte) supported "
+          "by the associated pool(s). \n"
+          "\"Block Addressable\" data is accessed by block reads "
+          "and writes. \n"
+          "\"Byte Addressable\" data is accessed by load/store "
+          "operations." ), 
+       ValueMap { "0", "1", "2", "..", "32768..65535" }, 
+       Values { "Unknown", "Block Addressable", "Byte Addressable", 
+          "DMTF Reserved", "Vendor Reserved" }]
+   uint16 AccessGranularity[];
+
+      [Description ( 
+          "Indicates whether ssociated pool(s) supports replication "
+          "either locally and/or on a remote system. \n"
+          "\"Not Replicated\" there is a single copy of the data. \n"
+          "\"Local Replication\" data is replicated on local "
+          "resources. \n"
+          "\"Remote Replication\" data is replicated on local "
+          "resources." ), 
+       ValueMap { "0", "1", "2", "3", "4", "..", "32768..65535" }, 
+       Values { "Unknown", "Other", "Not Replicated", 
+          "Local Replication", "Remote Replication", 
+          "DMTF Reserved", "Vendor Reserved" }]
+   uint16 Replication[];
+
+      [Description ( 
+          "Indicates which memory architecture types the associated "
+          "pool(s) supports. \n"
+          "\"UMA\" Uniform Memory Access.\n"
+          "\"NUMA\" Non-Uniform Memory Access." ), 
+       ValueMap { "0", "1", "2", "3", "..", "32768..65535" }, 
+       Values { "Unknown", "Other", "UMA", "NUMA", "DMTF Reserved", 
+          "Vendor Reserved" }]
+   uint16 MemoryArchitecture[];
+
+
+};

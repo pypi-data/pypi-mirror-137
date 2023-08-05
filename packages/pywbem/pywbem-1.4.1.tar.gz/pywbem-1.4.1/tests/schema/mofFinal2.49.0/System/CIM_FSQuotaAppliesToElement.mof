@@ -1,0 +1,16 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileSystem" ), 
+    Description ( 
+       "An association between a quota config entry and a managed element."
+        )]
+class CIM_FSQuotaAppliesToElement : CIM_Dependency {
+
+      [Key, Override ( "Dependent" ), 
+       Description ( 
+          "The quota config entry that applies to the managed element."
+           )]
+   CIM_FSQuotaConfigEntry REF Dependent;
+
+
+};

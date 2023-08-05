@@ -1,0 +1,49 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Storage" ), 
+    Description ( 
+       "This class subclasses CIM_DiagnosticTest to define the tests "
+       "specific to storage pools." )]
+class CIM_StoragePoolDiagnosticTest : CIM_DiagnosticTest {
+
+      [Description ( 
+          "The descriptions for each storage pool test type are "
+          "below: \n"
+          "* \"Other\" (value=1) is specified for any vendor "
+          "specific test. If other is specified, then "
+          "OtherStoragePoolTestType should also be specified.\n"
+          "* \"Storage Pool Status Test\" (value=2) is specified "
+          "for the test that performs a small set of "
+          "vendor-specific tests to verify that the pool is "
+          "operating properly. \n"
+          "* \"Storage Pool Self Test\" (value=3) is specified for "
+          "the tests that performs an extended set of "
+          "vendor-specific tests to verify that the pool is "
+          "operating properly. \n"
+          "* \"Storage Pool RECE Test\" (value=4) is specified for "
+          "the test that performs a set of vendor-specific tests to "
+          "identify component elements that result in the status of "
+          "the pool.\n"
+          "* \"Storage Pool Impact Test\" (value=5) is specified "
+          "for the test that performs a set of vendor-specific "
+          "tests to identify elements allocated from the pool that "
+          "are impacted by the status of the pool. \n"
+          "* \"Storage Pool Actions Test\" (value=6) is specified "
+          "for the test that performs a set of vendor-specific "
+          "tests to identify recommended actions to get the status "
+          "to OK." ), 
+       ValueMap { "1", "2", "3", "4", "5", "6" }, 
+       Values { "Other", "Storage Pool Status", 
+          "Storage Pool Self Test", "Storage Pool RECE Test", 
+          "Storage Pool Impact Test", "Storage Pool Actions Test" }]
+   uint16 StoragePoolTestType;
+
+      [Description ( 
+          "A string that describes the test when the "
+          "StoragePoolTestType property is set to 1 (\"Other\"). "
+          "This property must be set to null when "
+          "StoragePoolTestType is any value other than 1." )]
+   string OtherStoragePoolTestType;
+
+
+};

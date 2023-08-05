@@ -1,0 +1,86 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileSystem" ), 
+    Description ( "The capabilities of the FSQuotaManagementService." )]
+class CIM_FSQuotaCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "The container types supported by the quota management "
+          "service. This indicates which managed element a quota "
+          "may be placed upon. Note that tree quotas are placed on "
+          "pathnames within a container. In other words, a tree "
+          "quota limits the amount of resource that all the objects "
+          "on a given directory path and all of its children may "
+          "consume. If this array is empty or NULL, quotas cannot "
+          "be managed on the device, and all attempted operations "
+          "MUST return an error." ), 
+       ValueMap { "0", "2", "3", "..", "0x8000.." }, 
+       Values { "Unknown", "ManagedElement", "Filesystem", 
+          "Reserved", "Vendor Defined" }]
+   uint16 SupportedTargetTypes[];
+
+      [Description ( 
+          "The types of Principal that are supported by the quota "
+          "management service. While a tree is not strictly "
+          "speaking a principal--it is a directory in a filesystem, "
+          "possibly the root--it is still an entity that a quota "
+          "may be set upon, so it is included here." ), 
+       ValueMap { "0", "2", "3", "4", "5", "6", "..", "0x8000.." }, 
+       Values { "Unknown", "User", "Group", "Tree", "User-tree", 
+          "Group-tree", "Reserved", "Vendor Defined" }]
+   uint16 SupportedPrincipalTypes[];
+
+      [Description ( 
+          "When two conflicting QuotaEntry instances-meaning they "
+          "both target the same ManagedElement, tree and "
+          "principal--are submitted to the system, several "
+          "behaviors are possible. The system may ignore all "
+          "settings after the first. It may overwrite the prior "
+          "setting, meaning the last write wins. It may reject "
+          "duplicates with an error. This property specifies which "
+          "behavior this quota management service has." ), 
+       ValueMap { "0", "2", "3", "4", "..", "0x8000.." }, 
+       Values { "Unknown", "UseFirst", "UseLast", "Reject", 
+          "Reserved", "Vendor Defined" }]
+   uint16 ConflictingEntriesUsage;
+
+      [Description ( 
+          "An array containing all the resource types which the "
+          "system supports setting quotas on." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "7", "..", 
+          "0x8000" }, 
+       Values { "Unknown", "Other", "Bytes", "Files", "Directories", 
+          "Files+Directories", "Inodes", "Blocks", "Reserved", 
+          "Vendor Defined" }]
+   uint16 SupportedResourceTypes[];
+
+      [Description ( 
+          "An array that indicates which principal types may have "
+          "default quotas set upon them by the "
+          "FSQuotaManagementService. Possible values are the same "
+          "as for SupportedResourceTypes." ), 
+       ValueMap { "0", "2", "3", "4", "5", "6", "..", "0x8000.." }, 
+       Values { "Unknown", "User", "Group", "Tree", "User-tree", 
+          "Group-tree", "Reserved", "Vendor Defined" }]
+   uint16 DefaultSupported[];
+
+      [Description ( 
+          "Indicates whether quotas may be made active or inactive per entry."
+           )]
+   boolean IsActiveSettingPerEntrySupported;
+
+      [Description ( 
+          "Indicates whether quota monitoring may be turned on and "
+          "off per entry." )]
+   boolean IsMonitoredSettingPerEntrySupported;
+
+      [Description ( 
+          "Indicates whether a grace period may be set on a quota. "
+          "If it can, then crossing over a soft threshold for more "
+          "than the period of time specified in the grace period "
+          "effectively converts the soft threshold to a hard limit, "
+          "cutting off further allocation of the resource." )]
+   boolean IsGracePeriodSupported;
+
+
+};

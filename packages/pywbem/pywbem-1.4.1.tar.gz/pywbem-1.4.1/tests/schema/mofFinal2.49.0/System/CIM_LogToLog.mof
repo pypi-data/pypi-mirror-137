@@ -1,0 +1,22 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System" ), 
+    Description ( 
+       "This associates a log entry to another log (for example, a "
+       "subtest log)." )]
+class CIM_LogToLog : CIM_Dependency {
+
+      [Key, Override ( "Antecedent" ), 
+       Description ( 
+          "A reference to the instance of CIM_RecordInLog in the\nparent log."
+           )]
+   CIM_ManagedElement REF Antecedent;
+
+      [Key, Override ( "Dependent" ), 
+       Description ( 
+          "A reference to a CIM_Log that is dependent on the "
+          "Antecedent (parent log)." )]
+   CIM_ManagedElement REF Dependent;
+
+
+};

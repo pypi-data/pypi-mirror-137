@@ -1,0 +1,99 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Storage" ), 
+    Description ( 
+       "This service defines the Protect method used to apply and "
+       "modify the protection setting for a specified StorageVolume or "
+       "LogicalDisk. The settings applied are used to protect a "
+       "storage element from accidental or intentional overwriting. "
+       "Accordingly, the settings set the read/write ability of the "
+       "element, SCSI inquiry visibility, whether it can be copied "
+       "over, and whether it can be exposed from the storage system. "
+       "This service also allows the specification of a retention "
+       "time, or length of time that these settings cannot be "
+       "modified. The settings remain in effect after this time period "
+       "expires until changed. The values of this setting are stored "
+       "in the StorageProtectionSetting class associated to the "
+       "StorageVolume pr LogicalDisk via ElementProtectionSettingData. "
+       "The StorageProtectionSetting cannot be modified directly, but "
+       "can only be modified via this service. While the element is "
+       "being protected, the StorageProtectionSetting cannot be "
+       "removed." )]
+class CIM_StorageProtectionService : CIM_Service {
+
+
+      [Description ( 
+          "The method creates or modifies the "
+          "StorageProtectionSetting associated to the StorageVolume "
+          "or LogicalDisk. This method is called to protect the "
+          "StorageVolume or LogicalDisk against modification for a "
+          "specific period of time. Values specified for this "
+          "method will be set as properties of the "
+          "StorageProtectionSetting instance that is associated to "
+          "the specified StorageVolume or LogicalDisk. This method "
+          "can be used to extend the retention period, but not "
+          "decrease it." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "7..4095", 
+          "4096", "4097..32767", "32768..65535" }, 
+       Values { "Success", "Not Supported", "Unspecified Error", 
+          "Timeout", "Failed", "Invalid Parameter", 
+          "Invalid State Transition", "DMTF Reserved", 
+          "Method parameters checked - job started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 Protect(
+         [OUT, Description ( 
+             "Reference to the job created, if any." )]
+      CIM_Job REF Job, 
+         [Description ( 
+             "StorageVolume or LogicalDisk to be configured." )]
+      CIM_StorageExtent REF Element, 
+         [Description ( 
+             "Enumeration indicating the type of element being "
+             "protected. \n"
+             "1: StorageVolume \n"
+             "2: LogicalDisk." ), 
+          ValueMap { "1", "2" }, 
+          Values { "StorageVolume", "LogicalDisk" }]
+      uint16 ElementType, 
+         [Description ( 
+             "Read and write accessibility of the StorageVolume. \n"
+             "1: Read/Write Enabled \n"
+             "2: Read Only \n"
+             "3: Write Once \n"
+             "4: Read/Write Disabled." ), 
+          ValueMap { "1", "2", "3", "4" }, 
+          Values { "Read/Write Enabled", "Read Only", 
+             "Write Once", "Read/Write disabled" }]
+      uint16 Access, 
+         [Description ( 
+             "StorageVolume protection method for SCSI inquiry "
+             "commands. \n"
+             "1: No SCSI Inquiry Protection \n"
+             "2: Inquiry Disabled \n"
+             "3: Zero Capacity Returned." ), 
+          ValueMap { "1", "2", "3" }, 
+          Values { "No SCSI Inquiry Protection", 
+             "Inquiry Disabled", "Zero Capacity Returned" }]
+      uint16 InquiryProtection[], 
+         [Description ( 
+             "Whether the storage element can be specified as a "
+             "replica or not." )]
+      boolean DenyAsCopyTarget, 
+         [Description ( 
+             "Whether LUN assignment to the StorageVolume is allowed or not."
+              )]
+      boolean LUNMappingConfigure, 
+         [Description ( 
+             "Duration type of the storage element protection \n"
+             "1: None \n"
+             "2: Limited expiration \n"
+             "3: Permanent." ), 
+          ValueMap { "1", "2", "3" }, 
+          Values { "None", "Limited expiration", "Permanent" }]
+      uint16 ProtectExpirationType, 
+         [Description ( 
+             "Amount of remaining time before a management "
+             "application can change the access permission." )]
+      datetime TimePeriod);
+
+};

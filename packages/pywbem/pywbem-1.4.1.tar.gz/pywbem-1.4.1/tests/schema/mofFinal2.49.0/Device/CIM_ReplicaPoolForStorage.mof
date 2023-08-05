@@ -1,0 +1,25 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::StorageServices" ), 
+    Description ( 
+       "A specialized pool for replicas is associated exclusively to "
+       "one source storage element or globally to the "
+       "StorageConfigurationService. Such a pool is typically used to "
+       "provide storage for delta replica space consumed in small "
+       "chunks by replica elements. Elements representing the storage "
+       "are not required to be made explicit." )]
+class CIM_ReplicaPoolForStorage : CIM_Dependency {
+
+      [Key, Override ( "Antecedent" ), 
+       Max ( 1 ), 
+       Description ( 
+          "The source storage element or the StorageConfigurationService."
+           )]
+   CIM_EnabledLogicalElement REF Antecedent;
+
+      [Key, Override ( "Dependent" ), 
+       Description ( "The specialized replica pool." )]
+   CIM_StoragePool REF Dependent;
+
+
+};

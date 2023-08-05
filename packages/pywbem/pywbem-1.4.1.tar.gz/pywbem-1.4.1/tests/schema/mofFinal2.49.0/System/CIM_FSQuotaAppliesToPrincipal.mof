@@ -1,0 +1,23 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileSystem" ), 
+    Description ( 
+       "An association between a quota configuration entry and a "
+       "filesystem principal (i.e., the owner of the filesystem "
+       "object)." )]
+class CIM_FSQuotaAppliesToPrincipal : CIM_Dependency {
+
+      [Key, Override ( "Antecedent" ), 
+       Description ( 
+          "The Filesystem principal to which a quota configuration "
+          "entry applies." )]
+   CIM_FSDomainIdentity REF Antecedent;
+
+      [Key, Override ( "Dependent" ), 
+       Description ( 
+          "The quota configuration entry that applies to the "
+          "filesystem principal." )]
+   CIM_FSQuotaConfigEntry REF Dependent;
+
+
+};

@@ -1,0 +1,47 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Storage" ), 
+    Description ( 
+       "A subclass of Capabilities that defines the Capabilities of a "
+       "StorageProtectionService. An instance of "
+       "StorageProtectionCapabilities is associated with a "
+       "StorageProtectionService using ElementCapabilities. The "
+       "properties in this class specify the capabilites of the "
+       "service for protecting StorageVolumes and LogicalDisks from "
+       "accidental or intentional destruction." )]
+class CIM_StorageProtectionCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "Granularity for the time period of "
+          "StorageProtectionSetting.RemainingProtectionTime. 0: "
+          "Unknown \n"
+          "1: Other \n"
+          "2: Second \n"
+          "3: Minute \n"
+          "4: Hour \n"
+          "5: Day." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5" }, 
+       Values { "Unknown", "Other", "Second", "Minute", "Hour", "Day" }]
+   uint16 ProtectionTimeGranularity;
+
+      [Description ( 
+          "Indicates which methods are executed asynchronously." ), 
+       ValueMap { "1" }, 
+       Values { "Storage element protection" }]
+   uint16 SupportedAsynchronousActions[];
+
+      [Description ( 
+          "Indicates which methods are executed synchronously." ), 
+       ValueMap { "1" }, 
+       Values { "Storage element protection" }]
+   uint16 SupportedSynchronousActions[];
+
+      [Description ( 
+          "Indicates which storage elements can be protected -- "
+          "StorageVolumes and/or LogicalDisks." ), 
+       ValueMap { "1", "2" }, 
+       Values { "StorageVolume protection", "LogicalDisk protection" }]
+   uint16 SupportedStorageElementFeatures[];
+
+
+};

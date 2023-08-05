@@ -1,0 +1,49 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Ports" ), 
+    Description ( 
+       "CIM_SBProtocolEndpoint extends CIM_ProtocolEndpoint with "
+       "properties for FC Single-Byte connectivity." )]
+class CIM_SBProtocolEndpoint : CIM_ProtocolEndpoint {
+
+      [Description ( 
+          "The supported connection type for this endpoint. The "
+          "connection type may be needed before the port(s) are "
+          "associated and also is used in some SCSI commands." ), 
+       ValueMap { "1", "2" }, 
+       Values { "Other", "Fibre Channel" }, 
+       MappingStrings { 
+          "SPC.INCITS-T10 | Protocol Identifier | Values" }, 
+       ModelCorrespondence { "CIM_SCSIProtocolEndpoint.Name", 
+          "CIM_SCSIProtocolEndpoint.OtherConnectionType" }]
+   uint16 ConnectionType;
+
+      [Description ( 
+          "For iSCSI, each SCSIProtocolEndpoint MUST act as either "
+          "a target or an initiator endpoint. Other transports "
+          "allow a SCSI PE to act as both an initiator and target "
+          "endpoint. This property indicates which role this "
+          "ProtocolEndpoint implements." ), 
+       ValueMap { "0", "2", "3", "4" }, 
+       Values { "Unknown", "Initiator", "Target", 
+          "Both Initiator and Target" }]
+   uint16 Role;
+
+      [Description ( 
+          "For ports on a target device, the port number, relative "
+          "to the storage system. 0 is reserved by T10, 1 is port "
+          "A, 2 is port B, etc. These numbers are used in SCSI "
+          "commands that operate on target port groups." ), 
+       MinValue ( 1 ), 
+       MappingStrings { 
+          "SPC.INCITS-T10 | RelativeTargetPort | IdentifierFormat" }]
+   uint32 TargetRelativePortNumber;
+
+      [Description ( 
+          "The connection type, if ConnectionType is \"Other\"." ), 
+       ModelCorrespondence { "CIM_SCSIProtocolEndpoint.Name", 
+          "CIM_SCSIProtocolEndpoint.ConnectionType" }]
+   string OtherConnectionType;
+
+
+};

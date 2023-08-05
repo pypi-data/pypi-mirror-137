@@ -1,0 +1,22 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Settings" ), 
+    Description ( 
+       "This setting is associated to a storage element and indicates "
+       "default behavior to use when the element is returned to the "
+       "storage pool" )]
+class CIM_StorageErasureSetting : CIM_SettingData {
+
+      [Description ( 
+          "Erasure method to use. Must be one of the erasure "
+          "methods listed in "
+          "CIM_ErasureCapabilities.ErasureMethodsSupported" )]
+   string ErasureMethod;
+
+      [Description ( 
+          "Indicates if this volume should be erased when deleted. "
+          "Default is false" )]
+   boolean EraseOnReturnToPool = false;
+
+
+};

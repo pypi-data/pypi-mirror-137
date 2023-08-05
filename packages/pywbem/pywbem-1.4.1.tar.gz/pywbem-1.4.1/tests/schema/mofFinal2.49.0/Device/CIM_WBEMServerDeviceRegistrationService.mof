@@ -1,0 +1,119 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Service" ), 
+    Description ( 
+       "This service contains the methods used to add and remove "
+       "devices managed by a WBEM server." )]
+class CIM_WBEMServerDeviceRegistrationService : CIM_Service {
+
+
+      [Description ( 
+          "Add a device to be managed by the WBEM server." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
+          "10", "11", "12", "..", "0x1000", "0x1001..0x7FFF", 
+          "0x8000..0xFFFF" }, 
+       Values { "Job Completed with No Error", "Not Supported", 
+          "Unspecified Error", "Timeout", "Failed", 
+          "Invalid Parameter", "In Use", "Invalid namespace", 
+          "Device profile not supported", "Vendor not supported", 
+          "Device not found", "Communication error", 
+          "Invalid credentials", "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 AddSystem(
+         [OUT, Description ( 
+             "Reference to the job created, if any." )]
+      CIM_Job REF Job, 
+         [Description ( 
+             "Namespace to use for the instances used to "
+             "describe and manage the device. This namespace "
+             "must exist." )]
+      string UseNamespace, 
+         [Description ( 
+             "Address of the device (e.g. IP address(es) of "
+             "array controller). Must have the same number of "
+             "elements as Types[]. Cannot be null." )]
+      string Addresses[], 
+         [Description ( 
+             "Port number to use for each address given. Shall "
+             "either be null if not applicable or shall ave one "
+             "entry per entry in the Addresses array" )]
+      uint32 PortNumbers[], 
+         [Description ( 
+             "Enumeration indicating the format of the Addresses "
+             "array 1: URI 2: IP Address 3: Fibre Channel World "
+             "Wide Name 4: Unformatted Device Name." ), 
+          ValueMap { "1", "2", "3", "4", "..", "0x8000" }, 
+          Values { "URI", "IP Address", "WWN", "Device Name", 
+             "DMTF/SNIA reserved", "Vendor specific" }]
+      uint16 AddressTypes[], 
+         [Description ( 
+             "User-friendly name to give to the system. "
+             "Corresponds to System.ElementName." ), 
+          ModelCorrespondence { "CIM_System.ElementName" }]
+      string ElementName, 
+         [Description ( 
+             "Description of the system. Correspondes to System.Description"
+              ), 
+          ModelCorrespondence { "CIM_System.Description" }]
+      string Description, 
+         [Description ( 
+             "Reference to existing credentials needed to access "
+             "the device. Typically information like "
+             "username/password." )]
+      CIM_SharedSecret REF secret, 
+         [IN ( false ), OUT, Description ( 
+             "Reference to the system added" )]
+      CIM_System REF addedSystem);
+
+      [Description ( 
+          "Discover devices to be managed by the WBEM server.Exact "
+          "parameters TBD." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
+          "10", "11", "12", "..", "0x1000", "0x1001..0x7FFF", 
+          "0x8000..0xFFFF" }, 
+       Values { "Job Completed with No Error", "Not Supported", 
+          "Unspecified Error", "Timeout", "Failed", 
+          "Invalid Parameter", "In Use", "Invalid namespace", 
+          "Device profile not supported", "Vendor not supported", 
+          "Device not found", "Communication error", 
+          "Invalid credentials", "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 DiscoverSystem(
+         [OUT, Description ( 
+             "Reference to the job created, if any." )]
+      CIM_Job REF Job, 
+         [Description ( 
+             "Namespace to use for the instances used to "
+             "describe and manage the device. This namespace "
+             "must exist." )]
+      string UseNamespace, 
+         [Description ( 
+             "Reference to existing credentials needed to access "
+             "the device. Typically information like "
+             "username/password." )]
+      CIM_SharedSecret REF secret, 
+         [IN ( false ), OUT, Description ( 
+             "Reference to systems discovered." )]
+      CIM_System REF discoveredSystems);
+
+      [Description ( 
+          "Remove a device from management by the WBEM server." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "0x1000", 
+          "0x1001..0x7FFF", "0x8000..0xFFFF" }, 
+       Values { "Job Completed with No Error", "Not Supported", 
+          "Unspecified Error", "Timeout", "Failed", 
+          "Invalid Parameter", "In Use", "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 RemoveSystem(
+         [OUT, Description ( 
+             "Reference to the job created, if any." )]
+      CIM_Job REF Job, 
+         [Description ( 
+             "Reference to existing computer system to be removed."
+              )]
+      CIM_System REF system);
+
+};

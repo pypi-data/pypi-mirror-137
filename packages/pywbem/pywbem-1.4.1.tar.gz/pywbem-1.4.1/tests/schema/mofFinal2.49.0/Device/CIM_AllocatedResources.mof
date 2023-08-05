@@ -1,0 +1,42 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Cascading" ), 
+    Description ( 
+       "A subclass of SystemSpecificCollection for collecting leaf "
+       "remote resources that have been allocated for use in a system "
+       "(e.g., StorageVolumes assigned to a virtualizer\'s "
+       "StoragePool). This class collects all the allocated resources "
+       "of a specific type for the system that can be found (via the "
+       "MemberOfCollection associations) from the collection." )]
+class CIM_AllocatedResources : CIM_SystemSpecificCollection {
+
+      [Description ( 
+          "Enumeration indicating the type of element that is "
+          "collected by this AllocatedResources collection." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
+          "10" }, 
+       Values { "Unknown", "Reserved", "Any Type", "StorageVolume", 
+          "StorageExtent", "StoragePool", "ComputerSystem", 
+          "LogicalDisk", "FileShare", "Volume Group", "Filesystem" }]
+   uint16 ElementType;
+
+      [Description ( 
+          "An array of strings indicating the purposes of the "
+          "collection of elements. Each string should be of the "
+          "form :. Some examples include: \n"
+          "SNIA:Imported Volumes - to indicate that the volumes are "
+          "for storage \n"
+          "SNIA:Target Volumes - to indicate that the volumes are "
+          "target volumes of a replica pair \n"
+          "SNIA:Source Volumes - to indicate that the volumes are "
+          "source volumes of a replica pair. \n"
+          "SNIA:Target Volume Group - to indicate that the group is "
+          "a target of a replica pair. \n"
+          "SNIA:Source Volume Group - to indicate that thegroup is "
+          "a source of a replica pair. \n"
+          "SNIA:Remote Storage Pools - to indicate that thethe "
+          "storage pool is a pool for allocation of volumes." )]
+   string CollectionDiscriminator[];
+
+
+};

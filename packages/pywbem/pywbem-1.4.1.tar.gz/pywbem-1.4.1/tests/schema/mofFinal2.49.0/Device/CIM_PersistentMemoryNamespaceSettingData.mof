@@ -1,0 +1,52 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.47.0" ), 
+    UMLPackagePath ( "CIM::Device::ConfigurableMemory" ), 
+    Description ( 
+       "PersistentMemoryNamespaceSettingData reflects the parameters "
+       "specified during persistent memory namespace creation or "
+       "modification that define the quality of service offered by the "
+       "associated PersistentMemoryNamespace." )]
+class CIM_PersistentMemoryNamespaceSettingData : CIM_ResourceAllocationSettingData {
+
+      [Override ( "ResourceType" ), 
+       Description ( 
+          "The type of resource this allocation setting represents. \n"
+          "\"Storage Volume\" a logical block device. \n"
+          "\"Byte Addressable Persistent Memory\" persistent memory "
+          "accessible by load/store operations. \"Block Addressable "
+          "Persistent Memory\" synthetic block device." ), 
+       ValueMap { "0", "1", "32", "35", "36", "..", "0x8000..0xFFFF" }, 
+       Values { "Unknown", "Other", "Storage Volume", 
+          "Byte Addressable Persistent Memory", 
+          "Block Addressable Persistent Memory", "DMTF reserved", 
+          "Vendor Reserved" }, 
+       ModelCorrespondence { 
+          "CIM_ResourceAllocationSettingData.OtherResourceType", 
+          "CIM_ResourceAllocationSettingData.ResourceSubType" }]
+   uint16 ResourceType;
+
+      [Description ( 
+          "The type of access supported for the namespace.\"Read\" "
+          "read access is supported. \"Write\" write access is "
+          "supported. \"Read/Write\" read and write access is "
+          "supported." ), 
+       ValueMap { "0", "2", "3", "4", "..", "0x8000..0xFFFF" }, 
+       Values { "Unknown", "Read", "Write", "Read/Write", 
+          "DMTF reserved", "Vendor Reserved" }]
+   uint16 AccessType;
+
+      [Description ( 
+          "Describes preferences relating to the allocation that "
+          "can be described by flags\n"
+          "\"None\" no specific optimizations requested. \"Best "
+          "Performance\" Namespace optimized for best performance. "
+          "\"Smallest Size\" Namespace optimized for smallest size. "
+          "\"Copy On Write\" Namespace optimized for copy on write." ), 
+       ValueMap { "0", "2", "3", "4", "5", "..", "0x8000..0xFFFF" }, 
+       Values { "Unknown", "None", "Best Performance", 
+          "Smallest Size", "Copy On Write", "DMTF reserved", 
+          "Vendor Reserved" }]
+   uint16 Optimize;
+
+
+};

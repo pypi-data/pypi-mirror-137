@@ -1,0 +1,22 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileSystem" ), 
+    Description ( 
+       "The NISSettingData is a derived class of Settingdata that "
+       "specifies the Network Information Service settings.The "
+       "settings specify the NIS server that is to be used for host "
+       "and user name lookup." )]
+class CIM_NISSettingData : CIM_SettingData {
+
+      [Description ( 
+          "The name of the NIS domain to use for looking up hosts "
+          "and usernames." )]
+   string DomainName;
+
+      [Description ( 
+          "The IP address of a NIS server. The address type can be "
+          "either IP4 or IP6." )]
+   string ServerIP;
+
+
+};

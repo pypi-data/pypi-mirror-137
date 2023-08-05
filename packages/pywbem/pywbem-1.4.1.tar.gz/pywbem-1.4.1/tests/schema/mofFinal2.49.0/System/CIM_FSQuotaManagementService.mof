@@ -1,0 +1,252 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileServices" ), 
+    Description ( 
+       "The QuotaConfigurationService performs all modifications and "
+       "queries to the state of a running or stopped quota system, "
+       "including the FSQuotaConfigEntries that determine the "
+       "thresholds and entities being monitored." )]
+class CIM_FSQuotaManagementService : CIM_Service {
+
+
+      [Description ( 
+          "Method to get quota entries that match a given "
+          "principal, tree, quota type and resource type on a given "
+          "CS. Any or none of these may be specified, meaning that "
+          "any or none of them may be NULL. If none are specified, "
+          "the routine is equivalent to EnumerateInstances(); this "
+          "is not recommended if an entry contains multiple "
+          "principals." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "65536.." }, 
+       Values { "Success", "None found", "Bad identity", 
+          "Bad element", "Bad tree", "Bad resource type", 
+          "Bad quota type", "Reserved", "Vendor Defined" }]
+   uint32 FindQuotaEntries(
+         [Description ( "An FSDomainIdentity InstanceID." ), 
+          ModelCorrespondence { "CIM_FSDomainIdentity.InstanceID" }]
+      string IdentityId, 
+         [Description ( 
+             "Reference to the file server containing the quota "
+             "entries. This entry MUST NOT be NULL." )]
+      CIM_ComputerSystem REF ElementId, 
+         [Description ( 
+             "A tree name. This MUST be an absolute path." )]
+      string Tree, 
+         [Description ( 
+             "The type of quota to find. A value of 0 (Unknown) "
+             "here will return entries matching any type." ), 
+          ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", 
+             "0x8000.." }, 
+          Values { "Unknown", "Other", "User", "Group", "Tree", 
+             "User-tree", "Group-tree", "Reserved", 
+             "Vendor Defined" }]
+      uint16 QuotaType, 
+         [OUT, Description ( 
+             "The quota entries in embedded instance form. If no "
+             "quota entries matching the specified input "
+             "arguments can be found, this parameter MUST be "
+             "NULL." ), 
+          EmbeddedInstance ( "CIM_FSQuotaConfigEntry" )]
+      string QuotaEntries[]);
+
+      [Description ( 
+          "Method to delete a quota entry with a given InstanceID. "
+          "Return values are described in the valuemap array. In "
+          "the case of a malformed entry, an error with more "
+          "information may also be thrown. NOTE: Deleting a quota "
+          "entry does not destroy the CIM Instance. Call "
+          "DeleteInstance() to do this." ), 
+       ValueMap { "0", "1", "..", "65536.." }, 
+       Values { "Success", "InstanceID not found", "Reserved", 
+          "Vendor Defined" }]
+   uint32 DeleteQuotaEntry(
+         [Description ( 
+             "The InstanceID of the quota entry to delete." ), 
+          ModelCorrespondence { 
+             "CIM_FSQuotaConfigEntry.InstanceID" }]
+      string EntryID);
+
+      [Description ( 
+          "Method to modify a quota entry with a given InstanceID. "
+          "It is illegal to modify the instance ID, tree, "
+          "principal, resource type, quota type or managed element "
+          "of a quota entry, and clients MUST NOT attempt this. All "
+          "other fields may be modified. Depending on the system, "
+          "doing so may take some time, and a job MAY be created "
+          "for tracking progress." ), 
+       ValueMap { "0", "1", "2", "..", "65536.." }, 
+       Values { "Success", "InstanceID not found", 
+          "Malformed entry", "Reserved", "Vendor Defined" }]
+   uint32 ModifyQuotaEntry(
+         [Description ( 
+             "The InstanceID of the quota entry to modify." ), 
+          ModelCorrespondence { 
+             "CIM_FSQuotaConfigEntry.InstanceID" }]
+      string EntryId, 
+         [Description ( 
+             "The modified quota entry in embedded instance form." ), 
+          EmbeddedInstance ( "CIM_FSQuotaConfigEntry" )]
+      string QuotaEntry, 
+         [OUT, Description ( 
+             "A job tracking progress of the method. If no job "
+             "is created, this property MUST be NULL." )]
+      CIM_Job REF Job);
+
+      [Description ( 
+          "Method to add a quota entry. It is an error to specify "
+          "an InstanceID in the proposed new entry. Return values "
+          "are described in the valuemap array. In the case of a "
+          "malformed entry, an error with more information may also "
+          "be thrown. Some systems will reject duplicate entries; "
+          "others may not. What happens in the case of duplicate "
+          "keys is determined by the setting of the "
+          "ConflictingEntriesUsage property of the "
+          "FSQuotaCapabilities associated with the system instance "
+          "this call is being made against." ), 
+       ValueMap { "0", "1", "2", "3", "..", "65536.." }, 
+       Values { "Success", "InstanceID specified", "Duplicate key", 
+          "Malformed entry", "Reserved", "Vendor Defined" }]
+   uint32 AddQuotaEntry(
+         [Description ( 
+             "The quota entry to add, in embedded instance form." ), 
+          EmbeddedInstance ( "CIM_FSQuotaConfigEntry" )]
+      string QuotaEntry, 
+         [OUT, Description ( 
+             "A job tracking progress of the method. If no job "
+             "is created, this property MUST be NULL." )]
+      CIM_Job REF Job);
+
+      [ValueMap { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
+          "10", "..", "65536.." }, 
+       Values { "Success", "Bad cursor", 
+          "Tree parameter unsupported", 
+          "User parameter unsupported", 
+          "Group parameter unsupported", 
+          "ManagedElement parameter unsupported", "Tree not found", 
+          "User not found", "Group not found", 
+          "ManagedElement not found", "No more data", "Reserved", 
+          "Vendor Defined" }]
+   uint32 GetQuotaReport(
+         [Description ( 
+             "The ME to report on. This could be a "
+             "ComputerSystem or StorageExtent (Filesystem). The "
+             "instrumentation MUST start at the most specific "
+             "type and work its way up the type hierarchy while "
+             "attempting to identify the element in question. If "
+             "reporting on a found element is not supported, the "
+             "routine MUST return 5 (ME param not supported). If "
+             "no element pertaining to a supported quota report "
+             "configuration can be found, the routine MUST "
+             "return 9 (ME not found)." )]
+      CIM_ManagedElement REF Element, 
+         [Description ( 
+             "The tree to report on. If this is NULL, the report "
+             "will be over the entire Element. If the given path "
+             "is not on the system, the routine MUST return 6 "
+             "(Tree not found). If the instrumentation is unable "
+             "to support the given path as an input to the quota "
+             "reporting subsystem, the routine MUST return 2 "
+             "(Tree param unsupported). Otherwise quota "
+             "statistics are reported for objects in the given "
+             "tree only." )]
+      string Tree, 
+         [Description ( 
+             "The user to report on. If this is NULL, there is "
+             "no restriction on users in the report. If a given "
+             "user is not known to the system, the routine MUST "
+             "return 7 (User not found). If the instrumentation "
+             "is unable to support the given user as an input to "
+             "the quota reporting subsystem, the routine MUST "
+             "return 3 (User param unsupported). Otherwise quota "
+             "statistics are reported for the given user only." ), 
+          EmbeddedInstance ( "CIM_FSDomainIdentity" )]
+      string User, 
+         [Description ( 
+             "The group to report on. If this is NULL, there is "
+             "no restriction on users in the report. If a given "
+             "group is not known to the system, the routine MUST "
+             "return 8 (Group not found). If the instrumentation "
+             "is unable to support the given group as an input "
+             "to the quota reporting subsystem, the routine MUST "
+             "return 4 (Group param unsupported). Otherwise "
+             "quota statistics are reported for objects in the "
+             "given group only." ), 
+          EmbeddedInstance ( "CIM_FSDomainIdentity" )]
+      string Group, 
+         [OUT, Description ( 
+             "A cursor for use in chunking up the quota report. "
+             "Initial calls to begin a report MUST pass NULL for "
+             "the cursor. After that, each successive call for "
+             "records from the same report MUST pass back the "
+             "same cursor that was returned for the previous "
+             "call. Note, however, that clients which wish to "
+             "depend on other flow control mechanisms may simply "
+             "pass (uint64)(-1) in the NQuotas parameter, and "
+             "all records will be returned in one chunk." )]
+      string Cursor, 
+         [OUT, Description ( 
+             "A number describing the number of quota records "
+             "desired in one chunk, when passed in, and the "
+             "number actually returned, when passed back out. A "
+             "recommended chunk size is 100 to 1000. Clients "
+             "which wish to depend on other flow control "
+             "mechanisms instead of the chunking mechanism "
+             "provided here should pass (uint64)(-1) for this "
+             "parameter." )]
+      uint64 NRecords, 
+         [OUT, Description ( 
+             "It\'s possible that initiating a quota report may "
+             "take some time, before any records at all are "
+             "available for viewing. Instrumentation that "
+             "supports jobs may return a job in this case, along "
+             "with a return code of 0 (Success). If no job is "
+             "created, the provider MUST return NULL for this "
+             "parameter." )]
+      CIM_Job REF Job, 
+         [OUT, Description ( "The quota report records." ), 
+          EmbeddedInstance ( "CIM_FSQuotaReportRecord" )]
+      string ReportRecs[]);
+
+      [Description ( 
+          "Turn quota statistics gathering and reporting on or off. "
+          "If turning quotas on and off for the given managed "
+          "element type is unsupported, the system MUST return 1 "
+          "(Operation unsupported for this ME type). Secondarily, "
+          "if the system does not support turning quotas on or off "
+          "for individual managed elements of the given type, the "
+          "system MUST return 2 (Operation unsupported for "
+          "individual MEs of this type)." ), 
+       ValueMap { "0", "1", "2", "..", "65536.." }, 
+       Values { "Success", "Operation unsupported for this ME type", 
+          "Operation unsupported for individual MEs of this type", 
+          "Reserved", "Vendor Defined" }]
+   uint32 EnableQuotas(
+         [Description ( "Whether to turn quotas on or off." )]
+      boolean OnOff, 
+         [Description ( 
+             "The managed element on which to turn quotas on or off."
+              )]
+      CIM_ManagedElement REF Element, 
+         [OUT, Description ( 
+             "It\'s possible that changing the state of the "
+             "system may take some time. Instrumentation that "
+             "supports jobs may return a job in this case, along "
+             "with a return code of 0 (Success). If no job is "
+             "created, the provider MUST return NULL for this "
+             "parameter." )]
+      CIM_Job REF Job);
+
+      [ValueMap { "0", "1", "2", "..", "65536.." }, 
+       Values { "Success", "Error", "Unsupported", "Reserved", 
+          "Vendor Defined" }]
+   uint32 InitializeQuotas(
+         [OUT, Description ( 
+             "It\'s possible that changing the state of the "
+             "system may take some time. Instrumentation that "
+             "supports jobs may return a job in this case, along "
+             "with a return code of 0 (Success). If no job is "
+             "created, the provider MUST return NULL for this "
+             "parameter." )]
+      CIM_Job REF Job);
+
+};

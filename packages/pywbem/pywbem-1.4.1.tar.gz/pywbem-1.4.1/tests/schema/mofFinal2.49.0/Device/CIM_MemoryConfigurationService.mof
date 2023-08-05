@@ -1,0 +1,66 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.47.0" ), 
+    UMLPackagePath ( "CIM::Device::ConfigurableMemory" ), 
+    Description ( 
+       "Instances of the CIM_MemoryConfigurationService exist to "
+       "facilitate provisioning of system memory. Traditionally the "
+       "platform BIOS is able to map memory resources into the system "
+       "address space without user intervention. Some memory devices "
+       "may support or require configuration prior to being made "
+       "available in the system address space. The "
+       "CIM_MemoryConfigurationService is utilized with this later "
+       "type of memory device. It supports allocation, a process by "
+       "which primordial, unconfigured memory is made available to the "
+       "system. It also supports deallocation, whereby visible extents "
+       "are returned to their primordial state." )]
+class CIM_MemoryConfigurationService : CIM_Service {
+
+
+      [Description ( 
+          "Use this method to provision primordial memory extents. "
+          "Input parameters identify the desired configuration and "
+          "the primordial pool from which to draw resources." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "4096", "4097", 
+          "4098", "4099", "..", "4100..32767", "32768..65535" }, 
+       Values { "Request Was Successfully Executed", 
+          "Not Supported", "Unknown", "Timeout", "Failed", 
+          "Invalid Parameter", 
+          "Request Was Successfully Staged for Future Execution", 
+          "Insufficient Resources", "Inconsistent Parameters", 
+          "Request did not Complete in its Entirety and Partial Results Could not be Undone", 
+          "DMTF Reserved", "Method Reserved", "Vendor Specific" }]
+   uint32 AllocateFromPool(
+         [Description ( "Reference to the resource pool." )]
+      CIM_ResourcePool REF Pool, 
+         [Description ( 
+             "One or more embedded instances of "
+             "CIM_MemoryAllocationSettingData which describe the "
+             "allocation request." ), 
+          EmbeddedInstance ( "CIM_MemoryAllocationSettingData" )]
+      string Goal[], 
+         [OUT, Description ( 
+             "When results are successful, non-staged this "
+             "parameter contains references to CIM_VisibleMemory "
+             "instances representing the allocated memory "
+             "extents." )]
+      CIM_VisibleMemory REF MemoryExtents[]);
+
+      [Description ( 
+          "Use this method to deallocate system visible memory "
+          "extents thereby returning their capacity to the "
+          "primordial pool from which it was drawn." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "4096", "4099", 
+          "4100..32767", "32768..65535" }, 
+       Values { "Request Was Successfully Executed", 
+          "Not Supported", "Unknown", "Timeout", "Failed", 
+          "Invalid Parameter", 
+          "Request Was Successfully Staged for Future Execution", 
+          "Request did not Complete in its Entirety and Partial Results Could not be Undone", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 ReturnToPool(
+         [Description ( 
+             "Reference to one or more visible memory extents to "
+             "be deallocated." )]
+      CIM_VisibleMemory REF MemoryExtent[]);
+
+};

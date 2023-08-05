@@ -1,0 +1,43 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Service" ), 
+    Description ( 
+       "This service contains the Erase method used to erase storage "
+       "elements (StorageVolumes or LogicalDisks)" )]
+class CIM_StorageErasureService : CIM_Service {
+
+
+      [Description ( 
+          "Erase the contents of a storage element by using one of "
+          "the supported erasure methods." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "0x1000", 
+          "0x1001..0x7FFF", "0x8000..0xFFFF" }, 
+       Values { "Job Completed with No Error", "Not Supported", 
+          "Unspecified Error", "Timeout", "Failed", 
+          "Invalid Parameter", "In Use", "DMTF Reserved", 
+          "Method Parameters Checked - Job Started", 
+          "Method Reserved", "Vendor Specific" }]
+   uint32 Erase(
+         [OUT, Description ( 
+             "Reference to the job created, if any" )]
+      CIM_Job REF Job, 
+         [Description ( 
+             "StorageVolume or LogicalDisk to be erased" )]
+      CIM_StorageExtent REF Element, 
+         [Description ( 
+             "Enumeration indicating the type of element being "
+             "erased. 1: StorageVolume 2: LogicalDisk" ), 
+          ValueMap { "1", "2" }, 
+          Values { "StorageVolume", "LogicalDisk" }]
+      uint16 ElementType, 
+         [Description ( 
+             "Erasure method to use. This must match one of the "
+             "methods listed in the "
+             "ErasureConfigurationService\'s "
+             "SupportedErasureMethods property. If NULL, then "
+             "the DefaultErasureMethod from the "
+             "ErasureCapabilites will be used as the erasure "
+             "method" )]
+      string ErasureMethod);
+
+};

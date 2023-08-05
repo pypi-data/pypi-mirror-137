@@ -1,0 +1,134 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FileSystem" ), 
+    Description ( 
+       "Instances of this class represent single lines in a quota "
+       "system configuration file. The user, group, tree and "
+       "filesystem that the quota applies to are discovered by "
+       "following associations." )]
+class CIM_FSQuotaConfigEntry : CIM_SettingData {
+
+      [Key, Override ( "InstanceID" ), 
+       Description ( 
+          "An opaque identifier for the entry. Some systems assign "
+          "a unique identifier to quota entries, while others will "
+          "have to concatenate several partial keys to achieve "
+          "uniqueness." )]
+   string InstanceID;
+
+      [Description ( 
+          "The hard limit for this quota. What it means when this "
+          "limit is exceeded is system dependent. This property is "
+          "optional and may therefore be NULL. If it is NULL, the "
+          "system MUST NOT attach a hard quota to the combination "
+          "of ManagedElement, tree and principal specified by this "
+          "quota entry, as a result of setting it." ), 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { "CIM_FSQuotaConfigEntry.ResourceType" }]
+   uint64 HardLimit[];
+
+      [Description ( 
+          "The soft limit for this quota. What it means when this "
+          "limit is exceeded is system dependent. This property is "
+          "optional and may therefore be NULL. If it is NULL, the "
+          "system MUST NOT attach a soft quota to the combination "
+          "of ManagedElement, tree and principal specified by this "
+          "quota entry, as a result of setting it." ), 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { "CIM_FSQuotaConfigEntry.ResourceType" }]
+   uint64 SoftLimit[];
+
+      [Description ( 
+          "Some systems automatically convert soft limits into hard "
+          "limits after the soft limit has been exceeded for some "
+          "period of time. If present, this DateTime value "
+          "specifies the length of this grace period. This property "
+          "is optional and may therefore be NULL. A system that "
+          "does not support this property MUST return an error upon "
+          "an attempt to set it. See the discussion in the "
+          "FSQuotaManagementService class MOF." )]
+   datetime SoftLimitGracePeriod;
+
+      [Description ( 
+          "Whether or not tracking is being done against this quota "
+          "entry. Some systems do not allow turning quotas on and "
+          "off per entry. This property is therefore optional and "
+          "may therefore be NULL. A system that does not support "
+          "this property MUST return an error upon an attempt to "
+          "set it. See the discussion in the "
+          "FSQuotaManagementService class MOF." )]
+   boolean Active;
+
+      [Description ( 
+          "Whether or not thresholds on this quota are being "
+          "enforced. Sometimes quota systems are used simply to "
+          "track usage, and in this case the records in a quota "
+          "report will report a monitor-only quota. This property "
+          "is optional and may therefore be NULL. A system that "
+          "does not support this property MUST return an error upon "
+          "an attempt to set it. See the discussion in the "
+          "FSQuotaManagementService class MOF." )]
+   boolean Monitor;
+
+      [Description ( 
+          "The type of resource whose consumption is being managed. "
+          "More than one resource type may be specified in a given "
+          "quota entry. A system that does not support a type given "
+          "in this property MUST return an error upon an attempt to "
+          "set it. See the discussion in the "
+          "FSQuotaManagementService class MOF." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "0x8000" }, 
+       Values { "Unknown", "Other", "Bytes", "Files", "Directories", 
+          "Files+Directories", "Inodes", "Reserved", "Vendor Defined" }, 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { "CIM_FSQuotaConfigEntry.SoftLimit", 
+          "CIM_FSQuotaConfigEntry.HardLimit" }]
+   uint16 ResourceType[];
+
+      [Description ( 
+          "The type of quota to create. Quotas are set either on "
+          "users or groups or trees, in the filesystem world. A "
+          "system that does not support a value given for this "
+          "property MUST return an error upon an attempt to set it. "
+          "See the discussion in the FSQuotaManagementService class "
+          "MOF." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", "0x8000.." }, 
+       Values { "Unknown", "Other", "User", "Group", "Tree", 
+          "User-tree", "Group-tree", "Reserved", "Vendor Defined" }]
+   uint16 QuotaType;
+
+      [Description ( 
+          "The tree (as represented by a pathname) over which the "
+          "quota is monitored. This property may be NULL, "
+          "indicating that the quota is over the entire "
+          "ManagedElement whose InstanceID and ElementName are "
+          "cited." )]
+   string TreeName;
+
+      [Description ( 
+          "The UID/GID/SID of the principal, if PrincipalType is "
+          "\'User\' or \'Group\'. This property MUST be NULL if the "
+          "quota in question is a Tree quota." )]
+   string PrincipalID;
+
+      [Description ( 
+          "The Name of the FileSystem over which this quota is "
+          "monitored. This property is optional and may therefore "
+          "be NULL. However, providers SHOULD populate this "
+          "property whenever possible." )]
+   string FileSystem;
+
+      [Description ( 
+          "Whether or not this is a default quota. A default user "
+          "quota applies to every user not governed by a specific "
+          "quota entry, within the scope of the associated "
+          "ManagedElement. A default group quota applies to every "
+          "group not governed by a specific quota entry. Default "
+          "quotas MUST NOT be associated to an FSDomainIdentity "
+          "instance. A system that does not support default quotas "
+          "MUST return an error upon an attempt to set one. See the "
+          "discussion in the FSQuotaManagementService class MOF." )]
+   boolean Default;
+
+
+};

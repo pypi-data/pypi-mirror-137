@@ -1,0 +1,22 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Storage" ), 
+    Description ( 
+       "This class defines the additional settings to be used for "
+       "storage pool diagnostic tests." )]
+class CIM_StoragePoolDiagnosticSettingData : CIM_DiagnosticSettingData {
+
+      [Description ( 
+          "This property is used by a client to identify the depth "
+          "of search for related components. The depth refers to "
+          "the levels of indirection to reach a related element. If "
+          "the test does not support the Depths setting, then this "
+          "should be NULL. The possible non-values for depth include:\n"
+          "* 0 - only test the pool\n"
+          "* 1 - test one level removed from the pool\n"
+          "* 2 - test two levels removed from the pool\n"
+          "* 65535 - test all levels removed from the pool." )]
+   uint16 Depth;
+
+
+};

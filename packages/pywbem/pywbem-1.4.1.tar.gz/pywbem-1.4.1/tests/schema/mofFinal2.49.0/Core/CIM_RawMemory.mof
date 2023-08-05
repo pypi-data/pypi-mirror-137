@@ -1,0 +1,18 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Core" ), 
+    Description ( 
+       "Describes unconfigured memory capacity. Instances of RawMemory "
+       "become available to the operating system through some "
+       "configuration process or are consumed internally as metadata "
+       "storage, a cache tier, etc." )]
+class CIM_RawMemory : CIM_Memory {
+
+      [Override ( "Primordial" ), 
+       Description ( 
+          "RawMemory instances are, by definition, primordial in nature."
+           )]
+   boolean Primordial = true;
+
+
+};

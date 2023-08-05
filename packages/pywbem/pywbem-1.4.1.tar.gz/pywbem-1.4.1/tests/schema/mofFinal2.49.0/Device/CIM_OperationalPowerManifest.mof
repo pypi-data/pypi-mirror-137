@@ -1,0 +1,104 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Power" ), 
+    Description ( 
+       "Instances of this class define a list of supported or desired "
+       "properties of OperationalPowerStatisticalData instances. In "
+       "the case where a OperationalPowerManafest instance is a member "
+       "of a OperationalPowerManafestCollection used in a "
+       "OperationalPowerStatisticsService.GetStatisticsCollection "
+       "request, for each of the boolean \"include\" properties set to "
+       "true in that OperationalPowerManafest, the corresponding "
+       "OperationalPowerStatisticalData property will be included, if "
+       "available, in the statistics returned for "
+       "OperationalPowerStatisticalData instances whose ElementType "
+       "matches the ElementType of the OperationalPowerManafest." )]
+class CIM_OperationalPowerManifest : CIM_ManagedElement {
+
+      [Key, Override ( "InstanceID" ), 
+       Description ( 
+          "Within the scope of the instantiating Namespace, "
+          "InstanceID opaquely and uniquely identifies an instance "
+          "of this class. To ensure uniqueness within the "
+          "NameSpace, the value of InstanceID should be constructed "
+          "using the following \"preferred\" algorithm: \n"
+          ": \n"
+          "Where and are separated by a colon (:), and where must "
+          "include a copyrighted, trademarked, or otherwise unique "
+          "name that is owned by the business entity that is "
+          "creating or defining the InstanceID or that is a "
+          "registered ID assigned to the business entity by a "
+          "recognized global authority. (This requirement is "
+          "similar to the _ structure of Schema class names.) In "
+          "addition, to ensure uniqueness, must not contain a colon "
+          "(:). When using this algorithm, the first colon to "
+          "appear in InstanceID must appear between and . is chosen "
+          "by the business entity and should not be reused to "
+          "identify different underlying (real-world) elements. If "
+          "the above \"preferred\" algorithm is not used, the "
+          "defining entity must assure that the resulting "
+          "InstanceID is not reused across any InstanceIDs produced "
+          "by this or other providers for the NameSpace of this "
+          "instance. \n"
+          "For DMTF-defined instances, the \"preferred\" algorithm "
+          "must be used with the set to CIM." )]
+   string InstanceID;
+
+      [Description ( 
+          "Determines the type of elements that this "
+          "OperationalPowerManifest can be applied to (e.g. during "
+          "a GetStatisticsCollection request). This is used when "
+          "the same set of statistical metrics is calculated for "
+          "several types of devices. In this way, a single "
+          "OperationalPowerManafest instance can be used to filter "
+          "all the StatsiticalData instances that contain metrics "
+          "for the same type of element in a StatisticsCollection. "
+          "If used, a subclass should override this property to "
+          "specify the element types supported by that class, "
+          "preferably through ValueMap and Values qualifiers to "
+          "allow clients to programmatically retrieve those "
+          "supported types." ), 
+       ValueMap { "2", "10", "201", "202", "203", "204", "205", 
+          "206", "207", "..", "0x8000.." }, 
+       Values { "Computer System", "Disk Drive", "PDU", 
+          "Power Supply", "Fan", "CPU", "RAID Group", "Disk Tray", 
+          "Controller", "DMTF Reserved", "Vendor Specific" }, 
+       ModelCorrespondence { 
+          "CIM_OperationalPowerStatisticalData.ElementType" }]
+   uint16 ElementType;
+
+      [Description ( 
+          "Indicates whether or not the Statistics property of "
+          "StatisticsService.GetStatisticsCollection method will "
+          "include the time when statistics for this "
+          "OperationalPowerManafest were last captured." ), 
+       ModelCorrespondence { 
+          "CIM_OperationalPowerStatisticalData.StatisticTime" }]
+   boolean IncludeStatisticTime = false;
+
+      [Description ( 
+          "Whether to include in a filter for a metered element the "
+          "Milliwatts for that element." ), 
+       ModelCorrespondence { 
+          "CIM_OperationalPowerStatisticalData.StatisticTime" }]
+   boolean IncludeMilliwatts = true;
+
+      [Description ( 
+          "Whether to include in a filter for a metered element the "
+          "precision of the Milliwatts attribute for that element." ), 
+       ModelCorrespondence { 
+          "CIM_OperationalPowerStatisticalData.Milliwatts" }]
+   boolean IncludePrecision = false;
+
+      [Description ( 
+          "The sequence of OperationalPowerStatisticalData property "
+          "names for properties that will be returned are encoded "
+          "in the CSVSequence array. Properties that are not "
+          "included will not be returned with "
+          "GetStatisticsCollection. Properties that are included in "
+          "CSVSequence will be returned in the order they appear in "
+          "CSVSequence." )]
+   string CSVSequence[];
+
+
+};

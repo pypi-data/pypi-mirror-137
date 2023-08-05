@@ -1,0 +1,17 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Settings" ), 
+    Description ( 
+       "CIM_ElementStorageProtectionSettingData represents the "
+       "association between a storage element (CIM_StorageVolume or "
+       "CIM_LogicalDisk to be protected and the applicable protection "
+       "setting." )]
+class CIM_ElementStorageProtectionSettingData : CIM_ElementSettingData {
+
+      [Key, Override ( "SettingData" ), 
+       Description ( 
+          "The protection setting and status of the storage element" )]
+   CIM_StorageProtectionSetting REF SettingData;
+
+
+};

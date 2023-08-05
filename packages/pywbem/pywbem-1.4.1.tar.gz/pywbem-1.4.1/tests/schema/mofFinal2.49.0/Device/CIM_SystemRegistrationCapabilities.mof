@@ -1,0 +1,41 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Capabilities" ), 
+    Description ( "The capabilities of a WBEM server." )]
+class CIM_SystemRegistrationCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "This property identifies the profiles that this service "
+          "is capable of discovering and managing. For example, a "
+          "block device could potentially list \"Array\" and "
+          "\"Storage Virtualizer.\" An attempt to discover a "
+          "different kind of device, like a Fibre Channel switch "
+          "would fail." )]
+   string AutonomousProfilesSupported[];
+
+      [Description ( 
+          "This property identifies the vendors whose devices this "
+          "service can discover. For example, if the list contains "
+          "\"Vendor A\" then only \"Vendor A\" devices with the "
+          "supported autonomous profiles listed in "
+          "AutonomousProfilesSupported[] can be discovered. "
+          "Attempting to discover other vendors devices would "
+          "result in an error. This should include at least the "
+          "instrumentation vendor, and may include other vendors, "
+          "for example, due to OEM relationships" )]
+   string VendorsSupported[];
+
+      [Description ( 
+          "Indicates which methods are executed asynchronously." ), 
+       ValueMap { "1", "2", "3" }, 
+       Values { "Add System", "Discover Systems", "Remove System" }]
+   uint16 SupportedAsynchronousActions[];
+
+      [Description ( 
+          "Indicates which methods are executed synchronously." ), 
+       ValueMap { "1", "2", "3" }, 
+       Values { "Add System", "Discover Systems", "Remove System" }]
+   uint16 SupportedSynchronousActions[];
+
+
+};

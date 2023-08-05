@@ -1,0 +1,73 @@
+// Copyright (c) 2017 DMTF.  All rights reserved.
+   [Version ( "2.49.0" ), 
+    ClassConstraint { "inv: SoID  null implies SoOrgID  null" }, 
+    UMLPackagePath ( "CIM::Network" ), 
+    Description ( 
+       "The IPInterfaceSettingData is a derived class of Settingdata "
+       "that specifies the IP interface settings. It contains the "
+       "properties needed to establish an IPProtocolEndpoint and a "
+       "NetworkVLAN." )]
+class CIM_IPInterfaceSettingData : CIM_SettingData {
+
+      [Description ( 
+          "The IP address that this IP Interface represents, "
+          "formatted according to the appropriate convention as "
+          "defined in the AddressType property of this class (e.g., "
+          "171.79.6.40)." )]
+   string IPAddress;
+
+      [Description ( 
+          "An enumeration that describes the format of the "
+          "IPAddress property." ), 
+       ValueMap { "0", "1", "2" }, 
+       Values { "Unknown", "IPv4", "IPv6" }]
+   uint16 AddressType;
+
+      [Description ( 
+          "The mask for the IPv4 address of this ProtocolEndpoint, "
+          "if one is defined" )]
+   string SubnetMask;
+
+      [Description ( 
+          "The prefix length for the IPv6 address of this "
+          "IPInterfaceSettingData, if one is defined" )]
+   uint8 IPv6PrefixLength;
+
+      [Description ( 
+          "A 12-bit VLAN ID used in the VLAN Tag header.This "
+          "identifies the VLAN Tag that is to be used with the "
+          "IPAddress." ), 
+       MinValue ( 1 ), 
+       MaxValue ( 4094 )]
+   uint16 VLANId;
+
+      [Description ( 
+          "This is the maximum transmission unit that is to be used "
+          "when transmitting packets on this IPInterface." )]
+   sint32 MTU;
+
+      [Description ( 
+          "This property is used to indicate whether this "
+          "IPInterface is Receive-side Scaling (RSS) capable or "
+          "not. Receive-side Scaling (RSS)- Receive-Side Scaling "
+          "resolves the single-processor bottleneck by allowing the "
+          "receive side network load from a network adapter to be "
+          "shared across multiple processors. RSS enables packet "
+          "receive-processing to scale with the number of available "
+          "processors." )]
+   boolean RSSCapable;
+
+      [Description ( 
+          "This property is used to indicate whether this "
+          "IPInterface is Remote Direct Memory Access (RDMA) "
+          "capable or not. Remote Direct Memory Access Protocol "
+          "(RDMA) - Accelerated I/O delivery model which works by "
+          "allowing application software to bypass most layers of "
+          "software and communicate directly with the hardware." )]
+   boolean RDMACapable;
+
+      [Description ( "Speed of this IPInterface in bits per second." )]
+   uint64 LinkSpeed;
+
+
+};

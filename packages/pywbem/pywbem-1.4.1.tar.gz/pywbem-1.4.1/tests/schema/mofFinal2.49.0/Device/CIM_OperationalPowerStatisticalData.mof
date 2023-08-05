@@ -1,0 +1,45 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::Device::Power" ), 
+    Description ( 
+       "A subclass of StatisticalData which identifies power "
+       "attributes of a storage system." )]
+class CIM_OperationalPowerStatisticalData : CIM_StatisticalData {
+
+      [Required, Description ( 
+          "Defines the role that the element played for which this "
+          "power statistics record was collected. Generally, the "
+          "ElementTypes defined here have the following meaning in "
+          "the context of this class: 2, \"Computer System\": "
+          "Cumulative statistics for the storage system. In the "
+          "case of a complex system with multiple component "
+          "Computer Systems, these are the statistics for the "
+          "top-level aggregate Computer System. 10, \"Disk Drive\": "
+          "Statistics for a DiskDrive. 201, \"PDU\": Sgtatistics "
+          "for a PDU. 202, \"Power Supply\": Statistics for a Power "
+          "Supply. 203 \"Fan\": Statistics for a fan. 204, \"CPU\": "
+          "Statistics for a CPU. 205, \"RAID Group\": Statistics "
+          "for all the disks in a RAID Group. 206, \"Disk Tray\": "
+          "Statistics for Disk Tray. 207, \"Controller\": "
+          "Statistics for a controller." ), 
+       ValueMap { "2", "10", "201", "202", "203", "204", "205", 
+          "206", "207", "..", "0x8000.." }, 
+       Values { "Computer System", "Disk Drive", "PDU", 
+          "Power Supply", "Fan", "CPU", "RAID Group", "Disk Tray", 
+          "Controller", "DMTF Reserved", "Vendor Specific" }]
+   uint16 ElementType;
+
+      [Description ( 
+          "The current value in Milliwats of the power consumed by "
+          "the element refereced." ), 
+       Units ( "MilliWatts" ), 
+       Counter, PUnit ( "watt * 10^-3" )]
+   uint64 Milliwatts;
+
+      [Description ( 
+          "The number of decimal places of accuracy of the "
+          "Milliwatt attribute." )]
+   uint64 Precision;
+
+
+};

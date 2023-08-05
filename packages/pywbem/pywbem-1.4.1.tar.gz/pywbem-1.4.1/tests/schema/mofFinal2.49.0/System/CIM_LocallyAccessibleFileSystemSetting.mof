@@ -1,0 +1,379 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.45.0" ), 
+    UMLPackagePath ( "CIM::System::FilesystemServices" ), 
+    Description ( 
+       "The LocallyAccessibleFileSystemSetting is a derived class of "
+       "ScopedSettingData that specifies the attribute values set for "
+       "a Filesystem that has been made locally accessible to the "
+       "ComputerSystem. The ComputerSystem provides the scope "
+       "(indicated via the ScopedSetting association).A FileSystem is "
+       "\'locally accessible\' to a ComputerSystem if a "
+       "LocalAccessAvailable association exists between it and the "
+       "ComputerSystem. This Setting provides further details on the "
+       "functionality supported when locally accessible.When used as a "
+       "setting for a FileSystem, these settings are associated with "
+       "the FileSystem via the ElementSettingData association and "
+       "cannot have undefined or NULL properties. When used to define "
+       "a LocallyAccessibleFileSystemCapabilities via the "
+       "SettingsDefineCapabilities association, these settings must be "
+       "scoped to the ComputerSystem supported by the Capabilities "
+       "element and cannot have undefined or NULL properties. Property "
+       "values that represent an implementation-specific default can "
+       "only be specified when this setting is used ina "
+       "TemplateSettings parameter to the "
+       "LocallyAccessibleFileSystemCapabilities.CreateGoalSettings() "
+       "method." )]
+class CIM_LocallyAccessibleFileSystemSetting : CIM_SettingData {
+
+      [Description ( 
+          "An enumerated value that specifies if the operation to "
+          "make a FileSystem locally accessible to a scoping "
+          "ComputerSystem should be attempted one or more times in "
+          "the foreground or tried repeatedly in the background "
+          "until it succeeds. The number of attempts would be "
+          "limited by the corresponding RetriesMax property of the "
+          "setting." ), 
+       ValueMap { "0", "2", "3", "..", "0x8000.." }, 
+       Values { "Unknown", "Foreground", "Background", 
+          "DMTF Reserved", "Vendor Defined" }, 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.RetriesMax" }]
+   uint16 FailurePolicy = 0;
+
+      [Description ( 
+          "An integer specifying the maximum number of attempts "
+          "that should be made by the scoping ComputerSystem to "
+          "make a Filesystem locally accessible.A value of \'0\' "
+          "specifies an implementation-specific default." ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.FailurePolicy" }]
+   uint32 RetriesMax = 0;
+
+      [Description ( 
+          "InitialEnabledState is an integer enumeration that "
+          "indicates the enabled/disabled states initially set for "
+          "a locally accessible file system (LAFS). The element "
+          "functions by passing commands onto the underlying "
+          "filesystem, and so cannotindicate transitions between "
+          "requested states because those states cannot be "
+          "requested. The following text briefly summarizes the "
+          "various enabled/disabled initial states: \n"
+          "Enabled (2) indicates that the element will execute "
+          "commands, will process any queued commands, and will "
+          "queue new requests. \n"
+          "Disabled (3) indicates that the element will not execute "
+          "commands and will drop any new requests. \n"
+          "In Test (7) indicates that the element will be in a test "
+          "state. \n"
+          "Deferred (8) indicates that the element will not process "
+          "any commands but will queue new requests. \n"
+          "Quiesce (9) indicates that the element is enabled but in "
+          "a restricted mode. The element\'s behavior is similar to "
+          "the Enabled state, but it only processes a restricted "
+          "set of commands. All other requests are queued." ), 
+       ValueMap { "0", "1", "2", "3", "7", "8", "9", "11..32767", 
+          "32768..65535" }, 
+       Values { "Unknown", "Other", "Enabled", "Disabled", 
+          "In Test", "Deferred", "Quiesce", "DMTF Reserved", 
+          "Vendor Reserved" }, 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.OtherEnabledState", 
+          "CIM_EnabledLogicalElement.EnabledState" }]
+   uint16 InitialEnabledState = 8;
+
+      [Description ( 
+          "A string describing the element\'s initial "
+          "enabled/disabled state when the InitialEnabledState "
+          "property is set to 1 (\"Other\"). This property MUST be "
+          "set to NULL when InitialEnabledState is any value other "
+          "than 1." ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.InitialEnabledState", 
+          "CIM_EnabledLogicalElement.OtherEnabledState" }]
+   string OtherEnabledState;
+
+      [Description ( 
+          "An enumerated value representing the policy that is "
+          "supported by the operational file server on a request to "
+          "the operational file system that either failed or left "
+          "the file server hanging. If the request is being "
+          "performed in the foreground, the options are to try once "
+          "and fail if a timeout happens, or, to try repeatedly. If "
+          "the request can be performed in the background, the "
+          "request will be tried repeatedly until stopped." ), 
+       ValueMap { "0", "2", "3", "4", "..", "0x8000.." }, 
+       Values { "Unknown", "Try Once", "Try Again", 
+          "Try in Background", "DMTF Reserved", "Vendor Defined" }, 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.TransmissionRetriesMax", 
+          "CIM_LocallyAccessibleFileSystemSetting.RetransmissionTimeoutMin" }]
+   uint16 RequestRetryPolicy = 0;
+
+      [Description ( 
+          "An integer specifying the maximum number of "
+          "retransmission attempts to be made from the operational "
+          "file server to the operational file system when the "
+          "transmission of a request fails or makes the file server "
+          "hang. A value of \'0\' specifies an "
+          "implementation-specific default.This is only relevant if "
+          "there is a transmission channel between the file server "
+          "and the underlying file system." ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.RequestRetryPolicy", 
+          "CIM_LocallyAccessibleFileSystemSetting.RetransmissionTimeoutMin" }]
+   uint32 TransmissionRetriesMax = 0;
+
+      [Description ( 
+          "An integer specifying the minimum number of milliseconds "
+          "that the operational file server must wait before "
+          "assuming that a request to the operational file system "
+          "has failed. A value of \'0\' indicates an "
+          "implementation-specific default.This is only relevant if "
+          "there is a transmission channel between the operational "
+          "file server and the operational file system." ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.TransmissionRetriesMax", 
+          "CIM_LocallyAccessibleFileSystemSetting.RequestRetryPolicy" }]
+   uint32 RetransmissionTimeoutMin = 0;
+
+      [Description ( 
+          "An enumerated value that specifies if a local cache is "
+          "supported by the operational file server when accessing "
+          "the underlying operational file system." ), 
+       ValueMap { "0", "2", "3", "4", "5", "..", "0x8000.." }, 
+       Values { "Unknown", "Not Supported", "Asynchronized", 
+          "Synchronized", "Write-Through", "DMTF Reserved", 
+          "Vendor Defined" }]
+   uint16 CachingOptions = 0;
+
+      [Description ( 
+          "An array or enumerated values that specifies the "
+          "buffering mechanisms supported by the operational file "
+          "server for accessing the underlying operational file "
+          "system.If supported, other properties will establish the "
+          "level of support. If the property is NULL or the empty "
+          "array, buffering is not supported." ), 
+       ValueMap { "0", "2", "3", "..", "0x8000.." }, 
+       Values { "Attributes", "Read", "Write", "DMTF Reserved", 
+          "Vendor Defined" }, 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.ReadBufferSizeMax", 
+          "CIM_LocallyAccessibleFileSystemSetting.ReadBufferSizeMin", 
+          "CIM_LocallyAccessibleFileSystemSetting.WriteBufferSizeMax", 
+          "CIM_LocallyAccessibleFileSystemSetting.WriteBufferSizeMin", 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCaching", 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCachingObjects", 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCachingTimeMin", 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCachingTimeMax" }]
+   uint16 BuffersSupport[];
+
+      [Description ( 
+          "An integer specifying the minimum number of bytes that "
+          "must be allocated to each buffer used for reading. A "
+          "value of \'0\' specifies an implementation-specific "
+          "default." ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.ReadBufferSizeMax" }]
+   uint64 ReadBufferSizeMin = 0;
+
+      [Description ( 
+          "An integer specifying the maximum number of bytes that "
+          "may be allocated to each buffer used for reading. A "
+          "value of \'0\' specifies an implementation-specific "
+          "default." ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.ReadBufferSizeMin" }]
+   uint64 ReadBufferSizeMax = 0;
+
+      [Description ( 
+          "An integer specifying the minimum number of bytes that "
+          "must be allocated to each buffer used for writing. A "
+          "value of \'0\' specifies an implementation-specific "
+          "default." ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.WriteBufferSizeMax" }]
+   uint64 WriteBufferSizeMin = 0;
+
+      [Description ( 
+          "An integer specifying the maximum number of bytes that "
+          "may be allocated to each buffer used for writing. A "
+          "value of \'0\' specifies an implementation-specific "
+          "default." ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.WriteBufferSizeMin" }]
+   uint64 WriteBufferSizeMax = 0;
+
+      [Description ( 
+          "An array of enumerated values that specify whether "
+          "attribute caching is (or is not) supported by the "
+          "operational file server when accessing specific typesof "
+          "objects from the underlying operational file system.The "
+          "object type and the support parameters are specified in "
+          "the corresponding AttributeCachingObjects, "
+          "AttributeCachingTimeMin, and AttributeCachingTimeMax "
+          "array properties. \n"
+          "Filesystem object types that can be accessed locally are "
+          "represented by an entry in these arrays. The entry in "
+          "the AttributeCaching array can be \'On\', \'Off\', or "
+          "\'Unknown\'. Implementation of this feature requires "
+          "support from other system components, so it is quite "
+          "possible that specifying \'On\' may still not result in "
+          "caching behavior. \'Unknown\' indicates that the access "
+          "operation will try to work with whatever options the "
+          "operational file server and file system can support. In "
+          "all cases, AttributeCachingTimeMin and "
+          "AttributeCachingTimeMax provide the minimum and maximum "
+          "time for which the attributes can be cached. When this "
+          "Setting is used as a Goal, the client may specify "
+          "\'Unknown\', but the Setting in the created object "
+          "should contain the supported setting, whether \'On\' or "
+          "\'Off\'." ), 
+       ValueMap { "0", "2", "3", "..", "0x8000.." }, 
+       Values { "Unknown", "On", "Off", "DMTF Reserved", 
+          "Vendor Defined" }, 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCachingObjects", 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCachingTimeMin", 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCachingTimeMax" }]
+   uint16 AttributeCaching[];
+
+      [Description ( 
+          "An array of enumerated values that specify the attribute "
+          "caching support provided to various object types by the "
+          "operational file server when accessing the underlying "
+          "operational file system. Thesetypes represent the types "
+          "of objects stored in a FileSystem -- files and "
+          "directories as well as others that may be defined in the "
+          "future. The corresponding properties, AttributeCaching, "
+          "AttributeCachingTimeMin, and AttributeCachingTimeMax "
+          "provide the supported features for the type of object. "
+          "\'None\' and \'All\' cannot both be specified; if either "
+          "one is specified, it must be the first entry in the "
+          "array and the entry is interpreted as the default "
+          "setting for all objects. If neither \'None\' or \'All\' "
+          "are specified, the caching settings for other objects "
+          "are defaulted by the implementation. If \'Rest\' is "
+          "specified, the entry applies to all known object types "
+          "other than the named ones. If \'Unknown\' is specified "
+          "it applies to object types not known to this application "
+          "(this can happen when foreign file systems are mounted." ), 
+       ValueMap { "0", "2", "3", "4", "5", "6", "..", "0x8000.." }, 
+       Values { "Unknown", "None", "All", "Rest", "File", 
+          "Directory", "DMTF Reserved", "Vendor Defined" }, 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCaching", 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCachingTimeMin", 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCachingTimeMax" }]
+   uint16 AttributeCachingObjects[];
+
+      [Description ( 
+          "An array of integers specifying, in milliseconds, the "
+          "minimum time for which an object of the type specified "
+          "by the corresponding AttributeCaching property must be "
+          "retained in the attribute cache. When used as a Goal, a "
+          "value of \'0\' indicates an implementation-specific "
+          "default." ), 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCaching" }]
+   uint32 AttributeCachingTimeMin[];
+
+      [Description ( 
+          "An array of integers specifying, in milliseconds, the "
+          "maximum time for which an object of the type specified "
+          "by the corresponding AttributeCaching property must be "
+          "retained in the attribute cache. When used as a Goal, a "
+          "value of \'0\' indicates an implementation-specific "
+          "default." ), 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { 
+          "CIM_LocallyAccessibleFileSystemSetting.AttributeCaching" }]
+   uint32 AttributeCachingTimeMax[];
+
+      [Description ( 
+          "An enumerated value that specifies the Read-Write policy "
+          "set on the operational file system and supported by the "
+          "operational file server when accessing it.\'Read Only\' "
+          "specifies that the access to the operational file system "
+          "by the operational file server is set up solely for "
+          "reading. \'Read/Write\' specifies that the access to the "
+          "operational file system by the operational file server "
+          "is set up for both reading and writing. \'Force "
+          "Read/Write\' specifies that \'Read-Only\' has been "
+          "over-ridden by a client with write access to the "
+          "operational file system. This option is intended for use "
+          "when the associated FileSystem has been made \'Read "
+          "Only\' by default, as might happen if it were created to "
+          "be the target of a Synchronization or Mirror operation." ), 
+       ValueMap { "0", "2", "3", "4", "..", "0x8000.." }, 
+       Values { "Unknown", "Read Only", "Read/Write", 
+          "Force Read/Write", "DMTF Reserved", "Vendor Defined" }]
+   uint16 ReadWritePolicy;
+
+      [Description ( 
+          "An enumerated value that specifies the Locking that will "
+          "be enforced on the operational file system bythe "
+          "operational file server when accessing it.\'Enforce "
+          "None\' does not enforce locks. \'Enforce Write\' does "
+          "not allow writes to locked files. \'Enforce Read/Write\' "
+          "does not allow reads or writes to locked files." ), 
+       ValueMap { "0", "2", "3", "4", "..", "0x8000.." }, 
+       Values { "Unknown", "Enforce None", "Enforce Write", 
+          "Enforce Read/Write", "DMTF Reserved", "Vendor Defined" }]
+   uint16 LockPolicy = 0;
+
+      [Description ( 
+          "An enumerated value that specifies if local access from "
+          "the operational file server to the operational file "
+          "system should be enabled when the file server is "
+          "started." ), 
+       ValueMap { "0", "2", "3", "..", "0x8000.." }, 
+       Values { "Vendor-specific Default", "Automatic", "Manual", 
+          "DMTF Reserved", "Vendor Defined" }]
+   uint16 EnableOnSystemStart = 0;
+
+      [Description ( 
+          "An instance of a CIM_Privilege, encoded as a string, "
+          "that expresses the default client\'s expectations about "
+          "access to elements contained in the operational file "
+          "system. The provider is expected to surface this access "
+          "using the CIM privilege model." ), 
+       EmbeddedInstance ( "CIM_Privilege" )]
+   string ReadWritePref;
+
+      [Description ( 
+          "An enumerated value that specifies if support should be "
+          "provided on the operational file server for executing "
+          "elements contained in the operational file system "
+          "accessed through this local access point. This may "
+          "require setting up specialized paging or execution "
+          "buffers either on the operational file server or on the "
+          "operational file system side (as appropriate for the "
+          "implementation). Note that this does not provide any "
+          "rights to actually execute any element but only "
+          "specifies support for such execution, if permitted." ), 
+       ValueMap { "0", "2", "3", "..", "0x8000.." }, 
+       Values { "Unknown", "Execution Supported", 
+          "Execution Not Supported", "DMTF Reserved", 
+          "Vendor Defined" }]
+   uint16 ExecutePref = 0;
+
+      [Description ( 
+          "An instance of a CIM_Privilege, encoded as a string, "
+          "that expresses the default expectations about privileged "
+          "access by appropriately privileged System Administrative "
+          "users on the operational file server (\'root\' or "
+          "\'superuser\') to theoperational file system and its "
+          "elements. The provider is expected to surface this "
+          "access using the CIM privilege model. \n"
+          "Support for the privileged access might require setup at "
+          "both the operational file server as well as the "
+          "operational file system, so there is no guarantee that "
+          "the request can be satisfied." ), 
+       EmbeddedInstance ( "CIM_Privilege" )]
+   string RootAccessPref;
+
+
+};
