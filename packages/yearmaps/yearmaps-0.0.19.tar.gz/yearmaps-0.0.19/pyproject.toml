@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "yearmaps"
+version = "0.0.19"
+description = "Generate heat map of a year."
+authors = ["Zxilly <zxilly@outlook.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/zxilly/yearmaps"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Natural Language :: Chinese (Simplified)"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.27.1"
+click = "^8.0.3"
+matplotlib = "^3.5.1"
+numpy = "^1.22.1"
+PyYAML = "^6.0"
+"index.py" = "^0.21.11"
+uvicorn = "^0.17.0"
+schedule = "^1.1.0"
+pytest = "^6.2.5"
+
+[tool.poetry.dev-dependencies]
+poetry = "^1.1.12"
+pylint = "^2.12.2"
+
+[tool.poetry.scripts]
+yearmaps = "yearmaps.script:main"
+yearmaps-server = "yearmaps.server:cli"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/Zxilly/yearmaps/issues"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
