@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: aladdin-connect
+Version: 0.4
+Summary: Python API for controlling Genie garage doors connected to Aladdin Connect devices
+Home-page: http://github.com/shoejosh/aladdin-connect
+Author: Josh Shoemaker
+Author-email: shoejosh@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# aladdin-connect
+Python module that allows interacting with Genie Aladdin Connect devices
+
+Note that shared doors are not currently supported, only doors that are owned by your account can be controlled
+
+## Usage
+```
+from aladdin_connect import AladdinConnectClient
+
+# Create session using aladdin connect credentials
+client = AladdinConnectClient(email, password)
+client.login()
+
+# Get list of available doors
+doors = client.get_doors()
+my_door = doors[0]
+
+# Issue commands for doors
+client.close_door(my_door['device_id'], my_door['door_number'])
+client.open_door(my_door['device_id'], my_door['door_number'])
+
+# Get updated door status
+client.get_door_status(my_door['device_id'], my_door['door_number'])
+```
+
+
