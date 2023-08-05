@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: mmfutils
+Version: 0.6.1
+Summary: Small set of utilities: containers and interfaces.
+Home-page: https://alum.mit.edu/www/mforbes/hg/forbes-group/mmfutils
+License: BSD-3
+Author: Michael McNeil Forbes
+Author-email: michael.forbes+python@gmail.com
+Requires-Python: >=3.6.2,<3.10
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Provides-Extra: doc
+Provides-Extra: fftw
+Provides-Extra: test
+Requires-Dist: Sphinx (>=3.5.4,<3.6.0); extra == "doc"
+Requires-Dist: husl (>=4.0.3,<4.1.0)
+Requires-Dist: importlib-metadata (>=1.0,<2.0); python_version < "3.8"
+Requires-Dist: ipyparallel (>=6.3.0,<6.4.0); extra == "test"
+Requires-Dist: matplotlib (>=3.4.1,<3.5.0); python_version >= "3.7" and python_version < "4.0"
+Requires-Dist: matplotlib; (python_version >= "3.6" and python_version < "4.0") and (extra == "test" or extra == "doc")
+Requires-Dist: mmf-setup (>=0.3.1,<0.4.0); extra == "doc"
+Requires-Dist: mock (>=4.0.3,<4.1.0); extra == "doc"
+Requires-Dist: nbconvert (>=6.0.7,<6.1.0); extra == "doc"
+Requires-Dist: numba (>=0.53.1,<0.54.0); (python_version < "3.10") and (extra == "test")
+Requires-Dist: numexpr (>=2.7.3,<2.8.0); extra == "test"
+Requires-Dist: numpy (>=1.20.2,<1.21.0); python_version >= "3.7" and python_version < "4.0"
+Requires-Dist: numpy; (python_version >= "3.6" and python_version < "4.0") and (extra == "doc")
+Requires-Dist: persist (>=3.0,<4.0); extra == "test"
+Requires-Dist: poetry (>=1.1.12,<1.2.0); extra == "test"
+Requires-Dist: psutil (>=5.8.0,<5.9.0); extra == "test"
+Requires-Dist: pyFFTW (>=0.12.0,<0.13.0); extra == "fftw" or extra == "test"
+Requires-Dist: pytest (>=6.2.3,<6.3.0); extra == "test"
+Requires-Dist: pytest-cov (>=2.11.1,<2.12.0); extra == "test"
+Requires-Dist: scipy (>=1.7.3,<1.8.0); python_version >= "3.7" and python_version < "3.10"
+Requires-Dist: scipy; (python_version >= "3.6" and python_version < "4.0") and (extra == "test")
+Requires-Dist: sphinx-rtd-theme (>=0.5.2,<0.6.0); extra == "doc"
+Requires-Dist: sphinxcontrib-zopeext (>=0.2.4,<0.3.0)
+Requires-Dist: uncertainties (>=3.1.5,<3.2.0); extra == "test"
+Requires-Dist: zope.interface (>=5.4.0,<5.5.0)
+Project-URL: Documentation, http://mmfutils.readthedocs.org
+Project-URL: Git Mirror, https://github.com/forbes-group/mmfutils
+Project-URL: Issues, https://alum.mit.edu/www/mforbes/hg/forbes-group/mmfutils/issues
+Project-URL: Repository, https://alum.mit.edu/www/mforbes/hg/forbes-group/mmfutils
+Description-Content-Type: text/markdown
+
+Small set of utilities: containers and interfaces.
+
+This package provides some utilities that I tend to rely on during development. Since I
+use these in many different projects, I turned this into a repository so that I can
+easily sync and keep track of updates. Once the intreface and contents become stable, it
+will probably make sense to include these directly along with the original project so
+that an additional dependency is not introduced.
+
