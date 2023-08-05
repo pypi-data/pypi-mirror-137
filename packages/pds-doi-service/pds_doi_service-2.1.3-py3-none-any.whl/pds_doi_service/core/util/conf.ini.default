@@ -1,0 +1,39 @@
+[SERVICE]
+# Should be one of OSTI, DataCite (case-insensitive)
+provider = datacite
+
+[OSTI]
+url = https://www.osti.gov/iad2test/api/records
+#url = https://www.osti.gov/iad2/api/records
+user = username
+password = secret
+doi_prefix = 10.17189
+validate_against_schema = True
+
+[DATACITE]
+url = https://api.test.datacite.org/dois
+#url = https://api.datacite.org/dois
+user = username
+password = secret
+doi_prefix = 10.13143
+validate_against_schema = True
+
+[PDS4_DICTIONARY]
+url = https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_JSON_1D00.JSON
+pds_node_identifier = 0001_NASA_PDS_1.pds.Node.pds.name
+
+[OTHER]
+logging_level = DEBUG
+doi_publisher = NASA Planetary Data System
+global_keyword_values = PDS; PDS4;
+pds_uri = http://pds.nasa.gov/pds4/pds/v1
+transaction_dir = ./transaction_history
+db_file = doi.db
+db_table = doi
+api_host = 0.0.0.0
+api_port = 8080
+api_valid_referrers =
+emailer_local_host = localhost
+emailer_port       = 25
+emailer_sender     = pdsen-doi-test@jpl.nasa.gov
+emailer_receivers  = pdsen-doi-test@jpl.nasa.gov

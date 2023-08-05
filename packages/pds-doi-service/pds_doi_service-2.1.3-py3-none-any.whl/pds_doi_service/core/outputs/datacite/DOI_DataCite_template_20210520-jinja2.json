@@ -1,0 +1,157 @@
+{
+    "data":
+    {% if dois|length > 1 %}
+    [
+    {% endif %}
+    {% for doi in dois %}
+        {
+            {% if doi.doi %}
+            "id": "{{ doi.doi }}",
+            {% endif %}
+            "type": "dois",
+            "attributes": {
+                {% if doi.event %}
+                "event": "{{ doi.event.value }}",
+                {% endif %}
+                {% if doi.doi %}
+                "doi": "{{ doi.doi }}",
+                {% else %}
+                "prefix": "{{ doi.prefix }}",
+                {% endif %}
+                {% if doi.id %}
+                "suffix": "{{ doi.id }}",
+                {% endif %}
+                "identifiers": [
+                    {% for identifier in doi.identifiers %}
+                    {
+                        "identifier": "{{ identifier.identifier.strip() }}",
+                        "identifierType": "{{ identifier.identifierType }}"
+                    }{% if not loop.last %},{% endif +%}
+                    {% endfor %}
+                ],
+                "creators": [
+                    {% for author in doi.authors %}
+                    {
+                        {% if author.name_type %}
+                        "nameType": "{{author.name_type}}",
+                        {% else %}
+                        "nameType": "Personal",
+                        {% endif %}
+                        {% if author.first_name and author.last_name %}
+                        "name": "{{ author.first_name }} {{ author.last_name }}",
+                        {% else %}
+                        "name": "{{ author.name }}",
+                        {% endif %}
+                        {% if author.affiliation and author.affiliation|length > 0 %}
+                        "affiliation": [
+                        {% for affiliation in author.affiliation %}
+                            "{{affiliation}}"{% if not loop.last %},{% endif +%}
+                        {% endfor %}
+                        ],
+                        {% endif %}
+                        "nameIdentifiers": [
+                        {% for name_identifier in author.name_identifiers %}
+                            {
+                            {% for key, value in name_identifier.items() %}
+                                "{{key}}": "{{value}}"{% if not loop.last %},{% endif +%}
+                            {% endfor %}
+                            }
+                        {% endfor %}
+                        ]
+                    }{% if not loop.last %},{% endif +%}
+                    {% endfor %}
+                ],
+                "titles": [
+                    {
+                        "title": "{{ doi.title }}",
+                        "lang": "en"
+                    }
+                ],
+                "publisher": "{{ doi.publisher }}",
+                "publicationYear": "{{ doi.publication_year }}",
+                "subjects": [
+                    {% for keyword in doi.keywords %}
+                    { "subject": "{{ keyword }}" }{% if not loop.last %},{% endif +%}
+                    {% endfor %}
+                ],
+                "contributors": [
+                    {% for editor in doi.editors %}
+                    {
+                        "nameType": "Personal",
+                        {% if editor.first_name and editor.last_name %}
+                        "name": "{{ editor.first_name }} {{ editor.last_name }}",
+                        {% else %}
+                        "name": "{{ editor.name }}",
+                        {% endif %}
+                        {% if editor.affiliation and editor.affiliation|length > 0 %}
+                        "affiliation": [
+                        {% for affiliation in editor.affiliation %}
+                            "{{affiliation}}"{% if not loop.last %},{% endif +%}
+                        {% endfor %}
+                        ],
+                        {% endif %}
+                        "nameIdentifiers": [
+                        {% for name_identifier in editor.name_identifiers %}
+                            {
+                            {% for key, value in name_identifier.items() %}
+                                "{{key}}": "{{value}}"{% if not loop.last %},{% endif +%}
+                            {% endfor %}
+                            }
+                        {% endfor %}
+                        ],
+                        "contributorType": "Editor"
+                    },
+                    {% endfor %}
+                    {
+                        "nameType": "Organizational",
+                        "name": "Planetary Data System: {{ doi.contributor }} Node",
+                        "contributorType": "DataCurator"
+                    }
+                ],
+                "types": {
+                    {% if doi.product_type.value == "Bundle" %}
+                    "resourceTypeGeneral": "Collection",
+                    {% elif doi.product_type.value == "Document" %}
+                    "resourceTypeGeneral": "Text",
+                    {% else %}
+                    "resourceTypeGeneral": "{{ doi.product_type.value }}",
+                    {% endif %}
+                    "resourceType": "{{ doi.product_type_specific }}"
+                },
+                "relatedIdentifiers": [
+                    {% for related_identifier in doi.related_identifiers %}
+                    {
+                        "relatedIdentifier": "{{ related_identifier.relatedIdentifier.strip() }}",
+                        "relatedIdentifierType": "{{ related_identifier.relatedIdentifierType }}",
+                        "relationType": "{{ related_identifier.relationType }}"
+                    }{% if not loop.last %},{% endif +%}
+                    {% endfor %}
+                ],
+                {% if doi.description %}
+                "descriptions": [
+                    {
+                        "description": "{{ doi.description }}",
+                        "descriptionType": "Abstract",
+                        "lang": "en"
+                    }
+                ],
+                {% endif %}
+                {% if doi.site_url %}
+                "url": "{{ doi.site_url }}",
+                {% endif %}
+                {% if doi.date_record_added %}
+                "created": "{{ doi.date_record_added }}",
+                {% endif %}
+                {% if doi.date_record_updated %}
+                "updated": "{{ doi.date_record_updated }}",
+                {% endif %}
+                "state": "{{ doi.status.value }}",
+                "language": "en",
+                "schemaVersion": "http://datacite.org/schema/kernel-4"
+            }
+        }{% if not loop.last %},{% endif +%}
+    {% endfor %}
+    {% if dois|length > 1 %}
+    ]
+    {% endif %}
+}
