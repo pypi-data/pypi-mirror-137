@@ -1,0 +1,42 @@
+# poetry metadata doc: https://python-poetry.org/docs/pyproject
+[tool.poetry]
+name = "dj-qiyu-tpl"
+version = "0.6.6"
+description = "Shared Django Template for QiYUTech"
+license = "LGPL-3.0-or-later"
+authors = ["dev <dev@qiyutech.tech>"]
+maintainers = ["dev <dev@qiyutech.tech>"]
+readme = "README.md"
+homepage = "https://www.qiyutech.tech/"
+repository = "https://github.com/QiYuTechDev/dj-qiyu-tpl"
+# doc https://pypi.org/classifiers/
+classifiers = [
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.0",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+include = ["Changelog.rst"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+django = ">=3.2,<4.1"
+
+# 第三方依赖
+docutils = ">=0.17,<0.19"
+pygments = ">=2.8,<3.0"
+
+django-qiyu-utils = ">=0.4,<0.5"
+
+[tool.poetry.dev-dependencies]
+black = "*"
+pytest = "*"
+pytest-django = "*"
+pylama = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
