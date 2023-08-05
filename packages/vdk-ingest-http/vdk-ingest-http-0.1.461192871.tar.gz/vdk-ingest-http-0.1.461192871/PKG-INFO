@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: vdk-ingest-http
+Version: 0.1.461192871
+Summary: Versatile Data Kit SDK ingestion plugin to ingest data via http requests.
+Home-page: https://github.com/vmware/versatile-data-kit
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+
+### VDK-INGEST-HTTP Plugin
+
+This plugin provides functionality to ingest data over http.
+
+### Usage
+
+To use the plugin, just install it, and set the `method` attribute of `send_object_for_ingestion()`,
+and `send_tabular_data_for_ingestion()` functions to _"http"_.
+
+Example:
+```python
+def run(job_input: IJobInput):
+    # Do something to get data for ingestion
+    payload = get_some_data()
+
+    # Ingest the data
+    job_input.send_object_for_ingestion(payload=payload,
+                                        destination_table="aa_test_table",
+                                        method="http",
+                                        target="http://example.com/data-source"
+                                        )
+```
+The above example shows how to ingest json data. In this case, there are three arguments that are required: `payload`,
+`method` and `target`. This would be fixed in the future, so that only `payload` would be required.
+<br>
+The payload needs to be a json object, and should contain the `destination_table` inside, using the `@table` key. For example:
+```
+{
+    "@table": "destination_table_name",
+    "column1": "value1",
+    "column2": "value2",
+    "column3": "value3",
+}
+```
+The `method` attribute needs to be provided for the time being.
+<br>
+The `target` attribute should specify the url endpoint, where the data will be ingested.
+
+### Testing
+
+To develop or test locally (from the current directory)
+```bash
+# install dev and test dependencies
+pip install -r requirements
+# install the plugin in editable mode
+pip install -e .
+# run the tests
+pytest
+```
+
+
