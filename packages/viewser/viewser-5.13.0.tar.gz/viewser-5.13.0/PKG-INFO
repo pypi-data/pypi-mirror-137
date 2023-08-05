@@ -1,0 +1,74 @@
+Metadata-Version: 2.1
+Name: viewser
+Version: 5.13.0
+Summary: The Views 3 CLI tool
+Home-page: https://www.github.com/prio-data/viewser
+Author: peder2911
+Author-email: pglandsverk@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: PyMonad (>=2.4.0,<3.0.0)
+Requires-Dist: click (>=8.0.1,<9.0.0)
+Requires-Dist: colorama (>=0.4.4,<0.5.0)
+Requires-Dist: crayons (>=0.4.0,<0.5.0)
+Requires-Dist: docker (>=5.0.0,<6.0.0)
+Requires-Dist: environs (>=9.3.1,<10.0.0)
+Requires-Dist: fitin (>=0.2.0,<0.3.0)
+Requires-Dist: pandas (>=1.2.3,<2.0.0)
+Requires-Dist: psutil (>=5.8.0,<6.0.0)
+Requires-Dist: pyarrow (>=6.0.1,<7.0.0)
+Requires-Dist: pydantic (>=1.8.1,<2.0.0)
+Requires-Dist: requests (>=2.27.1,<3.0.0)
+Requires-Dist: strconv (>=0.4.2,<0.5.0)
+Requires-Dist: tabulate (>=0.8.9,<0.9.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Requires-Dist: toolz (>=0.11.1,<0.12.0)
+Requires-Dist: views-schema (>=2.3.0,<3.0.0)
+Requires-Dist: views-storage (>=1.1.0,<2.0.0)
+Description-Content-Type: text/markdown
+
+
+# viewser
+
+This package contains many useful user operations that are used by the views 3
+team. These operations include fetching and publishing data, finding
+documentation on both transforms and database structure, and more.
+
+
+## CLI
+
+`viewser` functionality is exposed via a CLI on your system after installation.
+An overview of available commands can be seen by running `viewser --help`.
+
+## API
+
+In addition to the CLI, viewser exposes many useful operations as functions
+that can be used in scripts.
+
+## Configuration
+
+The tool is configured using the `viewser config set KEY VALUE` and `viewser
+config load JSON` commands. The settings shown without defaults here, or with
+defaults that don't make sense for the average user (`REMOTE_URL`) must be
+configured before use.
+
+|Setting                          |Description                                        |Default            |
+|---------------------------------|---------------------------------------------------|-------------------|
+|RETRY_FREQUENCY                  |General request retry frequency in seconds         |5                  |
+|QUERYSET_MAX_RETRIES             |How many times a queryset is queried before failing|500                |
+|LOG_LEVEL                        |Determines what logging messages are shown         |INFO               |
+|ERROR_DUMP_DIRECTORY             |Determines where error dumps are written to        |~/.views/dumps     |
+|REMOTE_URL                       |URL of a views 3 instance                          |http://0.0.0.0:4000|
+|MODEL_METADATA_DATABASE_HOSTNAME |Hostname of database for storing model metadata    |hermes             |
+|MODEL_METADATA_DATABASE_NAME     |DBname of database for storing model metadata      |forecasts3         |
+|MODEL_METADATA_DATABASE_USER     |Username for database for storing model metadata   |Inferred from cert |
+|MODEL_METADATA_DATABASE_SSLMODE  |SSLmode for database for storing model metadata    |required           |
+|MODEL_METADATA_DATABASE_PORT     |Port of database for storing model metadata        |5432               |
+|MODEL_METADATA_DATABASE_SCHEMA   |Schema of database for storing model metadata      |forecasts          |
+|MODEL_METADATA_DATABASE_TABLE    |Table of database for storing model metadata       |model              |
+|AZURE_BLOB_STORAGE_ACCOUNT_NAME  |Name of Azure blob storage account                 |                   |
+|AZURE_BLOB_STORAGE_ACCOUNT_KEY   |Access key of Azure blob storage account           |                   |
+
