@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "fava-review"
+version = "0.9.0"
+description = "A Fava extension to help review transactions over a series of periods."
+authors = ["Jakub Jamro <kuba.jamro@gmail.com>"]
+license = "MIT License"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+fava = "^1.20.1"
+petl = "^1.7.4"
+beautifulsoup4 = "^4.10.0"
+
+[tool.poetry.dev-dependencies]
+PyHamcrest = "^2.0.3"
+pytest = "^6.2.5"
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
