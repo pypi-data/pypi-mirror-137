@@ -1,0 +1,95 @@
+[tool.poetry]
+name = "quick-cli"
+description = "The CLI to control your quick cluster."
+version = "0.4.0"
+authors = ["d9p <contact@d9p.io>"]
+readme = "README.md"
+homepage = "https://d9p.io/"
+repository = "https://github.com/bakdata/quick-cli"
+documentation = "https://d9p.io/tutorials/"
+packages = [
+    { include = "quick" },
+    { include = "quick_client" },
+]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Information Technology",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+PyYAML = "^5.3"
+requests = "^2.0.0"
+six = "^1.12.0"
+python-dateutil = "^2.5.0"
+isodate = "^0.6.0"
+urllib3 = "^1.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.0.1"
+pytest-cov = "^2.8.1"
+pytest-xdist = "^2.1.0"
+pre-commit = { version = "^2.6", python = "^3.6.1" }
+mypy = "^0.910"
+black = {version = "^21.7b0", allow-prereleases = true, python = "^3.8" }
+isort = "^5.4"
+flake8 = "^3.8"
+autoflake = "^1.4"
+types-PyYAML = "^5.4.7"
+types-setuptools = "^57.0.2"
+
+[tool.poetry.scripts]
+quick = "quick.__main__:main"
+
+[tool.isort]
+profile = "black"
+force_single_line = true
+atomic = true
+include_trailing_comma = true
+lines_after_imports = 2
+lines_between_types = 1
+use_parentheses = true
+src_paths = ["quick", "tests"]
+skip_glob = ['quick_client/*']
+filter_files = true
+known_first_party = "quick"
+line_length = 100
+
+[tool.black]
+line-length = 120
+target-version = [ "py36", "py37", "py38",]
+exclude = '''
+/(
+   quick_client
+ | .eggs
+ | .git
+ | .pytest_cache
+ | build
+ | dist
+)/
+'''
+
+[tool.mypy]
+show_error_codes = true
+ignore_missing_imports = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = "quick_client.*"
+ignore_errors = true
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: quick-cli
+Version: 0.4.0
+Summary: The CLI to control your quick cluster.
+Home-page: https://d9p.io/
+Author: d9p
+Author-email: contact@d9p.io
+Requires-Python: >=3.6,<4.0
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Information Technology
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Typing :: Typed
+Requires-Dist: PyYAML (>=5.3,<6.0)
+Requires-Dist: isodate (>=0.6.0,<0.7.0)
+Requires-Dist: python-dateutil (>=2.5.0,<3.0.0)
+Requires-Dist: requests (>=2.0.0,<3.0.0)
+Requires-Dist: six (>=1.12.0,<2.0.0)
+Requires-Dist: urllib3 (>=1.0,<2.0)
+Project-URL: Documentation, https://d9p.io/tutorials/
+Project-URL: Repository, https://github.com/bakdata/quick-cli
+Description-Content-Type: text/markdown
+
+# quick CLI
+
+![Tests](https://github.com/bakdata/quick-cli/workflows/Test%20quick-cli/badge.svg)
+![Code Quality](https://github.com/bakdata/quick-cli/workflows/Code%20Quality/badge.svg)
+
+```
+> quick -h
+
+usage: quick [-h] command [options ...] ...
+
+Control your quick deployment.
+
+Available commands:
+  command [options ...]
+    context              Manage quick configuration
+    topic                Manage topics
+    gateway              Manage gateways
+    mirror               Manage mirrors
+    app                  Manage streams applications
+```
+
+### Commands
+
+See [commands.md](commands.md) for more information about available commands in the CLI.
+
