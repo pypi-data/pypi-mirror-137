@@ -1,0 +1,11 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "clsa_luigi"
+authors = [{name = "CLSA", email = "no-reply@clsa.com"}]
+dynamic = ["version", "description"]
+
+[project.optional-dependencies]
+dev = ["flit", "pre-commit"]
