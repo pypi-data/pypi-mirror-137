@@ -1,0 +1,66 @@
+# function/program definitions
+/function /def /
+/pro /def /
+# comments
+/;;/#/
+/;/#/
+# Logical
+/ ne / != /
+/ eq / == /
+/ gt / > /
+/ ge / >= /
+/ lt / < /
+/ le / <= /
+# if else
+/endif else begin/else:/
+# strtrim
+/strtrim\(/str(/
+# print
+/print,/print(/
+# loops
+/ do begin/:/
+/ then begin/:/
+/ then /:/
+/ do/:/
+# remove ending statements
+/endif//
+/endwhile//
+/endelse//
+/endfor//
+/end//
+# n_elements
+/n_elements\(/len(/
+# numpy
+/mean\(/np.mean(/
+/median\(/np.median(/
+/total\(/np.sum(/
+/stdev\(/np.std(/
+# array indexing
+/\[\*/[:/
+/\*\]/:]/
+# power, ^
+/\^/**/
+# file commands
+/file_test\(/os.path.exists(/
+/file_delete,/os.remove(/
+/file_dirname\(/os.path.dirname(/
+/file_basename\(/os.path.basename(/
+# time
+/systime\(1\)/time.time()/
+# fits
+/fits_read,/fits.getdata(/
+# float, int
+/long\(/int(/
+/uint\(/np.uint(/
+/round\(/int(np.round(/
+# stop
+/stop/import pdb; pdb.set_trace()/
+# return
+/return,/return /
+# sort, reverse, uniq
+/sort\(/np.argsort(/
+/reverse\(/np.flip(/
+/uniq\(/np.uniq(/
+# where
+/=where\(/, = np.where(/
+/= where\(/, = np.where(/
