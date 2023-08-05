@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: pymoof
+Version: 0.0.4
+Summary: Connect to your Vanomof S3/X3 bike
+Home-page: https://github.com/quantsini/pymoof
+License: MIT
+Author: Henri Bai
+Author-email: quantsini@gmail.com
+Requires-Python: >=3.7
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: bleak (>=0.14.2,<0.15.0)
+Requires-Dist: cryptography (>=36.0.1,<37.0.0)
+Requires-Dist: requests (>=2.27.1,<3.0.0)
+Project-URL: Repository, https://github.com/quantsini/pymoof
+Description-Content-Type: text/markdown
+
+# pymoof
+Connect to your Vanmoof S3 and X3 through bluetooth.
+
+## Installation
+Install python 3.6+, then use pip to install pymoof.
+`pip install pymoof`
+
+## Usage
+```python
+from pymoof.clients.sx3 import SX3Client
+
+client = SX3Client(bleak_client, encryption_key)
+client.authenticate()
+```
+You must have an instantiated bleak client that is connected to the bike. See `pymoof.tools.discover_bike` to determine which device is your bike and `pymoof.tools.retrieve_encryption_key` to connect to Vanmoof servers to get your encryption key.
+
+See `example.py` for more info on useage.
+
+## Contributing
+This project uses Poetry for package and dependency management. It also uses tox for test running and pre-commit for running linters.
+
