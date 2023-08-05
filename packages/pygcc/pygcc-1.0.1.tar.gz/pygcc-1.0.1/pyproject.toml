@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "pygcc"
+version = "1.0.1"
+description = "A tool for thermodynamic calculations and geochemical database generation"
+authors = ["Adedapo Awolayo and Benjamin Tutolo"]
+maintainers = ["Adedapo Awolayo and Benjamin Tutolo <benjamin.tutolo@ucalgary.ca>"]
+license = "GNU General Public License v3.0"
+readme = "README.md"
+homepage = ""
+repository = "https://bitbucket.org/Tutolo-RTG/pygcc/src/master/"
+documentation = ""
+classifiers=[
+        "Intended Audience :: Science/Research",
+        "Intended Audience :: Education",
+        "Natural Language :: English",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+    ]
+keywords = [
+    "Geochemistry",
+    "Thermodynamic database",
+    "Thermodynamic calculations",
+    "Solid-solutions",
+    "Density extrapolation"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pandas = "^1.0"
+scipy = "^1.2"
+numpy = "^1.19.2"
+matplotlib = "^3.2"
+lxml = "^4.5.0"
+
+[tool.poetry.dev-dependencies]
+myst-nb = "^0.13.1"
+sphinx-autoapi = "^1.8.4"
+sphinx-rtd-theme = "^1.0.0"
+pytest = "^6.2.5"
+
+
+[build-system]
+requires = ["setuptools", "poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
