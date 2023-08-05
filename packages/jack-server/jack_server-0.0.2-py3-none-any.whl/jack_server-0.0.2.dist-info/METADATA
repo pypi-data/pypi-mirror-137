@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: jack-server
+Version: 0.0.2
+Summary: Control JACK server with Python
+License: MIT
+Author: Lev Vereshchagin
+Author-email: mail@vrslev.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+
+# Control JACK Server with Python
+
+📝 Project is in alpha stage.
+
+## Installation
+
+```bash
+pip install jack_server
+```
+
+## Usage
+
+```python
+import time
+
+from jack_server import Server
+
+server = Server(
+    driver="coreaudio",
+    device="BuiltInSpeakerDevice",
+    rate=48000,
+    sync=True,
+)
+server.start()
+
+while True:
+    time.sleep(1)
+```
+
