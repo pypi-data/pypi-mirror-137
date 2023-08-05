@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: wxtwitterbot
+Version: 0.2.1
+Summary: Wx Twitter Bot
+Home-page: https://github.com/karjanme/wx-twitter-bot
+Author: Karl Jansen
+Author-email: jnsnkrl@live.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: astral
+Requires-Dist: pylunar
+Requires-Dist: python-dotenv
+Requires-Dist: pytz
+Requires-Dist: tweepy
+Requires-Dist: requests
+
+# Wx Twitter Bot
+
+A bot that tweets about the weather.
+
+## Capabilities
+
+- Solar Times (sunrise, noon, sunset)
+- Lunar Times (moonrise, illumination, moonset)
+
+## Quick Start
+
+In order to use this application with Twitter, developer credentials are required. Get them [here](https://developer.twitter.com/).
+
+## Environment Variables
+
+| Name | Description |
+| ---- | ----------- |
+| `DATA_DIR` | Specifies the directory where the data files will be stored |
+| `LOG_DIR` | Specifies the directory where the log file will exist |
+| `LOG_LEVEL` | Specifies the level of logging to use when executing the application (e.g. "DEBUG") |
+| `LOCATION` | A label for the location associated the this instance of the application |
+| `REGION` | A label for the location's region associated with this instance of the application |
+| `TIMEZONE` | The timezone name for the location associated with this instance of the application from the "tz database" |
+| `LATITUDE` | The latitude for the location associated with this application, decimal format |
+| `LONGITUDE` | The longitude for the location associated with this application, decimal format |
+| `TWITTER_CONSUMER_KEY` | The consumer key for the Twitter API |
+| `TWITTER_CONSUMER_SECRET` | The consumer secret for the Twitter API |
+| `TWITTER_ACCESS_TOKEN` | The access token for the Twitter API |
+| `TWITTER_ACCESS_TOKEN_SECRET` | The access token secret for the Twitter API |
+
+## License
+
+[MIT License](https://github.com/jnsnkrllive/wx-twitter-bot/blob/master/LICENSE)
+
+
