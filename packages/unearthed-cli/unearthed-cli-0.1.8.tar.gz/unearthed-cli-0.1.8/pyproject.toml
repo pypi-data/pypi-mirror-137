@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "unearthed-cli"
+packages = [
+    { include = "unearthed" }
+]
+version = "0.1.8"
+description = "Unearthed CLI Tool"
+authors = ["Unearthed Solutions <info@unearthed.solutions>"]
+license = "Proprietary"
+readme = "README.md"
+homepage = "https://unearthed.solutions"
+
+[tool.poetry.urls]
+"Terms and Conditions" = "https://unearthed.solutions/u/terms"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+click = "^7.1.2"
+requests = "^2.25.1"
+docker = "^4.4.0"
+boto3 = "^1.16.39"
+PyJWT = "^1.7.1"
+pycognito = "^0.1.4"
+cognitojwt = "^1.2.2"
+tqdm = "^4.54.1"
+colorama = "^0.4.4"
+outdated = "^0.2.0"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.6.0"
+pytest = "^6.2.1"
+pycodestyle = "^2.6.0"
+pydocstyle = "^5.1.1"
+Sphinx = "^3.3.1"
+black = "^20.8b1"
+twine = "^3.3.0"
+
+[tool.poetry.scripts]
+unearthed = "unearthed.cli:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

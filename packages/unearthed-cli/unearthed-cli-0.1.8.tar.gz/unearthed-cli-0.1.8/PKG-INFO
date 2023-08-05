@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: unearthed-cli
+Version: 0.1.8
+Summary: Unearthed CLI Tool
+Home-page: https://unearthed.solutions
+License: Proprietary
+Author: Unearthed Solutions
+Author-email: info@unearthed.solutions
+Requires-Python: >=3.7,<4.0
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: PyJWT (>=1.7.1,<2.0.0)
+Requires-Dist: boto3 (>=1.16.39,<2.0.0)
+Requires-Dist: click (>=7.1.2,<8.0.0)
+Requires-Dist: cognitojwt (>=1.2.2,<2.0.0)
+Requires-Dist: colorama (>=0.4.4,<0.5.0)
+Requires-Dist: docker (>=4.4.0,<5.0.0)
+Requires-Dist: outdated (>=0.2.0,<0.3.0)
+Requires-Dist: pycognito (>=0.1.4,<0.2.0)
+Requires-Dist: requests (>=2.25.1,<3.0.0)
+Requires-Dist: tqdm (>=4.54.1,<5.0.0)
+Project-URL: Terms and Conditions, https://unearthed.solutions/u/terms
+Description-Content-Type: text/markdown
+
+# Crowd ML CLI
+
+This is the command line tool for [Unearthed Solutions CrowdML challenges](https://unearthed.solutions/).
+
+It is designed to make model validation and submission straightforward.
+
+Please see the [Unearthed Solutions Terms and Conditions](https://unearthed.solutions/u/terms)
+
+# Commands
+
+## `unearthed login`
+
+Prompts the user for their innovator portal login and stores the tokens. You must be logged in to run other commands.
+
+## `unearthed new`
+
+This command asks the user which challenge they wish to download and unpack the model template for. The template will be unpacked in a named folder inside the current directory. A custom path can be specified with `unearthed new /path/to/dir/`
+
+## `unearthed submit`
+
+This will bundle the source code in a Docker container and then submit the code to the submission pipeline. The user is provided a link to the submission tracker, which will auto-popup in their browser, so they can track the progress and logs of their submission.
+
+You can disable the tracker from opening in the browser by specifying `unearthed submit --no-tracker`
+
+## `unearthed tracker`
+
+Will open the tracker for the last submission that was made.
+
+## `unearthed preprocess`
+
+This command will run the preprocess code in a Docker container similar to how it will execute in the submission pipeline. It can be used to validate the preprocessing code is working before submitting.
+
+### `unearthed train`
+
+This command will train a model, including calling the preprocessing code, in a Docker container similar to how it will execute in the submission pipeline. It can be used to validate the training code is working before submitting.
+
+### `unearthed predict`
+
+This command will simulate generating predictions on the public dataset so that the predictions can be inspected locally before submitting.
+
+### `unearhted score`
+
+This command will run the scoring function to generate a score against the public dataset. It can be used to check the score against the public dataset before submitting.
+
