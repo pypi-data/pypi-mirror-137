@@ -1,0 +1,33 @@
+{% load i18n %}
+
+{% if page_obj.has_other_pages %}
+    <div class="container">
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            {% if page_obj.has_previous %}
+                <a class="pagination-previous" href="?page=1">{% trans 'first page' %}</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a class="pagination-next" href="?page={{ page_obj.next_page_number }}">{% trans 'next page' %}</a>
+            {% endif %}
+
+            <ul class="pagination-list">
+                {% if page_obj.show_page_have_previous_ellipse %}
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                {% endif %}
+
+                {% for page_number in page_obj.show_page_range %}
+                    {% if page_number == page_obj.number %}
+                        <li><a class="pagination-link is-current">{{ page_number }}</a></li>
+                    {% else %}
+                        <li><a class="pagination-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.show_page_have_next_ellipse %}
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endif %}
