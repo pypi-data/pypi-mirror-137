@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: my-personal-dummy-lib
+Version: 0.0.13
+Summary: Some dummy library
+Home-page: UNKNOWN
+Author: Cheong Shiu Hong
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: numpy (>=1.19.2)
+Requires-Dist: PyObjC ; platform_system == "Darwin"
+Requires-Dist: PyGObject ; platform_system == "Linux"
+
+Long Description here
+
+Library:
+```shell
+$ pip install my-personal-dummy-lib
+$ python[3.8|3.9]
+>>> from mydummylib.package1.main import test
+>>> test()
+```
+
+TODO:
+
+- [x] Dummy library
+- [x] Build files for Windows (batch)
+- [x] Publish files for Windows (batch) - to take in CLI for username & password
+- [ ] Link GitHub Actions to AWS SNS
+- [ ] Resolve internal dependencies on installation
+- [ ] Replicate build files (bash) for Linux and MacOS
+- [ ] Code Scrambler
+
+
