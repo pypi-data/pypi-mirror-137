@@ -1,0 +1,108 @@
+Metadata-Version: 2.1
+Name: FastAPI-REST-JSONAPI
+Version: 0.8
+Summary: FastAPI-REST-JSONAPI
+Home-page: https://github.com/Zenor27/fastapi-rest-jsonapi
+Author: Zenor27
+Author-email: antoine.montes@epita.fr
+License: MIT
+Keywords: rest json api jsonapi fastapi database sql
+Platform: any
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: Web Environment
+Classifier: Framework :: FastAPI
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: anyio (==3.4.0)
+Requires-Dist: asgiref (==3.4.1)
+Requires-Dist: attrs (==21.2.0)
+Requires-Dist: black (==21.12b0)
+Requires-Dist: bleach (==4.1.0)
+Requires-Dist: build (==0.7.0)
+Requires-Dist: certifi (==2021.10.8)
+Requires-Dist: charset-normalizer (==2.0.9)
+Requires-Dist: click (==8.0.3)
+Requires-Dist: colorama (==0.4.4)
+Requires-Dist: coverage (==6.2)
+Requires-Dist: docutils (==0.18.1)
+Requires-Dist: fastapi (==0.70.1)
+Requires-Dist: greenlet (==1.1.2)
+Requires-Dist: h11 (==0.12.0)
+Requires-Dist: idna (==3.3)
+Requires-Dist: importlib-metadata (==4.10.0)
+Requires-Dist: iniconfig (==1.1.1)
+Requires-Dist: keyring (==23.4.0)
+Requires-Dist: marshmallow (==3.14.1)
+Requires-Dist: marshmallow-jsonapi (==0.24.0)
+Requires-Dist: mypy-extensions (==0.4.3)
+Requires-Dist: packaging (==21.3)
+Requires-Dist: pathspec (==0.9.0)
+Requires-Dist: pep517 (==0.12.0)
+Requires-Dist: pkginfo (==1.8.2)
+Requires-Dist: platformdirs (==2.4.0)
+Requires-Dist: pluggy (==1.0.0)
+Requires-Dist: py (==1.11.0)
+Requires-Dist: pydantic (==1.8.2)
+Requires-Dist: Pygments (==2.10.0)
+Requires-Dist: pyparsing (==3.0.6)
+Requires-Dist: pytest (==6.2.5)
+Requires-Dist: pytest-cov (==3.0.0)
+Requires-Dist: readme-renderer (==32.0)
+Requires-Dist: requests (==2.26.0)
+Requires-Dist: requests-toolbelt (==0.9.1)
+Requires-Dist: rfc3986 (==1.5.0)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: sniffio (==1.2.0)
+Requires-Dist: SQLAlchemy (==1.4.28)
+Requires-Dist: starlette (==0.16.0)
+Requires-Dist: toml (==0.10.2)
+Requires-Dist: tomli (==1.2.3)
+Requires-Dist: tqdm (==4.62.3)
+Requires-Dist: twine (==3.7.1)
+Requires-Dist: typing-extensions (==4.0.1)
+Requires-Dist: urllib3 (==1.26.7)
+Requires-Dist: uvicorn (==0.16.0)
+Requires-Dist: webencodings (==0.5.1)
+Requires-Dist: zipp (==3.6.0)
+
+# FastAPI REST JSONAPI 🚀
+
+# Documentation
+
+You can find the [documentation here](https://fastapi-rest-jsonapi.readthedocs.io/en/latest/).
+
+# Setup
+
+```
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+# Launch tests
+
+### With coverage
+
+```
+pytest --cov=fastapi_rest_jsonapi --cov-report html tests/
+```
+
+### Without coverage
+
+```
+pytest
+```
+
+# Launch example app
+
+```
+uvicorn example.app:app --reload
+```
+
