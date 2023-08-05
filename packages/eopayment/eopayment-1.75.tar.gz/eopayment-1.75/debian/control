@@ -1,0 +1,29 @@
+Source: eopayment
+Section: python
+Priority: optional
+Maintainer: Frederic Peters <fpeters@debian.org>
+Build-Depends: debhelper-compat (= 12),
+               python3-all,
+               python3-django,
+               python3-requests,
+               python3-setuptools,
+               python3-six,
+               python3-tz,
+               dh-python,
+               git
+Standards-Version: 3.9.1
+X-Python3-Version: >= 3.4
+Homepage: http://dev.entrouvert.org/projects/eopayment/
+
+Package: python3-eopayment
+Architecture: all
+Depends: ${python3:Depends},
+ python3-zeep (>= 2.5),
+ python3-pycryptodome,
+ python3-click
+Description: common API to access online payment services (Python 3)
+ eopayment is a Python module to interface with French's bank credit
+ card online payment services. Supported services are ATOS/SIP, SystemPay,
+ and SPPLUS.
+ .
+ This is the Python 3 version of the package.

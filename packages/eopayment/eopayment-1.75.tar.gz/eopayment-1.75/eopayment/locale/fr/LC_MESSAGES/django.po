@@ -1,0 +1,208 @@
+# French translation of eopayment
+# Copyright (C) 2011-2020 Entr'ouvert
+# This file is distributed under the same license as the eopayment package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: eopayment 0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-06 17:10+0200\n"
+"PO-Revision-Date: 2021-05-06 17:12+0200\n"
+"Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
+"Language: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: eopayment/dummy.py:65 eopayment/keyware.py:35 eopayment/mollie.py:38
+#: eopayment/ogone.py:438 eopayment/paybox.py:205 eopayment/sips2.py:125
+#: eopayment/systempayv2.py:235
+msgid "Normal return URL"
+msgstr "URL de retour normal"
+
+#: eopayment/dummy.py:71 eopayment/paybox.py:211 eopayment/sips2.py:131
+#: eopayment/tipi.py:67
+msgid "Automatic return URL"
+msgstr "URL de retour automatique"
+
+#: eopayment/dummy.py:76
+msgid "URL of the dummy payment service"
+msgstr "URL du service de paiement bouchon"
+
+#: eopayment/dummy.py:82
+msgid "name of the requesting service, to present in the user interface"
+msgstr "nom du service appelant qui sera affiché dans l’interface utilisateur"
+
+#: eopayment/dummy.py:90
+msgid ""
+"All response will be considered as signed (to test payment locally for "
+"example, as you cannot received the signed callback)"
+msgstr ""
+"Toutes les réponses seront considérées comme signées (utile pour tester le "
+"paiement en local où le retour signé ne peut pas être obtenu)"
+
+#: eopayment/dummy.py:115
+msgid "direct notification url (replaced by automatic_return_url)"
+msgstr "URL de notification directe (remplacée par automatic_return_url)"
+
+#: eopayment/dummy.py:121
+msgid "Return URL for the user"
+msgstr "URL de retour pour l’usager"
+
+#: eopayment/keyware.py:31
+msgid "Keyware payment backend"
+msgstr "Service de paiement Keyware"
+
+#: eopayment/keyware.py:40 eopayment/mollie.py:43
+msgid "Asychronous return URL"
+msgstr "URL de retour asynchrone"
+
+#: eopayment/keyware.py:45 eopayment/mollie.py:48
+msgid "URL of the payment service"
+msgstr "URL du service de paiement"
+
+#: eopayment/keyware.py:52 eopayment/mollie.py:55
+msgid "API key"
+msgstr "Clé d’API"
+
+#: eopayment/mollie.py:61
+msgid "General description that will be displayed for all payments"
+msgstr "Description générale qui sera affichée pour tous les paiements"
+
+#: eopayment/ogone.py:434
+msgid "Ogone / Ingenico Payment System e-Commerce"
+msgstr "Système de paiement Ogone/Ingenico"
+
+#: eopayment/ogone.py:444
+msgid "Automatic return URL (ignored, must be set in Ogone backoffice)"
+msgstr ""
+"URL de retour automatique (ignorée, doit être posée dans le backoffice Ogone)"
+
+#: eopayment/ogone.py:460
+msgid "Language"
+msgstr "Langue"
+
+#: eopayment/ogone.py:466
+msgid "Characters encoding"
+msgstr "Table d'encodage des caractères (Latin1 ou UTF-8)"
+
+#: eopayment/paybox.py:201
+msgid "Paybox"
+msgstr "Paybox"
+
+#: eopayment/paybox.py:269
+msgid "Callback URL"
+msgstr "URL de retour"
+
+#: eopayment/paybox.py:282 eopayment/sips2.py:143
+msgid "Capture Mode"
+msgstr "Mode de capture"
+
+#: eopayment/paybox.py:296
+msgid "Default Timezone"
+msgstr "Fuseau horaire par défaut"
+
+#: eopayment/payfip_ws.py:167 eopayment/tipi.py:47
+msgid "Client number"
+msgstr "Numéro de clients"
+
+#: eopayment/payfip_ws.py:168 eopayment/tipi.py:48
+msgid "6 digits number provided by DGFIP"
+msgstr "6 chiffres fournis par la DGFIP"
+
+#: eopayment/payfip_ws.py:175
+msgid "PayFIP WS service URL"
+msgstr "URL du service PayFIP WS"
+
+#: eopayment/payfip_ws.py:176 eopayment/payfip_ws.py:183
+#: eopayment/payfip_ws.py:190 eopayment/tipi.py:56
+msgid "do not modify if you do not know"
+msgstr "ne pas modifier si vous ne savez pas"
+
+#: eopayment/payfip_ws.py:182
+msgid "PayFIP WS WSDL URL"
+msgstr "URL vers le WSDL de PayFIP WS"
+
+#: eopayment/payfip_ws.py:189
+msgid "PayFiP payment URL"
+msgstr "URL du paiement PayFiP"
+
+#: eopayment/payfip_ws.py:195 eopayment/tipi.py:72
+msgid "Payment type"
+msgstr "Type de paiement"
+
+#: eopayment/payfip_ws.py:198 eopayment/tipi.py:76
+msgid "test"
+msgstr "test"
+
+#: eopayment/payfip_ws.py:199
+msgid "activation"
+msgstr "activation"
+
+#: eopayment/payfip_ws.py:200 eopayment/tipi.py:77
+msgid "production"
+msgstr "production"
+
+#: eopayment/payfip_ws.py:205
+msgid "User return URL"
+msgstr "URL de retour usager"
+
+#: eopayment/payfip_ws.py:210
+msgid "Asynchronous return URL"
+msgstr "URL de retour asynchrone"
+
+#: eopayment/sips2.py:100
+msgid "Platform"
+msgstr "Plateforme"
+
+#: eopayment/sips2.py:107
+msgid "Merchant ID"
+msgstr "Identifiant de marchand"
+
+#: eopayment/sips2.py:113
+msgid "Secret Key"
+msgstr "Clé secrète"
+
+#: eopayment/sips2.py:119
+msgid "Key Version"
+msgstr "Version de clé"
+
+#: eopayment/sips2.py:136
+msgid "Currency code"
+msgstr "Code de la devise"
+
+#: eopayment/sips2.py:150
+msgid "Capture Day"
+msgstr "Jour de capture"
+
+#: eopayment/sips2.py:155
+msgid "Payment Means"
+msgstr "Méthodes de paiement"
+
+#: eopayment/sips2.py:160
+msgid "SIPS server Timezone"
+msgstr "Fuseau horaire du serveur SIPS"
+
+#: eopayment/systempayv2.py:241
+msgid ""
+"Automatic return URL (ignored, must be set in Payzen/SystemPay backoffice)"
+msgstr ""
+"URL de retour automatique (ignorée, doit être posée dans le backoffice "
+"Payzen/SystemPay)"
+
+#: eopayment/tipi.py:55
+msgid "TIPI service URL"
+msgstr "URL de service TIPI"
+
+#: eopayment/tipi.py:62
+msgid "Normal return URL (unused by TIPI)"
+msgstr "URL de retour normal (pas utilisée par TIPI)"
+
+#: eopayment/tipi.py:78
+msgid "with user account"
+msgstr "avec compte usager"
+
+#: eopayment/tipi.py:79
+msgid "manual entry"
+msgstr "saisie manuelle"
