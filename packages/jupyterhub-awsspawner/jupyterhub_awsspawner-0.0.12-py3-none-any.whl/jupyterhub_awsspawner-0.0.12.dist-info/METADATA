@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: jupyterhub-awsspawner
+Version: 0.0.12
+Summary: Spawns JupyterHub single user servers in Docker containers running in AWS ECS Task (include EC2、Fargate、Fargate Spot)
+Home-page: https://github.com/adacotech/awsspawner
+License: MIT
+Keywords: jupyterhub,aws,ecs,fargate,boto3
+Author: kackyt
+Author-email: t_kaki@nextappli.com
+Requires-Python: >=3.7,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Jupyter
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: boto3 (>=1.20.46,<2.0.0)
+Requires-Dist: jupyterhub (>=1.4.1)
+Project-URL: Repository, https://github.com/adacotech/awsspawner
+Description-Content-Type: text/markdown
+
+# awsspawner
+Spawns JupyterHub single user servers in Docker containers running in AWS ECS Task (include EC2、Fargate、Fargate Spot)
+
