@@ -1,0 +1,58 @@
+---
+project:
+  working_project: null
+
+logger:
+  level: INFO
+  pretty: false
+  join_root: true
+  max_bytes: 1048576  # 1mb
+  bkp_count: 1
+
+mongo:
+  native: true
+  port: 30017
+  database: nha_db
+  write_concern:
+    w: 1
+    j: true
+    wtimeout: 5
+
+router:
+  native: true
+  port: 30080
+
+file_store:
+  native: true
+  port: 30023
+  type: artif  # (artif, nexus)
+
+lightweight_store:
+  enabled: false
+  native: false
+  type: cass
+  hosts: ['cassandra']
+  port: 30042
+  keyspace: nha_db
+  replication_factor: 3
+
+docker:
+  daemon_address: unix:/var/run/docker.sock
+  target_registry: null
+  registry_secret: null
+
+container_manager:
+  type: swarm
+  resource_profiles:
+    nha-gpu:
+      enable_gpu: false
+      requests:
+        memory: 512
+        cpu: 1
+      limits:
+        memory: 2048
+        cpu: 1
+
+web_server:
+  type: simple
+  enable_debug: false
