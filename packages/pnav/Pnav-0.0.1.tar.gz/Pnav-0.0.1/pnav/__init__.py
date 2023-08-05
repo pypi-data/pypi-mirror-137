@@ -1,0 +1,1 @@
+from .pnav import wordCheck
