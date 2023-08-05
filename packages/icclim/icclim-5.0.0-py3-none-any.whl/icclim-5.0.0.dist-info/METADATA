@@ -1,0 +1,89 @@
+Metadata-Version: 2.1
+Name: icclim
+Version: 5.0.0
+Summary: Python library for climate indices calculation
+Home-page: https://github.com/cerfacs-globc/icclim
+Author: Christian P.
+Author-email: christian.page@cerfacs.fr
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: French
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Scientific/Engineering :: Atmospheric Science
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENCE
+License-File: NOTICE
+Requires-Dist: numpy (>=1.21.1)
+Requires-Dist: xarray (>=0.19)
+Requires-Dist: xclim (>=0.33)
+Requires-Dist: cftime (>=1.5.0)
+Requires-Dist: dask[array] (>=2021.10.0)
+Requires-Dist: netCDF4 (>=1.5.7)
+Requires-Dist: pyyaml (>=6.0)
+Requires-Dist: setuptools-git
+
+icclim
+======
+
+|build| |pypi| |black| |docs|
+
+
+icclim (Index Calculation CLIMate) is a Python library for climate indices calculation.
+
+This open-source project has been possible thanks to funding by the European Commission Projects FP7-IS-ENES2 (2013-2017), FP7-CLIPC (2013-2016) and EUDAT2020 (2015-2018).
+Now under development through new funding from H2020-IS-ENES3 (2019-2022).
+It is used as a backend on the C4I platform https://dev.climate4impact.eu and on the CLIPC Portal http://www.clipc.eu
+
+Development is very active at the moment, with version 5.0.0.
+It is lead by CERFACS, a research institution located in Toulouse, France.
+
+For documentation please visit: http://icclim.readthedocs.org
+
+Quick Install Instructions (version 5.x and above)
+--------------------------------------------------
+
+Branch is https://github.com/cerfacs-globc/icclim/tree/master
+
+pip install icclim
+
+Quick Install Instructions (version 4.x and under)
+--------------------------------------------------
+
+For version 4.2.20 https://github.com/cerfacs-globc/icclim/tree/4.2.20
+
+gcc -fPIC -g -c -Wall ./icclim/libC.c -o ./icclim/libC.o
+
+gcc -shared -o ./icclim/libC.so ./icclim/libC.o
+
+python setup.py install --user
+
+or as root: python setup.py install
+
+Indices
+-------
+For a detailed description of each ECA index, please visit: https://www.ecad.eu/documents/atbd.pdf
+
+
+.. |docs| image:: https://readthedocs.org/projects/icclim/badge/?version=latest
+        :target: https://icclim.readthedocs.io/en/latest/?badge=latest
+        :alt: Documentation Status
+
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+        :target: https://github.com/python/black
+        :alt: Python Black
+
+.. |pypi| image:: https://img.shields.io/pypi/v/icclim.svg
+        :target: https://pypi.python.org/pypi/icclim
+        :alt: Python Package Index Build
+
+.. |build| image:: https://github.com/cerfacs-globc/icclim/actions/workflows/ci.yml/badge.svg?branch=master
+        :target: https://github.com/cerfacs-globc/icclim/actions/workflows/ci.yml
+        :alt: Build Status
+
+
