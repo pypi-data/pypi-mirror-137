@@ -1,0 +1,123 @@
+Metadata-Version: 2.1
+Name: Misskey.py
+Version: 4.0.2
+Summary: The misskey library for Python. misskey is made by syuilo.
+Home-page: https://github.com/YuzuRyo61/Misskey.py
+Author: YuzuRyo61
+License: MIT
+Keywords: misskey,API,library,syuilo,SNS,Social Networking Service
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Natural Language :: English
+Classifier: Natural Language :: Japanese
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet
+Classifier: Topic :: Communications
+License-File: LICENSE
+Requires-Dist: requests
+
+
+Misskey.py
+==========
+
+
+.. image:: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+   :target: http://makeapullrequest.com
+   :alt: PRs Welcome
+
+
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+   :target: LICENSE
+   :alt: MIT License
+
+
+.. image:: https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml/badge.svg
+   :target: https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml
+   :alt: Python test
+
+
+.. image:: https://codecov.io/gh/YuzuRyo61/Misskey.py/branch/main/graph/badge.svg?token=97A1HJHUMW
+   :target: https://codecov.io/gh/YuzuRyo61/Misskey.py
+   :alt: codecov
+
+
+This script is Python library for Misskey Instance.
+
+This library is only available in Python3.
+
+`Misskey <https://github.com/misskey-dev/misskey>`_ is made by `syuilo <https://github.com/syuilo>`_.
+
+----
+
+How to install
+--------------
+
+Use pip (Recommend)
+^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   pip install Misskey.py
+   # or
+   pip3 install Misskey.py
+
+usage
+-----
+
+import library (init)
+^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   from misskey import Misskey
+
+   mk = Misskey("misskey.io")  # Input instance address (If leaved no attribute, it sets "misskey.io")
+
+   # Let's note!
+   mk.notes_create(
+       text="Hello Misskey.py!"
+   )
+
+Use token key
+~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from misskey import Misskey
+
+   # If use the token
+   mk = Misskey("misskey.io", i="abcdef123...")
+
+Create token
+^^^^^^^^^^^^
+
+.. code-block:: python
+
+   from misskey import Misskey, MiAuth
+
+   auth = MiAuth("misskey.io", name="misskey.py")
+   # Get Authentication URL, then send to client browser
+   url = auth.generate_url()
+   # After permission granted, run this function
+   token = auth.check()
+   # To use misskey.py with created token, please below
+   misskey = Misskey("misskey.io", i=token)  # or: misskey = misskey("misskey.io", i=auth.token)
+
+Other
+-----
+
+**Pull requests are HUGE WELCOME!**
+
+We hope you will contribute to the completion of the library by all means.
+
+
