@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: typedclasses
+Version: 0.0.1
+Summary: Python classes with types validation at runtime.
+Home-page: https://github.com/nerdguyahmad/typedclasses
+Author: nerdguyahmad
+License: MIT
+Project-URL: Documentation, https://github.com/nerdguyahmad/typedclasses/wiki
+Project-URL: Issue tracker, https://github.com/nerdguyahmad/typedclasses/issues
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Internet
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Requires-Python: >=3.8.0
+Description-Content-Type: text/markdown
+
+# typedclasses
+Python classes with types validation at runtime. ***(Experimental & Under Development)***
+
+## Installation
+You can install this library using Python's favorite, `pip` package manager.
+
+```sh
+pip install -U typedclasses
+```
+
+## How it works
+Using typedclasses, you can create classes in `dataclasses`-like manner i.e using type annotations and library will enforce types for
+that class at runtime. Here's an example:
+
+```py
+import typing
+from typedclasses import TypedClass
+
+class User(TypedClass):
+  id: int
+  name: str
+  email: typing.Optional[str] = None
+```
+
+Parameters will be validated when initialising above class. Since `email` has a default value set, It is optional to pass
+it as a parameter while instansiating:
+
+```py
+>>> User(id=1, name="foobar") # runs fine
+>>> User(id="1", name="foobar")
+TypeError: Parameter 'id' must be an instance of <class 'int'>, <class 'str'> is unsupported.
+```
+
+This library also provides validation for *various* generic types from `typing` module:
+
+```py
+class Foo(TypedClass):
+  x: typing.Union[str, int]
+
+Foo(x="a") # ok
+Foo(x=1) # ok
+Foo(x=True) # invalid
+```
+
+List of all types supported from `typing` module can be found in the documentation.
+
+
