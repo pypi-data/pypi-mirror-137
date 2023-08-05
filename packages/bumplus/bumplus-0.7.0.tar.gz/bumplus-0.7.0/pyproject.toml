@@ -1,0 +1,16 @@
+[tool.black]
+# https://www.python.org/dev/peps/pep-0008/#maximum-line-length
+line-length = 79
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 79
+
+[tool.pytest.ini_options]
+addopts = "--cov"
+
+[tool.bandit.assert_used]
+skips = ['**/*_test.py', '**/test_*.py']
