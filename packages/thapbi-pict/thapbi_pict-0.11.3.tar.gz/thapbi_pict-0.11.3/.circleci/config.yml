@@ -1,0 +1,57 @@
+# This is a special configuration file to run tests on Circle-CI via
+# GitHub notifications when changes are committed.
+#
+# This file is not intended for end users of the tool.
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: continuumio/miniconda3
+    steps:
+      - checkout
+      - run:
+          name: Conda and Dependencies
+          command: |
+            # Move this grep into pre-commit setup:
+            grep -v '^>' database/Phytophthora_ITS1_curated.fasta  | LC_ALL=C sort -c -f
+            conda config --set always_yes yes --set changeps1 no --set channel_priority strict
+            conda update -q conda
+            conda config --add channels defaults
+            conda config --add channels bioconda
+            conda config --add channels conda-forge
+            conda info -a
+            conda create -q -n testing python=3.7 mamba
+            source activate testing
+            python --version
+            # For installing the Python requirements either conda or pip should work,
+            # but conda preferable if there are packages with C code but no wheel
+            # python -m pip install -r requirements.txt
+            mamba install curl --file requirements.txt --file requirements-ext.txt
+      - run:
+          name: Installation
+          command: |
+            source activate testing
+            rm -rf dist/* thapbi_pict/ITS1_DB.sqlite
+            sqlite3 thapbi_pict/ITS1_DB.sqlite < database/ITS1_DB.sql
+            chmod a-w thapbi_pict/ITS1_DB.sqlite
+            python setup.py sdist --formats=gztar
+            python setup.py bdist_wheel
+            echo "Installing our wheel..."
+            cd dist
+            python -m pip install thapbi_pict-*.whl
+            cd ..
+            echo "THAPBI PICT should now be installed"
+            thapbi_pict -v
+      - run:
+          name: Test
+          command: |
+            source activate testing
+            # Unpack the tests from the sdist tar-ball
+            tar --wildcards '*/scripts/*' -zxvf dist/thapbi_pict-*.tar.gz
+            tar --wildcards '*/tests/*' -zxvf dist/thapbi_pict-*.tar.gz
+            tar --wildcards '*/examples/*' -zxvf dist/thapbi_pict-*.tar.gz
+            tar --wildcards '*/database/*' -zxvf dist/thapbi_pict-*.tar.gz
+            cd thapbi_pict-*/
+            # Run the tests (and confirm the tar-ball is complete)
+            tests/run_tests.sh
