@@ -1,0 +1,27 @@
+{% load static %}
+{% load i18n %}
+
+<footer class="footer" style="background-color: transparent;">
+    <div class="content has-text-centered">
+        <div>
+            <div>
+                {% trans "copyright" %} &copy 2019-2022 &nbsp;
+                <a href="https://www.qiyutech.tech/">{% trans "QiYuTech" %}</a>
+            </div>
+            <div>{% trans "contact method" %}: <a href="mailto:admin@qiyutech.tech">admin@qiyutech.tech</a></div>
+        </div>
+
+        {% if icp %}
+            <a href="https://beian.miit.gov.cn" target="_blank">{{ icp }}</a>
+        {% else %}
+            <a href="https://beian.miit.gov.cn" target="_blank">津ICP备20005561号-1</a>
+        {% endif %}
+
+        {% if ga %}
+            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode={{ ga }}" target="_blank">
+                <img src='{% static "dj_qiyu_tpl/img/gongan.png" %}' alt="公安"/>
+                {% blocktrans with ga=ga %}津公网安备 {{ ga }} 号{% endblocktrans %}
+            </a>
+        {% endif %}
+    </div>
+</footer>
