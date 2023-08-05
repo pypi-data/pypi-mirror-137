@@ -1,0 +1,78 @@
+import multiprocessing as mp
+import time
+
+import torch
+import pytest
+
+import moolib
+
+
+ADDRESS = "127.0.0.1:4411"
+
+
+@pytest.fixture(scope="session", autouse=True)
+def setup():
+    print("setup")
+    mp.set_start_method("spawn")  # no forking with moolib.
+
+
+def f(i):
+    peer = moolib.Rpc()
+    group = moolib.Group(peer, "broker", "test group", 10)
+    p0 = torch.nn.Parameter(torch.rand(10))
+    accumulator = moolib.Accumulator(group, "foo", [p0], [])
+    peer.connect(ADDRESS)
+
+    while True:
+        group.update()
+        accumulator.update()
+
+        if not accumulator.connected():
+            print(i, "not connected")
+            time.sleep(1)
+            continue
+
+        if accumulator.wants_state():
+            accumulator.set_state(None)  # Necessary to make peers connect.
+
+        if accumulator.has_new_state():
+            pass
+
+        if accumulator.wants_gradients():
+            print(i, "wants gradients")
+            p0.grad[:] = i
+            print(i, "sending grad", p0.grad)
+            accumulator.reduce_gradients(1)
+
+        if accumulator.has_gradients():
+            print(i, "has gradients")
+            grad = p0.grad.clone()
+            accumulator.zero_gradients()
+            print(i, "got grad", grad)
+            return grad
+
+
+class TestAccumulator:
+    def test_gradients_1(self):
+
+        processes = [mp.Process(target=f, args=(i,)) for i in range(2)]
+
+        for p in processes:
+            p.start()
+
+        broker_rpc = moolib.Rpc()
+        broker_rpc.set_name("broker")
+        broker = moolib.Broker(broker_rpc)
+        broker_rpc.listen(ADDRESS)
+
+        while True:
+            if not any(p.is_alive() for p in processes):
+                print("stopping broker")
+                break
+            broker.update()
+            time.sleep(0.25)
+
+        for p in processes:
+            p.join()
+
+        assert True

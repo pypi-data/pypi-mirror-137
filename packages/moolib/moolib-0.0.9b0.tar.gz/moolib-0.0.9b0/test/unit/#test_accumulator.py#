@@ -1,0 +1,82 @@
+import multiprocessing as mp
+import time
+
+import torch
+import pytest
+
+import moolib
+
+
+ADDRESS = "127.0.0.1:4411"
+
+
+@pytest.fixture(scope="session", autouse=True)
+def setup():
+    mp.set_start_method("spawn")  # no forking with moolib.
+
+
+def peer_with_wants_then_has(i, queue):
+    peer = moolib.Rpc()
+    group = moolib.Group(peer, "broker", "test group", 10)
+    p0 = torch.nn.Parameter(torch.rand(10))
+    accumulator = moolib.Accumulator(group, "foo", [p0], [])
+    peer.connect(ADDRESS)
+
+    while True:
+        group.update()
+        accumulator.update()
+
+        if accumulator.wants_state():
+            accumulator.set_state(None)  # Necessary to make peers connect.
+
+        if not accumulator.connected():
+            time.sleep(0.25)
+            continue
+
+        # Wait until all peers are here. (No grad production until then.)
+        future = group.all_reduce("sync", torch.zeros([])).result()
+
+        if accumulator.has_new_state():
+            pass
+
+        if accumulator.wants_gradients():
+            p0.grad[:] = i
+            accumulator.reduce_gradients(1)
+
+        if accumulator.has_gradients():
+            grad = p0.grad.clone()
+            accumulator.zero_gradients()
+            queue.put(grad)
+            return
+
+
+class TestAccumulator:
+    @pytest.mark.parametrize("num_nodes", (2, 3, 6))
+    def test_gradients_wants_than_has(self, num_nodes):
+
+        queue = mp.SimpleQueue()
+        processes = [
+            mp.Process(target=peer_with_wants_then_has, args=(i, queue))
+            for i in range(num_nodes)
+        ]
+
+        for p in processes:
+            p.start()
+
+        broker_rpc = moolib.Rpc()
+        broker_rpc.set_name("broker")
+        broker = moolib.Broker(broker_rpc)
+        broker_rpc.listen(ADDRESS)
+
+        while any(p.is_alive() for p in processes):
+            broker.update()
+            time.sleep(0.25)
+
+        for p in processes:
+            p.join()
+
+        expected = sum(range(num_nodes)) / num_nodes  # I'm no Gauss.
+
+        for _ in range(num_nodes):
+            grad = queue.get()
+            assert torch.mean(grad).item() == expected

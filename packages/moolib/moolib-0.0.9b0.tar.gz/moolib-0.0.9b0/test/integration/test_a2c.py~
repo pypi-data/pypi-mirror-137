@@ -1,0 +1,12 @@
+from unittest import mock
+
+from moolib.examples import a2c
+
+
+class TestA2CExample:
+    def test_single_node_training(self):
+        def log_to_file(**kwargs):
+            print("log")
+
+        with patch.object(a2c.log_to_file, new=log_to_file):
+            a2c.train()

@@ -1,0 +1,35 @@
+
+ADDRESS = "127.0.0.1:4411"
+
+class TestMoolib:
+
+    def test_ping(self):
+        client = moolib.Rpc()
+        host = moolib.Rpc()
+
+        client.set_name("client")
+        client.set_timeout(1)
+
+        def client_hello(*args):
+            print("client got hello:", (*args,))
+
+        client.define("client hello", client_hello)
+
+        def hello(message):
+            print("Got hello: ", message)
+            return "this is a response to message '" + message + "'"
+
+        host.define("hello", hello)
+
+        host.set_name("host")
+        host.listen(ADDRESS)
+
+        client.connect(ADDRESS)
+
+        future = client.async_("host", "hello", "this is a message from client")
+
+        response = future.result()
+
+        print("Got response: ", response)
+
+        print("sync: ", client.sync("host", "hello", "sync test"))

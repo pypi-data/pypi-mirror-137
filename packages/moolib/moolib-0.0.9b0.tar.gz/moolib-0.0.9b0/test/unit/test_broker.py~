@@ -1,0 +1,13 @@
+from unittest import mock
+
+import moolib.broker
+
+
+class TestBrokerScript:
+    def test_has_main(self):
+        assert hasattr(moolib.broker, "main")
+
+    def test_run(self):
+        with mock.patch("moolib.Broker") as MockBroker:
+            MockBroker.update.side_effect = [None, None, None, RuntimeError("Enough")]
+            moolib.broker.main()

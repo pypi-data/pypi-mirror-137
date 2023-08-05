@@ -1,0 +1,54 @@
+@dataclasses.dataclass
+class StatMean:
+    value: float = 0
+    n: int = 0
+
+    def result(self):
+        if self.n == 0:
+            return None
+        return self.value / self.n
+
+    def __sub__(self, other):
+        assert isinstance(other, StatMean)
+        return StatMean(self.value - other.value, self.n - other.n)
+
+    def __iadd__(self, other):
+        if isinstance(other, StatMean):
+            self.value += other.value
+            self.n += other.n
+        else:
+            self.value += other
+            self.n += 1
+        return self
+
+    def reset(self):
+        self.value = 0
+        self.n = 0
+
+    def __repr__(self):
+        return repr(self.result())
+
+
+@dataclasses.dataclass
+class StatSum:
+    value: float = 0
+
+    def result(self):
+        return self.value
+
+    def __sub__(self, other):
+        assert isinstance(other, StatSum)
+        return StatSum(self.value - other.value)
+
+    def __iadd__(self, other):
+        if isinstance(other, StatSum):
+            self.value += other.value
+        else:
+            self.value += other
+        return self
+
+    def reset(self):
+        pass
+
+    def __repr__(self):
+        return repr(self.result())

@@ -1,0 +1,5 @@
+class TestImportBroker:
+    def test_import(self):
+        from moolib_examples.impala import broker
+
+        assert hasattr(broker, "main")

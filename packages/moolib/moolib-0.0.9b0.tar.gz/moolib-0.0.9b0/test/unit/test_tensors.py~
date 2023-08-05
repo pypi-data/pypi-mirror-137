@@ -1,0 +1,56 @@
+import torch
+
+import moolib
+
+
+class TestMoolibTensors:
+    def test_even_more(self):
+        return
+        weights = torch.randn(4096, 4096)
+
+        def linear(input):
+            return (weights * input).sum(-1)
+
+        def noop():
+            pass
+
+        host.define("linear", linear)
+        host.define("noop", noop)
+
+        client.set_timeout(60)
+
+        input = torch.randn(16, 4096)
+
+        client.sync("host", "linear", input.unsqueeze(1))
+
+        for _ in range(128):
+            client.sync("host", "noop")
+
+        for _ in range(4):
+            futures = []
+            start = time.time()
+            for _ in range(10000):
+                futures.append(client.async_("host", "noop"))
+            for i in futures:
+                i.result()
+            t = time.time() - start
+            print("noop x%d time %g (%g/s)" % (len(futures), t, len(futures) / t))
+
+        for _ in range(2):
+            start = time.time()
+            local_result = sum(
+                linear(input[i]).sum().item() for i in range(input.size(0))
+            )
+            print("base time ", time.time() - start)
+
+        for _ in range(4):
+            futures = []
+            start = time.time()
+            for i in range(input.size(0)):
+                futures.append(client.async_("host", "linear", input[i]))
+            result = sum(i.result().sum().item() for i in futures)
+            print("async time ", time.time() - start)
+            assert abs(result - local_result) < 0.1
+
+        host.debug_info()
+        client.debug_info()

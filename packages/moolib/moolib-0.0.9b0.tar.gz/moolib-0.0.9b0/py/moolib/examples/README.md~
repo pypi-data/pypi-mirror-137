@@ -1,0 +1,14 @@
+
+# moolib examples
+
+To try out the A2C example locally, run
+
+```
+python examples/a2c.py
+```
+
+in another terminal, run
+
+```
+watch -n3 --color python examples/plot.py logs.tsv --ykey mean_episode_return --window 500
+```
