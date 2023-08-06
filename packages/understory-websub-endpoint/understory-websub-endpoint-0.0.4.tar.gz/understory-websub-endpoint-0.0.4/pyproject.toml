@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "understory-websub-endpoint"
+version = "0.0.4"
+description = "A WebSub publisher/subscriber for the Understory framework."
+authors = ["Angelo Gladding <self@angelogladding.com>"]
+license = "CC0-1.0"
+packages = [{include = "understory"}]
+
+[tool.poetry.plugins."web.apps"]
+websub_endpoint = "understory.apps.websub_endpoint:app"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+understory = "^0"
+websub-temporary = "^0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.9b0"
+isort = "^5.9.3"
+flake8 = "^3.9.2"
+flake8-docstrings = "^1.6.0"
+pep8-naming = "^0.12.1"
+radon = "^5.1.0"
+ipython = "^7.28.0"
+understory = {path = "../understory"}
+websub-temporary = {path = "../websub-python"}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
