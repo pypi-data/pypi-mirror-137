@@ -1,0 +1,90 @@
+Changelog
+=========
+
+This document describes changes between each past release. For information
+about future releases, check `milestones`_ and :doc:`/about/vision`.
+
+0.11.1 (2022-02-04)
+-----------------
+
+- Supported python versions are now 3.7 and 3.8
+- Supported Django versions are now 2.2.27 and 3.2
+- Drop python version 3.6
+- Use github actions
+- Drop circleci
+
+
+0.10 (2021-01-18)
+-----------------
+
+- Fix CI
+- Supported python versions are now 3.6, 3.7 and 3.8
+- Supported Django version is now 2.2 only
+
+
+0.9 (2020-10-27)
+----------------
+
+- Add a default timeout to 15 seconds to the client
+- Catch and raise AdobeSign API max rate limit
+
+
+
+0.8 (2020-09-07)
+----------------
+
+- Add the possibility to update a signer
+- Make the demo able to dynamically select the correct api root url
+
+
+0.7 (2019-04-26)
+----------------
+
+- Confirm compatibility with Django 2.2
+
+
+0.6 (2019-03-20)
+----------------
+
+- Confirm compatibility with Django 2.1 & Python 3.7.
+- Limit the version of the requests_oauthlib to not use OAuthlib 3.0.0 to adapt
+  to the Adobe oauth server.
+
+
+0.5 (2018-12-18)
+----------------
+
+- Remove useless state mapping during signature creation
+
+
+0.4 (2018-10-19)
+----------------
+
+- Add reason from every Adobe exception
+
+
+0.3 (2018-09-26)
+----------------
+
+- Add refuse comment backend method with the adobe events client method
+- Fix case sensitive from Adobe email field
+
+
+0.2 (2018-08-07)
+----------------
+
+- Improve Demo website UI
+
+BREAKING CHANGES:
+
+- Use django anysign field: signature_backend_id from signer
+- Enhance exceptions management
+- Use model imposed by third party (compliance) for document
+- Make `refresh_token` a static method
+
+
+
+0.1 (2018-07-27)
+----------------
+
+- First release.
