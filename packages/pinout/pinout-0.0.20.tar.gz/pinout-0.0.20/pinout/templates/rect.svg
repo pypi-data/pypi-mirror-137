@@ -1,0 +1,13 @@
+<rect
+
+    {% with params=rect %}
+        {% include "component_common.svg" %}
+    {% endwith %}
+    
+    width="{{ rect.width }}" 
+    height="{{ rect.height }}" 
+    {% if rect.corner_radius %}
+    rx="{{ rect.corner_radius }}" 
+    ry="{{ rect.corner_radius }}" 
+    {% endif %}
+/>

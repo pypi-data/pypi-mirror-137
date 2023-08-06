@@ -1,0 +1,8 @@
+<text
+
+    {% with params=text %}
+        {% include "component_common.svg" %}
+    {% endwith %}
+>
+    {{ text.content }}
+</text>
