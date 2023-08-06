@@ -1,0 +1,48 @@
+# This workflow will upload a Python Package using Twine when a release is created
+# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
+
+name: Upload Python Package
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    
+    # Install pipenv
+    - name: Install pipenv
+      run: python3 -m pip install pipenv
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine
+        
+    - name: Build package
+      run: |
+        # make build-package
+        cp src/schema/*.yaml nmdc_schema/ # copy yaml files
+        cp python/*.py nmdc_schema/ # copy python files
+        cp jsonschema/nmdc.schema.json nmdc_schema/ # copy nmdc json schema
+        cp sssom/gold-to-mixs.sssom.tsv nmdc_schema/ # copy sssom mapping
+        cp util/validate_nmdc_json.py nmdc_schema/ # copy command-line validation tool
+        cp util/nmdc_version.py nmdc_schema/ # copy command-line version tool
+        cp util/nmdc_data.py nmdc_schema/ # copy command-line data retrieval tool
+        python setup.py bdist_wheel sdist
+        
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@v1.2.2
+      with:
+        user: __token__
+        password: ${{ secrets.nmdc_schema_pypi_token }}
