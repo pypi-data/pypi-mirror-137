@@ -1,0 +1,71 @@
+#
+# Copyright 2021 Splunk Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-FileCopyrightText: 2020 Splunk Inc.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+[tool.poetry]
+name = "pytest-splunk-addon-ui-smartx"
+description = "Library to support testing Splunk Add-on UX"
+authors = ["rfaircloth-splunk <rfaircloth@splunk.com>"]
+license = "APACHE-2.0"
+classifiers = [
+        "Framework :: Pytest",
+        "Intended Audience :: Developers",
+        "Topic :: Software Development :: Testing",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.7",
+        "Operating System :: OS Independent",
+        "License :: OSI Approved :: Apache Software License",
+]
+packages = [
+        {include = "pytest_splunk_addon_ui_smartx/**/*.py"},
+]
+version = "2.1.3"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+future = "^0.18"
+pytest-html = "*"
+urllib3 = "^1.21.1"
+selenium = "*"
+webdriver-manager = "*"
+msedge-selenium-tools = "*"
+cssselect = "*"
+pytest-splunk-addon = "^2.1.0"
+
+[tool.poetry.dev-dependencies]
+pytest = ">=5.4, <6.3"
+pytest-splunk-addon = { version = "*", extras = [ "docker" ] }
+poetry-dynamic-versioning = "^0.13"
+coverage = "^5.5"
+lovely-pytest-docker = {version = ">=0.1.0", optional = true}
+Sphinx = "*"
+sphinx_rtd_theme = "*"
+sphinx-panels = "*"
+
+[tool.poetry.extras]
+docker = ["lovely-pytest-docker"]
+
+[tool.poetry.plugins]
+pytest11 = { "ucc-smartx" = "pytest_splunk_addon_ui_smartx.plugin" }
+
+[tool.poetry-dynamic-versioning]
+enable = true
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
