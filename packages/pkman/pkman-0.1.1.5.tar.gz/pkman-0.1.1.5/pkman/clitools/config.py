@@ -1,0 +1,2 @@
+PACKAGE_CONFIG_FILENAME="package.json"
+PACKAGE_CONFIG_FILENAME_YML="package.yml"
