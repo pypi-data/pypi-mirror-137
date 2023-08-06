@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: getthenews
+Version: 0.1.1
+Summary: Get the latest news using command line.
+License: MIT
+Keywords: commandline,news,search
+Author: xettrisomeman
+Author-email: webizmoxx@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: beautifulsoup4 (>=4.10.0,<5.0.0)
+Requires-Dist: fake-headers (>=1.0.2,<2.0.0)
+Requires-Dist: requests (>=2.27.1,<3.0.0)
+Requires-Dist: rich (>=11.1.0,<12.0.0)
+Description-Content-Type: text/markdown
+
+
+## Project Introduction
+
+A small library to search for news using command line.
+
+
+## Installation
+
+```python
+pip install getthenews
+```
+
+### Usage
+
+
+```python
+getthenews --help
+```
+
+> --help can be used to get the info about commands we can use.
+
+#### Examples
+
+```python
+getthenews --query ai --lang en --size 10
+
+```
+> gets 10 news(english) related to artificial intelligence.
+
+
+
