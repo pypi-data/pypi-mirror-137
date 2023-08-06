@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: i2a-oauth2-api-client
+Version: 2.0.5
+Summary: Sdk for i2a oauth2 api
+Download-URL: https://pypi.org/project/i2a_oauth2_api_client/
+Author: i2a Solutions Inc.
+Author-email: msyta@i2asolutions.com
+License: MIT
+Keywords: I2A Oauth2 Client,I2A Oauth2 Api,I2A Oauth2,Python 3,I2A Oauth2 Api SDK
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: requests (>=2.26.0)
+
+#Installation
+```python
+pip install i2a-oauth2-api-client
+```
+
+#Usage
+```python
+from i2a_oauth2_api_client.client import I2AOauth2Client
+from i2a_oauth2_api_client.enums import Environment
+
+
+client = I2AOauth2Client(
+    client_id='your client id',
+    client_secret='your client secret',
+    environment=Environment.QA  # default
+)
+```
+
+#Enums
+```python
+from enum import Enum
+
+
+class Environment(Enum):
+    QA = 1
+    PROD = 2
+```
+
+
+
