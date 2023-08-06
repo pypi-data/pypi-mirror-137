@@ -1,0 +1,143 @@
+Metadata-Version: 2.1
+Name: pyshelltest
+Version: 0.6-14dev0
+Summary: Generate test cases for shell scripts
+Home-page: https://github.com/bnichs/pyshelltest.git
+License: MIT
+Keywords: generation,test,case
+Author: Ben
+Author-email: bnichs55@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: System :: Shells
+Requires-Dist: attrs (==19.2.0)
+Requires-Dist: flake8 (>=4.0.1,<5.0.0)
+Requires-Dist: pytest (>=6.2.5,<7.0.0)
+Requires-Dist: pytest-cov (>=3.0.0,<4.0.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Project-URL: Repository, https://github.com/bnichs/pyshelltest.git
+Description-Content-Type: text/markdown
+
+# PyShellTest
+
+[![Build/Test](https://github.com/bnichs/pyshelltest/actions/workflows/python-test.yml/badge.svg)](https://github.com/bnichs/pyshelltest/actions/workflows/python-test.yml)
+
+Generate python test cases for shell commands based on simple configuration. Allows you to seemlessly test commands that need to be run from a shell but within the python testing framework. 
+
+We all need to write more tests and including outside commands allows for more coverage. 
+For instance:
+* Add linkchecker to your integ runs for a django project
+* Ensure tools in `bin/` have a `--help` 
+
+
+# Installation
+```bash
+pip install pyshelltest
+```
+
+# Integration
+Add this to you test files where you see fit: 
+```python 
+generator = PyShellTestGenerator.from_json("sample-config.json")
+generator = PyShellTestGenerator.from_toml("sample-config.toml")
+test_class = generator.generate()
+```
+
+You can then run your tests like you would normally and PyShellTest will generate tests based on your conifg.json
+```
+python -m pytest tests/
+```
+
+
+#  Configuration
+See `sample-config/` as well as `tests/test-config.toml`
+
+## Toml config
+Example configuration for a command:
+```toml
+[[command]]
+ name = "the-command-name"
+
+# The command to run
+command = ["path/to/script.sh"]
+
+# How long to wait before timing out
+timeout = 30
+
+# Print the output of the ocmmand to stdout
+print_output = true
+
+# Expect this in stdout, fail otherwise
+stdout_contains = "bar" 
+  
+# Expect this in stderr, fail otherwise
+stderr_contains = "bar"
+
+    # Set this dict if you expect errors from the command
+    [command.error] 
+    # Expect an error
+    expect = true
+    
+    # Expect an error with this class
+    error_class = "FileNotFoundError"
+```
+
+
+## Json config
+Example configuration for a command: 
+```json
+{
+    "command": [
+         {
+            "_comment":  "# The command name",
+            "name": "the-command-name",
+            
+            "_comment":  "# The command to run",
+            "command": ["path/to/script.sh"], 
+            
+            "_comment":  "# How long to wait before timing out",
+            "timeout": 30, 
+            
+            "_comment":  "# Print the output of the command to stdout",
+            "print_output": true,
+            
+            "_comment":  "# Expect this in stdout, fail otherwise",
+            "stdout_contains": "bar" ,
+              
+            "_comment":  "# Expect this in stderr, fail otherwise",
+            "stderr_contains": "bar",
+            
+            "_comment":  "# Set this dict if you expect errors from the command",
+            "error": { 
+                "_comment":  "# Expect an error",
+                "expect": true,
+                
+                "_comment":  "# Expect an error with this class",
+                "error_class": "FileNotFoundError"
+            }
+        }
+    ]
+}
+```
+
+
+# Development 
+
+## Testing
+How to test this project
+
+
+```bash
+poetry run python -m pytest 
+```
