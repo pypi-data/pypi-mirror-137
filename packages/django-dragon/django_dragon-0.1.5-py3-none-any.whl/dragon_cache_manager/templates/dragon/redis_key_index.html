@@ -1,0 +1,13 @@
+{% extends 'dragon/base.html' %}
+
+{% block dragon_content %}
+    <p>Showing a maximum of {{ max_results }} results.</p>
+
+    {% for cache_name, keys in redis_keys.items %}
+        <h2>{{ cache_name }}</h2>
+        <div>{{ keys|length }} keys</div>
+        <ul>
+            {% for key in keys %}<li>{{ key }}</li>{% endfor %}
+        </ul>
+    {% endfor %}
+{% endblock %}
