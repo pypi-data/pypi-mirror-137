@@ -1,0 +1,83 @@
+Metadata-Version: 2.1
+Name: cmif
+Version: 2022.2.2
+Summary: Handle data in CMI-format.
+Home-page: https://github.com/herreio/cmif
+Author: Donatus Herre
+Author-email: pypi@herre.io
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+License-File: LICENSE
+Requires-Dist: certifi (==2021.10.8)
+Requires-Dist: chardet (==4.0.0)
+Requires-Dist: charset-normalizer (==2.0.11)
+Requires-Dist: idna (==3.3)
+Requires-Dist: lxml (==4.7.1)
+Requires-Dist: requests (==2.27.1)
+Requires-Dist: urllib3 (==1.26.8)
+
+.. role:: shell(code)
+   :language: shell
+
+cmif
+====
+
+Synopsis
+--------
+
+This is a simple Python package (under development) to handle data in `CMI format <https://github.com/TEI-Correspondence-SIG/CMIF>`_.
+
+Installation
+------------
+
+You can install this package via `PyPI <https://pypi.org/project/cmif/>`_:
+
+.. code-block:: shell
+
+    pip install cmif
+
+... or by cloning the repository:
+
+.. code-block:: shell
+
+    git clone https://github.com/herreio/cmif.git --recurse-submodules
+    cd cmif
+    # create and activate virutalenv
+    utils/setup
+    source env/bin/activate
+
+Documentation
+-------------
+
+A minimal documentation can be found on `Read the Docs <https://cmif.readthedocs.io/>`_.
+
+To build the documentation from the files found at docs:
+
+.. code-block:: shell
+
+    cd docs
+    make html
+
+
+Test
+----
+
+In case you cloned the repository, you can run a unittest:
+
+.. code-block:: shell
+
+    python -m unittest test.creation
+
+
+See Also
+--------
+
+The Python command line interface `csv2cmi <https://github.com/saw-leipzig/csv2cmi>`_, written by `K. Rettinghaus <https://github.com/rettinghaus>`_, allows to create files in CMI format from CSV input.
+
+
