@@ -1,0 +1,762 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Setup &mdash; djangosaml2 0.2.4 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinxcontrib-images/LightBox2/lightbox2/css/lightbox.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinxcontrib-images/LightBox2/lightbox2/js/jquery-1.11.0.min.js"></script>
+        <script src="../_static/sphinxcontrib-images/LightBox2/lightbox2/js/lightbox.min.js"></script>
+        <script src="../_static/sphinxcontrib-images/LightBox2/lightbox2-customize/jquery-noconflict.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Getting Started" href="usage.html" />
+    <link rel="prev" title="Welcome to Djangosaml2’s Documentation" href="../index.html" />
+    <link href="../_static/custom.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+
+    
+    <a href="../index.html" id="logo_main"><img src="../_static/logo.jpg" class="logo" alt="Logo" /></a>
+
+
+
+    <a id="title_under_logo" href="../index.html"> djangosaml2
+
+</a>
+
+
+    
+    
+
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Setup</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-environment-and-install-requirements">Prepare Environment and Install Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#samesite-cookie">SameSite cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication-backend">Authentication backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-login-path">Default Login path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-post-login-redirects">Handling Post-Login Redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preferred-sso-binding">Preferred sso binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preferred-logout-binding">Preferred Logout binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ignore-logout-errors">Ignore Logout errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signed-logout-request">Signed Logout Request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#discovery-service">Discovery Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#idp-hinting">Idp hinting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-and-dynamic-configuration-loading">Custom and dynamic configuration loading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#users-attributes-and-account-linking">Users, attributes and account linking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#urls">URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#pysaml2-specific-files-and-configuration">PySAML2 specific files and configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#test-idp">Test IdP</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer's</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html#unit-tests">Unit tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html#code-coverage">Code Coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html#custom-error-handler">Custom error handler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellanea</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="miscellanea.html">SimpleSAMLphp issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellanea.html#okta-federation">Okta federation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">FAQ</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+    <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+    <a href="../index.html">
+        <img src="../_static/logo.jpg" class="logo" alt="Logo"/>
+        </a>
+    <a href="../index.html">
+        djangosaml2
+    </a>
+
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Setup</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/contents/setup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prepare-environment-and-install-requirements">
+<h2>Prepare Environment and Install Requirements<a class="headerlink" href="#prepare-environment-and-install-requirements" title="Permalink to this headline">¶</a></h2>
+<p>PySAML2 uses <a class="reference external" href="http://www.aleksey.com/xmlsec/">xmlsec1</a> binary to sign SAML assertions so you need to install
+it either through your operating system package or by compiling the source
+code. It doesn’t matter where the final executable is installed because
+you will need to set the full path to it in the configuration stage.</p>
+<p>Now you can install the djangosaml2 package using easy_install or pip. This
+will also install PySAML2 and its dependencies automatically:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">xmlsec</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">virtualenv</span>
+<span class="n">mkdir</span> <span class="n">djangosaml2_project</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="s2">&quot;$_&quot;</span>
+<span class="n">virtualenv</span> <span class="o">-</span><span class="n">ppython3</span> <span class="n">env</span>
+<span class="n">source</span> <span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">djangosaml2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>There are three things you need to setup to make djangosaml2 work in your
+Django project:</p>
+<ol class="arabic simple">
+<li><p><strong>settings.py</strong> as you may already know, it is the main Django
+configuration file.</p></li>
+<li><p><strong>urls.py</strong> is the file where you will include djangosaml2 urls.</p></li>
+<li><p><strong>pysaml2</strong> specific files such as an attribute map directory and a
+certificates involved in SAML2 signature and encryption operations.</p></li>
+</ol>
+<p>The first thing you need to do is add <code class="docutils literal notranslate"><span class="pre">djangosaml2</span></code> to the list of
+installed apps:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sites&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+
+    <span class="s1">&#39;djangosaml2&#39;</span><span class="p">,</span>  <span class="c1"># new application</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Actually this is not really required since djangosaml2 does not include
+any data model. The only reason we include it is to be able to run
+djangosaml2 test suite from our project, something you should always
+do to make sure it is compatible with your Django version and environment.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you finish the configuration you can run the djangosaml2 test suite as
+you run any other Django application test suite. Just type <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span>
+<span class="pre">test</span> <span class="pre">djangosaml2</span></code>.</p>
+<p>Python users need to <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">djangosaml2[test]</span></code> in order to run the
+tests.</p>
+</div>
+</div>
+<div class="section" id="samesite-cookie">
+<h2>SameSite cookie<a class="headerlink" href="#samesite-cookie" title="Permalink to this headline">¶</a></h2>
+<p>Add the SAML Session Middleware as follow, this is needed for SameSite Cookies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;djangosaml2.middleware.SamlSessionMiddleware&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By default, djangosaml2 handle the saml2 session in a separate cookie.
+The storage linked to it is accessible by default at <cite>request.saml_session</cite>.
+You can even configure the SAML cookie name as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_SESSION_COOKIE_NAME</span> <span class="o">=</span> <span class="s1">&#39;saml_session&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="authentication-backend">
+<h2>Authentication backend<a class="headerlink" href="#authentication-backend" title="Permalink to this headline">¶</a></h2>
+<p>Then you have to add the <code class="docutils literal notranslate"><span class="pre">djangosaml2.backends.Saml2Backend</span></code>
+authentication backend to the list of authentications backends.
+By default only the ModelBackend included in Django is configured.
+A typical configuration would look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AUTHENTICATION_BACKENDS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;django.contrib.auth.backends.ModelBackend&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;djangosaml2.backends.Saml2Backend&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>It is possible to subclass the provided Saml2Backend and customize the behaviour
+by overriding some methods. This way you can perform your custom cleaning or authorization
+policy, and modify the way users are looked up and created.</p>
+</div>
+<div class="section" id="default-login-path">
+<h2>Default Login path<a class="headerlink" href="#default-login-path" title="Permalink to this headline">¶</a></h2>
+<p>Finally we have to tell Django what the new login url we want to use is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LOGIN_URL</span> <span class="o">=</span> <span class="s1">&#39;/saml2/login/&#39;</span>
+<span class="n">SESSION_EXPIRE_AT_BROWSER_CLOSE</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>Here we are telling Django that any view that requires an authenticated
+user should redirect the user browser to that url if the user has not
+been authenticated before. We are also telling that when the user closes
+his browser, the session should be terminated. This is useful in SAML2
+federations where the logout protocol is not always available.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The login url starts with <code class="docutils literal notranslate"><span class="pre">/saml2/</span></code> as an example but you can change that
+if you want. Check the section about changes in the <code class="docutils literal notranslate"><span class="pre">urls.py</span></code>
+file for more information.</p>
+</div>
+<p>If you want to allow several authentication mechanisms in your project
+you should set the LOGIN_URL option to another view and put a link in such
+view to the <code class="docutils literal notranslate"><span class="pre">/saml2/login/</span></code> view.</p>
+</div>
+<div class="section" id="handling-post-login-redirects">
+<h2>Handling Post-Login Redirects<a class="headerlink" href="#handling-post-login-redirects" title="Permalink to this headline">¶</a></h2>
+<p>It is often desireable for the client to maintain the URL state (or at least manage it) so that
+the URL once authentication has completed is consistent with the desired application state (such
+as retaining query parameters, etc.)  By default, the HttpRequest objects get_host() method is used
+to determine the hostname of the server, and redirect URL’s are allowed so long as the destination
+host matches the output of get_host().  However, in some cases it becomes desireable for additional
+hostnames to be used for the post-login redirect.  In such cases, the setting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<p>May be set to a list of allowed post-login redirect hostnames (note, the URL components beyond the hostname
+may be specified by the client - typically with the ?next= parameter.)</p>
+<p>In the absence of a ?next= parameter, the LOGIN_REDIRECT_URL setting will be used (assuming the destination hostname
+either matches the output of get_host() or is included in the SAML_ALLOWED_HOSTS setting)</p>
+</div>
+<div class="section" id="preferred-sso-binding">
+<h2>Preferred sso binding<a class="headerlink" href="#preferred-sso-binding" title="Permalink to this headline">¶</a></h2>
+<p>Use the following setting to choose your preferred binding for SP initiated sso requests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_DEFAULT_BINDING</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_DEFAULT_BINDING</span> <span class="o">=</span> <span class="n">saml2</span><span class="o">.</span><span class="n">BINDING_HTTP_POST</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="preferred-logout-binding">
+<h2>Preferred Logout binding<a class="headerlink" href="#preferred-logout-binding" title="Permalink to this headline">¶</a></h2>
+<p>Use the following setting to choose your preferred binding for SP initiated logout requests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_LOGOUT_REQUEST_PREFERRED_BINDING</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">saml2</span>
+<span class="n">SAML_LOGOUT_REQUEST_PREFERRED_BINDING</span> <span class="o">=</span> <span class="n">saml2</span><span class="o">.</span><span class="n">BINDING_HTTP_POST</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ignore-logout-errors">
+<h2>Ignore Logout errors<a class="headerlink" href="#ignore-logout-errors" title="Permalink to this headline">¶</a></h2>
+<p>When logging out, a SAML IDP will return an error on invalid conditions, such as the IDP-side session being expired.
+Use the following setting to ignore these errors and perform a local Django logout nonetheless:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_IGNORE_LOGOUT_ERRORS</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="signed-logout-request">
+<h2>Signed Logout Request<a class="headerlink" href="#signed-logout-request" title="Permalink to this headline">¶</a></h2>
+<p>Idp’s like Okta require a signed logout response to validate and logout a user. Here’s a sample config with all required SP/IDP settings:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;logout_requests_signed&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="discovery-service">
+<h2>Discovery Service<a class="headerlink" href="#discovery-service" title="Permalink to this headline">¶</a></h2>
+<p>If you want to use a SAML Discovery Service, all you need is adding:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML2_DISCO_URL</span> <span class="o">=</span> <span class="s1">&#39;https://your.ds.example.net/&#39;</span>
+</pre></div>
+</div>
+<p>Of course, with the real URL of your preferred Discovery Service.</p>
+</div>
+<div class="section" id="idp-hinting">
+<h2>Idp hinting<a class="headerlink" href="#idp-hinting" title="Permalink to this headline">¶</a></h2>
+<p>If the SP uses an AIM Proxy it is possible to suggest the authentication IDP by adopting the <cite>idphint</cite> parameter. The name of the <cite>idphint</cite> parameter is default, but it can also be changed using this parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML2_IDPHINT_PARAM</span> <span class="o">=</span> <span class="s1">&#39;idphint&#39;</span>
+</pre></div>
+</div>
+<p>This will ensure that the user will not get a possible discovery service page for the selection of the IdP to use for the SSO.
+When Djagosaml2 receives an HTTP request at the resource, web path, configured for the saml2 login, it will detect the presence of the <cite>idphint</cite> parameter. If this is present, the authentication request will report this URL parameter within the http request relating to the SAML2 SSO binding.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="n">idphint</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;idphint&#39;</span><span class="p">:</span> <span class="p">[</span>
+             <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;https://that.idp.example.org/metadata&#39;</span><span class="p">),</span>
+             <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;https://another.entitydi.org&#39;</span><span class="p">)]</span>
+          <span class="p">}</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">idphint</span><span class="p">)</span>
+<span class="c1"># param is &quot;idphint=%5B%27https%253A%252F%252Fthat.idp.example.org%252Fmetadata%27%2C+%27https%253A%252F%252Fanother.entitydi.org%27%5D&quot;</span>
+<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;http://djangosaml2.sp.fqdn.org/saml2/login/?</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>see AARC Blueprint specs <a class="reference external" href="https://zenodo.org/record/4596667/files/AARC-G061-A_specification_for_IdP_hinting.pdf">here</a>.</p>
+</div>
+<div class="section" id="custom-and-dynamic-configuration-loading">
+<h2>Custom and dynamic configuration loading<a class="headerlink" href="#custom-and-dynamic-configuration-loading" title="Permalink to this headline">¶</a></h2>
+<p>By default, djangosaml2 reads the pysaml2 configuration options from the
+SAML_CONFIG setting but sometimes you want to read this information from
+another place, like a file or a database. Sometimes you even want this
+configuration to be different depending on the request.</p>
+<p>Starting from djangosaml2 0.5.0 you can define your own configuration
+loader which is a callable that accepts a request parameter and returns
+a saml2.config.SPConfig object. In order to do so you set the following
+setting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_CONFIG_LOADER</span> <span class="o">=</span> <span class="s1">&#39;python.path.to.your.callable&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="users-attributes-and-account-linking">
+<h1>Users, attributes and account linking<a class="headerlink" href="#users-attributes-and-account-linking" title="Permalink to this headline">¶</a></h1>
+<p>In the SAML 2.0 authentication process the Identity Provider (IdP) will
+send a security assertion to the Service Provider (SP) upon a successful
+authentication. This assertion contains attributes about the user that
+was authenticated. It depends on the IdP configuration what exact
+attributes are sent to each SP it can talk to.</p>
+<p>When such assertion is received on the Django side it is used to find a Django
+user and create a session for it. By default djangosaml2 will do a query on the
+User model with the <a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/auth/customizing/#django.contrib.auth.models.CustomUser.USERNAME_FIELD">USERNAME_FIELD</a> attribute but you can change it to any
+other attribute of the User model. For example, you can do this lookup using
+the ‘email’ attribute. In order to do so you should set the following setting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_DJANGO_USER_MAIN_ATTRIBUTE</span> <span class="o">=</span> <span class="s1">&#39;email&#39;</span>
+</pre></div>
+</div>
+<p>Please, use an unique attribute when setting this option. Otherwise
+the authentication process may fail because djangosaml2 will not know
+which Django user it should pick.</p>
+<p>If your main attribute is something inherently case-insensitive (such as
+an email address), you may set:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_DJANGO_USER_MAIN_ATTRIBUTE_LOOKUP</span> <span class="o">=</span> <span class="s1">&#39;__iexact&#39;</span>
+</pre></div>
+</div>
+<p>(This is simply appended to the main attribute name to form a Django
+query. Your main attribute must be unique even given this lookup.)</p>
+<p>Another option is to use the SAML2 name id as the username by setting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_USE_NAME_ID_AS_USERNAME</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>You can configure djangosaml2 to create such user if it is not already in
+the Django database or maybe you don’t want to allow users that are not
+in your database already. For this purpose there is another option you
+can set in the settings.py file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_CREATE_UNKNOWN_USER</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>This setting is True by default.</p>
+<p>The following setting lets you specify a URL for redirection after a successful
+authentication:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ACS_DEFAULT_REDIRECT_URL</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s1">&#39;some_url_name&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Particularly useful when you only plan to use
+IdP initiated login and the IdP does not have a configured RelayState
+parameter. The default is <code class="docutils literal notranslate"><span class="pre">/</span></code>.</p>
+<p>The other thing you will probably want to configure is the mapping of
+SAML2 user attributes to Django user attributes. By default only the
+User.username attribute is mapped but you can add more attributes or
+change that one. In order to do so you need to change the
+SAML_ATTRIBUTE_MAPPING option in your settings.py:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_ATTRIBUTE_MAPPING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="p">),</span>
+    <span class="s1">&#39;mail&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="p">),</span>
+    <span class="s1">&#39;cn&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="p">),</span>
+    <span class="s1">&#39;sn&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where the keys of this dictionary are SAML user attributes and the values
+are Django User attributes.</p>
+<p>If you are using Django user profile objects to store extra attributes
+about your user you can add those attributes to the SAML_ATTRIBUTE_MAPPING
+dictionary. For each (key, value) pair, djangosaml2 will try to store the
+attribute in the User model if there is a matching field in that model.
+Otherwise it will try to do the same with your profile custom model. For
+multi-valued attributes only the first value is assigned to the destination field.</p>
+<p>Alternatively, custom processing of attributes can be achieved by setting the
+value(s) in the SAML_ATTRIBUTE_MAPPING, to name(s) of method(s) defined on a
+custom django User object. In this case, each method is called by djangosaml2,
+passing the full list of attribute values extracted from the &lt;saml:AttributeValue&gt;
+elements of the &lt;saml:Attribute&gt;. Among other uses, this is a useful way to process
+multi-valued attributes such as lists of user group names.</p>
+<p>For example:</p>
+<p>Saml assertion snippet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">saml</span><span class="p">:</span><span class="n">Attribute</span> <span class="n">Name</span><span class="o">=</span><span class="s2">&quot;groups&quot;</span> <span class="n">NameFormat</span><span class="o">=</span><span class="s2">&quot;urn:oasis:names:tc:SAML:2.0:attrname-format:basic&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">saml</span><span class="p">:</span><span class="n">AttributeValue</span><span class="o">&gt;</span><span class="n">group1</span><span class="o">&lt;/</span><span class="n">saml</span><span class="p">:</span><span class="n">AttributeValue</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">saml</span><span class="p">:</span><span class="n">AttributeValue</span><span class="o">&gt;</span><span class="n">group2</span><span class="o">&lt;/</span><span class="n">saml</span><span class="p">:</span><span class="n">AttributeValue</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">saml</span><span class="p">:</span><span class="n">AttributeValue</span><span class="o">&gt;</span><span class="n">group3</span><span class="o">&lt;/</span><span class="n">saml</span><span class="p">:</span><span class="n">AttributeValue</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">saml</span><span class="p">:</span><span class="n">Attribute</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Custom User object:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">AbstractUser</span>
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="nf">process_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groups</span><span class="p">):</span>
+    <span class="o">//</span> <span class="n">process</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">group</span> <span class="n">names</span> <span class="ow">in</span> <span class="n">argument</span> <span class="s1">&#39;groups&#39;</span>
+    <span class="k">pass</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>settings.py:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_ATTRIBUTE_MAPPING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;groups&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;process_groups&#39;</span><span class="p">,</span> <span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Learn more about Django profile models at:</p>
+<p><a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/auth/customizing/#substituting-a-custom-user-model">https://docs.djangoproject.com/en/dev/topics/auth/customizing/#substituting-a-custom-user-model</a></p>
+<p>Sometimes you need to use special logic to update the user object
+depending on the SAML2 attributes and the mapping described above
+is simply not enough. For these cases djangosaml2 provides <a class="reference external" href="https://github.com/knaperek/djangosaml2/blob/master/djangosaml2/backends.py#L181">hooks</a>
+that can be overriden with custom functionality. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">djangosaml2.backends</span> <span class="kn">import</span> <span class="n">Saml2Backend</span>
+
+<span class="k">class</span> <span class="nc">MySaml2Backend</span><span class="p">(</span><span class="n">Saml2Backend</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">save_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Add custom logic here</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_user</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="urls">
+<h1>URLs<a class="headerlink" href="#urls" title="Permalink to this headline">¶</a></h1>
+<dl>
+<dt>Changes in the urls.py file.</dt><dd><p>The next thing you need to do is to include <code class="docutils literal notranslate"><span class="pre">djangosaml2.urls</span></code> module in your main <code class="docutils literal notranslate"><span class="pre">urls.py</span></code> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span>
+    <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="c1">#  lots of url definitions here</span>
+
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;saml2/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;djangosaml2.urls&#39;</span><span class="p">)),</span>
+
+    <span class="c1">#  more url definitions</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="pysaml2-specific-files-and-configuration">
+<h1>PySAML2 specific files and configuration<a class="headerlink" href="#pysaml2-specific-files-and-configuration" title="Permalink to this headline">¶</a></h1>
+<p>Once you have finished configuring your Django project you have to
+start configuring PySAML2, please consult its <a class="reference external" href="https://pysaml2.readthedocs.io/en/latest/">official documentation</a> before start.
+If you use just that library you have to put your configuration options in a file and initialize PySAML2 with
+the path to that file. In djangosaml2 you just put the same information in the Django
+settings.py file under the SAML_CONFIG option. We will see a typical configuration for protecting a Django project:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">saml2</span>
+<span class="kn">import</span> <span class="nn">saml2.saml</span>
+<span class="n">BASEDIR</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="n">SAML_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1"># full path to the xmlsec1 binary programm</span>
+  <span class="s1">&#39;xmlsec_binary&#39;</span><span class="p">:</span> <span class="s1">&#39;/usr/bin/xmlsec1&#39;</span><span class="p">,</span>
+
+  <span class="c1"># your entity id, usually your subdomain plus the url to the metadata view</span>
+  <span class="s1">&#39;entityid&#39;</span><span class="p">:</span> <span class="s1">&#39;http://localhost:8000/saml2/metadata/&#39;</span><span class="p">,</span>
+
+  <span class="c1"># directory with attribute mapping</span>
+  <span class="s1">&#39;attribute_map_dir&#39;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASEDIR</span><span class="p">,</span> <span class="s1">&#39;attribute-maps&#39;</span><span class="p">),</span>
+
+  <span class="c1"># this block states what services we provide</span>
+  <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="c1"># we are just a lonely SP</span>
+      <span class="s1">&#39;sp&#39;</span> <span class="p">:</span> <span class="p">{</span>
+          <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Federated Django sample SP&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;name_id_format&#39;</span><span class="p">:</span> <span class="n">saml2</span><span class="o">.</span><span class="n">saml</span><span class="o">.</span><span class="n">NAMEID_FORMAT_PERSISTENT</span><span class="p">,</span>
+
+          <span class="c1"># For Okta add signed logout requets. Enable this:</span>
+          <span class="c1"># &quot;logout_requests_signed&quot;: True,</span>
+
+          <span class="s1">&#39;endpoints&#39;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="c1"># url and binding to the assetion consumer service view</span>
+              <span class="c1"># do not change the binding or service name</span>
+              <span class="s1">&#39;assertion_consumer_service&#39;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">(</span><span class="s1">&#39;http://localhost:8000/saml2/acs/&#39;</span><span class="p">,</span>
+                   <span class="n">saml2</span><span class="o">.</span><span class="n">BINDING_HTTP_POST</span><span class="p">),</span>
+                  <span class="p">],</span>
+              <span class="c1"># url and binding to the single logout service view</span>
+              <span class="c1"># do not change the binding or service name</span>
+              <span class="s1">&#39;single_logout_service&#39;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="c1"># Disable next two lines for HTTP_REDIRECT for IDP&#39;s that only support HTTP_POST. Ex. Okta:</span>
+                  <span class="p">(</span><span class="s1">&#39;http://localhost:8000/saml2/ls/&#39;</span><span class="p">,</span>
+                   <span class="n">saml2</span><span class="o">.</span><span class="n">BINDING_HTTP_REDIRECT</span><span class="p">),</span>
+                  <span class="p">(</span><span class="s1">&#39;http://localhost:8000/saml2/ls/post&#39;</span><span class="p">,</span>
+                   <span class="n">saml2</span><span class="o">.</span><span class="n">BINDING_HTTP_POST</span><span class="p">),</span>
+                  <span class="p">],</span>
+              <span class="p">},</span>
+           <span class="c1"># Mandates that the identity provider MUST authenticate the</span>
+           <span class="c1"># presenter directly rather than rely on a previous security context.</span>
+          <span class="s1">&#39;force_authn&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+
+           <span class="c1"># Enable AllowCreate in NameIDPolicy.</span>
+          <span class="s1">&#39;name_id_format_allow_create&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+
+           <span class="c1"># attributes that this project need to identify a user</span>
+          <span class="s1">&#39;required_attributes&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">],</span>
+
+           <span class="c1"># attributes that may be useful to have but not required</span>
+          <span class="s1">&#39;optional_attributes&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;eduPersonAffiliation&#39;</span><span class="p">],</span>
+
+          <span class="c1"># in this section the list of IdPs we talk to are defined</span>
+          <span class="c1"># This is not mandatory! All the IdP available in the metadata will be considered.</span>
+          <span class="s1">&#39;idp&#39;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="c1"># we do not need a WAYF service since there is</span>
+              <span class="c1"># only an IdP defined here. This IdP should be</span>
+              <span class="c1"># present in our metadata</span>
+
+              <span class="c1"># the keys of this dictionary are entity ids</span>
+              <span class="s1">&#39;https://localhost/simplesaml/saml2/idp/metadata.php&#39;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s1">&#39;single_sign_on_service&#39;</span><span class="p">:</span> <span class="p">{</span>
+                      <span class="n">saml2</span><span class="o">.</span><span class="n">BINDING_HTTP_REDIRECT</span><span class="p">:</span> <span class="s1">&#39;https://localhost/simplesaml/saml2/idp/SSOService.php&#39;</span><span class="p">,</span>
+                      <span class="p">},</span>
+                  <span class="s1">&#39;single_logout_service&#39;</span><span class="p">:</span> <span class="p">{</span>
+                      <span class="n">saml2</span><span class="o">.</span><span class="n">BINDING_HTTP_REDIRECT</span><span class="p">:</span> <span class="s1">&#39;https://localhost/simplesaml/saml2/idp/SingleLogoutService.php&#39;</span><span class="p">,</span>
+                      <span class="p">},</span>
+                  <span class="p">},</span>
+              <span class="p">},</span>
+          <span class="p">},</span>
+      <span class="p">},</span>
+
+  <span class="c1"># where the remote metadata is stored, local, remote or mdq server.</span>
+  <span class="c1"># One metadatastore or many ...</span>
+  <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">&#39;local&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASEDIR</span><span class="p">,</span> <span class="s1">&#39;remote_metadata.xml&#39;</span><span class="p">)],</span>
+      <span class="s1">&#39;remote&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://idp.testunical.it/idp/shibboleth&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;disable_ssl_certificate_validation&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},],</span>
+      <span class="s1">&#39;mdq&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://ds.testunical.it&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;cert&quot;</span><span class="p">:</span> <span class="s2">&quot;certficates/others/ds.testunical.it.cert&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;disable_ssl_certificate_validation&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]</span>
+      <span class="p">},</span>
+
+  <span class="c1"># set to 1 to output debugging information</span>
+  <span class="s1">&#39;debug&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+
+  <span class="c1"># Signing</span>
+  <span class="s1">&#39;key_file&#39;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASEDIR</span><span class="p">,</span> <span class="s1">&#39;private.key&#39;</span><span class="p">),</span>  <span class="c1"># private part</span>
+  <span class="s1">&#39;cert_file&#39;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASEDIR</span><span class="p">,</span> <span class="s1">&#39;public.pem&#39;</span><span class="p">),</span>  <span class="c1"># public part</span>
+
+  <span class="c1"># Encryption</span>
+  <span class="s1">&#39;encryption_keypairs&#39;</span><span class="p">:</span> <span class="p">[{</span>
+      <span class="s1">&#39;key_file&#39;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASEDIR</span><span class="p">,</span> <span class="s1">&#39;private.key&#39;</span><span class="p">),</span>  <span class="c1"># private part</span>
+      <span class="s1">&#39;cert_file&#39;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASEDIR</span><span class="p">,</span> <span class="s1">&#39;public.pem&#39;</span><span class="p">),</span>  <span class="c1"># public part</span>
+  <span class="p">}],</span>
+
+  <span class="c1"># own metadata settings</span>
+  <span class="s1">&#39;contact_person&#39;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span><span class="s1">&#39;given_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Lorenzo&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;sur_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Gil&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;company&#39;</span><span class="p">:</span> <span class="s1">&#39;Yaco Sistemas&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;email_address&#39;</span><span class="p">:</span> <span class="s1">&#39;lgs@yaco.es&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;contact_type&#39;</span><span class="p">:</span> <span class="s1">&#39;technical&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="s1">&#39;given_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Angel&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;sur_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Fernandez&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;company&#39;</span><span class="p">:</span> <span class="s1">&#39;Yaco Sistemas&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;email_address&#39;</span><span class="p">:</span> <span class="s1">&#39;angel@yaco.es&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;contact_type&#39;</span><span class="p">:</span> <span class="s1">&#39;administrative&#39;</span><span class="p">},</span>
+      <span class="p">],</span>
+  <span class="c1"># you can set multilanguage information here</span>
+  <span class="s1">&#39;organization&#39;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;Yaco Sistemas&#39;</span><span class="p">,</span> <span class="s1">&#39;es&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Yaco Systems&#39;</span><span class="p">,</span> <span class="s1">&#39;en&#39;</span><span class="p">)],</span>
+      <span class="s1">&#39;display_name&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;Yaco&#39;</span><span class="p">,</span> <span class="s1">&#39;es&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Yaco&#39;</span><span class="p">,</span> <span class="s1">&#39;en&#39;</span><span class="p">)],</span>
+      <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;http://www.yaco.es&#39;</span><span class="p">,</span> <span class="s1">&#39;es&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;http://www.yaco.com&#39;</span><span class="p">,</span> <span class="s1">&#39;en&#39;</span><span class="p">)],</span>
+      <span class="p">},</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please check the <a class="reference external" href="http://pysaml2.readthedocs.io/en/latest/">PySAML2 documentation</a> for more information about
+these and other configuration options.</p>
+</div>
+<p>There are several external files and directories you have to create according
+to this configuration.</p>
+<p>The xmlsec1 binary was mentioned in the installation section. Here, in the
+configuration part you just need to put the full path to xmlsec1 so PySAML2
+can call it as it needs.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">attribute_map_dir</span></code> points to a directory with attribute mappings that
+are used to translate user attribute names from several standards. It’s usually
+safe to just copy the default PySAML2 attribute maps that you can find in the
+<code class="docutils literal notranslate"><span class="pre">tests/attributemaps</span></code> directory of the source distribution.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">metadata</span></code> option is a dictionary where you can define several types of
+metadata for remote entities. Usually the easiest type is the <code class="docutils literal notranslate"><span class="pre">local</span></code> where
+you just put the name of a local XML file with the contents of the remote
+entities metadata. This XML file should be in the SAML2 metadata format.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Don’t use <code class="docutils literal notranslate"><span class="pre">remote</span></code> option for fetching metadata in production.
+Try to use <code class="docutils literal notranslate"><span class="pre">mdq</span></code> and introduce a MDQ server instead, it’s more efficient.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">key_file</span></code> and <code class="docutils literal notranslate"><span class="pre">cert_file</span></code> options reference the two parts of a
+standard x509 certificate. You need it to sign your metadata. For assertion
+encryption/decryption support please configure another set of <code class="docutils literal notranslate"><span class="pre">key_file</span></code> and
+<code class="docutils literal notranslate"><span class="pre">cert_file</span></code>, but as inner attributes of <code class="docutils literal notranslate"><span class="pre">encryption_keypairs</span></code> option.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Check your openssl documentation to generate a test certificate.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">openssl</span> <span class="n">req</span> <span class="o">-</span><span class="n">nodes</span> <span class="o">-</span><span class="n">new</span> <span class="o">-</span><span class="n">x509</span> <span class="o">-</span><span class="n">newkey</span> <span class="n">rsa</span><span class="p">:</span><span class="mi">2048</span> <span class="o">-</span><span class="n">days</span> <span class="mi">3650</span> <span class="o">-</span><span class="n">keyout</span> <span class="n">private</span><span class="o">.</span><span class="n">key</span> <span class="o">-</span><span class="n">out</span> <span class="n">public</span><span class="o">.</span><span class="n">cert</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Welcome to Djangosaml2’s Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        2020, Giuseppe De Marco.
+
+    </p>
+  </div>
+
+  <span style="font-size:0.8em">
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a>.
+  
+   </span>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

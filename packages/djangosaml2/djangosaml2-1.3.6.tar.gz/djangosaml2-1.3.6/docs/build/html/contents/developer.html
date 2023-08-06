@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Testing &mdash; djangosaml2 0.2.4 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinxcontrib-images/LightBox2/lightbox2/css/lightbox.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinxcontrib-images/LightBox2/lightbox2/js/jquery-1.11.0.min.js"></script>
+        <script src="../_static/sphinxcontrib-images/LightBox2/lightbox2/js/lightbox.min.js"></script>
+        <script src="../_static/sphinxcontrib-images/LightBox2/lightbox2-customize/jquery-noconflict.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SimpleSAMLphp issues" href="miscellanea.html" />
+    <link rel="prev" title="Getting Started" href="usage.html" />
+    <link href="../_static/custom.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+
+    
+    <a href="../index.html" id="logo_main"><img src="../_static/logo.jpg" class="logo" alt="Logo" /></a>
+
+
+
+    <a id="title_under_logo" href="../index.html"> djangosaml2
+
+</a>
+
+
+    
+    
+
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html#user-attributes">User attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html#urls">URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html#pysaml2-specific-files-and-configuration">PySAML2 specific files and configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#test-idp">Test IdP</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer's</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#unit-tests">Unit tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#code-coverage">Code Coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#custom-error-handler">Custom error handler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#contributing">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellanea</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="miscellanea.html">SimpleSAMLphp issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellanea.html#okta-federation">Okta federation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">FAQ</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+    <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+    <a href="../index.html">
+        <img src="../_static/logo.jpg" class="logo" alt="Logo"/>
+        </a>
+    <a href="../index.html">
+        djangosaml2
+    </a>
+
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Testing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/contents/developer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p>One way to check if everything is working as expected is to enable the
+following url:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span>
+    <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="c1">#  lots of url definitions here</span>
+
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;saml2/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;djangosaml2.urls&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;test/&#39;</span><span class="p">,</span> <span class="s1">&#39;djangosaml2.views.EchoAttributesView.as_view()&#39;</span><span class="p">),</span>
+
+    <span class="c1">#  more url definitions</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Now if you go to the /test/ url you will see your SAML attributes and also
+a link to do a global logout.</p>
+</div>
+<div class="section" id="unit-tests">
+<h1>Unit tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h1>
+<p>You can also run the unit tests as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">-</span><span class="n">dev</span><span class="o">.</span><span class="n">txt</span>
+<span class="c1"># or</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">djangosaml2</span><span class="p">[</span><span class="n">test</span><span class="p">]</span>
+<span class="n">python3</span> <span class="n">tests</span><span class="o">/</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">migrate</span>
+</pre></div>
+</div>
+<p>then:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">tests</span><span class="o">/</span><span class="n">run_tests</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">tests</span><span class="o">/</span>
+<span class="o">./</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">test</span> <span class="n">djangosaml2</span>
+</pre></div>
+</div>
+<p>If you have <a class="reference external" href="http://pypi.python.org/pypi/tox">tox</a> installed you can simply call tox inside the root directory
+and it will run the tests in multiple versions of Python.</p>
+</div>
+<div class="section" id="code-coverage">
+<h1>Code Coverage<a class="headerlink" href="#code-coverage" title="Permalink to this headline">¶</a></h1>
+<p>example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">tests</span><span class="o">/</span>
+<span class="n">coverage</span> <span class="n">erase</span>
+<span class="n">coverage</span> <span class="n">run</span> <span class="o">./</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">test</span> <span class="n">djangosaml2</span> <span class="n">testprofiles</span>
+<span class="n">coverage</span> <span class="n">report</span> <span class="o">-</span><span class="n">m</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-error-handler">
+<h1>Custom error handler<a class="headerlink" href="#custom-error-handler" title="Permalink to this headline">¶</a></h1>
+<p>When an error occurs during the authentication flow, djangosaml2 will render
+a simple error page with an error message and status code. You can customize
+this behaviour by specifying the path to your own error handler in the settings:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SAML_ACS_FAILURE_RESPONSE_FUNCTION</span> <span class="o">=</span> <span class="s1">&#39;python.path.to.your.view&#39;</span>
+</pre></div>
+</div>
+<p>This should be a view which takes a request, optional exception which occured
+and status code, and returns a response to serve the user. E.g. The default
+implementation looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">template_failure</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">exception</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Renders a simple template with an error message. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;djangosaml2/login_error.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;exception&#39;</span><span class="p">:</span> <span class="n">exception</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
+<p>Please open Issues to start debate regarding the requested
+features, or the patch that you would apply. We do not use
+a strict submission format, please try to be more concise as possibile.</p>
+<p>The Pull Request MUST be done on the dev branch, please don’t
+push code directly on the master branch.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="miscellanea.html" class="btn btn-neutral float-right" title="SimpleSAMLphp issues" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="usage.html" class="btn btn-neutral" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        2020, Giuseppe De Marco.
+
+    </p>
+  </div>
+
+  <span style="font-size:0.8em">
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a>.
+  
+   </span>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
