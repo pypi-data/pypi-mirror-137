@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Bookmarked | BrandX</title>  {% endblock title %}
+
+{% block content %}
+    <main class="container">
+        <center>
+            <h1>Your Bookmarks</h1>
+        </center>
+        {% for obj in bookmarked_objs %}
+            <div hx-trigger="load" hx-get="{{obj.content_object.get_item_url}}">
+                {% include '../commons/_panel.html' %}
+            </div>
+        {% endfor %}
+    </main>
+{% endblock content %}
