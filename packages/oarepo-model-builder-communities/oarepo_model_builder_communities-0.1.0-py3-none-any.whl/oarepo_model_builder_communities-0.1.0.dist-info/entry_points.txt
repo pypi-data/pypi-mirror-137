@@ -1,0 +1,9 @@
+[oarepo.models]
+oarepo-communities=oarepo_model_builder_communities.models:communities.yaml
+
+[oarepo_model_builder.builders]
+0854-oarepo_communities_poetry=oarepo_model_builder_communities.invenio.poetry:OARepoCommunitiesPoetryBuilder
+
+[oarepo_model_builder.templates]
+101-communities_templates=oarepo_model_builder_communities.invenio
+
