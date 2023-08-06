@@ -1,0 +1,86 @@
+{
+  "configuration": {
+    "required": false,
+    "type": "dict"
+  },
+  "data_checksums": {
+    "description": [
+      "Enable or disable data checksums",
+      "If None, fall back to site settings initdb",
+      "data_checksums",
+      ""
+    ],
+    "type": "bool"
+  },
+  "name": {
+    "required": true,
+    "type": "str"
+  },
+  "port": {
+    "description": [
+      "TCP port the postgresql instance will be listening to"
+    ],
+    "type": "int"
+  },
+  "prometheus_port": {
+    "default": 9187,
+    "description": [
+      "TCP port for the web interface and telemetry of Prometheus"
+    ],
+    "type": "int"
+  },
+  "replrole_password": {
+    "description": [
+      "replication role password"
+    ],
+    "no_log": true,
+    "type": "str"
+  },
+  "ssl": {
+    "default": false,
+    "required": false,
+    "type": "bool"
+  },
+  "standby_for": {
+    "description": [
+      "DSN of primary for streaming replication"
+    ],
+    "type": "str"
+  },
+  "standby_slot": {
+    "description": [
+      "replication slot name"
+    ],
+    "type": "str"
+  },
+  "standby_status": {
+    "choices": [
+      "demoted",
+      "promoted"
+    ]
+  },
+  "state": {
+    "choices": [
+      "stopped",
+      "started",
+      "absent"
+    ],
+    "default": "started",
+    "description": [
+      "Runtime state"
+    ]
+  },
+  "surole_password": {
+    "description": [
+      "super-user role password"
+    ],
+    "no_log": true,
+    "type": "str"
+  },
+  "version": {
+    "description": [
+      "PostgreSQL version"
+    ],
+    "type": "str"
+  }
+}
