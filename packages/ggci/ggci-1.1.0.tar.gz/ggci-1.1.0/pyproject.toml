@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "ggci"
+version = "1.1.0"
+description = "GitLab Google Chat Integration"
+license = "MIT"
+authors = [
+    "Jan Lukány <lukany.jan@gmail.com>",
+]
+readme = "README.md"
+repository = "https://github.com/lukany/ggci"
+classifiers = [
+    "Framework :: Flask",
+    "Intended Audience :: Developers",
+    "Topic :: Communications :: Chat",
+    "Topic :: Internet :: WWW/HTTP :: WSGI",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+    "Topic :: Software Development :: Version Control",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+flask = "^1.1.2"
+flexmock = "^0.10.4"
+pyyaml = "^5.4.1"
+requests = "^2.25.1"
+tenacity = "^7.0.0"
+
+[tool.poetry.dev-dependencies]
+black = "20.8b1"
+pylint = "~2.8.3"
+pytest = "~6.2.1"
+pytest-cov = "~2.11.1"
+
+[tool.pylint.'FORMAT']
+max-line-length = 79
+disable = [
+    "missing-docstring",
+    "too-few-public-methods",
+    "too-many-return-statements",
+]
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
