@@ -1,0 +1,37 @@
+{# List of the articles with pagination menu #}
+{% if page_position == 0 and entities_length >= 1 %}
+    {% set url = entities[0].url %}
+    {% set title = entities[0].title %}
+    {% set date = entities[0]['date'] %}
+    {% set large_image_path = entities[0].large_image_path %}
+    {% set lead = entities[0].lead %}
+    {% include "article_first_preview.jnj" %}
+{% endif %}
+
+{% if entities_length > 1 %}
+    {% set entities_slice = entities %}
+    {# Remove dedicated items #}
+    {% if page_position == 0 %}
+        {% set entities_slice = entities[1:] %}
+    {% endif %}
+    {% for entity_prev in entities_slice %}
+        {% set url = entity_prev.url %}
+        {% set title = entity_prev.title %}
+        {% set date = entity_prev['date'] %}
+        {% set small_image_path = entity_prev.small_image_path %}
+        {% set lead = entity_prev.lead %}
+        {% include "article_preview.jnj" %}
+    {% endfor %}
+{% endif %}
+
+{% if navigation_previous or navigation_next %}
+    <div class="navigation">
+        {% if navigation_previous %}
+            <a href="{{ navigation_previous }}" class="move-old">◀ &nbsp; Older Posts</a>
+        {% endif %}
+        {% if navigation_next %}
+            <a href="{{ navigation_next }}" class="move-new">Newer Posts &nbsp; ▶</a>
+        {% endif %}
+        <div class="clear"></div>
+    </div>
+{% endif %}
