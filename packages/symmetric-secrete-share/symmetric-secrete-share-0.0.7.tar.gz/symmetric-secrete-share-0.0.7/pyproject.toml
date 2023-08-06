@@ -1,0 +1,33 @@
+[tool.poetry]
+authors = ["Pablion <36828324+Pablion@users.noreply.github.com>"]
+description = "Python CLI to share secret files via github with symmetric encryption ed25519."
+license = "Apache-2.0"
+name = "symmetric-secrete-share"
+packages = [
+  {include = "sss_cli"},
+]
+readme = "README.md"
+version = "0.0.7"
+
+[tool.poetry.urls]
+documentation = "https://github.com/PabloLION/symmetric-secrete-share"
+homepage = "https://github.com/PabloLION/symmetric-secrete-share"
+repository = "https://github.com/PabloLION/symmetric-secrete-share"
+
+[tool.poetry.scripts]
+sss = "sss_cli.__main__:app"
+symmetric-secrete-share = "sss_cli.__main__:app"
+
+[tool.poetry.dependencies]
+PyNaCl = "^1.5.0"
+python = "^3.9"
+requests = "^2.27.1"
+typer = {extras = ["all"], version = "^0.4.0"}
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+pytest = "^5.2"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
