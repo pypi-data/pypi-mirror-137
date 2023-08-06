@@ -1,0 +1,39 @@
+[2022-02-07 10:23:40.770] [jointLog] [info] setting maxHashResizeThreads to 8
+[2022-02-07 10:23:40.770] [jointLog] [info] Fragment incompatibility prior below threshold.  Incompatible fragments will be ignored.
+[2022-02-07 10:23:40.770] [jointLog] [info] Usage of --validateMappings implies use of minScoreFraction. Since not explicitly specified, it is being set to 0.65
+[2022-02-07 10:23:40.770] [jointLog] [info] Setting consensusSlack to selective-alignment default of 0.35.
+[2022-02-07 10:23:40.770] [jointLog] [info] parsing read library format
+[2022-02-07 10:23:40.770] [jointLog] [info] There is 1 library.
+[2022-02-07 10:23:40.770] [jointLog] [info] Loading pufferfish index
+[2022-02-07 10:23:40.770] [jointLog] [info] Loading dense pufferfish index.
+[2022-02-07 10:23:40.771] [jointLog] [info] done
+[2022-02-07 10:23:40.807] [jointLog] [info] Index contained 55 targets
+[2022-02-07 10:23:40.807] [jointLog] [info] Number of decoys : 0
+[2022-02-07 10:23:40.897] [fileLog] [info] 
+At end of round 0
+==================
+Observed 10000 total fragments (10000 in most recent round)
+
+[2022-02-07 10:23:40.897] [jointLog] [info] Computed 69 rich equivalence classes for further processing
+[2022-02-07 10:23:40.897] [jointLog] [info] Counted 7,287 total reads in the equivalence classes 
+[2022-02-07 10:23:40.898] [jointLog] [info] Number of mappings discarded because of alignment score : 656
+[2022-02-07 10:23:40.898] [jointLog] [info] Number of fragments entirely discarded because of alignment score : 504
+[2022-02-07 10:23:40.898] [jointLog] [info] Number of fragments discarded because they are best-mapped to decoys : 0
+[2022-02-07 10:23:40.898] [jointLog] [info] Number of fragments discarded because they have only dovetail (discordant) mappings to valid targets : 89
+[2022-02-07 10:23:40.898] [jointLog] [warning] Only 7287 fragments were mapped, but the number of burn-in fragments was set to 5000000.
+The effective lengths have been computed using the observed mappings.
+
+[2022-02-07 10:23:40.898] [jointLog] [info] Mapping rate = 72.87%
+
+[2022-02-07 10:23:40.898] [jointLog] [info] finished quantifyLibrary()
+[2022-02-07 10:23:40.899] [jointLog] [info] Starting optimizer
+[2022-02-07 10:23:40.899] [jointLog] [info] Marked 0 weighted equivalence classes as degenerate
+[2022-02-07 10:23:40.899] [jointLog] [info] iteration = 0 | max rel diff. = 131.472
+[2022-02-07 10:23:40.900] [jointLog] [info] iteration = 100 | max rel diff. = 0.000777157
+[2022-02-07 10:23:40.900] [jointLog] [info] Finished optimizer
+[2022-02-07 10:23:40.900] [jointLog] [info] writing output 
+
+[2022-02-07 10:23:40.900] [jointLog] [warning] NOTE: Read Lib [[ /home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test2_1.fq, /home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test2_2.fq]] :
+
+Detected a *potential* strand bias > 1% in an unstranded protocol check the file: /home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/testout/hsv_out/salmon/TEST2/lib_format_counts.json for details
+
