@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: xsbe
+Version: 1.0
+Summary: Tool for parsing XML using example XML documents as a schema
+Home-page: https://github.com/couling/XSBE
+Author: Philip Couling
+Author-email: couling@gmail.com
+License: MIT
+Platform: any
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Description-Content-Type: text/markdown
+License-File: LICENCE.md
+Provides-Extra: tests
+Requires-Dist: pytest ; extra == 'tests'
+
+# XSBE - XML Schema By Example
+
+XSBE is a novel library intended for *rapid development* of XML related python code.  
+
+It takes the approach of using lightly annotated example XML documents to act as a schema.  Using these schemas it can 
+then transform an XML document into a more friendly data structures built of dictionaries and lists such as you might 
+expect through parsing json or yaml.
+
+It's composed of two main libraries:
+ - `xsbe.simple_node` Offers a reduced object model for representing XML document *content*.  See [simple_node](simple_node.md)
+ - `xsbe.transform` Offers schema definition and transformer components. See [transform](transform.md)
+ 
+
+Copyright 2020 Philip Couling
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
