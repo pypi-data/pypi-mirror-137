@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: aefReader
+Version: 1-0
+Summary: reading .aef files
+Home-page: UNKNOWN
+Author: Savtis
+Author-email: 4dcubeoff@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+
+# инструкция по библиотеке "aefReader"
+![тут должен быть логотип библиотеки](https://sun9-22.userapi.com/impg/8EkYJcMvs7hk5KSRFJUEzGKwgePNdw8UqRvhmg/_jMla76gdhY.jpg?size=400x400&quality=96&sign=5aea6570cb1ad6c9dba61ce18c396d82&type=album)
+## классы:
+- Read
+
+## методы:
+- about()
+***
+## метод "about":
+	выводит текст, рассказывающий о расширении файла .aef
+
+## класс "Read":
+
+**аргументы: file_name, notOut=False, ignoringMeta=False**
+
+	file_name - обязательный аргумент. Путь до файла, который нужно открыть.
+
+	notOut - необязательный аргумент. Если True, то при попытке вывода информации из открытого файла вызывает исключение
+
+	ignoringMeta - необязательный аргумент. Если True, то, при открытии файла, его метаданные будут игнорироваться и попытка их вывода приведёт к вызову исключения
+	
+**методы класса:**
+
+	Out() - возвращает строку с декодированным текстом
+
+	ByteOut(array=True) - если array=True, то возвращает массив байтов открытого файла в шеснадцатиричной кодировке. Если array=False, то возвращает строку байтов в шеснадцатиричной кодировке
+	
+	MetaOut(datatime_mode=True) - возвращает дату создания файла, если она есть, в противном случае вызывает исключение. Если datatime_mode=True, то возвращает дату в виде экземпляра класса datatime, иначе возвращает дату в виде строки в формате "год-месяц-день часы-минуты"
+***
+## пример кода с использованием библиотеки:
+		import aefReader  # импортирование библиотеки
+
+		aef_file = aefReader.Read("C:/my_folder/file.aef")  # открытие файла file.aef
+		print(aef_file.Out())  # вывод текста из этого файла
+		#
+		for byte_in_array in aef_file.ByteOut():  # поочерёдный вывод байтов файла
+    			print(byte_in_array)
+
+## исключения:
+	Location - вызывается если указанный файл не найден
+	
+	Access - вызывается, если скрипт не имеет доступ к файлу
+
+	FileType - вызывается, если открываемый файл определяется как не формата aef
+
+	NoneMeta - вызывается при попытке вывода отсутствующих или игнорируемых метаданных
+
+	OutBlock - вызывается при попытке вывода содержимого файла
+![а тут должен быть логотип 4DCube](https://sun9-67.userapi.com/impg/6PWraq8KL-5xGN6ykSFxD69mG9V0yT0jfDlg5Q/DTcageIy3rU.jpg?size=667x627&quality=95&sign=30127eac716e0a741413334ae366b888&type=album)
+
