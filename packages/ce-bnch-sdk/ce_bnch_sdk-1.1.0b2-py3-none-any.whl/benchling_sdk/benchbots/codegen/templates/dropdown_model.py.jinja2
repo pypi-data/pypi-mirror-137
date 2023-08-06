@@ -1,0 +1,31 @@
+"""Generated from manifest by `benchling-sdk`. Do not edit manually.
+
+The generated enum can be used as follows:
+
+```
+{{ dependency.snake_case_name }} = {{ dependency.pascal_case_name }}("sfso_123")
+{{ dependency.snake_case_name }}.value  # "sfso_123"
+{{ dependency.snake_case_name }}.display_value  # "My Dropdown Option"
+```
+"""
+from enum import Enum
+
+from ..parameters import dependencies
+
+{{ dependency.snake_case_name }}_options = dependencies.{{ dependency.snake_case_name }}.options
+{{ dependency.snake_case_name }}_id_to_name = {
+{% for option in dependency.options %}
+    {{ dependency.snake_case_name }}_options.{{ option.snake_case_name }}.id: {{ dependency.snake_case_name }}_options.{{ option.snake_case_name }}.name,
+{% endfor %}
+}
+
+
+class {{ dependency.pascal_case_name }}(Enum):
+{% for option in dependency.options %}
+    {{ option.pascal_case_name }} = {{ dependency.snake_case_name }}_options.{{ option.snake_case_name }}.id
+{% endfor %}
+
+    @property
+    def display_value(self) -> str:
+        return {{ dependency.snake_case_name }}_id_to_name[self.value]
+
