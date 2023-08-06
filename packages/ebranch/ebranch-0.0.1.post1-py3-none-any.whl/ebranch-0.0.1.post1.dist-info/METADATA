@@ -1,0 +1,76 @@
+Metadata-Version: 2.1
+Name: ebranch
+Version: 0.0.1.post1
+Summary: Tool for branching Fedora packages for EPEL
+Home-page: https://pagure.io/epel/ebranch
+Author: Michel Alexandre Salim
+Author-email: salimma@fedoraproject.org
+License: GPLv2+
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)
+Description-Content-Type: text/markdown
+License-File: COPYING.md
+License-File: AUTHORS
+Requires-Dist: click
+Requires-Dist: requests
+Provides-Extra: dev
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: build ; extra == 'dev'
+Requires-Dist: pip-tools ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: pytest-cov ; extra == 'dev'
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+
+# ebranch
+
+Tool for branching Fedora packages for EPEL
+
+```
+$ ebranch
+Usage: ebranch [OPTIONS] COMMAND [ARGS]...
+Options:
+--help Show this message and exit.
+Commands:
+build-reqs lists build requirements for a package
+is-branched checks if a package is branched
+iterate-report computes missing BRs for new top-level packages
+ls-branches lists branches for a package
+missing-build-reqs lists missing build requirements to build for a branch
+unfold-report adds new missing BRs to the top-level list
+```
+
+## Presentation
+Presented at [CentOS Dojo FOSDEM
+2022](https://wiki.centos.org/Events/Dojo/FOSDEM2022#Bootstrapping)
+([slides](https://salimma.fedorapeople.org/slides/2022/centos_dojo-202202-epel_branching_with_ebranch.pdf),
+[video](https://www.youtube.com/watch?v=VjPZmq_h2Rk)).
+
+## Installation
+[![Copr build status](https://copr.fedorainfracloud.org/coprs/salimma/ebranch/package/python-ebranch/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/salimma/ebranch/package/python-ebranch/)
+
+This tool is still in active development, so for the time being it is not
+packaged in Fedora proper. This will happen once the commands and data
+structures are reasonably stable.
+
+You can install on Fedora 35, CentOS Stream 9 (with EPEL enabled), and Rawhide using:
+
+``` bash
+sudo dnf copr enable salimma/ebranch
+sudo dnf install ebranch
+```
+
+## Local development
+``` bash
+python -m venv .venv-dev
+source .venv-dev/bin/activate
+pip install --upgrade pip
+pip install -q build
+make dist install
+make install
+```
+
+
+
