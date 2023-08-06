@@ -1,0 +1,35 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "t2j"
+readme = "README.rst"
+requires-python = "~=3.3"
+authors = [{name = "Eugene M. Kim", email = "astralblue@gmail.com"}]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Utilities",
+]
+dynamic = ["version", "description"]
+dependencies = ["tomli>=2", "tomli_w>=1"]
+
+[project.urls]
+Home = "https://github.com/astralblue/t2j"
+
+[project.scripts]
+t2j = "t2j:main"
+j2t = "t2j:main"
