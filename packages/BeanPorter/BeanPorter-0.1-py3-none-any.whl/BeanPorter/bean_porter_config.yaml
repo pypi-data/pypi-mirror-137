@@ -1,0 +1,102 @@
+developer:
+  debug: true
+importers:
+  -
+    name: Alipay
+    encoding: GB18030
+    probe:
+      file_name:
+        prefix: alipay_record_
+    strippers:
+      remove_first: 1
+      remove_last: 21
+    variables:
+      ######################################################################
+      # TABLE HEADER
+      ######################################################################
+      drcr: 收/支
+      counterparty: 交易对方
+      counterparty_account: 对方账号
+      description: 商品说明
+      my_account: 收/付款方式
+      amount: 金额
+      status: 交易状态
+      category: 交易分类
+      system_transaction_id: 交易订单号
+      vendor_transaction_id: 商家订单号
+      timestamp: 交易时间
+    transformers:
+      ######################################################################
+      # BASIC SETTINGS
+      ######################################################################
+      -
+        patterns:
+        rules:
+          debit_currency: CNY
+          credit_currency: CNY
+          payee: $counterparty
+          transaction_name: $description
+          timestamp: $timestamp
+      -
+        patterns:
+          status: 交易成功
+        rules:
+          complete: True
+      -
+        patterns:
+          status: 交易关闭
+        rules:
+          complete: True
+      -
+        patterns:
+          status: 退款成功
+        rules:
+          complete: True
+      -
+        patterns:
+          status: 还款成功
+        rules:
+          complete: True
+      -
+        patterns:
+          status: 等待确认收货
+        rules:
+          complete: False
+  -
+    name: WeChatPay
+    probe:
+      file_name:
+        prefix: 微信支付账单
+    strippers:
+      remove_first: 16
+    variables:
+      ######################################################################
+      # TABLE HEADER
+      ######################################################################
+      drcr: 收/支
+      counterparty: 交易对方
+      description: 商品
+      my_account: 支付方式
+      amount: 金额(元)
+      status: 当前状态
+      category: 交易类型
+      system_transaction_id: 交易单号
+      vendor_transaction_id: 商户单号
+      timestamp: 交易时间
+    transformers:
+      ######################################################################
+      # BASIC SETTINGS
+      ######################################################################
+      -
+        patterns:
+        rules:
+          debit_currency: CNY
+          credit_currency: CNY
+          payee: $counterparty
+          transaction_name: $description
+          timestamp: $timestamp
+      -
+        patterns:
+          status: 支付成功
+        rules:
+          complete: True
