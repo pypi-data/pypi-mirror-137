@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: suppy
+Version: 0.1.3
+Summary: 
+Home-page: https://github.com/chain-stock/suppy
+License: GPL-3.0-only
+Author: Allex Veldman
+Author-email: a.veldman@chain-stock.com
+Requires-Python: >=3.9,<4.0
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Typing :: Typed
+Requires-Dist: tqdm (>=4.62.3,<5.0.0)
+Requires-Dist: typeguard (>=2.13.3,<3.0.0)
+Project-URL: Documentation, https://github.com/chain-stock/suppy
+Project-URL: Repository, https://github.com/chain-stock/suppy
+Description-Content-Type: text/markdown
+
+# Suppy
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=chain-stock_suppy&metric=coverage)](https://sonarcloud.io/summary/new_code?id=chain-stock_suppy)
+[![Test](https://github.com/chain-stock/suppy/actions/workflows/tox.yml/badge.svg)](https://github.com/chain-stock/suppy/actions/workflows/tox.yml)
+[![PyPI version](https://badge.fury.io/py/suppy.svg)](https://badge.fury.io/py/suppy)
+
+Suppy allows simulating multi-item, multi-echelon (MIME) supply-chain systems
+with support for user-defined inventory control and release policies.
+
+## Contributing
+A pre-commit config is included in this repo.
+This will, among other things, run black and isort on your code changes
+
+To enable the pre-commit hook, run `poetry run pre-commit install`
+
