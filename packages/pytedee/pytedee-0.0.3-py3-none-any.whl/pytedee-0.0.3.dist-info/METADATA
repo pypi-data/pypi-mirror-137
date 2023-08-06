@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: pytedee
+Version: 0.0.3
+Summary: A Tedee Lock Client package
+Home-page: https://github.com/joerg65/pytedee
+Author: Jörg Wolff
+Author-email: joerg.wolff@gmx.de
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+
+# Python Tedee Client Package
+
+This is a Tedee Lock Client package.
+
+Download:
+
+git clone https://github.com/joerg65/pytedee.git
+
+Install:
+
+pipenv install -e .
+
+or
+
+python3 setup.py install
+
+Try it with the example.py:
+
+- Generate personal key. Instructions: https://tedee-tedee-api-doc.readthedocs-hosted.com/en/latest/howtos/authenticate.html#personal-access-key
+  Minimal scopes required for enable integration are:
+    - Devices.Read
+    - Lock.Operate
+- Edit personalKey with generated value.
+
