@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: astroblast
+Version: 1.0.1
+Summary: Synchtrotron peak estimator for blazars
+Home-page: https://github.com/tkerscher/blast
+Author: Tobias Kerscher
+Author-email: 88444139+tkerscher@users.noreply.github.com
+License: MIT
+Keywords: blazar synchrotron
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+License-File: LICENSE.txt
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: torch
+Requires-Dist: tqdm
+
+Estimates the synchrotron peak of blazars with prediction interval given a sed as produced by the VOUBlazar tool. Uses an ensemble of neural networks powered by pytorch.
+
