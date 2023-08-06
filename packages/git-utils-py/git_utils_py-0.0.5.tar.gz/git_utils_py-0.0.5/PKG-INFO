@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: git_utils_py
+Version: 0.0.5
+Summary: Library to download files from gitlab
+Home-page: https://bitbucket.org/informaticaljd
+Author: Juan José Macanás Beteta
+Author-email: juanjo.macanas@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Natural Language :: English
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.7.0
+Description-Content-Type: text/x-rst
+
+git-utils-py
+=============
+
+.. image:: https://badge.fury.io/py/git-utils-py.svg
+   :target: https://badge.fury.io/py/git-utils-py
+
+.. image:: https://img.shields.io/pypi/pyversions/git-utils-py.svg
+   :target: https://pypi.python.org/pypi/git-utils-py
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/python/black
+
+``git-utils-py`` is a Python package providing utils task to the Git.
+
+Installation
+------------
+
+As of 0.0.5, ``git-utils-py`` is compatible with Python 3.7+.
+
+Use ``pip`` to install the latest stable version of ``git-utils-py``:
+
+.. code-block:: console
+
+   $ pip install --upgrade git-utils-py
+
+Command
+-------------
+download_file(host, token, project_name, project_id, file_search_path, file_search_name, file_search_extension,
+file_output_path, file_output_name=None, branch_name='master')
+
+
