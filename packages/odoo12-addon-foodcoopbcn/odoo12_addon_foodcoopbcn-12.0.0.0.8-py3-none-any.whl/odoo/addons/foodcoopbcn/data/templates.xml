@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <template id="product.report_producttemplatelabel">
+      <t t-call="web.basic_layout">
+        <div class="page">
+          <t t-foreach="docs" t-as="template">
+          <t t-foreach="template.product_variant_ids" t-as="product">
+            <style type="text/css">
+              .container {
+                padding: 0 !important;
+              }
+              @font-face {
+                font-family: 'Avenir Next Condensed Demibold';
+                src:url('/foodcoopbcn/static/src/fonts/AvenirNextCondensed-DemiBold.ttf') format('truetype');
+              }
+              @font-face {
+                font-family: 'Avenir Next Condensed Italic';
+                src:url('/foodcoopbcn/static/src/fonts/avenir-next-lt-pro-condensed-italic.otf') format('opentype');
+              }
+              @font-face {
+                font-family: 'Avenir Next Condensed Regular';
+                src:url('/foodcoopbcn/static/src/fonts/avenir-next-lt-pro-condensed.otf') format('opentype');
+              }
+
+              @font-face {
+                font-family: 'Avenir Next Condensed Bold';
+                src:url('/foodcoopbcn/static/src/fonts/avenir-next-lt-pro-bold-condensed.otf') format('opentype');
+              }
+
+
+            </style>
+            <div style="width:70mm!important; max-width:70mm!important; min-width:70mm!important; display:inline-table;height:45mm!important;max-height:45mm!important; min-height:45mm!important; font-family: akkurat-light;">
+               <table style="width:100%; border: 1px solid #333; height:100%; border-spacing:0;border-collapse: collapse; table-layout: fixed;">
+                    <tr style="margin:0;">
+                        <td class="text-left" style="margin:0; padding:2mm; padding-top:5mm; padding-bottom: 0; " colspan="2">
+                            <span t-esc="product.name[:60]" style="font-size:14pt;overflow:hidden; padding:0; margin:0; font-weight:bold; font-family: 'Avenir Next Condensed Demibold';"/>
+                        </td>
+                    </tr>
+                    <tr style="margin:0;">
+                        <td class="text-left" style="max-width:55%!important; min-width:55%!important; width:44%!important; padding:2mm; padding-bottom: 0; padding-right:1mm; margin:0;">
+                            <div><span t-esc="product.main_seller_id.name" style="font-style:italic; font-size:11pt; font-family: 'Avenir Next Condensed Italic';"/></div>
+                            <div style="font-size:12pt; font-family: 'Avenir Next Condensed Regular';"><span t-esc="product.display_weight" t-options="{'widget': 'float', 'precision': 3}"/><span t-esc="product.display_unit.name"/> <span t-esc="product.total_with_vat_by_unit" t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"/>/<span t-esc="product.display_unit.name"/></div>
+                            <div style="font-size:20pt; font-family: 'Avenir Next Condensed Bold'; font-weight:bold;"><span t-esc="product.with_context(pricelist=1).price" t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"/></div>
+                            <!-- <div style="font-size:8pt; font-weight:lighter"><span t-esc="product.label_last_printed" t-options="{'widget': 'date'}"/></div>-->
+                        </td>
+                        <td class="text-center" style="max-width:45%!important; min-width:45%!important; width:45%!important;  padding:2mm; padding-left:1mm; padding-top: 0; margin:0; vertical-align:middle;">
+                          <t t-if="product.barcode">
+                                <img alt="Barcode" t-if="len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 500, 150)" style="width:100%"/>
+                                <img alt="Barcode" t-elif="len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 500, 150)" style="width:100%"/>
+                                <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 500, 150)" style="width:100%"/>
+                                <span t-field="product.barcode" style="font-size:8pt; font-weight:lighter;"/>
+                                <div style="font-size:10pt; font-weight:lighter"><span t-field="product.eco_label.name"/> <span t-field="product.local_label.name"/></div>
+                          </t>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+          </t>
+          </t>
+        </div>
+      </t>
+    </template>  
+  </data>
+</odoo>
