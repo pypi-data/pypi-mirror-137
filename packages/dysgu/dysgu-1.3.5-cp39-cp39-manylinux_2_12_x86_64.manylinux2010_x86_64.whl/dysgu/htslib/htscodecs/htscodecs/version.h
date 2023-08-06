@@ -1,0 +1,1 @@
+#define HTSCODECS_VERSION_TEXT "1.1.1-3-gb6615cd"
