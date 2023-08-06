@@ -1,0 +1,29 @@
+variables:
+  PYTHON_VERSION: "3.8.11"
+
+stages:
+  - release
+
+before_script:
+  - pip install twine
+
+release-testpypi:
+  stage: release
+  image: python:${PYTHON_VERSION}
+  script:
+    - python setup.py sdist bdist_wheel
+    - twine check dist/*
+    - twine upload -u __token__ -p ${PYPI_TEST_TOKEN} --repository-url https://test.pypi.org/legacy/ dist/*
+
+  when: manual
+
+release-pypi:
+  stage: release
+  image: python:${PYTHON_VERSION}
+  script:
+    - python setup.py sdist bdist_wheel
+    - twine check dist/*
+    - twine upload -u __token__ -p ${PYPI_PROD_TOKEN} --repository-url https://upload.pypi.org/legacy/ dist/* --verbose
+
+  only:
+    - tags
