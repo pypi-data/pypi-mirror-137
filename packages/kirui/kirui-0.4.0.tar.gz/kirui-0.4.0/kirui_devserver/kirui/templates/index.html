@@ -1,0 +1,50 @@
+<div id="app">
+  <kr-layout-sidebar  b:class="{'isPwa': self.component_config.application.is_pwa}">
+    <kr-sidebar-header>
+
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+        <span class="navbar-brand">NEXONpolip</span>
+      </div>
+      <div class="btn-group">
+          <a href="#" class="dropdown-toggle" style="color: #fff; text-decoration: none;">Username</a>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="dropdown-item"><i class="bi bi-lock-fill"></i> Change Password</a></li>
+            <li><a href="#" class="dropdown-item"><i class="bi bi-gear-fill"></i> Admin Setion</a></li>
+            <li><a href="#" class="dropdown-item"><i class="bi bi-gear-wide-connected"></i> IMAP Settings</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a href="#" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Sign out</a></li>
+          </ul>
+      </div>
+    </kr-sidebar-header>
+
+    <kr-sidebar-nav
+              b:style="{'width': self.sidebar_width}">
+      <ul>
+        <li>Első menüpont</li>
+      </ul>
+    </kr-sideb  470hun19
+      ar-nav>
+
+    <kr-sidebar-main>
+      <kr-form b:object="form" reactContextRef="form" label-width="sm-4 md-3 lg-2" field-width="sm-8 md-9 lg-10" action="/backend/form/" id="proba" />
+      <p>tartalom első sor tartalom tartalom tartalom tartalom tartalom tartalom tartalom tartalom tartalom tartalom tartalom tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+      <p>tartalom</p>
+    </kr-sidebar-main>
+  </kr-layout-sidebar>
+</div>

@@ -1,0 +1,19 @@
+<template b:prevpage="self.props.get('prevpage', '')" b:actpage="self.props.get('actpage', '')" b:nextpage="self.props.get('nextpage', '')">
+  <tr>
+    <td>
+      <nav>
+        <ul class="pagination pagination-lg">
+          <li b:class="self.prev_page_class">
+            <a b:onclick="self.props.get('click', self.closest('kr-table').paginate)" class="page-link" b:data-page-to="self.props.get('prevpage', '')" >&laquo;</a>
+          </li>
+          <li class="page-item">
+              <a class="page-link" b:text="self.props['actpage']"></a>
+          </li>
+          <li b:class="self.next_page_class">
+            <a b:onclick="self.props.get('click', self.closest('kr-table').paginate)" class="page-link" b:data-page-to="self.props.get('nextpage', '')" >&raquo;</a>
+          </li>
+        </ul>
+      </nav>
+    </td>
+  </tr>
+</template>

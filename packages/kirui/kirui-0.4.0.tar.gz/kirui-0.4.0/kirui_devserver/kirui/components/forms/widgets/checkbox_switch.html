@@ -1,0 +1,6 @@
+<template data-form-field="true">
+  <div class="form-check form-switch">
+    <input type="checkbox" b:name="self.props['name']" b:id="self.props['id']" b:class="self.css_class" b:disabled="self.is_disabled" b:checked="self.is_checked" />
+  </div>
+  <div class="invalid-feedback" c:if="len(self.props.get('error', '')) > 0" b:text="self.props['error']" style="display: block;"></div>
+</template>

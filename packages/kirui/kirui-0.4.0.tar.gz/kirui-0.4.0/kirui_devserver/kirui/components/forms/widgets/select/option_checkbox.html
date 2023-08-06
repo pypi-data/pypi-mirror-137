@@ -1,0 +1,8 @@
+<template>
+  <div class="row">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" b:value="self.props['value']" b:checked="self.props.get('selected', '')" />
+      <slot />
+    </label>
+  </div>
+</template>

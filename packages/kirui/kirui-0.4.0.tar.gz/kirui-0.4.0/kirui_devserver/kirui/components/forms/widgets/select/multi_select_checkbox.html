@@ -1,0 +1,11 @@
+<template data-form-field="true">
+  <div b:class="self.css_class">
+    <div class="header">
+      <div class="select-value">Kérlek válassz...</div>
+    </div>
+    <div class="dropdown">
+      <slot />
+    </div>
+  </div>
+  <div class="invalid-feedback" c:if="len(self.props.get('error', '')) > 0" b:text="self.props['error']"></div>
+</template>

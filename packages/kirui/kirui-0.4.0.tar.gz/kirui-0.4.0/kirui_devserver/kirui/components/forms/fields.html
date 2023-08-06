@@ -1,0 +1,18 @@
+<template>
+  <div class="mb-3 row">
+    <label b:for="self.props['id']" b:text="self.props['label']" b:class="self.label_class"></label>
+    <div b:class="self.field_class">
+      <kr-input c:if="self.props['widget'] in ('kr-input', 'kr-number-input')" b:error="self.props.get('error', '')" b:name="self.props['name']" b:id="self.props['id']" b:disabled="self.props['disabled']" b:widget="self.props['widget']" b:value="self.props.get('value', '')" />
+      <kr-textbox c:if="self.props['widget'] == 'kr-textbox'" b:error="self.props.get('error', '')" b:name="self.props['name']" b:id="self.props['id']" b:disabled="self.props['disabled']" b:widget="self.props['widget']" b:value="self.props.get('value', '')" b:height="self.props.get('height', '')" />
+      <kr-file c:if="self.props['widget'] == 'kr-file'" b:error="self.props.get('error', '')" b:name="self.props['name']" b:id="self.props['id']" b:disabled="self.props['disabled']" b:widget="self.props['widget']" b:value="self.props.get('value', '')" />
+      <kr-date-picker c:if="self.props['widget'] == 'kr-date-picker'" b:error="self.props.get('error', '')" b:name="self.props['name']" b:id="self.props['id']" b:disabled="self.props['disabled']" b:widget="self.props['widget']" b:value="self.props.get('value', '')" />
+      <kr-select b:name="self.props['name']" c:if="self.props['widget'] == 'kr-select'" b:error="self.props.get('error', '')" b:value="self.props.get('value', '')" b:disabled="self.props['disabled']">
+        <slot />
+      </kr-select>
+      <kr-multi-select-checkbox b:name="self.props['name']" c:if="self.props['widget'] == 'kr-multi-select-checkbox'" b:error="self.props.get('error', '')" b:disabled="self.props['disabled']" b:value="self.props.get('value', '')">
+        <slot />
+      </kr-multi-select-checkbox>
+      <kr-checkbox-switch c:if="self.props['widget'] == 'kr-checkbox-switch'" b:error="self.props.get('error', '')" b:name="self.props['name']" b:id="self.props['id']" b:disabled="self.props['disabled']" b:value="self.props.get('value', '')" />
+    </div>
+  </div>
+</template>

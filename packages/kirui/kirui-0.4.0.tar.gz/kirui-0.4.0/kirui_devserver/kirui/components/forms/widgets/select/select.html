@@ -1,0 +1,6 @@
+<template data-form-field="true">
+  <select b:class="self.css_class" b:value="self.props.get('value', '')" b:disabled="'true' if self.props['disabled'] == '1' else ''">
+    <slot />
+  </select>
+  <div class="invalid-feedback" c:if="len(self.props.get('error', '')) > 0" b:text="self.props['error']"></div>
+</template>

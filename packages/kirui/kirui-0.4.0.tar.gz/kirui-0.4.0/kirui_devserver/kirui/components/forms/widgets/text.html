@@ -1,0 +1,4 @@
+<template data-form-field="true" b:id="self.props['id']">
+  <textarea b:class="self.css_class" b:name="self.props['name']" b:id="self.props['id']" b:readonly="self.is_readonly" b:text="self.props.get('value', '')" />
+  <div class="invalid-feedback" c:if="len(self.props.get('error', '')) > 0" b:text="self.props['error']"></div>
+</template>

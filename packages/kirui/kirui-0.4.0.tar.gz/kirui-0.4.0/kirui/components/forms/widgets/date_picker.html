@@ -1,0 +1,8 @@
+<template data-form-field="true">
+  <div b:class="self.css_class">
+    <input type="input" class="form-control" b:name="self.props['name']" b:id="self.props['id']" b:readonly="self.is_readonly" b:value="self.props.get('value', '')" autocomplete="off" />
+
+    <div class="date-picker-box"></div>
+    <div class="invalid-feedback" c:if="len(self.props.get('error', '')) > 0" b:text="self.props['error']"></div>
+  </div>
+</template>
