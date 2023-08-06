@@ -1,0 +1,43 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+@defaultPadding : 2em;
+@defaultMargin  : 2em;
+
+/*--- Brand main colors ---*/
+@brandColor     : rgba(13, 95, 137, 0.8);
+
+
+/*--- Cover page margin ---*/
+
+@coverPageDefaultMargin: 3*@defaultMargin;
+
+/*--- code tag color ---*/
+
+@codeColor: @pink;
+@codeBackgroundColor: lighten(@pink, 42);
+
+/*--- Sign up color ---*/
+
+@signupColor: @orange;
+@signupColorHover: saturate(darken(@signupColor, 5), 10, relative);
+@signupColorFocus: saturate(darken(@signupColor, 8), 20, relative);
+@signupColorDown: darken(@signupColor, 10);
+@signupColorActive: : saturate(darken(@signupColor, 5), 15, relative);
+
+/*--- Search button color ---*/
+
+@searchButtonColor: @orange;
+@searchButtonColorHover: saturate(darken(@searchButtonColor, 5), 10, relative);
+@searchButtonColorFocus: saturate(darken(@searchButtonColor, 8), 20, relative);
+@searchButtonColorDown: darken(@searchButtonColor, 10);
+@searchButtonColorActive: : saturate(darken(@searchButtonColor, 5), 15, relative);
+
+/*--- Fonts ---*/
+
+@importGoogleFonts : false;
+// @fontName          : 'robotolight';
+
+@headerFont        : @fontName, sans-serif;
+@pageFont          : @fontName, sans-serif;
