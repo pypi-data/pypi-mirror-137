@@ -1,0 +1,18 @@
+[console_scripts]
+hmrc = hmrc.cli.registry:main
+
+[hmrc.cli.command]
+hello = hmrc.cli.hello:HelloCommand
+hello application = hmrc.cli.hello:HelloApplicationCommand
+hello login = hmrc.cli.hello:HelloLoginCommand
+hello user = hmrc.cli.hello:HelloUserCommand
+hello world = hmrc.cli.hello:HelloWorldCommand
+login = hmrc.cli.base:LoginCommand
+vat = hmrc.cli.vat:VatCommand
+vat csv submit = hmrc.plugins.csv:CsvVatSubmitCommand
+vat excel submit = hmrc.plugins.excel:ExcelVatSubmitCommand
+vat login = hmrc.cli.vat:VatLoginCommand
+vat obligations = hmrc.cli.vat:VatObligationsCommand
+vat return = hmrc.cli.vat:VatReturnCommand
+vat submit = hmrc.cli.vat:VatSubmitCommand
+
