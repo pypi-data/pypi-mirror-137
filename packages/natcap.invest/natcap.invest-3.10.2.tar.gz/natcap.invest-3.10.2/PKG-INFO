@@ -1,0 +1,127 @@
+Metadata-Version: 2.1
+Name: natcap.invest
+Version: 3.10.2
+Summary: InVEST Ecosystem Service models
+Home-page: http://github.com/natcap/invest
+Maintainer: James Douglass
+Maintainer-email: jdouglass@stanford.edu
+License: BSD
+Keywords: gis invest
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Cython
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Topic :: Scientific/Engineering :: GIS
+Description-Content-Type: text/x-rst
+Provides-Extra: ui
+License-File: LICENSE.txt
+
+================================================================
+InVEST: Integrated Valuation of Ecosystem Services and Tradeoffs
+================================================================
+
+About  InVEST
+=============
+
+InVEST (Integrated Valuation of Ecosystem Services and Tradeoffs) is a family
+of tools for quantifying the values of natural capital in clear, credible, and
+practical ways. In promising a return (of societal benefits) on investments in
+nature, the scientific community needs to deliver knowledge and tools to
+quantify and forecast this return. InVEST enables decision-makers to quantify
+the importance of natural capital, to assess the tradeoffs associated with
+alternative choices, and to integrate conservation and human development.
+
+Older versions of InVEST ran as script tools in the ArcGIS ArcToolBox environment,
+but have almost all been ported over to a purely open-source python environment.
+
+InVEST is licensed under a permissive, modified BSD license.
+
+For more information, see:
+  * `InVEST API documentation <http://invest.readthedocs.io/>`_
+  * InVEST on `GitHub <https://github.com/natcap/invest>`__
+  * The `Natural Capital Project website <http://naturalcapitalproject.stanford.edu>`__.
+
+
+.. Everything after this comment will be included in the API docs.
+.. START API
+
+Installing InVEST
+=================
+
+Python Dependencies
+-------------------
+
+Dependencies for ``natcap.invest`` are listed in ``requirements.txt``:
+
+.. code-block::
+
+    GDAL>=3.1.2,!=3.3.0
+    Pyro4==4.77
+    pandas>=1.2.1
+    numpy>=1.11.0,!=1.16.0
+    Rtree>=0.8.2,!=0.9.1
+    Shapely>=1.7.1,<2.0.0
+    scipy>=1.6.0,<1.8.0
+    pygeoprocessing>=2.3.2
+    taskgraph[niced_processes]>=0.11.0
+    psutil>=5.6.6
+    chardet>=3.0.4
+    openpyxl
+    pint
+    Babel
+
+Additionally, a python binding for Qt is needed to use the InVEST GUI, but is
+not required for development against ``natcap.invest``.  InVEST uses the
+interface library ``qtpy`` to support ``PyQt5`` and ``PySide2``.  In our 
+experience, ``PyQt5`` and ``PySide2`` have been easiest
+to work with.  One of these bindings for Qt must be installed in order to use
+the GUI.
+
+
+Installing from Source
+----------------------
+
+If you have a compiler installed and configured for your system, and
+dependencies installed, the easiest way to install InVEST as a python package
+is:
+
+.. code-block:: console
+
+    $ pip install natcap.invest
+
+
+Installing the latest development version
+-----------------------------------------
+
+The latest development version of InVEST can be installed from our git
+source tree:
+
+.. code-block:: console
+
+    $ pip install git+https://github.com/natcap/invest@master#egg=natcap.invest
+
+Development
+===========
+
+Dependencies for developing InVEST are listed in ``requirements.txt`` and in
+``requirements-dev.txt``.  If you're running a GUI, you'll need a Qt binding
+(see above) and the packages installed in ``requirements-gui.txt``.
+
+Support
+=======
+
+Participate in the NatCap forums here:
+http://community.naturalcapitalproject.org
+
+Bugs may be reported at http://github.com/natcap/invest
+
+
