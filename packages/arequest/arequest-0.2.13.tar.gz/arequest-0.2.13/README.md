@@ -1,0 +1,144 @@
+# arequest
+
+![PyPI](https://img.shields.io/pypi/v/arequest) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/arequest) ![Downloads](https://pepy.tech/badge/arequest) ![PyPI - License](https://img.shields.io/pypi/l/arequest)
+
+_arequest is an async HTTP client for Python, with more customization._
+
+
+## Warnning
+
+**The arequest is experimental for now, please do not use for production environment.**
+
+
+## Installation
+
+`pip install arequest`  
+
+> *python3.8 or higher version is required.*  
+
+
+## Quickstart
+
+It's requests-like, just don't forget `async/await`.
+
+``` python
+import asyncio
+import arequest
+
+async def main():
+    r = await arequest.get("https://httpbin.org/get")
+    print(r.headers)
+    print(r.status_code)
+    print(r.encoding)
+    print(r.text)
+
+asyncio.run(main())
+```
+
+## Request
+
+### Passing Parameters In URLs
+
+``` python
+await arequest.get("https://httpbin.org/get", params={"test": "123"})
+```
+
+### POST
+
+``` python
+await arequest.post("https://httpbin.org/post", data={"key": "value"})
+```
+
+- POST JSON
+
+``` python
+await arequest.post("https://httpbin.org/post", json={"key": "value"})
+```
+
+### Reuse a connection
+
+``` python
+with arequest.Session as session:
+    await session.get("https://httpbin.org/get")
+    await session.get("https://httpbin.org/get")
+    ...
+```
+> *unlike `requests.Session()`, it does not automatically handle `Set-Cookie`*
+
+### Custom Headers
+
+``` python
+headers = {
+    "user-agent": "test"
+}
+await arequest.get("https://httpbin.org/get", headers=headers)
+```
+
+if you want to set header `Content-Type`, use `contentType`.
+
+``` python
+await arequest.post("https://httpbin.org/post", contentType="application/test")
+```
+
+### Custom cookies
+
+``` python
+await arequest.get("https://httpbin.org/cookies", cookies={"test": "test"})
+```
+
+### Unverified SSL Cert
+
+``` python
+await arequest.get("https://httpbin.org/get", verify=False)
+```
+
+### Retry
+
+``` python
+await arequest.get("https://httpbin.org/get", retries=2)
+```
+max retries, default `0`
+
+### Timeout
+``` python
+try:
+    await arequest.get("http://httpbin.org/delay/5", timeout=3)
+except arequest.TimeoutError:
+    print("timeout")
+```
+if timeout is `None`, wait until the request complete. default `30`s
+
+## Response
+
+```python
+print(r.headers)
+print(r.status_code)
+print(r.encoding)
+print(r.text)
+print(r.json())
+```
+
+### Binary Response Content
+
+``` python
+r.content
+```
+
+### Cookies
+``` python
+r.cookies
+```
+
+
+
+## TODO
+- [x] timeout
+- [ ] file upload
+- [ ] proxy
+- [x] keep-alive
+- [ ] http2
+- [ ] raw request
+- [x] cookies handle
+- [x] response cookies
+- [ ] test coverage
+
