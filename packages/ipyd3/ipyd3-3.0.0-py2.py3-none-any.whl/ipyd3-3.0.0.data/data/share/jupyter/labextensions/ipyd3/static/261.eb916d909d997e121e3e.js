@@ -1,0 +1,1 @@
+(self.webpackChunkipyd3=self.webpackChunkipyd3||[]).push([[261],{261:(e,i,t)=>{var r=t(568),p=t(337);e.exports={id:"ipyd3:plugin",requires:[p.IJupyterWidgetRegistry],activate:function(e,i){i.registerWidget({name:"ipyd3",version:r.version,exports:r})},autoStart:!0}}}]);
