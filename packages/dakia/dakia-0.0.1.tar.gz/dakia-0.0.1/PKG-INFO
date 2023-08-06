@@ -1,0 +1,78 @@
+Metadata-Version: 2.1
+Name: dakia
+Version: 0.0.1
+Summary: Send yourself real time alerts and update messages about your projects on any platform
+Home-page: https://github.com/allwynfernandes/dakia
+Author: Allwyn Fernandes
+Author-email: thisallwyn@gmail.com
+License: UNKNOWN
+Keywords: logging,updates,alerts,debug,notification
+Platform: UNKNOWN
+Classifier: Topic :: Utilities
+Classifier: Topic :: System :: Networking :: Monitoring
+Classifier: Topic :: System :: Monitoring
+Classifier: Topic :: System :: Logging
+Classifier: Topic :: Software Development :: Debuggers
+Classifier: Topic :: Communications :: Chat
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Customer Service
+Classifier: Intended Audience :: Education
+Classifier: Development Status :: 4 - Beta
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Development Status :: 1 - Planning
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+Drop dead simple alerts and updates for every project on any platfrom!
+This package lets your code send messages to you about its status.
+As of now, the best option is using Telegram (other platforms will be added in the future).
+
+Drop this into your code:
+
+
+## Installation
+```python
+pip install dakia
+```
+
+## Usage
+```python
+from dakia import Dakia
+
+cryptoBearDakia = Dakia(token='secret1', chatId='something2')
+cryptoBullDakia = Dakia(token='secret1', chatId='something2')
+
+genDakia = Dakia(token='secret3', chatId='something3')
+
+# Multiple messengers for seprate tasks / projects
+if win:
+    cryptoBullDakia('brrr')
+    else:
+    cryptoBearDakia('oof')
+
+
+genDakia.dak(f"🔥 #new-user-signup {username}")
+genDakia.dak(f"💵 #sale {amount}")
+genDakia.dak(f"🌟 #project-{projectName} deployed successfully")
+
+
+genDakia.dak('warning', '#project-quotes-crawler : Memory usage > 80%')
+
+```
+
+
+
+
+
+d = dakia.dak('hi') # Keep it short
+d('hi')
+
