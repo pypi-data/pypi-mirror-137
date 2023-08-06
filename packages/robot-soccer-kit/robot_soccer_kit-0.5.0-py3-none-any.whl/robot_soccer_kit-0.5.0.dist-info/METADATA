@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: robot-soccer-kit
+Version: 0.5.0
+Summary: Robot Soccer Kit
+Home-page: https://github.com/rhoban/robot-soccer-kit/
+Author: Rhoban team
+Author-email: team@rhoban.com
+License: UNKNOWN
+Keywords: robot holonomic omniwheel ssl robocup junior soccer standard localized tracking
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Free for non-commercial use
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: zmq
+Provides-Extra: gc
+Requires-Dist: pyserial ; extra == 'gc'
+Requires-Dist: flask ; extra == 'gc'
+Requires-Dist: flask-cors ; extra == 'gc'
+Requires-Dist: waitress ; extra == 'gc'
+Requires-Dist: opencv-python-headless ; extra == 'gc'
+Requires-Dist: opencv-contrib-python-headless ; extra == 'gc'
+
+# Robot Soccer Kit
+
+![Robots](/docs/imgs/cover.jpg)
+
+## Presentation
+
+[YouTube demonstration video](https://www.youtube.com/watch?v=4NFXbaom7YQ)
+
+The goal of this project is to provide an open-source material to build and operate a setup featuring
+omniwheel robots and a soccer field monitoring them with a camera.
+
+With this setup, it is possible for two teams to code a program and play against each other.
+
+## Documentation
+
+**This is a WORK IN PROGRESS, you can't (yet) build the whole setup by following instructions from
+this repository, if any question, do not hesitate to open an issue**
+
+* [Robots](/docs/robots.md)
+* [Coordinates, field and markers](/docs/coordinates-markers.md)
+* [Game Controller and Python API](/docs/programming.md)
+
+## License
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/2.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/">Creative Commons Attribution-NonCommercial 2.0 Generic License</a>.
+
