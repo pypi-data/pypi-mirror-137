@@ -1,0 +1,33 @@
+add:
+  notebook: add.ipynb
+  flags:
+    x:
+      default: 10
+      nb-replace: print\((\d+) \+ \d+\)
+    y:
+      default: 20
+      nb-replace: print\(\d+ \+ (\d+)\)
+
+flags:
+  notebook: flags.ipynb
+  flags-import: all
+  flags-import-skip:
+    - b
+  flags:
+    x: 11
+    y: 22
+
+params:
+  notebook: params.ipynb
+
+extended:
+  notebook: extended.ipy
+  nb-cells:
+    - after: -1
+      source: >
+        # Summarize results
+        print("x: %s" % x)
+        print("y: %s" % y)
+
+add2:
+  notebook: add.ipynb --html-no-input

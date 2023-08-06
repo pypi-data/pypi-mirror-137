@@ -1,0 +1,74 @@
+- include: subdir/guild-config.yml
+
+- operations:
+    $include: subdir-ops
+
+    yaml:
+      main: config_yaml flags.yml
+      flags-dest: config:flags.yml
+      flags-import: all
+
+    yaml-nested:
+      main: config_yaml nested.yml
+      flags-dest: config:nested.yml
+      flags-import: all
+
+    json:
+      main: config_json flags.json
+      flags-dest: config:flags.json
+      flags-import: all
+      flags-import-skip: [i]
+
+    json-2:
+      main: config_json flags.json
+      flags-dest: config:flags.json
+      flags-import:
+        - d.a
+        - d.b
+      flags:
+        aa:
+          arg-name: d.a
+          type: auto
+        bb:
+          arg-name: d.b
+          type: auto
+          default: BB
+
+    json-in:
+      main: config_json flags.json
+      flags-dest: config:flags.json.in
+      flags-import: all
+      requires:
+        - config: flags.json.in
+          rename: flags.json.in flags.json
+
+    cfg:
+      main: config_cfg flags.cfg
+      flags-dest: config:flags.cfg
+      flags-import: all
+      flags-import-skip: [f, s]
+
+    cfg-2:
+      main: config_cfg flags.cfg
+      flags-dest: config:flags.cfg
+      flags-import:
+        - foo.i
+        - foo.f
+        - foo.s
+      flags:
+        i:
+          arg-name: foo.i
+        f:
+          arg-name: foo.f
+        s:
+          arg-name: foo.s
+
+    test-args-1:
+      main: test_args
+      flags-dest: config:empty.json
+      flags-import: all
+
+    test-args-2:
+      main: test_args foo bar baz
+      flags-dest: config:empty.json
+      flags-import: all
