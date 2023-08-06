@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 
+
+Copyright (C) 2019 - 2020
+
+This file is part of Carburetor.
+
+Carburetor is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Carburetor is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Carburetor.  If not, see <http://www.gnu.org/licenses/>.
+
+Author: Danial Behzadi <dani.behzi@ubuntu.com>
+
+-->
+<interface domain="messages">
+  <requires lib="gtk+" version="3.24"/>
+  <requires lib="libhandy" version="1.2"/>
+  <!-- interface-license-type gplv3 -->
+  <!-- interface-name Carburetor -->
+  <!-- interface-description Settings for Tractor -->
+  <!-- interface-copyright 2019 - 2020 -->
+  <!-- interface-authors Danial Behzadi <dani.behzi@ubuntu.com> -->
+  <object class="HdyPreferencesWindow" id="PreferencesWindow">
+    <property name="can-focus">False</property>
+    <property name="modal">True</property>
+    <child>
+      <object class="HdyPreferencesPage" id="PreferencesGeneral">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="icon-name">applications-system-symbolic</property>
+        <property name="title" translatable="yes">General</property>
+        <child>
+          <object class="HdyPreferencesGroup" id="PGExitNode">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">Exit Node</property>
+            <child>
+              <object class="HdyPreferencesRow" id="PRExitNode">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" bind-source="TitleExitNode" bind-property="label" bind-flags="sync-create"/>
+                <child>
+                  <object class="GtkBox" id="RBExitNode">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkBox" id="TextExitNode">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel" id="TitleExitNode">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Exit Country</property>
+                            <property name="wrap">True</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="SubtitleExitNode">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">The country you want to connect from</property>
+                            <property name="wrap">True</property>
+                            <property name="xalign">0</property>
+                            <attributes>
+                              <attribute name="weight" value="thin"/>
+                              <attribute name="stretch" value="ultra-expanded"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBoxText" id="ActionExitNode">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">start</property>
+                        <signal name="realize" handler="on_ActionExitNode_realize" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack-type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup" id="PGAcceptConnection">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">Accept Connections</property>
+            <child>
+              <object class="HdyPreferencesRow" id="PRAcceptConnection">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" bind-source="TitleAcceptConnection" bind-property="label" bind-flags="sync-create"/>
+                <child>
+                  <object class="GtkBox" id="RBAcceptConnection">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="TitleAcceptConnection">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Allow external devices to use this network</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="ActionAcceptConnection">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">start</property>
+                        <signal name="realize" handler="on_ActionAcceptConnection_realize" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack-type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="HdyPreferencesPage" id="PreferencesPorts">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="icon-name">network-server-symbolic</property>
+        <property name="title" translatable="yes">Ports</property>
+        <child>
+          <object class="HdyPreferencesGroup" id="PGSocks">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">Socks Port</property>
+            <child>
+              <object class="HdyPreferencesRow" id="PRSocksPort">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" bind-source="TitleSocksPort" bind-property="label" bind-flags="sync-create"/>
+                <child>
+                  <object class="GtkBox" id="RBSocksPort">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="TitleSocksPort">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Local port on which Tractor would be listen</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="ActionSocksPort">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">start</property>
+                        <signal name="realize" handler="on_ActionSocksPort_realize" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack-type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup" id="PGDNS">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">DNS Port</property>
+            <child>
+              <object class="HdyPreferencesRow" id="PRDNSPort">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" bind-source="TitleDNSPort" bind-property="label" bind-flags="sync-create"/>
+                <child>
+                  <object class="GtkBox" id="RBDNSPort">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="TitleDNSPort">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Local port on which you would have an anonymous name server</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="ActionDNSPort">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">start</property>
+                        <signal name="realize" handler="on_ActionDNSPort_realize" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack-type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup" id="PGHTTP">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">HTTP Tunnel Port</property>
+            <child>
+              <object class="HdyPreferencesRow" id="PRHTTPPort">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" bind-source="TitleHTTPPort" bind-property="label" bind-flags="sync-create"/>
+                <child>
+                  <object class="GtkBox" id="RBHTTPPort">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="TitleHTTPPort">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Local port on which a HTTP tunnel would be listen</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="ActionHTTPPort">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">start</property>
+                        <signal name="realize" handler="on_ActionHTTPPort_realize" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack-type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="HdyPreferencesPage" id="PreferencesBridge">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="icon-name">network-wired-no-route-symbolic</property>
+        <property name="title" translatable="yes">Bridges</property>
+        <child>
+          <object class="HdyPreferencesGroup" id="PGBridgeType">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">Type of bridge</property>
+            <child>
+              <object class="HdyPreferencesRow" id="PRBridgeType">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" bind-source="TitleBridgeType" bind-property="label" bind-flags="sync-create"/>
+                <child>
+                  <object class="GtkBox" id="RBBridgeType">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="TitleBridgeType">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Use obfs4proxy</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="ActionBridgeType">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">start</property>
+                        <signal name="realize" handler="on_ActionBridgeType_realize" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack-type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup" id="PGO4Bridge">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">Bridges</property>
+            <child>
+              <object class="HdyPreferencesRow" id="PRO4Bridge">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" bind-source="PGO4Bridge" bind-property="title" bind-flags="sync-create"/>
+                <child>
+                  <object class="GtkBox" id="RBO4Bridge">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkScrolledWindow">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <child>
+                          <object class="GtkTextView" id="TextO4Bridge">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="input-hints">GTK_INPUT_HINT_NO_SPELLCHECK | GTK_INPUT_HINT_NO_EMOJI | GTK_INPUT_HINT_NONE</property>
+                            <property name="monospace">True</property>
+                            <signal name="realize" handler="on_TextO4Bridge_realize" swapped="no"/>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="bridgeslist"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="ButtonO4Bridge">
+                        <property name="label" translatable="yes">Save</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="receives-default">False</property>
+                        <property name="tooltip-text" translatable="yes">Save Bridges as a file in your local configs</property>
+                        <signal name="clicked" handler="on_ButtonO4Bridge_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup" id="PGBridgePlugin">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">Client Transport Plugin</property>
+            <child>
+              <object class="HdyPreferencesRow" id="PRBridgePlugin">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" bind-source="TitleBridgePlugin" bind-property="label" bind-flags="sync-create"/>
+                <child>
+                  <object class="GtkBox" id="RBBridgePlugin">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="TitleBridgePlugin">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Please specify the plugin executable file</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFileChooserButton" id="ActionBridgePlugin">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <signal name="realize" handler="on_ActionBridgePlugin_realize" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack-type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMessageDialog" id="O4ErrorDialog">
+    <property name="can-focus">False</property>
+    <property name="modal">True</property>
+    <property name="type-hint">dialog</property>
+    <property name="transient-for">PreferencesWindow</property>
+    <property name="message-type">error</property>
+    <property name="buttons">ok</property>
+    <property name="text" translatable="yes">Can not save the bridges</property>
+    <property name="secondary-text" translatable="yes">Please check the syntax of bridges</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can-focus">False</property>
+            <property name="homogeneous">True</property>
+            <property name="layout-style">end</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

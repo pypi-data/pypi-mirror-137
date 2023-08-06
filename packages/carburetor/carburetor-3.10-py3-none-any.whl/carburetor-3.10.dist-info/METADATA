@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: carburetor
+Version: 3.10
+Summary: GTK frontend for Tractor
+Home-page: https://framagit.org/tractor/carburetor
+Author: Danial Behzadi
+Author-email: dani.behzi@ubuntu.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://framagit.org/tractor/carburetor/-/issues
+Project-URL: Documentation, https://framagit.org/tractor/carburetor/-/blob/master/man/tractor.1
+Project-URL: Source Code, https://framagit.org/tractor/carburetor
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: traxtor
+
+# Carburetor
+
+[![Translation status](https://hosted.weblate.org/widgets/carburetor/-/translations/svg-badge.svg)](https://hosted.weblate.org/engage/carburetor/?utm_source=widget)
+
+This is a graphical settings app for tractor which is a package uses Python stem library to provide a connection through the onion proxy and sets up proxy in user session, so you don't have to mess up with TOR on your system anymore. 
+
+## Install
+On Ubuntu based distros, make sure that you have `software-properties-common` package installed an then do as following:
+
+    sudo add-apt-repository ppa:tractor-team/tractor
+    sudo apt update
+    sudo apt install carburetor
+
+If you are using a distro other than Ubuntu, please check if the release name in the relevant file located in `/etc/apt/sources.list.d/` is a supported one (e.g. jammy).
+
+On Debian systems you may use up to the `hirsute` channel binaries, since it doesn't support the new compression algorithm. May be I try to setup a CI/CD pipeline for releasing Debian .debs.
+
+For othe distros, the recommended method is by using [Python package index](https://pypi.org/project/carburetor/). However anyone is welcome in contributing native package build recepies for their distribution.
+
+## Run
+you can run `carburetor` by command line or through your desktop environment.
+
+## Contributing
+There are some important areas you can contribute to this project:
+
+* Adding support of new `libhandy` features such as [Style manager](https://gnome.pages.gitlab.gnome.org/libhandy/doc/main/class.StyleManager.html) for version 3.
+* Porting to `libadwaita` for version 4.
+* Creating a CI/CD pipeline for making local Debian releases.
+* Improvement in Pypi release to support desktop-related issues better.
+* Making native package build recepies for more GNU/Linux distros.
+* Designing a better app icon to suit other GNOME apps.
+* Making [appstream](https://www.freedesktop.org/software/appstream/docs/) data correct.
+* Releasing on Flathub and moving it to GNOME Circle.
+
+
