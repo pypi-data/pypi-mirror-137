@@ -1,0 +1,79 @@
+Metadata-Version: 2.1
+Name: gerador_endereco
+Version: 1.0.10
+Summary: API para criação de endereços aleatórios em um município específico.
+Home-page: https://github.com/open-dsa/gerador_endereco
+Download-URL: https://github.com/open-dsa/gerador_endereco
+Author: Michel Metran
+Author-email: michelmetran@gmail.com
+License: MIT
+Project-URL: Documentation, https://github.com/open-dsa/gerador_endereco#readme
+Project-URL: Issue Tracker, https://github.com/open-dsa/gerador_endereco/issues
+Project-URL: Source Code, https://github.com/open-dsa/gerador_endereco
+Keywords: python,endereço aleatório,address
+Platform: any
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: Portuguese
+Classifier: Natural Language :: Portuguese (Brazilian)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Gerador Endereço
+
+<br>
+
+Programa para gerar endereços aleatórios d'um município para popular um banco de dados.
+
+<br>
+
+----
+
+### Como Instalar?
+
+```bash
+pip install gerador-endereco --upgrade
+```
+
+<br>
+
+----
+
+### Como usar?
+
+1. Inicialmente é necessário gerar um conjunto/lista de CEPs únicos e aleatórios, definindo apenas a unidade da federação e nome do município.
+
+Como resultado, são geradas duas listas: a primeira contendo CEPs e a segunda contendo bairros.
+
+```python
+import random
+from gerador_endereco import *
+
+listas = get_list_ceps_bairros(estado='sp', municipio='piracicaba')
+```
+
+<br>
+
+2. Uma vez com essa lista de CEPs aleatórios, é possível obter o logradouro completo por meio da função.
+
+```python
+cep = random.choice(listas[0])
+get_random_complete_address(cep)
+```
+
+<br>
+
+----
+
+### Referências
+
+- [**GitHub**: consulta_correios](https://github.com/arthurfortes/consulta_correios)
+- [**Medium**: Consultar Endereços e CEPs brasileiros utilizando python](https://fortes-arthur.medium.com/consultar-endereços-e-ceps-brasileiros-utilizando-python-9c8f14f4592)
+
+
