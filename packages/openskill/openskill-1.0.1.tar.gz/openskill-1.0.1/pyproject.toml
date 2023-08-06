@@ -1,0 +1,100 @@
+[tool.poetry]
+name = "openskill"
+version = "1.0.1"
+description = "Python implementation of Weng-Lin Bayesian ranking, a better, license-free alternative to TrueSkill."
+authors = ["Taven <taven@outlook.in>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/OpenDebates/openskill.py"
+repository = "https://github.com/OpenDebates/openskill.py"
+documentation = "https://openskillpy.readthedocs.io"
+keywords = [
+    "ranking",
+    "trueskill",
+    "bayesian",
+    "rating"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+	"Intended Audience :: Developers",
+	"License :: OSI Approved :: MIT License",
+	"Natural Language :: English",
+	"Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only"
+]
+packages = [
+    { include = "openskill" }
+]
+include = [
+    ".bumpversion.cfg",
+    ".coveragerc",
+    ".editorconfig",
+    ".readthedocs.yml",
+    "AUTHORS.rst",
+    "CODE_OF_CONDUCT.md",
+    "docs/*",
+    "tests/*",
+    "tox.ini",
+    "poetry.lock",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9, < 3.11"
+scipy = "^1.7.3"
+
+[tool.poetry.dev-dependencies]
+Sphinx = "^4.4.0"
+pytest = "^7.0.0"
+pytest-cov = "^3.0.0"
+Pygments = "^2.11.2"
+isort = "^5.9.1"
+twine = "^3.8.0"
+codecov = "^2.1.11"
+bump2version = "^1.0.1"
+black = "^22.1.0"
+furo = "^2022.1.2"
+jsonlines = "^3.0.0"
+prompt-toolkit = "^3.0.26"
+trueskill = "^0.4.5"
+towncrier = "^21.3.0"
+
+[tool.poetry.extras]
+docs = ["sphinx", "furo"]
+
+[tool.towncrier]
+package = "openskill"
+package_dir = "openskill"
+directory = "changes"
+filename = "CHANGELOG.rst"
+issue_format = "`#{issue} <https://github.com/OpenDebates/openskill.py/issues/{issue}>`_"
+type = [
+    { name = "Breaking Changes",            directory = "breaking",     showcontent = true },
+    { name = "Deprecation",                 directory = "deprecation",  showcontent = true },
+    { name = "Features",                    directory = "feature",      showcontent = true },
+    { name = "Bugfixes",                    directory = "bugfix",       showcontent = true },
+    { name = "Documentation Improvements",  directory = "doc",          showcontent = true },
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra --strict-markers --ignore=docs/conf.py --ignore=setup.py --ignore=benchmark/benchmark.py --ignore=ci --ignore=.eggs --doctest-modules --doctest-glob=/*.rst --tb=short"
+norecursedirs = [
+	".git",
+	".tox",
+	".env",
+	"dist",
+	"build",
+	"migrations"
+]
+testpaths = [
+    "tests"
+]
+python_files = [
+	"test_*.py",
+	"*_test.py",
+	"tests.py"
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
