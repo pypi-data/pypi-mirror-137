@@ -1,0 +1,72 @@
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+.content {
+        max-width: 95%;
+        margin: auto;
+    }
+@media (min-width:1200px) {
+    .content {
+        max-width: 75%;
+    }
+}
+
+@media (min-width:1900px) {
+    .content {
+        max-width: 60%;
+    }
+}
+
+.png {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+pre {
+    font-size: 0.9em!important;
+    line-height: 0.9!important;
+    border-radius: 0!important;
+}
+
+
+.input-block {
+    border-left: 5px solid #64dd17;
+    border-right: 5px solid #64dd17;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+.output-block pre {
+    border-left: 5px solid grey;
+    border-right: 5px solid grey;
+    /* border-bottom: 2px solid grey; */
+    /* border-top: 2px solid grey; */
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.output-block-err pre{
+    border-left: 5px solid #b71c1c;
+    border-right: 5px solid #b71c1c;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+div.highlight pre {
+    margin-bottom: 0px;
+}
+
+.svg {
+    width: 100%;
+}
+
+.pdf {
+    width:100%;
+    min-height:600px;
+}
+
+div.root-block pre {
+margin-top: 0px!important;
+
+}
