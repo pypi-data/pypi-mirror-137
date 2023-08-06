@@ -1,0 +1,13 @@
+{
+    "python.defaultInterpreterPath": "./venv/scripts/python",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django",
+        "--django-settings-module",
+        "project.settings",
+        "--rcfile",
+        ".pylintrc"
+    ]
+}
