@@ -1,0 +1,1 @@
+import tuition_calc.school as school 
