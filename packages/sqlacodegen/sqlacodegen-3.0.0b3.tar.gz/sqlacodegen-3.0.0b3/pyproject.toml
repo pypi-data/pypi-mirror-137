@@ -1,0 +1,60 @@
+[build-system]
+requires = [
+    "setuptools >= 42",
+    "wheel >= 0.29.0",
+    "setuptools_scm[toml] >= 3.4"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+version_scheme = "post-release"
+local_scheme = "dirty-tag"
+
+[tool.isort]
+src_paths = ["src"]
+skip_gitignore = true
+line_length = 99
+multi_line_output = 4
+
+[tool.flake8]
+max-line-length = 99
+
+[tool.autopep8]
+max_line_length = 99
+
+[tool.mypy]
+python_version = "3.7"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "-rsx --tb=short"
+testpaths = ["tests"]
+
+[coverage.run]
+source = ["sqlacodegen"]
+relative_files = true
+
+[coverage.report]
+show_missing = true
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = pre-commit, py37, py38, py39, py310
+skip_missing_interpreters = true
+isolated_build = true
+
+[testenv]
+depends = pre-commit
+extras = test
+setenv =
+    SQLALCHEMY_WARN_20 = true
+commands = python -m pytest {posargs}
+
+[testenv:pre-commit]
+depends =
+deps = pre-commit
+commands = pre-commit run --all-files
+skip_install = true
+"""
