@@ -1,0 +1,83 @@
+Metadata-Version: 2.1
+Name: pydantic-spark
+Version: 0.1.1
+Summary: Converting pydantic classes to spark schemas
+Home-page: https://github.com/godatadriven/pydantic-spark
+License: MIT
+Keywords: pydantic,spark
+Author: Peter van 't Hof'
+Author-email: peter.vanthof@godatadriven.com
+Requires-Python: >=3.6.1,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Provides-Extra: spark
+Requires-Dist: pydantic (>=1.4.0,<2.0.0)
+Requires-Dist: pyspark (>=3.1.2,<3.2.0); extra == "spark"
+Project-URL: Repository, https://github.com/godatadriven/pydantic-spark
+Description-Content-Type: text/markdown
+
+[![Python package](https://github.com/godatadriven/pydantic-spark/actions/workflows/python-package.yml/badge.svg)](https://github.com/godatadriven/pydantic-spark/actions/workflows/python-package.yml)
+[![codecov](https://codecov.io/gh/godatadriven/pydantic-spark/branch/main/graph/badge.svg?token=5L08GOERAW)](https://codecov.io/gh/godatadriven/pydantic-spark)
+[![PyPI version](https://badge.fury.io/py/pydantic-spark.svg)](https://badge.fury.io/py/pydantic-spark)
+[![CodeQL](https://github.com/godatadriven/pydantic-spark/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/godatadriven/pydantic-spark/actions/workflows/codeql-analysis.yml)
+
+# pydantic-spark
+
+This library can convert a pydantic class to a spark schema or generate python code from a spark schema.
+
+### Install
+
+```bash
+pip install pydantic-spark
+```
+
+### Pydantic class to spark schema
+
+```python
+import json
+from typing import Optional
+
+from pydantic_spark.base import SparkBase
+
+class TestModel(SparkBase):
+    key1: str
+    key2: int
+    key2: Optional[str]
+
+schema_dict: dict = TestModel.spark_schema()
+print(json.dumps(schema_dict))
+
+```
+
+### Install for developers
+
+###### Install package
+
+- Requirement: Poetry 1.*
+
+```shell
+poetry install
+```
+
+###### Run unit tests
+```shell
+pytest
+coverage run -m pytest  # with coverage
+# or (depends on your local env) 
+poetry run pytest
+poetry run coverage run -m pytest  # with coverage
+```
+
+##### Run linting
+
+The linting is checked in the github workflow. To fix and review issues run this:
+```shell
+black .   # Auto fix all issues
+isort .   # Auto fix all issues
+pflake .  # Only display issues, fixing is manual
+```
+
