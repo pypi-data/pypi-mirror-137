@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: koalak
+Version: 0.2.10
+Summary: Framework manager, framework to create frameworks
+Home-page: https://github.com/nazime/koalak
+Author: Nazime LAKEHAL
+Author-email: nazime.lkh@gmail.com
+Maintainer: Nazime LAKEHAL
+Maintainer-email: nazime.lkh@gmail.com
+License: MIT
+Project-URL: Documentation, https://koalak.readthedocs.org/
+Project-URL: Bug Tracker, https://github.com/nazime/koalak/issues
+Project-URL: Source Code, https://github.com/nazime/koalak
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Natural Language :: English
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: attrs
+Requires-Dist: coloring
+Requires-Dist: sqlalchemy
+Provides-Extra: dev
+Requires-Dist: coverage ; extra == 'dev'
+Requires-Dist: hypothesis ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: pytest (>=4.3.0) ; extra == 'dev'
+Requires-Dist: sphinx ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Provides-Extra: tests
+Requires-Dist: coverage ; extra == 'tests'
+Requires-Dist: hypothesis ; extra == 'tests'
+Requires-Dist: pytest (>=4.3.0) ; extra == 'tests'
+Provides-Extra: travis
+Requires-Dist: codecov ; extra == 'travis'
+Requires-Dist: coverage ; extra == 'travis'
+Requires-Dist: hypothesis ; extra == 'travis'
+Requires-Dist: pre-commit ; extra == 'travis'
+Requires-Dist: pytest (>=4.3.0) ; extra == 'travis'
+Requires-Dist: sphinx ; extra == 'travis'
+Requires-Dist: tox ; extra == 'travis'
+
+# Koalak
+
+Koalak is a collections of tools that helps me create my libraries, the library focus on creating plugins architectures. The project is currently under development, I shared the repository because it is used by my tool **wordlistools**.
+
+Koala features
+
+- Manage plugins for your project
+- Allow you to create new plugins from project home directory
+
+
