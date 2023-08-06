@@ -1,0 +1,72 @@
+[tool.poetry]
+name = "eir-dl"
+version = "0.1.20-alpha"
+description = ""
+license = "AGPLv3"
+authors = ["Arnor Sigurdsson"]
+packages = [
+    { include="eir", from="." },
+]
+
+[tool.poetry.dependencies]
+python = ">= 3.8,< 3.10"
+pandas = "^1.2.0"
+numpy = "^1.19.2"
+torch = "^1.10.0"
+torchvision = "^0.11.1"
+py = "^1.9.0"
+matplotlib = "3.4.3"
+pytorch-ignite = "^0.4.7"
+tqdm = "^4.55.0"
+sympy = "^1.6.2"
+scikit-learn = "^1.0"
+seaborn = "^0.11.1"
+joblib = "^1.1.0"
+tensorboard = "^2.3.0"
+ConfigArgParse = "^1.2.3"
+plotly = "^5.3.1"
+torch-optimizer = "^0.3.0"
+adabelief-pytorch = "^0.2.0"
+dill = "^0.3.3"
+hypothesis = "^6.14.0"
+aislib = "^0.1.7-alpha.0"
+colorama = "^0.4.4"
+torchtext = "^0.11.0"
+shap = "^0.40.0"
+transformers = "^4.11.3"
+sentencepiece = "^0.1.96"
+ipython = "^7.28.0"
+perceiver-pytorch = "^0.8.1"
+timm = "^0.5.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.1"
+tox = "^3.20.1"
+flake8 = "^4.0.1"
+jupyter = "^1.0.0"
+ipykernel = "^6.4.2"
+coverage = "^6.0.2"
+snakeviz = "^2.1.0"
+pytest-cov = "^3.0.0"
+pytest-testmon = "^1.0.3"
+pynvim = "^0.4.2"
+visidata = "^2.0.1"
+pre-commit = "^2.7.1"
+gpustat = "^0.6.0"
+pyinstaller = "^4.0"
+black = "^21.5b2"
+Sphinx = "^4.0.2"
+sphinx-rtd-theme = "^1.0.0"
+sphinx-copybutton = "^0.4.0"
+tomlkit = "^0.7.2"
+gdown = "^4.2.1"
+pdf2image = "^1.16.0"
+
+
+[tool.poetry.scripts]
+eirtrain = "eir.train:main"
+eirpredict = "eir.predict:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
