@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "piku"
+version = "0.1.4"
+description = ""
+authors = ["Mark Raleson <markraleson@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/mraleson/piku.git"
+packages = [
+  { include="piku" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyserial = "^3.5"
+toml = "^0.10.2"
+appdirs = "^1.4.4"
+requests = "^2.27.1"
+Jinja2 = "^3.0.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[tool.poetry.scripts]
+piku = 'piku.main:main'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
