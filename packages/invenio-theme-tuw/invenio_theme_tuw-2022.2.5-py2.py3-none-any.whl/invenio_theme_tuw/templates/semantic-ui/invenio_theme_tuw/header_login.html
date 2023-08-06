@@ -1,0 +1,65 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2015-2018 CERN.
+  Copyright (C) 2021      TU Wien.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- if config.ACCOUNTS %}
+  {%- if not current_user.is_authenticated %}
+    <a href="{{ url_for_security('login', next=request.path) }}" class="login-btn desktop">
+      <span><i class="user icon"></i> {{ _("Log in") }}</span>
+    </a>
+  {%- elif current_user.is_authenticated %}
+    <a href=" {{ url_for_security('logout') }}" class="login-btn desktop">
+      <span><i class="sign out icon"></i> {{ _("Log out") }}</span>
+    </a>
+  {%- endif %}
+{%- endif %}
+
+{#
+{%- if config.ACCOUNTS %}
+  {%- if not current_user.is_authenticated %}
+    <a href="{{ url_for_security('login', next=request.path) }}" class="ui button">
+      <span class="grey">
+        <i class="sign-in icon"></i>
+        {{ _('Log in') }}
+      </span>
+    </a>
+    {% if security.registerable %}
+      <a href="{{ url_for_security('register') }}" class="ui button signup">
+        <i class="edit outline icon"></i>
+        {{ _('Sign up') }}
+      </a>
+    {% endif %}
+  {%- else %}
+    {%- if config.USERPROFILES %}
+      <div class="ui buttons">
+        <a class="ui button" href="{{ url_for('invenio_userprofiles.profile') }}">
+          <span class="grey">
+            <i class="user icon"></i> {{ current_user.email|truncate(31,true) }}
+          </span>
+        </a>
+        <div class="ui dropdown icon button floating">
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            {%- for item in current_menu.submenu('settings').children if item.visible %}
+              <a class="item" style="color:black;" href="{{ item.url }}">{{ item.text|safe }}</a>
+            {%- endfor %}
+
+            <div class="divider"></div>
+            <a class="item" style="color:black;" href="{{ url_for_security('logout') }}">
+              <i class="sign-out icon"></i>
+              {{ _('Log out') }}
+            </a>
+          </div>
+        </div>
+      </div>
+    {%- else %}
+      <a href=" {{ url_for_security('logout') }}" class="ui button"><i class="sign-out icon"></i> {{ _('Log out') }}</a>
+    {%- endif %}
+  {%- endif %}
+{%- endif %}
+#}
