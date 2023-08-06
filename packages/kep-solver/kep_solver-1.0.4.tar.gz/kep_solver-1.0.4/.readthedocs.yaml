@@ -1,0 +1,11 @@
+sphinx:
+   configuration: docs/conf.py
+
+# Need to use testing image for python 3.9
+build:
+   image: testing
+
+python:
+   version: 3.9
+   install:
+   - requirements: docs/requirements.txt
