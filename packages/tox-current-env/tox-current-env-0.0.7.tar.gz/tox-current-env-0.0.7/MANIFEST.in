@@ -1,0 +1,6 @@
+include LICENSE
+include pyproject.toml
+include tox.ini
+recursive-include tests *.py
+recursive-include tests *.ini
+prune tests/.tox
