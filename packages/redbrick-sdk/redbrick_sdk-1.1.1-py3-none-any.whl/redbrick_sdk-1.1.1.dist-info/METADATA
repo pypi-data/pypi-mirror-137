@@ -1,0 +1,135 @@
+Metadata-Version: 2.1
+Name: redbrick-sdk
+Version: 1.1.1
+Summary: RedBrick platform Python SDK!
+Home-page: https://github.com/redbrick-ai/redbrick-sdk
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6, <3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests (==2.23.0)
+Requires-Dist: tqdm (==4.50.0)
+Requires-Dist: aiohttp (==3.7.4)
+Requires-Dist: cchardet (==2.1.7)
+Requires-Dist: aiodns (==3.0.0)
+Requires-Dist: Pillow (==8.3.2)
+Requires-Dist: shapely (==1.8.0)
+Requires-Dist: numpy (>=1.15)
+Requires-Dist: matplotlib (>=3.2)
+Requires-Dist: scikit-image (<=0.18.3,>=0.17.2)
+Requires-Dist: pyparsing (==2.4.7)
+Requires-Dist: aiofiles (==0.8.0)
+Requires-Dist: InquirerPy (<=0.3.0,>=0.2.1)
+Requires-Dist: halo (==0.0.31)
+Requires-Dist: tenacity (==8.0.1)
+Requires-Dist: natsort (==8.0.2)
+Requires-Dist: nibabel (==3.2.1)
+Requires-Dist: boto3 (==1.20.43)
+Requires-Dist: rasterio (==1.2.10) ; sys_platform == "darwin"
+Requires-Dist: rasterio (==1.2.10) ; sys_platform == "linux"
+Provides-Extra: dev
+Requires-Dist: twine (==3.1.1) ; extra == 'dev'
+Requires-Dist: wheel (==0.35.1) ; extra == 'dev'
+Requires-Dist: pytest-mock (==3.3.1) ; extra == 'dev'
+Requires-Dist: pytest (==6.1.2) ; extra == 'dev'
+Requires-Dist: black (==21.7b0) ; extra == 'dev'
+Requires-Dist: mypy (==0.790) ; extra == 'dev'
+Requires-Dist: mypy-extensions (==0.4.3) ; extra == 'dev'
+Requires-Dist: pylint (==2.11.1) ; extra == 'dev'
+Requires-Dist: pycodestyle (==2.6.0) ; extra == 'dev'
+Requires-Dist: pydocstyle (==5.1.1) ; extra == 'dev'
+Requires-Dist: flake8 (==3.8.4) ; extra == 'dev'
+Requires-Dist: flake8-print (==3.1.4) ; extra == 'dev'
+Requires-Dist: eradicate (==1.0) ; extra == 'dev'
+Requires-Dist: pytest-cov (>=2.8.1) ; extra == 'dev'
+Requires-Dist: pytest-asyncio (==0.12.0) ; extra == 'dev'
+Requires-Dist: pytest-eradicate (==0.0.5) ; extra == 'dev'
+Requires-Dist: pytest-pycodestyle (==2.2.0) ; extra == 'dev'
+Requires-Dist: pytest-pydocstyle (==2.2.0) ; extra == 'dev'
+Requires-Dist: pytest-black (==0.3.12) ; extra == 'dev'
+Requires-Dist: pytest-pylint (==0.17.0) ; extra == 'dev'
+Requires-Dist: pytest-mypy (==0.7.0) ; extra == 'dev'
+Requires-Dist: pytest-flake8 (==1.0.6) ; extra == 'dev'
+Requires-Dist: pytest-randomly (==3.4.1) ; extra == 'dev'
+
+# Introduction
+
+This is an SDK to make integration with the RedBrick platform as easy as possible. This includes uploading and downloading data
+as well as making your datasets easily available for training. Use this SDK to access your data and labels anywhere you run your code, whether that is on the cloud or locally with a Jupyter Notebook.
+
+Please feel free to submit issues on github or at [support@redbrickai.com](mailto:support@redbrickai.com) if you run into any problems or have suggestions.
+
+## Quickstart
+
+After creating an account on [app.redbrickai.com](https://app.redbrick.com),
+
+```bash
+pip install --upgrade redbrick-sdk
+```
+
+You'll need to get your API key before you can utilize the SDK.
+
+```python
+"""redbrick quickstart."""
+import redbrick
+
+api_key = "<>"
+url = "https://api.redbrickai.com"
+org_id = "<>"
+project_id = "<>"
+project = redbrick.get_project(api_key, url, org_id, project_id)
+
+
+```
+
+## Importing data
+
+There is a single way to import data into your project through the sdk. This is done using the create datapoint api.
+
+An example using a "Public" storage method is given below
+
+```python
+
+# default public storage method
+storage_id = "11111111-1111-1111-1111-111111111111"
+
+datapoints = [
+    {
+        "name": "my first upload",
+        "items": [
+            "http://datasets.redbrickai.com/car-vids/car-1/frame20.png"
+        ]
+    }
+]
+task_objects = project.upload.create_datapoints(storage_id, datapoints)
+
+
+# Datapoint object definition
+{
+    # REQUIRED: must be unique within a project
+    "name": "my first upload",
+    # List of urls or item paths, depending on your storage method
+    "items": [
+        "http://datasets.redbrickai.com/car-vids/car-1/frame20.png"
+    ],
+    # List of RedBrick Label objects
+    "labels":  [<Label object>]
+
+}
+
+
+```
+
+## Exporting data from your project
+
+```python
+import json
+
+result = project.export.redbrick_format()
+
+with open("export.json", "w+") as file_:
+    json.dump(file_, result, indent=2)
+```
+
+
