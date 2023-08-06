@@ -1,0 +1,64 @@
+Metadata-Version: 2.1
+Name: adom
+Version: 0.0.1
+Summary: A domonic-like wrapper around selectolax
+Home-page: https://github.com/byteface/adom
+Author: @byteface
+Author-email: byteface@gmail.com
+License: MIT
+Download-URL: https://github.com/byteface/adom/archive/0.0.1 .tar.gz
+Keywords: html,generate,templating,dom,vdom,web,template,DOM,GUI,website,html5
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: JavaScript
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Other Audience
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Internet
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Multimedia :: Graphics :: Presentation
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Code Generators
+Classifier: Topic :: Terminals
+Classifier: Topic :: Utilities
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Text Processing :: Markup :: HTML
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# adom
+
+A [domonic-like](https://github.com/byteface/domonic) wrapper around [selectolax](https://github.com/rushter/selectolax)
+
+```python
+from dom import *
+print(html(body(h1('Hello, World!'))))
+# <html><body><h1>Hello, World!</h1></body></html>
+```
+
+```python
+from window import *
+window.location = "https://www.google.com"
+print( window.document.css('a') )
+# [<Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>, <Node a>]
+```
+
+### install
+
+```bash
+python3 -m pip install adom
+```
+
+
