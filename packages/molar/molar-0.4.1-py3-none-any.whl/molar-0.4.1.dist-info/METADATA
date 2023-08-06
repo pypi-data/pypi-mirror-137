@@ -1,0 +1,83 @@
+Metadata-Version: 2.1
+Name: molar
+Version: 0.4.1
+Summary: "A database to store chemical data"
+Home-page: https://github.com/aspuru-guzik-group/molar
+Author: "Theophile Gaudin", "Ian Benlolo", "Zheng Yu Cui"
+Author-email: "theophile.gaudin@gmail.com"
+License: MIT
+Keywords: chemistry,molecule,synthesis,database,postgres,rest,api
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Click (>=7.0)
+Requires-Dist: rich (>=10.1.0)
+Requires-Dist: numpy (>=1.20.1)
+Requires-Dist: pandas (>=1.2.3)
+Requires-Dist: python-jose[cryptography] (>=3.2.0)
+Provides-Extra: backend
+Requires-Dist: alembic (>=1.6.3) ; extra == 'backend'
+Requires-Dist: docker-compose (>=1.29.2) ; extra == 'backend'
+Requires-Dist: emails (>=0.6) ; extra == 'backend'
+Requires-Dist: pydantic[email] (>=1.8.2) ; extra == 'backend'
+Requires-Dist: python-multipart (>=0.0.5) ; extra == 'backend'
+Requires-Dist: pytz (>=2019.3) ; extra == 'backend'
+Requires-Dist: psycopg2-binary (>=2.8.6) ; extra == 'backend'
+Requires-Dist: passlib (>=1.7.4) ; extra == 'backend'
+Requires-Dist: SQLAlchemy (>=1.4.15) ; extra == 'backend'
+Requires-Dist: bcrypt (>=3.2.0) ; extra == 'backend'
+Requires-Dist: fastapi (>=0.72.0) ; extra == 'backend'
+Requires-Dist: uvicorn (>=0.13.4) ; extra == 'backend'
+Requires-Dist: python-on-whales (>=0.19.1) ; extra == 'backend'
+Requires-Dist: python-dotenv (>=0.17.1) ; extra == 'backend'
+Requires-Dist: jinja2 (>=3.0.1) ; extra == 'backend'
+Provides-Extra: docs
+Requires-Dist: sphinx (~=3.0) ; extra == 'docs'
+Requires-Dist: nbsphinx (>=0.8.6) ; extra == 'docs'
+Requires-Dist: furo (>=2021.4.11b34) ; extra == 'docs'
+Requires-Dist: sphinx-copybutton (>=0.3.3) ; extra == 'docs'
+Provides-Extra: tests
+Requires-Dist: pytest ; extra == 'tests'
+
+# Molar 🦷
+
+Molar is a database management system for PostgreSQL. Its main focus is to enable chemists and material scientist to store the results of their experiment, whether exprimental or not!
+
+It consists of a REST API (implemented using FastAPI) and a python client. ITs main features are:
+
+ - Creation / deletion of database o nuser request
+ - User management per database (using JWT tokens and OAuth2)
+ - Event sourcing to be sure not to lose any data
+ - Client integrates with [PyData's pandas](https://pandas.pydata.org)
+ - Support to have different database structure, thanks to [Alembic](https://alembic.sqlalchemy.org)
+ - Easy to deploy (you just need 2 command lines, `using docker-compose`)
+
+## Docs
+
+[See here](https://molar.readthedocs.io)
+
+
+ ## Installation
+
+You can install the package through PYPI.
+
+ ```bash
+  $ pip install molar
+ ```
+
+ If you want to install the backend, you will need extra dependancies.
+
+ ```bash
+  $ pip install molar[backend]
+ ```
+
+ Molar ships with a command line interface that makes it easy to deploy, all you need to do is (providing docker is already installed):
+
+```bash
+  $ molarcli install local
+```
+
+
