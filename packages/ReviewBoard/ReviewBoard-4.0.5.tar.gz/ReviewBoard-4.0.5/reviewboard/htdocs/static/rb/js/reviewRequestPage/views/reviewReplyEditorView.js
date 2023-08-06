@@ -1,0 +1,252 @@
+"use strict";
+
+/**
+ * Handles editing a reply to a comment in a review.
+ *
+ * This will handle the "New Comment" link and the draft banners for the
+ * review.
+ */
+RB.ReviewRequestPage.ReviewReplyEditorView = Backbone.View.extend({
+  commentTemplate: _.template("<li <% if (isDraft) { %>class=\"draft\"<% } %>\n    <% if (commentID) { %>data-comment-id=\"<%= commentID %>\"<% } %>>\n <% if (anchorName) { %>\n  <a class=\"comment-anchor\" name=\"<%- anchorName %>\"></a>\n  <div class=\"floating-anchor\">\n   <a href=\"#<%- anchorName %>\"\n      class=\"fa fa-link fa-flip-horizontal\"></a>\n  </div>\n <% } %>\n <div class=\"comment-author\">\n  <label for=\"<%= id %>\">\n   <div class=\"avatar-container\"><%= avatarHTML %></div>\n   <div class=\"user-reply-info\">\n    <a href=\"<%= userPageURL %>\" class=\"user\"><%- fullName %></a>\n<% if (timestamp) { %>\n    <span class=\"timestamp\">\n     <time class=\"timesince\" datetime=\"<%= timestampISO %>\">\n<%= timestamp %></time>\n    </span>\n<% } %>\n   </div>\n  </label>\n </div>\n <div>\n  <pre id=\"<%= id %>\" class=\"comment-text reviewtext\"><%- text %></pre>\n </div>\n</li>"),
+  events: {
+    'click .add_comment_link': '_onAddCommentClicked'
+  },
+
+  /**
+   * Initialize the view.
+   *
+   * Args:
+   *     options (object):
+   *         Options for the view.
+   *
+   * Option Args:
+   *     reviewRequestEditor (RB.ReviewRequestEditor):
+   *         The editor model.
+   */
+  initialize: function initialize(options) {
+    this.options = options;
+    this._$addCommentLink = null;
+    this._$draftComment = null;
+    this._$editor = null;
+    this._$commentsList = null;
+  },
+
+  /**
+   * Render the comment section.
+   *
+   * If there were any draft comments found, then editors will be
+   * created for them, the New Comment link will be hidden.
+   *
+   * Returns:
+   *     RB.ReviewRequestPage.ReviewReplyEditorView:
+   *     This object, for chaining.
+   */
+  render: function render() {
+    var _this = this;
+
+    this._$addCommentLink = this.$('.add_comment_link');
+    this._$commentsList = this.$('.reply-comments');
+    /* See if there's a draft comment to import from the page. */
+
+    var $draftComment = this._$commentsList.children('.draft');
+
+    if ($draftComment.length !== 0) {
+      var $time = $draftComment.find('time');
+      var $reviewText = $draftComment.find('.reviewtext');
+      this.model.set({
+        commentID: $draftComment.data('comment-id'),
+        text: $reviewText.html(),
+        timestamp: new Date($time.attr('datetime')),
+        richText: $reviewText.hasClass('rich-text'),
+        hasDraft: true
+      });
+
+      this._createCommentEditor($draftComment);
+    }
+
+    this.listenTo(this.model, 'textUpdated', function () {
+      if (_this._$editor) {
+        var reviewRequest = _this.model.get('review').get('parentObject');
+
+        RB.formatText(_this._$editor, {
+          newText: _this.model.get('text'),
+          richText: _this.model.get('richText'),
+          bugTrackerURL: reviewRequest.get('bugTrackerURL')
+        });
+      }
+    });
+    this.model.on('resetState', function () {
+      if (_this._$draftComment) {
+        _this._$draftComment.fadeOut(function () {
+          _this._$draftComment.remove();
+
+          _this._$draftComment = null;
+        });
+      }
+
+      _this._$addCommentLink.fadeIn();
+    });
+    this.model.on('published', this._onPublished, this);
+  },
+
+  /**
+   * Open the comment editor for a new comment.
+   */
+  openCommentEditor: function openCommentEditor() {
+    this._createCommentEditor(this._makeCommentElement());
+
+    this._$editor.inlineEditor('startEdit');
+  },
+
+  /**
+   * Create a comment editor for an element.
+   *
+   * Args:
+   *     $draftComment (jQuery):
+   *         The draft comment element.
+   */
+  _createCommentEditor: function _createCommentEditor($draftComment) {
+    var _this2 = this;
+
+    var reviewRequestEditor = this.options.reviewRequestEditor;
+    this._$draftComment = $draftComment;
+    this._$editor = $draftComment.find('pre.reviewtext');
+
+    this._$editor.inlineEditor(_.extend({
+      cls: 'inline-comment-editor',
+      editIconClass: 'rb-icon rb-icon-edit',
+      notifyUnchangedCompletion: true,
+      multiline: true,
+      hasRawValue: true,
+      rawValue: this._$editor.data('raw-value') || ''
+    }, RB.TextEditorView.getInlineEditorOptions({
+      richText: this._$editor.hasClass('rich-text')
+    }))).removeAttr('data-raw-value').on({
+      beginEdit: function beginEdit() {
+        if (reviewRequestEditor) {
+          reviewRequestEditor.incr('editCount');
+        }
+      },
+      complete: function complete(e, value) {
+        var textEditor = RB.TextEditorView.getFromInlineEditor(_this2._$editor);
+
+        if (reviewRequestEditor) {
+          reviewRequestEditor.decr('editCount');
+        }
+
+        _this2.model.set({
+          text: value,
+          richText: textEditor.richText
+        });
+
+        _this2.model.save();
+      },
+      cancel: function cancel() {
+        if (reviewRequestEditor) {
+          reviewRequestEditor.decr('editCount');
+        }
+
+        _this2.model.resetStateIfEmpty();
+      }
+    });
+
+    this._$addCommentLink.hide();
+  },
+
+  /**
+   * Create an element for the comment form.
+   *
+   * Args:
+   *     options (object, optional):
+   *         Options for the comment element.
+   *
+   * Option Args:
+   *     now (Moment):
+   *         The current time.
+   *
+   *     richText (boolean):
+   *         Whether the text is in a rich-text format.
+   *
+   *     text (string):
+   *         The text for the comment.
+   *
+   * Returns:
+   *     jQuery:
+   *     The newly-created element.
+   */
+  _makeCommentElement: function _makeCommentElement() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var userSession = RB.UserSession.instance;
+    var reviewRequest = this.model.get('review').get('parentObject');
+    var now = options.now || moment().utcOffset(userSession.get('timezoneOffset'));
+    var $el = $(this.commentTemplate(_.extend({
+      anchorName: null,
+      id: _.uniqueId('draft_comment_'),
+      text: '',
+      commentID: null,
+      userPageURL: userSession.get('userPageURL'),
+      fullName: userSession.get('fullName'),
+      avatarHTML: userSession.getAvatarHTML(32),
+      isDraft: true,
+      timestampISO: now.format(),
+
+      /*
+       * Note that we format the a.m./p.m. this way to match
+       * what's coming from the Django templates.
+       */
+      timestamp: now.format('MMMM Do, YYYY, h:mm ') + (now.hour() < 12 ? 'a.m.' : 'p.m.')
+    }, options))).find('.user').user_infobox().end().find('time.timesince').timesince().end();
+    Djblets.enableRetinaImages($el);
+
+    if (options.text) {
+      RB.formatText($el.find('.reviewtext'), {
+        newText: options.text,
+        richText: options.richText,
+        bugTrackerURL: reviewRequest.get('bugTrackerURL')
+      });
+    }
+
+    $el.appendTo(this._$commentsList);
+    return $el;
+  },
+
+  /**
+   * Handler for when the New Comment link is clicked.
+   *
+   * Creates a new comment form and editor.
+   *
+   * Args:
+   *     e (Event):
+   *         The event that triggered the callback.
+   */
+  _onAddCommentClicked: function _onAddCommentClicked(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.openCommentEditor();
+  },
+
+  /**
+   * Handler for when the reply is published.
+   *
+   * Updates the draft comment to be a standard comment, and brings back
+   * the New Comment link.
+   */
+  _onPublished: function _onPublished() {
+    if (this._$draftComment) {
+      var model = this.model;
+      var contextType = model.get('contextType');
+
+      this._$draftComment.replaceWith(this._makeCommentElement({
+        anchorName: model.get('anchorPrefix') + model.get('replyObject').id,
+        commentID: model.get('commentID'),
+        text: model.get('text'),
+        richText: model.get('richText'),
+        isDraft: false
+      }));
+
+      this._$draftComment = null;
+    }
+  }
+});
+
+//# sourceMappingURL=reviewReplyEditorView.js.map
