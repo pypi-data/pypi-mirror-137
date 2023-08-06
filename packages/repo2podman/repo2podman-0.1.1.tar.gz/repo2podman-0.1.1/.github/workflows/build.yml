@@ -1,0 +1,93 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: pre-commit/action@v2.0.0
+
+  test:
+    runs-on: ubuntu-20.04
+    strategy:
+      # Do not cancel all jobs if one fails
+      fail-fast: false
+      matrix:
+        python_version: ["3.9"]
+        repo_type:
+          # Only test a subset of the repo2docker tests since we're testing podman,
+          # not the full repo2docker functionality
+          - base
+          - conda/simple
+          - dockerfile
+          # - external
+          # - julia
+          # - memlimit
+          # - nix
+          # - pipfile
+          # - r
+          - unit
+          - venv/default
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python_version }}
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('dev-requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install
+        run: |
+          pip install -r dev-requirements.txt
+          # Make a wheel and install it to catch possible issues with releases
+          python -m build --wheel
+          pip install dist/*.whl
+          pip freeze
+
+      - name: Fetch repo2docker tests
+        run: |
+          git clone --depth 1 --single-branch https://github.com/jupyter/repo2docker tests-repo2docker
+          for d in ./tests-repo2docker/tests/*/; do
+            if [ "${d##*tests/}" != "unit/" ]; then
+              cp -a $d tests
+            fi
+          done
+
+      - name: Run tests
+        run: pytest -v tests/${{ matrix.repo_type }}
+
+  # https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+  publish-pypi:
+    name: Pypi
+    needs:
+      # Only publish if other jobs passed
+      - lint
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: Install pypa/build
+        run: python -m pip install build
+      - name: Build a binary wheel and a source tarball
+        run: python -m build --sdist --wheel --outdir dist/
+      - name: Publish to PyPI
+        if: startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@v1.3.0
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
