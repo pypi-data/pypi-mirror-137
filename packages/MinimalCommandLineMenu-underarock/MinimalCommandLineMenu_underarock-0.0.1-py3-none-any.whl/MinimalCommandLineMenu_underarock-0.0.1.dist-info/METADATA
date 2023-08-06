@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: MinimalCommandLineMenu-underarock
+Version: 0.0.1
+Summary: A minimal Python command line menu
+Home-page: https://github.com/jack-work/MinimalCommandLineMenu/
+Author: John Kelliher
+Author-email: jackwkelliher@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# MinimalCommandLineMenu
+A minimal python module for interactive command line menus.
+
+A Menu has a name and menu items.
+A MenuItem has a name and a func, which bears functionality.
+A Menu can be prompted by calling prompt_menu and passing it as an argument.  Prompting a menu will display the menu and execute a menu item dependent on user input.
+The menu items will be repeatedly prompted until the result of one of the menu funcs is falsey.
+
+Written by John Kelliher
+
