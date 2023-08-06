@@ -1,0 +1,1709 @@
+{
+  "src/lib/components/Alert.react.js": {
+    "description": "The Alert component is hidden if it has no children. When\nchildren are defined the Alert component sets its style to\nbecome visible",
+    "displayName": "Alert",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "The children of this component"
+      },
+      "n_clicks": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An integer that represents the number of times\nthat this element has been clicked on.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "n_clicks_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An integer that represents the time (in ms since 1970)\nat which n_clicks changed. This can be used to tell\nwhich button was changed most recently.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "key": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A unique identifier for the component, used to improve\nperformance by React.js while rendering components\nSee https://reactjs.org/docs/lists-and-keys.html for more info"
+      },
+      "role": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ARIA role attribute"
+      },
+      "data-*": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A wildcard data attribute"
+      },
+      "aria-*": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A wildcard aria attribute"
+      },
+      "accessKey": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines a keyboard shortcut to activate or add focus to the element."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Often used with CSS to style elements with common properties."
+      },
+      "contentEditable": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Indicates whether the element's content is editable."
+      },
+      "contextMenu": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines the ID of a <menu> element which will serve as the element's context menu."
+      },
+      "dir": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines the text direction. Allowed values are ltr (Left-To-Right) or rtl (Right-To-Left)"
+      },
+      "draggable": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines whether the element can be dragged."
+      },
+      "hidden": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "'hidden'",
+                  "computed": false
+                },
+                {
+                  "value": "'HIDDEN'",
+                  "computed": false
+                }
+              ]
+            },
+            {
+              "name": "bool"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Prevents rendering of given element, while keeping child elements, e.g. script elements, active."
+      },
+      "lang": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines the language used in the element."
+      },
+      "spellCheck": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Indicates whether spell checking is allowed for the element."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Defines CSS styles which will override styles previously set."
+      },
+      "tabIndex": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Overrides the browser's default tab order and follows the one specified instead."
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text to be displayed in a tooltip when hovering over the element."
+      },
+      "loading_state": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "is_loading": {
+              "name": "bool",
+              "description": "Determines if the component is loading or not",
+              "required": false
+            },
+            "prop_name": {
+              "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "component_name": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Object that holds the loading state object coming from dash-renderer"
+      }
+    }
+  },
+  "src/lib/components/Button.react.js": {
+    "description": "Button is a wrapper for the <button> HTML5 element.\nFor detailed attribute info see:\nhttps://developer.mozilla.org/en-US/docs/Web/HTML/Element/button",
+    "displayName": "Button",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "The children of this component"
+      },
+      "n_clicks": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An integer that represents the number of times\nthat this element has been clicked on.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "focus": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "A boolen that is set true when the button gains focus and\nfalse when it looses it."
+      },
+      "n_clicks_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An integer that represents the time (in ms since 1970)\nat which n_clicks changed. This can be used to tell\nwhich button was changed most recently.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "key": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A unique identifier for the component, used to improve\nperformance by React.js while rendering components\nSee https://reactjs.org/docs/lists-and-keys.html for more info"
+      },
+      "role": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ARIA role attribute"
+      },
+      "data-*": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A wildcard data attribute"
+      },
+      "aria-*": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A wildcard aria attribute"
+      },
+      "autoFocus": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "'autoFocus'",
+                  "computed": false
+                },
+                {
+                  "value": "'autofocus'",
+                  "computed": false
+                },
+                {
+                  "value": "'AUTOFOCUS'",
+                  "computed": false
+                }
+              ]
+            },
+            {
+              "name": "bool"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The element should be automatically focused after the page loaded."
+      },
+      "disabled": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "'disabled'",
+                  "computed": false
+                },
+                {
+                  "value": "'DISABLED'",
+                  "computed": false
+                }
+              ]
+            },
+            {
+              "name": "bool"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Indicates whether the user can interact with the element."
+      },
+      "form": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Indicates the form that is the owner of the element."
+      },
+      "formAction": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Indicates the action of the element, overriding the action defined in the <form>."
+      },
+      "formEncType": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "If the button/input is a submit button (type=\"submit\"), this attribute sets the encoding type to use during form submission. If this attribute is specified, it overrides the enctype attribute of the button's form owner."
+      },
+      "formMethod": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "If the button/input is a submit button (type=\"submit\"), this attribute sets the submission method to use during form submission (GET, POST, etc.). If this attribute is specified, it overrides the method attribute of the button's form owner."
+      },
+      "formNoValidate": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "'formNoValidate'",
+                  "computed": false
+                },
+                {
+                  "value": "'formnovalidate'",
+                  "computed": false
+                },
+                {
+                  "value": "'FORMNOVALIDATE'",
+                  "computed": false
+                }
+              ]
+            },
+            {
+              "name": "bool"
+            }
+          ]
+        },
+        "required": false,
+        "description": "If the button/input is a submit button (type=\"submit\"), this boolean attribute specifies that the form is not to be validated when it is submitted. If this attribute is specified, it overrides the novalidate attribute of the button's form owner."
+      },
+      "formTarget": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "If the button/input is a submit button (type=\"submit\"), this attribute specifies the browsing context (for example, tab, window, or inline frame) in which to display the response that is received after submitting the form. If this attribute is specified, it overrides the target attribute of the button's form owner."
+      },
+      "name": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Name of the element. For example used by the server to identify the fields in form submits."
+      },
+      "type": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines the type of the element."
+      },
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines a default value which will be displayed in the element on page load."
+      },
+      "accessKey": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Keyboard shortcut to activate or add focus to the element."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Often used with CSS to style elements with common properties."
+      },
+      "contentEditable": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Indicates whether the element's content is editable."
+      },
+      "contextMenu": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines the ID of a <menu> element which will serve as the element's context menu."
+      },
+      "dir": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines the text direction. Allowed values are ltr (Left-To-Right) or rtl (Right-To-Left)"
+      },
+      "draggable": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines whether the element can be dragged."
+      },
+      "hidden": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "'hidden'",
+                  "computed": false
+                },
+                {
+                  "value": "'HIDDEN'",
+                  "computed": false
+                }
+              ]
+            },
+            {
+              "name": "bool"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Prevents rendering of given element, while keeping child elements, e.g. script elements, active."
+      },
+      "lang": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Defines the language used in the element."
+      },
+      "spellCheck": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Indicates whether spell checking is allowed for the element."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Defines CSS styles which will override styles previously set."
+      },
+      "tabIndex": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Overrides the browser's default tab order and follows the one specified instead."
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text to be displayed in a tooltip when hovering over the element."
+      },
+      "loading_state": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "is_loading": {
+              "name": "bool",
+              "description": "Determines if the component is loading or not",
+              "required": false
+            },
+            "prop_name": {
+              "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "component_name": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Object that holds the loading state object coming from dash-renderer"
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that gets fired when the element is clicked."
+      }
+    }
+  },
+  "src/lib/components/ButtonLink.react.js": {
+    "description": "ButtonLink allows you to create a clickable link within a multi-page app in\nthe same way as dcc.Link. The standard dcc.Button attributes `n_clicks` \nand `n_clicks_timestamp` have been added to ButtonLink. These attributes\ncan be used for notification that the ButtonLink has been clicked",
+    "displayName": "ButtonLink",
+    "methods": [
+      {
+        "name": "updateLocation",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "href": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The URL of a linked resource."
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Set true to disable the component"
+      },
+      "refresh": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Controls whether or not the page will refresh when the link is clicked",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Often used with CSS to style elements with common properties."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Defines CSS styles which will override styles previously set."
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "The children of this component"
+      },
+      "n_clicks": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An integer that represents the number of times\nthat this element has been clicked on.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "n_clicks_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An integer that represents the time (in ms since 1970)\nat which n_clicks changed. This can be used to tell\nwhich button was changed most recently.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "loading_state": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "is_loading": {
+              "name": "bool",
+              "description": "Determines if the component is loading or not",
+              "required": false
+            },
+            "prop_name": {
+              "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "component_name": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Object that holds the loading state object coming from dash-renderer"
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called whenever any of the properties change"
+      }
+    }
+  },
+  "src/lib/components/Form.react.js": {
+    "description": "The `Form` components normal submit action is inhibited. Instead the forms \ndata, as it would be reported by the default form action, is collected and is\navailable via the form_data attribute.",
+    "displayName": "Form",
+    "methods": [
+      {
+        "name": "getFormFields",
+        "docblock": "Iterate over form fields\n\n@param elements",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "elements",
+            "description": null,
+            "type": null,
+            "optional": false
+          }
+        ],
+        "returns": null,
+        "description": "Iterate over form fields"
+      },
+      {
+        "name": "handleSubmit",
+        "docblock": "Process form submit\n\n@param e",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "description": null,
+            "type": null,
+            "optional": false
+          }
+        ],
+        "returns": null,
+        "description": "Process form submit"
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "The children of this component"
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Defines CSS styles which will override styles previously set."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Often used with CSS to style elements with common properties."
+      },
+      "key": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A unique identifier for the component, used to improve\nperformance by React.js while rendering components\nSee https://reactjs.org/docs/lists-and-keys.html for more info"
+      },
+      "inline": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Use inline=True to apply the `form-inline` class, allowing you to display\na series of labels, form controls, and buttons on a single horizontal row.\nForm controls within inline forms vary slightly from their default states."
+      },
+      "preventDefault": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Use preventDefault=True to block the forms default action"
+      },
+      "form_data": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The forms data as it would be reported by the default form action"
+      },
+      "loading_state": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "is_loading": {
+              "name": "bool",
+              "description": "Determines if the component is loading or not",
+              "required": false
+            },
+            "prop_name": {
+              "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "component_name": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Object that holds the loading state object coming from dash-renderer"
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called whenever any of the\nproperties change"
+      }
+    }
+  },
+  "src/lib/components/InputWithIcon.react.js": {
+    "description": "Adds a font awesome glyph and tooltip to the end of a standard\ninput box",
+    "displayName": "InputWithIcon",
+    "methods": [],
+    "props": {
+      "tooltip": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "tooltip to associate with glyph"
+      },
+      "icon": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Font awesome glyph name, eg `fa fa-unlock`"
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Call back, triggered when glyph is clicked"
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Defines CSS styles which will override styles previously set."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Often used with CSS to style elements with common properties."
+      },
+      "key": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A unique identifier for the component, used to improve\nperformance by React.js while rendering components\nSee https://reactjs.org/docs/lists-and-keys.html for more info"
+      },
+      "type": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"text\"",
+              "computed": false
+            },
+            {
+              "value": "'number'",
+              "computed": false
+            },
+            {
+              "value": "'password'",
+              "computed": false
+            },
+            {
+              "value": "'email'",
+              "computed": false
+            },
+            {
+              "value": "'range'",
+              "computed": false
+            },
+            {
+              "value": "'search'",
+              "computed": false
+            },
+            {
+              "value": "'tel'",
+              "computed": false
+            },
+            {
+              "value": "'url'",
+              "computed": false
+            },
+            {
+              "value": "'hidden'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The type of control to render"
+      },
+      "value": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The value of the Input"
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Set to True to disable the Input."
+      },
+      "autoComplete": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "This attribute indicates whether the value of the control can be\nautomatically completed by the browser."
+      },
+      "autoFocus": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The element should be automatically focused after the page has loaded."
+      },
+      "inputMode": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"verbatim\"",
+              "computed": false
+            },
+            {
+              "value": "\"latin\"",
+              "computed": false
+            },
+            {
+              "value": "\"latin-name\"",
+              "computed": false
+            },
+            {
+              "value": "\"latin-prose\"",
+              "computed": false
+            },
+            {
+              "value": "\"full-width-latin\"",
+              "computed": false
+            },
+            {
+              "value": "\"kana\"",
+              "computed": false
+            },
+            {
+              "value": "\"katakana\"",
+              "computed": false
+            },
+            {
+              "value": "\"numeric\"",
+              "computed": false
+            },
+            {
+              "value": "\"tel\"",
+              "computed": false
+            },
+            {
+              "value": "\"email\"",
+              "computed": false
+            },
+            {
+              "value": "\"url\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The inputmode global attribute is an enumerated attribute that provides \na hint as to the type of data that might be entered by the user while \nediting the element or its contents. It can have the following values"
+      },
+      "list": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Identifies a list of pre-defined options to suggest to the user.\nThe value must be the id of a <datalist> element in the same document.\nThe browser displays only options that are valid values for this\ninput element.\nThis attribute is ignored when the type attribute's value is\nhidden, checkbox, radio, file, or a button type."
+      },
+      "max": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The maximum (numeric or date-time) value for this item, which must not be\nless than its minimum (min attribute) value."
+      },
+      "maxLength": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "If the value of the type attribute is text, email, search, password, tel,\nor url, this attribute specifies the maximum number of characters\n(in UTF-16 code units) that the user can enter. For other control types,\nit is ignored. It can exceed the value of the size attribute. If it is not\nspecified, the user can enter an unlimited number of characters.\nSpecifying a negative number results in the default behavior (i.e. the\nuser can enter an unlimited number of characters). The constraint is\nevaluated only when the value of the attribute has been changed."
+      },
+      "min": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The minimum (numeric or date-time) value for this item, which must not be\ngreater than its maximum (max attribute) value."
+      },
+      "minLength": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "If the value of the type attribute is text, email, search, password, tel,\nor url, this attribute specifies the minimum number of characters (in\nUnicode code points) that the user can enter. For other control types, it\nis ignored."
+      },
+      "step": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Works with the min and max attributes to limit the increments at which a\nnumeric or date-time value can be set. It can be the string any or a\npositive floating point number. If this attribute is not set to any, the\ncontrol accepts only values at multiples of the step value greater than\nthe minimum."
+      },
+      "size": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The initial size of the control. This value is in pixels unless the value\nof the type attribute is text or password, in which case it is an integer\nnumber of characters. This attribute applies only when the type attribute\nis set to text, search, tel, url, email, or password, otherwise it is\nignored. In addition, the size must be greater than zero. If you do not\nspecify a size, a default value of 20 is used."
+      },
+      "bs_size": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Set the size of the Input. Options: 'sm' (small), 'md' (medium)\nor 'lg' (large). Default is 'md'."
+      },
+      "valid": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Apply valid style to the Input for feedback purposes. This will cause\nany FormFeedback in the enclosing FormGroup with valid=True to display."
+      },
+      "invalid": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Apply invalid style to the Input for feedback purposes. This will cause\nany FormFeedback in the enclosing FormGroup with valid=False to display."
+      },
+      "plaintext": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Set to true for a readonly input styled as plain text with the default\nform field styling removed and the correct margins and padding preserved."
+      },
+      "placeholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A hint to the user of what can be entered in the control . The placeholder\ntext must not contain carriage returns or line-feeds. Note: Do not use the\nplaceholder attribute instead of a <label> element, their purposes are\ndifferent. The <label> attribute describes the role of the form element\n(i.e. it indicates what kind of information is expected), and the\nplaceholder attribute is a hint about the format that the content should\ntake. There are cases in which the placeholder attribute is never\ndisplayed to the user, so the form must be understandable without it."
+      },
+      "name": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The name of the control, which is submitted with the form data."
+      },
+      "pattern": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A regular expression that the control's value is checked against. The\npattern must match the entire value, not just some subset. Use the title\nattribute to describe the pattern to help the user. This attribute applies\nwhen the value of the type attribute is text, search, tel, url, email, or\npassword, otherwise it is ignored. The regular expression language is the\nsame as JavaScript RegExp algorithm, with the 'u' parameter that makes it\ntreat the pattern as a sequence of unicode code points. The pattern is not\nsurrounded by forward slashes."
+      },
+      "n_submit": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the `Enter` key was pressed while the input had focus.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "n_submit_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time that `Enter` was pressed.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "n_blur": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the input lost focus.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "n_blur_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time the input lost focus.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "debounce": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If true, changes to input will be sent back to the Dash server\nonly when the enter key is pressed or when the component loses\nfocus.  If it's false, it will sent the value back on every\nchange.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "loading_state": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "is_loading": {
+              "name": "bool",
+              "description": "Determines if the component is loading or not",
+              "required": false
+            },
+            "prop_name": {
+              "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "component_name": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Object that holds the loading state object coming from dash-renderer"
+      }
+    }
+  },
+  "src/lib/components/LayoutRouter.react.js": {
+    "description": "The children of LayoutRouter are each wrapped in a Div that is\nis hidden/shown based on the current value of the LayoutRouter 'switch' \nattribute.",
+    "displayName": "LayoutRouter",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "The children of this component"
+      },
+      "key": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A unique identifier for the component, used to improve\nperformance by React.js while rendering components\nSee https://reactjs.org/docs/lists-and-keys.html for more info"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Often used with CSS to style elements with common properties."
+      },
+      "switch": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The route to be activated"
+      },
+      "routes": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": "The route/switch values to be associated with each of the child routes"
+      }
+    }
+  },
+  "src/lib/components/Location.react.js": {
+    "description": "Update and track the current window.location object through the window.history state.\nUse in conjunction with the `dash_core_components.Link` component to make apps with multiple pages.\n\nThis is a modified version of the dash-core-components Location component. It allows multiple\nintances to co-exist. In the dcc version the last instance is the only one to \nget history event notifications.",
+    "displayName": "Location",
+    "methods": [
+      {
+        "name": "updateLocation",
+        "docblock": "Called when location property changes",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "props"
+          }
+        ],
+        "returns": null,
+        "description": "Called when location property changes"
+      },
+      {
+        "name": "onLocationChange",
+        "docblock": "Connected to windows event handler",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "Connected to windows event handler"
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": true,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "pathname": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "pathname in window.location - e.g., \"/my/full/pathname\""
+      },
+      "search": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "search in window.location - e.g., \"?myargument=1\""
+      },
+      "hash": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "hash in window.location - e.g., \"#myhash\""
+      },
+      "href": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "href in window.location - e.g., \"/my/full/pathname?myargument=1#myhash\""
+      },
+      "refresh": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Refresh the page when the location is updated?",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that gets fired when the value changes."
+      }
+    }
+  },
+  "src/lib/components/PageTitle.react.js": {
+    "description": "Sets the page title",
+    "displayName": "PageTitle",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The the page title."
+      },
+      "loading_state": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "is_loading": {
+              "name": "bool",
+              "description": "Determines if the component is loading or not",
+              "required": false
+            },
+            "prop_name": {
+              "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "component_name": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Object that holds the loading state object coming from dash-renderer"
+      }
+    }
+  },
+  "src/lib/components/PasswordWithShow.react.js": {
+    "description": "Password input with a show/hide icon that can be clicked\nto reveal the password",
+    "displayName": "PasswordWithShow",
+    "methods": [
+      {
+        "name": "onClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "tooltip": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "tooltip to associate with glyph"
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Defines CSS styles which will override styles previously set."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Often used with CSS to style elements with common properties."
+      },
+      "key": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A unique identifier for the component, used to improve\nperformance by React.js while rendering components\nSee https://reactjs.org/docs/lists-and-keys.html for more info"
+      },
+      "value": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The value of the Input"
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Set to True to disable the Input."
+      },
+      "autoComplete": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "This attribute indicates whether the value of the control can be\nautomatically completed by the browser."
+      },
+      "autoFocus": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The element should be automatically focused after the page has loaded."
+      },
+      "inputMode": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"verbatim\"",
+              "computed": false
+            },
+            {
+              "value": "\"latin\"",
+              "computed": false
+            },
+            {
+              "value": "\"latin-name\"",
+              "computed": false
+            },
+            {
+              "value": "\"latin-prose\"",
+              "computed": false
+            },
+            {
+              "value": "\"full-width-latin\"",
+              "computed": false
+            },
+            {
+              "value": "\"kana\"",
+              "computed": false
+            },
+            {
+              "value": "\"katakana\"",
+              "computed": false
+            },
+            {
+              "value": "\"numeric\"",
+              "computed": false
+            },
+            {
+              "value": "\"tel\"",
+              "computed": false
+            },
+            {
+              "value": "\"email\"",
+              "computed": false
+            },
+            {
+              "value": "\"url\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The inputmode global attribute is an enumerated attribute that provides \na hint as to the type of data that might be entered by the user while \nediting the element or its contents. It can have the following values"
+      },
+      "list": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Identifies a list of pre-defined options to suggest to the user.\nThe value must be the id of a <datalist> element in the same document.\nThe browser displays only options that are valid values for this\ninput element.\nThis attribute is ignored when the type attribute's value is\nhidden, checkbox, radio, file, or a button type."
+      },
+      "max": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The maximum (numeric or date-time) value for this item, which must not be\nless than its minimum (min attribute) value."
+      },
+      "maxLength": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "If the value of the type attribute is text, email, search, password, tel,\nor url, this attribute specifies the maximum number of characters\n(in UTF-16 code units) that the user can enter. For other control types,\nit is ignored. It can exceed the value of the size attribute. If it is not\nspecified, the user can enter an unlimited number of characters.\nSpecifying a negative number results in the default behavior (i.e. the\nuser can enter an unlimited number of characters). The constraint is\nevaluated only when the value of the attribute has been changed."
+      },
+      "min": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The minimum (numeric or date-time) value for this item, which must not be\ngreater than its maximum (max attribute) value."
+      },
+      "minLength": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "If the value of the type attribute is text, email, search, password, tel,\nor url, this attribute specifies the minimum number of characters (in\nUnicode code points) that the user can enter. For other control types, it\nis ignored."
+      },
+      "step": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Works with the min and max attributes to limit the increments at which a\nnumeric or date-time value can be set. It can be the string any or a\npositive floating point number. If this attribute is not set to any, the\ncontrol accepts only values at multiples of the step value greater than\nthe minimum."
+      },
+      "size": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The initial size of the control. This value is in pixels unless the value\nof the type attribute is text or password, in which case it is an integer\nnumber of characters. This attribute applies only when the type attribute\nis set to text, search, tel, url, email, or password, otherwise it is\nignored. In addition, the size must be greater than zero. If you do not\nspecify a size, a default value of 20 is used."
+      },
+      "bs_size": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Set the size of the Input. Options: 'sm' (small), 'md' (medium)\nor 'lg' (large). Default is 'md'."
+      },
+      "valid": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Apply valid style to the Input for feedback purposes. This will cause\nany FormFeedback in the enclosing FormGroup with valid=True to display."
+      },
+      "invalid": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Apply invalid style to the Input for feedback purposes. This will cause\nany FormFeedback in the enclosing FormGroup with valid=False to display."
+      },
+      "plaintext": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Set to true for a readonly input styled as plain text with the default\nform field styling removed and the correct margins and padding preserved."
+      },
+      "placeholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A hint to the user of what can be entered in the control . The placeholder\ntext must not contain carriage returns or line-feeds. Note: Do not use the\nplaceholder attribute instead of a <label> element, their purposes are\ndifferent. The <label> attribute describes the role of the form element\n(i.e. it indicates what kind of information is expected), and the\nplaceholder attribute is a hint about the format that the content should\ntake. There are cases in which the placeholder attribute is never\ndisplayed to the user, so the form must be understandable without it."
+      },
+      "name": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The name of the control, which is submitted with the form data."
+      },
+      "pattern": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A regular expression that the control's value is checked against. The\npattern must match the entire value, not just some subset. Use the title\nattribute to describe the pattern to help the user. This attribute applies\nwhen the value of the type attribute is text, search, tel, url, email, or\npassword, otherwise it is ignored. The regular expression language is the\nsame as JavaScript RegExp algorithm, with the 'u' parameter that makes it\ntreat the pattern as a sequence of unicode code points. The pattern is not\nsurrounded by forward slashes."
+      },
+      "n_submit": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the `Enter` key was pressed while the input had focus.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "n_submit_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time that `Enter` was pressed.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "n_blur": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the input lost focus.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "n_blur_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time the input lost focus.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "debounce": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If true, changes to input will be sent back to the Dash server\nonly when the enter key is pressed or when the component loses\nfocus.  If it's false, it will sent the value back on every\nchange.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "loading_state": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "is_loading": {
+              "name": "bool",
+              "description": "Determines if the component is loading or not",
+              "required": false
+            },
+            "prop_name": {
+              "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "component_name": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Object that holds the loading state object coming from dash-renderer"
+      }
+    }
+  }
+}
