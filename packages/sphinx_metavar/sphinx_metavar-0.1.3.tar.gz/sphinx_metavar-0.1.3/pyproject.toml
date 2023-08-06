@@ -1,0 +1,18 @@
+[project]
+name = "sphinx_metavar"
+authors = [{name = "Jean Abou-Samra", email = "jean@abou-samra.fr"}]
+dynamic = ["version", "description"]
+readme = "README.rst"
+classifiers = [
+    "Framework :: Sphinx :: Extension",
+    "License :: OSI Approved :: The Unlicense (Unlicense)",
+]
+license = {file = "UNLICENSE"}
+
+[project.urls]
+Home = "https://gitlab.com/jeanas/sphinx-metavar"
+Documentation = "https://sphinx-metavar.readthedocs.io"
+
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
