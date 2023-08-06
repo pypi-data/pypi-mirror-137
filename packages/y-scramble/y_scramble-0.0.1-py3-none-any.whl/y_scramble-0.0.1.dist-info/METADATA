@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: y-scramble
+Version: 0.0.1
+Summary: Y-Scramble: a package for y-randomization validation
+Author: Frederico Schmitt Kremer
+Author-email: fred.s.kremer@gmail.com
+License: UNKNOWN
+Keywords: machine learnings qsar data science
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: scikit-learn
+Requires-Dist: pytest
+
+# Scramble
+
+
+
+```python
+
+from scramble import Scrambler
+from sklearn.tree import DecisionTreeClassifier
+
+X, y = load_iris(return_X_y=True)
+model = DecisionTreeClassifier()
+scrambler = Scrambler(model=model)
+
+scores, zscores, pvalues, significances = scrambler.validate(
+    X, y, 
+    scoring="accuracy", 
+    cross_val_score_aggregator="mean", 
+    pvalue_threshold=0.01
+)
+```
+
+
+
