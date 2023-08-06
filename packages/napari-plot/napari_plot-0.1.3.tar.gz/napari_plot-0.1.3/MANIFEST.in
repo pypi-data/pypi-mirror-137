@@ -1,0 +1,24 @@
+include LICENSE
+include README.md
+recursive-include napari_plot *.pyi
+recursive-include napari_plot _tests/*.py
+recursive-include napari_plot *.png *.svg *.qss *.gif *.ico *.icns
+recursive-include napari_plot *.yaml
+exclude napari_plot/resources/_qt_resources*.py
+
+exclude requirements.txt
+
+# explicit excludes to keep check-manifest happy and remind us that
+# these things are not being included unless we ask
+recursive-exclude tools *
+recursive-exclude docs *
+recursive-exclude examples *
+recursive-exclude misc *
+recursive-exclude napari_plot __pycache__
+recursive-exclude napari_plot *.pyc
+exclude napari_plot/benchmarks/*
+recursive-exclude binder *
+exclude bundle.py
+exclude dockerfile
+exclude napari_plot _version.py
+exclude mkdocs.yml
