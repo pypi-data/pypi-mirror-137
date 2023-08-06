@@ -1,0 +1,6 @@
+[babel.extractors]
+ckan = ckan.lib.extract:extract_ckan
+
+[ckan.plugins]
+ingest = ckanext.ingest.plugin:IngestPlugin
+
