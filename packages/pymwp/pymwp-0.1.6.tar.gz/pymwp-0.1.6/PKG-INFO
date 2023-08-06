@@ -1,0 +1,139 @@
+Metadata-Version: 2.1
+Name: pymwp
+Version: 0.1.6
+Summary: Implementation of MWP analysis on C code in Python
+Home-page: https://github.com/statycc/pymwp
+Author: Clément Aubert, Thomas Rubiano, Neea Rusch, Thomas Seiller
+Author-email: nrusch@augusta.edu
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/statycc/pymwp/issues
+Project-URL: Documentation, https://statycc.github.io/pymwp/
+Platform: UNKNOWN
+Classifier: Natural Language :: English
+Classifier: Intended Audience :: Science/Research
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: Console
+Classifier: Typing :: Typed
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENCE.md
+
+# pymwp: MWP analysis in Python
+
+[![build](https://github.com/statycc/pymwp/actions/workflows/build.yaml/badge.svg)](https://github.com/statycc/pymwp/actions/workflows/build.yaml)
+[![codecov](https://codecov.io/gh/statycc/pymwp/branch/main/graph/badge.svg?token=4v3zRbkAjM)](https://codecov.io/gh/statycc/pymwp)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymwp)](https://pypi.org/project/pymwp/)
+[![PyPI](https://img.shields.io/pypi/v/pymwp)](https://pypi.org/project/pymwp/)
+
+<!--
+    do not remove start and end comments (e.g. "include-start", "include-end").
+    They are markers for what to include in the docs, but feel free to edit 
+    the inner content.
+-->
+
+<!--desc-start-->
+
+pymwp is a tool for automatically performing static analysis on programs written in C, inspired by [_"A Flow Calculus of mwp-Bounds for Complexity Analysis"_](https://doi.org/10.1145/1555746.1555752).
+It analyzes resource usage and determines if a program's variables growth rates are no more than polynomially related to their inputs sizes.
+You can run our [many examples](https://statycc.github.io/pymwp/examples/) on-line [in our demo](https://statycc.github.io/pymwp/demo/) before [installing it](https://statycc.github.io/pymwp/), or consult our list of [supported C language features](https://statycc.github.io/pymwp/features/).
+
+<!--desc-end--> 
+
+## Documentation and Demo
+
+Refer to **[statycc.github.io/pymwp](https://statycc.github.io/pymwp/)** for a documentation of our modules, an [on-line demo](https://statycc.github.io/pymwp/demo/) as well as a presentation of [our examples](https://statycc.github.io/pymwp/examples/).
+
+<!--include-start-->
+
+## Installation
+
+Install latest release from PyPI
+
+```
+pip install pymwp
+```
+
+## How to Use
+
+To analyze a C file, run:
+
+```
+pymwp path/to_some_file.c
+```
+
+For all available options and help, run:
+
+```
+pymwp
+```
+
+
+You can also use pymwp in a Python script:
+
+```python
+from pymwp import Polynomial
+from pymwp.matrix import identity_matrix, show
+
+matrix = identity_matrix(3)
+matrix[0][1] = Polynomial('m')
+matrix[1][0] = Polynomial('w')
+matrix[2][1] = Polynomial('p')
+
+show(matrix)
+```
+
+See [documentation](https://statycc.github.io/pymwp/) for available modules and methods.
+
+## Running from source
+
+If you want to use the latest stable version (possibly ahead of 
+latest release), use the version from source following these steps.
+
+1. Clone the repository
+
+    ```bash
+    git clone https://github.com/statycc/pymwp.git
+    ``` 
+
+2. Set up Python environment
+
+    install required packages
+
+    ```bash
+    python -m pip install -q -r requirements.txt
+    ``` 
+
+3. Run the analysis
+
+    From project root run:
+    
+    ```bash
+    python -m pymwp path/to_some_file.c
+    ```
+
+    for example:
+    
+    ```bash
+    python -m pymwp c_files/basics/if.c
+    ```
+    
+    for all available options and help, run:
+    
+    ```bash
+    python -m pymwp
+    ```
+
+<!--include-end--> 
+
+
+
+
