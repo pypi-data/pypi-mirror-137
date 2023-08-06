@@ -1,0 +1,11 @@
+MAJOR_BUMP_LABEL = "MR - Major"
+MINOR_BUMP_LABEL = "MR - Minor"
+PATCH_BUMP_LABEL = "MR - Patch"
+
+BRANCH_MASTER = "main"
+BRANCH_RELEASE = "release"
+BRANCH_DEVELOP = "develop"
+
+PRE_RELEASE_TAG_DEVELOP = "alpha"
+PRE_RELEASE_TAG_RELEASE = "beta"
+
