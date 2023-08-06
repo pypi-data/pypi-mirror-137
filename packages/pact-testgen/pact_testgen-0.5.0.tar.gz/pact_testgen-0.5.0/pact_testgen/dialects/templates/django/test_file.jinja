@@ -1,0 +1,14 @@
+import json
+from {{file.import_path}} import {{file.base_class}}
+
+from pact_testgen.public import Response, verify_response
+
+from .provider_states import (
+    {%- for setup_function in setup_functions %}
+    {{ setup_function.method_name }},
+    {%- endfor %}
+)
+
+{% for case in cases %}
+{{case}}
+{% endfor %}

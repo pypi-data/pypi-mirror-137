@@ -1,0 +1,13 @@
+"""
+Provider state setup functions for Pact contract
+verification tests.
+"""
+{% for function in setup_functions %}
+def {{ function.method_name }}():
+    {%- for provider_state in function.provider_states %}
+    # - {{ provider_state }}
+    {%- endfor %}
+    # TODO: Create provider state
+    raise NotImplementedError("Setup function implementation missing.")
+
+{% endfor %}
