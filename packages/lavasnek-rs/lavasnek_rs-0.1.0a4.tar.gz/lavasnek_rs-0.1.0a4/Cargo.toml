@@ -1,0 +1,43 @@
+#cargo-features = ["strip"]
+
+[package]
+name = "lavasnek_rs"
+version = "0.1.0-alpha.4"
+edition = "2018"
+authors = ["vicky5124 <vickyf5124@gmail.com>"]
+readme = "README.md"
+license = "MPL-2.0"
+description = "lavalink-rs bindings for Python"
+homepage = "https://github.com/vicky5124/lavasnek_rs"
+repository = "https://github.com/vicky5124/lavasnek_rs"
+documentation = "https://vicky5124.github.io/lavasnek_rs/lavasnek_rs/lavasnek_rs.html"
+
+[lib]
+name = "lavasnek_rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+log = "0.4"
+pyo3-log = "0.5"
+pythonize = "0.15"
+
+[dependencies.pyo3]
+version = "0.15"
+features = ["extension-module"]
+
+[dependencies.pyo3-asyncio]
+version = "0.15"
+features = ["tokio-runtime"]
+
+[dependencies.tokio]
+version = "1"
+
+[dependencies.lavalink-rs]
+#version = "0.9.0-rc.2"
+git = "https://gitlab.com/vicky5124/lavalink-rs"
+#path = "../lavalink-rs"
+default-features = false
+features = ["rustls", "discord-gateway", "normal-log"]
+
+#[profile.release]
+#strip = "symbols"
