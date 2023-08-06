@@ -1,0 +1,109 @@
+# file stubs/ogdf/OrderedOptimalCrossingMinimizer/Subproblem.py generated from classogdf_1_1_ordered_optimal_crossing_minimizer_1_1_subproblem
+import enum
+from typing import *
+from ogdf_python import ogdf, cpp
+std = cpp.std
+class Subproblem(abacus.Sub, ogdf.Logger):
+
+	bufferedLinearOrders : SList[AbacusConstraint] = ...
+
+	generatedConVar : int = ...
+
+	inducedPlanarization : PlanRep = ...
+
+	inducedSeparationSimpleCrossings : List[SimpleCrossingVariable] = ...
+
+	realIter : int = ...
+
+	storedCurrentCrossings : bool = ...
+
+	@overload
+	def __init__(self, m : abacus.Master, father : abacus.Sub, br : abacus.BranchRule) -> None:
+		...
+
+	@overload
+	def __init__(self, m : abacus.Master, conRes : float, varRes : float, nnzRes : float, relativeRes : bool, constraints : ArrayBuffer[abacus.PoolSlot[abacus.Constraint,abacus.Variable]  ] = None, variables : ArrayBuffer[abacus.PoolSlot[abacus.Variable,abacus.Constraint]  ] = None) -> None:
+		...
+
+	def __destruct__(self) -> None:
+		...
+
+	def checkAmbiguitiesAndPrice(self) -> int:
+		...
+
+	def checkKnHighKuratowskiCutsStatic(self) -> int:
+		...
+
+	def checkKnmHighKuratowskiCutsStatic(self) -> int:
+		...
+
+	def constructKuratowskiConstraint(self, G : PlanRep, K : KuratowskiSubdivision) -> KuratowskiConstraintBase:
+		...
+
+	def createVarsAndCorrespondingLOCs(self, e : edge, f : edge, g : edge, vars : ArrayBuffer[OrderedCrossingVariable]) -> None:
+		...
+
+	def feasible(self) -> bool:
+		"""Must check the feasibility of a solution of the LP-relaxation."""
+		...
+
+	def generateBranchRules(self, rules : ArrayBuffer[abacus.BranchRule]) -> int:
+		"""Tries to find rules for splitting the current subproblem in further subproblems."""
+		...
+
+	def generateSon(self, rule : abacus.BranchRule) -> abacus.Sub:
+		"""Returns a pointer to an object of a problem specific subproblem, which is generated from the current subproblem by branching rulerule."""
+		...
+
+	def improve(self, primalValue : float) -> int:
+		"""Can be redefined in order to implement primal heuristics for finding feasible solutions."""
+		...
+
+	def makeFeasible(self) -> int:
+		"""The default implementation ofmakeFeasible()doesnothing."""
+		...
+
+	def orderCrossings(self, e : edge, list : List[edge]) -> None:
+		...
+
+	def orderingWeight(self, e : edge, f : edge, lIt : ListIterator[edge], rIt : ListIterator[edge]) -> float:
+		...
+
+	def pricing(self) -> int:
+		"""Should generate inactive variables which do not price out correctly."""
+		...
+
+	def primalHeuristics(self, inducement : int) -> None:
+		...
+
+	def realizeSolutions(self) -> float:
+		...
+
+	def separate(self) -> int:
+		"""Must be redefined in derived classes for the generation of cutting planes."""
+		...
+
+	def separateBoyerMyrvold(self) -> int:
+		...
+
+	def separateLinearOrder(self) -> int:
+		...
+
+	def separateSimple(self) -> int:
+		...
+
+	def separateTriangles(self) -> int:
+		...
+
+	def solveLp(self) -> int:
+		"""Solves the LP-relaxation of the subproblem."""
+		...
+
+	def callBoundHeuristic(self, integer : int) -> OrderedOptimalCrossingMinimizer.CrossingConfiguration:
+		...
+
+	def findKuratowski(self, R : Graph, K : KuratowskiSubdivision) -> None:
+		...
+
+	def master(self) -> OrderedOptimalCrossingMinimizer.Master:
+		...

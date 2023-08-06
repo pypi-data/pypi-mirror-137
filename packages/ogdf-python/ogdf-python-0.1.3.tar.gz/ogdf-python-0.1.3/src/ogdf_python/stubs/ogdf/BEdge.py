@@ -1,0 +1,19 @@
+# file stubs/ogdf/BEdge.py generated from classogdf_1_1_b_edge
+import enum
+from typing import *
+from ogdf_python import ogdf, cpp
+std = cpp.std
+class BEdge(object):
+
+	head : int = ...
+
+	id : int = ...
+
+	next : BEdge = ...
+
+	pos : int = ...
+
+	tail : int = ...
+
+	def __init__(self, t : int, h : int, c : int) -> None:
+		...

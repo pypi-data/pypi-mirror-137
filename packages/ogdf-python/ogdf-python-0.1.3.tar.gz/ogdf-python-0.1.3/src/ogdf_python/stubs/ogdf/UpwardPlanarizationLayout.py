@@ -1,0 +1,33 @@
+# file stubs/ogdf/UpwardPlanarizationLayout.py generated from classogdf_1_1_upward_planarization_layout
+import enum
+from typing import *
+from ogdf_python import ogdf, cpp
+std = cpp.std
+class UpwardPlanarizationLayout(ogdf.LayoutModule):
+
+	m_cr_nr : int = ...
+
+	m_layout : std.unique_ptr[UPRLayoutModule] = ...
+
+	m_numLevels : int = ...
+
+	m_UpwardPlanarizer : std.unique_ptr[UpwardPlanarizerModule] = ...
+
+	def __init__(self) -> None:
+		...
+
+	def call(self, GA : GraphAttributes) -> None:
+		"""Computes a layout of graphGA."""
+		...
+
+	def numberOfCrossings(self) -> int:
+		...
+
+	def numberOfLevels(self) -> int:
+		...
+
+	def setUPRLayout(self, pLayout : UPRLayoutModule) -> None:
+		...
+
+	def setUpwardPlanarizer(self, pUpwardPlanarizer : UpwardPlanarizerModule) -> None:
+		...

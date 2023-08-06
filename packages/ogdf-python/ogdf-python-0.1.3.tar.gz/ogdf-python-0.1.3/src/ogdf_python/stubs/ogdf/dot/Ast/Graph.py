@@ -1,0 +1,23 @@
+# file stubs/ogdf/dot/Ast/Graph.py generated from structogdf_1_1dot_1_1_ast_1_1_graph
+import enum
+from typing import *
+from ogdf_python import ogdf, cpp
+std = cpp.std
+class Graph(object):
+
+	directed : bool = ...
+
+	id : str = ...
+
+	statements : StmtList = ...
+
+	strict : bool = ...
+
+	def __init__(self, paramStrict : bool, dir : bool, idString : str, statementList : StmtList) -> None:
+		...
+
+	def __destruct__(self) -> None:
+		...
+
+	def read(self, P : Parser, G : ogdf.Graph, GA : GraphAttributes, C : ClusterGraph, CA : ClusterGraphAttributes) -> bool:
+		...
