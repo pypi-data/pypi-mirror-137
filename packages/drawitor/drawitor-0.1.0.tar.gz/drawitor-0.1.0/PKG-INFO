@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: drawitor
+Version: 0.1.0
+Summary: Draw Images or GIFs in your terminal.
+Home-page: https://github.com/UltiRequiem/drawitor
+Keywords: commands,utilities,cli
+Author: Eliaz Bobadilla
+Author-email: eliaz.bobadilladev@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: Pillow (>=9.0.1,<10.0.0)
+Project-URL: Repository, https://github.com/UltiRequiem/drawitor
+Description-Content-Type: text/markdown
+
+## Drawitor
+
+Draw Images/GIFs in your terminal.
+
+## Install
+
+```sh
+pip install drawitor
+```
+
+## CLI Tool
+
+```sh
+drawitor cat_dancing.gif
+```
+
+## Library
+
+The library is written in a simple functional style.
+
+```python
+from drawitor import draw
+
+draw("my_img.png")
+
+draw("super_cute_dog.gif")
+```
+
+Check the CLI tool [source code](./drawitor/__main__.py) for an usage example.
+
+## Licence
+
+Released under the MIT Licence
+
