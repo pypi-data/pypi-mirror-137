@@ -1,0 +1,18 @@
+{
+  "acpitool": {
+    "name": "acpitool-0.5.1",
+    "patches": [
+      "ac.patch",
+      "battery.patch"
+    ]
+  },
+  "aespipe": {
+    "name": "aespipe-2.4f",
+    "patches": []
+  },
+  "boolector": {
+    "name": "boolector-3.0.0",
+    "patches": ["CVE-2019-7560.patch"],
+    "known_vulnerabilities": ["CVE-2019-7559"]
+  }
+}

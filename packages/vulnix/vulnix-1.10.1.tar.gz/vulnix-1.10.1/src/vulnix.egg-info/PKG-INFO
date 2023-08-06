@@ -1,0 +1,528 @@
+Metadata-Version: 2.1
+Name: vulnix
+Version: 1.10.1
+Summary: Scans a Nix store for derivations that are affected by vulnerabilities.
+Home-page: https://github.com/flyingcircusio/vulnix
+Author: Flying Circus Internet Operations GmbH
+Author-email: mail@flyingcircus.io
+License: BSD-3-Clause
+Description: Nix(OS) vulnerability scanner
+        =============================
+        
+        This is a utility that validates a Nix store for any packages that are
+        reachable from live paths and likely to be affected by vulnerabilities
+        listed in the NVD.
+        
+        It implements a CLI utility to inspect the current status and a
+        monitoring integration for Sensu.
+        
+        Example output::
+        
+          2 derivations with active advisories
+        
+          ------------------------------------------------------------------------
+          binutils-2.31.1
+        
+          /nix/store/zc1lbkaf9l9hlsp1jdiq3si56nsglymh-binutils-2.31.1.drv
+          CVE                                                CVSSv3
+          https://nvd.nist.gov/vuln/detail/CVE-2018-1000876  7.8
+          https://nvd.nist.gov/vuln/detail/CVE-2018-20657    7.5
+          https://nvd.nist.gov/vuln/detail/CVE-2018-20712    6.5
+        
+          ------------------------------------------------------------------------
+          libssh2-1.9.0
+        
+          /nix/store/mfpfclry68r4sv4mcc9hb88z0lb9jk1c-libssh2-1.9.0.drv
+          CVE                                                CVSSv3
+          https://nvd.nist.gov/vuln/detail/CVE-2019-17498    8.1
+        
+        
+        Theory of operation
+        -------------------
+        
+        `vulnix` pulls all published CVEs from NIST_ and caches them locally. It
+        matches name and version of all derivations referenced from the command line
+        against known CVE entries. A *whitelist* is used to filter out unwanted results.
+        
+        Matching Nix package names to NVD products is currently done via a coarse
+        heuristic. First, a direct match is tried. If no product can be found,
+        variations with lower case and underscore instead of hyphen are tried. It is
+        clear that this mapping is too simplistic and needs to be improved in future
+        versions.
+        
+        
+        System requirements
+        -------------------
+        
+        - Depends on common Nix tools like `nix-store`. These are expected to be in
+          $PATH.
+        - Depends on being able to interact with the Nix store database
+          (/nix/var/nix/db). This means that it must either run as the same user that
+          owns the Nix store database or `nix-daemon` must be active.
+        - Parses `*.drv` files directly. Tested with Nix >=1.10 and 2.x.
+        - It refuses to work without some locale environment settings. Try `export
+          LANG=C.UTF-8` if you see encoding errors.
+        
+        
+        Usage Example
+        =============
+        
+        - What vulnerabilities are listed for my current system::
+        
+            vulnix --system
+        
+        - Check `nix-build` output together with its transitive closure::
+        
+            vulnix result/
+        
+        - Check all passed derivations, but don't determine requisites::
+        
+            vulnix -R /nix/store/*.drv
+        
+        - JSON output for machine post-processing::
+        
+            vulnix --json /nix/store/my-derivation.drv
+        
+        See `vulnix --help` for a list of all options.
+        
+        
+        Whitelisting
+        ============
+        
+        `vulnix` output may contain false positives, unfixable packages or stuff which
+        is known to be addressed. The *whitelist* feature allows to exclude packages
+        matching certain criteria.
+        
+        Usage
+        -----
+        
+        Load whitelists from either local files or HTTP servers::
+        
+          vulnix -w /path/to/whitelist.toml \
+                 -w https://example.org/published-whitelist.toml
+        
+        Syntax
+        ------
+        
+        Whitelists are TOML_ files which contain the package to be filtered as section
+        headers, followed by further per-package options.
+        
+        Section headings - package selection
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        
+        Exclude a package at a specific version::
+        
+          ["openjpeg-2.3.0"]
+          ...
+        
+        Exclude a package regardless of version (additional CVE filters may apply, see
+        below)::
+        
+          ["openjpeg"]
+        
+        Exclude all packages (see below for CVE filters, again)::
+        
+          ["*"]
+        
+        Options
+        ^^^^^^^
+        
+        cve
+          List of CVE identifiers to match. The whitelist rule is valid as long as the
+          detected CVEs are a subset of the CVEs listed here. If additional CVEs are
+          detected, this whitelist rule is not effective anymore.
+        
+        until
+          Date in the form "YYYY-MM-DD" which confines this rule's lifetime. On the
+          specified date and later, this whitelist rule is not effective anymore.
+        
+        issue_url
+          URL or list of URLs that point to any issue tracker. Informational only.
+        
+        comment
+          String or list of strings containing free text. Informational only.
+        
+        
+        Examples
+        --------
+        
+        Create a ticket on your favourite issue tracker. Estimate the time to get the
+        vulnerable package fixed. Create whitelist entry::
+        
+          ["ffmpeg-3.4.2"]
+          cve = ["CVE-2018-6912", "CVE-2018-7557"]
+          until = "2018-05-01"
+          issue_url = "https://issues.example.com/29952"
+          comment = "need to backport patch"
+        
+        This particular version of ffmpeg will be left out from reports until either
+        another CVE gets published or the specified date is reached.
+        
+        
+        CVE patch auto-detection
+        ========================
+        
+        `vulnix` will inspect derivations for patches which supposedly fix specific
+        CVEs. When a patch filename contains one or more CVE identifiers, these will not
+        reported anymore. Example Nix code::
+        
+          patches = [ ./CVE-2018-6951.patch ];
+        
+        Patches which fix multiple CVEs should name them all with a non-numeric
+        separator, e.g. `CVE-2017-14159+CVE-2017-17740.patch`.
+        
+        Auto-detection even works when patches are pulled via `fetchpatch` and friends
+        as long as there is a CVE identifier in the name. Example::
+        
+          patches = [
+            (fetchpatch {
+              name = "CVE-2018-9055.patch";
+              url = http://paste.opensuse.org/view/raw/330751ce;
+              sha256 = "0m798m6c4v9yyhql7x684j5kppcm6884n1rrb9ljz8p9aqq2jqnm";
+            })
+          ];
+        
+        
+        .. _NIST: https://nvd.nist.gov/vuln/
+        .. _TOML: https://github.com/toml-lang/toml/
+        
+        
+        Building vulnix
+        ===============
+        
+        To create a development environment, use a Python 3 virtualenv::
+        
+            python3 -m venv .
+            bin/pip install -e ".[test]"
+        
+        Run tests::
+        
+            bin/py.test
+        
+        
+        Building man pages
+        ==================
+        
+        The provided makefile needs ronn_ to convert Markdown to troff::
+        
+            make -C doc
+        
+        .. _ronn: https://rtomayko.github.io/ronn/
+        
+        
+        Changes
+        =======
+        
+        
+        1.10.1 (2022-02-06)
+        -------------------
+        
+        - Expose CVE descriptions in both plain text and JSON output (#78).
+        
+        - Fix compatibility issue due to pyyaml 6.0 in nixpkgs-unstable (#83).
+        
+        
+        1.10.0 (2021-07-16)
+        -------------------
+        
+        - Extend `-f`/`--file` input. It now also accepts JSON input containing package
+          names and applied patches.
+        
+        - Wait rather than fail on concurrent invocations (#60).
+        
+        - Ignore NVD entries without cpe23Uri (#68).
+        
+        - Add `--profile` option to scan user environments (#72).
+        
+        - Wait for lock on concurrent invocations instead of failing (#73).
+        
+        - Improved tactics to find derivers (#74).
+        
+        - Correctly handle the case when both an explicit version and version ranges are
+          given in a NVD expression (#77).
+        
+        
+        1.9.6 (2020-07-02)
+        ------------------
+        
+        - Fix flake8 check (#64).
+        
+        - Packaging: Improve keywords.
+        
+        
+        1.9.5 (2020-06-30)
+        ------------------
+        
+        - Add `-f` option which reads a list of derivations directly from a file.
+        
+        - Exclude .tgz derivations by default.
+        
+        - Change default mirror for NIST feeds (#61).
+        
+        - Python 3.8 compatbility.
+        
+        
+        1.9.4 (2019-12-11)
+        ------------------
+        
+        - Fix "invalid package selector" bug.
+        
+        
+        1.9.3 (2019-11-26)
+        ------------------
+        
+        - Print CVSS scores by default.
+        
+        - Fix reliability problem when migrating from old databases (#58).
+        
+        
+        1.9.2 (2019-11-16)
+        ------------------
+        
+        - Improve performance by pre-fetching all cached CPE configurations for each
+          candidate vulnerability. This change requires to rebuild the ZODB database,
+          which is done transparently.
+        
+        - Fix bug that crashed vulnix when trying to extend existing whitelist entries
+          with new CVEs (#57).
+        
+        
+        1.9.1 (2019-11-14)
+        ------------------
+        
+        - Fix packaging bug.
+        
+        
+        1.9.0 (2019-11-13)
+        ------------------
+        
+        - Pull NVD feeds from https://nvd.nist.gov/feeds/json/cve/1.1/ as XML feeds have
+          been discontinued (#55).
+        
+        - Print CVSS v3 base scores for each CVE. Order by descending CVSS score (#53).
+        
+        - Evaluate version ranges in CPE entries.
+        
+        
+        1.8.2 (2019-06-17)
+        ------------------
+        
+        - Process package versions containing a hyphen properly (e.g., R versions)
+          (#50).
+        
+        
+        1.8.1 (2019-04-08)
+        ------------------
+        
+        - Builds with both PyYAML 3.13 and 5.1 (#49).
+        
+        
+        1.8.0 (2019-03-09)
+        ------------------
+        
+        - Exit code 1 is returned only in conjunction with `--show-whitelisted` (#45).
+        - Fix bug in the processing of the 'until' whitelist field (#43).
+        
+        
+        1.7.1 (2018-07-23)
+        ------------------
+        
+        - Improve error messages when TOML files contain syntax errors.
+        - Fix install requirements so that they match upstream nixpkgs
+          (NixOS/nixpkgs#43999).
+        
+        
+        1.7 (2018-07-20)
+        ----------------
+        
+        - Selective CVE reporting: Only those CVEs are reported for which no whitelist
+          entry exists (#41).
+        - Consider all applicable whitelist entries for a given package (pkg-version,
+          pkg, "*") (#42).
+        - Refine TOML section header check.
+        
+        
+        1.6.3 (2018-05-02)
+        ------------------
+        
+        - *Really* fix FC-101294. Now for whitelists containing more than one line :)
+        - Fail on spaces between package and version in whitelist headers.
+        
+        
+        1.6.2 (2018-05-02)
+        ------------------
+        
+        - Sort CVEs in JSON output.
+        - Bugfix: fail clearly if section headers are not quoted (FC-101294).
+        
+        
+        1.6.1 (2018-04-20)
+        ------------------
+        
+        - Parse derivation files with `__structuredAttrs = true` (#37).
+        
+        
+        1.6.0 (2018-04-19)
+        ------------------
+        
+        - Completely reworked whitelisting subsystem. Whitelists can now be written as
+          TOML files and support a more expressive range of options including expiry
+          datedates. The old YAML syntax is still supported (#36).
+        - Ignore case when guessing CVE identifiers from patch file names (thanks to
+          @adisbladis).
+        - Add man pages (#29).
+        
+        
+        1.4.0 (2017-11-27)
+        ------------------
+        
+        - Guesses applied CVE patches out of the `patches` derivation envVar (see
+          nixpkgs FC-15660).
+        
+        
+        1.3.4 (2017-10-29)
+        ------------------
+        
+        - Add '--no-requisites' flag which stops vulnix from determining the transitive
+          closure of derivations passed on the command line.
+        - Provide structured JSON output with `--json`.
+        - Remove whitelist from README as it is quite buggy right now.
+        
+        
+        1.3.3 (2017-10-16)
+        ------------------
+        
+        - Fix return code bug (FC-28741).
+        - Fix partial whitelisting of products where several vulnerable versions are
+          present on the system at the same time (#24).
+        - Improve error reporting for incorrectly formed whitelist rules.
+        
+        
+        1.3.2 (2017-10-06)
+        ------------------
+        
+        - Minor: fix packaging issues.
+        
+        
+        1.3.1 (2017-10-06)
+        ------------------
+        
+        - Security: Fix arbitrary code execution bug during derivation evaluation.
+        
+        
+        1.3.0 (2017-09-18)
+        ------------------
+        
+        - `.drv` files may be specified directly on the command line.
+        - Updated PyPI dependencies.
+        - Document system requirements (#12).
+        - Don't leave large files in /tmp around.
+        - Remove duplicate CVEs in output (#25).
+        - Fix bug with reporting less than 3 vulnerabilities (#28).
+        
+        
+        1.2.2 (2017-01-28)
+        ------------------
+        
+        - Packaging improvements: pin versions in setup.py, include NVDCVE test data in
+          sdist.
+        - Reduce NVDCVE fixture size. This cuts tests run time by more than 50%.
+        
+        
+        1.2.1 (2017-01-27)
+        ------------------
+        
+        - Skip `/nix/var/nix/gcroots/booted-system` during system check.
+        - Make output a bit easier to read by removing visual clutter.
+        
+        
+        1.2 (2016-12-22)
+        ----------------
+        
+        - Improve CPU and memory usage: refactored the way we fetch, parse, store and
+          process data. We now leverage ZODB as the storage for parsed data that is
+          efficient to look up.
+        
+          On our test systems this caused memory usage to drop from > 1GiB to ~70MiB
+          and a pure evaluation of existing data to around 7-10 seconds.
+        
+          This change requires a re-retrieval of all historic sources.
+        
+        - Improve unit test coverage with at least a smoke test for our new fetching
+          procedure.
+        
+        1.1.5 (2016-10-13)
+        ------------------
+        
+        - Keep a reverse index: product name -> vulnerabilities to speed up scan process.
+        - Mark 'in progress' vulnerabilities with an asterisk
+        - The '-w' switch accepts URLs, too
+        - vulnix no longer scans /var/nix/var/gcroots/booted-system
+        - only cached files are saved (archives are to be deleted)
+        - added travis build: runs periodically against nixpkgs/master and updates
+          requirements*.nix files in case of success
+        
+        
+        1.1.4 (2016-08-25)
+        ------------------
+        
+        - Add `src` to PYTHONPATH so that tests run also on older NixOS versions
+          (tested on 15.09).
+        - Correct URL, add metadata.
+        - Add nix to propagatedBuildInputs, as vulnix calls `nix-store` at runtime.
+        
+        
+        1.1.3 (2016-08-16)
+        ------------------
+        
+        - Pin the Python version to 3.4 (Nix only)
+        
+        
+        1.1.2 (2016-08-15)
+        ------------------
+        
+        - Add Nix expressions (Nix/NixOS) to MANIFEST.in
+        
+        
+        1.1.1 (2016-08-12)
+        ------------------
+        
+        - Add VERSION to MANIFEST.in
+        
+        
+        1.1 (2016-08-11)
+        ----------------
+        
+        - Scans the whole system (NixOS only), the current user environment, or a
+          project-specific path (e.g., ./result). #1
+        
+        - Allow to specify site-specific whitelists in addition to the builtin default
+          whitelist. #4
+        
+        - Fully repeatable install using default.nix. Thanks to Rok Garbas. #4
+        
+        - Cache pre-parsed NVD files for improved scanning speed. #2
+        
+        - Support multiple whitelists (repeat -w option). #3
+        
+        - Cache NVD files in `~/.cache/vulnix`. #7
+        
+        - Document whitelist file format. #10
+        
+        - Fix Nix build on macOS. #11
+        
+Keywords: security,nixos,nixpkgs,cve,nvd
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: System :: Systems Administration
+Provides-Extra: test
