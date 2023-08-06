@@ -1,0 +1,73 @@
+Metadata-Version: 2.1
+Name: SEQLinkage
+Version: 1.0.2
+Summary: Collapsed Haplotype Pattern Method for Linkage Analysis of Next-Generation Sequencing Data
+Home-page: https://github.com/changebio/SEQLinkage/tree/master/
+Author: Yin Huang, Gao Wang
+Author-email: changebio@yeah.net
+License: Apache Software License 2.0
+Keywords: CHP Linkage Analysis
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pip
+Requires-Dist: packaging
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scipy
+Requires-Dist: brewer2mpl
+Requires-Dist: matplotlib
+Provides-Extra: dev
+
+# SEQLinkage
+> Collapsed Haplotype Pattern Method for Linkage Analysis of Next-Generation Sequencing Data
+
+
+## Pre-requisites
+
+Make sure you install the pre-requisited before running seqlink:
+
+```
+conda install -c conda-forge xeus-cling
+conda install -c anaconda swig 
+pip install egglib
+git clone https://github.com/statgenetics/cstatgen.git
+cd cstatgen
+python setup.py install
+```
+
+## Install
+
+`pip install SEQLinkage`
+
+## How to use
+
+### 1. Test on seqlinkage-example
+
+```
+seqlink --fam seqlinkage-example.fam --vcf seqlinkage-example.vcf.gz -f MERLIN --output RMBPt8 --jobs 8
+
+seqlink --fam seqlinkage-example.fam --vcf seqlinkage-example.vcf.gz -f MERLIN --output RMB0 --jobs 8 --bin 0
+
+seqlink --fam seqlinkage-example.fam --vcf seqlinkage-example.vcf.gz -f MERLIN --output RMB1 --jobs 8 --bin 1
+
+seqlink --fam seqlinkage-example.fam --vcf seqlinkage-example.vcf.gz --freq EVSEAAF -o LinkageAnalysis -K 0.001 --moi AR -W 0 -M 1 --theta-max 0.5 --theta-inc 0.05 -j 8 --run-linkage
+```
+
+### 2. Test on AD family
+
+```
+seqlink --fam data/mwe_normal_fam.csv --vcf data/first1000snp_full_samples.vcf.gz -f LINKAGE --blueprint data/genemap.hg38.txt --freq AF -K 0.001 --moi AD -W 0 -M 1
+
+seqlink --fam data/mwe_normal_fam.csv --vcf data/first1000snp_full_samples.vcf.gz -f MERLIN --blueprint data/genemap.hg38.txt --freq AF
+```
+
+
