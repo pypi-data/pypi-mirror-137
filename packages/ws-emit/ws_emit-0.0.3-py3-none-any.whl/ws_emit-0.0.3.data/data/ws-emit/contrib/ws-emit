@@ -1,0 +1,14 @@
+#
+# systemd environment file
+# Place this file to /etc/default/ (Debian-style) or /etc/sysconfig/ (RedHat-style)
+# 
+
+# bind to this address
+ADDRESS="0.0.0.0:8899"
+
+
+# space-separated list of cross-origin sources (without trailing slash!)
+CORS="http://localhost:7788"
+
+# Fill any non-empty value to enable HTTP interface
+SECRET=""
