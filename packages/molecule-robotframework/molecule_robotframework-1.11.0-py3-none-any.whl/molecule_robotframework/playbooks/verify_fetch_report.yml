@@ -1,0 +1,32 @@
+---
+- name: Fetch Results
+  hosts: "{{ molecule_robotframework_hosts | d('all') }}"
+  vars:
+    output_dir: "{{ molecule_yml.verifer.output_dir | d('.') }}"
+    dest_dir: "{{ molecule_yml.verifier.dest_dir | d(molecule_scenario_directory+'/output') }}"
+    output_file: "{{ molecule_yml.verifier.get('options', {}).get('output', 'output.xml') }}"
+    log_file: "{{ molecule_yml.verifier.get('options', {}).get('log', 'log.html') }}"
+    report_file: "{{ molecule_yml.verifier.get('options', {}).get('report', 'report.html') }}"
+    debug_file: "{{ molecule_yml.verifier.get('options', {}).get('debugfile', 'debug.log') }}"
+  tasks:
+    - name: Ensure debug file is present.
+      copy:
+        content: "Add the robot 'debugfile' option to enable debug logging."
+        dest: "{{ debug_file }}"
+        force: no
+
+    - name: Download test reports and logs.
+      fetch:
+        flat: "{{ (ansible_play_hosts | count == 1) | ternary('yes', 'no') }}"
+        src: "{{ output_dir }}/{{ item }}"
+        dest: "{{ dest_dir }}/"
+      with_items:
+        - "{{ output_file }}"
+        - "{{ log_file }}"
+        - "{{ report_file }}"
+        - "{{ debug_file }}"
+      register: fetch_results
+
+    - name: Downloaded test reports and logs
+      debug:
+        msg: "{{ fetch_results.results | map(attribute='dest') }}"

@@ -1,0 +1,17 @@
+---
+- name: Ensure EPEL repository is installed.
+  become: yes
+  yum:
+    state: present
+    name: epel-release
+
+- name: Ensure python pip is installed.
+  become: yes
+  yum:
+    state: present
+    name: python-pip
+
+- name: Set package versions.
+  set_fact:
+    pyyaml_version: "<6"
+    pip_executable: "pip"
