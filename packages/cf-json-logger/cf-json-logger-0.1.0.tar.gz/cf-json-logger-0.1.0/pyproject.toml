@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "cf-json-logger"
+packages = [
+    { include = "cf_json_logger" },
+]
+version = "0.1.0"
+description = "Consistent web logs by Carnall Farrar Ltd."
+authors = ["Leo Edwards <leo.edwards@carnallfarrar.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-json-logger = "^2.0.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+black = "^22.1.0"
+isort = "^5.10.1"
+flake8 = "^4.0.1"
+bandit = "^1.7.2"
+safety = "^1.10.3"
+testfixtures = "^6.18.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
