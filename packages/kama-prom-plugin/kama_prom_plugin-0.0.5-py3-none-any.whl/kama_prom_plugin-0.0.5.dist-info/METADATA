@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: kama-prom-plugin
+Version: 0.0.5
+Summary: Prometheus plugin for KAMA
+Home-page: https://github.com/nmachine-io/kama-sdk-py
+Author: NMachine
+Author-email: xavier@nmachine.io
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: kama-sdk-py
+
+# Todo
+
+## Testing
+
+For the tests to run, a Prometheus installation **must**
+be running in your cluster with:
+- namespace = `monitoring`
+- main service = `monitoring-prometheus-server`. 
+
+Use the 
+**[Community Prometheus Helm Chart](https://artifacthub.io/packages/helm/prometheus-community/prometheus)**
+to do this the easy way.  
+
+In the future, these fields will be configurable via environment variables.
+

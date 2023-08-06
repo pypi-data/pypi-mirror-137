@@ -1,0 +1,25 @@
+kind: Operation
+id: "nmachine.prom.operation.locate-existing"
+title: "Locate an existing Prometheus Server"
+info: "Point the application to a Prometheus server that is already
+or is capable of monitoring the application"
+synopsis: "assets::locate-existing-server.md"
+tags: ['monitoring']
+labels:
+  searchable: true
+steps:
+  - "id::nmachine.prom.step.locate-existing-prom"
+
+---
+
+kind: Step
+id: "nmachine.prom.step.locate-existing-prom"
+title: "Locate Prometheus API"
+info: "Say whether the server is inside or outside the cluster, and point to it."
+synopsis: "assets::locate-existing-server.md"
+fields:
+  - "id::prometheus.access_type"
+  - "id::prometheus.url"
+  - "id::prometheus.service_namespace"
+  - "id::prometheus.service_name"
+action: "id::sdk.action.commit_template_apply_step"
