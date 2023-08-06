@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: Bypass-tiktok-captcha
+Version: 0.0.1
+Summary: Suport resolve tiktok-captcha
+Home-page: https://gitlab.com/nqminh/bypass-captcha
+Author: superphao
+Author-email: superphao1@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://gitlab.com/nqminh/bypass-captcha/-/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+BYPASS-TIKTOK-CAPTCHA
+
+
+Usage:
+
+gsc = GSC_solver(driver=driver)
+
+driver = gsc.solve(driver, height)
+
+- driver: chrome driver
+- height: chieu dai trang web (document.body.scrollHeight)
+
