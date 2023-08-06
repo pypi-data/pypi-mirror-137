@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: bl-bfg
+Version: 0.1
+Summary: A simple password guessing framework.
+Home-page: https://github.com/arch4ngel/bl-bfg
+Author: Justin Angel
+Author-email: justin@arch4ngel.ninja
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests-ntlm
+Requires-Dist: bruteloops
+Requires-Dist: pysmb (==1.1.27)
+
+# Big F....un Gun (BFG)
+
+BFG is a simple modular framework to perform brute-force attacks. It uses
+the [BruteLoops](https://github.com/arch4ngel/BruteLoops) library for the
+brute force and database management logic.
+
+# Features
+
+- *BruteLoops capabilities*
+  - Resumable attacks that _do not repeat previous guesses_
+  - Parallel guessing
+  - Lockout avoidance via two layers of jitter configurations
+  - Target/password prioritization
+  - Universal protocol/application capabilities
+  - Granular logging
+    - Lockouts happen. It's part of life.
+    - BruteLoops provides a log record for each guess, along with timestamp
+    - Allows operators to reconstruct a timeline of events if things go bad
+- *Modular Framework*
+  - Simple class-based modules provide reusable arguments/components
+- *YAML Attack Profiles*
+  - YAML files can be used to supply configuration values to BFG
+  - Avoids complex command line flags
+
+
