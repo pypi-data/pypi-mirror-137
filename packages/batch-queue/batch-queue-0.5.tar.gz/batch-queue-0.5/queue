@@ -1,0 +1,120 @@
+#!/usr/bin/python3
+import xmlrpc.client
+import pickle
+from queue_server.task import Task
+import pwd, os
+import signal
+
+def get_status (s):
+    active_tasks, queued_tasks, stopped_tasks, n_cpu, free = pickle.loads (s.get_tasks().data)
+    return active_tasks, queued_tasks, stopped_tasks, n_cpu, free
+
+def run (cmdline):
+    import argparse
+    #from argparse_bool import ConfigureAction
+    
+    def submit (args):
+        ##print 'submit:', args
+        path = args.path or os.getcwd()
+        user = pwd.getpwuid(os.getuid())[0]
+        if args.keep_environment:
+            if args.keep_environment == 'all':
+                env = pickle.dumps (os.environ)
+            else:
+                vals = args.keep_environment.split(',')
+                env = pickle.dumps ({ v : os.environ[v] for v in vals })
+        else:
+            env = pickle.dumps ({})
+        task_num = s.queue (args.args, user, path, env, args.log_stdout, args.log_stderr, args.email)
+        print('task_num:', task_num)
+        
+    def kill (args):
+        print ('kill:', args)
+        for t in args.taskno:
+            print('kill:', t)
+            s.kill (t, int (signal.SIGTERM))
+        
+    def start (args):
+        ## print 'start:', args
+
+        from twisted.scripts.twistd import run
+        import sys
+        import distutils.sysconfig
+        VERSION = distutils.sysconfig.get_config_var('VERSION')
+        import os
+        HOME = os.environ['HOME']
+        python_site = HOME + '/.local/lib/python' + VERSION + '/site-packages' #distutils.sysconfig.get_python_lib()
+        sys.argv = ['twistd', '-y', '%s/queue_server/queue.tac'%python_site, '--pidfile', args.pidfile, '--logfile', args.logfile]
+        if args.rundir:
+            sys.argv += ['--rundir', args.rundir]
+        run()
+            
+    def stop (args):
+        ## print 'stop:', args
+        s.terminate()
+
+    def _list (args):
+        ## print 'list:', args
+        active_tasks, queued_tasks, stopped_tasks, n_cpu, free = get_status(s)
+        print('active:', len(active_tasks))
+        for t in active_tasks:
+            print(t)
+        print('queued:', len(queued_tasks))
+        for t in queued_tasks:
+            print(t)
+        print ('n_cpu:', n_cpu, 'free:', free)
+
+    def ncpu (args):
+        s.set_ncpu (args.ncpu)
+        
+    parser = argparse.ArgumentParser()
+    parser.add_argument ('--host', default='localhost')
+    
+    subparsers = parser.add_subparsers()
+
+    parser_submit = subparsers.add_parser('submit')
+    parser_submit.add_argument ('args', nargs='+')
+    parser_submit.add_argument ('--log-stdout')
+    parser_submit.add_argument ('--log-stderr')
+    parser_submit.add_argument ('--email')
+    parser_submit.add_argument ('--path')
+    parser_submit.add_argument ('--keep-environment', nargs='?', const='all')
+    parser_submit.set_defaults (func=submit)
+    
+    parser_stop = subparsers.add_parser ('stop')
+    parser_stop.add_argument ('stop', action='store_true')
+    parser_stop.set_defaults (func=stop)
+
+    parser_start = subparsers.add_parser ('start')
+    parser_start.add_argument ('start', action='store_true')
+    parser_start.add_argument ('--pidfile', default='/tmp/queue.pid')
+    parser_start.add_argument ('--logfile', default='queue.log')
+    parser_start.add_argument ('--rundir')
+    parser_start.add_argument ('--ncpu', type=int)
+    parser_start.set_defaults (func=start)
+    
+    parser_kill = subparsers.add_parser ('kill')
+    parser_kill.add_argument ('taskno', type=int, nargs='+')
+    parser_kill.set_defaults (func=kill)
+
+    parser_list = subparsers.add_parser ('list')
+    parser_list.set_defaults (func=_list)
+    
+    parser_ncpu = subparsers.add_parser ('ncpu')
+    parser_ncpu.add_argument ('ncpu', type=int)
+    parser_ncpu.set_defaults (func=ncpu)
+    
+    ## parser.add_argument ('--list', '-l', action='store_true')
+    ## parser.add_argument ('args', nargs='*')
+    opt = parser.parse_args(cmdline)
+    s = xmlrpc.client.Server('http://%s:7080/'%opt.host, allow_none=True)
+
+
+    opt.func (opt)
+
+    ##print 'opt:', opt
+    
+
+if __name__ == '__main__':
+    import sys
+    run (sys.argv[1:])
