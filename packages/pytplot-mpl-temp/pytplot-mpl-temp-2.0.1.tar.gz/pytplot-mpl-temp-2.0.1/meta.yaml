@@ -1,0 +1,40 @@
+{% set name = "pytplot" %}
+{% set version = "2.0.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  git_url: https://github.com/MAVENSDC/pytplot.git
+  git_rev: v2.0.0
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  build:
+    - setuptools
+    - python
+    - pip
+  run:
+    - python
+    - numpy
+    - bokeh
+    - pandas
+    - matplotlib
+    - scipy
+    - xarray
+    - cdflib
+
+about:
+  home: "https://github.com/MAVENSDC/pytplot"
+  license: "MIT"
+  summary: "Pytplot is an effort to replicate the functionality IDL tplot library in python"
+  doc_url: "https://pytplot.readthedocs.io"
+  dev_url: "https://github.com/MAVENSDC/pyptlot"
+
+extra:
+  recipe-maintainers:
+    - MAVENSDC
