@@ -1,0 +1,1 @@
+from traducteur.lib.mongo import BaseMongoModel
