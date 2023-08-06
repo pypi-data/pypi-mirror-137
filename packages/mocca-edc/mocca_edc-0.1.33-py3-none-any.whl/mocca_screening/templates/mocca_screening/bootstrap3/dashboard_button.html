@@ -1,0 +1,12 @@
+{% load i18n static %}
+<!-- start changelist_button -->
+<script src="https://kit.fontawesome.com/a022b85977.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'edc_dashboard/css/changelist_button.css' %}">
+<div>
+    <a class="button {{ button_type }}" title="{{ title |default:"Go to subject's dashboard"}}"
+        href="{{ url }}">
+        {% if fa_icon_after %}{% else %}<i class="{{ fa_icon }}"></i>{% endif %} {{ label|default:"Dashboard" }} {% if fa_icon_after %}<i class="{{ fa_icon }}"></i>{% endif %}
+    </a>
+</div>
+<!-- end changelist_button -->
+
