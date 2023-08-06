@@ -1,0 +1,32 @@
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{ field.label }}:</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            {% if "readonly" in widget.attrs %}
+                <input {% if field.value is not None %}value="{{ field.value }}"{% endif %}
+                       class="input" type="{{ type }}"
+                        {% include "django/forms/widgets/attrs.html" with widget=widget %}
+                />
+                <input type="hidden"
+                       name="{{ name }}"
+                       {% if field.value is not None %}value="{{ field.value }}"{% endif %}
+                />
+            {% else %}
+                <input type="{{ type }}" name="{{ name }}"
+                       {% if field.value is not None %}value="{{ field.value }}"{% endif %}
+                        {% include "django/forms/widgets/attrs.html" with widget=widget %}/>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% for name, error in field.error_messages.items %}
+    <div class="message is-danger">
+        <div class="message-body">
+            {{ error }}
+        </div>
+    </div>
+{% endfor %}
+
