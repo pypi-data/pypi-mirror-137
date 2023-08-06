@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "morningstar_data"
+version = "0.2.0"
+description = "Morningstar Data"
+authors = ["Morningstar, Inc."]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.931"
+pytest = "^6.2.5"
+pre-commit = "^2.16.0"
+black = "^21.12b0"
+coverage = "^6.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
