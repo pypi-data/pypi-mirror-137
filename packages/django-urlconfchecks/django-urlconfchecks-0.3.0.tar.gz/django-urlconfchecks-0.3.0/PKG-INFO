@@ -1,0 +1,127 @@
+Metadata-Version: 2.1
+Name: django-urlconfchecks
+Version: 0.3.0
+Summary: a python package for type checking the urls and associated views.
+Home-page: https://github.com/AliSayyah/django-urlconfchecks
+License: MIT
+Author: ali sayyah
+Author-email: ali.sayyah2@gmail.com
+Requires-Python: >=3.7.0,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Provides-Extra: dev
+Provides-Extra: doc
+Provides-Extra: test
+Requires-Dist: black (>=21.5,<23.0); extra == "test"
+Requires-Dist: bump2version (>=1.0.1,<2.0.0); extra == "dev"
+Requires-Dist: django (>=3.2.0); extra == "test" or extra == "dev"
+Requires-Dist: flake8 (>=4.0.1,<5.0.0); extra == "test"
+Requires-Dist: flake8-docstrings (>=1.6.0,<2.0.0); extra == "test"
+Requires-Dist: isort (>=5.8.0,<6.0.0); extra == "test"
+Requires-Dist: mkdocs (>=1.1.2,<2.0.0); extra == "doc"
+Requires-Dist: mkdocs-autorefs (>=0.2.1,<0.4.0); extra == "doc"
+Requires-Dist: mkdocs-include-markdown-plugin (>=3.2.3,<4.0.0); extra == "doc"
+Requires-Dist: mkdocs-material (>=8.1.8,<9.0.0); extra == "doc"
+Requires-Dist: mkdocs-material-extensions (>=1.0.1,<2.0.0)
+Requires-Dist: mkdocstrings (>=0.17.0,<0.18.0); extra == "doc"
+Requires-Dist: mypy (>=0.931,<0.932); extra == "test"
+Requires-Dist: pip (>=20.3.1,<21.0.0); extra == "dev"
+Requires-Dist: pre-commit (>=2.12.0,<3.0.0); extra == "dev"
+Requires-Dist: pytest (>=6.2.4,<7.0.0); extra == "test"
+Requires-Dist: pytest-cov (>=3.0.0,<4.0.0); extra == "test"
+Requires-Dist: pyupgrade (>=2.31.0,<3.0.0); extra == "test"
+Requires-Dist: toml (>=0.10.2,<0.11.0); extra == "dev"
+Requires-Dist: tox (>=3.20.1,<4.0.0); extra == "dev"
+Requires-Dist: twine (>=3.3.0,<4.0.0); extra == "dev"
+Requires-Dist: virtualenv (>=20.2.2,<21.0.0); extra == "dev"
+Description-Content-Type: text/markdown
+
+# django-UrlConfChecks
+
+[![pypi](https://img.shields.io/pypi/v/django-urlconfchecks.svg)](https://pypi.org/project/django-urlconfchecks/)
+[![python](https://img.shields.io/pypi/pyversions/django-urlconfchecks.svg)](https://pypi.org/project/django-urlconfchecks/)
+[![Build Status](https://github.com/AliSayyah/django-urlconfchecks/actions/workflows/dev.yml/badge.svg)](https://github.com/AliSayyah/django-urlconfchecks/actions/workflows/dev.yml)
+[![codecov](https://codecov.io/gh/AliSayyah/django-urlconfchecks/branch/main/graphs/badge.svg)](https://codecov.io/github/AliSayyah/django-urlconfchecks)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/AliSayyah/django-urlconfchecks/main.svg)](https://results.pre-commit.ci/latest/github/AliSayyah/django-urlconfchecks/main)
+
+a python package for type checking the urls and associated views
+
+* Documentation: <https://AliSayyah.github.io/django-urlconfchecks>
+* GitHub: <https://github.com/AliSayyah/django-urlconfchecks>
+* PyPI: <https://pypi.org/project/django-urlconfchecks/>
+* Free software: GPL3
+## Installation
+
+    pip install django-urlconfchecks
+
+## Usage
+
+Add this to your settings.py imports:
+
+    import django_urlconfchecks
+## Features
+
+Using this package, URL pattern types will automatically be matched with associated views, and in case of mismatch, an
+error will be raised.
+
+Example:
+
+```python
+# urls.py
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('articles/<str:year>/', views.year_archive),
+    path('articles/<int:year>/<int:month>/', views.month_archive),
+    path('articles/<int:year>/<int:month>/<slug:slug>/', views.article_detail),
+]
+```
+
+```python
+# views.py
+
+def special_case(request):
+    pass
+
+
+def year_archive(request, year: int):
+    pass
+
+
+def month_archive(request, year: int, month: int):
+    pass
+
+
+def article_detail(request, year: int, month: int, slug: str):
+    pass
+```
+
+output will be:
+
+```
+(urlchecker.E002) For parameter `year`, annotated type int does not match expected `str` from urlconf
+```
+
+* TODO
+    - Fine-grained methods for silencing checks.
+    - Should only warn for each unhandled Converter once
+    - Regex patterns perhaps? (only RoutePattern supported at the moment)
+
+## Credits
+
+- [Luke Plant](https://github.com/spookylukey) for providing the idea and the initial code.
+- This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and
+  the [waynerv/cookiecutter-pypackage](https://github.com/waynerv/cookiecutter-pypackage) project template.
+
