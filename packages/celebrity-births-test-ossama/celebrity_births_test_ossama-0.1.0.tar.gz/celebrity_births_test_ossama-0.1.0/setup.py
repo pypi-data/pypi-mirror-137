@@ -1,0 +1,14 @@
+from setuptools import setup
+from setuptools import find_packages
+
+setup(
+    name='celebrity_births_test_ossama',
+    version='0.1.0',
+    description='Mock package that allows you to find celebrity by date of birth',
+    url='https://github.com/IvanYingX/project_structure_pypi.git',
+    author='Ivan Ying',
+    license='MIT',
+    scripts=['scripts/hello.py'],
+    packages=find_packages(),
+    install_requires=['requests', 'beautifulsoup4'],
+)
