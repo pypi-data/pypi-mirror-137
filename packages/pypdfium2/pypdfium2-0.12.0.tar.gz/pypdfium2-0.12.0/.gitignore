@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2021 geisserml <geisserml@gmail.com>
+# SPDX-License-Identifier: CC-BY-4.0
+
+data/
+build/
+dist/
+tests/output/
+docs/build/*
+!docs/build/.gitkeep
+sourcebuild/*
+!sourcebuild/patches
+
+**/__pycache__
+**/.mypy_cache
+**/.pytest_cache
+*.pyc
+*.vscode
+*.egg-info
+*.kate-swp
+*.kdev4
+
+*.so
+*.dll
+*.dylib
+pdfium
+_pypdfium.py
