@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: smap-haplotype-window
+Version: 1.5.0
+Summary: Haplotype-window is a SMAP component that performs haplotyping between pairs of anchors defined in a reference genome.
+Home-page: https://ngs-smap.readthedocs.io/en/latest/
+Author-email: dries.schaumont@ilvo.vlaanderen.be
+License: Attribution-NonCommercial-ShareAlike 4.0 International
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8.1
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: ngs-smap (~=4.4.0)
+Requires-Dist: cutadapt
+
+# SMAP-Haplotype-Window
+SMAP-Haplotype-Window is a plugin for SMAP that allows for the analysis of sequencing data from CRISPR edited loci.
+
+## Installation
+Installation should be performed by installing [SMAP](https://gitlab.com/truttink/smap), and afterwards install this plugin.
+
+```{bash}
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -U pip
+pip install ngs-smap
+pip install smap-haplotype-window
+```
+
+
+
+
