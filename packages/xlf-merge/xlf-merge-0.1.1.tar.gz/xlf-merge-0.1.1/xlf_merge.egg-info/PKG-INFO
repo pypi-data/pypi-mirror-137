@@ -1,0 +1,95 @@
+Metadata-Version: 2.1
+Name: xlf-merge
+Version: 0.1.1
+Summary: APP for merging xlf translation files
+Home-page: https://github.com/Salamek/xlf-merge
+Author: Adam Schubert
+Author-email: adam.schubert@sg1-game.net
+License: GPL-3.0 
+Project-URL: Release notes, https://github.com/Salamek/xlf-merge/releases
+Description: # xlf-merge
+        
+        Tool to merge XLF translation files.
+        And it can also find dupes in XLF files.
+        
+        
+        ## Installation
+        
+        ### Using PIP
+        
+        ```bash
+        pip install xlf-merge
+        ```
+        
+        ### Using package Debian/Archlinux package
+        
+        Go to https://repository.salamek.cz/ to see how to setup access to my public repository, then just do:
+        
+        debian
+        ```bash
+        apt update && apt install xlf-merge
+        ```
+        
+        archlinux
+        ```bash
+        pacman -Sy xlf-merge
+        ```
+        
+        ## Usage
+        
+        ### Merging
+        
+        ```bash
+        xlf-merge merge <old_translation_file> <new_translation_file> <output_file> --method='source/id'
+        ```
+        
+        Merge files by source:
+        
+        ```bash
+        xlf-merge merge messages.cs.xlf.old messages.xlf messages.cs.xlf --method='source'
+        ```
+        
+        Merge files by id:
+        
+        ```bash
+        xlf-merge merge messages.cs.xlf.old messages.xlf messages.cs.xlf --method='id'
+        ```
+        
+        ### Finding dupes
+        ```
+        xlf-merge dupes <file_to_check> --method='source/id/target'
+        ```
+        
+        Finding dupes by source:
+        
+        ```
+        xlf-merge dupes messages.cs.xlf --method='source'
+        ```
+        
+        Finding dupes by id:
+        
+        ```
+        xlf-merge dupes messages.cs.xlf --method='id'
+        ```
+        
+        Finding dupes by target:
+        
+        ```
+        xlf-merge dupes messages.cs.xlf --method='target'
+        ```
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Software Development
+Requires-Python: >=3.4
+Description-Content-Type: text/markdown
