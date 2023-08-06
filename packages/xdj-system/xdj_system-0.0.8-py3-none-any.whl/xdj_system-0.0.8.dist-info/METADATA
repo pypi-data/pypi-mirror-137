@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: xdj-system
+Version: 0.0.8
+Summary: a system app for django
+Home-page: https://gitee.com/xdjango/xdj_utils.git
+Author: 18580543261
+Author-email: 595127207@qq.com
+License: MIT Licence
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: asgiref (==3.3.4)
+Requires-Dist: Django (==3.2.3)
+Requires-Dist: django-filter (==2.4.0)
+Requires-Dist: djangorestframework (==3.12.4)
+Requires-Dist: djangorestframework-simplejwt (==4.7.1)
+Requires-Dist: pytz (==2021.1)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: user-agents (==2.2.0)
+Requires-Dist: drf-yasg (==1.20.0)
+Requires-Dist: gitpython (==3.1.20)
+Requires-Dist: whitenoise (==5.3.0)
+Requires-Dist: xdj-utils (==0.0.6)
+
+#usage
+##install
+```
+pip install xdj-system
+```
+##setting
+###modification
+```
+INSTALLED_APPS = [
+    ...
+    'xdj_system',
+]
+```
+
