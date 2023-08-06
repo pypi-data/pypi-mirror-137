@@ -1,0 +1,60 @@
+Из России? Тебе сюда --> <a href="https://zen.yandex.ru/media/id/60856790ae47bf185f78b82d/zdravstvuite-eto-ne-statia-a-dokumentaciia-k-moemu-paketu-v-pypi-608f77907ffcba2d9e3b78fc">русскоязычная версия</a>.<br>
+<br>
+Simple_file_user is the package for easy working with files.
+This package has some functions and one class for working with files.
+<h2>Installing</h2>
+To install this package write in command line:<br>
+<code>python -m pip install simple_file_user</code>
+<h2>Quick start.</h2>
+To import class use:<br>
+<code>from simple_file_user.File import File</code><br>
+This imports File class from package. Let's make new file with it:<br>
+<code>file = File("file.txt", "utf-8", True)</code><br>
+Let's write something into our file:<br>
+<code>file.rewrite("Something.")</code><br>
+And check if has it written into file by read function:<br>
+<code>file.read()</code><br>
+Output:<br>
+<code>Something</code>
+<h2>Importing</h2>
+<code>
+ import simple_file_user # Importing all, but you can call package's facilities only with the prefix simple_file_user.<br>
+ from simple_file_user import * # Importing all from the package.<br>
+ from simple_file_user import name_of_function # Importing certain function or functions.<br>
+ from simple_file_user.File import File # Importing File class.<br>
+</code>
+<h2>Functions overview</h2>
+This is list of functions included this package:
+<ul>
+ <li><code>read(path: str, encoding: str = "utf-8", binary_mode: bool = False) -> str</code> ---- Read file and return it's content.</li>
+ <li><code>rewrite(path: str, content: str, encoding: str = "utf-8") -> int</code> ---- Clear file and write content into it. Return amount of written symbols.</li>
+ <li><code>add(path: str, content: str, encoding = "utf-8") -> int</code> ---- Add content into file. Return amount of written symbols.</li>
+ <li><code>remove(path: str) -> None</code> ---- Remove file.</li>
+ <li><code>rename(path: str, new_name: str) -> None</code> ---- Rename file (path).</li>
+ <li><code>getSize(path: str) -> int</code> ---- Return size of file (path) in bytes.</li>
+ <li><code>writeToFile(path: str, encoding: str = "utf-8")</code> ---- It is decorator. Return function that write to file (path) returning of decorated callable object.</li>
+ <li><code>addToFile(path: str, encoding: str = "utf-8")</code> ---- It is decorator. Return function that add to file (path) returning of decorated callable object.</li>
+</ul>
+If you want to learn more about them use <code>help(name_of_function)</code>. So you will get a more extended description.
+<h2>File class</h2>
+There is a file class in this package. It is situated in module named File. It has two private fields. They are path and encoding. There are methods <code>getPath()</code> and <code>getEncoding()</code> to get value from these fields.
+<h3>Creating file object.</h3>
+<code>File(path: str, , encoding: str = "utf-8", new: bool = False)</code>
+<h3>Methods overview</h3>
+<ul>
+ <li><code>read() -> str</code> ---- Read file and return it's content.</li>
+ <li><code>write(content: str, mod: str) -> int</code> ---- Write content into file by mod.</li>
+ <li><code>rewrite(content: str) -> int</code> ---- Clear file and write content into it. Return amount of written symbols.</li>
+ <li><code>add(content: str) -> int</code> ---- Add content into file. Return amount of written symbols.</li>
+ <li><code>readLine(number_of_line: int) -> str</code> ---- Read line from file.</li>
+ <li><code>rename(new_name: str) -> None</code> ---- Rename file.</li>
+ <li><code>getSize() -> int</code> ---- Return size of file in bytes.</li>
+ <li><code>getName() -> str</code> ---- Return name of file.</li>
+ <li><code>getEncoding() -> str</code> ---- Return encoding of file.</li>
+ <li><code>remove() -> None</code> ---- Remove file and destroy object.</li>
+ <li><code>split(key: str) -> list</code> ---- Return splited file's content.</li>
+ <li><code>rsplit(key: str) -> list</code> ---- Return reversed splited file's content.</li>
+</ul>
+<h3>Compairing File objects.</h3>
+You can compair File objects. If you try to compair File object and something else, you will get a TypeError. 
+Compairing operators <code>==</code> and <code>!=</code> compair content of given Files. Others (<code>< > <= >=</code>) compair their size.
