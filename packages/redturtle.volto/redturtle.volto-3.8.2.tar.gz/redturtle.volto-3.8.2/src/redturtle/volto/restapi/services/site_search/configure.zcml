@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cache="http://namespaces.zope.org/cache"
+    xmlns:plone="http://namespaces.plone.org/plone">
+
+  <plone:service
+    method="GET"
+    for="zope.interface.Interface"
+    factory=".get.SearchGet"
+    name="@site-search"
+    permission="zope2.View"
+    />
+
+  <cache:ruleset ruleset="plone.content.dynamic" for=".get.SearchGet" />
+
+</configure>

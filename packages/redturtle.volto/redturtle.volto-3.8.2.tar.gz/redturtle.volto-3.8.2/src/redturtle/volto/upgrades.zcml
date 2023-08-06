@@ -1,0 +1,137 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+  <genericsetup:upgradeStep
+    source="1000"
+    destination="1001"
+    title="Upgrade to 1001"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.update_rolemap"
+    />
+  <genericsetup:upgradeStep
+    source="1001"
+    destination="1002"
+    title="Add new collection criteria for exclude_from_nav"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.update_registry"
+    />
+  <genericsetup:upgradeStep
+    source="1002"
+    destination="1003"
+    title="customize robots.txt"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_1003"
+    />
+  
+  <genericsetup:upgradeStep
+    source="1003"
+    destination="1004"
+    title="fix events recurrences"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_1004"
+    />
+
+  <genericsetup:upgradeStep
+    source="1004"
+    destination="1005"
+    title="Add p.a.caching profile"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_1005"
+    />
+
+  <genericsetup:upgradeStep
+    source="1005"
+    destination="1006"
+    title="Add new caching policies"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.update_registry"
+    />
+  <genericsetup:upgradeStep
+    source="1006"
+    destination="1007"
+    title="Update caching policies"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.update_registry"
+    />
+  <genericsetup:upgradeStep
+    source="1007"
+    destination="1100"
+    title="Migrate to volto 13"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_volto13"
+    />
+  <genericsetup:upgradeStep
+    source="1100"
+    destination="1101"
+    title="Migrate to volto 13 - bis"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_volto13_bis"
+    />
+  <genericsetup:upgradeStep
+    source="1101"
+    destination="1200"
+    title="Customizable exposed vocabularies"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.update_rolemap"
+    />
+  <genericsetup:upgradeStep
+    source="1200"
+    destination="1300"
+    title="Index standard blocks"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_1300"
+    />
+  <genericsetup:upgradeStep
+    source="1300"
+    destination="1400"
+    title="Disable ramcache for terse caching"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_1400"
+    />
+  <genericsetup:upgradeStep
+    source="1400"
+    destination="2000"
+    title="Add plone.volto dependency"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_2000"
+    />
+  <genericsetup:upgradeStep
+    source="2000"
+    destination="2100"
+    title="Reindex pages with table blocks"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_2100"
+    />
+  <genericsetup:upgradeStep
+    source="2100"
+    destination="2200"
+    title="Add default blocks to pages created automatically"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_2200"
+    />
+  
+  <genericsetup:upgradeStep
+    source="2200"
+    destination="3000"
+    title="Reindex images"
+    description=""
+    profile="redturtle.volto:default"
+    handler=".upgrades.to_3000"
+    />
+</configure>
