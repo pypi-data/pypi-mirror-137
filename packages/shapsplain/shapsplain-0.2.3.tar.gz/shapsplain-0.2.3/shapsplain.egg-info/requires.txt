@@ -1,0 +1,9 @@
+numpy<1.22,>=1.21
+scikit-learn<1.1,>=1.0
+numba<0.56,>=0.55
+
+[:sys_platform != "Darwin" or platform_machine != "arm64"]
+tensorflow<2.9,>=2.8
+
+[:sys_platform == "Darwin" and platform_machine == "arm64"]
+tensorflow-macos<2.9,>=2.8
