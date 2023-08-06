@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: cpp-stresst
+Version: 0.1
+Summary: Stress test your C++ solutions!
+Home-page: https://ryanchou.dev
+Author: Ryan Chou
+Author-email: 
+License: MIT
+Keywords: competitive-programming cpp c++ problems testing
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+# cpp_stresst
+
+This is a package to help stress test your C++ solutions to problems.
+
+You should have your directory structured like this:
+
+- C++ solution
+- Test Folder
+	- 1.in
+	- 1.out
+
+All test cases should have a file with the same name ending with `.in` and a file ending with `.out` for input and output, respectively.
+
+To test your solution on `stdin`/`stdout`, run this command.
+
+`c_stresst [SOLUTION FILE] [TEST FOLDER]`
+
+If you ever forget this command, simply type this into your terminal:
+`c_stresst --help`
+
+This library compiles on g++, so if you don't have that, you should install it!
+
