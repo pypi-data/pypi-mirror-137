@@ -1,0 +1,284 @@
+Metadata-Version: 2.1
+Name: jinxif
+Version: 0.0.49
+Summary: A python3-based image analysis package to achieve fully-documented and reproducible visualization and analysis of bio-medical microscopy images. This is a fork from Jennifer Eng`s mplex_image software library.
+Home-page: https://gitlab.com/bue/jinxif
+Author: Elmar Bucher
+Author-email: ulmusfagus@tutanota.de
+License: GPL>=3
+Project-URL: Bug Reports, https://gitlab.com/bue/jinxif/-/issues
+Project-URL: Say Thanks!, https://donate.doctorswithoutborders.org
+Project-URL: Source, https://gitlab.com/bue/jinxif
+Keywords: multiplex imaging,cyclic immunofluorescence,image processing,image data extraction,image analysis
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python :: 3.6
+Requires-Python: >=3.6,<3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aicsimageio
+Requires-Dist: cellpose
+Requires-Dist: imagecodecs
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: numba
+Requires-Dist: ome-types
+Requires-Dist: opencv-python
+Requires-Dist: pandas
+Requires-Dist: pillow
+Requires-Dist: scikit-image
+Requires-Dist: scipy
+Requires-Dist: seaborn
+Requires-Dist: torch
+
+# cmIF fork: jinxIF
+
++ Author: engje, bue
++ Date: 2020-11-01
++ License: GPLv3
++ Language: Python3
+
+Description: jinxIF is a fork from Jennifer Eng's original cmIF mplex\_image software library (https://gitlab.com/engje/cmif).
+cmIF is a Python3 library for automated image processing and analysis of multiplex immunofluorescence images.
+
+Source: the latest version of this user manual can be found at https://gitlab.com/bue/jinxif/-/blob/master/README.md
+
+## HowTo
+
+### HowTo - Installation Jixif
+
+**Python version:**
+
+A cornerstone of jinxif is **cellpose**, which is used for segmentation.
+Cellpose requires at the moment of this writing python version 3.8.
+We set the python requirement for jinxif accordingly in the setup.py.
+You can check if these requirements are still true (https://github.com/MouseLand/cellpose/blob/master/environment.yml).
+If this has changes, please drop us a line, that we can adjust the setup.py file. Thank you!
+
+
+**Python environment:**
+
+We recommend installing jinxif in an own python environment.
+Iff you run miniconda (or anaconda) you can generate a jinxif python environment like this:
+```bash
+conda create -n jinxif python=3.8
+```
+You can activate the generated jinxif environment like this:
+```bash
+conda activate jinxif
+```
+
+
+**CPU based installation:**
+
+1. Install some basics.
+```bash
+pip install ipython jupyterlab
+```
+
+2. Install torch.
+
+Check out the pytorch side (https://pytorch.org/get-started/locally/),
+if you want to install torch with pip or from source, rather than with conda.
+Installing pytorch is enough. There is no need to install torchaudio and torchvision.
+```bash
+conda install pytorch
+```
+
+3. Install cellpose.
+```bash
+pip install cellpose
+```
+
+4. Install jinxif.
+```bash
+pip install jinxif
+pip install aicsimageio[czi]  # if you deal with carl zeiss images.
+pip install imagecodecs  # if you deal with miltenyi macsima images.
+```
+
+5. Initialize a local config file.
+
+Open a python shell and type:
+```python
+from jinxif import configure
+configure.link_local_config()
+exit()
+```
+The local jinxif configuration file can be found at: `~/.jinxif/config.py`.
+
+Use your favorite [text editor](https://en.wikipedia.org/wiki/Text_editor) to edit the jinxif config file.
+
+
+**Nvidia GPU based installation:**
+
+1. Install some basics.
+```bash
+conda install ipython jupyterlab
+```
+
+2. Install torch.
+
+Note: For running touch on a GPU, you have to know which **cuda toolkit** version you have installed on your machine.
+How depends on your operating system. We leave it your homework to figure out how to do that.
+
+Check out the pytourch side (https://pytorch.org/get-started/locally/), to figure out how to install the latest version of torch, for your os, python package distro, and cuda toolkit.
+Installing pytorch is enough. There is no need to install torchaudio and torchvision.
+
+The final installation command will look something like below.
+```bash
+conda install pytorch cudatoolkit=nn.n -c pytorch
+```
+
+3. Install cellpose.
+
+This is a bit special because we want to install cellpose without dependencies so that the CPU focused pip version of pytorch does not get installed!
+You should use the same --no-deps --upgarde parameter when you try to update cellpose.
+```bash
+pip install --no-deps cellpose --upgrade
+```
+
+4. Install jinxif.
+```bash
+pip install jinxif
+pip install aicsimageio[czi]  # if you deal with carl zeiss images.
+pip install imagecodecs  # if you deal with miltenyi macsima images.
+```
+
+5. Initialize a local config file.
+
+Open a python shell and type:
+```python
+from jinxif import configure
+configure.link_local_config()
+exit()
+```
+The local jinxif configuration file can be found at: `~/.jinxif/config.py`.
+
+Use your favorite [text editor](https://en.wikipedia.org/wiki/Text_editor) to edit the jinxif config file.
+
+
+### HowTo - Update Jinxif
+
+After an update, it is important to re-link your local jinxif configuration file.
+
+1. Update jinxif.
+```bash
+pip install -U jinxif
+```
+
+2. Link the local config file.
+
+Open a python shell and type:
+```python
+from jinxif import configure
+configure.link_local_config()
+exit()
+```
+
+### HowTo - Run a Data Extraction Pipeline
+
+The data extraction pipeline [jupyter notebooks](https://en.wikipedia.org/wiki/Project_Jupyter) are in the jupyter folder.
+
++ mpleximage_data_extraction_pipeline.ipynb: most elaborate data extraction notebook.
++ codex_data_extraction_pipeline.ipynb: notebook to process [codex](https://help.codex.bio/codex/cim/overview) data.
++ mics_data_extraction_pipeline.ipynb: notebook to process [miltenyi](https://www.miltenyibiotec.com/US-en/products/macsima-imaging-system.html) macsima data.
+
+Download the raw version of this notebook.
+Open then notebook in [**Jupyter**](https://jupyter.org/) to process your data.
+
+For each step in the pipleine there is a detailed description in the notebook.
+
+Besides, all functions have a [docstring](https://en.wikipedia.org/wiki/Docstring).
+To receive additional help for a particular function, in the python shell type:
+```
+help(function)
+```
+
+### HowTo - Protein Marker
+
+All biomarker used in the assay have to be specified in the local jinxif configuration file that can be found at: `~/.jinxif/config.py`.
+
+DAPI, quenching round, blank, and empty markers have to be specified in the `es_markerdapiblank_standard` variable.
+
+Proteins have to be specified in the `es_markerpartition_standard` variable.
+With the protein name, you have as well to specify where the protein in the cell is expressed.
+Possible partitions are: nucleus, nucleus membrane, ring (which is the cytoplasm), and cell membrane.
+If proteins are expressed in more than one cell partition, then they can be specified more than once.
+This is biological knowledge that becomes important in the feature extraction step of the pipeline.
+To check where the proteins are exactly expressed, we recommend consulting the [human protein atlas](https://www.proteinatlas.org/).
+
+Proteins that are used for cell segmentation have to be specified as keys in the `des_cytoplasmmarker_standard` variable.
+These proteins are usually specific for a sudden cell type, or some cell types, but not all cell types.
+E.g. Ecad is expressed in cytoplasm of cancer cells and tonsil and can be used as cell segmentation marker.
+For one cell type, more than one segmentation marker can be defined.
+In the values part of the dictionary, all protein markers have to be specified that might be expressed in the cytoplasm of this particular cell type.
+E.g. CK5 might be expressed in the cytoplasm of cancer cells.
+You can define as many cell types as you want.
+This is biological knowledge that becomes important in the feature extraction step of the pipeline.
+All the protein markers mentioned in the `des_cytoplasmmarker_standard` have also to be specified as ring partition protein in the `es_markerpartition_standard` variable.
+
+
+### HowTo - Naming Convention
+
+The naming conventions are specified in the local jinxif configuration file that can be found at: `~/.jinxif/config.py`.
+The standard naming convention is influenced by our use of axioscan and the zen software (both from [zeiss](https://www.zeiss.com/microscopy/int/home.html).
+It is totally possible to adjust this setting to own needs.
+The most crucial variables to look at are:
+
+Basic setting:
++ d_nconv['s_round_axio']: how is in the filename the staining cycle round defined.
++ d_nconv['s_quenching_axio']: how is in the filename a quenching round specified.
++ d_nconv['s_color_dapi_axio']: how is in the filename the actual microscopy channel specified.
++ d_nconv['ls_color_order_axio']: a by wavelength sorter list of microscopy channel labels.
++ d_nconv['s_sep_marker_axio']: character used in the filename to separate markes.
+
+Czi image file name:
++ d_nconv['s_czidir']: directory name where the raw czi images (with microscopy metadata) are stored.
++ d_nconv['s_format_czidir_original']: string to specify the subfolder structure, e.g. one folder per slide, in the czi directory.
++ d_nconv['s_regex_czi_original']: regular expression string to extract information from the czi filename.
++ d_nconv['di_regex_czi_original']: dictionary to map the extracted information.
+
+Raw tiff image file name:
++ d_nconv['s_rawdir']: directory where the raw tiff files, one tiff file per round and marker, are stored.
++ d_nconv['s_regex_tiff_raw']: regular expression string to extract information from the raw tiff filename.
++ d_nconv['s_format_czidir_original']: string to specify the subfolder structure, usually one folder per slide, in the raw directory.
++ d_nconv['di_regex_tiff_raw']: dictionary to map the extracted information.
+
+
+### HowTo - Slurm
+
+All calculation intensive function offer the option to be processed as [slurm](https://en.wikipedia.org/wiki/Slurm_Workload_Manager) job.
+This can be achieved by setting the parameter: `s_type_processing = 'slurm'`.
+The default setting is 'non-slurm'.
+Use the jupyter lab / Edit / Find ... and Replace All function, to replace them all.
+
+However, the core slurm function, `slurmbatch`, is specified in the local config file that can be found at: `~/.jinxif/config.py`.
+If you want run jinxif on a slurm cluster, you might have to modify this function, so that the resulting slurm command fits the scheme required by your super computer.
+The crucial parameter to look at and  manipulated are: `s_jobname`, `s_partition`, `s_gpu`, `s_mem`, `s_time`, `s_account`.
+
+
+## Tutorial
+
+The tutorial is here: https://gitlab.com/bue/jinxif/-/blob/master/TUTORIAL.md
+
+
+## Discussion
+
+Jinxif is a very lightweight and flexible pipeline to process cyclic immunofluorescence images.
+Except for the registration code (which is [Matlab](https://en.wikipedia.org/wiki/MATLAB) script), jinxif is entirely written in Python3.
+To run jinxif  you have to be savvy in the [**Python**](https://en.wikipedia.org/wiki/Python_(programming_language)) language, else you will struggle!
+To adjust the file naming convention standard in the config file and the registration function call, you have to be familiar with [**regex**](https://en.wikipedia.org/wiki/Regular_expression).
+
+
+## References
+
+"Cyclic Multiplexed-Immunofluorescence (cmIF), a Highly Multiplexed Method for Single-Cell Analysis." *Eng J, Thibault G, Luoh SW, Gray JW, Chang YH, Chin K.* Methods Mol Biol. 2020;2055:521-562. https://doi.org/10.1007/978-1-4939-9773-2_24
+
+"cmIF: A Python Library for Scalable Multiplex Imaging Pipelines." *Eng J, Bucher E, Gray E, Campbell LG, Thibault G, Heiser L, Gibbs S, Gray JW, Chin K, Chang YH.* In: Mathematical and Computational Oncology. ISMCO 2019. Lecture Notes in Computer Science, vol 11826. Springer, Cham. https://doi.org/10.1007/978-3-030-35210-3_3
+
+
