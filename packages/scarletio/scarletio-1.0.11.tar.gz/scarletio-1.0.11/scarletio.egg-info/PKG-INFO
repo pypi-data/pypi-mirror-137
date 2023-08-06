@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: scarletio
+Version: 1.0.11
+Summary: Asynchronous blackmagic & Witchcraft
+Home-page: https://github.com/HuyaneMatsu/scarletio
+Author: HuyaneMatsu
+Author-email: re.ism.tm@gmail.com
+License: MIT
+Description: <h1 align="center">
+            <b>
+                <a href="https://github.com/HuyaneMatsu/scarletio">
+                    scarletio
+                </a>
+            </b>
+        </h1>
+        
+        <p align="center">
+            <b>
+                Asynchronous blackmagic & Witchcraft
+            </b>
+        </p>
+        
+        <br>
+        
+        ----
+        
+        Scarletio is a coroutine based concurrent Python library using modern `async / await` syntax. It abstracts away
+        threading behind event loops providing concurrent API since the start.
+        
+        One of the core concept of the library, that event loops should not intercept with synchronous code execution. When
+        an event loop is started it will not block the control flow. Synchronizations like starting new asynchronous
+        procedures and retrieving their result cross environment allows you to snuggle synchronous with asynchronous models
+        well.
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Provides-Extra: cpythonspeedups
