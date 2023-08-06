@@ -1,0 +1,1 @@
+###Store all the database in the correct format. Also allow a super efficient access to all structure
