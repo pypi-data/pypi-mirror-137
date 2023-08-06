@@ -1,0 +1,33 @@
+[package]
+name = "rocksdb3"
+version = "0.1.0"
+authors = ["Xie Yanbo <xieyanbo@gmail.com>"]
+description = "Python bindings for the Rust rocksdb crate"
+repository = "https://github.com/xyb/rocksdb3"
+homepage = "https://github.com/xyb/rocksdb3"
+license = "Apache-2.0"
+readme = "README.md"
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+rocksdb = { version = "0.17.0", features = ["snappy", "lz4", "zstd", "zlib", "bzip2"] }
+pyo3 = { version = "0.12.0", features = ["extension-module"] }
+
+[package.metadata.maturin]
+classifier = [
+    "Development Status :: 3 - Alpha",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
