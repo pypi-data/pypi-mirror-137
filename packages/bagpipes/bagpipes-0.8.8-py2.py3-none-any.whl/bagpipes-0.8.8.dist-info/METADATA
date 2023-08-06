@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: bagpipes
+Version: 0.8.8
+Summary: Galaxy spectral fitting
+Home-page: https://bagpipes.readthedocs.io
+Author: Adam Carnall
+Author-email: adamc@roe.ac.uk
+License: UNKNOWN
+Project-URL: readthedocs, https://bagpipes.readthedocs.io
+Project-URL: GitHub, https://github.com/ACCarnall/bagpipes
+Project-URL: ArXiv, https://arxiv.org/abs/1712.04452
+Platform: UNKNOWN
+Requires-Dist: numpy (>=1.14.2)
+Requires-Dist: corner
+Requires-Dist: pymultinest (>=2.11)
+Requires-Dist: astropy
+Requires-Dist: matplotlib (>=2.2.2)
+Requires-Dist: scipy
+Requires-Dist: msgpack
+Requires-Dist: deepdish
+Requires-Dist: pandas (<=1.1.5)
+
+**Bayesian Analysis of Galaxies for Physical Inference and Parameter EStimation**
+
+Bagpipes is a state of the art code for generating realistic model galaxy spectra and fitting these to spectroscopic and photometric observations. For further information please see the Bagpipes documentation at `bagpipes.readthedocs.io <http://bagpipes.readthedocs.io>`_.
+
+Bagpipes can be installed with pip:
+
+.. code::
+
+    pip install bagpipes
+
+Please note you cannot run the code just by cloning the repository as the large grids of models aren't included.
+
+
+.. image:: docs/images/sfh_from_spec.png
+
+
