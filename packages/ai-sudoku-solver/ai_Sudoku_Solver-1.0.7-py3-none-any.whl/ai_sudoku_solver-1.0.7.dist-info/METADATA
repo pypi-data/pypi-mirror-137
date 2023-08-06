@@ -1,0 +1,98 @@
+Metadata-Version: 2.1
+Name: ai-sudoku-solver
+Version: 1.0.7
+Summary: A python library for solving sudoku puzzles using artificial neural networks
+Author: Ritvik19
+Author-email: rastogiritvik99@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: huggingface-hub (==0.2.1)
+Requires-Dist: numpy (==1.20.1)
+Requires-Dist: tensorflow (==2.7.0)
+Requires-Dist: tqdm (==4.59.0)
+Description-Content-Type: text/markdown
+
+# [ai-Sudoku-Solver](https://github.com/Ritvik19/ai-Sudoku-Solver)
+
+Solving Sudoku Puzzles using Artificial Neural Networks
+
+[![Downloads](https://pepy.tech/badge/ai-sudoku-solver)](https://pepy.tech/project/ai-sudoku-solver)
+[![Downloads](https://pepy.tech/badge/ai-sudoku-solver/month)](https://pepy.tech/project/ai-sudoku-solver)
+[![Downloads](https://pepy.tech/badge/ai-sudoku-solver/week)](https://pepy.tech/project/ai-sudoku-solver)
+
+---
+
+## Table of Contents
+
+- [ai-Sudoku-Solver](#ai-sudoku-solver)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Model Gallery](#model-gallery)
+  - [References](#references)
+
+---
+
+## Installation
+
+```bash
+pip install ai-sudoku-solver
+```
+
+---
+
+## Usage
+
+Instantiate a SudokuSolver object
+
+```python
+from ai_sudoku_solver import SudokuSolver
+
+solver = SudokuSolver("Ritvik19/sudoku-net-v1")
+```
+
+Call the model on your puzzles
+
+```python
+puzzle = np.array([[
+    [0, 0, 4, 3, 0, 0, 2, 0, 9],
+    [0, 0, 5, 0, 0, 9, 0, 0, 1],
+    [0, 7, 0, 0, 6, 0, 0, 4, 3],
+    [0, 0, 6, 0, 0, 2, 0, 8, 7],
+    [1, 9, 0, 0, 0, 7, 4, 0, 0],
+    [0, 5, 0, 0, 8, 3, 0, 0, 0],
+    [6, 0, 0, 0, 0, 0, 1, 0, 5],
+    [0, 0, 3, 5, 0, 8, 6, 9, 0],
+    [0, 4, 2, 9, 1, 0, 3, 0, 0]
+]])
+solution = solver(puzzle)
+# array([[
+#     [8, 6, 4, 3, 7, 1, 2, 5, 9],
+#     [3, 2, 5, 8, 4, 9, 7, 6, 1],
+#     [9, 7, 1, 2, 6, 5, 8, 4, 3],
+#     [4, 3, 6, 1, 9, 2, 5, 8, 7],
+#     [1, 9, 8, 6, 5, 7, 4, 3, 2],
+#     [2, 5, 7, 4, 8, 3, 9, 1, 6],
+#     [6, 8, 9, 7, 3, 4, 1, 2, 5],
+#     [7, 1, 3, 5, 2, 8, 6, 9, 4],
+#     [5, 4, 2, 9, 1, 6, 3, 7, 8]
+# ]])
+```
+
+---
+
+## Model Gallery
+
+| model                                                          | # parameters |  trained on | accuracy |
+| -------------------------------------------------------------- | -----------: | ----------: | -------: |
+| [sudoku-net-v1](https://huggingface.co/Ritvik19/sudoku-net-v1) |    3,784,729 |  1M puzzles |   98.138 |
+| [sudoku-net-v2](https://huggingface.co/Ritvik19/sudoku-net-v2) |    3,784,729 | 10M puzzles |   98.212 |
+
+## References
+
+1. [1 million Sudoku games](https://www.kaggle.com/bryanpark/sudoku)
+2. [9 Million Sudoku Puzzles and Solutions](https://www.kaggle.com/rohanrao/sudoku)
+
