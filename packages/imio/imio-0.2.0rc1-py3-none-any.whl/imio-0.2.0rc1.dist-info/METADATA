@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: imio
+Version: 0.2.0rc1
+Summary: Loading and saving of image data.
+Home-page: https://github.com/brainglobe/imio
+Author: Charly Rousseau, Adam Tyson
+Author-email: code@adamltyson.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: scikit-image
+Requires-Dist: tifffile
+Requires-Dist: pynrrd
+Requires-Dist: nibabel
+Requires-Dist: tqdm
+Requires-Dist: natsort
+Requires-Dist: psutil
+Requires-Dist: slurmio (>=0.0.5)
+Requires-Dist: imlib
+Requires-Dist: nibabel (>=2.1.0)
+Provides-Extra: dev
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: pytest-cov ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: coverage ; extra == 'dev'
+Requires-Dist: bump2version ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: flake8 ; extra == 'dev'
+
+UNKNOWN
+
