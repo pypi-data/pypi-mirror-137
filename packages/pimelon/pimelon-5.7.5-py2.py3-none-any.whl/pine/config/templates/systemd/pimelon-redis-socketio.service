@@ -1,0 +1,12 @@
+[Unit]
+Description="{{ pine_name }}-redis-socketio"
+PartOf={{ pine_name }}-redis.target
+
+[Service]
+User={{ user }}
+Group={{ user }}
+Restart=always
+ExecStart={{ redis_server }} {{ redis_socketio_config }}
+StandardOutput=file:{{ pine_dir }}/logs/redis-socketio.log
+StandardError=file:{{ pine_dir }}/logs/redis-socketio.error.log
+WorkingDirectory={{ sites_dir }}
