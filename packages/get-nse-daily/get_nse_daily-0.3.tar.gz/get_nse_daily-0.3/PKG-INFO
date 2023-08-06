@@ -1,0 +1,63 @@
+Metadata-Version: 2.1
+Name: get_nse_daily
+Version: 0.3
+Summary: pure python library built using requests to get daily day end data from nse india
+Home-page: https://github.com/v33rh0ra/get_nse_daily
+Author: Tanveer Hora
+Author-email: tanveer.hora@gmail.com
+License: MIT
+Download-URL: https://github.com/v33rh0ra/get_nse_daily/archive/v_03.tar.gz
+Project-URL: Documentation, https://v33rh0ra.github.io/get_nse_daily/nse_daily/index.html
+Project-URL: Bug Tracker, https://github.com/v33rh0ra/get_nse_daily/issues
+Project-URL: Source Code, https://github.com/v33rh0ra/get_nse_daily
+Keywords: nse,bhavcopy,bhav
+Platform: UNKNOWN
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Scientific/Engineering
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+[![](https://i.imgur.com/kQOtbBk.png)](https://v33rh0ra.github.io/get_nse_daily/)
+# get_nse_daily
+# ============
+### _pure python library built using requests to get daily day end data from nse india_
+[**Project website**](https://v33rh0ra.github.io/get_nse_daily/nse_daily/index.html)
+
+[Documentation]
+
+[Documentation]: https://v33rh0ra.github.io/get_nse_daily/nse_daily/index.html
+
+Installation
+------------
+
+    $ pip install get_nse_daily
+
+
+Usage
+-----
+For downloading the NSE Daily Bhav Copy (Day end data) in python use below code, by either providing a date for a single day, or a date range for multiple days.
+
+    from nse_daily import NSEDaily
+    
+    nd = NSEDaily()
+    res= nd.download_by_date('20200904')
+    res2 = nd.download_by_date_range(date_start='20200907',date_end='20200915',num_workers=3)
+
+For downloading the BSE Daily Bhav Copy (Day end data) in python use below code.
+
+    from nse_daily import BSEDaily
+    
+    bd = BSEDaily()
+    res = bse.download_by_date('20220113')
+    res2 = bse.download_by_date_range(date_start='20220101',date_end='20220129',num_workers=5)
+
+
+
+
+
