@@ -1,0 +1,8 @@
+{% load static %}
+{% load i18n %}
+
+{% if value %}
+    <img src="{% static "admin/img/icon-yes.svg" %}" alt="{% trans 'yes' %}"/>
+{% else %}
+    <img src="{% static "admin/img/icon-no.svg" %}" alt="{% trans 'no' %}"/>
+{% endif %}
