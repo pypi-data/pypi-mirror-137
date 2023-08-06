@@ -1,0 +1,130 @@
+\RequirePackage{scrlfile}
+\PreventPackageFromLoading{subfig}
+
+\documentclass[letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[no-math]{fontspec}
+\usepackage[babel=true,protrusion=true,expansion=true]{microtype}
+\usepackage[american]{babel}
+\usepackage{cfr-lm}
+\usepackage{nowidow}
+\usepackage[unicode=true,hidelinks]{hyperref}
+\usepackage[square,numbers,sort&compress]{natbib}
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{footnote}
+\usepackage{acronym}
+\usepackage{relsize}
+\usepackage{upquote}
+\usepackage{fancyvrb}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mleftright}
+\usepackage{bm}
+
+% Pandoc crossref workaround
+\let\pandoccrossrefsubfigures\figure
+\let\endpandoccrossrefsubfigures\endfigure
+
+% Pandoc mods
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Keep aspect ratio of figures
+\let\origincgfx\includegraphics
+\renewcommand{\includegraphics}[2][]{\origincgfx[#1,max width=\textwidth,max height=\textheight,keepaspectratio]{#2}}
+
+% Configure float placement
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{3}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.8}
+\makeatletter
+\def\fps@figure{htbp}
+\def\fps@table{htbp}
+\makeatother
+
+% Configure float arrangement on float-only pages
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{12pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+
+% Use mleftright
+\renewcommand\left\mleft
+\renewcommand\right\mright
+
+% Automatically use \left and \right with parentheses
+\makeatletter
+\def\resetMathstrut@{%
+  \setbox\z@\hbox{%
+    \mathchardef\@tempa\mathcode`\[\relax
+    \mathchardef\@tempc\mathcode`\]\relax
+    \def\@tempb##1"##2##3{\the\textfont"##3\char"}%
+    \expandafter\@tempb\meaning\@tempa \relax
+  }%
+  \ht\Mathstrutbox@\ht\z@ \dp\Mathstrutbox@\dp\z@}
+\makeatother
+\begingroup
+  \catcode`(\active \xdef({\left\string(}
+  \catcode`)\active \xdef){\right\string)}
+\endgroup
+\mathcode`(="8000 \mathcode`)="8000
+
+% Put year in citet
+\newcommand*{\nolink}[1]{{\protect\NoHyper#1\protect\endNoHyper}}
+\renewcommand{\citet}[1]{\nolink{\citeauthor{#1} (\citeyear{#1})}\citep{#1}}
+
+% Disable page numbers
+\pagenumbering{gobble}
+
+% Configure acronym font
+\renewcommand*{\acsfont}[1]{{\addfontfeature{LetterSpace=10.0}\scshape\textsmaller{#1}}}
+
+% Set title, author, date
+\title{$title$}
+\author{$for(author)$\mbox{$author.name$}$sep$\quad $endfor$}
+\date{}
+
+$for(include-before)$$include-before$$endfor$
+
+\begin{document}
+
+% Enable french spacing
+\frenchspacing
+
+\maketitle
+
+\setnowidow[2]
+
+$if(abstract)$
+\section*{Abstract}
+$abstract$
+$endif$
+
+$body$
+
+$if(bibliography)$
+\bibliographystyle{unsrtnat}
+\bibliography{$bibliography$}
+$endif$
+
+$if(appendix)$
+\renewcommand\thefigure{S\arabic{figure}}
+\renewcommand\thetable{S\arabic{table}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\clearpage
+\appendix
+\input{$appendix$}
+$endif$
+
+\end{document}
