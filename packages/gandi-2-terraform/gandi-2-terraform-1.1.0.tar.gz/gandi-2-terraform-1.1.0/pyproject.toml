@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "gandi-2-terraform"
+version = "1.1.0"
+description = "CLI to read Gandi.net live DNS records and generate corresponding TF gandi_livedns_record resources"
+readme = 'README.md'
+license = "MIT"
+authors = ["Marc-Aurèle Brothier <m@brothier.org>"]
+packages = [
+  { include = "gandi_tf" },
+]
+repository = "https://github.com/marcaurele/gandi-2-terraform"
+homepage = "https://github.com/marcaurele/gandi-2-terraform"
+keywords = ['gandi', 'terraform', 'DNS']
+classifiers = [
+  "Topic :: Internet :: Name Service (DNS)",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "License :: OSI Approved :: MIT License"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.27.1"
+click = "^8.0.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^4.0.1"
+flake8-import-order = "^0.18.1"
+black = "^22.1.0"
+
+[tool.poetry.scripts]
+gandi2tf = "gandi_tf.main:generate"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/marcaurele/gandi-2-terraform/issues"
+
+[tool.black]
+target-version = ["py38", "py39", "py310"]
+line-length = 119
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
