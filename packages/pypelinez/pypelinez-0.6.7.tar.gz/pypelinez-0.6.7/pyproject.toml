@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "pypelinez"
+version = "0.6.7"
+description = ""
+authors = ["thecb4 <cavelle@thecb4.io>"]
+readme = "README.md"
+
+repository = "https://gitlab.com/thecb4/pypelinez"
+
+# https://stackoverflow.com/questions/62572961/how-to-organize-a-python-project-with-poetry-for-a-command-line-script
+[tool.poetry.scripts]
+pypelinez = "pypelinez.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click = "^8.0.3"
+colorama = "^0.4.4"
+toml = "^0.10.2"
+semantic-version = "^2.8.5"
+chuy = "^1.4.0"
+twine = "^3.8.0"
+sphinx-click = "^3.1.0"
+Sphinx = "^4.2.0"
+sphinx-rtd-theme = "^1.0.0"
+sphinxcontrib-napoleon = "^0.7"
+
+# https://stackoverflow.com/questions/69528842/an-error-while-trying-to-execute-tests-on-python-3-10-with-pytest
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+black = "^21.12b0"
+flake8 = "^4.0.1"
+pydocstyle = "^6.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+indent_style = "space"
+indent_size = 2
+insert-final-newline = true
+trim-trailing-whitespace = true
+include = '\.pyi?$'
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = "E203"
+
+[tool.poetry.extras]
+docs = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-napoleon", "sphinx_click"]
+
+[tool.chuy]
+format = "poetry run black ."
+lint   = "poetry run flake8 ."
+build  = "poetry build"
+test   = "poetry run pytest"
+docs-config = "poetry run sphinx-quickstart  ./docs/pypelinez --sep -p pypelinez -a \"Cavelle Benjamin\" -v \"0.6.7\" -r \"0.6.7\" -l \"en\" --ext-autodoc --ext-doctest --extensions \"sphinx-click\""
+docs   = "poetry run sphinx-build docs/pypelinez/source docs/pypelinez/build"
+feature-flow= "chuy format lint build test && pypelinez feature add-commit && pypelinez feature submit"
+release-flow = "chuy format lint build test && pypelinez release add-commit && pypelinez release submit" # opportunity to revise changelogs, etc
+local-install = "poetry build && pip install dist/pypelinez-0.6.6.tar.gz"
