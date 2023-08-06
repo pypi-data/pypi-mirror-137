@@ -1,0 +1,420 @@
+# keyscraper Package Documentation
+***
+##### This library provides various functions which simplifies webpage scraping.
+
+##### There are three modules in this package.
+
+1. **utils** - _basic utilities_
+2. **staticscraper** - _used to scrape raw html data_
+3. **dynamicscraper** - _used to scrape html data rendered by **JavaScript**_
+
+##### To install this package, type in command prompt:
+
+    pip install keyscraper
+
+***
+## [1] Basic Utilities
+
+#### (1-A) _TimeName_ - Generating a file name composed of the current time:
+
+###### TimeName(mode = "default")
+
+|argument|optional|default|available|
+|---|---|---|---|
+|mode| _yes_ |TimeName.MODE_KEYWIND|TimeName.MODE_KEYWIND, TimeName.MODE_DATETIME, "default"|
+
+###### self.get_name(basename = "", extension = "", f_datetime = None)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|basename|_yes_|""| [ string type ] |
+|extension|_yes_|""| [ string type ] |
+|f_datetime| _no_ | | [ string type ] |
+
+There are two available modes: "_**keywind**_" and "_**datetime**_". By default, "_**keywind**_" is used.
+
+In mode "_**keywind**_", the date is formatted as **D-{month}{day}{year}** where **{month}** consists of a **single character**, **{day}** is a **2-digit** number ranging from _**01 to 31**_ and **{year}** is a **4-digit** number such as _**2000**_.
+
+|Jan.|Feb.|Mar.|Apr.|May|Jun.|Jul.|Aug.|Sep.|Oct.|Nov.|Dec.|
+|--|--|--|--|--|--|--|--|--|--|--|--|
+|i|f|m|a|M|j|J|A|s|o|n|d|
+
+For example, on _**December 7th of 2000**_, **D-d072000** will be the resulting date string.
+
+In mode "_**keywind**_", the time is formatted as **T-{hour}{minute}{second}** where **{hour}** consists of a **2-digit** number ranging from _**00 to 23**_, both **{minute}** and **{second}** are a **2-digit** number ranging from _**00 to 59**_.
+
+For example, at _**05:43:07 PM.**_, the resulting time string will be **T-174307**.
+
+For example, at _**01:23:45 AM.**_ on _**April 26th, 1986**_, the resulting string will be **{basename}_D-a261986_T-012345{extension}**.
+
+In mode "_**datetime**_", the programmer must pass a _**strftime**_ string. The complete documentation to datetime formatting is linked [_here_](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes).
+
+##### (1-A-1) Example of using TimeName (mode: _keywind_).
+    from keyscraper.utils import TimeName
+    mode = TimeName.MODE_KEYWIND # or TimeName.MODE_DATETIME
+    name = "images"
+    extension = ".jpg"
+    timename = TimeName(mode).get_name(name, extension)
+    print(timename) # "images_D-d072000_T-012345.jpg"
+
+##### (1-A-2) Example of using TimeName (mode: _datetime_).
+
+    from keyscraper.utils import TimeName
+    mode = TimeName.MODE_DATETIME # or TimeName.MODE_KEYWIND
+    format_string = "_%y%m%d-%H%M%S"
+    name = "images"
+    extension = ".jpg"
+    timename = TimeName(mode).get_name(name, extension, format_string)
+    print(timename) # "images_001207-012345.jpg"
+
+#### (1-B) _FileName_ - Dividing a filename into folder, file and extension:
+
+###### FileName(filename, mode = "default")
+
+|argument|optional|default|available|
+|---|---|---|---|
+|filename|_no_| | [ string type ] |
+|mode|_yes_|FileName.MODE_FORWARDSLASH|FileName.MODE_FORWARDSLASH, FileName.MODE_BACKWARDSLASH|
+
+###### self.\_\_getitem\_\_(key = "all")
+
+|argument|optional|default|available|
+|---|---|---|---|
+|key|_no_|"all"|"all", "folder", "name", "extension"|
+
+##### (1-B-1) Example of using FileName
+
+    from keyscraper.utils import FileName
+    mode = FileName.MODE_FORWARDSLASH
+    filename = "C:/Users/VIN/Desktop/utils.py"
+    name_object = FileName(filename)
+    full_name = name_object["all"]
+    file_name = name_object["name"]
+    folder_name = name_object["folder"]
+    extension = name_object["extension"]
+    print(full_name) # "C:/Users/VIN/Desktop/utils.py"
+    print(folder_name) # "C:/Users/VIN/Desktop/"
+    print(file_name) # "utils"
+    print(extension) # ".py"
+
+#### (1-C) _FileRetrieve_ - Downloading a file from a direct URL:
+
+###### FileRetrieve(directlink, filename = None, buffer = 4096, progress_bar = False, overwrite = None)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|directlink|_no_|  | [ string type ] |
+|filename|_yes_|  | [ string type ] |
+|buffer|_yes_|4096| [ integer (>0) type ] |
+|progress_bar|_yes_|False|True, False|
+|overwrite|_yes_|None|None, True, False|
+
+If overwrite is _**None**_, the programmer will be asked to enter _**(Y/N)**_ on each download.
+
+###### self.simple_retrieve()
+
+Calling this function will download the file from the target URL and save it to disk with the provided filename.
+
+##### (1-C-1) Example of using FileRetrieve
+
+    from keyscraper.utils import FileRetrieve
+    url = "http://www.lenna.org/len_top.jpg"
+    filename = "lenna.jpg"
+    progress_bar = True
+    overwrite = True
+    downloader = FileRetrieve(url, filename = filename, progress_bar = progress_bar, overwrite = overwrite)
+    downloader.simple_retrieve()
+
+#### (1-D) _ImageGrabber_ - Downloading an image from a direct URL:
+
+###### ImageGrabber(filename, progressBar = False, url_timeout = None)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|filename|_no_|  | [ string type ] |
+|progressBar|_yes_|False|True, False|
+|url_timeout|_yes_|600| [ integer (>0) type ] |
+
+The URL request will be open for a maximum of _**url_timeout**_ seconds.
+
+###### self.retrieve(directlink, overwrite = None, timeout = None)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|directlink|_no_| | [ string type ] |
+|overwrite|_yes_|None|None, True, False|
+|timeout|_yes_|None|None, [ integer (>0) type ] |
+
+If the image hasn't finished downloading in _**timeout**_ seconds, the process will terminate.
+
+If overwrite is _**None**_, the programmer will be asked to enter _**(Y/N)**_ on each download.
+
+##### (1-D-1) Example of using ImageGrabber
+
+    from keyscraper.utils import ImageGrabber
+    url = "http://www.lenna.org/len_top.jpg"
+    filename = "lenna.jpg"
+    progressBar = True
+    url_timeout = 60
+    downloader = ImageGrabber(filename, progressBar = progressBar, url_timeout = url_timeout)
+    downloader.retrieve(url, overwrite = True, timeout = 15)
+
+***
+
+## [2] Static Scraper
+
+#### (2-A) _SSFormat_ - Defining the node attributes to scrape:
+
+###### SSFormat(element_type, **kwargs)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|element_type|_no_| | [ string type ] |
+|search_type|_yes_|None|None, [ string type ] |
+|search_clue|_yes_|None|None, [ string type ] |
+|multiple|_yes_|False| True, False |
+|extract|_yes_|None|None, [ function (1-arg) type ] |
+|format|_yes_|None|None, [ function (1-arg) type ] |
+|nickname|_yes_|None|None, [ string type ] |
+|filter|_yes_|None|None, [ function (1-arg) type ] |
+|keep|_yes_|True|True, False |
+
+###### self.\_\_getitem\_\_(key)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|key|_no_| | "element_type", "search_type", "search_clue", "multiple", "extract", "format", "nickname", "filter", "keep"|
+
+###### self.get_value(key)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|key|_no_| | "element_type", "search_type", "search_clue", "multiple", "extract", "format", "nickname", "filter", "keep"|
+
+#### (2-B) _SSInfo_ - Defining information needed for scraping:
+
+###### SSInfo(f_site, f_page, f_item, f_attr)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|f_site|_no_| | [ string type ] |
+|f_page | _no_| | [ string type ] |
+|f_item | _no_ | | [ SSFormat type ] |
+|f_attr | _no_ | | [ list-SSFormat type ] |
+
+###### self.\_\_getitem\_\_(key)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|key|_no_| | "f_site", "f_page", "f_item", "f_attr"|
+
+###### self.format_page(page)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|page|_no_| | [ integer/string type ]|
+
+If _**f_page**_ is not an empty string, page is put into _**f_page**_ inside curly braces. For instance, if _**f_page**_ = **"page-{}.html"** and _**page**_ = **5**, this function will return **"page-5.html"**. On the contrary, if _**f_page**_ = **""**, the function will return **""**.
+
+#### (2-C) _StaticScraper_ - Scraping a static webpage:
+
+###### StaticScraper(info, filename = None, mode = "default", timesleep = 0, **kwargs)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|info|_no_| | [ SSInfo type ] |
+|filename|_yes_|None|None, [ string type ]|
+|mode|_yes_|StaticScraper.MODE_FILE|StaticScraper.MODE_FILE, StaticScraper.MODE_READ|
+|timesleep|_yes_|0|[ integer/float (>=0) type ] |
+|buffer|_yes_|100|[ integer (>0) type ]|
+
+###### self.scrape(start = 1, pages = 1)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|start|_yes_|1|[ integer (>0) type ]|
+|pages|_yes_|1|[ integer (>0) type ]|
+
+##### (2-C-1) Example of using StaticScraper
+
+    from keyscraper.staticscraper import SSFormat, SSInfo, StaticScraper
+    f_site = "http://books.toscrape.com/"
+    f_page = "catalogue/page-{}.html"
+    f_item = SSFormat(element_type = "li", search_type = "class_", search_clue = "col-xs-6 col-sm-4 col-md-3 col-lg-3", multiple = True)
+    price = SSFormat(element_type = "p", search_type = "class_", search_clue = "price_color", extract = "text", nickname = "price")
+    url = SSFormat(element_type = "a", extract = "href", nickname = "link")
+    f_attr = [ price, url ]
+    info = SSInfo(f_site, f_page, f_item, f_attr)
+    scraper = StaticScraper(info)
+    scraper.scrape(start = 1, pages = 15)
+
+***
+## [3] Dynamic Scraper
+
+#### (3-A) _DSFormat_ - Defining the node attributes to scrape:
+
+###### DSFormat(element_type, **kwargs)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|xpath|_no_| |[ string type ]|
+|relative|_yes_|False| True, False|
+|multiple|_yes_|False|True, False|
+|extract|_yes_|None|None, [ function (1-arg) type ]|
+|format|_yes_|None|None, [ function (1-arg) type ]|
+|filter|_yes_|None|None, [ function (1-arg) type ]|
+|retry|_yes_|None|None, [ function (1-arg) type ]|
+|callback|_yes_|None|None, [ function (1-arg) type ]|
+|nickname|_yes_|None|None, [ string type ]|
+|keep|_yes_|True|True, False|
+|click|_yes_|False|True, False|
+
+In dynamic scraper, the path to each item/attribute must be provided as x-path.
+
+If the xpath of an attribute is relative to the item (parent), _**relative**_ must be set to True.
+
+To scrape multiple items, _**multiple**_ must be set to True.
+
+If we want to extract the _**href**_ attribute from the _**a**_ tag, we should set _**extract**_ to _**"href"**_.
+
+If we want to format a particular attribute before saving it to file, we should define a function and pass it to the argument _**format**_. The following is an example:
+
+    from keyscraper.dynamicscraper import DSFormat
+    def strip_spaces(attribute):
+        return attribute.strip(" ")
+    DSFormat(format = strip_spaces)
+
+If we want to filter out items whose attributes don't satisfy a certain condition, we should define a function and pass it to the argument _**filter**_. The following is an example:
+
+    from keyscraper.dynamicscraper import DSFormat
+    def filter_prices(price):
+        price = float(price)
+        return (price <= 50) # True to keep the item
+    DSFormat(filter = filter_prices)
+
+In cases where we must wait for a specific item to render, we should define a function and pass it to the argument _**retry**_. If this function returns True, the item is saved; otherwise, we wait for it to change. The following is an example:
+
+    from keyscraper.dynamicscraper import DSFormat
+    def retry(attribute):
+      return (attribute[:4] == "data") # keep trying until False
+    DSFormat(retry = retry)
+
+In _**MODE_READ**_, we may want to add the scraped data to a list; therefore, we should define a function and pass it to the argument _**callback**_. The following is an example:
+
+    from keyscraper.dynamicscraper import DSFormat
+    scraped = []
+    def callback(attribute):
+        global scraped
+        scraped.append(attribute)
+        return attribute
+    DSFormat(callback = callback)
+
+In the csv file, we can assign a custom column name for each attribute. It can be done by passing a string to the argument _**nickname**_.
+
+In cases where some attributes aren't needed further on, we can set _**keep**_ to False so the column will be dropped when saving to csv file.
+
+If the item/attribute must be clicked before the desired data is available, _**click**_ should be set to True.
+
+###### self.\_\_getitem\_\_(key)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|key|_no_| |"xpath", "relative", "multiple", "extract", "format", "filter", "retry", "callback", "nickname", "keep", "click"|
+
+#### (3-B) _DSInfo_ - Defining information needed for scraping:
+
+###### DSInfo(f_site, f_page, f_item, f_attr)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|f_site|_no_| | [ string type ] |
+|f_page | _no_| | [ string type ] |
+|f_item | _no_ | | [ DSFormat type ] |
+|f_attr | _no_ | | [ list-DSFormat type ] |
+
+###### self.\_\_getitem\_\_(key)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|key|_no_| | "f_site", "f_page", "f_item", "f_attr"|
+
+###### self.format_page(page)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|page|_no_| | [ integer/string type ]|
+
+If _**f_page**_ is not an empty string, page is put into _**f_page**_ inside curly braces. For instance, if _**f_page**_ = **"page-{}.html"** and _**page**_ = **5**, this function will return **"page-5.html"**. On the contrary, if _**f_page**_ = **""**, the function will return **""**.
+
+#### (3-C) _DriverOptions_ - Defining driver:
+
+###### DriverOptions(mode = "default", path = None, window = True)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|mode|_yes_|DriverOptions.MODE_CHROME|"default", DriverOptions.MODE_CHROME, DriverOptions.MODE_FIREFOX |
+|path|_yes_|None|None, [ string type ]|
+|window|_yes_|True|True, False|
+
+In order to use dynamic scraper, a (browser) driver must be provided. As of _**February 6th of 2022**_, _**Google Chrome**_ and _**Mozilla Firefox**_ are supported.
+
+The (file) path to the driver (executable) must be provided. By default, the program will search for the driver in the **same folder** as it's run in or folders stored in the _**PATH environment variable**_.
+
+To download a driver for Google Chrome, visit [_here_](https://chromedriver.chromium.org/).
+
+To download a driver for Mozilla Firefox, visit [_here_](https://github.com/mozilla/geckodriver/releases).
+
+To hide the browser, set _**window**_ to False.
+
+#### (3-D) _DynamicScraper_ - Scraping:
+
+###### DynamicScraper(info, driveroptions, mode = "default", filename = None, timesleep = 0, buttonPath = None, itemWait = 1, **kwargs)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|info|_no_| | [ DSInfo type ] |
+|driveroptions|_no_| | [ DriverOptions type ] |
+|mode|_yes_|DynamicScraper.MODE_READ|"default", DynamicScraper.MODE_FILE, DynamicScraper.MODE_READ|
+|filename|_yes_|None|None, [ string type ] |
+|timesleep|_yes_|0|[ integer (>=0) type ]|
+|buttonPath|_yes_|None|None, [ string type ]|
+|itemWait|_yes_|1|[ integer/float (>=0) type ]|
+|buffer|_yes_|100|[ integer (>0) type ]|
+
+There are two modes available for dynamic scraper, _**MODE_FILE**_ will save the scrape result in a _**csv**_ file, while _**MODE_READ**_ will simply scrape the webpage and the data can be accessed in _**callback**_.
+
+In MODE_FILE, a filename should be provided. By default, a _**time name**_ will be generated for the csv file.
+
+To slow down the scraping time, an integer can be passed to the _**timesleep**_ argument. The scraping of two consecutive pages will be separated by at least _**timesleep**_ seconds.
+
+In cases where a load-more button exists on a single page, the x-path to that button can be provided to the argument buttonPath.
+
+If each item must be clicked to render its content, a number can be passed to the argument _**itemWait**_. Two consecutive item clicks will be separated by at least _**itemWait**_ seconds.
+
+In MODE_FILE, if we want to save the scrape result once every other 10 items, we should set _**buffer**_ to 10.
+
+###### self.scrape(start = 1, pages = 1, perPage = None)
+
+|argument|optional|default|available|
+|---|---|---|---|
+|start|_yes_|1|[ integer (>0) type ]|
+|pages|_yes_|1|[ integer (>0) type ]|
+|perPage|_yes_|None|None, [ integer (>0) type ]|
+
+The dynamic scraper will scrape _**pages**_ pages onward from page _**start**_.
+
+In cases where there are too many items on each page, we can set _**perPage**_ to 50 to scrape just 50 items per page.
+
+##### (3-D-1) Example of using DynamicScraper
+
+    from keyscraper.dynamicscraper import DSFormat, DSInfo, DriverOptions, DynamicScraper
+    f_site = "https://www.ebay.com/sch/"
+    f_page = "i.html?_nkw=cpu&_pgn={}"
+    f_item = DSFormat(xpath = "(//li[contains(@class, 's-item s-item__pl-on-bottom s-item--watch-at-corner')])", multiple = True)
+    price = DSFormat(xpath = "//span[contains(@class, 's-item__price')]", relative = True, extract = "innerHTML", nickname = "price")
+    url = DSFormat(xpath = "//a[contains(@class, 's-item__link')]", relative = True, extract = "href", nickname = "url")
+    f_attr = [ price, url ]
+    driveroptions = DriverOptions(path = "./chromedriver.exe")
+    info = DSInfo(f_site, f_page, f_item, f_attr)
+    scraper = DynamicScraper(info, driveroptions, mode = DynamicScraper.MODE_FILE)
+    scraper.scrape(start = 1, pages = 2, perPage = 5)
