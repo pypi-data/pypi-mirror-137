@@ -1,0 +1,21 @@
+[console_scripts]
+osism = osism.main:main
+
+[osism.commands]
+apply = osism.apply:Run
+beat = osism.beat:Run
+flower = osism.flower:Run
+netbox = osism.netbox:Run
+netbox connect = osism.netbox:Connect
+netbox deploy = osism.netbox:Deploy
+netbox disable = osism.netbox:Disable
+netbox generate = osism.netbox:Generate
+netbox import = osism.netbox:Import
+netbox init = osism.netbox:Init
+netbox manage = osism.netbox:Manage
+netbox sync = osism.netbox:Sync
+reconciler = osism.reconciler:Run
+status = osism.status:Run
+watchdog = osism.watchdog:Run
+worker = osism.worker:Run
+
