@@ -1,0 +1,177 @@
+{%- extends 'lab/index.html.j2' -%}
+
+{# this overrides the default behavior of directly starting the kernel and executing the notebook #}
+{% block notebook_execute %}
+{% endblock notebook_execute %}
+
+{%- block html_head_css -%}
+{{ super() }}
+{% if resources.theme == 'dark' %}
+{% set bar_color = '#eee' %}
+{% else %}
+{% set bar_color = '#eee' %}
+{% endif %}
+{{ resources.include_css("static/materialize.min.css") }}
+
+<link rel="shortcut icon" href="{{ resources.include_url("static/favicon.svg") }}" type="image/svg" /link>
+
+<style type="text/css">
+  body {
+    background-color: var(--jp-layout-color0);
+    overflow-y: scroll;
+  }
+
+  /* Overwrite default value, workaround for not breaking materialize */
+  .jp-Notebook {
+    padding: 0px;
+  }
+
+  .nav-wrapper {
+    background-color: {{ bar_color }}; 
+    }
+
+  .brand-logo {
+    height: 90%;
+    width: 100%;
+  }
+
+  .voila-spinner-color1 {
+    fill: {{ bar_color }};
+  }
+
+  footer {
+    clear: both;
+    padding-top: 15px;
+    text-align: center;
+    cursor: default;
+    padding-bottom: 30px;
+  }
+
+  footer p {
+    color: #c1c1c1;
+    font-size: 11px;
+    padding: 4px 8px 4px 8px;
+    /*		background: #f7f7f7; */
+    /* 		background: rgba(0,0,0,0.04); */
+    display: inline;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-transition: color 0.2s ease-in, background 0.2s ease-in;
+    -moz-transition: color 0.2s ease-in, background 0.2s ease-in;
+    -o-transition: color 0.2s ease-in, background 0.2s ease-in;
+    transition: color 0.2s ease-in, background 0.2s ease-in;
+  }
+
+  footer p:hover {
+    background: #f1f1f1;
+    background: rgba(0, 0, 0, 0.05);
+    color: #999;
+  }
+
+  footer div.logo-container {
+    display: inline-block;
+    height: 70px;
+    margin-top: 10px;
+  }
+
+  footer div.logo-container img {
+    max-height: 100%;
+    max-width: 120px;
+  }
+
+  footer div.logo-container~div.logo-container {
+    padding-left: 20px;
+  }
+</style>
+
+<style>
+  a.anchor-link {
+    display: none;
+  }
+
+  .highlight {
+    margin: 0.4em;
+  }
+
+  /* we keep the DOM for nbconvert the same as for voila, but hide the status icon */
+  #kernel-status-icon {
+    display: none;
+  }
+</style>
+
+{%- endblock html_head_css -%}
+
+{%- block body -%}
+{%- block body_header -%}
+{{ super() }}
+<header>
+  <div class="navbar-fixed" style="height: 45px;">
+    <nav class="top-nav" style="height: 45px;">
+      <div class="nav-wrapper" style="height: 45px;">
+        <a href="#!" class="brand-logo-container">
+          <object class="brand-logo" type="image/svg+xml"
+            data="{{ resources.include_url("static/osscar_logo.svg") }}"></object>
+        </a>
+        <ul class="right" style="height: 45px">
+          <li style="list-style-type: none"><a href="#"><i class="material-icons" id="kernel-status-icon"
+          style="line-height: 40px;">radio_button_unchecked</i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main style="background-color: white;">
+  <div class="container">
+    <div class="row">
+      <div class="col s12" style="margin-bottom: 30px;">
+        {%- endblock body_header -%}
+
+        {%- block body_loop -%}
+        {% if resources.theme == 'dark' %}
+        <div class="jp-Notebook theme-dark" style="min-height: 400px;">
+          {% else %}
+          <div class="jp-Notebook theme-light" style="min-height: 400px;">
+            {% endif %}
+            {{ super() }}
+          </div>
+          {%- endblock body_loop -%}
+
+          {%- block body_footer -%}
+          <hr style="border-top: 0.5px solid #cccccc;">
+          <footer class="container">
+            <p>
+              Copyright © 2019-2022 OSSCAR. All Rights Reserved.
+              <br>
+              OSSCAR is supported by the <a href="https://www.osscar.org">EPFL Open Science Fund.</a>
+              <br>
+            <div class="logo-container">
+              <a href="https://www.osscar.org/"><img src="{{ resources.base_url }}voila/static/osscar_logo.svg"></a>
+            </div>
+            <p></p>
+          </footer>
+        </div>
+      </div>
+    </div>
+</main>
+{{ super() }}
+{{ resources.include_js("static/materialize.min.js") }}
+
+<!-- Add script Plausible and pass domain name as parameter -->
+<script type="text/javascript">
+  var header = document.getElementsByTagName("head")[0];
+  var plausible = document.createElement("script");
+  var domain_name = window.location.hostname;
+
+  plausible.async = "";
+  plausible.defer = "";
+  plausible.dataset["domain"] = domain_name;
+  plausible.src = "https://plausible.io/js/plausible.js";
+  header.appendChild(plausible);
+</script>
+<!-- end Plausible analytics -->
+
+{%- endblock body_footer -%}
+
+{%- endblock body -%}
