@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "cygnods"
+version = "0.1.1"
+description = "Small library to handle most frequent CYGNO dataset operations with python"
+authors = ["Gustavo Viera López <gvieralopez@gmail.com>"]
+# New attributes
+license = "GPL"
+readme = "README.md"
+homepage = "https://github.com/CYGNO-ML/cygnods"
+repository = "https://github.com/CYGNO-ML/cygnods"
+keywords = ["Dark Matter", "Machine Learning", "Multimodal"]
+include = [
+    "LICENSE",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = ">=1.16.5"
+opencv-python = ">=4.4.0"
+configparser ">=5.2.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
