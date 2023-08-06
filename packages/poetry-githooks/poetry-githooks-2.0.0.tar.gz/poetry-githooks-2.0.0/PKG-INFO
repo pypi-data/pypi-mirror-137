@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: poetry-githooks
+Version: 2.0.0
+Summary: Simple git hooks with poetry
+Home-page: https://github.com/thomasthiebaud/poetry-githooks
+License: MIT
+Keywords: git,hook,githooks,poetry
+Author: Thomas Thiebaud
+Author-email: thiebaud.tom@gmail.com
+Requires-Python: >=3.6.2,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development
+Requires-Dist: click (>=8.0.3,<9.0.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Project-URL: Documentation, https://github.com/thomasthiebaud/poetry-githooks
+Project-URL: Repository, https://github.com/thomasthiebaud/poetry-githooks
+Description-Content-Type: text/markdown
+
+# poetry-githooks
+
+## Install
+
+This repository is made to work with [poetry](https://python-poetry.org/). Assuming you have a working `poetry` setup, run
+
+```
+poetry add -D poetry-githooks
+```
+
+## Install
+
+Create a `tool.githooks` section in your `pyproject.toml` file and define your git hooks, for example
+
+```
+[tool.githooks]
+pre-commit = "black ."
+```
+
+then run
+
+```
+poetry run githooks setup
+```
+
+That's it :tada: your hooks will be ran using `poetry` when expected
+
+**IMPORTANT** You need to rerun `poetry run githooks setup` everytime you change `[tool.githooks]`
+
