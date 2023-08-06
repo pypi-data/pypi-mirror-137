@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: trialdesign
+Version: 2.1.4
+Summary: Visualization of clinical study designs
+Author: Rainer Strotmann
+Author-email: rainer.strotmann@mailbox.org
+License: GPL-3.0-or-later
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: COPYING
+Requires-Dist: typer
+Requires-Dist: pathlib2
+Requires-Dist: CairoSVG
+Requires-Dist: pycairo
+Requires-Dist: rich
+
+# TD - Trial design
+
+TD is a command line tool to create beautiful Schedule-of-Assessments figures for clinical study designs.
+
+The input describing the study design is expected as a json-formatted text file.
+
+The output is provided in vector graphic form (as a .svg file) that can be easily included in Office documents or websites.
+
+
