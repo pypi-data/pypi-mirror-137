@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: pytorch-fxd
+Version: 0.1
+Summary: A package containing methods to compute FXD score and other popular metrics for Chest X-Rays.
+Home-page: https://github.com/Akshayakayy/FXD_Score.git
+Author: Akshaya Karthikeyan
+Author-email: akshaya.karthikeyan@research.iiit.ac.in
+License: MIT
+Download-URL: https://github.com/Akshayakayy/FXD_Score/archive/refs/tags/0.1.tar.gz
+Keywords: FXD,Evaluation metric,featurization
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# FXD Score: An Improved Metric for Evaluating Chest X-Ray Generation Methods
+
+Generative models are widely used to augment data to improve machine learning models trained on insufficient data. The quality of generated data plays a significant role in the model’s performance. Evaluating a quality of the generative models used a challenging problem. Many sample-based evaluation metrics like Fréchet Inception Distance (FID) compare the distributions of real and generated images in a latent space of models trained on the ImageNet dataset. Such metrics work well in evaluating quality of images of common entities but generally fail in case of images from niche domains not present in the ImageNet dataset like chest x-rays. In this work we propose the FXD score which computes Fréchet distance over the latent space of the pretrained TorchXrayVision model. We perform a series of carefully designed experiments to test for necessary conditions for a meaningful metric. Through these experiments we show that the proposed metric shows more discriminability robustness to transformations and is more sensitive to, mode dropping, mode collapsing and overfitting compared to metrics based on ImageNet weights. Which also proves the importance of choosing domain specific representations in evaluating the quality of generative models. We believe that the proposed FXD score will enable researchers in building generation models efficiently which will in turn aid in building better models to analyze patients more accurately.
+
+
