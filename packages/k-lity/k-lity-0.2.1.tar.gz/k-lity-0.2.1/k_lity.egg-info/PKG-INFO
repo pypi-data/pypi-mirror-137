@@ -1,0 +1,212 @@
+Metadata-Version: 2.1
+Name: k-lity
+Version: 0.2.1
+Summary: Tool made to ease testing websites
+Home-page: https://framagit.org/Mindiell/k-lity
+Author: Mindiell
+License: GNU AFFERO GENERAL PUBLIC LICENSE version 3 or later
+Project-URL: Documentation, https://k-lity.readthedocs.io/fr/latest/
+Description: ![Version 0.2.1](https://img.shields.io/badge/version-0.2.1-blue) [![Documentation Status](https://readthedocs.org/projects/k-lity/badge/?version=latest)](https://k-lity.readthedocs.io/fr/latest/?badge=latest)
+        
+        
+        # K-lity
+        
+        K-lity est un outil pour faciliter les tests automatisés pour des sites webs.
+        
+        __English translation available below__
+        
+        
+        ## Disclaimer
+        
+        This application is still under huge development by a french developer in a
+        windows and Firefox environment. You should use it only if you know what
+        you are doing!
+        
+        **!! English translation is available at the end !!**
+        
+        
+        ## Installation
+        
+        Il faut spécifier, si nécessaire, la ou les bases de données que vous souhaitez
+        utiliser dans vos tests.
+        
+            pip install k-lity[postgresql]
+        
+        Ici, nous avons souhaité utiliser postgresql (seule base de données utilisable
+        pour le moment).
+        
+        Vous aurez également besoin d'installer
+        [geckodriver](https://github.com/mozilla/geckodriver/releases/) pour pouvoir
+        piloter Firefox (seul navigateur utilisable pour le moment). Geckodriver doit
+        être accessible via votre PATH.
+        
+        
+        ### Démarrage rapide
+        
+        Afin de lancer un premier test, vous devez créer un répertoire projet. K-lity
+        vous aide via la commande *klity-newproject* ::
+        
+            klity-newproject mytest
+        
+        Vous obtenez alors un répertoire appelé *mytest* avec cette structure ::
+        
+            mytest
+            ├── configuration.yml
+            ├── environment.py
+            └── steps
+               └── project_steps.py
+        
+         * *configuration.yml* est un fichier de configuration par défaut. Modifiez-le
+           pour spécifier votre propre configuration.
+         * *environment.py* est un fichier python pour usage interne , n'y touchez pas.
+         * *steps* est le répertoire dans lequel vous allez écrire tous vos tests.
+         * *project_steps.py* est un fichier python qui contient les étapes spécifiques
+           à votre projet.
+        
+        
+        #### Un premier test
+        
+        Pour écrire votre test, vous n'avez besoin que d'un éditeur de texte. Créer un
+        fichier *first_test.feature* dans le répertoire *steps* et écrivez le test
+        suivant::
+        
+            Fonctionnalité: Premier test avec K-lity
+        
+            Scénario: Un exemple avec example.org
+                Etant donné que je visite le site "https://example.org"
+                Alor la page contient "Example Domain"
+        
+        Vous pouvez alors lancer votre test depuis le répertoire parent *my_test* et
+        voir le test se dérouler à votre écran. Logiquement, vous devriez voir Firefox
+        se lancer et rapidement se refermer une fois que le site example.org est chargé.
+        
+            > klity
+            first_test
+              Executing tests
+        
+        Maintenant, vous pouvez découvrir quelques nouveautés :un fichier
+        (geckodriver.log) et trois répertoires ont été créés:
+        
+         * *geckodriver.log* contient les logs fournis par geckodriver.
+         * *report* contient un rapport sur vos tests.
+         * *results* contient les résultats de toutes les commandes **behave** exécutées
+           pour cahcune de vos fonctionnalités.Lors de la création des tests, ces
+           fichiers sont très importants car ils peuvent vous aider à comprendre ce qui
+           se passe.
+         * *screenshots* contient les captures d'écran de vos tests.
+        
+        
+        ## Plus d'informations ?
+        
+        Vous pouvez trouver plus d'information sur
+        [notre documentation](https://k-lity.readthedocs.io/).
+        
+        
+        
+        
+        
+        
+        # K-lity
+        
+        Tool made to ease automatic testing websites.
+        
+        
+        ## Disclaimer
+        
+        This application is still under huge development by a french developer in a
+        windows and Firefox environment. You should use it only if you know what
+        you are doing!
+        
+        
+        ## Installation
+        
+        In order to install K-lity, you need to specify the extras databases you want to
+        use.
+        
+            pip install klity[postgresql]
+        
+        In this case, we needed to install postgresql requirements.
+        
+        You'll need to have
+        [geckodriver](https://github.com/mozilla/geckodriver/releases/) in order to be
+        able to drive Firefox (no other browser for now). It must be accessible on your
+        PATH.
+        
+        
+        ### Quickstart
+        
+        In order to launch a first test, you have to create a fresh test folder. K-lity
+        helps you by providing the *klity-newproject* command for this:
+        
+            klity-newproject mytest
+        
+        You'll obtain a new folder named *mytest* with this structure
+        
+            mytest
+            ├── configuration.yml
+            ├── environment.py
+            └── steps
+               └── project_steps.py
+        
+        Explanations about this structure :
+        
+         * *configuration.yml* is a default configuration file, you should use it to
+           set your own configuration
+         * *environment.py* is for internal use only
+         * *steps* is a folder in which all features, scenarios, and steps should be
+         * *project_steps.py* is a python file you can use to add specific steps for
+           your project
+        
+        
+        #### First test
+        
+        In order to write test, you only need a simple text editor. Create a
+        *first_test.feature* file in the *steps* folder and write a first feature to
+        test.
+        
+            Feature: First test with Klity
+        
+            Scenario: Example with example.org
+                Given I visit "https://example.org"
+                Then page contains "Example Domain"
+        
+        Then you can launch your test (behave should use *en* language) from the
+        *my_test* folder and see your first test feature found and its scenario(s)
+        executed. You should see Firefox opening and quickly closing after example.org
+        being showed.
+        
+            > klity
+            first_test
+              Executing tests
+        
+        Now you can check out some new things. Firstly, one new file (geckodriver.log)
+        and three new folders have been created : *report*, *results*, and
+        *screenshots*.
+        
+         * *report* folder contains a simple report about your tests.
+         * *results* folder contains the result of the behave command for each of your
+           features. While creating new tests, thoses files are very important because
+           this is where you can see each step of your tests.
+         * *screenshots* folder contains your testing screenshots if you did some.
+        
+        
+        ## More informations
+        
+        You can find more information on [our documentation](https://k-lity.readthedocs.io/).
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development :: Testing
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: postgresql
+Provides-Extra: test
+Provides-Extra: *

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <meta name="description" content="Rapport de test">
+    <title>Rapport de test - {{data.title}}</title>
+    <link rel="stylesheet" href="static/bootstrap.min.css" />
+    <link rel="stylesheet" href="static/style.css" />
+    <script src="static/jquery-3.4.1.min.js"></script>
+    <script src="static/bootstrap.min.js"></script>
+    <script>
+    function displayAll(){
+        $("div.border-danger").parent().show();
+        $("div.border-warning").parent().show();
+        $("div.border-success").parent().show();
+    }
+    function displayDanger(){
+        $("div.border-danger").parent().show();
+        $("div.border-warning").parent().hide();
+        $("div.border-success").parent().hide();
+    }
+    function displayWarning(){
+        $("div.border-danger").parent().hide();
+        $("div.border-warning").parent().show();
+        $("div.border-success").parent().hide();
+    }
+    function displaySuccess(){
+        $("div.border-danger").parent().hide();
+        $("div.border-warning").parent().hide();
+        $("div.border-success").parent().show();
+    }
+    </script>
+</head>
+<body>
+    <section id="header">
+        <h2 class="text-center">{{data.title}}</h2>
+        <span>{{data.total}} tests en {{data.time_elapsed}}</span>
+    </section>
+    <section id="filter">
+        <a class="btn btn-primary" onclick="displayAll()" href="#">All <span class="badge badge-primary">{{data.danger+data.warning+data.success}}</span></a>
+        <a class="btn btn-danger" onclick="displayDanger()" href="#">Danger <span class="badge badge-danger">{{data.danger}}</span></a>
+        <a class="btn btn-warning" onclick="displayWarning()" href="#">Warning <span class="badge badge-warning">{{data.warning}}</span></a>
+        <a class="btn btn-success" onclick="displaySuccess()" href="#">Success <span class="badge badge-success">{{data.success}}</span></a>
+    </section>
+    <section id="main">
+    {%for feature in data.features%}
+        <div class="card-body mt-0 m-0">
+            <div class="card text-{{feature.state}} border-{{feature.state}} my-3">
+                <div class="card-header mb-0">
+                    <span class="float-right badge badge-{{feature.state}}">{{feature.passed}}/{{feature.total}}</span>
+                    <a class="text-{{feature.state}}" data-toggle="collapse" href="#collapseFeature{{loop.index}}" role="button" aria-expanded="true" aria-controls="collapseFeature{{loop.index}}">{{feature.name}}</a>
+                </div>
+                <div class="card-body collapse hide ml-2" id="collapseFeature{{loop.index}}">
+                    <table class="card-text table">
+                    <thead>
+                    <tr class="thread-light py-0">
+                        <th class="py-0">Scénario</th>
+                        <th class="py-0 text-right">Résultat</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%for scenario in feature.scenarios%}
+                    <tr class="py-0">
+                        <td class="py-0">{{scenario.name}}</td>
+                        <td class="py-0 text-right"><span class="badge badge-{%if scenario.passed%}success{%else%}danger{%endif%}">{%if scenario.passed%}Valide{%else%}Invalide{%endif%}</span></td>
+                    </tr>
+                    {%endfor%}
+                    <tr>
+                        <td colspan="2" class="text-right">En {{feature.time_elapsed}}</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {%endfor%}
+    </section>
+    <section id="footer">
+        <p class="small text-center">Rapport généré à {{data.generation}}</p>
+    </section>
+</body>
+</html>
