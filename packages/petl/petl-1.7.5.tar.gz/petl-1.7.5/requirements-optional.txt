@@ -1,0 +1,7 @@
+# packages bellow need complex local setup
+# throubleshooting: 
+# 1. define the following variable before running pip:
+# $ export DISABLE_BLOSC_AVX2=1
+# 2. pip install --prefer-binary bcolz
+blosc  ; python_version >= '3.7'
+bcolz  ; python_version >= '3.7'
