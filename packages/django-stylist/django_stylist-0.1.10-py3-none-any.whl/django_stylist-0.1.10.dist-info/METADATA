@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: django-stylist
+Version: 0.1.10
+Summary: App for updating and manipulating SASS/SCSS compiling & caching on the fly
+Home-page: https://github.com/renderbox/django-stylist/
+Author: Grant Viklund
+Author-email: renderbox@gmail.com
+License: MIT license
+Keywords: django,app
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.6
+Requires-Dist: Django (<4.1,>=3.0)
+Requires-Dist: django-autoslug
+Requires-Dist: libsass
+Provides-Extra: build
+Requires-Dist: setuptools ; extra == 'build'
+Requires-Dist: wheel ; extra == 'build'
+Requires-Dist: twine ; extra == 'build'
+Provides-Extra: dev
+Requires-Dist: django-crispy-forms ; extra == 'dev'
+Requires-Dist: django-allauth ; extra == 'dev'
+Requires-Dist: django-extensions ; extra == 'dev'
+Requires-Dist: djangorestframework ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: coverage ; extra == 'docs'
+Requires-Dist: Sphinx ; extra == 'docs'
+Requires-Dist: recommonmark ; extra == 'docs'
+Requires-Dist: rstcheck ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Provides-Extra: prod
+Provides-Extra: test
+
+
+
+.. image:: https://github.com/renderbox/django-stylist/workflows/Stylist%20CI/badge.svg
+   :target: https://github.com/renderbox/django-stylist/workflows/Stylist%20CI/badge.svg
+   :alt: Stylist CI
+
+
+
+.. image:: https://github.com/renderbox/django-stylist/workflows/Stylist%20Develop/badge.svg
+   :target: https://github.com/renderbox/django-stylist/workflows/Stylist%20Develop/badge.svg
+   :alt: Stylist Develop
+
+
+Stylist
+=======
+
+App for updating and manipulating SASS/SCSS compiling on the fly
+
+
