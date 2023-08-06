@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+PATH=$PATH:$HOME/.local/bin
+FLASK_APP="MicroserviceApiIdentity.app:init_api"
+flask $@
