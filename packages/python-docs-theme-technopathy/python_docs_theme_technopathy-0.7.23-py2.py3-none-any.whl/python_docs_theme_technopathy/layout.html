@@ -1,0 +1,47 @@
+{% extends "classic/layout.html" %}
+
+{% block rootrellink %}
+    {% if github_repo_name and github_user_name %}
+    <li><img src="{{ pathto('_static/' + theme_github_icon, 1) }}" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://github.com/{{ github_user_name }}/{{ github_repo_name }}">{{project_name}}</a>{{ reldelim1 }}</li>
+    {% endif %}
+    {% if theme_root_include_title %}
+    <a href="{{ pathto('index') }}">{{ shorttitle }}</a>{{ reldelim1 }}
+    {% endif %}
+{% endblock %}
+
+{% block relbar1 %} {% if builder != 'qthelp' %} {{ relbar() }} {% endif %} {% endblock %}
+{% block relbar2 %} {% if builder != 'qthelp' %} {{ relbar() }} {% endif %} {% endblock %}
+{% block relbaritems %}
+    {%- if pagename != "search" and builder != "singlehtml" and builder != "htmlhelp" %}
+    <li class="right">
+        <a href="search.html" title="Search">search</a>
+        {{ reldelim2 }}
+    </li>
+    {%- endif %}
+{% endblock %}
+
+{% block extrahead %}
+    <link rel="shortcut icon" type="image/png" href="{{ pathto('_static/' + theme_python_icon, 1) }}" />
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    {% if builder != "htmlhelp" %}
+    {% if not embedded %}<script type="text/javascript" src="{{ pathto('_static/copybutton.js', 1) }}"></script>{% endif %}
+    {% endif %}
+    {{ super() }}
+{% endblock %}
+
+{% block footer %}
+    <div class="footer">
+        {% if github_repo_name and github_user_name %}{% trans pathto_bugs=theme_issues_url %}<a href="https://github.com/{{ github_user_name }}/{{ github_repo_name }}/issues">Found a bug</a>?{% endtrans %}{% endif %}
+        <br />
+        {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
+        <br />
+        &copy; <a href="{{ pathto('copyright') }}">{% trans %}Copyright{% endtrans %}</a> {{ copyright|e }}.
+        <br />
+
+    {% trans sphinx_version=sphinx_version|e %}Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> {{ sphinx_version }}{% endtrans %}
+        with <a href="https://github.com/oliver-zehentleitner/python-docs-theme-technopathy">python-docs-theme-technopathy</a>
+        by <a href="https://www.lucit.tech">LUCIT Systems and Development</a>
+    </div>
+{% endblock %}
