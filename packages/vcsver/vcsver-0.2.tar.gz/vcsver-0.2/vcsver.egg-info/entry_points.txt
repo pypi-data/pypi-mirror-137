@@ -1,0 +1,6 @@
+[distutils.setup_keywords]
+vcsver = vcsver.setuptools_legacy:vcsver
+
+[setuptools.finalize_distribution_options]
+vcsver = vcsver.setuptools:finalize_distribution_options
+
