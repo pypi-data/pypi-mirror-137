@@ -1,0 +1,8 @@
+[console_scripts]
+cocotb = cocotb_test.cli:config
+cocotb-clean = cocotb_test.cli:clean
+cocotb-run = cocotb_test.cli:run
+
+[pytest11]
+pytest-cocotb = cocotb_test.plugin
+
