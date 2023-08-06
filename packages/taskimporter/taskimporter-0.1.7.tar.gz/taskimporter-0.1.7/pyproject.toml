@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2022 Joshua Mulliken <joshua@mulliken.net>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[tool.poetry]
+name = "taskimporter"
+version = "0.1.7"
+description = "Tool to import tasks from a variety of sources into a task manager"
+authors = ["Joshua Mulliken <joshua@mulliken.net>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+jira = "^3.1.1"
+PyGithub = "^1.55"
+python-gitlab = "^2.10.1"
+appdirs = "^1.4.4"
+Jinja2 = "^3.0.3"
+
+[tool.poetry.scripts]
+taskimporter = "taskimporter:main"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
