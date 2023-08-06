@@ -1,0 +1,45 @@
+[tool.poetry]
+authors = ["Alex Povel <python@alexpovel.de>"]
+description = "Substitute alternative spellings of native characters (e.g. German umlauts [ae, oe, ue] etc. [ss]) with their correct versions (ä, ö, ü, ß)."
+license = "MIT"
+name = "betterletter"
+readme = "README.md"
+repository = "https://github.com/alexpovel/betterletter/"
+version = "1.0.3"
+keywords = ["spelling", "umlaut", "substitute", "letter", "alternative"]
+classifiers = [
+    "Intended Audience :: End Users/Desktop",
+    "Natural Language :: English",
+    "Natural Language :: German",
+    "Operating System :: OS Independent",
+    "Topic :: Communications",
+    "Topic :: Office/Business",
+    "Topic :: Text Editors",
+    "Topic :: Text Processing",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/alexpovel/betterletter/issues"
+
+[tool.poetry.dependencies]
+pyperclip = "^1.8.2"
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+black = "^21.12b0"
+mypy = "^0.930"
+pytest = "^6.2.5"
+snakeviz = "^2.1.1"
+
+[tool.poetry.scripts]
+betterletter = "betterletter.__main__:main"
+
+[tool.mypy]
+strict = true
+exclude = "tests/*"
+
+[build-system]
+build-backend = "poetry.masonry.api"
+requires = ["poetry>=0.12"]
