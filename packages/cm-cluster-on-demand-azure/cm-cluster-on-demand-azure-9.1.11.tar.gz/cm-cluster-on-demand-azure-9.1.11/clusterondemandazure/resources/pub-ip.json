@@ -1,0 +1,16 @@
+{
+            "condition": "[equals(parameters('create_public_ip'),'true')]",
+            "comments": "",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('head_node').public_ip_name]",
+            "apiVersion": "2016-03-30",
+            "location": "[parameters('region')]",
+            "tags" : {
+              "BCM Resource": true
+            },
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 30
+            },
+            "dependsOn": []
+        }

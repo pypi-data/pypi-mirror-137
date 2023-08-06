@@ -1,0 +1,18 @@
+{
+    "comments": "The name is hardcoded because it's the name cmdaemon uses when instantiating RDMA enabled compute nodes",
+    "type": "Microsoft.Compute/availabilitySets",
+    "name": "avset-rdma-cloud-nodes",
+    "apiVersion": "2020-06-01",
+    "location": "[parameters('region')]",
+    "sku": {
+        "name": "Aligned"
+    },
+    "tags" : {
+        "BCM Resource": true
+    },
+    "properties": {
+        "PlatformFaultDomainCount": 1,
+        "PlatformUpdateDomainCount": 1
+    },
+    "dependsOn": []
+}

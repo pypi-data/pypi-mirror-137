@@ -1,0 +1,14 @@
+{
+            "comments": "",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('security_group').name]",
+            "apiVersion": "2016-03-30",
+            "location": "[parameters('region')]",
+            "tags" : {
+              "BCM Resource": true
+            },
+            "properties": {
+                "securityRules": "[parameters('security_group').inbound_rules]"
+            },
+            "dependsOn": []
+        }

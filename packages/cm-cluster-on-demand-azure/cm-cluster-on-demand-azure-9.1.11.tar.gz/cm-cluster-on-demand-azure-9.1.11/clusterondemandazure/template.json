@@ -1,0 +1,70 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+            "head_node": {
+                "type": "object",
+                "defaultValue": {
+                    "name": "${head_node_name}",
+                    "nic_name": "${head_node_name}-nic",
+                    "public_ip_name": "head-node-public-ip",
+                    "private_ip_address": "${head_node_ip}",
+                    "flavor": "${head_node_flavour}",
+                    "user_random_password": "${user_random_password}",
+                    "image_name": "${image_name}",
+                    "image_creation_date": "${image_creation_date}",
+                    "custom_data": "${custom_data}",
+                    "disk": {
+                        "name": "${head_node_name}-os-disk",
+                        "volume_type": "${head_node_root_volume_type}",
+                        "volume_size": "${head_node_root_volume_size}"
+                    }
+                }
+            },
+            "security_group": {
+                "type": "object",
+                "defaultValue": {
+                    "name": "secgroup-cluster-on-demand",
+                    "inbound_rules": [
+                        ${inbound_rules}
+                    ]
+                }
+            },
+            "storage_account_name": {
+                "defaultValue": "${storage_account_name}",
+                "type": "String"
+            },
+            "region": {
+                "defaultValue": "${region}",
+                "type": "String"
+            },
+            "network_cidr": {
+                "defaultValue": "${network_cidr}",
+                "type": "String"
+            },
+            "subnet_cidr": {
+                "defaultValue": "${subnet_cidr}",
+                "type": "String"
+            },
+            "vnet_name": {
+                "defaultValue": "[concat('vpc-', parameters('region'))]",
+                "type": "String"
+            },
+            "create_new_vnet": {
+                "defaultValue": "true",
+                "allowedValues": ["true", "false"],
+                "type": "String"
+            },
+            "create_public_ip": {
+                "defaultValue": "true",
+                "allowedValues": ["true", "false"],
+                "type": "String"
+            },
+            "subnet_id": {
+                "defaultValue": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vnet_name')), '/subnets/vpc-${region}-subnet')]",
+                "type": "String"
+            }
+    },
+    "variables": {},
+    "resources": []
+}
