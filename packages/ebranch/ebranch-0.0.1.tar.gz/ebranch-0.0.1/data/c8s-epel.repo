@@ -1,0 +1,163 @@
+# CentOS-Stream-BaseOS.repo
+#
+# The mirrorlist system uses the connecting IP address of the client and the
+# update status of each mirror to pick current mirrors that are geographically
+# close to the client.  You should use this for CentOS updates unless you are
+# manually picking other mirrors.
+#
+# If the mirrorlist does not work for you, you can try the commented out
+# baseurl line instead.
+
+[c8s-baseos]
+name=CentOS Stream 8 - BaseOS
+mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=BaseOS&infra=$infra
+#baseurl=http://mirror.centos.org/$contentdir/8-stream/BaseOS/$basearch/os/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+# CentOS-Stream-AppStream.repo
+#
+# The mirrorlist system uses the connecting IP address of the client and the
+# update status of each mirror to pick current mirrors that are geographically
+# close to the client.  You should use this for CentOS updates unless you are
+# manually picking other mirrors.
+#
+# If the mirrorlist does not work for you, you can try the commented out
+# baseurl line instead.
+
+[c8s-appstream]
+name=CentOS Stream 8 - AppStream
+mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=AppStream&infra=$infra
+#baseurl=http://mirror.centos.org/$contentdir/8-stream/AppStream/$basearch/os/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+# CentOS-Stream-Extras.repo
+#
+# The mirrorlist system uses the connecting IP address of the client and the
+# update status of each mirror to pick current mirrors that are geographically
+# close to the client.  You should use this for CentOS updates unless you are
+# manually picking other mirrors.
+#
+# If the mirrorlist does not work for you, you can try the commented out
+# baseurl line instead.
+
+[c8s-extras]
+name=CentOS Stream 8 - Extras
+mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=extras&infra=$infra
+#baseurl=http://mirror.centos.org/$contentdir/8-stream/extras/$basearch/os/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+# CentOS-Stream-PowerTools.repo
+#
+# The mirrorlist system uses the connecting IP address of the client and the
+# update status of each mirror to pick current mirrors that are geographically
+# close to the client.  You should use this for CentOS updates unless you are
+# manually picking other mirrors.
+#
+# If the mirrorlist does not work for you, you can try the commented out
+# baseurl line instead.
+
+[c8s-powertools]
+name=CentOS Stream 8 - PowerTools
+mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=PowerTools&infra=$infra
+#baseurl=http://mirror.centos.org/$contentdir/8-stream/PowerTools/$basearch/os/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+[c8s-epel]
+name=Extra Packages for Enterprise Linux 8 - $basearch
+# It is much more secure to use the metalink, but if you wish to use a local mirror
+# place its address here.
+#baseurl=https://download.example/pub/epel/8/Everything/$basearch
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-8&arch=$basearch&infra=$infra&content=$contentdir
+enabled=0
+gpgcheck=1
+countme=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+
+[c8s-epel-debuginfo]
+name=Extra Packages for Enterprise Linux 8 - $basearch - Debug
+# It is much more secure to use the metalink, but if you wish to use a local mirror
+# place its address here.
+#baseurl=https://download.example/pub/epel/8/Everything/$basearch/debug
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-debug-8&arch=$basearch&infra=$infra&content=$contentdir
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+gpgcheck=1
+
+[c8s-epel-source]
+name=Extra Packages for Enterprise Linux 8 - $basearch - Source
+# It is much more secure to use the metalink, but if you wish to use a local mirror
+# place it's address here.
+#baseurl=https://download.example/pub/epel/8/Everything/source/tree/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-source-8&arch=$basearch&infra=$infra&content=$contentdir
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+gpgcheck=1
+
+[c8s-epel-modular]
+name=Extra Packages for Enterprise Linux Modular 8 - $basearch
+# It is much more secure to use the metalink, but if you wish to use a local mirror
+# place its address here.
+#baseurl=https://download.example/pub/epel/8/Modular/$basearch
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-modular-8&arch=$basearch&infra=$infra&content=$contentdir
+enabled=0
+gpgcheck=1
+countme=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+
+[c8s-epel-modular-debuginfo]
+name=Extra Packages for Enterprise Linux Modular 8 - $basearch - Debug
+# It is much more secure to use the metalink, but if you wish to use a local mirror
+# place its address here.
+#baseurl=https://download.example/pub/epel/8/Modular/$basearch/debug
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-modular-debug-8&arch=$basearch&infra=$infra&content=$contentdir
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+gpgcheck=1
+
+[c8s-epel-modular-source]
+name=Extra Packages for Enterprise Linux Modular 8 - $basearch - Source
+# It is much more secure to use the metalink, but if you wish to use a local mirror
+# place it's address here.
+#baseurl=https://download.example/pub/epel/8/Modular/source/tree/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-modular-source-8&arch=$basearch&infra=$infra&content=$contentdir
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+gpgcheck=1
+
+[c8s-epel-next]
+name=Extra Packages for Enterprise Linux 8 - Next - $basearch
+# It is much more secure to use the metalink, but if you wish to use a local mirror
+# place its address here.
+#baseurl=https://download.example/pub/epel/next/8/Everything/$basearch/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-next-8&arch=$basearch&infra=$infra&content=$contentdir
+enabled=0
+gpgcheck=1
+countme=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+
+[c8s-epel-next-debuginfo]
+name=Extra Packages for Enterprise Linux 8 - Next - $basearch - Debug
+# It is much more secure to use the metalink, but if you wish to use a local mirror
+# place its address here.
+#baseurl=https://download.example/pub/epel/next/8/Everything/$basearch/debug/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-next-debug-8&arch=$basearch&infra=$infra&content=$contentdir
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+gpgcheck=1
+
+[c8s-epel-next-source]
+name=Extra Packages for Enterprise Linux 8 - Next - $basearch - Source
+# It is much more secure to use the metalink, but if you wish to use a local mirror
+# place it's address here.
+#baseurl=https://download.example/pub/epel/next/8/Everything/source/tree/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-next-source-8&arch=$basearch&infra=$infra&content=$contentdir
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+gpgcheck=1
