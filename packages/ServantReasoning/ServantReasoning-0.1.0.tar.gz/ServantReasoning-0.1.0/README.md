@@ -1,0 +1,22 @@
+# ServantReasoningGame
+**一个适用于[Nonebot2](https://github.com/nonebot/nonebot2)的从者推理游戏插件**
+**思路好像是来自[Hoshino](https://github.com/Ice-Cirno/HoshinoBot)的某个插件，但代码并无借鉴之处！**
+![功能介绍](https://github.com/suhexia/the-bag/blob/master/screenshortImg/chooseFunction.gif)
+## 安装
+通过pip安装
+
+`pip install ServantReasoningGame`
+
+通过nonebot商店安装
+
+`? IDk`
+
+## 相关指令
++ 开始游戏：从者推理
++ 游戏进行中的回答：直接发送从者名字，匹配即正确
++ 强制结束游戏（适用于卡到某些不知名bug时的情况）
+	-终止从者推理
+	-结束从者推理
+	-中止从者推理
+
+__自项目上传完成共收录了245位从者的信息（其中有2位为开发者彩蛋（懒得删了））__
