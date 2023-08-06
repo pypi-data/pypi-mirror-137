@@ -1,0 +1,195 @@
+Metadata-Version: 2.1
+Name: spihole
+Version: 0.0.4
+Summary: Operate a raspberrypi powered peephole camera
+Home-page: https://github.com/zoloft/python-spihole
+Author: zoloft
+Author-email: zoloft@orcod.io
+License: MIT
+Project-URL: Documentation, https://python-spihole.readthedocs.io/
+Project-URL: Changelog, https://python-spihole.readthedocs.io/en/latest/changelog.html
+Project-URL: Issue Tracker, https://github.com/zoloft/python-spihole/issues
+Keywords: raspberry,waveshare,camera,spyhole,peephole,automation
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Unix
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Utilities
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: click
+Requires-Dist: numpy
+Requires-Dist: Pillow
+Requires-Dist: fake-rpi ; platform_system != "Linux" or platform_machine != "armv6l"
+Requires-Dist: picamera ; platform_system == "Linux" and platform_machine == "armv6l"
+Requires-Dist: spidev ; platform_system == "Linux" and platform_machine == "armv6l"
+Requires-Dist: RPi.GPIO ; platform_system == "Linux" and platform_machine == "armv6l"
+
+========
+Overview
+========
+
+.. start-badges
+
+.. list-table::
+    :stub-columns: 1
+
+    * - docs
+      - |docs|
+    * - tests
+      - | |github-actions| |travis| |appveyor| |requires|
+        | |codecov|
+    * - package
+      - | |version| |wheel| |supported-versions| |supported-implementations|
+        | |commits-since|
+.. |docs| image:: https://readthedocs.org/projects/python-spihole/badge/?style=flat
+    :target: https://python-spihole.readthedocs.io/
+    :alt: Documentation Status
+
+.. |travis| image:: https://api.travis-ci.com/zoloft/python-spihole.svg?branch=master
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.com/github/zoloft/python-spihole
+
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/zoloft/python-spihole?branch=master&svg=true
+    :alt: AppVeyor Build Status
+    :target: https://ci.appveyor.com/project/zoloft/python-spihole
+
+.. |github-actions| image:: https://github.com/zoloft/python-spihole/actions/workflows/github-actions.yml/badge.svg
+    :alt: GitHub Actions Build Status
+    :target: https://github.com/zoloft/python-spihole/actions
+
+.. |requires| image:: https://requires.io/github/zoloft/python-spihole/requirements.svg?branch=master
+    :alt: Requirements Status
+    :target: https://requires.io/github/zoloft/python-spihole/requirements/?branch=master
+
+.. |codecov| image:: https://codecov.io/gh/zoloft/python-spihole/branch/master/graphs/badge.svg?branch=master
+    :alt: Coverage Status
+    :target: https://codecov.io/github/zoloft/python-spihole
+
+.. |version| image:: https://img.shields.io/pypi/v/spihole.svg
+    :alt: PyPI Package latest release
+    :target: https://pypi.org/project/spihole
+
+.. |wheel| image:: https://img.shields.io/pypi/wheel/spihole.svg
+    :alt: PyPI Wheel
+    :target: https://pypi.org/project/spihole
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/spihole.svg
+    :alt: Supported versions
+    :target: https://pypi.org/project/spihole
+
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/spihole.svg
+    :alt: Supported implementations
+    :target: https://pypi.org/project/spihole
+
+.. |commits-since| image:: https://img.shields.io/github/commits-since/zoloft/python-spihole/v0.0.4.svg
+    :alt: Commits since latest release
+    :target: https://github.com/zoloft/python-spihole/compare/v0.0.4...master
+
+
+
+.. end-badges
+
+Operate a raspberrypi powered peephole camera
+
+* Free software: MIT license
+
+Installation
+============
+
+::
+
+    pip install spihole
+
+You can also install the in-development version with::
+
+    pip install https://github.com/zoloft/python-spihole/archive/master.zip
+
+
+Documentation
+=============
+
+
+https://python-spihole.readthedocs.io/
+
+
+Development
+===========
+
+To run all the tests run::
+
+    tox
+
+Note, to combine the coverage data from all the tox environments run:
+
+.. list-table::
+    :widths: 10 90
+    :stub-columns: 1
+
+    - - Windows
+      - ::
+
+            set PYTEST_ADDOPTS=--cov-append
+            tox
+
+    - - Other
+      - ::
+
+            PYTEST_ADDOPTS=--cov-append tox
+
+
+Changelog
+=========
+
+0.0.4 (04.02.2022)
+---------------------
+
+* no functional changes in this release,
+  just in tooling/CI
+
+0.0.3 (04.02.2022)
+---------------------
+
+* no functional changes in this release,
+  just in tooling/CI
+
+0.0.2 (01.02.2021)
+---------------------
+
+* Connected appveyor
+* Added automatic pypi upload via travis
+
+0.0.1 (2021-01-29)
+------------------
+
+* Modernized setup.py
+* Fixed automatic build
+
+0.0.0 (2021-01-28)
+------------------
+
+* First release on PyPI.
+
+MIT License
+
+Copyright (c) 2021, zoloft
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice (including the next paragraph) shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
