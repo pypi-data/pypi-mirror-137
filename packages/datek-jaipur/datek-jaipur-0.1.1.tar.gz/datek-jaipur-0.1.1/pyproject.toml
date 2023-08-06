@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "datek-jaipur"
+version = "0.1.1"
+description = "Implementation of Jaipur board game's logic"
+authors = ["Attila Dudas <dudasa7@gmail.com>"]
+license = "MIT"
+include = ["README.md"]
+readme = "README.md"
+repository = "https://github.com/DAtek/datek-jaipur"
+
+[tool.poetry.scripts]
+run-console-app = "datek_jaipur.application.console:main"
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+datek-async-fsm = "^0.2.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^2.12.1"
+black = "^21.9b0"
+pylint = "^2.11.1"
+pytest-asyncio = "^0.16.0"
+pytest-bdd = "^5.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

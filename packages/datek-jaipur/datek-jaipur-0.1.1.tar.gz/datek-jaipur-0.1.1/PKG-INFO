@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: datek-jaipur
+Version: 0.1.1
+Summary: Implementation of Jaipur board game's logic
+Home-page: https://github.com/DAtek/datek-jaipur
+License: MIT
+Author: Attila Dudas
+Author-email: dudasa7@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: datek-async-fsm (>=0.2.0,<0.3.0)
+Project-URL: Repository, https://github.com/DAtek/datek-jaipur
+Description-Content-Type: text/markdown
+
+[![codecov](https://codecov.io/gh/DAtek/datek-jaipur/branch/master/graph/badge.svg?token=8ET11QQUKN)](https://codecov.io/gh/DAtek/datek-jaipur)
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://github.com/psf/black/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
+
+# Jaipur board game
+
+The game rules are implemented in *Domain Driven* -ish fashion.  
+A custom finite state machine is the driver and there is a console adapter available for it.
+
+### Usage 
+
+- Run the game with `run-console-app`
+
