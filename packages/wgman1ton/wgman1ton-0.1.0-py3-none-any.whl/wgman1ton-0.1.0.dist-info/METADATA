@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: wgman1ton
+Version: 0.1.0
+Summary: Simple cli-tool to create the wg0.conf-files for a 1-to-many network infrastructure in which the N-peers can connect to each other via the 1-peer.
+Home-page: https://codeberg.org/hanser/1toN-wireguard-manager
+Author: Johannes Stefan
+Author-email: message@johannesstefan.de
+License: UNKNOWN
+Project-URL: Bug Tracker, https://codeberg.org/hanser/1toN-wireguard-manager/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: qrcode
+Requires-Dist: cli-ui
+Requires-Dist: darkdetect
+
+# 1toN-wireguard-manager
+
+Simple cli-tool to create the wg0.conf-files for a 1-to-many network infrastructure in which the N-peers can connect to each other via the 1-peer.
+
+Note that the keys are stored in an unencrypted sqlite-file and the configs get exported as plain text files – use this on your own risk!
+
+# installation
+
+    pip install wgman1ton
+
+You also need wireguard installed (the package is called wireguard-tools in many distributions).
+
+# usage
+
+    $ wgman1ton
+
+The software will create a database file called wgman1ton.db to persist the configuration.
+
+Navigate through the cli-menu. In the end export the configuration and distribute it to the appropriate peers.
+
+Call the software from the same directory later to continue where you left off.
+
+
