@@ -1,0 +1,53 @@
+# Executables or binaries
+[exe]
+# bcftools to handle bcf/vcf files
+bcftools = "bcftools"
+# liftover coordinates across genomes
+liftover = "liftOver"
+# gatk, installed via conda
+gatk = "gatk"
+gatk4 = "gatk"
+# vdjtools, installed via conda
+vdjtools = "vdjtools"
+# cnvpytor
+cnvpytor = "cnvpytor"
+# wget
+wget = "wget"
+# aria2c
+aria2c = "aria2c"
+# tabix
+tabix = "tabix"
+
+# Interpreters
+[lang]
+# Bash
+bash = "bash"
+# python
+python = "python"
+# R
+rscript = "Rscript"
+
+# Path to files/directories
+[path]
+# Map chain file for liftover
+liftover_chain = ""
+# Temporary directory
+# Assign via config.py
+# tmpdir = ""
+
+[ref]
+# The reference genome
+reffa = ""
+# The reference sequence dictionary
+refdict = ""
+# The reference genes in GTF format
+refgene = ""
+# The reference exon in GTF format
+refexon = ""
+
+[misc]
+# Number of cores used for each job
+ncores = 1
+
+[pipeline.scrna_metabolic]
+clustered = false
