@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: carrier.py
+Version: 0.0.2
+Summary: A package used for minor annoyances that I experience throught coding.
+Home-page: https://github.com/Zacky2613/carrier.py
+Author: Zacky2613
+Author-email: author@example.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/Zacky2613/carrier.py/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# carrier.py
+carrier.py is a Python package/module that's used to save time when programming, it helps with functions such as 24 and 12 hour time, Discord webhooks, etc. These are all mainly things that I've been annoyed by because I keep forgetting the code and so I've just bundle it up into carrier.py 
+
+# Installation
+You will need Python 3.6+
+
+```
+# Linux/macOS
+python3 -m pip install carrier.py
+
+# Windows
+py -3 -m pip install carrier.py
+```
+
+# Example
+```py
+import carrier
+import time
+
+while True:
+    if carrier.Timecheck("22:30", "HM") == True: 
+        print("It is 22:30 aka 10:30 PM.")
+        exit()
+    else:
+        print("It is not 22:30 aka 10:30PM.")
+    
+    time.sleep(1) 
+```
+
+
