@@ -1,0 +1,32 @@
+/*****************************************************************************\
+* (c) Copyright 2021 CERN for the benefit of the LHCb Collaboration           *
+*                                                                             *
+* This software is distributed under the terms of the GNU General Public      *
+* Licence version 3 (GPL Version 3), copied verbatim in the file "COPYING".   *
+*                                                                             *
+* In applying this licence, CERN does not waive the privileges and immunities *
+* granted to it by virtue of its status as an Intergovernmental Organization  *
+* or submit itself to any jurisdiction.                                       *
+\*****************************************************************************/
+.x-grid-cell-inner-row-expander1 {
+  padding: 6px 7px 5px 7px;
+}
+.x-grid-cell-inner-row-expander1 {
+  padding-top: 5px;
+  padding-bottom: 4px;
+}
+.x-grid-row-expander1 {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  background-image: url(../images/minus.png);
+}
+.x-grid-row-collapsed1 .x-grid-row-expander1 {
+  background-image: url(../images/plus.png);
+}
+.x-grid-row-body-hidden1 {
+  display: none;
+}
+td.x-grid-rowwrap .x-tree-icon {
+  display: none !important;
+}

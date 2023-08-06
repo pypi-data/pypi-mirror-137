@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: LHCbWebDIRAC
+Version: 5.5.1
+Summary: LHCbWebDIRAC is a portal for the DIRAC software.
+Home-page: https://gitlab.cern.ch/lhcb-dirac/LHCbWebDIRAC/
+License: GPL-3.0-only
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: System :: Distributed Computing
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cachetools
+Requires-Dist: setuptools
+Requires-Dist: six
+Requires-Dist: tornado
+Provides-Extra: server
+Requires-Dist: LHCbDIRAC (<10.5.0a0,>=10.3.3) ; extra == 'server'
+Requires-Dist: WebAppDIRAC (~=4.3.9) ; extra == 'server'
+Requires-Dist: DIRACWebAppResources (~=1.0) ; extra == 'server'
+Requires-Dist: DIRAC ; extra == 'server'
+Provides-Extra: testing
+Requires-Dist: coverage ; extra == 'testing'
+Requires-Dist: mock (>=1.0.1) ; extra == 'testing'
+Requires-Dist: pylint (>=1.6.5) ; extra == 'testing'
+Requires-Dist: pytest (>=3.6) ; extra == 'testing'
+Requires-Dist: pytest-cov (>=2.2.0) ; extra == 'testing'
+Requires-Dist: pytest-mock ; extra == 'testing'
+Requires-Dist: pycodestyle ; extra == 'testing'
+
+LHCbWebDIRAC is the LHCb extension of [WebAppDIRAC](https://github.com/DIRACGrid/WebAppDIRAC).
+
+# Important links
+
+- Official source code repo: https://gitlab.cern.ch/lhcb-dirac/LHCbWebDIRAC
+- HTML documentation (stable release):
+- Issue tracker: https://its.cern.ch/jira/browse/LHCBDIRAC/ (Web component)
+- Developers Mailing list: https://groups.cern.ch/group/lhcb-dirac/default.aspx
+
+# Install
+
+For more detailed installation instructions, see the WebAppDIRAC documentation.
+
+
