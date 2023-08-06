@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: karaone
+Version: 0.1.0
+Summary: A simple utils tools for kara ona database eeg
+Home-page: https://github.com/unlikeghost/karaone
+Author: unlikeghost
+Author-email: unlikeghost@protonmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: mne
+Requires-Dist: typer
+Requires-Dist: requests
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: python-dotenv
+
+# Kara One
+Some tools form Kara One EEG database
+
+## Installation
+
+```bash
+pip install karaone
+```
+
+```bash
+python setup.py bdist_wheel clean --all
+```
+
+## Usage
+
+```bash
+python -m karaone --help
+```
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## Developer
+* Jesus Alan Hernandez Galvan
+
