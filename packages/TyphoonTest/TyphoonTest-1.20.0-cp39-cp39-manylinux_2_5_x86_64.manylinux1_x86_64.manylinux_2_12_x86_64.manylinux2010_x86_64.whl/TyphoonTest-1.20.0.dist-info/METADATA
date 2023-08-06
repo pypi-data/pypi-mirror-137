@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: TyphoonTest
+Version: 1.20.0
+Summary: Typhoon Testing Utilities
+Author: Typhoon HIL, Inc
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Topic :: Software Development
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Programming Language :: Python
+Requires-Dist: Typhoon-HIL-API (>=1.13.0)
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: peakutils
+Requires-Dist: pytest (<=6.2.4,>=5)
+Requires-Dist: allure-pytest (==2.8.10)
+Requires-Dist: pandas (==1.0.5)
+Requires-Dist: matplotlib
+Requires-Dist: wrapt
+Requires-Dist: future
+Requires-Dist: asammdf (==6.2.0)
+Requires-Dist: pycryptodomex
+Requires-Dist: nptdms (==0.23.0)
+Requires-Dist: pytest-assume (>=2.2.0)
+Requires-Dist: bokeh (==2.3.1)
+Requires-Dist: Sphinx
+Requires-Dist: psutil
+Provides-Extra: read_hdf
+Requires-Dist: tables (==3.6.1) ; extra == 'read_hdf'
+
+Description
+===========
+TyphoonTest is a testing framework that provides high-level functions to test power electronics
+and power systems equipment. It also provides integration with pytest and Allure framework.
+Thanks to this integration, all Typhoon HIL API and TyphoonTest functions used in pytest tests are automatically logged
+in Allure report.
+
+Requirements
+============
+Typhoon API requires Typhoon HIL Control Center (with an appropriate license)
+to be installed.
+For other requirements, they will be automatically installed when you perform
+installation using pip.
+
+Installation
+============
+Package is available on PyPI
+
+To install TyphoonTest library use:
+    ``pip install typhoontest``
+
+Reading hdf files exported with typhoon capture functionality is currently not available on Python 3.9. If you want to use this feature with python versions older than that (3.6 - 3.8) you can install it as extra feature:
+    ``pip install typhoontest[read_hdf]``
+
+Supported Python versions
+=========================
+TyphoonTest is available for python versions 3.6, 3.7, 3.8 and 3.9. The wheels are built for both Windows and Linux
+platform
+
