@@ -1,0 +1,30 @@
+flavors:
+  python_function:
+    artifacts:
+      example_request:
+        path: artifacts/example_request.json
+        uri: /tmp/tmptaclk_ci/example_request.json
+      model:
+        path: artifacts/model.joblib
+        uri: /tmp/tmpz94fan0u/model.joblib
+      na_fill_values:
+        path: artifacts/na_fill_values.joblib
+        uri: /tmp/tmpz94fan0u/na_fill_values.joblib
+      one_hot_enc:
+        path: artifacts/one_hot_enc.joblib
+        uri: /tmp/tmpz94fan0u/one_hot_enc.joblib
+      scaler:
+        path: artifacts/scaler.joblib
+        uri: /tmp/tmpz94fan0u/scaler.joblib
+    cloudpickle_version: 1.6.0
+    code: code
+    env: conda.yaml
+    loader_module: mlflow.pyfunc.model
+    python_model: python_model.pkl
+    python_version: 3.8.10
+metadata:
+  explanations: default
+  oodDetection: disabled
+  request_schema:
+    path: artifacts/example_request.json
+utc_time_created: '2022-01-31 21:17:29.480215'
