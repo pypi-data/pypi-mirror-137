@@ -1,0 +1,606 @@
+[
+    {
+        "field_type": "STRING", 
+        "name": "course_id"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Institution",
+	"description": "From course listings file"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Semester"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_New_or_Rerun"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Course_Number"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Short_Title"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Andrew_s_Short_Titles"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Title"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Instructors"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_4_way_Category_by_name"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Registration_Open"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Course_Launch"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Course_Wrap"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_course_id"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_Empirical_Course_Wrap"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "listings_Andrew_s_Order"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "listings_certifies"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "listings_MinPassGrade"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "filename_xbundle",
+	"description": "Full name of file used for course source XML (in xbundle format)"
+    }, 
+    {
+        "field_type": "STRING", 
+        "name": "filename_listings",
+	"description": "Full name of file used for course listings"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "course_length_days",
+	"description": "from course_metainfo tables"
+    }, 
+    {
+        "field_type": "FLOAT", 
+        "name": "nquant_per_week"
+    }, 
+    {
+        "field_type": "FLOAT", 
+        "name": "total_assessments_per_week"
+    }, 
+    {
+        "field_type": "FLOAT", 
+        "name": "nqual_per_week"
+    }, 
+    {
+        "field_type": "FLOAT", 
+        "name": "nweeks"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "nexcluded_sub_20_chapter"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "nexcluded_sub_20_video"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "nexcluded_sub_20_problem"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "nexcluded_sub_20_sequential"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_capa_problems"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_capa_problems_graded"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_random_script"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_graded_random_script"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_showanswer_closed"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_showanswer_never"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_showanswer_attempted"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_showanswer_always"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_showanswer_answered"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_showanswer_finished"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_showanswer_past_due"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_graded_showanswer_closed"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_graded_showanswer_never"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_graded_showanswer_attempted"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_graded_showanswer_always"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_graded_showanswer_answered"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_graded_showanswer_finished"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "problem_stat_n_graded_showanswer_past_due"
+    },
+    {
+        "field_type": "INTEGER", 
+        "name": "count_chapter"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_sequential"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_section"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_vertical"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_problem"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_openended"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_conditional"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_randomize"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_lti"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_solution"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_discussion"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_initial_display"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_responseparam"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_formularesponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_answer"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_selfassessment"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_multiplechoiceresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_customtag"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_task"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_radiogroup"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_peergrading"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_optionresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_optioninput"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_textbox"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_choiceresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_header"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_rubric"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_drag_and_drop_input"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_img"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_formulaequationinput"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_stringresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_openendedparam"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_combinedopenended"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_video"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_description"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_coderesponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_textline"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_checkboxgroup"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_customresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_grader_payload"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_numericalresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_draggable"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_answer_display"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_prompt"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_category"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_codeparam"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_target"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_code"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_option"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_crowdsource_hinter"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_matlabinput"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_symbolicresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_videosequence"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_problemset"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_textbook"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_imageresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_imageinput"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_include"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_chemicalequationinput"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_image"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_jsinput"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_word_cloud"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_link"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_editageneinput"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_input"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_schematic"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_hintgroup"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_schematicresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_transcript"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_openendedresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_openendedinput"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_crystallography"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_openendedrubric"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_hintpart"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_embed"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_formulahint"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_customhint"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_solved"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_foldit"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_timelimit"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_discuss"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_edxxml"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_assessments"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_name"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_openassessment"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_feedbackprompt"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_assessment"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_explanation"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_criterion"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_split_test"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_annotationresponse"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_annotatable"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_tag_prompt"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_comment"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_annotationinput"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_options"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_comment_prompt"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_poll_question"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_thead"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_mentoring"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_textannotation"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_imageannotation"
+    }, 
+    {
+        "field_type": "INTEGER", 
+        "name": "count_fieldset"
+    }
+]

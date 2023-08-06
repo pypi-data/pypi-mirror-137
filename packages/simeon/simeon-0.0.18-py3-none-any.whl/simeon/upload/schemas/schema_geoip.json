@@ -1,0 +1,80 @@
+{
+    "geoip": [
+        {
+            "field_type": "STRING",
+            "name": "ip",
+            "description": "IP address"
+        },
+        {
+            "field_type": "STRING",
+            "name": "city",
+            "description": "city name (unicode!)"
+        },
+        {
+            "field_type": "STRING",
+            "name": "countryLabel",
+            "description": "country name"
+        },
+        {
+            "field_type": "STRING",
+            "name": "country",
+            "description": "two-level country code"
+        },
+        {
+            "field_type": "STRING",
+            "name": "postalCode",
+            "description": "local postal code, e.g. zip code in the US"
+        },
+        {
+            "field_type": "STRING",
+            "name": "continent",
+            "description": "name of continent"
+        },
+        {
+            "field_type": "STRING",
+            "name": "subdivision",
+            "description": "full name of subdivision, e.g. state in the US"
+        },
+        {
+            "field_type": "STRING",
+            "name": "region",
+            "description": "iso_code name of region, e.g. state two-letter code in the US"
+        },
+        {
+            "field_type": "STRING",
+            "name": "cc_by_ip",
+            "description": "Two-letter country code corresponding to the modal IP address"
+        },
+        {
+            "field_type": "STRING",
+            "name": "un_major_region",
+            "description": "UN defined sub-continent major geographic regions corresponding to modal IP address"
+        },
+        {
+            "field_type": "STRING",
+            "name": "un_economic_group",
+            "description": "UN defined major geographical economic groups (developing and developed nations) corresponding to modal IP address"
+        },
+        {
+            "field_type": "STRING",
+            "name": "un_developing_nation",
+            "description": "UN defined developing nation groups files corresponding to modal IP address"
+        },
+        {
+            "field_type": "STRING",
+            "name": "un_special_region",
+            "description": "Special Regions Set 1 files: Latin America and the Caribbean.csv,Sub-Saharan-Africa.csv corresponding to modal IP address"
+        },
+        {
+            "field_type": "FLOAT",
+            "name": "latitude",
+            "description": "latitude"
+        },
+        {
+            "field_type": "FLOAT",
+            "name": "longitude",
+            "description": "longitude"
+        }
+    ],
+    "description": "Dimensional table that tracks the IP addresses used by learners from the edX platform. The IPs themselves are extracted from the tracking log files, and the geolocation details are extracted from the MaxMind IP database using the simeon-geoip script from the simeon CLI tool. Take a look at the documentation for simeon-geoip if you would like to generate and update this table."
+}
