@@ -1,0 +1,7 @@
+include README.md LICENSE pybind11/LICENSE
+graft src
+graft src/wzero/cc
+graft src/wzero/wrappers
+graft src/wzero/wrappers/pybind11/include
+graft src/wzero/wrappers/pybind11/tools
+global-include src/wzero/wrappers/CMakeLists.txt *.cmake
