@@ -1,0 +1,333 @@
+{
+  "src/lib/components/DashWordcloud.react.js": {
+    "description": "This is a Dash wrapper for wordcloud2.js.\n\nSee https://github.com/timdream/wordcloud2.js",
+    "displayName": "DashWordcloud",
+    "methods": [
+      {
+        "name": "wordcloudClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "item",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "onMouseOut",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "evt",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderWordCloud",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "dppx": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The device pixel density",
+        "defaultValue": {
+          "value": "1",
+          "computed": false
+        }
+      },
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": "The canvas width"
+      },
+      "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": "The canvas height"
+      },
+      "list": {
+        "type": {
+          "name": "array"
+        },
+        "required": true,
+        "description": "List of words/text to paint on the canvas in a 2-d array, in the form\nof [word, size].\n\neg. [['foo', 12], ['bar', 6]]\n\nOptionally, you can send additional data as array elements, in the\nform of '[word, size, data1, data2, ... ]' which can then be\nused in the callback functions of 'click', 'hover' interactions\nand fontWeight, color and classes callbacks"
+      },
+      "fontFamily": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The font to use"
+      },
+      "fontWeight": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The font weight to use, can be, as an example, 'normal', 'bold' or '600'"
+      },
+      "color": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "object"
+            },
+            {
+              "name": "func"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Color of the text, can be any CSS color"
+      },
+      "classes": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "For DOM clouds, allows the user to define the class of the span elements. Can\nbe a normal class string"
+      },
+      "minSize": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The minimum font size to draw on the canvas."
+      },
+      "weightFactor": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number to multiply for 'size' of each word in the list."
+      },
+      "clearCanvas": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Paint the entire canvas with background color and consider\nit empty before start"
+      },
+      "backgroundColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The color of the background"
+      },
+      "gridSize": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The size of the grid in pixels for marking the availability of\nthe canvas \u2014 the larger the grid size, the\nbigger the gap between words"
+      },
+      "origin": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "number"
+          }
+        },
+        "required": false,
+        "description": "The origin of the \u201ccloud\u201d in [x, y]."
+      },
+      "drawOutOfBound": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Set to true to allow word being draw partly outside of\nthe canvas. Allow word bigger than the size of the\ncanvas to be drawn."
+      },
+      "shrinkToFit": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Set to 'true' to shrink the word so it will fit into\ncanvas. Best if 'drawOutOfBound' is set to 'false'. :warning:\nThis word will now have lower 'weight'."
+      },
+      "drawMask": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Visualize the grid by draw squares to mask the drawn areas"
+      },
+      "maskColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Color of the mask squares."
+      },
+      "maskGapWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Width of the gaps between mask squares."
+      },
+      "minRotation": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "If the word should rotate, the minimum rotation (in rad) the text should rotate"
+      },
+      "maxRotation": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "If the word should rotate, the maximum rotation (in rad) the text should rotate. Set the two value equal\nto keep all text in one angle."
+      },
+      "rotationSteps": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Force the use of a defined number of angles. Set the value equal to 2 in a -90\u00b0/90\u00b0\nrange means just -90, 0 or 90 will be used."
+      },
+      "shuffle": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Shuffle the points to draw so the result will be different each\ntime for the same list and settings."
+      },
+      "rotateRatio": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Probability for the word to rotate. Set the number to 1\nto always rotate."
+      },
+      "shape": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'circle'",
+              "computed": false
+            },
+            {
+              "value": "'cardioid'",
+              "computed": false
+            },
+            {
+              "value": "'diamond'",
+              "computed": false
+            },
+            {
+              "value": "'square'",
+              "computed": false
+            },
+            {
+              "value": "'triangle'",
+              "computed": false
+            },
+            {
+              "value": "'triangle-forward'",
+              "computed": false
+            },
+            {
+              "value": "'triangle-upright'",
+              "computed": false
+            },
+            {
+              "value": "'pentagon'",
+              "computed": false
+            },
+            {
+              "value": "'star'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The shape of the \"cloud\" to draw. Available presents are:"
+      },
+      "ellipticity": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The degree of \"flatness\" of the shape wordcloud2.js should draw."
+      },
+      "hover": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Set true to enable hover and tooltips",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "click": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "Captures word onClick event and returns the cloud item that was clicked.",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Canvas style"
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Often used with CSS to style elements with common properties.",
+        "defaultValue": {
+          "value": "\"wc-canvas\"",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+      }
+    }
+  }
+}
