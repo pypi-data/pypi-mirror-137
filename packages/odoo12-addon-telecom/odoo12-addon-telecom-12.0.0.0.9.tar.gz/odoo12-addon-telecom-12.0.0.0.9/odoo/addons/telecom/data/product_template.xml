@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <record id="gsm_recurring_product_template" model="product.template">
+      <field name="name">GSM Recurring</field>
+      <field name="type">telecom_service_recurring</field>
+      <field name="categ_id" ref="telecom.mobile_product_category"/>
+      <field name="is_contract">1</field>
+      <field name="property_contract_template_id" ref="telecom.telecom_contract_template"/>
+      <field name="main">1</field>
+    </record>
+    <record id="gsm_one_shot_product_template" model="product.template">
+      <field name="name">GSM One Shot</field>
+      <field name="type">telecom_service_one_shot</field>
+      <field name="categ_id" ref="telecom.mobile_product_category"/>
+    </record>
+    <record id="adsl_recurring_product_template" model="product.template">
+      <field name="name">ADSL Recurring</field>
+      <field name="type">telecom_service_recurring</field>
+      <field name="categ_id" ref="telecom.broadband_product_category"/>
+      <field name="is_contract">1</field>
+      <field name="property_contract_template_id" ref="telecom.telecom_contract_template"/>
+      <field name="main">1</field>
+    </record>
+    <record id="adsl_one_shot_product_template" model="product.template">
+      <field name="name">ADSL One Shot</field>
+      <field name="type">telecom_service_one_shot</field>
+      <field name="categ_id" ref="telecom.broadband_product_category"/>
+    </record>
+    <record id="fiber_recurring_product_template" model="product.template">
+      <field name="name">Fiber Recurring</field>
+      <field name="type">telecom_service_recurring</field>
+      <field name="categ_id" ref="telecom.broadband_product_category"/>
+      <field name="is_contract">1</field>
+      <field name="property_contract_template_id" ref="telecom.telecom_contract_template"/>
+      <field name="main">1</field>
+    </record>
+    <record id="fiber_one_shot_product_template" model="product.template">
+      <field name="name">Fiber One Shot</field>
+      <field name="type">telecom_service_one_shot</field>
+      <field name="categ_id" ref="telecom.broadband_product_category"/>
+    </record>
+    <record id="radiofrequency_recurring_product_template" model="product.template">
+      <field name="name">Radiofrequency Recurring</field>
+      <field name="type">telecom_service_recurring</field>
+      <field name="categ_id" ref="telecom.broadband_product_category"/>
+      <field name="is_contract">1</field>
+      <field name="property_contract_template_id" ref="telecom.telecom_contract_template"/>
+      <field name="main">1</field>
+    </record>
+    <record id="radiofrequency_one_shot_product_template" model="product.template">
+      <field name="name">Radiofrequency One Shot</field>
+      <field name="type">telecom_service_one_shot</field>
+      <field name="categ_id" ref="telecom.broadband_product_category"/>
+    </record>
+    <record id="landline_recurring_product_template" model="product.template">
+      <field name="name">Landline Recurring</field>
+      <field name="type">telecom_service_recurring</field>
+      <field name="categ_id" ref="telecom.landline_product_category"/>
+      <field name="is_contract">1</field>
+      <field name="property_contract_template_id" ref="telecom.telecom_contract_template"/>
+      <field name="main">1</field>
+    </record>
+    <record id="landline_one_shot_product_template" model="product.template">
+      <field name="name">Landline One Shot</field>
+      <field name="type">telecom_service_one_shot</field>
+      <field name="categ_id" ref="telecom.landline_product_category"/>
+    </record>
+  </data>
+</odoo>

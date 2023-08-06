@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="target.state.value" id="target_state_value_mobile_draft">
+            <field name="name">Mobile draft</field>
+            <field name="base_substate_type_id" ref="telecom.base_substate_type_mobile"/>
+            <field name="target_state_value">draft</field>
+        </record>
+        <record model="target.state.value" id="target_state_value_mobile_sale">
+            <field name="name">Mobile sale</field>
+            <field name="base_substate_type_id" ref="telecom.base_substate_type_mobile"/>
+            <field name="target_state_value">sale</field>
+        </record>
+        <record model="target.state.value" id="target_state_value_broadband_draft">
+            <field name="name">Broadband draft</field>
+            <field name="base_substate_type_id" ref="telecom.base_substate_type_broadband"/>
+            <field name="target_state_value">draft</field>
+        </record>
+        <record model="target.state.value" id="target_state_value_broadband_sale">
+            <field name="name">Broadband sale</field>
+            <field name="base_substate_type_id" ref="telecom.base_substate_type_broadband"/>
+            <field name="target_state_value">sale</field>
+        </record>
+        <record model="target.state.value" id="target_state_value_landline_draft">
+            <field name="name">Landline draft</field>
+            <field name="base_substate_type_id" ref="telecom.base_substate_type_landline"/>
+            <field name="target_state_value">draft</field>
+        </record>
+        <record model="target.state.value" id="target_state_value_landline_sale">
+            <field name="name">Landline sale</field>
+            <field name="base_substate_type_id" ref="telecom.base_substate_type_landline"/>
+            <field name="target_state_value">sale</field>
+        </record>
+    </data>
+</odoo>

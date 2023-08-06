@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="view_tree_lead_telecom" model="ir.ui.view">
+      <field name="model">crm.lead</field>
+      <field name="name">crm.lead.tree.telecom</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="is_telecom" invisible="1"/>
+          <field name="stage_id"/>
+          <field name="vat"/>
+          <field name="email_from"/>
+          <field name="partner_id"/>
+          <field name="product_id"/>
+        </tree>
+      </field>
+    </record>
+    <record id="view_form_lead_telecom" model="ir.ui.view">
+      <field name="model">crm.lead</field>
+      <field name="name">crm.lead.form.telecom</field>
+      <field name="arch" type="xml">
+        <form string="Opportunities" class="o_opportunity_form">
+          <header>
+            <button name="action_set_won" string="Mark Won" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('active','=',False), ('probability', '=', 100)]}"/>
+            <button name="151" string="Mark Lost" type="action" class="oe_highlight" context="{'default_lead_id': active_id}" attrs="{'invisible': [('active', '=', False),('probability', '&lt;', 100)]}"/>
+            <button name="toggle_active" string="Restore" type="object" attrs="{'invisible': ['|', ('probability', '&gt;', 0), ('active', '=', True)]}"/>
+            <field name="stage_id"/>
+          </header>
+          <field name="is_telecom" invisible="1"/>
+          <field name="active" invisible="1"/>
+          <field name="probability" invisible="1"/>
+          <field name="team_id" invisible="1"/>
+          <group name="Customer" attrs="{'invisible': [('partner_id', '!=', None)]}">
+            <field name="partner_id"/>
+          </group>
+          <group name="Customer Data" attrs="{'invisible': [('partner_id', '=', None)]}">
+            <field name="vat"/>
+            <field name="email_from"/>
+            <field name="language"/>
+            <field name="iban"/>
+            <field name="policy_accepted"/>
+          </group>
+          <group name="Service">
+            <field name="product_id"/>
+          </group>
+          <group name="Others">
+            <field name="description"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record id="crm_lead_view_buttons" model="ir.ui.view">
+      <field name="name">crm.lead.view.buttons</field>
+      <field name="model">crm.lead</field>
+      <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor" />
+      <field name="priority" eval="3"/>
+      <field name="arch" type="xml">
+        <button name="%(sale_crm.sale_action_quotations)d" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </button>
+        <button name="%(sale_crm.sale_action_quotations)d" position="after">
+          <button class="oe_stat_button" type="action" name="%(telecom.action_sale_order_telecom)d" icon="fa-pencil-square-o" context="{'default_partner_id': partner_id, 'search_default_draft': 1, 'search_default_sent': 1}">
+            <div class="o_stat_info">
+              <field name="sale_number" class="o_stat_value"/>
+              <span class="o_stat_text"> Quotation(s) </span>
+            </div>
+          </button>
+        </button>
+        <button name="%(sale_crm.sale_action_orders)d" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </button>
+        <button name="%(sale_crm.sale_action_orders)d" position="after">
+          <button class="oe_stat_button" type="action" attrs="{'invisible': [('sale_amount_total', '=', 0)]}"
+            name="%(telecom.action_sale_order_telecom)d" icon="fa-usd"
+            context="{'search_default_partner_id': partner_id, 'default_partner_id': partner_id, 'search_default_sales': 1}">
+            <div class="o_field_widget o_stat_info">
+              <span class="o_stat_value"><field name="sale_amount_total" widget="monetary" options="{'currency_field': 'company_currency'}"/></span>
+              <span class="o_stat_text"> Orders</span>
+            </div>
+          </button>
+        </button>
+      </field>
+    </record>
+  </data>
+</odoo>
