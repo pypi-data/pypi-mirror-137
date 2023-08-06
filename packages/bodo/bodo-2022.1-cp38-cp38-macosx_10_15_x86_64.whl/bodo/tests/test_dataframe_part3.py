@@ -1,0 +1,969 @@
+import datetime
+
+import numpy as np
+import pandas as pd
+import pyarrow as pa
+import pytest
+from mpi4py import MPI
+from numba import types
+
+import bodo
+from bodo.tests.utils import (
+    SeriesOptTestPipeline,
+    _ensure_func_calls_optimized_out,
+    _get_dist_arg,
+    _test_equal_guard,
+    check_func,
+    reduce_sum,
+)
+from bodo.utils.typing import BodoError
+
+
+def test_dataframe_apply_method_str(memory_leak_check):
+    """
+    Test running DataFrame.apply with a string literal that
+    matches a DataFrame method. Note by default all of these
+    will run with axis=0 if the argument exists.
+
+    """
+
+    def impl1(df):
+        # Test a DataFrame method that returns a Series without axis=1.
+        return df.apply("nunique")
+
+    def impl2(df):
+        # Test a DataFrame method that conflicts with a numpy function
+        return df.apply("sum", axis=1)
+
+    def impl3(df):
+        # Test a DataFrame method that returns a DataFrame
+        return df.apply("abs")
+
+    df = pd.DataFrame(
+        {
+            "A": np.arange(100) % 10,
+            "B": -np.arange(100),
+        }
+    )
+
+    check_func(impl1, (df,), is_out_distributed=False)
+    check_func(impl2, (df,))
+    check_func(impl3, (df,))
+
+
+@pytest.mark.skip("[BE-1198] Support numpy ufuncs on DataFrames")
+def test_dataframe_apply_numpy_str(memory_leak_check):
+    """
+    Test running dataframe.apply with a string literal that
+    matches a Numpy function.
+    """
+
+    def impl1(df):
+        return df.apply("sin")
+
+    def impl2(df):
+        # Test with axis=1 (unused)
+        return df.apply("log", axis=1)
+
+    df = pd.DataFrame(
+        {
+            "A": np.arange(100) % 10,
+            "B": -np.arange(100),
+        }
+    )
+
+    check_func(impl1, (df,))
+    check_func(impl2, (df,))
+
+
+@pytest.mark.slow
+def test_dataframe_apply_no_func(memory_leak_check):
+    """
+    Test running dataframe.apply with a string literal that
+    doesn't match a method or Numpy function raises an
+    Exception.
+    """
+
+    def impl1(df):
+        # This function doesn't exist in Numpy or as a
+        # DataFrame method.
+        return df.apply("concat", axis=1)
+
+    df = pd.DataFrame(
+        {
+            "A": np.arange(100) % 10,
+            "B": -np.arange(100),
+        }
+    )
+    with pytest.raises(BodoError, match="user-defined function not supported"):
+        bodo.jit(impl1)(df)
+
+
+@pytest.mark.slow
+def test_dataframe_apply_pandas_unsupported_method(memory_leak_check):
+    """
+    Test running dataframe.apply with a string literal that
+    matches an unsupported DataFrame method raises an appropriate
+    exception.
+    """
+
+    def impl1(df):
+        return df.apply("argmin", axis=1)
+
+    df = pd.DataFrame(
+        {
+            "A": np.arange(100) % 10,
+            "B": -np.arange(100),
+        }
+    )
+    with pytest.raises(BodoError, match="user-defined function not supported"):
+        bodo.jit(impl1)(df)
+
+
+@pytest.mark.slow
+def test_dataframe_apply_numpy_unsupported_ufunc(memory_leak_check):
+    """
+    Test running dataframe.apply with a string literal that
+    matches an unsupported ufunc raises an appropriate
+    exception.
+    """
+
+    def impl1(df):
+        return df.apply("cbrt", axis=1)
+
+    df = pd.DataFrame(
+        {
+            "A": np.arange(100) % 10,
+            "B": -np.arange(100),
+        }
+    )
+    with pytest.raises(BodoError, match="user-defined function not supported"):
+        bodo.jit(impl1)(df)
+
+
+@pytest.mark.slow
+def test_dataframe_apply_pandas_unsupported_type(memory_leak_check):
+    """
+    Test running dataframe.apply with a string literal that
+    matches a method but has an unsupported type
+    raises an appropriate exception.
+    """
+
+    def impl1(df):
+        # Mean is unsupported for string types
+        return df.apply("mean", axis=1)
+
+    df = pd.DataFrame(
+        {
+            "A": ["ABC", "21", "231", "21dwcp"] * 25,
+            "B": ["feq", "3243412rfe", "fonie wqw   ", "3c", "r32r23fc"] * 20,
+        }
+    )
+    with pytest.raises(BodoError, match="user-defined function not supported"):
+        bodo.jit(impl1)(df)
+
+
+@pytest.mark.slow
+def test_dataframe_apply_pandas_unsupported_axis(memory_leak_check):
+    """
+    Test running dataframe.apply with a method using
+    axis=1 when Bodo doesn't support axis=1 yet.
+    """
+
+    def impl1(df):
+        # nunique is unsupported for axis=1
+        return df.apply("nunique", axis=1)
+
+    df = pd.DataFrame(
+        {
+            "A": ["ABC", "21", "231", "21dwcp"] * 25,
+            "B": -np.arange(100),
+        }
+    )
+    with pytest.raises(BodoError, match="user-defined function not supported"):
+        bodo.jit(impl1)(df)
+
+
+@pytest.mark.slow
+def test_dataframe_apply_numpy_unsupported_type(memory_leak_check):
+    """
+    Test running dataframe.apply with a string literal that
+    matches a Numpy ufunc but has an unsupported type
+    raises an appropriate exception.
+    """
+
+    def impl1(df):
+        # radians is unsupported for string types
+        return df.apply("radians", axis=1)
+
+    df = pd.DataFrame(
+        {
+            "A": ["ABC", "21", "231", "21dwcp"] * 25,
+            "B": -np.arange(100),
+        }
+    )
+    with pytest.raises(BodoError, match="user-defined function not supported"):
+        bodo.jit(impl1)(df)
+
+
+def test_dataframe_optional_scalar(memory_leak_check):
+    """
+    Test calling pd.DataFrame with a scalar that is an optional type.
+    """
+
+    def impl(table1):
+        df1 = pd.DataFrame({"A": table1["A"], "$f3": table1["A"] == np.int32(1)})
+        S0 = df1["A"][df1["$f3"]]
+        df2 = pd.DataFrame(
+            {"col1_sum_a": S0.sum() if len(S0) > 0 else None},
+            index=pd.RangeIndex(0, 1, 1),
+        )
+        return df2
+
+    df = pd.DataFrame({"A": [1, 2, 3] * 4})
+
+    # Pandas can avoid nullable so the types don't match
+    check_func(impl, (df,), check_dtype=False)
+
+
+def test_dataframe_is_none(memory_leak_check):
+    """
+    Test that dataframe is None can compile and keep the dataframe distributed.
+    """
+
+    def impl1(df):
+        return df is None
+
+    def impl2(df):
+        return df is not None
+
+    df = pd.DataFrame(
+        {
+            "A": np.arange(100) % 10,
+            "B": -np.arange(100),
+        }
+    )
+    check_func(impl1, (df,))
+    check_func(impl2, (df,))
+    # Test that none still works
+    check_func(impl1, (None,))
+    check_func(impl2, (None,))
+
+
+@pytest.mark.slow
+def test_describe_many_columns(memory_leak_check):
+    """
+    Runs df.describe on a dataframe with 25 columns.
+    If df.describe is inlined, this will take more than
+    1 hour.
+    If df.describe is not inlined as expected, this should take
+    closer to 12 seconds. To avoid failures due to small variations,
+    we will check this tests take no longer than 1 minute.
+    """
+
+    def impl(df):
+        return df.describe()
+
+    df = pd.DataFrame(
+        columns=np.arange(25), data=np.arange(1000 * 25).reshape(1000, 25)
+    )
+    import time
+
+    t0 = time.time()
+    check_func(impl, (df,), is_out_distributed=False)
+    compilation_time = time.time() - t0
+    # Determine the max compilation time on any rank to avoid hangs.
+    comm = MPI.COMM_WORLD
+    compilation_time = comm.allreduce(compilation_time, op=MPI.MAX)
+    assert (
+        compilation_time < 60
+    ), "df.describe() took too long to compile. Possible regression?"
+
+
+@pytest.mark.parametrize(
+    "dt_like_series",
+    [
+        pd.Series([pd.Timestamp(2021, 4, 3), None] * 10),
+        pd.Series([pd.Timedelta(days=-2), None] * 10),
+    ],
+)
+def test_optional_fusion(memory_leak_check, dt_like_series):
+    """
+    Checks that pd.DataFrame can be used on multiple series
+    operations with optional types. This triggers a parfor fusion
+    that keeps values as optional types when merging functions
+    (see BE-1396)
+    """
+
+    def impl(S):
+        return pd.DataFrame(
+            {"A": S.apply(lambda x: (None if (pd.isna(x)) else x)).isna()}
+        )
+
+    check_func(impl, (dt_like_series,))
+
+
+def test_astype_str_null(memory_leak_check):
+    """
+    Checks that astype(str) converts Null values to strings
+    """
+
+    def impl(df):
+        return df.astype(str)
+
+    df = pd.DataFrame(
+        {
+            "A": pd.Series([1, 2, 4, None, 7] * 10, dtype="Int64"),
+            "B": [pd.Timestamp(2021, 5, 4, 1), None] * 25,
+        }
+    )
+    check_func(impl, (df,))
+
+
+def test_astype_str_keep_null(memory_leak_check):
+    """
+    Checks that astype(str) keeps null values null when _bodo_nan_to_str=False
+    """
+
+    def impl(S):
+        return S.astype(str, _bodo_nan_to_str=False)
+
+    df = pd.DataFrame(
+        {
+            "A": pd.Series([1, 2, 4, None, 7] * 10, dtype="Int64"),
+            "B": [pd.Timestamp(2021, 5, 4, 1), None] * 25,
+        }
+    )
+    # This is a Bodo specific arg so use py_output
+    py_output = df.astype(str)
+    py_output["A"][py_output["A"] == "<NA>"] = None
+    py_output["B"][py_output["B"] == "NaT"] = None
+    check_func(impl, (df,), py_output=py_output)
+
+
+def test_categorical_astype(memory_leak_check):
+    """
+    Test that astype with categorical columns to the underlying
+    elem type works as expected. Needed for BodoSQL.
+    """
+
+    def impl(categorical_table):
+        categorical_table = pd.DataFrame(
+            {
+                "A": categorical_table["A"].astype("str"),
+                "B": categorical_table["B"].astype("Int64"),
+                "C": categorical_table["C"].astype("UInt64"),
+                "D": categorical_table["D"].astype("float64"),
+                "E": categorical_table["E"].astype("datetime64[ns]"),
+                "F": categorical_table["F"].astype("timedelta64[ns]"),
+                "G": categorical_table["G"].astype("boolean"),
+            }
+        )
+        return categorical_table
+
+    df = pd.DataFrame(
+        {
+            # String category
+            "A": pd.Categorical(["anve", "Er2"] * 5),
+            # int64
+            "B": pd.Categorical([5, -32] * 5),
+            # uint64
+            "C": pd.Categorical(pd.array([5, 2] * 5, "uint64")),
+            # float64
+            "D": pd.Categorical([1.1, 2.7] * 5),
+            # dt64
+            "E": pd.Categorical(
+                [pd.Timestamp(2021, 4, 5), pd.Timestamp(2021, 4, 4)] * 5
+            ),
+            # td64
+            "F": pd.Categorical([pd.Timedelta(2), pd.Timedelta(seconds=-4)] * 5),
+            # boolean
+            "G": pd.Categorical([True, False] * 5),
+        }
+    )
+
+    check_func(impl, (df,))
+
+
+def test_avoid_static_getitem_const(memory_leak_check):
+    """Test for avoiding Numba's static_getitem const idx inference bug in typing pass.
+    See https://github.com/numba/numba/issues/7592
+    """
+
+    def impl(df):
+        cols = [col for col in df.columns if "B" in col]
+        return df[cols]
+
+    df = pd.DataFrame({"ABC": [1, 2, 3]})
+    check_func(impl, (df,))
+
+
+def test_df_gatherv_table_format(memory_leak_check):
+    """test gathering a distributed dataframe with table format"""
+
+    def impl(df):
+        return bodo.gatherv(df)
+
+    df = pd.DataFrame(
+        {
+            "A": [1, 2, 3] * 20,
+            "B": ["abc", "bc", "cd"] * 20,
+            "C": [5, 6, 7] * 20,
+            "D": [1.1, 2.2, 3.3] * 20,
+        }
+    )
+    # add a bunch of columns to trigger table format
+    for i in range(bodo.hiframes.boxing.TABLE_FORMAT_THRESHOLD):
+        df[f"F{i}"] = 11
+
+    distributed_df = _get_dist_arg(df, copy=True, var_length=True)
+    bodo_df = bodo.jit(distributed=["df"])(impl)(distributed_df)
+    passed = 1
+    if bodo.get_rank() == 0:
+        passed = _test_equal_guard(
+            bodo_df,
+            df,
+        )
+    n_passed = reduce_sum(passed)
+    assert n_passed == bodo.get_size()
+
+
+def test_map_array_concat(memory_leak_check):
+    """Tests for pd.concat on MapArrays with a sequential implementation."""
+
+    def impl(df, n):
+        df_list = []
+        for i in range(1, n + 1):
+            df_new = pd.DataFrame(
+                {
+                    "A": df.A,
+                    "B": df.A.apply(lambda val, i: {j: j % i for j in range(val)}, i=i),
+                }
+            )
+            df_list.append(df_new)
+        return pd.concat(df_list)
+
+    def impl_str(df, n):
+        df_list = []
+        for i in range(1, n + 1):
+            df_new = pd.DataFrame(
+                {
+                    "A": df.A,
+                    "B": df.A.apply(
+                        lambda val, i: {str(j): str(j % i) for j in range(val)}, i=i
+                    ),
+                }
+            )
+            df_list.append(df_new)
+        return pd.concat(df_list)
+
+    n = 10
+    df = pd.DataFrame({"A": np.arange(n)})
+
+    # Test correctness sequentially, where ordering matters.
+    # We cannot test parallel right now because we would need to sort
+    # the output.
+    check_func(impl, (df, n), is_out_distributed=False, only_seq=True)
+    check_func(impl_str, (df, n), is_out_distributed=False, only_seq=True)
+
+
+def test_update_df_type(memory_leak_check):
+    """
+    Test updating a DataFrame type works as expected and
+    can be used in objmode.
+    """
+
+    def py_func(n):
+        return pd.DataFrame(
+            {
+                "A": [1, 2, 4, 5, 9, 22],
+                "B": [{str(j): j % n for j in range(n)} for i in range(1, 7)],
+            }
+        )
+
+    dummy_df = pd.DataFrame(
+        {
+            "A": [1],
+            "B": [{"a": 1}],
+        }
+    )
+    infered_dtype = bodo.typeof(dummy_df)
+    new_dtype = infered_dtype.replace_col_type(
+        "B", bodo.MapArrayType(bodo.string_array_type, types.Array(types.int64, 1, "C"))
+    )
+
+    def bodo_func(n):
+        with bodo.objmode(df=new_dtype):
+            df = py_func(n)
+        return df
+
+    check_func(
+        bodo_func, (15,), py_output=py_func(15), only_seq=True, is_out_distributed=False
+    )
+
+
+def test_index_col_assign(memory_leak_check):
+    def test_impl(df):
+        new_df = pd.DataFrame({"A": np.arange(len(df))})
+        new_df["id"] = new_df.reset_index().index + 1
+        return new_df
+
+    df = pd.DataFrame({"A": [1, 2, 1, 4, 512, 1, 4]})
+    check_func(test_impl, (df,))
+
+
+def test_df_type_change_iloc_loc(memory_leak_check):
+    """make sure df.loc and df.iloc work correctly when df type changes"""
+
+    def impl1(df):
+        df["B"] = 3
+        df.iloc[:, 1] = 4
+        return df
+
+    def impl2(df):
+        df["B"] = 3
+        df.loc[:, [True, False]] = 4
+        return df
+
+    def impl3(df):
+        df["B"] = 3
+        return df.iloc[:, 1:]
+
+    def impl4(df):
+        df["B"] = 3
+        return df.loc[:, [True, False]]
+
+    df = pd.DataFrame({"A": [1, 2, 1, 4, 512, 1, 4]})
+    check_func(impl1, (df,), copy_input=True, only_seq=True)
+    check_func(impl2, (df,), copy_input=True, only_seq=True)
+    check_func(impl3, (df,), copy_input=True, only_seq=True)
+    check_func(impl4, (df,), copy_input=True, only_seq=True)
+
+
+@pytest.mark.parametrize(
+    "A",
+    [
+        pytest.param(
+            pd.DataFrame(
+                {
+                    "A": [1, 2, 3, 4.1, 5],
+                    "B": ["a", "d", "c", "e", "d"],
+                    "C": [4.3, 5.6, 3.2, 8.4, 9.6],
+                }
+            ),
+            marks=pytest.mark.slow,
+        ),
+        pytest.param(pd.DataFrame({"A": [1, 2, 3, 4, 5]}), marks=pytest.mark.slow),
+        pytest.param(
+            pd.DataFrame(
+                {
+                    "A": [1, 2, 3, None, 5],
+                    "B": ["a", "d", "c", "e", "d"],
+                    "C": [4.3, 5.6, None, 8.4, 9.6],
+                }
+            ),
+            marks=pytest.mark.slow,
+        ),
+    ],
+)
+def test_dataframe_infer_objects(A, memory_leak_check):
+    def test_impl(df):
+        return df.infer_objects()
+
+    check_func(test_impl, (A,))
+
+
+def test_na_df_apply_homogeneous_no_inline(memory_leak_check):
+    """
+    Checks that NA handling inside Bodo UDFs works properly
+    for homogeneous series without inlining.
+    """
+
+    def impl(df):
+        def f(row):
+            # Add an objectmode call to prevent inlining
+            with bodo.objmode(ret_val="int64"):
+                ret_val = -1
+            if pd.isna(row["A"]):
+                return ret_val
+            else:
+                total = 0
+                x = 8
+                for i in range(x):
+                    total += i * row["A"]
+                return total
+
+        return df.apply(f, axis=1)
+
+    df = pd.DataFrame(
+        {
+            "A": pd.Series([1, None, None] * 5, dtype="Int64"),
+            "B": pd.Series([None, 2, 3] * 5, dtype="Int64"),
+        }
+    )
+    check_func(impl, (df,))
+
+
+def test_apply_inline_optimization(memory_leak_check):
+    """
+    Tests that inlining a df.apply call with a single value
+    properly optimizes out the intermediate series and tuple
+    values that are used if the call can't be inlined.
+    """
+
+    def impl(df):
+        def f(row):
+            if pd.isna(row["A"]):
+                return -1
+            return row["A"]
+
+        return df.apply(f, axis=1)
+
+    df = pd.DataFrame(
+        {
+            "A": pd.Series([1, None, None] * 5, dtype="Int64"),
+            "B": pd.Series([None, 2, 3] * 5, dtype="Int64"),
+        }
+    )
+    check_func(impl, (df,))
+    # Check to ensure build_nullable_tuple has been optimized out
+    bodo_func = bodo.jit(pipeline_class=SeriesOptTestPipeline)(impl)
+    bodo_func(df)
+    _ensure_func_calls_optimized_out(
+        bodo_func, {("build_nullable_tuple", "bodo.libs.nullable_tuple_ext")}
+    )
+
+
+# TODO [BE-974]: Add memory_leak_check
+def test_df_merge_type_reset():
+    df1 = pd.DataFrame(
+        {"key": ["bar", "baz", "foo", "foo"] * 3, "value": [1, 2, 3, 5] * 3}
+    )
+    df2 = pd.DataFrame(
+        {"key": ["bar", "baz", "foo", "foo"] * 3, "value": [5, 6, 7, 8] * 3}
+    )
+
+    def test(df1, df2):
+        df1a = df1.groupby("key").apply(lambda x: 3).reset_index()
+        df2a = df2.groupby("key").apply(lambda x: 4).reset_index()
+        ans = df1a.merge(df2a, left_on=["key"], right_on=["key"])
+        return ans
+
+    check_func(test, (df1, df2), reset_index=True, sort_output=True)
+
+
+def test_df_itertuples(memory_leak_check):
+    def test_impl(df):
+        res = 0.0
+        for r in df.itertuples():
+            res += r[1]
+        return res
+
+    df = pd.DataFrame({"A": [13, 31, 42] * 4, "B": [1, 2, 3, 5] * 3})
+    check_func(test_impl, (df,), dist_test=False)
+
+
+@pytest.mark.parametrize(
+    "func,err_regex",
+    [
+        (
+            lambda df1, df2: df1.merge(df2, left_on="x", right_on="x"),
+            r".* use of index .* is unsupported(\n|.)*",
+        ),
+        (
+            lambda df1, df2: df1.merge(df2, on="non_existant_key"),
+            r".* invalid key (\n|.)*",
+        ),
+    ],
+)
+# TODO: [BE-1738]: Add memory_leak_check
+def test_df_merge_error_handling(func, err_regex):
+    df1 = pd.DataFrame({"key": ["bar", "baz", "foo", "foo"], "value": [1, 2, 3, 5]})
+    df2 = pd.DataFrame({"key": ["bar", "baz", "foo", "foo"], "value": [5, 6, 7, 8]})
+    df1.index.name = "x"
+    df2.index.name = "x"
+
+    with pytest.raises(BodoError, match=err_regex):
+        bodo.jit(func)(df1, df2)
+
+
+pd_supported_merge_cols = [
+    pytest.param(pd.Categorical([1, 1, 1, 2, 3]), id="CategoricalArrayType"),
+    pytest.param(np.array([1, 2, 3, 4, 5]), id="Array"),
+    pytest.param(
+        pd.array([1, 2, 3, 4, 5], dtype=pd.Int32Dtype()), id="IntegerArrayType"
+    ),
+    pytest.param(
+        pa.Decimal128Array.from_pandas(
+            pd.array([1, 2, 3, 4, 5], dtype=pd.Int32Dtype())
+        ),
+        id="DecimalArrayType",
+    ),
+    pytest.param(
+        pd.Series(({1: 1, 2: 2}, {2: 2}, {3: 3}, {4: 4}, {5: 5})), id="MapArrayType"
+    ),
+    pytest.param(("a", "b", "c", "d", "e"), id="StringArrayType"),
+    pytest.param((b"a", b"b", b"c", b"d", b"e"), id="BinaryArrayType"),
+    pytest.param((False, False, False, True, True), id="BooleanArray"),
+    pytest.param(
+        tuple(datetime.date(year, 7, 22) for year in range(1999, 2004)),
+        id="DatetimeDateArrayType",
+    ),
+    pytest.param(
+        tuple(
+            datetime.date(2021, 7, 22) - datetime.date(year, 7, 22)
+            for year in range(1999, 2004)
+        ),
+        id="DatetimeTimedeltaArrayType",
+    ),
+    # TODO [BE-1804]: test once intervals are supported
+    # pytest.param(
+    #     pd.arrays.IntervalArray(
+    #         [
+    #             pd.Interval(0, 1),
+    #             pd.Interval(1, 2),
+    #             pd.Interval(2, 3),
+    #             pd.Interval(3, 4),
+    #             pd.Interval(4, 5),
+    #         ]
+    #     ),
+    #     id="IntervalArray"
+    # ),
+]
+
+
+bodo_only_merge_cols = [
+    pytest.param(
+        pd.Series(({"a": 1}, {"a": 2}, {"a": 3}, {"a": 4}, {"a": 5})),
+        id="StructArrayType",
+    ),
+    pytest.param(pd.Series(([1], [2], [3], [4], [5])), id="ArrayItemArrayType"),
+]
+
+
+@pytest.mark.parametrize("key", pd_supported_merge_cols)
+def test_df_merge_col_key_types(key, memory_leak_check):
+    def impl(df1, df2):
+        return df1.merge(df2, on="key")
+
+    df1 = pd.DataFrame({"key": key, "value": [1, 2, 3, 4, 5]})
+    df2 = pd.DataFrame({"key": key, "value": [5, 6, 7, 8, 9]})
+
+    try:
+        check_func(impl, (df1, df2), reset_index=True, sort_output=True)
+    except TypeError:
+        with pytest.raises(BodoError, match=r".* MapArrayType unsupported(.|\n)*"):
+            bodo.jit(impl)(df1, df2)
+
+
+@pytest.mark.parametrize("val", pd_supported_merge_cols + bodo_only_merge_cols)
+# TODO: [BE-1738]: Add memory_leak_check
+def test_df_merge_col_value_types(val):
+    def impl(df1, df2):
+        return df1.merge(df2, on="key")
+
+    df1 = pd.DataFrame({"key": ["bar", "bar", "baz", "foo", "foo"], "value": val})
+    df2 = pd.DataFrame({"key": ["bar", "bar", "baz", "foo", "foo"], "value": val})
+
+    check_func(impl, (df1, df2))
+
+
+@pytest.mark.parametrize("key", bodo_only_merge_cols)
+# TODO: [BE-1738]: Add memory_leak_check
+def test_df_merge_col_key_bodo_only(key):
+    def impl(df1, df2):
+        return df1.merge(df2, on="key")
+
+    val_x = [1, 2, 3, 4, 5]
+    val_y = [5, 6, 7, 8, 9]
+    df1 = pd.DataFrame({"key": key, "value": val_x})
+    df2 = pd.DataFrame({"key": key, "value": val_y})
+
+    df_exp = pd.DataFrame({"key": key, "value_x": val_x, "value_y": val_y})
+    df_act = bodo.jit(impl)(df1, df2)
+    assert df_act.equals(df_exp)
+
+
+def test_df_getitem_columname_func(memory_leak_check):
+    """
+    Tests using a string literal in df[] after passing the
+    string through a function
+    """
+
+    g = bodo.jit(lambda a: a)
+
+    def impl(df, a):
+        return df[g(a)]
+
+    df = pd.DataFrame({"A": [1, 2, 3] * 5})
+    check_func(impl, (df, "A"))
+
+    df = pd.DataFrame({1: [1, 2, 3] * 5})
+    check_func(impl, (df, 1))
+
+
+def test_df_getitem_columname_list_func(memory_leak_check):
+    """
+    Tests using a list in df[] after passing the
+    list through a function
+    """
+    g = bodo.jit(lambda a: a)
+
+    def impl(df, a):
+        return df[g(a)]
+
+    df = pd.DataFrame({"A": [1, 2, 3] * 5})
+    check_func(impl, (df, ["A"]))
+
+    df = pd.DataFrame({1: [1, 2, 3] * 5})
+    check_func(impl, (df, [1]))
+
+
+def test_df_loc_getitem_list_func(memory_leak_check):
+    """
+    Tests using a list in df.loc after passing the
+    list through a function
+    """
+    g = bodo.jit(lambda a: a)
+
+    def impl(df, a):
+        return df.loc[1:, g(a)]
+
+    df = pd.DataFrame({"A": np.arange(10)})
+    check_func(impl, (df, ["A"]))
+
+
+def test_df_iloc_getitem_slice_func(memory_leak_check):
+    """
+    Tests using a slice in df.iloc after passing the
+    slice through a function
+    """
+    g = bodo.jit(lambda a: a)
+
+    def impl(df, a):
+        x = df.iloc[1:, g(a)]
+        return x
+
+    df = pd.DataFrame({"A": np.arange(10)})
+
+    # Use py_output because regular slices cannot be boxed yet.
+    py_output = df.iloc[1:, 0:1]
+    check_func(impl, (df, slice(0, 1)), py_output=py_output)
+
+
+def test_df_loc_col_slice_assign():
+    """
+    Test assignment to a columns slice of a dataframe using df.loc
+    """
+
+    def impl1(df):
+        df.loc[1, :] = -1
+        return df
+
+    def impl2(df):
+        df.loc[1, ::2] = -1
+        return df
+
+    df = pd.DataFrame(
+        {
+            "A": np.arange(0, 5),
+            "B": np.arange(5, 10),
+            "C": np.arange(10, 15),
+            "D": np.arange(15, 20),
+        }
+    )
+
+    check_func(impl1, (df,), copy_input=True)
+    check_func(impl2, (df,), copy_input=True)
+
+
+def test_df_iloc_col_slice_assign():
+    """
+    Test assignment to a columns slice of a dataframe using df.iloc
+    """
+
+    def impl1(df):
+        df.iloc[1, :] = -1
+        return df
+
+    def impl2(df):
+        df.iloc[1, 1:4:2] = -1
+        return df
+
+    df = pd.DataFrame(
+        {
+            "A": np.arange(0, 5),
+            "B": np.arange(5, 10),
+            "C": np.arange(10, 15),
+            "D": np.arange(15, 20),
+        }
+    )
+
+    check_func(impl1, (df,), copy_input=True)
+    check_func(impl2, (df,), copy_input=True)
+
+
+@pytest.mark.parametrize("offset", ("15D", pd.DateOffset(days=15), "0D"))
+def test_df_first_last(offset):
+    """
+    Test df.first() and last() with string and DateOffset offsets (for DataFrames with DateTimeIndex)
+    """
+
+    def impl_first(df):
+        return df.first(offset)
+
+    def impl_last(df):
+        return df.last(offset)
+
+    n = 30
+    df = pd.DataFrame(
+        {"A": pd.Series(np.arange(n))},
+        index=pd.date_range("2018-04-09", periods=n, freq="2D"),
+    )
+
+    if isinstance(offset, pd.DateOffset):
+        end_date = end = df.index[0] + offset
+        # Tick-like, e.g. 3 weeks
+        if isinstance(offset, pd._libs.tslibs.Tick) and end_date in df.index:
+            end = df.index.searchsorted(end_date, side="left")
+            py_output = df.iloc[:end]
+        else:
+            py_output = df.loc[:end]
+    else:
+        py_output = None
+
+    check_func(impl_first, (df,), py_output=py_output)
+    check_func(impl_last, (df,))
+
+
+def test_empty_df_first_last():
+    """
+    Test Series.first() and Series.last() with an empty dataframe.
+    """
+
+    def impl_first(df):
+        return df.first("5D")
+
+    def impl_last(df):
+        return df.last("5D")
+
+    def one_empty_rank(df):
+        # tests df.last() with at least rank being empty when run with 3+ ranks
+        res = df.groupby("A").sum().sort_values("B")
+        return res.last("1D")
+
+    n = 10
+    df = pd.DataFrame(
+        {"A": pd.Series(np.arange(n))},
+        index=pd.date_range("2018-04-09", periods=n, freq="1D"),
+    )
+    empty_df = df[df.A > n]
+    df2 = pd.DataFrame(
+        {
+            "A": np.tile(pd.date_range("2018-04-09", periods=2, freq="1D"), 15),
+            "B": np.arange(30),
+        }
+    )
+    check_func(impl_first, (empty_df,))
+    check_func(impl_last, (empty_df,))
+    check_func(one_empty_rank, (df2,))
