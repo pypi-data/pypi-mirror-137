@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+packages = \
+['userlist_python']
+
+package_data = \
+{'': ['*']}
+
+install_requires = \
+['pendulum>=1.4,<2.0', 'requests>=2.24.0,<3.0.0']
+
+setup_kwargs = {
+    'name': 'userlist-python',
+    'version': '0.2.0',
+    'description': 'Official UserList SDK for Python',
+    'long_description': '# Userlist SDK for Python\n\nThe official Python client library to manipulate [Userlist](https://userlist.com/) from your Python application.\n\nDocumentation is identical with the API documentation. The same parameters and filters are available.\nAnd the same response structure. You can have a look at [Docs](https://userlist.com/docs/getting-started/integration-guide/#setting-up-the-integration).\n\n## Authentication\n\nThe Authentication is done via the `push_key` variable.\n\nCheck your Push key at [Userlist Settings](https://app.userlist.com/settings/push).\n\n## Installation\n```pip install userlist```\n\n## Quick Start\nImport installed package.\n\n`````from userlist_python import UserlistApiClient`````\n\nInit the instance with an API key given after registration.\n\n````userlist_client = UserlistApiClient(\'YOUR_API_KEY\')````\n\n## Endpoints\nAn instance of `UserlistApiClient` has all main methods that correspond to endpoints available for UserList API.\n\n### Tracking user data (/users)\nUser data can be tracked by sending POST requests to `https://push.userlist.com/users`.\nThe only required parameter is identifier which is a unique identifier for that user within your application.\nThis can either be the user’s primary key in your database, a generated tracking identifier or their email address\n(we don’t recommend using email address though, because it’s less reliable). Whatever you choose, make please keep\nin mind that it’ll be the way Userlist identifies this user moving forward.\n\n```\nresponse = userlist_client.push_users(\n    identifier="user_test",\n    email=\'test@example.net\',\n    properties={"first_name": "Test2","last_name": "Testing2"}\n)\n```\n\n### Deleting users (/users/{{identifier}})\nYou can remove user data by sending a DELETE request to `https://push.userlist.com/users/{{identifier}}`.\nThe identifier is the same one you sent when sending the user data initially. We’ll process your deletion request within\na few of moments and remove the user, all their events, as well as all their messages. All campaigns will immediately\nbe stopped. If you send any data or event with this property after requesting a deletion, we’ll treat it as fresh and\ncreate a new user.\n\n```\nresponse = userlist_client.delete_users(\n    \'user_test\'\n)\n\n ```\n\n### Tracking company data (/companies)\nCompany data can be tracked by sending POST requests to `https://push.userlist.com/companies`.\nThe only required parameter is identifier which is a unique identifier for that company within your application.\nThis can either be the company\'s primary key in your database, or some kind of generated tracking identifier.\nWhatever you choose, make please keep in mind that it’ll be the way Userlist identifies this company moving forward.\n```\nresponse = userlist_client.push_companies(\n    identifier="company_test",\n    name=\'Example, Inc.\',\n    properties={\n    "industry": "Testing",\n    "billing_plan": "enterprise"\n  },\n    relationships=[\n    {\n      "user": "user_test",\n      "properties": {\n        "role": "owner"\n      }\n    }\n  ]\n)\n ```\n\n### Deleting Companies (/companies/{{identifier}})\nYou can remove company data by sending a DELETE request to `https://push.userlist.com/companies/{{identifier}}`.\nThe identifier is the same one you sent when sending the company data initially. We’ll process your deletion request\nwithin a few of moments and remove the company, all its events, as well as all relationships to users. The users that\nwhere part of that company are not deleted automatically. If you send any data or event with this company after\nrequesting a deletion, we’ll treat it as fresh and create a new company record.\n\n```\nresponse = userlist_client.delete_companies(\n    \'company_test\'\n)\n ```\n\n### Tracking relationships (/relationships)\nUserlist allows you to track relationships between users and companies. It\'s possible to track many-to-many\nrelationships between users and companies. Creating a relationship needs at least two pieces of information:\na user and a company.\n```\nresponse = userlist_client.push_relationships(\n    user="user_test",\n    company=\'company_test\',\n    properties={\n    "role": "admin"\n  }\n)\n ```\n\n### Deleting relationships (/relationships/{{user-identifier}}/{{company-identifier}})\nYou can remove a relationship data by sending a DELETE request to\n`https://push.userlist.com/relationships/{{user-identifier}}/{{company-identifier}}`. We’ll process your deletion\nrequest within a few of moments and remove the relationship between this user and this company. Both the associated user\nand company are not deleted automatically.\n```\nresponse = userlist_client.delete_relationships(\n    \'user_test\',\n    \'company_test\'\n)\n ```\n\n### Tracking events (/events)\nSimilar to tracking user or company data, tracking events works by sending POST requests to `https://push.userlist.com/events`.\nTracking an event requires at least two pieces of information: a name, and a user or company identifier.\nOther parameters are optional.\n```\nresponse = userlist_client.push_events(\n    name="product_purchased",\n    company=\'company_test\',\n    properties={\n    "product": "Flowers",\n    "price": "$12.99"\n  }\n)\n ```\n\n## Feedback\n\nFeel free to contact us if you have spot a bug or have any suggestion at benedikt`[at]`benediktdeicke.com\n',
+    'author': 'Maksym Sugonyaka',
+    'author_email': 'maksym@newscatcherapi.com',
+    'maintainer': None,
+    'maintainer_email': None,
+    'url': 'https://userlist.com/',
+    'packages': packages,
+    'package_data': package_data,
+    'install_requires': install_requires,
+    'python_requires': '>=3.7,<4.0',
+}
+
+
+setup(**setup_kwargs)
