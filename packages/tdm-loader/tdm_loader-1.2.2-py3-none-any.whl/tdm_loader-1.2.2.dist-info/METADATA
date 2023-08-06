@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: tdm-loader
+Version: 1.2.2
+Summary: Open National Instruments TDM/TDX files as NumPy structured arrays.
+Home-page: https://github.com/domna/tdm_loader
+Author: Florian Dobener
+Author-email: florian.dobener@schroedingerscat.org
+Maintainer: Florian Dobener
+Maintainer-email: florian.dobener@schroedingerscat.org
+License: MIT
+Project-URL: Source, https://github.com/domna/tdm_loader
+Project-URL: Download, https://github.com/domna/tdm_loader/releases
+Project-URL: Documentation, https://tdm-loader.readthedocs.io/en/latest/
+Project-URL: Changelog, https://github.com/domna/tdm_loader/blob/master/CHANGELOG.md
+Project-URL: Tracker, https://github.com/domna/tdm_loader/issues
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.5
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Science/Research
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: numpy (>=1.14)
+
+This module allows National Instruments TDM/TDX files to be accessed like
+NumPy structured arrays.
+
+It can be installed in the standard way::
+
+    python setup.py install
+
+Sample usage::
+
+    import tdm_loader
+    data_file = tdm_loader.OpenFile('filename.tdm')
+    
+Access a channel by channel group and channel index combination::
+    
+    data_file.channel(channel_group, channel)
+
+Get a dict of all channels in a channel group:
+
+    data_file.channel_dict(channel_group)
+
+Search for a column name.  A list of all column names that contain
+``search_term`` and their indices will be returned::
+
+    data_file.channel_search(search_term)
+
+
