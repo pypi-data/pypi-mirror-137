@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: django-web-crawler
+Version: 0.5
+Summary: A Django app to gather the links of a website.
+Home-page: https://www.majestylink.com/
+Author: Atuh Samuel
+Author-email: atuhsamuel96@gmail.com
+Maintainer: Atuh Samuel
+Maintainer-email: atuhsamuel96@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 4.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: >=3.8
+
+===========
+Web Crawler
+===========
+
+Crawler is a Django app to help connect to a website and gather as much links as you want.
+
+Detailed documentation is in the "docs" directory.
+
+Quick start
+-----------
+
+1. Add "gatherlinks" to your INSTALLED_APPS setting like this::
+
+    INSTALLED_APPS = [
+        ...
+        'gatherlinks',
+    ]
+
+2. Include the polls URLconf in your project urls.py like this::
+
+    path('crawl/', include('crawl.urls')),
+
+3. Run ``python manage.py migrate`` to create the polls models.
+
+4. Visit http://127.0.0.1:8000/crawl/ to input the domain name of the website you want to gather it's links.
+
