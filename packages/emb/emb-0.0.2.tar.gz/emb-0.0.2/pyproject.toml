@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "emb"
+version = "0.0.2"
+homepage = "https://github.com/shawwn/emb"
+description = "Declarative library for for describing embedded C data types in python"
+authors = ["csaba.nemes <waszil.waszil@gmail.com>", "Shawn Presser <shawnpresser@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "emb"}]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+get-annotations = "^0.1.2"
+
+[build-system]
+requires = ["setuptools", "poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.semantic_release]
+version_variable = "pyproject.toml:version"
+branch = "master"
+include_additional_files = "setup.py"
+major_on_zero = false
+build_command = "poetry build"              # build dists
+dist_path = "dist/"                         # where to put dists
