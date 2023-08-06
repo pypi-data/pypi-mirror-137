@@ -1,0 +1,83 @@
+Metadata-Version: 2.1
+Name: wagtailgeowidget
+Version: 6.0.0
+Summary: Wagtail-Geo-Widget is the complete map solution for your Wagtail site.
+Home-page: https://github.com/frojd/wagtail-geo-widget
+Author: Fröjd
+Author-email: martin@marteinn.se
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 2.2
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Topic :: Utilities
+Classifier: Framework :: Wagtail
+Classifier: Framework :: Wagtail :: 2
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django (>=2.2)
+
+[![Run tests, lint and publish](https://github.com/Frojd/wagtail-geo-widget/actions/workflows/main.yml/badge.svg)](https://github.com/Frojd/wagtail-geo-widget/actions/workflows/main.yml) [![PyPI version](https://badge.fury.io/py/wagtailgeowidget.svg)](https://badge.fury.io/py/wagtailgeowidget)
+
+# Wagtail-Geo-Widget
+
+Wagtail-Geo-Widget is the complete map solution for your Wagtail site.
+
+![Screen1](https://raw.githubusercontent.com/frojd/wagtail-geo-widget/develop/img/screen1.png)
+
+
+## Features
+
+- Supports Google Maps or any title provider supported by Leaflet (such as Open Street Map or Mapbox)
+- Real spatial support (with GeoDjango and PointField)
+- Storing coordinates as strings (for no-GeoDjango setups)
+- StreamField integration
+- Searching with geoencoding
+- Inline panel support
+- Optional address search field
+- Language support
+
+
+## Documentation
+
+- [Getting started with Google Maps](./docs/getting-started-with-google-maps.md)
+- [Getting started with Leaflet](./docs/getting-started-with-leaflet.md)
+- [Settings](./docs/settings.md)
+- [Adding the widget to a Page](./docs/adding-to-a-page.md)
+- [Integrating with GeoDjango](./docs/integrating-with-geodjango.md)
+- [Adding to a StreamField](./docs/adding-to-a-streamfield.md)
+- [Supported Geocoders](./docs/supported-geocoders.md)
+- [FAQ](./docs/faq.md)
+
+
+## Contribute
+
+If you have ideas for improvement, please share your thoughts through an issue. We also welcome PR's
+
+- Issue Tracker: [https://github.com/Frojd/wagtail-geo-widget/issues](https://github.com/Frojd/wagtail-geo-widget/issues)
+- Source Code: [https://github.com/Frojd/wagtail-geo-widget](https://github.com/Frojd/wagtail-geo-widget)
+
+
+## Security
+
+If you believe you have found a security issue with any of our projects please email us at [security@frojd.se](security@frojd.se).
+
+
+## License
+
+Wagtail-Geo-Widget is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+
+
