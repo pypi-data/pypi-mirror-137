@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: prc-flowmeter
+Version: 0.2.2
+Summary: A tool for deriving statistical features from pcap data.
+Home-page: https://github.com/prc-hsv/flowmeter
+Author: Stephen Wight
+Author-email: swight@prc-hsv.com
+License: UNKNOWN
+Description: # PRC Flowmeter v0.2.2
+        Flowmeter is a Scapy-based tool for deriving statistical features from PCAPs for data analysis and machine learning. The features are based on the java application [CICFlowmeter](https://github.com/ahlashkari/CICFlowMeter/)
+        
+        Based heavily on [this flowmeter app](https://github.com/alekzandr/flowmeter)
+        
+        # Usage
+        A Flowmeter object is created with up to three parameters:
+        
+        * offline (str) - filename of a pcap file; if none provided, streams from available ports (requires run as admin in linux-based environments.)
+        * outfunc (function) - a csv rendition of the metered flows will be sent to this function as they are created. If none provided, will default to print().
+        * outfile (str) - filename to store csv flow output. If none is provided, results are not stored.
+        
+        Building off of scapy Sessions, Flowmeter separates packet streams into distinct network communication 'flows', which are identified simply as communications between two endpoints (ip:port) on a given protocol within a period of time. From there it begins analyzing the flow data to derive features useful for plotting, traffic pattern analysis, and machine learning.
+        
+        ```
+        from flowmeter import Flowmeter
+        
+        feature_gen = Flowmeter(
+            offline = "input.pcap",
+            outfunc = None,
+            outfile = "output.csv")
+        
+        feature_gen.run()
+        
+        ```
+        
+        # Contributions
+        If you would like to contribute feel free to fork the repo, clone the project, submit pull requests, open issues, or request features/enhancements.
+        
+        # License
+        PRCFlowmeter is currently licensed under the GNU GPLv2.
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
