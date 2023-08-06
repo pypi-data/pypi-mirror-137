@@ -1,0 +1,95 @@
+Metadata-Version: 2.1
+Name: pyaspeller
+Version: 0.2.3
+Summary: Search tool typos in the text, files and websites.
+Home-page: https://github.com/oriontvv/pyaspeller
+License: Apache 2
+Keywords: spell,spelling,spellcheck,api,yandex,text
+Author: Vassiliy Taranov
+Author-email: taranov.vv@gmail.com
+Requires-Python: >=3.6.2,<4.0.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Text Processing :: Linguistic
+Requires-Dist: requests (==2.27.1)
+Project-URL: Documentation, https://github.com/oriontvv/pyaspeller
+Project-URL: Repository, https://github.com/oriontvv/pyaspeller
+Description-Content-Type: text/markdown
+
+# Python text speller
+
+[![CI](https://github.com/oriontvv/pyaspeller/workflows/Python%20package/badge.svg)](https://github.com/oriontvv/pyaspeller/actions)       [![Coverage Status](https://img.shields.io/coveralls/oriontvv/pyaspeller.svg)](https://coveralls.io/r/oriontvv/pyaspeller)         [![CodeQuality](https://codeclimate.com/github/oriontvv/pyaspeller/badges/gpa.svg)](https://codeclimate.com/github/oriontvv/pyaspeller)
+
+
+[![Pypi](http://img.shields.io/pypi/v/pyaspeller.svg?style=flat)](https://pypi.org/project/pyaspeller)     [![PyVersions](https://img.shields.io/pypi/pyversions/pyaspeller.svg)](https://img.shields.io/pypi/pyversions/pyaspeller.svg)
+
+
+[pyaspeller](https://github.com/oriontvv/pyaspeller) (Python Yandex Speller) is a cli tool and pure python library for searching typos in texts, files and websites.
+
+Spell checking uses [Yandex.Speller API](https://tech.yandex.ru/speller/doc/dg/concepts/About-docpage/). ([restrictions](<https://yandex.ru/legal/speller_api/>))
+
+
+## Features
+
+* Command line tool
+
+You can correct your local files or web pages
+
+```bash 
+$ pyaspeller ./doc
+$ pyaspeller https://team-tricky.github.io
+$ pyaspeller "в суббботу утромъ"
+в субботу утром
+```
+
+* Library 
+
+Use speller for your code
+
+```python
+>>> from pyaspeller import YandexSpeller
+>>> speller = YandexSpeller()
+>>> fixed = speller.spelled('Triky Custle is a great puzzle game.')
+>>> fixed
+'Tricky Castle is a great puzzle game.'
+```
+
+You can use class `Word` for single word queries:
+
+```python
+>>> from pyaspeller import Word
+>>> check = Word('tesst')
+>>> check.correct
+False
+>>> check.variants
+[u'test']
+>>> check.spellsafe
+u'test'
+```
+
+
+## Installation
+
+Use your favourite package manager:
+
+```bash
+$ python3 -m pip install pyaspeller
+```
+
+For python2 you can use outdated version:
+
+```bash
+$ pip install pyaspeller==0.1.0
+```
+
+Also there are available [rust](https://github.com/oriontvv/ryaspeller/) and [javascript](https://github.com/hcodes/yaspeller) versions of this speller.
+
