@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+name: Test Engine
+
+# Controls when the workflow will run
+on:
+  pull_request:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  test_engine:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install Pipenv
+        run: pip install pipenv
+      
+      - name: Install Dependencies
+        run: pipenv install --dev --system --deploy
+        
+      - name: Run Klee Test
+        env:
+          APIKEY: ${{secrets.RIALTIC_API_KEY}}
+          RIALTIC_REF_DB: 'demodb'
+          RIALTIC_DATA_ENV: 'local'
+        run: klee test
