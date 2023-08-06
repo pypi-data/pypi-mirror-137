@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<ul>{% for msg in messages %}
+    <li>{{ msg }}</li>
+{% endfor %}
+</ul>
+<form method="post">{% csrf_token %}
+ {% for hidden in form.hidden_fields %} {{ hidden }}{% endfor %}
+{% for field in form.visible_fields %}
+    <div class="feedback_error">{{ field.errors }}</div>
+    {% if field.html_name == "body" %}
+    <div class="feedback_textarea_wrapper">
+    {% else %}
+    <div class="feedback_input_wrapper">
+    {% endif %}
+        <div class="feedback_label_input">
+        {{ field.label_tag }}:
+        </div>
+        <div class="feedback_{{ field.html_name }}">
+         {{ field }}
+        </div>
+    </div>
+{% endfor %}
+<input type="submit" value="Send">
+</form>
+{% endblock %}
