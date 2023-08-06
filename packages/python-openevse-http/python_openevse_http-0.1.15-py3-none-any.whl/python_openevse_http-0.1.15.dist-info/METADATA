@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: python-openevse-http
+Version: 0.1.15
+Summary: Python wrapper for OpenEVSE HTTP API
+Home-page: https://github.com/firstof9/python-openevse-http
+Author: firstof9
+Author-email: firstof9@gmail.com
+License: UNKNOWN
+Download-URL: https://github.com/firstof9/python-openevse-http
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: aiohttp
+Requires-Dist: requests
+
+# python-openevse-http
+Python Library for OpenEVSE HTTP API
+
+A python library for communicating with the ESP8266- and ESP32-based wifi module from OpenEVSE. This library uses the HTTP API commands to query the OpenEVSE charger.
+
+TODO:
+- [ ] Fix tests
+- [ ] Finish HTTP API functions
+- [X] Setup webosocket listener for value updates
+- [X] Convert to aiohttp from requests
+- [X] Expose values as properties
+
+
