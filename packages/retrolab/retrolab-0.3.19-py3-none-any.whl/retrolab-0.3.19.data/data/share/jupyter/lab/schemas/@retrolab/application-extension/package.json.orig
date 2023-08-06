@@ -1,0 +1,72 @@
+{
+  "name": "@retrolab/application-extension",
+  "version": "0.3.19",
+  "description": "RetroLab - Application Extension",
+  "homepage": "https://github.com/jupyterlab/retrolab",
+  "bugs": {
+    "url": "https://github.com/jupyterlab/retrolab/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jupyterlab/retrolab.git"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Project Jupyter",
+  "sideEffects": [
+    "style/**/*.css",
+    "style/index.js"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "style": "style/index.css",
+  "directories": {
+    "lib": "lib/"
+  },
+  "files": [
+    "lib/*.d.ts",
+    "lib/*.js.map",
+    "lib/*.js",
+    "schema/*.json",
+    "style/**/*.css",
+    "style/index.js"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "build:prod": "tsc -b",
+    "clean": "rimraf lib && rimraf tsconfig.tsbuildinfo",
+    "docs": "typedoc src",
+    "prepublishOnly": "npm run build",
+    "watch": "tsc -b --watch"
+  },
+  "dependencies": {
+    "@jupyterlab/application": "^3.2.9",
+    "@jupyterlab/apputils": "^3.2.9",
+    "@jupyterlab/celltags": "^3.2.9",
+    "@jupyterlab/codeeditor": "^3.2.9",
+    "@jupyterlab/codemirror": "^3.2.9",
+    "@jupyterlab/console": "^3.2.9",
+    "@jupyterlab/coreutils": "^5.2.9",
+    "@jupyterlab/docmanager": "^3.2.9",
+    "@jupyterlab/docregistry": "^3.2.9",
+    "@jupyterlab/mainmenu": "^3.2.9",
+    "@jupyterlab/settingregistry": "^3.2.9",
+    "@jupyterlab/translation": "^3.2.9",
+    "@lumino/coreutils": "^1.8.0",
+    "@lumino/disposable": "^1.7.0",
+    "@lumino/widgets": "^1.23.0",
+    "@retrolab/application": "^0.3.19",
+    "@retrolab/ui-components": "^0.3.19"
+  },
+  "devDependencies": {
+    "rimraf": "~3.0.0",
+    "typescript": "~4.1.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "jupyterlab": {
+    "extension": true,
+    "schemaDir": "schema"
+  },
+  "styleModule": "style/index.js"
+}
