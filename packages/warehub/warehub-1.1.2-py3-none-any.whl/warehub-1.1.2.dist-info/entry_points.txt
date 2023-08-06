@@ -1,0 +1,9 @@
+[console_scripts]
+warehub = warehub.__main__:main
+
+[warehub.commands]
+add = warehub.command:add
+generate = warehub.command:generate
+init = warehub.command:init
+yank = warehub.command:yank
+
