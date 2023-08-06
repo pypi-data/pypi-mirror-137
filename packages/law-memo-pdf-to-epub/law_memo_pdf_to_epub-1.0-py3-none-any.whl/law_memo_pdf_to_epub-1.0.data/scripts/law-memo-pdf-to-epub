@@ -1,0 +1,237 @@
+#!python
+
+import argparse
+
+parser = argparse.ArgumentParser(description='Convert a law-style memo in PDF format to EPUB.' +
+        ' Makes intelligent guesses as to where paragraphs begin and end.')
+
+parser.add_argument('in_path', metavar='INFILE', type=str, help='Path to input PDF file')
+parser.add_argument('--out', dest='out', metavar='OUTFILE', type=str, help='Path to output EPUB file', required=True)
+
+args = parser.parse_args()
+
+from io import StringIO
+from pdfminer.converter import *
+from pdfminer.layout import LAParams
+from pdfminer.pdfdocument import PDFDocument
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.pdfpage import PDFPage
+from pdfminer.pdfparser import PDFParser
+import sys
+from dataclasses import dataclass
+from typing import List, Iterator
+import re
+from ebooklib import epub
+import hashlib
+
+@dataclass
+class Line:
+    line: LTLine
+    chars: List[LTChar]
+
+@dataclass
+class Page:
+    lines: List[Line]
+
+@dataclass
+class LineCoord:
+    x: float
+    y: float
+    
+    def __lt__(self, other):
+        if self.y > other.y + 12: return True
+        elif self.y < other.y - 12: return False
+        else: return self.x < other.x
+
+class RawConverter(PDFLayoutAnalyzer):
+    def __init__(self, rsrcmgr: PDFResourceManager, laparams: Optional[LAParams] = None) -> None:
+        PDFLayoutAnalyzer.__init__(self, rsrcmgr, pageno=1, laparams=laparams)
+        self.working_pages = [ ]
+    
+    def receive_layout(self, ltpage: LTPage) -> None:
+        lines = [ ]
+        
+        def show_group(item: Union[LTTextGroup, TextGroupElement]) -> None:
+            if isinstance(item, LTTextGroup):
+                for child in item:
+                    show_group(child)
+        
+        def render_page_item(item: LTItem) -> None:
+            if isinstance(item, LTTextLine):
+                chars = [ ]
+                for child in item:
+                    chars.extend(render_line_item(child))
+                lines.append(Line(item, chars))
+            elif isinstance(item, LTTextBox):
+                for child in item:
+                    render_page_item(child)
+            
+        def render_line_item(item: LTImage) -> None:
+            chars = [ ]    
+            
+            if isinstance(item, LTTextBox):
+                for child in item:
+                    render_line_item(child)
+            elif isinstance(item, LTChar):
+                chars.append(item)
+            
+            return chars
+            
+        for child in ltpage:
+            render_page_item(child)
+            
+        if ltpage.groups is not None:
+            for group in ltpage.groups:
+                show_group(group)
+
+        self.working_pages.append(Page(lines))
+        
+    def drain_pages(self) -> List[Page]:
+        res = list(self.working_pages)
+        self.working_pages = [ ]
+        return res
+
+def iter_pages(path) -> Iterator[Page]:
+    rsrcmgr = PDFResourceManager()
+    device = RawConverter(rsrcmgr, laparams=LAParams(
+        line_overlap=0.5,
+        char_margin=2.0,
+        line_margin=0.5,
+        word_margin=0.1,
+    ))
+    interpreter = PDFPageInterpreter(rsrcmgr, device)
+    
+    with open(path, 'rb') as in_file:
+        parser = PDFParser(in_file)
+        doc = PDFDocument(parser)
+        for page in list(PDFPage.create_pages(doc)):
+            interpreter.process_page(page)
+            for out_page in device.drain_pages(): 
+                yield out_page
+        
+out = StringIO()
+
+last_indent = None
+working_par = False
+for page in list(iter_pages(args.in_path)):
+    nonblank_lines = [ ]
+    for line in page.lines:
+        for char in line.chars:
+            if not char.get_text().isspace():
+                nonblank_lines.append(line)
+                break
+    
+    nonblank_lines.sort(key = lambda line: (-line.line.y0, line.line.x0))
+    nonblank_lines.sort(key = lambda line: LineCoord(line.line.x0, line.line.y0))
+    
+    last_y = None
+    
+    for line, line_index in zip(nonblank_lines, range(len(nonblank_lines))):
+        text = ''
+        for char in line.chars:
+            text = text + char.get_text()
+        
+        is_first = line_index == 0
+        is_last = line_index == len(nonblank_lines) - 1
+        
+        if is_first:
+            if re.fullmatch(r'\s*Case.*Document\s*\d+\s*Filed.*Page\s*\d+\s*of\s*\d+\s*', text):
+                continue
+            
+        if is_last:
+            if re.fullmatch(r'\s*(?i:page)?\s*\d+\s*', text):
+                continue
+        
+        is_new_par = False
+        
+        indent = line.line.x0
+        
+        is_same_line = False
+        if last_y is not None and line.line.y0 > last_y - 12:
+            is_same_line = True
+        
+        if not is_same_line and (last_indent is None or indent > last_indent + 12):
+            is_new_par = True
+            
+        elif any(text.startswith(p) for p in ['1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.']):
+            is_new_par = True
+        
+        if is_new_par:
+            if working_par:
+                print('</p>', file=out)
+            print('<p>', file=out)
+            working_par = True
+            
+        last_indent = indent
+        last_y = line.line.y0
+        
+        fonts_in_line = set()
+        for char in line.chars:
+            fonts_in_line.add(char.fontname)
+        
+        for font in fonts_in_line:
+            if 'bold' not in font.lower():
+                all_bold = False
+                break
+        else:
+            all_bold = True
+        
+        if all_bold:
+            if working_par:
+                print('</p>', file=out)
+            if any(text.startswith(p) for p in ['I.', 'II.', 'III.', 'IV.', 'V.', 'VI.', 'VII.', 'VIII.']):
+                print('<h1>', file=out)
+                print(text, file=out)
+                print('</h1>', file=out)
+            elif any(text.startswith(p) for p in ['A.', 'B.', 'C.', 'D.', 'E.']):
+                print('<h2>', file=out)
+                print(text, file=out)
+                print('</h2>', file=out)
+            elif any(text.startswith(p) for p in ['a.', 'b.', 'c.', 'd.', 'e.']):
+                print('<h2>', file=out)
+                print(text, file=out)
+                print('</h2>', file=out)
+            else:
+                print('<h3>', file=out)
+                print(text, file=out)
+                print('</h3>', file=out)
+                
+            working_par = False
+        
+        else:
+            if not working_par:
+                print('<p>', file=out)
+                working_par = True
+            print(text, file=out)
+            
+if working_par:
+    print('</p>', file=out)
+
+hashing = hashlib.sha256()
+with open(args.in_path, 'rb') as f:
+    while True:
+        data = f.read(2048)
+        if not data: break
+        hashing.update(data)
+        
+book = epub.EpubBook()
+book.set_identifier(hashing.hexdigest())
+book.set_title('Document')
+book.set_language('en')
+book.add_author('Author')
+
+c1 = epub.EpubHtml(title='Document', file_name='ch01.xhtml', lang='en')
+c1.content=out.getvalue()
+book.add_item(c1)
+
+style = 'body { font-family: Times, Times New Roman, serif; }'
+nav_css = epub.EpubItem(uid="style_nav", file_name="style/nav.css", media_type="text/css", content=style)
+book.add_item(nav_css)
+
+book.toc = (epub.Link('ch01.xhtml', 'Document', 'document'),)
+book.spine = ['nav', c1]
+book.add_item(epub.EpubNcx())
+book.add_item(epub.EpubNav())
+
+epub.write_epub(args.out, book)
+
