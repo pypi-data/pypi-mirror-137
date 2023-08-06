@@ -1,0 +1,93 @@
+{% set instance_pascal = dependency.instance_pascal_case_name %}
+{% set instance_snake = dependency.instance_snake_case_name %}
+"""Generated from manifest by `benchling-sdk`.
+
+Do not edit manually; subclass if you want to extend it.
+
+To instantiate model and access field values:
+```
+{{ dependency.snake_case_name }} = {{ dependency.pascal_case_name }}.from_{{ instance_snake }}({{ instance_snake }})
+{{ dependency.snake_case_name }}.id  # Access native fields normally
+{{ dependency.snake_case_name }}.fields.{{ dependency.fieldDefinitions[0].snake_case_name }}.value
+{{ dependency.snake_case_name }}.fields.{{ dependency.fieldDefinitions[0].snake_case_name }}.display_value
+```
+
+To instantiate an iterator of models:
+```
+{{ dependency.pascal_case_name }}.from_list_endpoint(benchling.{{ dependency.service_name }}.list(...))
+```
+
+To create a model:
+```
+benchling.{{ dependency.service_name }}.create({{ instance_pascal }}Create(
+    fields={{ dependency.pascal_case_name }}Fields.init({{ dependency.fieldDefinitions[0].snake_case_name }}="new_value")
+))
+```
+
+To update a model:
+```
+benchling.{{ dependency.service_name }}.update({{ dependency.snake_case_name }}.id, {{ instance_pascal }}Update(
+    fields={{ dependency.pascal_case_name }}Fields.init({{ dependency.fieldDefinitions[0].snake_case_name }}="new_value")
+))
+```
+"""
+from __future__ import annotations
+
+from typing import Any, cast, Dict, Iterable, List, Type, TypeVar
+
+from benchling_api_client.types import UNSET
+
+from benchling_sdk.helpers.serialization_helpers import fields
+from benchling_sdk.models import {{ dependency.instance_pascal_case_name }}, Field, Fields
+
+from ..parameters import dependencies
+
+T = TypeVar("T", bound="{{ dependency.pascal_case_name }}")
+
+
+class {{ dependency.pascal_case_name }}({{ instance_pascal }}):
+    fields: {{ dependency.pascal_case_name }}Fields
+
+    @classmethod
+    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        if src_dict.get("schema"):
+            actual_schema_id = src_dict["schema"]["id"]
+            expected_schema_id = dependencies.{{ dependency.snake_case_name }}.id
+            assert actual_schema_id == expected_schema_id, (
+                f'Resource has schema ID "{actual_schema_id}", expected "{expected_schema_id}"'
+            )
+
+        {{ dependency.snake_case_name }} = super().from_dict(src_dict)
+        {{ dependency.snake_case_name }}.fields = {{ dependency.pascal_case_name }}Fields.from_fields(cast(Fields, {{ dependency.snake_case_name }}.fields))
+        return {{ dependency.snake_case_name }}
+
+    @classmethod
+    def from_{{ instance_snake }}(cls: Type[T], {{ instance_snake }}: {{ instance_pascal }}) -> T:
+        return cls.from_dict({{ instance_snake }}.to_dict())
+
+    @classmethod
+    def from_list_endpoint(cls: Type[T], pages: Iterable[List[{{ instance_pascal }}]]) -> Iterable[T]:
+        for page in pages:
+            for {{ instance_snake }} in page:
+                yield cls.from_{{ instance_snake }}({{ instance_snake }})
+
+
+class {{ dependency.pascal_case_name }}Fields(Fields):
+    @classmethod
+    def from_fields(cls, fields: Fields) -> {{ dependency.pascal_case_name }}Fields:
+        return cls.from_dict(fields.to_dict())
+
+    @classmethod
+    def init(cls{% for field_definition in dependency.fieldDefinitions %}, {{ field_definition.snake_case_name }}=UNSET{% endfor %}) -> Fields:
+        field_to_value = {
+{% for field_definition in dependency.fieldDefinitions %}
+            dependencies.{{ dependency.snake_case_name }}.fields.{{ field_definition.snake_case_name }}.name: {{ field_definition.snake_case_name }},
+{% endfor %}
+        }
+        return fields({field: {"value": value} for field, value in field_to_value.items() if value != UNSET})
+{% for field_definition in dependency.fieldDefinitions %}
+
+    @property
+    def {{ field_definition.snake_case_name }}(self) -> Field:
+        return self[dependencies.{{ dependency.snake_case_name }}.fields.{{ field_definition.snake_case_name }}.name]
+{% endfor %}
