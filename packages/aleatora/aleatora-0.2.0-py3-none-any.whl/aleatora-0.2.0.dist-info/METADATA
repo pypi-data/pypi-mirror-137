@@ -1,0 +1,78 @@
+Metadata-Version: 2.1
+Name: aleatora
+Version: 0.2.0
+Summary: Compose music with streams.
+Home-page: https://github.com/ijc8/aleatora
+Author: Ian Clester
+Author-email: ijc@ijc8.me
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/ijc8/aleatora/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Topic :: Artistic Software
+Classifier: Topic :: Multimedia :: Sound/Audio
+Classifier: Topic :: Multimedia :: Sound/Audio :: Editors
+Classifier: Topic :: Multimedia :: Sound/Audio :: MIDI
+Classifier: Topic :: Multimedia :: Sound/Audio :: Mixers
+Classifier: Topic :: Multimedia :: Sound/Audio :: Sound Synthesis
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: mido
+Requires-Dist: numpy
+Requires-Dist: oscpy
+Requires-Dist: sounddevice
+Provides-Extra: all
+Requires-Dist: gtts ; extra == 'all'
+Requires-Dist: streamp3 (~=0.1.7) ; extra == 'all'
+Requires-Dist: FoxDotPatterns (~=0.1.0) ; extra == 'all'
+Requires-Dist: popsicle (~=0.8.0) ; extra == 'all'
+Requires-Dist: pyFluidSynth (==1.3.0) ; extra == 'all'
+Requires-Dist: ffmpeg-python (~=0.2.0) ; extra == 'all'
+Provides-Extra: foxdot
+Requires-Dist: FoxDotPatterns (~=0.1.0) ; extra == 'foxdot'
+Provides-Extra: plugins
+Requires-Dist: popsicle (~=0.8.0) ; extra == 'plugins'
+Provides-Extra: rivalium
+Requires-Dist: ffmpeg-python (~=0.2.0) ; extra == 'rivalium'
+Provides-Extra: soundfont
+Requires-Dist: pyFluidSynth (==1.3.0) ; extra == 'soundfont'
+Provides-Extra: speech
+Requires-Dist: gtts ; extra == 'speech'
+Requires-Dist: streamp3 (~=0.1.7) ; extra == 'speech'
+
+# Aleatora
+
+Aleatora is a music composition framework, implemented as a Python library, built around the abstraction of lazy, effectful streams.
+
+What does that mean? Like most audio synthesis frameworks, Aleatora lets you build up complex sounds by connecting generators in an audio graph (function composition + parallel composition). Unlike most, it also lets you build things up _horizontally_: streams can be composed sequentially, so the audio graph _change over time_ on its own (based on the computation described in the graph itself).
+
+Additionally, streams may contain any kind of data type, not just samples. So you can use the same basic abstraction, and all the operations that it offers, to work with strings, events, arrays, MIDI data, etc., just as well as with individual audio samples.
+
+## Installation
+
+First, set up the environment:
+
+    virtualenv venv -p python3  # or pypy3 for better performance
+    source venv/bin/activate
+
+Then, get the stable version of Aleatora:
+
+    pip install aleatora  # for optional features, append a list like `[speech,foxdot]` (or `[all]`)
+
+Or, get the latest version instead:
+
+    pip install git+https://github.com/ijc8/aleatora.git
+
+To ensure installation succeeded and that you can get sound out, try playing a sine tone:
+```python
+from aleatora import *
+play(osc(440))
+```
+
+## [Documentation](https://aleatora.readthedocs.io/)
+
+
