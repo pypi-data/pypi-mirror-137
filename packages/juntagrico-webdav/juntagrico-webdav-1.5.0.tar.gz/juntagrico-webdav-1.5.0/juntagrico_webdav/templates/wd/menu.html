@@ -1,0 +1,9 @@
+{% load menus %}
+{% user_menu as menus%}
+
+{% for u_menu in menus %}
+<li class="nav-item">
+    <a class="nav-link {% if webdav_server and webdav_server.id == u_menu.id %}{{ menu.wd }}{% endif %}" href="/wd/list/{{ u_menu.id }}/">
+        {{ u_menu.menu_title }}</a>
+</li>
+{% endfor %}
