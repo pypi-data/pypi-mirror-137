@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: django-daterange-filterspec
+Version: 2.0.3
+Summary: A DateRange Filter for Django Admin Changelists
+Home-page: UNKNOWN
+Author: Stuart MacKay
+Author-email: smackay@flagstonesoftware.com
+License: License :: OSI Approved :: BSD License
+Description: Django DateRange Filterspec
+        ===========================
+        
+        Adds a form with AdminDateWidgets that can be used to select a range of
+        dates for filtering the list of records displayed in an admin Changelist.
+        
+        .. image:: https://raw.githubusercontent.com/StuartMacKay/django-daterange-filterspec/master/docs/images/screenshot.png
+        
+        Quick start
+        -----------
+        
+        Install the package from PyPI::
+        
+            pip install django-daterange-filterspec
+        
+        The package includes a template, which loads Django's calendar widget
+        and date shortcuts. Add the package to the INSTALLED_APPS setting so the
+        template loader can find it::
+        
+            INSTALLED_APPS = (
+                ...
+                "daterange.apps.DateRangeFilterConfig",
+                ...
+            )
+        
+        In your ModelAdmin, set the template used for the changelist to the one
+        provided by the package. Then, for each field you want to filter on
+        create a tuple with the name of the field and the ``DateRangeFilter``
+        filter class::
+        
+            from django.contrib import admin
+        
+            from daterange.filters import DateRangeFilter
+        
+            from .models import Article
+        
+        
+            @admin.register(Article)
+            class ArticleAdmin(admin.ModelAdmin):
+        
+                list_display = ["title", "slug", "published"]
+                list_filter = [("published", DateRangeFilter)]
+                ordering = ["-created"]
+        
+                change_list_template = "admin/daterange/change_list.html"
+        
+        Now, go forth and filter!
+        
+        Project
+        -------
+        
+        If you check out the project from the repository there is a fully functioning
+        Django site that you can use to see the filter in action.
+        
+Keywords: Django Admin DateRage Filter Changelists
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Django :: 2.2
+Classifier: Framework :: Django :: 3.0
+Classifier: Framework :: Django :: 3.1
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.7
+Description-Content-Type: text/x-rst
