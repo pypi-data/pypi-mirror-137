@@ -1,0 +1,1 @@
+from .config import get_max_threads, get_num_threads, set_num_threads, set_default_threads
