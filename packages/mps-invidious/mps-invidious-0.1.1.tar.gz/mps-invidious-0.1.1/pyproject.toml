@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "mps-invidious"
+version = "0.1.1"
+description = ""
+authors = ["JoseKilo <jose.eduardo.gd@gmail.com>"]
+
+[tool.poetry.scripts]
+mps_invidious = "mps_invidious.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.27.1"
+rich = "^11.1.0"
+appdirs = "^1.4.4"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+ipdb = "^0.13.9"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
