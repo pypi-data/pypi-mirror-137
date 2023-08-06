@@ -1,0 +1,95 @@
+{
+  "type": "object",
+  "description": "An Apptrail event is a record of a an activity performed on your customer resources in your application. \n\n @see https://apptrail.com/docs/applications/guide/working-with-events/overview",
+  "properties": {
+    "tenantId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_\\-+=]*$",
+      "description": "The ID of the tenant this event is associated with and will be delivered to. For more on tenants @see https://apptrail.com/docs/applications/guide/working-with-tenants."
+    },
+    "eventTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time the event occurred. Formatted as an ISO 8601 formatted string, e.g. 2021-12-06T16:09:38Z."
+    },
+    "eventName": {
+      "type": "string",
+      "description": "The name of the event as a string. You should represent unique events with unique names. For example if you are adding audit logs to an API, event names could correspond to your API methods."
+    },
+    "actor": {
+      "type": "object",
+      "description": "Actor specifies the identity that performed the action being logged. This may be a user or machine client. Consumers can filter based on this attribute.",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A string representing the identity of the actor."
+        },
+        "details": {
+          "type": "object",
+          "description": "Additional arbitrary metadata related to the actor."
+        }
+      }
+    },
+    "resources": {
+      "type": "array",
+      "description": "If applicable, contains information about the relevant resources that the action this event is recording is related to.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique identifier for this resource."
+          },
+          "details": {
+            "type": "object",
+            "description": "Additional arbitrary metadata related to the resource."
+          }
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "description": "The context object contains fields that give customers additional information about the environment in and source from which the activity recorded occurred",
+      "properties": {
+        "sourceIpAddress": {
+          "type": "string",
+          "description": "The IP address the activity/request being recorded was made from.",
+          "anyOf": [
+            {
+              "format": "ipv4"
+            },
+            {
+              "format": "ipv6"
+            }
+          ]
+        },
+        "userAgent": {
+          "type": "string",
+          "description": "The agent through which the request was made, e.g. `Mozilla/5.0` or `python-requests/2.20.1`."
+        }
+      }
+    },
+    "eventDetails": {
+      "type": "object",
+      "description": "Any additional custom information as a JSON object can be included in this field."
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags are key value metadata that you associate with events. Users can search and filter events based on these tags.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "eventTime",
+    "eventName",
+    "tenantId"
+  ]
+}
