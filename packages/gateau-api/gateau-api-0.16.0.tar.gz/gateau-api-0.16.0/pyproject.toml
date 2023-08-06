@@ -1,0 +1,77 @@
+[tool.poetry]
+name = "gateau-api"
+version = "0.16.0"
+description = ""
+authors = ["Kevin Duff <kevinkelduff@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.71.0"
+fastapi-camelcase = "^1.0.5"
+uvicorn = "^0.16.0"
+bidict = "^0.21.4"
+Pyrebase4 = "^4.5.0"
+firebase-admin = "^5.2.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^21.12b0"
+isort = "^5.10.1"
+flake8 = "^4.0.1"
+mypy = "^0.931"
+pytest-cov = "^3.0.0"
+poethepoet = "^0.11.0"
+requests = "^2.27.1"
+freezegun = "^1.1.0"
+types-freezegun = "^1.1.6"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.poe.tasks]
+autoformat.sequence = [
+    {cmd = "black src tests"},
+    {cmd = "isort src tests"},
+]
+
+lint.sequence = [
+    {cmd = "black --check -v src tests"},
+    {cmd = "isort --check -v src tests"},
+    {cmd = "flake8 src tests"},
+    {cmd = "mypy --pretty src tests"},
+]
+
+test.sequence = ["unit", "integration"]
+
+[tool.poe.tasks.unit]
+sequence = [
+    {cmd = "pytest -vv --cov-report xml --cov-report term --cov=gateau_api tests/unit"},
+]
+
+[tool.poe.tasks.integration]
+sequence = [
+    {shell = 'firebase emulators:exec --only auth,database --project demo-gateau-test "pytest -vv --cov-append --cov-report xml --cov-report term --cov=gateau_api tests/integration"'},
+]
+
+[tool.poe.tasks.integration.env]
+FIREBASE_DATABASE_URL = "http://127.0.0.1:9000"
+FIREBASE_AUTH_EMULATOR_HOST = "http://127.0.0.1:9099"
+GCLOUD_PROJECT = "demo-gateau-test"
+FIREBASE_ADMIN_CREDENTIALS = "InNlcnZpY2UtYWNjb3VudC5qc29uIg=="
+
+[tool.poe.tasks.local-server]
+sequence = [
+    {shell = 'firebase emulators:exec --only auth,database --ui --project demo-gateau-local "uvicorn gateau_api.api:app --reload --port 8011"'},
+]
+
+[tool.poe.tasks.local-server.env]
+FIREBASE_DATABASE_URL = "http://127.0.0.1:9000"
+FIREBASE_AUTH_EMULATOR_HOST = "http://127.0.0.1:9099"
+GCLOUD_PROJECT = "demo-gateau-local"
+FIREBASE_ADMIN_CREDENTIALS = "InNlcnZpY2UtYWNjb3VudC5qc29uIg=="
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
