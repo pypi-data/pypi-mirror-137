@@ -1,0 +1,82 @@
+Metadata-Version: 2.1
+Name: blockdiag-fences
+Version: 0.0.3
+Summary: Inline blockdiag images for Markdown with SuperFences
+Home-page: https://github.com/oliversalzburg/markdown-blockdiag.git
+License: MIT
+Keywords: blockdiag,seqdiag,mkdocs,markdown,superfences
+Author: Oliver Salzburg
+Author-email: oliver.salzburg@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Documentation
+Classifier: Topic :: Software Development :: Documentation
+Classifier: Topic :: Text Processing :: Markup :: Markdown
+Requires-Dist: actdiag (>=3.0.0,<4.0.0)
+Requires-Dist: blockdiag (>=3.0.0,<4.0.0)
+Requires-Dist: nwdiag (>=3.0.0,<4.0.0)
+Requires-Dist: seqdiag (>=3.0.0,<4.0.0)
+Project-URL: Repository, https://github.com/oliversalzburg/markdown-blockdiag.git
+Description-Content-Type: text/markdown
+
+# blockdiag for SuperFences
+
+This provides [blockdiag](http://blockdiag.com/en/blockdiag/index.html) rendering for [Python Markdown](http://pythonhosted.org/Markdown/) through the [SuperFences extension](https://facelessuser.github.io/pymdown-extensions/extensions/superfences/).
+
+It is based on <https://github.com/gisce/markdown-blockdiag>.
+
+## Install
+
+```shell
+pip install blockdiag-fences
+```
+
+## Use
+
+Wrap your diagram in a code block, tagged with the name of the tool to convert it:
+
+
+	```blockdiag
+	blockdiag {
+		A -> B -> C -> D;
+		A -> E -> F -> G;
+	}
+	```
+
+## MkDocs Integration
+
+In your `mkdocs.yml` add this to `markdown_extensions`.
+
+```yaml
+markdown_extensions:
+  - pymdownx.superfences:
+    custom_fences:
+      - name: actdiag
+        class: actdiag
+        format: !!python/name:blockdiag_fences.blockdiag.fence_img_format
+      - name: blockdiag
+        class: blockdiag
+        format: !!python/name:blockdiag_fences.blockdiag.fence_img_format
+      - name: nwdiag
+        class: nwdiag
+        format: !!python/name:blockdiag_fences.blockdiag.fence_img_format
+      - name: packetdiag
+        class: packetdiag
+        format: !!python/name:blockdiag_fences.blockdiag.fence_img_format
+      - name: rackdiag
+        class: rackdiag
+        format: !!python/name:blockdiag_fences.blockdiag.fence_img_format
+      - name: seqdiag
+        class: seqdiag
+        format: !!python/name:blockdiag_fences.blockdiag.fence_img_format
+```
+
