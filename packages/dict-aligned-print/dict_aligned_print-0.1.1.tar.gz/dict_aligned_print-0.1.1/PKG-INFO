@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: dict_aligned_print
+Version: 0.1.1
+Summary: print dict in aligned way
+Home-page: https://github.com/lisrael1/dict_aligned_print
+Author: Lior Israeli
+Author-email: israelilior@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/lisrael1/dict_aligned_print/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+## dict_aligned_print
+
+### print non nested dict in aligned way
+
+```
+usage example:
+    input:
+        from dict_aligned_print import print_dict
+
+        dct = dict(my_key="hi", a=42, b='bb', my_key2=3)
+        dct['another key'] = dict(a=4)
+        
+        print_dict(dct)
+    
+    output:
+             my_key : hi
+                  a : 42
+                  b : bb
+            my_key2 : 3
+        another key : {'a': 4}
+        --------------------------------------------------
+```
+
+
