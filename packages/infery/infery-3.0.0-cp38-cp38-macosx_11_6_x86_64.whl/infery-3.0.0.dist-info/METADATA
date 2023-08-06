@@ -1,0 +1,76 @@
+Metadata-Version: 2.1
+Name: infery
+Version: 3.0.0
+Summary: Deci Run-Time Engine
+Home-page: https://deci.ai
+Author: Deci AI
+Author-email: rnd@deci.ai
+License: Apache License v2.0
+Keywords: Deci,AI,Inference,Deep Learning
+Platform: UNKNOWN
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: pydantic (==1.8.1)
+Requires-Dist: psutil
+Requires-Dist: requests
+Requires-Dist: onnx
+Requires-Dist: torch (>=1.8.1)
+Requires-Dist: openvino (==2021.4.0)
+Requires-Dist: numpy
+Requires-Dist: cryptography (==3.4.7)
+Requires-Dist: onnxruntime
+Requires-Dist: tensorflow (!=2.6,>=2.4.0)
+
+# Infery
+Infery is a Python runtime engine that lets you quickly run inference locally with only 3 simple commands.<br>
+Infery supports all major deep learning frameworks with a unified and simple API.
+
+## Prerequisites 
+You can find a list of dependencies and prerequisites at https://docs.deci.ai/docs/infery-pre-requisites
+## Installation
+https://docs.deci.ai/docs/installing-infery
+
+## Usage
+![Infery Usage](https://deci.ai/wp-content/uploads/2021/06/Infery-Fig1.png)
+
+
+#### 1. Load an example model
+```python
+>>> import infery, numpy as np
+>>> model = infery.load(model_path='MyNewTask_1_0.onnx', framework_type='onnx', inference_hardware='cpu')
+```
+
+#### 2. Predict with a random numpy input
+
+```python
+>> > inputs = np.random.random((1, 3, 224, 224)).astype('float32')
+>> > model.predict(inputs, )
+
+[array([[-2.14702, -0.91035366, -0.32352316, -0.5196562, -0.6025004,
+         -1.1811496, -1.1632262, -1.2799779, -1.460892, -1.1599954,
+         ...
+         - 3.015999, -2.8157048, -1.6614575, -1.6582683, 2.2757106]],
+       dtype=float32)]
+```
+
+#### 3. Benchmark the model on the current hardware
+```python
+>>> model.benchmark(batch_size=1)
+
+<ModelBenchmarks: {
+    "batch_inf_time": "5.16 ms",
+    "batch_inf_time_variance": "0.53 ms",
+    "throughput": "193.97 fps",
+    "sample_inf_time": "5.16 ms",
+    "batch_size": 1
+}>
+
+```
+
+## Documentation:
+https://docs.deci.ai/docs/infery
+
+
+
+
+
