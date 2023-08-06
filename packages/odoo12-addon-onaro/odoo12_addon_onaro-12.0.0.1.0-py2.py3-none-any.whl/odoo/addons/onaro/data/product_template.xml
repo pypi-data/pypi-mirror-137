@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data noupdate="1">
+    <record id="SinMinutosSinDatos_product_template" model="product.template">
+      <field name="attribute_line_ids" eval="[(6, 0, [ref('SinMinutosSinDatos_product_template_attribute_line')])]" />
+      <field name="categ_id" ref="telecom.mobile_service" />
+      <field name="type">service</field>
+    </record>
+    <record id="LlamadasIlimitadasSinDatos_product_template" model="product.template">
+      <field name="attribute_line_ids" eval="[(6, 0, [ref('LlamadasIlimitadasSinDatos_product_template_attribute_line')])]"/>
+      <field name="categ_id" ref="telecom.mobile_service" />
+      <field name="type">service</field>
+    </record>
+    <record id="150Min2GB_product_template" model="product.template">
+      <field name="attribute_line_ids" eval="[(6, 0, [ref('150Min2GB_product_template_attribute_line')])]" />
+      <field name="categ_id" ref="telecom.mobile_service" />
+      <field name="type">service</field>
+    </record>
+    <record id="200Min3GB_product_template" model="product.template">
+      <field name="attribute_line_ids" eval="[(6, 0, [ref('200Min3GB_product_template_attribute_line')])]" />
+      <field name="categ_id" ref="telecom.mobile_service" />
+      <field name="type">service</field>
+    </record>
+    <record id="Radiofrecuencia30Mb_product_template" model="product.template">
+      <field name="attribute_line_ids" eval="[(6, 0, [ref('Radiofrecuencia30Mb_product_template_attribute_line')])]" />
+      <field name="categ_id" ref="telecom.broadband_radiofrequency_service" />
+      <field name="type">service</field>
+    </record>
+    <record id="Fibra100Mb_product_template" model="product.template">
+      <field name="attribute_line_ids" eval="[(6, 0, [ref('Fibra100Mb_product_template_attribute_line')])]" />
+      <field name="categ_id" ref="telecom.broadband_fiber_service" />
+      <field name="type">service</field>
+    </record>
+  </data>
+</odoo>
