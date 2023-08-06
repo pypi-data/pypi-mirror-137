@@ -1,0 +1,2 @@
+import imp
+from web_scraping_bot_template import MainBot
