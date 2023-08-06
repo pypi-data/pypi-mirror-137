@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: deepcolor
+Version: 0.0.1
+Summary: Analyze colocalization patterns between single cell gene expression profiles.
+Home-page: https://github.com/kojikoji/deepcolor
+Author: Kojima Yasuhiro
+Author-email: kojima.yasuhiro@med.nagoya-u.ac.jp
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/kojikoji/deepcolor/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# deepCOLOR: DEEP Generative model for single-cell COLOcalization Representation
+DeepCOLOR is intended to analyze colocalization relation ships between single cell transcriptomes, integrating them with spatial transcriptome.
+
+## Instalation
+You can install deepCOLOR using pip command from your shell.
+```shell
+pip install deepCOLOR
+```
+
+## Usage
+You need to prepare [`AnnData` objects](https://anndata.readthedocs.io/en/latest/) which includes raw count matrix of gene expression for single cell and spatial transcriptome respectively. You can see the usage in [IPython Notebook](tutorial/deepcolor_tutorial.ipynb).
+
