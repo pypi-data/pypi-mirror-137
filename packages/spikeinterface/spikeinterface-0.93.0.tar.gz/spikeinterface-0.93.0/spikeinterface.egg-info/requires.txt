@@ -1,0 +1,20 @@
+numpy
+neo>=0.10.0
+joblib
+tqdm
+probeinterface>=0.2.6
+
+[extractors]
+MEArec>=1.7.1
+pynwb>=1.4
+
+[extractors:python_version > "3.7"]
+sonpy
+
+[full]
+h5py
+pandas
+scipy
+scikit-learn
+matplotlib
+networkx
