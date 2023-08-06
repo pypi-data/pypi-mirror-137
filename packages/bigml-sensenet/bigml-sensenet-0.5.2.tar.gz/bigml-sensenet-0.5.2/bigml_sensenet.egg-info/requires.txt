@@ -1,0 +1,10 @@
+importlib-resources<5.5,>=5.4
+numpy<1.22,>=1.21
+pillow<9.1,>=9.0
+tensorflowjs<3.14,>=3.13
+
+[:sys_platform != "Darwin" or platform_machine != "arm64"]
+tensorflow<2.9,>=2.8
+
+[:sys_platform == "Darwin" and platform_machine == "arm64"]
+tensorflow-macos<2.9,>=2.8

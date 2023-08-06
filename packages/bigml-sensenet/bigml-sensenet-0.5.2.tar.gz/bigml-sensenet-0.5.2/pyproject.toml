@@ -1,0 +1,10 @@
+[build-system]
+requires=[
+  "tensorflow-macos <2.9,>=2.8;sys_platform=='Darwin' and platform_machine=='arm64'",
+  "tensorflow <2.9,>=2.8;sys_platform!='Darwin' or platform_machine!='arm64'",
+  "setuptools"
+]
+
+[tool.black]
+line-length = 80
+target-version = ['py39']
