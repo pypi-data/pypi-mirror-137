@@ -1,0 +1,85 @@
+Metadata-Version: 2.1
+Name: ts-sdk
+Version: 1.3.5
+Summary: Tetrascience Python SDK
+Home-page: https://developers.tetrascience.com
+Author: tetrascience
+Author-email: developers@tetrascience.com
+License: Apache License 2.0
+Platform: UNKNOWN
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: boto3 (<2,>=1.16.3)
+Requires-Dist: botocore (<2,>=1.19.3)
+Requires-Dist: colorama (<1,>=0.4.4)
+Requires-Dist: jsonschema (>=3.2.0)
+Requires-Dist: query-string (<2021,>=2020.7.1)
+Requires-Dist: requests (<3,>=2.22.0)
+Requires-Dist: smart-open[s3] (<4,>=3.0.0)
+Requires-Dist: typing-extensions (>=3.10.0.2)
+Requires-Dist: ts-ids-validator (>=0.9.4)
+
+# ts-sdk
+
+Tetrascience Python SDK
+
+## Install
+
+```
+pip3 install ts-sdk
+```
+
+## Usage
+
+### Init a new protocol
+
+```
+ts-sdk init -o <org> -p <protocol-slug> -t <task-script-slug> -f <protocol-folder>
+cd <protocol-folder>/task-script
+pipenv install --dev
+# task-script code modifications...
+pipenv run pytest
+```
+
+### Upload artifact
+
+```
+export TS_ORG=<your-org-slug>
+export TS_API_URL=https://api.tetrascience.com/v1
+export TS_AUTH_TOKEN=<token>
+ts-sdk put <ids|protocol|task-script> <namespace> <slug> <version> <artifact-folder>
+```
+
+It's also possible to use the configuration JSON file (`cfg.json`):
+
+```
+{
+    "api_url": "https://api.tetrascience.com/v1",
+    "auth_token": "your-token",
+    "org": "your-org",
+    "ignore_ssl": false
+}
+```
+
+Usage: `ts-sdk put <ids|protocol|task-script> <namespace> <slug> <version> <artifact-folder> -c cfg.json`
+
+### IDS Validation
+
+When uploading IDS artifact, validation will be performed using `ts-ids-validator` package.
+Validation failures for IDS will be printed on the console.
+
+## Changelog
+
+## v1.3.5
+
+- Fix bug where datalake file_key was incorrectly generated
+
+## v1.3.2
+
+- Update `context.write_file()` to validate file upload path
+- Fix logging issues
+- Improve namespace validation
+- Update `print` functionality to be more accurate and group arguments to the same call together
+
+
