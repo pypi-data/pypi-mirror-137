@@ -1,0 +1,44 @@
+#!/usr/bin/env docker-compose
+
+version: "3"
+services:
+  pytest-squid-insecure: &pytest-squid-insecure
+    container_name: $CONTAINER_NAME
+    image: ubuntu/squid:4.10-20.04_edge
+    ports:
+    - "3128/tcp"
+    volumes:
+    - "$PATH_SQUIDCFG:/etc/squid/squid.conf:ro"
+  pytest-squid-secure: &pytest-squid-secure
+    container_name: $CONTAINER_NAME
+    image: ubuntu/squid:4.10-20.04_edge
+    ports:
+    - "3129/tcp"
+    volumes:
+    - "$PATH_CERTIFICATE:/pytest-squid.crt:ro"
+    - "$PATH_HTPASSWD:/htpasswd:ro"
+    - "$PATH_KEY:/pytest-squid.key:ro"
+    - "$PATH_SQUIDCFG:/etc/squid/squid.conf:ro"
+
+  # If more than 10 are needed, or they need to be asymmetric, or whatever ...
+  # ... override docker-compose.yml or the corresponding fixture downstream ;)
+  pytest-squid-insecure-0: *pytest-squid-insecure
+  pytest-squid-insecure-1: *pytest-squid-insecure
+  pytest-squid-insecure-2: *pytest-squid-insecure
+  pytest-squid-insecure-3: *pytest-squid-insecure
+  pytest-squid-insecure-4: *pytest-squid-insecure
+  pytest-squid-insecure-5: *pytest-squid-insecure
+  pytest-squid-insecure-6: *pytest-squid-insecure
+  pytest-squid-insecure-7: *pytest-squid-insecure
+  pytest-squid-insecure-8: *pytest-squid-insecure
+  pytest-squid-insecure-9: *pytest-squid-insecure
+  pytest-squid-secure-0: *pytest-squid-secure
+  pytest-squid-secure-1: *pytest-squid-secure
+  pytest-squid-secure-2: *pytest-squid-secure
+  pytest-squid-secure-3: *pytest-squid-secure
+  pytest-squid-secure-4: *pytest-squid-secure
+  pytest-squid-secure-5: *pytest-squid-secure
+  pytest-squid-secure-6: *pytest-squid-secure
+  pytest-squid-secure-7: *pytest-squid-secure
+  pytest-squid-secure-8: *pytest-squid-secure
+  pytest-squid-secure-9: *pytest-squid-secure
