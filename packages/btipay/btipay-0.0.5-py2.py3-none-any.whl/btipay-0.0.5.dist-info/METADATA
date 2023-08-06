@@ -1,0 +1,118 @@
+Metadata-Version: 2.1
+Name: btipay
+Version: 0.0.5
+Summary: Python package for using the Banca Transilvania iPay API.
+Home-page: https://github.com/rolisz/pybtipay
+Author: Roland Szabo
+Author-email: roland@rolisz.ro
+License: MIT
+Project-URL: Documentation, https://pybtipay.readthedocs.io/
+Project-URL: Changelog, https://pybtipay.readthedocs.io/en/latest/changelog.html
+Project-URL: Issue Tracker, https://github.com/rolisz/pybtipay/issues
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Unix
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Utilities
+Requires-Python: >=3.6
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: requests (>=2)
+Requires-Dist: pydantic (>=1.5)
+
+========
+Overview
+========
+
+
+
+Python package for using the Banca Transilvania iPay API.
+
+* Free software: MIT license
+
+Installation
+============
+
+::
+
+    pip install btipay
+
+You can also install the in-development version with::
+
+    pip install https://github.com/rolisz/pybtipay/archive/master.zip
+
+
+Documentation
+=============
+
+
+https://pybtipay.readthedocs.io/
+
+
+Development
+===========
+
+To run all the tests run::
+
+    tox
+
+Note, to combine the coverage data from all the tox environments run:
+
+.. list-table::
+    :widths: 10 90
+    :stub-columns: 1
+
+    - - Windows
+      - ::
+
+            set PYTEST_ADDOPTS=--cov-append
+            tox
+
+    - - Other
+      - ::
+
+            PYTEST_ADDOPTS=--cov-append tox
+
+
+Deployment to Pypi
+==================
+Run `tbump new_version`, `python -m build`, `twine check` and then `twine upload dist/*`.
+
+
+Changelog
+=========
+0.0.5 (2022-02-08)
+------------------
+* Mark some fields as optional
+
+0.0.4 (2022-02-01)
+------------------
+* Better error handling
+
+0.0.3 (2022-02-01)
+------------------
+* Refactor to return Pydantic objects and raise proper exceptions.
+
+0.0.2 (2021-11-11)
+------------------
+* Add support for registering a payment.
+* Add support for checking the status of a payment.
+
+0.0.1 (2021-11-11)
+------------------
+
+* First release on PyPI.
+
+
