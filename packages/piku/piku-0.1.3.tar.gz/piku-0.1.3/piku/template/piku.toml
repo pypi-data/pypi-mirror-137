@@ -1,0 +1,9 @@
+[general]
+project = "{{project}}"
+piku = "{{piku}}"
+circuitpython = "{{bundle}}"
+{% if board %}
+board = "{{board}}"
+{% endif %}
+
+[dependencies]
