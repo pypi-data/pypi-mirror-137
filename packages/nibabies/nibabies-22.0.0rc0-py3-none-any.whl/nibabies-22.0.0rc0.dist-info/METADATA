@@ -1,0 +1,82 @@
+Metadata-Version: 2.1
+Name: nibabies
+Version: 22.0.0rc0
+Summary: NeuroImaging Babies provides processing tools for magnetic resonance images of the brain in infants.
+Home-page: https://github.com/nipreps/nibabies
+Author: The NiPreps Developers
+Author-email: nipreps@gmail.com
+License: Apache License, 2.0
+Project-URL: GitHub, https://github.com/nipreps/nibabies
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.7
+Description-Content-Type: text/x-rst; charset=UTF-8
+License-File: LICENSE
+Requires-Dist: attrs
+Requires-Dist: nibabel (>=3.0.1)
+Requires-Dist: nipype (>=1.5.1)
+Requires-Dist: nitime
+Requires-Dist: niworkflows (~=1.5.0)
+Requires-Dist: numpy (>=1.16.5)
+Requires-Dist: pybids (>=0.12.1)
+Requires-Dist: sdcflows (~=2.0.12)
+Requires-Dist: smriprep (~=0.8.1)
+Requires-Dist: templateflow (>=0.6.0)
+Provides-Extra: all
+Requires-Dist: future ; extra == 'all'
+Requires-Dist: sphinx ; extra == 'all'
+Requires-Dist: sphinx-rtd-theme ; extra == 'all'
+Requires-Dist: sphinxcontrib-apidoc ; extra == 'all'
+Requires-Dist: sphinxcontrib-napoleon ; extra == 'all'
+Requires-Dist: myst-nb ; extra == 'all'
+Requires-Dist: sphinx-argparse ; extra == 'all'
+Requires-Dist: duecredit ; extra == 'all'
+Requires-Dist: citeproc-py (!=0.5.0) ; extra == 'all'
+Requires-Dist: pyntcloud ; extra == 'all'
+Requires-Dist: black (~=22.1.0) ; extra == 'all'
+Requires-Dist: coverage (<5) ; extra == 'all'
+Requires-Dist: pytest (>=4.4) ; extra == 'all'
+Requires-Dist: pytest-cov ; extra == 'all'
+Requires-Dist: pytest-xdist (>=1.28) ; extra == 'all'
+Provides-Extra: aroma
+Requires-Dist: future ; extra == 'aroma'
+Provides-Extra: doc
+Requires-Dist: sphinx ; extra == 'doc'
+Requires-Dist: sphinx-rtd-theme ; extra == 'doc'
+Requires-Dist: sphinxcontrib-apidoc ; extra == 'doc'
+Requires-Dist: sphinxcontrib-napoleon ; extra == 'doc'
+Requires-Dist: myst-nb ; extra == 'doc'
+Requires-Dist: sphinx-argparse ; extra == 'doc'
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Requires-Dist: sphinxcontrib-apidoc ; extra == 'docs'
+Requires-Dist: sphinxcontrib-napoleon ; extra == 'docs'
+Requires-Dist: myst-nb ; extra == 'docs'
+Requires-Dist: sphinx-argparse ; extra == 'docs'
+Provides-Extra: duecredit
+Requires-Dist: duecredit ; extra == 'duecredit'
+Requires-Dist: citeproc-py (!=0.5.0) ; extra == 'duecredit'
+Provides-Extra: pointclouds
+Requires-Dist: pyntcloud ; extra == 'pointclouds'
+Provides-Extra: style
+Requires-Dist: black (~=22.1.0) ; extra == 'style'
+Provides-Extra: test
+Requires-Dist: coverage (<5) ; extra == 'test'
+Requires-Dist: pytest (>=4.4) ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: pytest-xdist (>=1.28) ; extra == 'test'
+Provides-Extra: tests
+Requires-Dist: coverage (<5) ; extra == 'tests'
+Requires-Dist: pytest (>=4.4) ; extra == 'tests'
+Requires-Dist: pytest-cov ; extra == 'tests'
+Requires-Dist: pytest-xdist (>=1.28) ; extra == 'tests'
+
+UNKNOWN
+
