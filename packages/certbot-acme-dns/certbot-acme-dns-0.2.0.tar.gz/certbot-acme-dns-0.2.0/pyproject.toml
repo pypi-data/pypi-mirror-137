@@ -1,0 +1,6 @@
+[build-system]
+requires = ["setuptools>=53", "wheel>=0.36", "setuptools_scm[toml]>=5"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+git_describe_command = ["git", "describe", "--dirty", "--tags", "--long", "--match", "v[0-9]*"]
