@@ -1,0 +1,36 @@
+setuptools
+wrapt~=1.10
+typing_extensions>=3.10.0.0
+packaging
+
+[:platform_system != "Windows"]
+msgpack~=1.0.0
+
+[:platform_system == "Windows" and platform_python_implementation == "CPython"]
+windows-curses
+pywin32
+
+[canalystii]
+canalystii>=0.1.0
+
+[cantact]
+cantact>=0.0.7
+
+[gs_usb]
+gs_usb>=0.2.1
+
+[neovi]
+filelock
+python-ics>=2.12
+
+[nixnet]
+nixnet>=0.3.1
+
+[pcan]
+uptime~=3.0.1
+
+[seeedstudio]
+pyserial>=3.0
+
+[serial]
+pyserial~=3.0
