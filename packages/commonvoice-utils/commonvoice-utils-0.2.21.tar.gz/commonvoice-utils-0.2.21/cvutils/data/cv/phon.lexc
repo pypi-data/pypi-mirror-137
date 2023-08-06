@@ -1,0 +1,135 @@
+Multichar_Symbols 
+
+%>
+
+LEXICON Root 
+
+Vow ;
+Cns ; 
+
+
+LEXICON Loop
+
+Vow ; 
+Cns ; 
+# ; 
+
+
+LEXICON Vow 
+
+а:a CnsAfterVow ;
+а:ɑ CnsAfterVow ;
+ӑ:ə CnsAfterVow ;
+ӑ:ɒ CnsAfterVow ;
+
+ы:ɯ CnsAfterVow ;
+э:e CnsAfterVow ;
+ю:ju CnsAfterVow ;
+ю:ʲu CnsAfterVow ;
+я:ja CnsAfterVow ;
+я:ʲa CnsAfterVow ;
+
+и:i CnsAfterVow ;
+й:j CnsAfterVow ;
+
+е:ɛ CnsAfterVow ;
+ё:jo CnsAfterVow ;
+ё:ʲo CnsAfterVow ;
+ӗ:ɘ CnsAfterVow ;
+ӗ:ø CnsAfterVow ;
+
+о:o CnsAfterVow ;
+у:u CnsAfterVow ;
+у:o CnsAfterVow ;
+ӳ:y CnsAfterVow ;
+
+LEXICON Cns
+
+б:b Loop ;
+в:ʋ Loop ;
+в:w Loop ;
+в:v Loop ;
+г:ɡ Loop ;
+д:d Loop ;
+ж:ʐ Loop ;
+з:z Loop ;
+к:k Loop ;
+к:kʲ Loop ;
+к:c Loop ;
+к:gʲ Loop ;
+к:ɟ Loop ;
+л:l Loop ;
+л:ɫ Loop ;
+л:lʲ Loop ;
+л:ʎ Loop ;
+м:m Loop ;
+н:n Loop ;
+н:nʲ Loop ;
+н:ɲ Loop ;
+п:p Loop ;
+п:b Loop ;
+р:r Loop ;
+р:ɾ Loop ;
+с:s Loop ;
+с:s̬ Loop ;
+с:z Loop ;
+ҫ:ɕ Loop ;
+ҫ:ɕ̬ Loop ;
+ҫ:ʑ Loop ;
+т:t Loop ;
+т:d Loop ;
+т:tʲ Loop ;
+т:dʲ Loop ;
+ф:f Loop ;
+ф:v Loop ;
+х:χ Loop ;
+х:χʲ Loop ;
+х:ɣ Loop ;
+х:ɣʲ Loop ;
+ц:ts Loop ;
+ц:dz Loop ;
+ч:tɕ Loop ;
+ч:ʥ Loop ;
+ш:ʃ Loop ;
+ш:ʒ Loop ;
+щ:ɕː Loop ;
+
+
+LEXICON CnsAfterVow
+
+б:b Loop ;
+в:ʋ Loop ;
+в:w Loop ;
+в:v Loop ;
+г:ɡ Loop ;
+д:d Loop ;
+ж:ʐ Loop ;
+з:z Loop ;
+к:c Loop ;
+к:gʲ Loop ;
+к:ɟ Loop ;
+л:l Loop ;
+л:ɫ Loop ;
+л:lʲ Loop ;
+л:ʎ Loop ;
+м:m Loop ;
+н:n Loop ;
+н:nʲ Loop ;
+н:ɲ Loop ;
+п:b Loop ;
+р:r Loop ;
+с:z Loop ;
+ҫ:ʑ Loop ;
+т:d Loop ;
+т:dʲ Loop ;
+ф:v Loop ;
+х:χ Loop ;
+х:χʲ Loop ;
+х:ɣ Loop ;
+х:ɣʲ Loop ;
+ц:dz Loop ;
+ч:ʥ Loop ;
+ш:ʒ Loop ;
+щ:ɕː Loop ;
+
+Loop "weight: 1.0" ; 

@@ -1,0 +1,86 @@
+Multichar_Symbols
+
+%>
+
+LEXICON Root
+
+Cns ;
+Vow ;
+
+LEXICON Loop
+
+Cns ;
+Vow ;
+ # ;
+
+LEXICON Cns
+
+क:k MaybeVowCns ; 
+ख:kʰ MaybeVowCns ; 
+ग:ɡ MaybeVowCns ; 
+घ:ɡʱ MaybeVowCns ; 
+ङ:ŋ MaybeVowCns ; 
+ह:ɦ MaybeVowCns ; 
+च:tʃ MaybeVowCns ; 
+छ:tʃʰ MaybeVowCns ; 
+ज:dʒ MaybeVowCns ; 
+झ:ɟʱ MaybeVowCns ; 
+झ:dʒʱ MaybeVowCns ; 
+ञ:ɲ MaybeVowCns ; 
+य:j MaybeVowCns ; 
+श:ʃ MaybeVowCns ; 
+ट:ʈ MaybeVowCns ; 
+ठ:ʈʰ MaybeVowCns ; 
+ड:ɖ MaybeVowCns ; 
+ढ:ɖʱ MaybeVowCns ; 
+ण:ɳ MaybeVowCns ; 
+र:r MaybeVowCns ; 
+ष:ʃ MaybeVowCns ; 
+त:t̪ MaybeVowCns ; 
+थ:t̪ʰ MaybeVowCns ; 
+द:d̪ MaybeVowCns ; 
+ध:d̪ʱ MaybeVowCns ; 
+न:n MaybeVowCns ; 
+ल:l MaybeVowCns ; 
+स:s MaybeVowCns ; 
+प:p MaybeVowCns ; 
+फ:pʰ MaybeVowCns ; 
+ब:b MaybeVowCns ; 
+भ:bʱ MaybeVowCns ; 
+म:m MaybeVowCns ; 
+व:ʋ MaybeVowCns ; 
+
+LEXICON Vow
+
+अ:ə Loop ; 
+आ:aː Loop ; 
+इ:ɪ Loop ; 
+ई:iː Loop ; 
+उ:ʊ Loop ; 
+ऊ:uː Loop ; 
+ए:eː Loop ; 
+ऐ:ɛː Loop ; 
+ओ:oː Loop ; 
+औ:ɔː Loop ; 
+
+LEXICON MaybeVowCns
+
+Cns "weight: 1.0" ;
+MaybeVow ;
+़: Cns ;
+़: MaybeVow ;
+
+LEXICON MaybeVow
+
+:ə Loop ; 
+ा:ə Loop ; 
+ा:aː Loop ; 
+ि:ɪ Loop ; 
+ी:iː Loop ; 
+ु:ʊ Loop ; 
+ू:uː Loop ; 
+े:eː Loop ; 
+ै:ɛː Loop ; 
+ो:oː Loop ; 
+ौ:ɔː Loop ; 
+ Loop ;
