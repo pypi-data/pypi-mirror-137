@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "sql_on_dfs"
+version = "0.2.0"
+description = "For when you want to execute an arbitrary SQL query on one or more Pandas DataFrames"
+authors = ["max <mepstein68@gmail.com>"]
+homepage = "https://github.com/MaxPowerWasTaken/sqlondfs"
+repository = "https://github.com/MaxPowerWasTaken/sqlondfs"
+keywords = ["pandas", "dataframe", "sql", "data"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.4.0"
+sql-metadata = "^2.3.0"
+loguru = "^0.6.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
