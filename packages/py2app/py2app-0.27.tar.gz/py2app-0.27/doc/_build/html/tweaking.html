@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tweaking your Info.plist &#8212; py2app 0.25 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example setup.py templates" href="examples.html" />
+    <link rel="prev" title="Frequently Asked Questions" href="faq.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="Example setup.py templates"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="Frequently Asked Questions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tweaking your Info.plist</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tweaking-your-info-plist">
+<h1>Tweaking your Info.plist<a class="headerlink" href="#tweaking-your-info-plist" title="Permalink to this headline">¶</a></h1>
+<p>It’s often useful to make some tweaks to your Info.plist file to change how
+your application behaves and interacts with Mac OS X. The most complete
+reference for the keys available to you is in Apple’s
+<a class="reference external" href="http://developer.apple.com/documentation/MacOSX/Conceptual/BPRuntimeConfig/index.html">Runtime Configuration Guidelines</a>.</p>
+<div class="section" id="commonly-customized-keys">
+<h2>Commonly customized keys<a class="headerlink" href="#commonly-customized-keys" title="Permalink to this headline">¶</a></h2>
+<p>Here are some commonly customized property list keys relevant to py2app
+applications:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">CFBundleDocumentTypes</span></code>:</dt><dd><p>An array of dictionaries describing document types supported by the bundle.
+Use this to associate your application with opening or editing document
+types, and/or to assign icons to document types.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CFBundleGetInfoString</span></code>:</dt><dd><p>The text shown by Finder’s Get Info panel.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CFBundleIdentifier</span></code>:</dt><dd><p>The identifier string for your application (in reverse-domain syntax),
+e.g. <code class="docutils literal notranslate"><span class="pre">&quot;org.pythonmac.py2app&quot;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CFBundleURLTypes</span></code>:</dt><dd><p>An array of dictionaries describing URL schemes supported by the bundle.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">LSBackgroundOnly</span></code>:</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the bundle will be a faceless background application.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">LSUIElement</span></code>:</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the bundle will be an agent application. It will not appear
+in the Dock or Force Quit window, but still can come to the foreground
+and present a UI.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NSServices</span></code>:</dt><dd><p>An array of dictionaries specifying the services provided by the
+application.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="specifying-customizations">
+<h2>Specifying customizations<a class="headerlink" href="#specifying-customizations" title="Permalink to this headline">¶</a></h2>
+<p>There are three ways to specify <code class="docutils literal notranslate"><span class="pre">Info.plist</span></code> customizations to py2app.</p>
+<p>You can specify an Info.plist XML file on the command-line with the
+<code class="docutils literal notranslate"><span class="pre">--plist</span></code> option, or as a string in your <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span>
+    <span class="n">app</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MyApplication.py&#39;</span><span class="p">],</span>
+<span class="n">options</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">py2app</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">plist</span><span class="o">=</span><span class="s1">&#39;Info.plist&#39;</span><span class="p">,</span>
+<span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>You may also specify the plist as a Python dict in the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span>
+    <span class="n">app</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MyApplication.py&#39;</span><span class="p">],</span>
+<span class="n">options</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">py2app</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">plist</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">LSPrefersPPC</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Or you may use a hybrid approach using the standard library plistlib module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">plistlib</span> <span class="kn">import</span> <span class="n">Plist</span>
+<span class="n">plist</span> <span class="o">=</span> <span class="n">Plist</span><span class="o">.</span><span class="n">fromFile</span><span class="p">(</span><span class="s1">&#39;Info.plist&#39;</span><span class="p">)</span>
+<span class="n">plist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">LSPrefersPPC</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">))</span>
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">app</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MyApplication.py&#39;</span><span class="p">],</span>
+<span class="n">options</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">py2app</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">plist</span><span class="o">=</span><span class="n">plist</span><span class="p">,</span>
+<span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="universal-binaries">
+<h2>Universal Binaries<a class="headerlink" href="#universal-binaries" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>the documentation about universal binaries is outdated!</p>
+</div>
+<p>py2app is currently fully compatible with Universal Binaries, however
+it does not try and detect which architectures your application will
+correctly run on.</p>
+<p>If you are building your application with a version of Python that is not
+universal, or have extensions that are not universal, then you must set
+the <code class="docutils literal notranslate"><span class="pre">LSPrefersPPC</span></code> Info.plist key to <code class="docutils literal notranslate"><span class="pre">True</span></code>. This will force the
+application to run translated with Rosetta by default. This is necessary
+because the py2app bootstrap application is universal, so Finder
+will try and launch natively by default.</p>
+<p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">--prefer-ppc</span></code> option can be used as a shortcut to
+ensure that this Info.plist key is set.</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tweaking your Info.plist</a><ul>
+<li><a class="reference internal" href="#commonly-customized-keys">Commonly customized keys</a></li>
+<li><a class="reference internal" href="#specifying-customizations">Specifying customizations</a></li>
+<li><a class="reference internal" href="#universal-binaries">Universal Binaries</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="faq.html"
+                        title="previous chapter">Frequently Asked Questions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="next chapter">Example setup.py templates</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tweaking.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="Example setup.py templates"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="Frequently Asked Questions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tweaking your Info.plist</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010, Ronald Oussoren, Bob Ippolito.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>

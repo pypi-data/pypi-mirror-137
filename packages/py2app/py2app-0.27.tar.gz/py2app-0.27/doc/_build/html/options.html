@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>py2app Options &#8212; py2app 0.25 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Recipes" href="recipes.html" />
+    <link rel="prev" title="Example setup.py templates" href="examples.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="recipes.html" title="Recipes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Example setup.py templates"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">py2app Options</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="py2app-options">
+<h1>py2app Options<a class="headerlink" href="#py2app-options" title="Permalink to this headline">¶</a></h1>
+<p>Options can be specified to py2app to influence the build procedure in three
+different ways:</p>
+<p>At the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py py2app --includes=os,platform
+</pre></div>
+</div>
+<p>In your <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span>
+    <span class="n">app</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MyApplication.py&#39;</span><span class="p">],</span>
+    <span class="n">options</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">py2app</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">includes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;platform&quot;</span><span class="p">]</span>
+    <span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In a <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">py2app</span><span class="p">]</span>
+<span class="n">includes</span><span class="o">=</span><span class="n">os</span><span class="p">,</span><span class="n">platform</span>
+</pre></div>
+</div>
+<p>Note that when translating command-line options for use in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, you
+must replace hyphens (<code class="docutils literal notranslate"><span class="pre">-</span></code>) with underscores (<code class="docutils literal notranslate"><span class="pre">_</span></code>). <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> files
+may use either hyphens or underscores, but command-line options must always
+use the hyphens.</p>
+<p>Lists of values are a comma seperated sequence of names on the command-line and
+in setup.cfg, and regular python lists in setup.py (as shown in the earlier example).</p>
+<div class="section" id="option-reference">
+<h2>Option Reference<a class="headerlink" href="#option-reference" title="Permalink to this headline">¶</a></h2>
+<p>To enumerate the options that py2app supports, use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py py2app --help
+</pre></div>
+</div>
+<p>Options for ‘py2app’ command:</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Options</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 20%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Command-line</p></th>
+<th class="head"><p>Setup.py</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--optimize</span></code></p></td>
+<td><p>optimize</p></td>
+<td><p>level (integer)</p></td>
+<td><p>Specifies the optimization level for the Pytho interpreter
+level 0 to disable, level 1 for <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-O</span></code>, and level 2
+for <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-OO</span></code>. Defaults to the optimation level of the
+process running py2app.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--includes</span></code></p></td>
+<td><p>includes</p></td>
+<td><p>list of module names</p></td>
+<td><p>A list of Python modules to include even if they are
+not detected by dependency checker. Packages in this list
+are ignored.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--packages</span></code></p></td>
+<td><p>packages</p></td>
+<td><p>list of package names</p></td>
+<td><p>A list of Python packages to include even if they are
+not detected by dependency checker. The whole package will
+be included.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--excludes</span></code></p></td>
+<td><p>excludes</p></td>
+<td><p>list of module or package names</p></td>
+<td><p>A list of Python modules or packages to exclude even if they are
+detected by dependency checker.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--matplotlib-backends</span></code></p></td>
+<td><p>matplotlib_backends</p></td>
+<td><p>List of matplotlib backend names</p></td>
+<td><p>The matplotlib backends that will be included when matplotlib is
+one of the included libraries. The default is to include all of
+matplotlib.</p>
+<p>Use ‘*’ to include all backends, and “-” to only include backends that
+are explicitly included.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--qt-plugins</span></code></p></td>
+<td><p>qt_plugins</p></td>
+<td><p>List of Qt plugins</p></td>
+<td><p>Specifies plugins to include in an application using PyQt4.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--dylib-excludes</span></code></p></td>
+<td><p>dylib_excludes</p></td>
+<td><p>A list of shared libraries or frameworks</p></td>
+<td><p>The specified libraries and frameworks will not be included
+in the output.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--frameworks</span></code></p></td>
+<td><p>frameworks</p></td>
+<td><p>A list of shared libraries or frameworks</p></td>
+<td><p>The specified libraries and frameworks will be included
+in the output.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--iconfile</span></code></p></td>
+<td><p>iconfile</p></td>
+<td><p>Path the the icon file</p></td>
+<td><p>Specify the icon to use for the application, the “.icns” suffix
+may be left off. The default is to use a generic icon.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--plist</span></code></p></td>
+<td><p>plist</p></td>
+<td><p>Path to a plist template, or (in setup.py) a Python dictionary.</p></td>
+<td><p>Specify the contents of the Info.plist. Py2app will add some information
+to the file when it is copied into the output.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--datamodels</span></code></p></td>
+<td><p>datamodels</p></td>
+<td><p>List of xcdatamodels</p></td>
+<td><p>The specified xcdatamodel files will be compiled and included
+into the bundle Resources</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--mappingmodels</span></code></p></td>
+<td><p>mappingmodels</p></td>
+<td><p>List of xcmappingmodels</p></td>
+<td><p>The specified xcmappingmodel files will be compiled and included
+into the bundle Resources</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--resources</span></code></p></td>
+<td><p>resources</p></td>
+<td><p>List of files and folders</p></td>
+<td><p>Specifies additional files and folders to include in the bundle
+Resource. Do not use this to copy additional code.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--extension</span></code></p></td>
+<td><p>extensionn</p></td>
+<td><p>file extension, includding the dot</p></td>
+<td><p>The extension to use of the output, defaults to “.app” for applications
+and “.plugin” for plugins. Commonly only used for plugins.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--arch</span></code></p></td>
+<td><p>arch</p></td>
+<td><p>“intel”, “fat”, “universal”, “universal2”, “i386”, “x86_64”, “ppc”</p></td>
+<td><p>The (set of) architecture(s) to use for the main executable in the
+output. This should be a subset of the architectures supported by the
+python interpreter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--no-strip</span></code></p></td>
+<td><p>no_strip</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Don’t strip debug information and local symbols from the output. Default
+is to strip.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--semi-standalone</span></code></p></td>
+<td><p>semi_standalone</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Create output that depends on an existing installation of Python, but
+does contain all code and dependencies.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--alias</span></code></p></td>
+<td><p>alias</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Create output that depends on an existing installation of Python and
+uses the sources outside of the bundle.</p>
+<p>This is only useful during development, you can update source files
+and relaunche the application without rebuilding the bundle.</p>
+<p><strong>Do not use for distribution</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--graph</span></code></p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>None</p></td>
+<td><p>Emit a “.dot” file with the module dependency graph after the build. The output
+will be stored next to the  regular output.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--xref</span></code></p></td>
+<td><p>xref</p></td>
+<td><p>None</p></td>
+<td><p>Emit a module cross reference as HTML. The output
+will be stored next to the  regular output.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--report-missing-from-imports</span></code></p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Include a list of missing names for <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">module</span> <span class="pre">import</span> <span class="pre">name</span></code> in
+the output at the end of the py2app run.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--no-report-missing-conditional-import</span></code></p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>None</p></td>
+<td><p>Do not include missing modules that might be conditionally imported
+in the output at the end of the py2app run.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--use-faulthandler</span></code></p></td>
+<td><p>use_faulthandler</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Enable the Python faulthandler, requires Python 3.3 or later.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--no-chdir</span></code></p></td>
+<td><p>no_chdir</p></td>
+<td><p>None</p></td>
+<td><p>Don’t change the working directory to the bundle Resource
+directory. This option is always enabled in plugins.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--argv-emulation</span></code></p></td>
+<td><p>argv_emulation</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Fill <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> during program launch.</p>
+<p>The argv emulator runs a small event loop during program launch
+to intercept file-open and url-open events. The to-be-opened
+resources will be added to <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code></p>
+<p><strong>WARNING</strong>: Do no use this option when the program uses a
+GUI toolkit. The emulator tends to confuse GUI toolkits, and
+most GUI toolkits have APIs to react to these events at runtime
+(for example to open a file when your program is already running).</p>
+<p>This option cannot be enabled for plugins.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--emulate-shell-environment</span></code></p></td>
+<td><p>emulate_shell_environment</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Set up environment variables as if the program was launched from
+a fresh Terminal window. Don’t use this with plugins.</p>
+<p>By default applications inherit the environment from the application
+launcher (when double clicking the application in the Finder), which
+is does not include environment variables set in the users shell profile.</p>
+<p>Only use this when the application needs to access environment varialbes
+set in the Terminal. This option is not meant for general use.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--use-pythonpath</span></code></p></td>
+<td><p>use_pythonpath</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Allow the PYTHONPATH environment varialble to affect the interpreter’s
+search path.</p>
+<p>This is generally not useful, PYTHONPATH is not included in the minimal
+shell environment used by the application launcher.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--site-packages</span></code></p></td>
+<td><p>site_packages</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Include the system and user site-packages in <code class="docutils literal notranslate"><span class="pre">sys.path</span></code></p>
+<p>Note that this makes the bundle less standalone, packages installed
+on a users’s system may affect the bundle.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--extra-script</span></code></p></td>
+<td><p>extra_scripts</p></td>
+<td><p>List of file names for scripts</p></td>
+<td><p>The mentioned scripts will be included in the <code class="docutils literal notranslate"><span class="pre">Contents/MacOS</span></code>.</p>
+<p>For Python scripts the file in <code class="docutils literal notranslate"><span class="pre">Contents/MacOS</span></code> will be a binary
+that launches the script using the Python interpreter and environment
+from the bundle.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--argv-inject</span></code></p></td>
+<td><p>argv_inject</p></td>
+<td><p>values to inject, a single string will be split using <code class="docutils literal notranslate"><span class="pre">shlex.split</span></code></p></td>
+<td><p>The values will be inserted in to <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> after <code class="docutils literal notranslate"><span class="pre">argv[0]</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--bdist-base</span></code></p></td>
+<td><p>bdist_base</p></td>
+<td><p>directory name</p></td>
+<td><p>base directory for build library (default is build)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--dist-dir</span></code></p></td>
+<td><p>dist_dir</p></td>
+<td><p>directory name</p></td>
+<td><p>directory to put the final built distributions in (default is dist)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--include-plugins</span></code></p></td>
+<td><p>include_plugins</p></td>
+<td><p>List of plugin bundles</p></td>
+<td><p>The plugin bundles will be copied into the application bundle at
+the expected location for the type of plugin</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--redirect-stdout-to-asl</span></code></p></td>
+<td><p>redirect_stdout_to_asl</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Forward the stdout/stderr streams to Console.app using ASL</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--force-system-tk</span></code></p></td>
+<td><p>force_system_tk</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Ensures that Tkinter will be linked to the system copy
+of Tcl and Tk.</p>
+<p>This makes the bundle smaller, but the system version of Tcl/Tk
+is ancient an buggy. Don’t use this option.</p>
+<p><strong>This is a legacy option that will be dropped in a future version</strong></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--prefer-ppc</span></code></p></td>
+<td><p>prefer_ppc</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Force the application to run translated on i386</p>
+<p><strong>This is a legacy option that will be dropped in a future version</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--debug-modulegraph</span></code></p></td>
+<td><p>debug_modulegraph</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Drop into the pdb debugger after building the module graph</p>
+<p><em>This is an development option</em></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--debug-skip-macholib</span></code></p></td>
+<td><p>debug_skip_macholib</p></td>
+<td><p>None (use <code class="docutils literal notranslate"><span class="pre">True</span></code> in setup.py)</p></td>
+<td><p>Don’t run macholib. The output will not be standalone.</p>
+<p><em>This is an development option</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Options to specify which objects to include or exclude (the first part of the table
+above) are used to finetune the behaviour of py2app and should generally not be
+necessary. Please file an issue on the py2app tracker if a package on PyPI requires
+one of these options, which allows me to change py2app to do the right thing
+automatically.</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">py2app Options</a><ul>
+<li><a class="reference internal" href="#option-reference">Option Reference</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="previous chapter">Example setup.py templates</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="recipes.html"
+                        title="next chapter">Recipes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/options.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="recipes.html" title="Recipes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Example setup.py templates"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">py2app Options</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010, Ronald Oussoren, Bob Ippolito.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>

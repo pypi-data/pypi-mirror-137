@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debugging application building &#8212; py2app 0.25 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dependencies" href="dependencies.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dependencies.html" title="Dependencies"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Debugging application building</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="debugging-application-building">
+<h1>Debugging application building<a class="headerlink" href="#debugging-application-building" title="Permalink to this headline">¶</a></h1>
+<p>The py2app builder won’t always generate a working application out of the box for
+various reasons.  An incomplete build generally results in an application
+that won’t launch, most of the time with a generic error dialog from
+py2app.</p>
+<p>The easiest way to debug build problems is to start the application
+directly in the Terminal.</p>
+<p>Given an application “MyApp.app” you can launch the application as
+follows:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ dist/MyApp.app/Contents/MacOS/MyApp
+</pre></div>
+</div>
+<p>This will start the application as a normal shell command, with
+output from the application (both stdout and stderr) shown in
+the Terminal window.</p>
+<p>Some common problems are:</p>
+<ul>
+<li><p>An import statement fails due to a missing module or package</p>
+<p>This generally happens when the dependency cannot be found
+by the source code analyzer, either due to dynamic imports
+(using <code class="docutils literal notranslate"><span class="pre">__import__()</span></code> or <code class="docutils literal notranslate"><span class="pre">importlib</span></code> to load a module),
+or due to imports in a C extension.</p>
+<p>In both cases use <code class="docutils literal notranslate"><span class="pre">--includes</span></code> or <code class="docutils literal notranslate"><span class="pre">--packages</span></code> to add
+the missing module to the application.</p>
+<p>If this is needed for a project on PyPI: Please file a bug
+on GitHub, that way we can teach py2app to do the right thing.</p>
+</li>
+<li><p>C library cannot find resources</p>
+<p>This might happen when a C library looks for resources in
+a fixed location instead to looking relative to the library
+itself.  There are often APIs to tell the library which location
+it should use for resources.</p>
+<p>If this needed for a project on PyPI: Please file a bug
+on GitHub, including the workaround, that way we can teach
+py2app to the the right thing.</p>
+</li>
+</ul>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="previous chapter">Tutorial</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dependencies.html"
+                        title="next chapter">Dependencies</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/debugging.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dependencies.html" title="Dependencies"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Debugging application building</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010, Ronald Oussoren, Bob Ippolito.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>

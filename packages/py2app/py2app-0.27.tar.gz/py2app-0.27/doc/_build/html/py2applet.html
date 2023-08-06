@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>py2applet &#8212; py2app 0.25 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release history" href="changelog.html" />
+    <link rel="prev" title="Implementation Details" href="implementation.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="changelog.html" title="Release history"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="implementation.html" title="Implementation Details"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">py2applet</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="py2applet">
+<h1>py2applet<a class="headerlink" href="#py2applet" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">py2applet</span></code> script can be used either to create an application
+quickly in-place, or to generate a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file that does the same.</p>
+<p>In normal usage, simply run <code class="docutils literal notranslate"><span class="pre">py2applet</span></code> with the options you would
+normally pass to the <code class="docutils literal notranslate"><span class="pre">py2app</span></code> command, plus the names of any scripts,
+packages, icons, plist files, or data files that you want to generate
+the application from.</p>
+<p>The first <code class="docutils literal notranslate"><span class="pre">.py</span></code> file is the main script. The application’s name will
+be derived from this main script.</p>
+<p>The first <code class="docutils literal notranslate"><span class="pre">.icns</span></code> file, if any, will be used as the application’s icon
+(equivalent to using the <code class="docutils literal notranslate"><span class="pre">--iconfile</span></code> option).</p>
+<p>Any folder given that contains an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> will be wholly included as
+out of the zip file (equivalent to using the <code class="docutils literal notranslate"><span class="pre">--packages</span></code> option).</p>
+<p>Any other file or folder will be included in the <code class="docutils literal notranslate"><span class="pre">Contents/Resources/</span></code>
+directory of the application bundle (equivalent to the <code class="docutils literal notranslate"><span class="pre">--resources</span></code>
+option).</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">--make-setup</span></code> is passed as the first option to <code class="docutils literal notranslate"><span class="pre">py2applet</span></code>, it will
+generate a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file that would do the above if run. This can
+be used to quickly generate a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> for a new project, or if you
+need to tweak a few complex options. The <a class="reference internal" href="tutorial.html"><span class="doc">Tutorial</span></a> demonstrates this
+functionality.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="implementation.html"
+                        title="previous chapter">Implementation Details</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="changelog.html"
+                        title="next chapter">Release history</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/py2applet.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="changelog.html" title="Release history"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="implementation.html" title="Implementation Details"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">py2applet</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010, Ronald Oussoren, Bob Ippolito.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example setup.py templates &#8212; py2app 0.25 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="py2app Options" href="options.html" />
+    <link rel="prev" title="Tweaking your Info.plist" href="tweaking.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="options.html" title="py2app Options"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tweaking.html" title="Tweaking your Info.plist"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Example setup.py templates</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="example-setup-py-templates">
+<h1>Example setup.py templates<a class="headerlink" href="#example-setup-py-templates" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basic">
+<h2>Basic<a class="headerlink" href="#basic" title="Permalink to this headline">¶</a></h2>
+<p>The simplest possible <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script to build a py2app application
+looks like the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">py2app build script for MyApplication</span>
+
+<span class="sd">Usage:</span>
+<span class="sd">    python setup.py py2app</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">app</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MyApplication.py&quot;</span><span class="p">],</span>
+<span class="n">setup_requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;py2app&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="py2applet.html"><span class="doc">py2applet</span></a> script can create <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> files of this variety
+for you automatically:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ py2applet --make-setup MyApplication.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="cross-platform">
+<h2>Cross-platform<a class="headerlink" href="#cross-platform" title="Permalink to this headline">¶</a></h2>
+<p>Cross-platform applications can share a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script for both
+<a class="reference external" href="http://pypi.python.org/pypi/py2exe/">py2exe</a> and py2app. Here is an example
+<code class="docutils literal notranslate"><span class="pre">setup.py</span></code> that will build an application on Windows or Mac OS X:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> py2app/py2exe build script for MyApplication.</span>
+
+<span class="sd"> Will automatically ensure that all build prerequisites are available</span>
+<span class="sd"> via ez_setup</span>
+
+<span class="sd"> Usage (Mac OS X):</span>
+<span class="sd">     python setup.py py2app</span>
+
+<span class="sd"> Usage (Windows):</span>
+<span class="sd">     python setup.py py2exe</span>
+<span class="sd"> &quot;&quot;&quot;</span>
+ <span class="kn">import</span> <span class="nn">sys</span>
+ <span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+
+ <span class="n">mainscript</span> <span class="o">=</span> <span class="s1">&#39;MyApplication.py&#39;</span>
+
+ <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;darwin&#39;</span><span class="p">:</span>
+     <span class="n">extra_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+         <span class="n">setup_requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;py2app&#39;</span><span class="p">],</span>
+         <span class="n">app</span><span class="o">=</span><span class="p">[</span><span class="n">mainscript</span><span class="p">],</span>
+         <span class="c1"># Cross-platform applications generally expect sys.argv to</span>
+         <span class="c1"># be used for opening files.</span>
+         <span class="c1"># Don&#39;t use this with GUI toolkits, the argv</span>
+         <span class="c1"># emulator causes problems and toolkits generally have</span>
+         <span class="c1"># hooks for responding to file-open events.</span>
+         <span class="n">options</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">py2app</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">argv_emulation</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+     <span class="p">)</span>
+ <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
+     <span class="n">extra_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+         <span class="n">setup_requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;py2exe&#39;</span><span class="p">],</span>
+         <span class="n">app</span><span class="o">=</span><span class="p">[</span><span class="n">mainscript</span><span class="p">],</span>
+     <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+     <span class="n">extra_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+         <span class="c1"># Normally unix-like platforms will use &quot;setup.py install&quot;</span>
+         <span class="c1"># and install the main script as such</span>
+         <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="n">mainscript</span><span class="p">],</span>
+     <span class="p">)</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;MyApplication&quot;</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">extra_options</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Example setup.py templates</a><ul>
+<li><a class="reference internal" href="#basic">Basic</a></li>
+<li><a class="reference internal" href="#cross-platform">Cross-platform</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tweaking.html"
+                        title="previous chapter">Tweaking your Info.plist</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="options.html"
+                        title="next chapter">py2app Options</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/examples.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="options.html" title="py2app Options"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tweaking.html" title="Tweaking your Info.plist"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Example setup.py templates</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010, Ronald Oussoren, Bob Ippolito.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>

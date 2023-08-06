@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frequently Asked Questions &#8212; py2app 0.25 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tweaking your Info.plist" href="tweaking.html" />
+    <link rel="prev" title="Dependencies" href="dependencies.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tweaking.html" title="Tweaking your Info.plist"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dependencies.html" title="Dependencies"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Frequently Asked Questions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="frequently-asked-questions">
+<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p>“Mach-O header may be too large to relocate”</p>
+<p>Py2app will fail with a relocation error when
+it cannot rewrite the load commands in shared
+libraries and binaries copied into the application
+or plugin bundle.</p>
+<p>This error can be avoided by rebuilding binaries
+with enough space in the Mach-O headers, either
+by using the linker flag “-headerpad_max_install_names”
+or by installing shared libraries in a deeply
+nested location (the path for the install root needs
+to be at least 30 characters long).</p>
+</li>
+<li><p>M1 Macs and libraries not available for arm64</p>
+<p>A lot of libraries are not yet available as arm64 or
+universal2 libraries.</p>
+<p>For applications using those libraries you can
+create an x86_64 (Intel) application instead:</p>
+<ol class="arabic">
+<li><p>Create a new virtual environment and activate this</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">arch</span> <span class="pre">-x86_64</span> <span class="pre">python</span> <span class="pre">-mpip</span> <span class="pre">install</span> <span class="pre">...</span></code> to
+install libraries.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">arch</span></code> command is necessary here to ensure
+that pip selects variants that are compatible with
+the x86_64 architecture instead of arm64.</p>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">arch</span> <span class="pre">-x86_64</span> <span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">py2app</span> <span class="pre">--arch</span> <span class="pre">x86_64</span></code>
+to build</p></li>
+</ol>
+<p>This results in an application bundle where the
+launcher is an x86_64 only binary, and where included
+C extensions and libraries are compatible with that architecture
+as well.</p>
+</li>
+<li><p>Using Cython with py2app</p>
+<p>Cython generates C extensions. Because of that the dependency
+walker in py2app cannot find import statements in “.pyx” files”.</p>
+<p>To create working applications you have to ensure that
+dependencies are made visible to py2app, either by adding
+import statements to a python file that is included in the
+application, or by using the “includes” option.</p>
+<p>See examples/PyQt/cython_app in the repository for an
+example of the latter.</p>
+</li>
+<li><p>Dark mode support</p>
+<p>The stub executables from py2app were compiled on an
+old version of macOS and therefore the system assumes
+that applications build with py2app do not support Dark Mode
+unless you’re building a “Universal 2” or “Apple Silicon”
+application.</p>
+<p>To enable Dark Mode support for other builds of Python you
+need to add a key to the Info.plist file. The easiest way
+to do this is using the following option in setup.py:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="n">options</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+      <span class="n">py2app</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">plist</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+          <span class="n">NSRequiresAquaSystemAppearance</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+      <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dependencies.html"
+                        title="previous chapter">Dependencies</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tweaking.html"
+                        title="next chapter">Tweaking your Info.plist</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/faq.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tweaking.html" title="Tweaking your Info.plist"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dependencies.html" title="Dependencies"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py2app 0.25 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Frequently Asked Questions</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010, Ronald Oussoren, Bob Ippolito.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>
