@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: zage
+Version: 0.2.2
+Summary: Python bindings for the Zage API
+Home-page: https://pypi.org/project/zage/
+Author: Zage Inc.
+Author-email: support@zage.app
+License: MIT
+Keywords: zage api payments
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests[security] (>=2.20) ; python_version < "3.0"
+Requires-Dist: requests (>=2.20) ; python_version >= "3.0"
+
+# Official Zage Bindings for Python
+
+A Python library for Zage's API.
+
+## Installation
+
+You can install this package using pip:
+
+```sh
+python -m pip install zage
+```
+
+## Usage
+
+This library must be initialized by specifying your credentials for the desired environment (sandbox or prod).
+
+This is as simple as setting `zage.public_key` and `zage.private_key` to the requisite values before making an API call:
+
+```python
+import zage
+
+zage.public_key = "test_..."
+zage.secret_key = "test_..."
+
+# create a payment token
+payment_token = zage.Payments.create_token(
+    amount=1000, # in cents
+    webhook="https://zage.app/on_success",
+    metadata={},
+)
+
+print(payment_token)
+
+```
+
+
