@@ -1,0 +1,65 @@
+Metadata-Version: 2.1
+Name: ace-hunter
+Version: 1.0.0
+Summary: Python library and command line tool hunting in ACE ecosystems.
+Home-page: https://github.com/ace-ecosystem/ace-hunter
+Author: Sean McFeely
+Author-email: mcfeelynaes@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/ace-ecosystem/ace-hunter/issues
+Description: # ace-hunter
+        
+        `ace-hunter` is primarily a command line tool for performing hunt validation in ACE environments. It's derived directly from the ACE Hunting System and can serve has a drop in replacement with some small changes to the ACE Hunting System.
+        
+        Splunk hunts are the only hunts currently supported.
+        
+        
+        ## Install
+        
+        ```
+        pip install ace_hunter
+        ``` 
+        
+        You could also git clone this repo and `python3 setup.py install` inside whatever python environment you with. *NOTE*: I've only tested this in python3.9 but it should work for python>=3.6.
+        
+        
+        ## CLI Tool
+        
+        A tool called `hunt` is made available on the command line after install.
+        
+        ```console
+        $ hunt -h
+        usage: hunt [-h] [-d] {list-types,lt,list,l,verify,v,execute,config} ...
+        
+        A hunting tool for ACE ecosystems.
+        
+        positional arguments:
+          {list-types,lt,list,l,verify,v,execute,config}
+            list-types (lt)     List the types of Hunts configured.
+            list (l)            List the available hunts. The format of the output is E|D type:name - description E: enabled D: disabled
+            verify (v)          Verifies that all configured hunts are able to load.
+            execute             Execute a hunt with the given parameters.
+            config              Configure and query the Hunter configuration.
+        
+        optional arguments:
+          -h, --help            show this help message and exit
+          -d, --debug           Turn on debug logging.
+        ```
+        
+        ## Configure
+        
+        You need to configure ace-hunter to work with your Splunk environment, your splunk hunt rules, and optionally your ACE environment.
+        
+        ## TODO
+        
+          -  [ ] Allow proxy settings to be configurable for flexibility. Use use environment variables as needed for now.
+Keywords: ACE,hunting
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
