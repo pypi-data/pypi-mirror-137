@@ -1,0 +1,44 @@
+# lib-name
+```
+step to commit:
+    step rename:
+        rename:
+        ./
+        |__src/
+            |__packge_name/
+        to your package name
+    step edit:
+        edit:
+            ./
+            |__setup.cfg
+        name, version, author, author_email
+    step build:
+        step-1:
+            make a pypi account
+        step-2:
+            run code on command line:
+                Unix/macOS:
+                    python3 -m pip install --upgrade build
+                    python3 -m pip install --upgrade twine
+                    python3 -m build
+                    twine upload dist/*
+                Windows:
+                    py -m pip install --upgrade build
+                    py -m pip install --upgrade twine
+                    py -m build
+                    twine upload dist/*
+```
+Uploading distributions to `https://test.pypi.org/legacy/`
+
+Enter your username: `[your username]`
+
+
+Enter your password: `[your password, this is hidden]`
+
+Uploading ```package-name-version-py3-none-any.whl```
+
+100%|█████████████████████| 4.65k/4.65k [00:01<00:00, 2.88kB/s]
+
+Uploading ```package-name-version.tar.gz```
+
+100%|█████████████████████| 4.25k/4.25k [00:01<00:00, 3.05kB/s]
