@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Joplin Vieweb</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/jqtree.css' %}">
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/clearable_input.css' %}">
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/joplin.css' %}">
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/codehilite.css' %}">
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/style-icomoon.css' %}">
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/autosuggest.css' %}">
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/easymde.min.css' %}">
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/jquery.modal.min.css' %}" />
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/popup.css' %}" />
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/pymdown_tab.css' %}" />
+<link rel="stylesheet" href="{% static 'joplinvieweb/css/hyperlink_preview.css' %}" />
+<script>
+    var number_header_css_path = "{% static "joplinvieweb/css/number.css" %}"
+</script>
+
+<script src="{% static 'joplinvieweb/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/tree.jquery.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/utils.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/clearable_input.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/jquery.autocomplete.min.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/NoteTags.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/NotesList.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/SideBar.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/easymde.min.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/NoteEditor.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/NoteView.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/joplinvieweb.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/draggabilly.pkgd.min.js' %}"></script>
+<script src="{% static 'joplinvieweb/js/jquery.modal.min.js' %}"></script>
+<body>
+
+<div id="joplin_container">
+    <div id="side_ctn">
+        <div id="notebooks_tree_ctn">
+            <div class="accordion_header header not_sync_header">
+                <div id="notebook_toolbox" class="toolbox_float_right">
+                    <span class="icon-plus1"></span>
+                    <span class="icon-pencil"></span>
+                </div>
+                <span class="icon-s-book"></span>
+                &nbsp;&nbsp;Notebooks
+            </div>
+                <div class="accordion-inner" id="notebooks_tree"><div id="notebooks_tree_inner"></div></div>
+        </div>
+        <div id="tags_ctn">
+            <div class="accordion_header header not_sync_header">
+            <span class="icon-s-tags"></span>
+            &nbsp;&nbsp;Tags</div>
+            <div class="accordion-inner" id="tags"></div>
+        </div>
+        {% if sync_enable %}
+        <div id="sync_ctn">
+            <div class="accordion_header header">
+                <span class="icon-refresh"></span>
+                &nbsp;&nbsp;Synchronisation
+            </div>
+            <div class="accordion-inner" id="sync">
+                <div id="sync-data"></div>
+                <div id="sync_action">
+                    <div class="icon-refresh"></div>
+                </div>
+                <div>
+                    <div class="synch_output" id="synch_output_out"></div>
+                    <div class="synch_output" id="synch_output_err"></div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div id="notes_list_ctn">
+        <div class="notes_list_section section_2">
+            <div class="notes_list_header header">
+                <div id="notes_list_toolbox" class="toolbox_float_right"><span class="icon-plus1"></span></div>
+                <span class="icon-sticky-note-o"></span>
+                &nbsp;&nbsp;Notes
+            </div>
+            <div id="notes_list"></div>
+        </div>
+        <div class="notes_list_section section_1">
+            <div class="lasts_notes_header header">
+                <span class="icon-stack"></span>
+                &nbsp;&nbsp;last viewed
+            </div>
+            <div id="lasts_notes">
+                <div class="progress_placeholder"></div>
+                <ul></ul>
+            </div>
+        </div>
+    </div>
+    <div id="note_view_ctn">
+        <div class="note_view_header header">
+            <div id="note_view_header_left" class="toolbox_float_left"></div>
+            <div id="note_view_header_right" class="toolbox_float_right"></div>
+            <span id="note_header_title"></span>
+        </div>
+        <div id="note_view"></div>
+    </div>
+</div>
+
+<!-- Modal stuff -->
+
+<!-- New notebook creation -->
+<span id="notebook_create_popup" class="modal">
+    <div class="popup_title">Create new notebook</div>
+    <label for="nb_title">Notebook title: </label><input type="text" id="nb_title" name="nb_title" autofocus><br><br>
+    
+    <input type="radio" id="new_nb_root_radio" name="new_nb_parent_group">
+    <label for="new_nb_root_radio">root notebook</label><br>
+    <input type="radio" id="new_nb_with_parent_radio" name="new_nb_parent_group">
+    <label for="new_nb_with_parent_radio">parent notebook: <span id="new_nb_with_parent_name"></span></label>
+    <div class="popup_button_bar_2">
+        <div class="popup_button button_OK">OK</div>
+        <div class="popup_button button_Cancel last_popup_button">Cancel</div>
+    </div>
+</span>
+
+<!-- rename notebook popup -->
+<span id="notebook_rename_popup" class="modal">
+    <div class="popup_title">Rename notebook [ <span class="notebook_rename_popup_nb_name"></span> ]</div>
+    <label for="notebook_rename_popup_nb_title">New notebook title: </label><input type="text" name="notebook_rename_popup_nb_title"><br><br>
+
+    <div class="popup_button_bar_2">
+        <div class="popup_button button_OK">Rename</div>
+        <div class="popup_button button_Cancel last_popup_button">Cancel</div>
+    </div>
+</span>
+
+<!-- Error: New notebook creation without title -->
+<span id="notebook_create_popup_error_no_title" class="modal">
+    <div class="popup_title popup_title_error">Create new notebook</div>
+    <p>Creation abort: no title.</p>
+</span>
+
+<!-- delete notebook confirm -->
+<span id="notebook_delete_popup" class="modal">
+    <div class="popup_title popup_title_error">Delete notebook [ <span id="notebook_delete_popup_nb_name"></span> ]?</div>
+    <p>Are you sure?</p>
+    <p>All contained notebooks and notes will be deleted also.</p>
+    <br/>
+    <div class="popup_button_bar_2">
+        <div class="popup_button button_OK">Delete</div>
+        <div class="popup_button button_Cancel last_popup_button">Cancel</div>
+    </div>
+</span>
+
+<!-- Please select a notebook (while note create asked without notebook selected.) -->
+<span id="note_create_please_select_notebook_popup" class="modal">
+    <div class="popup_title popup_title_error">Note creation</div>
+    <p>Please select a notebook</p>
+</span>
+
+<!-- edit or delete a notebook -->
+<span id="edit_or_delete_notebook_popup" class="modal">
+    <div class="popup_title">Notebook [ <span id="edit_or_delete_notebook_nb_name"></span> ]</div>
+    <p>Please select the action to perform on the notebook</p>
+    <br/>
+    <div class="popup_button_bar_2">
+        <div class="popup_button button_edit"><span class="icon-pencil"></span>&nbsp;&nbsp;Edit</div>
+        <div class="popup_button button_delete last_popup_button"><span class="icon-trash-o"></span>&nbsp;&nbsp;Delete</div>
+    </div>
+</span>
+
+<!-- Note deletion confirm -->
+<span id="note_delete_popup" class="modal">
+    <div class="popup_title popup_title_error">Delete note [ <span id="note_delete_popup_note_name"></span> ]?
+    </div>
+    <p>Are you sure?</p>
+    
+    <div class="popup_button_bar_2">
+        <div class="popup_button button_OK">Delete</div>
+        <div class="popup_button button_Cancel last_popup_button">Cancel</div>
+    </div>
+</span>
+
+</body>
+</html> 
