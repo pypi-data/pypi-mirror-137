@@ -1,0 +1,32 @@
+{% extends layout or "body.html" %}
+{% block content %}
+<form action="/new/{{ data.ecas_id | safe }}" id="next_action">
+    <input type="submit" value="New DICE">
+</form>
+<a href="/keys/dice.co2mpas.keys">Keys</a>
+<div id="page_content">
+    {{
+    df[[
+        'id', 'uploaded_fname', 'time_upload', 'random', 'deviation__nedc_h',
+        'deviation__nedc_l', 'vehicle_family_id', 'parent_vehicle_family_id',
+        'bifuel', 'input_type', 'extension', 'incomplete', 'fuel_type',
+        'hash__tot'
+    ]].rename(columns={
+        'id': 'ID',
+        'uploaded_fname': 'Uploaded File',
+        'time_upload': 'Time Upload',
+        'random': 'Random Number',
+        'deviation__nedc_h': 'NEDC-H Deviation [%]',
+        'deviation__nedc_l': 'NEDC-L Deviation [%]',
+        'vehicle_family_id': 'Vehicle Family ID',
+        'parent_vehicle_family_id': 'Parent Vehicle Family ID',
+        'incomplete': 'Is Incomplete',
+        'bifuel': 'Is Bi-fuel',
+        'input_type': 'Input Type',
+        'extension': 'Is Extension',
+        'fuel_type': 'Fuel Type',
+        'hash__tot': 'Correlation Hash',
+    }).to_html(index=False, table_id='diced')
+    | safe}}
+</div>
+{% endblock %}

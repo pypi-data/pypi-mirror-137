@@ -1,0 +1,8 @@
+{% extends layout or "body.html" %}
+{% block content %}
+<form action="/diced" id="next_action">
+    ECAS ID:
+    <input type="text" name="ecas_id" value="{{ data.ecas_id | safe }}" required><br>
+    <input type="submit" value="Login">
+</form>
+{% endblock %}

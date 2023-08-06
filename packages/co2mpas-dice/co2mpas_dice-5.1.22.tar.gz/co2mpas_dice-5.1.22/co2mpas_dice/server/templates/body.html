@@ -1,0 +1,12 @@
+{% extends layout or "layout.html" %}
+{% block container %}
+    <div class="ecl-editor ecl-container">
+        {% if error %}
+            <div id="page_content">
+                {{ error.replace('\n', '<br>') | safe }}<br>
+            </div>
+        {% else %}
+            {% block content %}{% endblock %}
+        {% endif %}
+    </div>
+{% endblock %}

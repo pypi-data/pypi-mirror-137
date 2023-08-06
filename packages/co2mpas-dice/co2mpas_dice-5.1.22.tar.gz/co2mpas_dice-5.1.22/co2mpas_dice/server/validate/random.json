@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "DICE random schema",
+  "type": "object",
+  "properties": {
+    "random": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "user_random": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "server_random": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "user": {
+      "type": "integer"
+    },
+    "company": {
+      "type": "integer"
+    },
+    "user_mail": {
+      "type": "string",
+      "format": "email"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "server_random_signature": {},
+    "server_random_signature_hash": {},
+    "server_pub_key": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "random",
+    "user_random",
+    "server_random",
+    "user",
+    "company",
+    "user_mail",
+    "company_name",
+    "server_random_signature",
+    "server_random_signature_hash",
+    "server_pub_key"
+  ]
+}

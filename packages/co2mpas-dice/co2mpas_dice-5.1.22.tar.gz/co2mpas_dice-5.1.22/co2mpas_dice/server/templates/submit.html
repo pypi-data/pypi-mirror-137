@@ -1,0 +1,84 @@
+{% extends layout or "body.html" %}
+{% block content %}
+<div id="page_content">
+    Congratulation <b>{{ data.submit.user_mail | safe }}</b>,<br>
+    <br>
+    you have successfully submitted the <b>{{ data.data_type == 'jet' and 'JET' or 'correlation' | safe }} output report</b>
+    (<i>{{ data.submit.uploaded_fname | safe }}</i>).<br>
+    <br>{% if data.submit.status_random != 2 %}
+    The zip file {{ data.submit.attachment | safe }}, that you will receive
+    attached to the confirmation email, contains:<br>
+    <ul>
+        <li>the <b>DICE Receipt</b>
+            <i>{{ data.submit.receipt_id | safe }}.dice</i>,
+        </li>
+        <li>a python script <i>verification.py</i> to validate the DICE Receipt
+            and optionally generate the <b>COMPLETE {{ data.data_type == 'jet' and 'DICE' or 'CORRELATION' | safe }} FILE</b>,
+            and</li>
+        <li>a <i>README.rst</i> that explains how to use the content of the zip
+            file.</li>
+    </ul>
+    The <b>DICE receipt hash</b> is the following:<br>
+    <br>
+    <b>{{ data.submit.hash | safe }}</b><br>
+    <br>{% if data.data_type == 'co2mpas' %}{% if data.submit.status_random == 0 %}
+    The random number is <b>{{ data.submit.random | safe}}</b> for the submitted
+    vehicle family id (<i>{{ data.submit.vehicle_family_id | safe }}</i>).
+    {% elif data.submit.status_random == 1 %}
+    The random number is not present in the <b>DICE Receipt</b>, because the
+    submitted vehicle family id
+    <i>{{ data.submit.vehicle_family_id | safe }}</i> is linked to
+    <i>{{ data.submit.parent_vehicle_family_id | safe }}</i> - i.e.,
+    <b>DICE Receipt</b>
+    <i>{{ splitext(data.submit.parent[1])[0] | safe }}.dice</i>.
+    {% elif data.submit.status_random == 3 %}
+    The random number is not present in the <b>DICE Receipt</b>, because the
+    submitted vehicle family id
+    <i>{{ data.submit.vehicle_family_id | safe }}</i> is hybrid.
+    {% elif data.submit.status_random == 4 %}
+    The random number is not present in the <b>DICE Receipt</b>, because you
+    have corrected just the vehicle family id of the previous submission - i.e.,
+    <b>DICE Receipt</b>
+    <i>{{ splitext(data.submit.prev_valid[1])[0] | safe }}.dice</i>.
+    {% elif data.submit.status_random == 5 %}
+    The random number is not present in the <b>DICE Receipt</b>, because you
+    have corrected the target NEDC values of the previous submission - i.e.,
+    <b>DICE Receipt</b>
+    <i>{{ splitext(data.submit.prev_valid[1])[0] | safe }}.dice</i>.
+    Therefore, a physical NEDC test should be performed.
+    {% elif data.submit.status_random == 6 %}
+    The random number is not present in the <b>DICE Receipt</b>, because you
+    have submitted a wltp-retest = 'a' that is linked to the previous
+    submission - i.e.,
+    <b>DICE Receipt</b>
+    <i>{{ splitext(data.submit.prev_valid[1])[0] | safe }}.dice</i>.
+    {% elif data.submit.status_random == 7 %}
+    The random number is not present in the <b>DICE Receipt</b>, because you
+    have submitted a correction that does not change CO<sub>2</sub>MPAS output
+    in respect to the previous submission - i.e.,
+    <b>DICE Receipt</b>
+    <i>{{ splitext(data.submit.prev_valid[1])[0] | safe }}.dice</i>.
+    {% endif %}
+    {% if data.submit.status_random != 3 %}
+    The CO<sub>2</sub>MPAS deviations are the following:<br>
+    <br>
+    {{ pd.DataFrame(data.submit.deviations[1:], columns=data.submit.deviations[0]).to_html(
+          index=False, table_id='deviations'
+       ) | safe }}
+    <br>
+    {% endif %}{% endif %}
+    To validate the <b>DICE Receipt</b> and generate the
+    <b>COMPLETE {{ data.data_type == 'co2mpas' and 'CORRELATION' or 'DICE' | safe }} FILE</b> you have to unzip the attached file (that
+    is sent to you in the confirmation email) and
+    follow the instructions written in the <i>README.rst</i>.
+    {% elif data.submit.status_random == 2 %}
+    Since the vehicle is a bi-fuel, to complete the submission procedure you
+    have to submit a second <b>{{ data.data_type == 'co2mpas' and 'correlation' or 'JET' | safe }} output report</b> with the second
+    fuel type.
+    {% endif %}
+    <br><br>
+</div>
+<form action="/diced/{{ data.ecas_id | safe }}" id="next_action">
+    <input type="submit" value="Continue">
+</form>
+{% endblock %}

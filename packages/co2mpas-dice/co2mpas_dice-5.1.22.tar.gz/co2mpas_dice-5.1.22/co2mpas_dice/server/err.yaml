@@ -1,0 +1,16 @@
+Invalid user key, please correct or contact us.: |-
+  Invalid USER KEY (sign.dice.key).
+
+  Possible causes:
+  a. old DICE/CO2MPAS user using a new JET encryption key for the first time;
+  b. lost user signature key;
+  c. changed computer.
+
+  Solution:
+
+    1a. (for old DICE/CO2MPAS user) search for the user signature key (i.e.,
+        'sign.co2mpas.key') inside the CO2MPAS DICE KEYS folder (i.e.,
+        C:/Users/"username” folder);
+    1b. (you lost your user signature key) generate a new user signature key and
+        contact us;
+    2. encrypt JET input file using the user signature key mentioned above.

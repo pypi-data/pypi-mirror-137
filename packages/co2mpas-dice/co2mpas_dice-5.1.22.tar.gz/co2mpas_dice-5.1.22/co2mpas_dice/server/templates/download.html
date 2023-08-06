@@ -1,0 +1,15 @@
+{% extends layout or "body.html" %}
+{% block onLoad %}
+    <script type="text/javascript">
+        function onLoad() {
+            document.getElementById('download_link').click()
+        }
+    </script>
+{% endblock %}
+{% block content %}
+    <div id="page_content"><p>
+        If `{{ fname | safe }}` has not been downloaded, you can click <a
+            id="download_link" href="{{ uri | safe }}"
+            download="{{ fname | safe }}">here</a>.
+    </p></div>
+{% endblock %}

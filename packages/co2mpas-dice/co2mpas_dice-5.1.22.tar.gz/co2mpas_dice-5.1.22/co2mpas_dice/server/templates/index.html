@@ -1,0 +1,25 @@
+{% extends layout or "body.html" %}
+{% block content %}
+    <form action="/register" id="pre_action">
+        Company name:<br>
+        <input type="text" name="company_name" value="company" required><br>
+        User mail:<br>
+        <input type="email" name="user_mail" value="user@mail.com" required><br>
+        ECAS ID:
+        <input type="text" name="ecas_id" value="admin"><br>
+        <input type="submit" value="Register">
+    </form>
+    <form action="/diced" id="next_action">
+        ECAS ID:
+        <input type="text" name="ecas_id" value="admin" required><br>
+        <input type="submit" value="Login">
+    </form>
+    <form action="/mail" id="send_mail">
+        Diced file name:
+        <input type="text" name="fname" value=".co2mpas.ta" required><br>
+        <input type="submit" value="Send">
+    </form>
+    <a href="/encrypt">JRC Encryption Tool (JET)</a><br>
+    <a href="/sign_key">New User Signature Key</a><br>
+    <a href="/static/input_template.xlsx">JET input template</a>
+{% endblock %}

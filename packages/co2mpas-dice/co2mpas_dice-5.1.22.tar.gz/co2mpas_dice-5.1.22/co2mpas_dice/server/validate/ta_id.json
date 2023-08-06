@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "DICE id schema",
+  "type": "object",
+  "properties": {
+    "co2mpas": {
+      "type": "boolean"
+    },
+    "vehicle_family_id": {
+      "type": "string"
+    },
+    "parent_vehicle_family_id": {
+      "type": "string"
+    },
+    "broken_submission_receipt": {
+      "type": "string"
+    },
+    "comments": {
+      "type": "string"
+    },
+    "extension": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "incomplete": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "multipleOf": 1
+    },
+    "input_type": {
+      "type": "string"
+    },
+    "bifuel": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "wltp_retest": {
+      "type": "string"
+    },
+    "fuel_type": {
+      "type": "string"
+    },
+    "hash": {
+      "type": "object",
+      "properties": {
+        "inputs": {},
+        "input": {},
+        "target_wltp": {},
+        "target_nedc": {},
+        "outputs": {},
+        "meta": {},
+        "dice": {},
+        "dice_report": {},
+        "encrypted_data": {},
+        "output_file": {},
+        "input_file": {}
+      },
+      "additionalProperties": false,
+      "required": [
+        "inputs",
+        "meta",
+        "dice",
+        "dice_report",
+        "encrypted_data",
+        "input_file"
+      ]
+    },
+    "atct_family_correction_factor": {
+      "type": "number"
+    },
+    "dice": {
+      "type": "object"
+    },
+    "pub_sign_key": {},
+    "signature": {},
+    "user_random": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "validation_errors": {
+      "type":  ["object", "null"]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "vehicle_family_id",
+    "parent_vehicle_family_id",
+    "comments",
+    "extension",
+    "bifuel",
+    "wltp_retest",
+    "fuel_type",
+    "hash",
+    "atct_family_correction_factor",
+    "dice",
+    "pub_sign_key",
+    "signature",
+    "user_random"
+  ]
+}

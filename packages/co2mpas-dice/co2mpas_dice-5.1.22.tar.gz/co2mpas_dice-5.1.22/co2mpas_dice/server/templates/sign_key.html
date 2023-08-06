@@ -1,0 +1,35 @@
+{% extends layout or "body.html" %}
+{% block javascript %}
+    <script type="text/javascript">
+        {{ template_include("js/sign_key.min.js") | safe }}
+    </script>
+{% endblock %}
+{% block content %}
+    <div id="page_content">
+        <div class="input-form">
+            <div class="container-password" hidden>
+                <label for="password"><p>User Signature Key Password</p></label>
+                <textarea id="password" rows="2" cols="65"
+                          oninput="sign_key.onChange()"></textarea>
+            </div>
+            <br>
+            <button id="run" type="submit" class="ecl-button ecl-button--call"
+                    onclick="sign_key.run({{ ecas_id or '' }})">
+                <span class="ecl-button__container">
+                    <span id="run-text" class="ecl-button__label"
+                          data-ecl-label="true">
+                        Generate
+                    </span>
+                </span>
+            </button>
+            <p><a id="download_key" hidden>Download Signature Key</a></p>
+            <p><a id="download_log" hidden>
+                Download logs for reporting errors
+            </a></p>
+        </div>
+        <div class="logs">
+            <pre id="console" class="console"></pre>
+            <pre id="errors" class="console console-errors"></pre>
+        </div>
+    </div>
+{% endblock %}

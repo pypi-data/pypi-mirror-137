@@ -1,0 +1,559 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DICE database schema",
+  "type": "object",
+  "properties": {
+    "valid": {
+      "type": "boolean"
+    },
+    "time_upload": {},
+    "attachment": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "uploaded_fname": {
+      "type": "string"
+    },
+    "random": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "user_random": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "server_random": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "user": {
+      "type": "integer"
+    },
+    "vehicle_family_id": {
+      "type": "string"
+    },
+    "parent_vehicle_family_id": {
+      "type": "integer"
+    },
+    "broken_submission_receipt": {
+      "type": "integer"
+    },
+    "bifuel": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "input_type": {
+      "type": "string"
+    },
+    "extension": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "incomplete": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "multipleOf": 1
+    },
+    "small_volume_oem": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "multipleOf": 1
+    },
+    "atct_family_correction_factor": {
+      "type": "number"
+    },
+    "fuel_type": {
+      "type": "string"
+    },
+    "wltp_retest": {
+      "type": "string"
+    },
+    "comments": {
+      "type": "string"
+    },
+    "info__CO2MPAS_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "info__JET_version": {
+      "type": "string"
+    },
+    "info__DICE_version": {
+      "type": "string"
+    },
+    "info__SCHEMA_version": {
+      "type": "string"
+    },
+    "info__INPUT_version": {
+      "type": "string"
+    },
+    "info__datetime": {
+      "type": "string"
+    },
+    "deviation__nedc_h": {
+      "type": "number"
+    },
+    "deviation__nedc_l": {
+      "type": "number"
+    },
+    "deviation__wltp_h": {
+      "type": "number"
+    },
+    "deviation__wltp_l": {
+      "type": "number"
+    },
+    "ratios__declared_wltp_h_vs_corrected_wltp_h": {
+      "type": "number"
+    },
+    "ratios__declared_wltp_l_vs_corrected_wltp_l": {
+      "type": "number"
+    },
+    "ratios__declared_wltp_h_vs_declared_nedc_h": {
+      "type": "number"
+    },
+    "ratios__declared_wltp_l_vs_declared_nedc_l": {
+      "type": "number"
+    },
+    "vehicle__engine_is_turbo": {
+      "type": "boolean"
+    },
+    "vehicle__fuel_type": {
+      "type": "string"
+    },
+    "vehicle__engine_capacity": {
+      "type": "number"
+    },
+    "vehicle__gear_box_type": {
+      "type": "string"
+    },
+    "vehicle__engine_max_power": {
+      "type": "number"
+    },
+    "vehicle__engine_speed_at_max_power": {
+      "type": "number"
+    },
+    "nedc_h__delta_state_of_charge": {
+      "type": "number"
+    },
+    "nedc_l__delta_state_of_charge": {
+      "type": "number"
+    },
+    "wltp_h__delta_state_of_charge": {
+      "type": "number"
+    },
+    "wltp_l__delta_state_of_charge": {
+      "type": "number"
+    },
+    "nedc_h__service_battery_delta_state_of_charge": {
+      "type": "number"
+    },
+    "nedc_l__service_battery_delta_state_of_charge": {
+      "type": "number"
+    },
+    "wltp_h__service_battery_delta_state_of_charge": {
+      "type": "number"
+    },
+    "wltp_l__service_battery_delta_state_of_charge": {
+      "type": "number"
+    },
+    "nedc_h__drive_battery_delta_state_of_charge": {
+      "type": "number"
+    },
+    "nedc_l__drive_battery_delta_state_of_charge": {
+      "type": "number"
+    },
+    "wltp_h__drive_battery_delta_state_of_charge": {
+      "type": "number"
+    },
+    "wltp_l__drive_battery_delta_state_of_charge": {
+      "type": "number"
+    },
+    "gears__wltp_h__correlation_coefficient": {
+      "type": "number"
+    },
+    "gears__wltp_l__correlation_coefficient": {
+      "type": "number"
+    },
+    "gears__wltp_h__mean_absolute_error": {
+      "type": "number"
+    },
+    "gears__wltp_l__mean_absolute_error": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__alternator_model__alternator_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__alternator_model__battery_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__at_model__gears": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__clutch_torque_converter_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__co2_params__identified_co2_emissions": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__engine_cold_start_speed_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__engine_coolant_temp_model__engine_coolant_temps": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__engine_speed_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__start_stop_model__engine_starts": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__start_stop_model__on_engine": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__electrics_model__service_battery_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__electrics_model__alternator_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__electrics_model__drive_battery_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__electrics_model__dcdc_converter_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__after_treatment_model__engine_speeds_base": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__control_model__engine_starts": {
+      "type": "number"
+    },
+    "wltp_h__wltp_h__control_model__on_engine": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__alternator_model__alternator_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__alternator_model__battery_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__at_model__gears": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__clutch_torque_converter_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__co2_params__identified_co2_emissions": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__engine_cold_start_speed_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__engine_coolant_temp_model__engine_coolant_temps": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__engine_speed_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__start_stop_model__engine_starts": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__start_stop_model__on_engine": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__electrics_model__service_battery_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__electrics_model__alternator_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__electrics_model__drive_battery_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__electrics_model__dcdc_converter_currents": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__after_treatment_model__engine_speeds_base": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__control_model__engine_starts": {
+      "type": "number"
+    },
+    "wltp_h__wltp_l__control_model__on_engine": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__alternator_model__alternator_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__alternator_model__battery_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__at_model__gears": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__clutch_torque_converter_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__co2_params__identified_co2_emissions": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__engine_cold_start_speed_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__engine_coolant_temp_model__engine_coolant_temps": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__engine_speed_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__start_stop_model__engine_starts": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__start_stop_model__on_engine": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__electrics_model__service_battery_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__electrics_model__alternator_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__electrics_model__drive_battery_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__electrics_model__dcdc_converter_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__after_treatment_model__engine_speeds_base": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__control_model__engine_starts": {
+      "type": "number"
+    },
+    "wltp_l__wltp_h__control_model__on_engine": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__alternator_model__alternator_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__alternator_model__battery_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__at_model__gears": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__clutch_torque_converter_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__co2_params__identified_co2_emissions": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__engine_cold_start_speed_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__engine_coolant_temp_model__engine_coolant_temps": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__engine_speed_model__engine_speeds_out": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__start_stop_model__engine_starts": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__start_stop_model__on_engine": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__electrics_model__service_battery_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__electrics_model__alternator_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__electrics_model__drive_battery_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__electrics_model__dcdc_converter_currents": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__after_treatment_model__engine_speeds_base": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__control_model__engine_starts": {
+      "type": "number"
+    },
+    "wltp_l__wltp_l__control_model__on_engine": {
+      "type": "number"
+    },
+    "hash__tot": {
+      "type": "string"
+    },
+    "hash__inputs": {
+      "type": "string"
+    },
+    "hash__input": {
+      "type": "string"
+    },
+    "hash__target_wltp": {
+      "type": "string"
+    },
+    "hash__target_nedc": {
+      "type": "string"
+    },
+    "hash__outputs": {
+      "type": "string"
+    },
+    "hash__input_file": {
+      "type": "string"
+    },
+    "hash__output_file": {
+      "type": "string"
+    },
+    "hash__meta": {
+      "type": "string"
+    },
+    "hash__dice": {
+      "type": "string"
+    },
+    "hash__dice_report": {
+      "type": "string"
+    },
+    "hash__ta_file": {
+      "type": "string"
+    },
+    "hash__dice_receipt": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "uploaded_fname",
+    "user_random",
+    "server_random",
+    "user",
+    "vehicle_family_id",
+    "bifuel",
+    "extension",
+    "atct_family_correction_factor",
+    "fuel_type",
+    "wltp_retest",
+    "comments",
+    "info__CO2MPAS_version",
+    "info__datetime",
+    "ratios__declared_wltp_h_vs_corrected_wltp_h",
+    "vehicle__engine_is_turbo",
+    "vehicle__fuel_type",
+    "vehicle__engine_capacity",
+    "vehicle__gear_box_type",
+    "vehicle__engine_max_power",
+    "vehicle__engine_speed_at_max_power",
+    "hash__tot",
+    "hash__inputs",
+    "hash__input_file",
+    "hash__meta",
+    "hash__dice",
+    "hash__dice_report",
+    "hash__ta_file"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "info__CO2MPAS_version": {
+            "type": "null"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "input_type",
+          "hash__input",
+          "hash__target_wltp",
+          "info__DICE_version",
+          "info__SCHEMA_version",
+          "info__JET_version"
+        ]
+      },
+      "else": {
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "input_type": {
+                  "const": "Pure ICE"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "deviation__nedc_h",
+                "deviation__wltp_h"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "input_type": {
+                  "const": "Pure ICE"
+                },
+                "incomplete": {
+                  "const": 0
+                }
+              }
+            },
+            "then": {
+              "dependencies": {
+                "ratios__declared_wltp_l_vs_corrected_wltp_l": [
+                  "deviation__nedc_l",
+                  "deviation__wltp_l",
+                  "ratios__declared_wltp_l_vs_declared_nedc_l"
+                ],
+                "ratios__declared_wltp_l_vs_declared_nedc_l": [
+                  "deviation__nedc_l",
+                  "deviation__wltp_l",
+                  "ratios__declared_wltp_l_vs_corrected_wltp_l"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "info__CO2MPAS_version": {
+                  "type": "string",
+                  "pattern": "^[4-9].[0-9]+.[0-9]+$"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "input_type",
+                "hash__input",
+                "hash__target_wltp",
+                "hash__target_nedc"
+              ]
+            }
+          },
+          {
+            "required": [
+              "hash__outputs",
+              "hash__output_file",
+              "ratios__declared_wltp_h_vs_declared_nedc_h"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
