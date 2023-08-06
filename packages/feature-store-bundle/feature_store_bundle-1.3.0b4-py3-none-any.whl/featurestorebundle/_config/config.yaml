@@ -1,0 +1,67 @@
+parameters:
+  featurestorebundle:
+    db_name_template: '%kernel.environment%_feature_store'
+    table_name_template: 'features_{entity}'
+    base_path: 'dbfs:/%kernel.environment%_feature_store'
+    latest_path_template: '%featurestorebundle.base_path%/latest/{entity}.delta'
+    historized_path_template: '%featurestorebundle.base_path%/historized/{entity}.delta'
+    archive_path_template: '%featurestorebundle.base_path%/archive/{entity}/{date}.delta'
+    writer: delta
+    metadata:
+      display_in_notebook: True
+    metadata_api:
+      enabled: False
+      url:
+    entities:
+    widgets:
+      defaults:
+
+services:
+  featurestorebundle.logger:
+    class: logging.Logger
+    factory: ['@loggerbundle.LoggerFactory', 'create']
+    arguments:
+      - 'feature_store'
+
+  featurestorebundle.db.TableNames:
+    arguments:
+      - '%featurestorebundle.latest_path_template%'
+      - '%featurestorebundle.historized_path_template%'
+      - '%featurestorebundle.archive_path_template%'
+
+  featurestorebundle.delta.DeltaWriter:
+    tags:
+      - {name: 'feature.writer', alias: 'delta'}
+
+  featurestorebundle.delta.FeaturesPreparer:
+
+  featurestorebundle.feature.EmptyTableCreator:
+
+  featurestorebundle.feature.EmptyFileCreator:
+
+  featurestorebundle.feature.EmptyDataFrameCreator:
+
+  featurestorebundle.feature.FeatureDataMerger:
+    arguments:
+      - '@featurestorebundle.logger'
+
+  featurestorebundle.feature.FeatureManager:
+
+  featurestorebundle.feature.FeatureTemplateMatcher:
+
+  featurestorebundle.feature.FeatureStore:
+
+  featurestorebundle.metadata.MetadataWriter:
+    arguments:
+      - '@featurestorebundle.logger'
+
+  featurestorebundle.metadata.MetadataHTMLDisplayer:
+
+  featurestorebundle.metadata.TimeWindowHandler:
+
+  featurestorebundle.feature.TablePreparer:
+
+  featurestorebundle.widgets.WidgetsFactory:
+    arguments:
+      - '%featurestorebundle.widgets.defaults%'
+      - '%featurestorebundle.entities%'
