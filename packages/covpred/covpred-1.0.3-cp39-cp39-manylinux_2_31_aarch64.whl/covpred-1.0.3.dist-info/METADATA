@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: covpred
+Version: 1.0.3
+Summary: A library containing algorithms to model population dynamics resulting from infectious diseases and more.
+Home-page: UNKNOWN
+Author: Devansh Rastogi, HeinzHermann, RefreshingAutomate
+Author-email: hello@covpred.de
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Provides-Extra: test
+Requires-Dist: pytest (>=6.0) ; extra == 'test'
+
+# EpidemicsRunner API #
+
+**CovPred** is a Python library that provides various algorithms
+useful for modeling population dynamics inferred from e.g. infectious diseases. Amongst others, it is used by [CovPred](www.CovPred.de) in this exact form.
+
+# Contents
+
+* [Installation Notes](#installation)
+* [Description](#description)
+
+
+
+# Installation Notes 
+## General
+Just run pip-install covpred
+
+# Description
+The following algorithms are currently implemented:
+
+|Name|Description|
+|---|---|
+|SIR|Classical Susceptible-Infected-Recovered ODE Model augmented with a deceased class|
+|SEIRD| Extended SIR model accounting for a new class (Exposed) amongst other additions|
+|SEIRD_VARA|Extended SIR model paired with variable (over time) infection rate|
+|SEIRD_CK|Coupled ODE SEIRD Model to model interaction between the ODE systems|
+|SEIRD_PDE| A PDE formulation of the SEIRD model, discretized using Finite Differences|
+
+
+
