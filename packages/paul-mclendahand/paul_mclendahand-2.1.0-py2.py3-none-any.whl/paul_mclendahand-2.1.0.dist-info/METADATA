@@ -1,0 +1,221 @@
+Metadata-Version: 2.1
+Name: paul-mclendahand
+Version: 2.1.0
+Summary: Tool for combining GitHub pull requests.
+Home-page: https://github.com/willkg/paul-mclendahanad
+Author: Will Kahn-Greene
+Author-email: willkg@mozilla.com
+License: MPLv2
+Keywords: github pr
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: black (==22.1.0) ; extra == 'dev'
+Requires-Dist: check-manifest (==0.47) ; extra == 'dev'
+Requires-Dist: flake8 (==4.0.1) ; extra == 'dev'
+Requires-Dist: tox (==3.24.5) ; extra == 'dev'
+Requires-Dist: tox-gh-actions (==2.9.1) ; extra == 'dev'
+Requires-Dist: twine (==3.8.0) ; extra == 'dev'
+
+================
+paul-mclendahand
+================
+
+Tool for combining GitHub pull requests.
+
+:Code:          https://github.com/willkg/paul-mclendahand
+:Issues:        https://github.com/willkg/paul-mclendahand/issues
+:License:       MPL v2
+:Documentation: this README
+
+
+Install
+=======
+
+(Recommended) With `pipx <https://pypi.org/project/pipx/>`_::
+
+    pipx install paul-mclendahand
+
+With pip from PyPI::
+
+    pip install paul-mclendahand
+    
+With pip from GitHub main branch::
+
+    pip install https://github.com/willkg/paul-mclendahand/archive/main.zip
+
+With pip from a clone of the repository with dev dependencies::
+
+    pip install -e '.[dev]'
+
+    
+Quick start
+===========
+
+Configure pmac
+--------------
+
+pmac needs to know the GitHub user and GitHub project.
+
+You can set configuration in the ``setup.cfg`` file::
+
+   [tool:paul-mclendahand]
+   github_user=user
+   github_project=project
+   main_branch=git-main-branch-name
+
+You can override the ``setup.cfg`` variables with environment variables::
+
+   PMAC_GITHUB_USER=user
+   PMAC_GITHUB_PROJECT=project
+   PMAC_MAIN_BRANCH=git-main-branch-name
+
+**Optional**
+
+You can also use a GitHub personal access token. You set it in the
+``PMAC_GITHUB_API_TOKEN`` environment variable.
+
+For example::
+
+    PMAC_GITHUB_API_TOKEN=abcdef0000000000000000000000000000000000 pmac listprs
+
+.. Note::
+
+   If you find pmac stops working because it's getting rate-limited by GitHub,
+   you should use a personal access token.
+
+Using pmac
+----------
+
+After you've configured git, then you can use ``pmac`` like this:
+
+1. Create a new branch::
+
+       git checkout <MAIN-BRANCH>
+       git checkout -b update-prs
+
+2. List open PRs::
+
+       pmac listprs
+
+3. Combine some pull requests into it::
+
+       pmac add 5100 5101 5102
+
+   Use the same pull requests numbers as on GitHub.
+
+   Internally, ``pmac`` uses ``git am`` to apply commits from pull requests. If
+   you hit a ``git am`` conflict, ``pmac`` will tell you. You can edit the file
+   in another terminal to manually resolve the conflict. Then do::
+
+       git add FILE
+       git commit
+
+   After that, you can continue with ``pmac``.
+
+4. When you're done, push the branch to GitHub and create a pull request.
+
+   ``pmac`` can help with the PR description::
+
+       pmac prmsg
+
+
+Why does this project exist?
+============================
+
+Two main reasons.
+
+First, GitHub doesn't support combining pull requests. There is a forum post
+about it here:
+https://github.community/t/feature-request-combine-pull-requests/2250
+
+Second, dependabot (also owned by GitHub) doesn't support grouping dependency
+updates into a single pull request. If you have 50 dependency updates, it
+creates 50 pull requests (sometimes more!). I have a lot of projects and lack
+of grouping updates makes monthly maintenance miserable. There's an issue for
+this:
+https://github.com/dependabot/dependabot-core/issues/1190
+
+
+History
+=======
+
+2.1.0 (February 7th, 2022)
+--------------------------
+
+OTHER THINGS:
+
+* Better handling for ``git am`` conflicts. (#22)
+
+* Better handling for when no changes were applied. ``pmac add`` won't adjust
+  the top-most commit. (#24)
+
+
+2.0.0 (July 15th, 2021)
+-----------------------
+
+NEW FEATURES:
+
+* Rewrote how ``pmac add`` works. It no longer needs you to edit your
+  ``.git/config`` file. It now uses the GitHub API to fetch the commits for the
+  PRs being added.
+
+  You can remove ``git_remote`` related configuration. It's no longer used.
+
+  You should use GitHub to create an API token and then use that as the value
+  for the ``PMAC_GITHUB_API_TOKEN``. This will fix issues with rate-limiting.
+
+  (#14)
+
+OTHER THINGS:
+
+* Switched to a ``src/`` based project layout and moved requirements into
+  ``setup.py`` file.
+
+
+1.2.0 (June 12th, 2020)
+-----------------------
+
+NEW FEATURES:
+
+* Added a ``PMAC_MAIN_BRANCH`` environment variable and ``main_branch`` configuration
+  option which specify the name of the main branch. (#12)
+
+
+1.1.0 (April 7th, 2020)
+-----------------------
+
+NEW FEATURES:
+
+* Added a ``--git_remote`` argument, ``PMAC_GIT_REMOTE`` environment variable,
+  and ``git_remote`` configuration option which, when specified, will cause
+  pmac to use that as the remote name and not guess. (#10)
+
+
+OTHER THINGS:
+
+* Added a Makefile because that's how I roll.
+
+* Tweaked ``pmac --help`` so it shows the version and release date and link to
+  issue tracker.
+
+* Cleaned up README.
+
+* Made a peanut butter pie and ate it.
+
+
+1.0.0 (January 14, 2020)
+------------------------
+
+* Initial writing.
+
+
