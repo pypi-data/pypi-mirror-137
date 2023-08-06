@@ -1,0 +1,8 @@
+<circle
+    {% with params=circle %}
+        {% include "component_common.svg" %}
+    {% endwith %}
+    cx="0" 
+    cy="0" 
+    r="{{ circle.r }}"
+/>
