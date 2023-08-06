@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Datalake Collect Configuration",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "pattern": {
+                "description": "Regular expression to match incoming file",
+                "type": "string"
+            },
+            "pattern_extract": {
+                "description": "Additional variables made from regex matching groups",
+                "type": "object",
+                "propertyNames": {
+                    "pattern": "^[A-Za-z0-9_\\-]+$"
+                }
+            },
+            "catalog_entry": {
+                "description": "Reference a target data catalog entry by ID",
+                "type": "string"
+            },
+            "action_name": {
+                "description": "The Preprocessor to call when the regex matches the incoming file",
+                "type": "string"
+            },
+            "action_params": {
+                "description": "Additional parameters for the Preprocessor",
+                "type": "object",
+                "minProperties": 1
+            },
+            "archive": {
+                "description": "Whether to archive the incoming file or not",
+                "type": "boolean"
+            },
+            "landing_folder": {
+                "description": "Setting the input subfolder slightly enhances collect performance",
+                "type": "string"
+            }
+        },
+        "required": [
+            "pattern",
+            "action_name",
+            "archive"
+        ],
+        "additionalProperties": false
+    }
+}
