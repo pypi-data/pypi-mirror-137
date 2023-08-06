@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: uvicontainer
+Version: 0.1.1rc1
+Summary: The lightning-fast tcp and udp server.
+Home-page: https://github.com/ProjectHentai/uvicorn
+Author: Tom Christie
+Author-email: tom@tomchristie.com
+License: BSD
+Project-URL: Funding, https://github.com/sponsors/encode
+Project-URL: Source, https://github.com/encode/uvicorn
+Project-URL: Changelog, https://github.com/encode/uvicorn/blob/master/CHANGELOG.md
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: click (>=7.0)
+Requires-Dist: typing-extensions ; python_version < "3.8"
+Provides-Extra: standard
+Requires-Dist: watchgod (>=0.6) ; extra == 'standard'
+Requires-Dist: python-dotenv (>=0.13) ; extra == 'standard'
+Requires-Dist: PyYAML (>=5.1) ; extra == 'standard'
+Requires-Dist: uvloop (!=0.15.0,!=0.15.1,>=0.14.0) ; (sys_platform != "win32" and (sys_platform != "cygwin" and platform_python_implementation != "PyPy")) and extra == 'standard'
+Requires-Dist: colorama (>=0.4) ; (sys_platform == "win32") and extra == 'standard'
+
+# Uvicontainer
+
+### Ported from [uvicorn](https://github.com/encode/uvicorn), Aim to be a fast general TCP/UDP servcer
+
+### example
+
+```python
+import asyncio
+
+import uvicontainer
+
+
+class EchoServerProtocol(asyncio.Protocol):
+    def connection_made(self, transport):
+        peername = transport.get_extra_info('peername')
+        print('Connection from {}'.format(peername))
+        self.transport = transport
+
+    def data_received(self, data):
+        message = data.decode()
+        print('Data received: {!r}'.format(message))
+
+        print('Send: {!r}'.format(message))
+        self.transport.write(data)
+
+        print('Close the client socket')
+        self.transport.close()
+
+
+if __name__ == "__main__":
+    uvicontainer.run("main:EchoServerProtocol", host="0.0.0.0", port=8000, workers=3, type="tcp")
+```
+- This starts a tcp server, like that in [python's document](https://docs.python.org/3/library/asyncio-protocol.html)
+
