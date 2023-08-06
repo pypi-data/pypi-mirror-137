@@ -1,0 +1,31 @@
+from __future__ import annotations
+
+from abc import ABC, abstractmethod
+from typing import List, Union
+
+from sila2.framework import Command, Feature, FullyQualifiedIdentifier, Property
+from sila2.server import FeatureImplementationBase
+
+
+class AuthorizationServiceBase(FeatureImplementationBase, ABC):
+
+    """
+    This Feature provides access control for the implementing server.
+
+    It specifies the SiLA Client Metadata for the access token, that has been provided by the
+    AuthenticationService core Feature.
+    """
+
+    @abstractmethod
+    def get_calls_affected_by_AccessToken(self) -> List[Union[Feature, Command, Property, FullyQualifiedIdentifier]]:
+        """
+        Returns the fully qualified identifiers of all features, commands and properties affected by the
+        SiLA Client Metadata 'Delay'.
+
+        **Description of 'AccessToken'**:
+        Token to be sent with every call in order to get access to the SiLA Server functionality.
+
+        :return: Fully qualified identifiers of all features, commands and properties affected by the
+            SiLA Client Metadata 'Delay'.
+        """
+        pass
