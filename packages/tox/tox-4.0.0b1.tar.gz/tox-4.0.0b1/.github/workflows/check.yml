@@ -1,0 +1,125 @@
+name: check
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 8 * * *"
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test ${{ matrix.py }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        py:
+          - "3.10"
+          - "3.9.9"
+          - "3.8"
+          - "3.7"
+        os:
+          - ubuntu-20.04
+          - windows-2022
+          - macos-11
+    steps:
+      - name: Setup python for tox
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install self-tox
+        run: python -m pip install .
+      - name: Setup python2.7 as test dependency
+        uses: actions/setup-python@v2
+        with:
+          python-version: 2.7
+      - name: Setup python for test ${{ matrix.py }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.py }}
+      - name: Pick environment to run
+        run: |
+          import json
+          import os
+          import subprocess
+          major, minor, impl = json.loads(subprocess.check_output(["python", "-c", "import json; import sys; import platform; print(json.dumps([sys.version_info[0], sys.version_info[1], platform.python_implementation()]));"], universal_newlines=True))
+          with open(os.environ['GITHUB_ENV'], 'a') as file_handler:
+                file_handler.write('TOXENV=' + ("py" if impl == "CPython" else "pypy") + ("{}{}".format(major, minor) if impl == "CPython" else "3") + "\n")
+        shell: python
+      - name: Setup test suite
+        run: tox4 r -vv --notest
+      - name: Run test suite
+        run: tox4 r --skip-pkg-install
+        env:
+          PYTEST_ADDOPTS: "-vv --durations=20"
+          CI_RUN: "yes"
+          DIFF_AGAINST: HEAD
+      - name: Rename coverage report file
+        run: |
+          import os; os.rename('.tox/4/coverage.{}.xml'.format(os.environ['TOXENV']), '.tox/4/coverage.xml')
+        shell: python
+      - uses: codecov/codecov-action@v1
+        with:
+          file: ./.tox/4/coverage.xml
+          flags: tests
+          name: ${{ matrix.py }} - ${{ matrix.os }}
+
+  check:
+    name: tox env ${{ matrix.tox_env }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        tox_env:
+          - type
+          - dev
+          - docs
+          - pkg_meta
+        os:
+          - ubuntu-20.04
+          - windows-2022
+        exclude:
+          - { os: windows-2022, tox_env: pkg_meta }
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Install self-tox
+        run: python -m pip install .
+      - name: Run check for ${{ matrix.tox_env }}
+        run: tox4 r -e ${{ matrix.tox_env }}
+        env:
+          UPGRADE_ADVISORY: "yes"
+
+  publish:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    needs: [check, test]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Setup python to build package
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Install build
+        run: python -m pip install build
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Build package
+        run: pyproject-build -s -w . -o dist
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          skip_existing: true
+          user: __token__
+          password: ${{ secrets.pypi_password }}
