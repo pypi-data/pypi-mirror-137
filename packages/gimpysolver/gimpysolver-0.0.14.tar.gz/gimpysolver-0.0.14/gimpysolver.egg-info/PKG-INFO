@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: gimpysolver
+Version: 0.0.14
+Summary: This is a simple and specific solver to gimpy captcha types like SEACE PORTAL. The model has been trained with 4000 images and 92 porcent of accuracy.
+Home-page: http://github.com/CesarCort/gimpysolver
+Author: Cesar Cortez
+Author-email: cc@digitaliatec.com
+License: gpl-3.0
+Project-URL: Bug Tracker, http://github.com/CesarCort/gimpysolver/issues
+Description: Readme!
+        =======
+        
+        This is a simple and specific solver to gimpy captcha types like SEACE
+        PORTAL. The model has been trained with 4000 images and 92 porcent of
+        accuracy.
+        
+        steps
+        =====
+        
+        1. pip install gimpysolver
+        2. Import the package like: from gimpysolver import captchaSolverRPA
+        3. Create your first object captchasolver. myCaptcha =
+           captchaSolverRPA.captcha_solver(path_img). *Where path_img es where
+           you image exist.* **Caution** Only read \*.png images and size image
+           would be 380,85
+        4. If you donâ€™t meet requirements about image dimension you can resize
+           with: myCaptcha.resize()
+        5. To solve captcha you can call predict method: myCaptcha.predict()
+        
+        **Gimpy captcha SEACE
+        example**\ \*!:https://i.ibb.co/RNHtgm5/captcha-capture-1.png
+        
+Keywords: CAPTCHA,CAPTCHASOLVER,GIMPY,GIMPYSOLVER,SOLVER
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
