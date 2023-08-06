@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: minilsap
+Version: 0.1.1
+Summary: Python module to solve the linear sum assignment problem (LSAP) efficiently
+Home-page: https://github.com/ntamas/lsap
+Maintainer: Tamas Nepusz
+Maintainer-email: ntamas@gmail.com
+License: BSD 3-Clause License
+Keywords: lsap,munkres,kuhn-munkres,linear sum assignment problem
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy (>=1.21.0)
+
+minilsap
+========
+
+A Python module to solve the linear sum assignment problem (LSAP) efficiently.
+Extracted from SciPy, without significant modifications.
+
+This module is useful in cases when you need an efficient LSAP solver but you
+do not want to depend on the full SciPy library.
+
+Currently, the module depends on NumPy for array management. This may be
+relaxed in the future if Python's stable API gets extended with functions to
+manage Python buffer objects.
+
+License
+-------
+
+The code in this repository is licensed under the 3-clause BSD license, except
+for files including a different license header.
+
+The LSAP solver copied from SciPy is also licensed under the 3-clause BSD
+license.
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.1.1] - 2022-02-07
+
+Re-release with project name changed from `lsap` to `minilsap`.
+
+## [0.1.0] - 2022-02-07
+
+Initial release, based on the LSAP algorithm in SciPy 1.18.0.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
