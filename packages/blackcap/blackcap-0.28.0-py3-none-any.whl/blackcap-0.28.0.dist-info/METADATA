@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: blackcap
+Version: 0.28.0
+Summary: Shared library for Orchestra
+License: Apache-2.0
+Author: Ankur Kumar
+Author-email: ank@leoank.me
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: Flask (>=2.0.1,<3.0.0)
+Requires-Dist: Flask-Cors (>=3.0.10,<4.0.0)
+Requires-Dist: PyJWT (>=2.1.0,<3.0.0)
+Requires-Dist: SQLAlchemy (>=1.4.22,<2.0.0)
+Requires-Dist: SQLAlchemy-serializer (>=1.4.1,<2.0.0)
+Requires-Dist: alembic (>=1.6.5,<2.0.0)
+Requires-Dist: bcrypt (>=3.2.0,<4.0.0)
+Requires-Dist: celery (>=5.1.0,<6.0.0)
+Requires-Dist: click (<8.0)
+Requires-Dist: google-cloud-pubsub (>=2.5.0,<3.0.0)
+Requires-Dist: gunicorn (>=20.1.0,<21.0.0)
+Requires-Dist: logzero (>=1.7.0,<2.0.0)
+Requires-Dist: nats-python (>=0.8.0,<0.9.0)
+Requires-Dist: psycopg2-binary (>=2.8.6,<3.0.0)
+Requires-Dist: pydantic[dotenv] (>=1.8.2,<2.0.0)
+Requires-Dist: redis (>=3.5.3,<4.0.0)
+Requires-Dist: xdg (>=5.0.2,<6.0.0)
