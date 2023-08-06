@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: mg-file
+Version: 0.1.5
+Summary: Удобное пользование файлами
+Home-page: https://github.com/denisxab/mg_file
+License: BSD
+Keywords: File,SQL,ORM
+Author: Denis Vetkin
+Author-email: denis-kustov@rambler.ru
+Requires-Python: >=3.10,<4.0
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: PyYAML (>=6.0,<7.0)
+Requires-Dist: loguru (>=0.6.0,<0.7.0)
+Requires-Dist: prettytable (>=3.0.0,<4.0.0)
+Project-URL: Repository, https://github.com/denisxab/mg_file
+Description-Content-Type: text/markdown
+
+# Что это
+
+Библиотека для работы с файлами и СУБД
+
+# Установка через [`pip`](https://pypi.org/project/mg-file/)
+
+```bash
+pip install mg-file
+```
+
+# Технологии
+
+| Технологии                                      | Описание                                                      |
+|-------------------------------------------------|---------------------------------------------------------------|
+| [Файлы](mg_file/file/README.md)                 | Работа с `txt`, `csv` , `json` , `pickl`                      |
+| [Чистый SQL запросы](mg_file/sql_raw/README.md) | Синхронный / Асинхронный доступ к СУБД `PostgreSQL` , `MySql` |
+| [SQL ORM](mg_file/sqllite_orm/README.md)        | `ORM` система                                                 |
+
+
+

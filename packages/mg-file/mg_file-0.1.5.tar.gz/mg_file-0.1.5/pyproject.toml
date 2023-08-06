@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "mg_file"
+version = "0.1.5"
+description = "Удобное пользование файлами"
+authors = ["Denis Vetkin <denis-kustov@rambler.ru>"]
+license = "BSD"
+readme = "README.md"
+homepage = "https://github.com/denisxab/mg_file"
+repository = "https://github.com/denisxab/mg_file"
+keywords = ["File", "SQL", "ORM"]
+exclude = [
+    "mg_file/.idea",
+    "mg_file/venv",
+    "mg_file/.git",
+    "mg_file/.gitignore"
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+prettytable = "^3.0.0"
+PyYAML = "^6.0"
+loguru = "^0.6.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+
