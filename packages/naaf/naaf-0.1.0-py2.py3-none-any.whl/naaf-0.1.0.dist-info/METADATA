@@ -1,0 +1,111 @@
+Metadata-Version: 2.1
+Name: naaf
+Version: 0.1.0
+Summary: IO hub for Cryo-EM, Cryo-ET and subtomogram averaging data.
+Home-page: https://github.com/gutsche-lab/naaf
+Download-URL: https://github.com/gutsche-lab/naaf
+Author: Blik Team
+Author-email: blik-team@googlegroups.com
+License: GNU General Public License v3 (GPLv3)
+Project-URL: Bug Tracker, https://github.com/gutsche-lab/naaf/issues
+Project-URL: Documentation, https://github.com/gutsche-lab/naaf#README.md
+Project-URL: Source Code, https://github.com/gutsche-lab/naaf
+Project-URL: Changelog, https://github.com/gutsche-lab/naaf/blob/main/CHANGELOG.md
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: X11 Applications :: Qt
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Topic :: Utilities
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scipy
+Requires-Dist: dask
+Requires-Dist: click
+Requires-Dist: pydantic
+Requires-Dist: ipython
+Requires-Dist: dynamotable (==0.2.4)
+Requires-Dist: mrcfile (==1.3.0)
+Requires-Dist: starfile (==0.4.5)
+Requires-Dist: emfile (==0.3)
+Provides-Extra: dev
+Requires-Dist: tox ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: pytest-cov ; extra == 'dev'
+Requires-Dist: ipython ; extra == 'dev'
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: flake8 ; extra == 'dev'
+Requires-Dist: isort ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+
+# naaf
+
+`naaf` is a library for reading and writing Cryo-ET data.
+
+# Installation
+
+```
+pip install naaf
+```
+
+
+# Usage
+
+This command will land in an ipython shell with the loaded data collected in a list called `data`:
+
+```bash
+naaf path/to/files/ /other/path/to/file.star
+```
+
+
+# Features
+
+Currently `naaf` is capable of reading images in the following formats:
+- `.mrc`
+- Dynamo `.em`
+
+and particle data in the following formats:
+- Relion `.star`
+- Dynamo `.tbl`
+- Cryolo `.cbox` and `.box`
+
+# Data structures
+
+Data is loaded into simple data objects called `Particles` or `Image`. They have the following attributes:
+
+```python
+Data.name  # name guessed from the data or file path
+Data.source  # path to the file containing this data
+Data.pixel_size  # pixel size information extracted from the data. None if absent.
+
+Particles.data  # pandas DataFrame with coordinates, rotations and arbitary particle features
+
+Image.data  # data array with pixel intensities
+```
+
+## Particle orientations
+
+Orientations are `scipy` `Rotation` objects. They can be handled normally in a pandas dataframe. They also provide useful batch tools:
+
+- `Rotation.concatenate(array_of_rotations)` will merge all the rotation objects into one
+- `rotation_object.apply(vectors)` will apply the rotation(s) (following numpy broadcasting rules) to vector(s)
+
+## Image data
+
+When possible (and unless disabled), naaf loads images lazily using `dask`. The resulting objects can be treated as normal numpy array, except one needs to call `array.compute()` to apply any pending operations and return the result.
+
+
+
