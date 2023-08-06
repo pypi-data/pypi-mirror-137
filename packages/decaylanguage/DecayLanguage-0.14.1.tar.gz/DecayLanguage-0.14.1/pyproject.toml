@@ -1,0 +1,40 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel",
+    "setuptools_scm[toml]>=3.4"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "src/decaylanguage/_version.py"
+
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+files = "src"
+exclude = "src/decaylanguage/(data|modeling)"
+python_version = "3.9"
+warn_unused_configs = true
+warn_unused_ignores = true
+strict = true
+
+[[tool.mypy.overrides]]
+module = [
+    "lark",
+    "graphviz",
+    "pandas",
+    "plumbum",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+   "-ra",
+   "--doctest-modules",
+   '--doctest-glob=\*.rst',
+]
+log_cli_level = "DEBUG"
