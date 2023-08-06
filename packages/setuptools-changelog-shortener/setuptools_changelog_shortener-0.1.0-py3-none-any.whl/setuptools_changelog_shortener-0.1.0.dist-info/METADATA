@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: setuptools-changelog-shortener
+Version: 0.1.0
+Summary: "setuptools-changelog-shortener: add only newest changelog entries to long_description"
+Home-page: https://github.com/fschulze/setuptools-changelog-shortener
+Author: Florian Schulze
+Author-email: mail@florian-schulze.net
+License: MIT
+Project-URL: Bug Tracker, https://github.com/fschulze/setuptools-changelog-shortener/issues
+Project-URL: Source Code, https://github.com/fschulze/setuptools-changelog-shortener
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: System :: Software Distribution
+Classifier: Topic :: Utilities
+Requires-Python: >=3.6
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: setuptools (>=45)
+Requires-Dist: tomli (>=1.0)
+
+setuptools-changelog-shortener
+==============================
+
+This setuptools plugin allows shortening the number of changelog entries to use for the ``long_description`` metadata in Python packages.
+
+
+Usage
+-----
+
+First, ensure that ``setuptools_changelog_shortener`` is present in your build requirements.
+
+.. code:: toml
+
+    # pyproject.toml
+    [build-system]
+    requires = ["setuptools>=45", "wheel", "setuptools_changelog_shortener"]
+
+To enable changelog shortening, add the following section to your ``pyproject.toml``:
+
+.. code:: toml
+
+    # pyproject.toml
+    [tool.setuptools_changelog_shortener]
+    read_from = "CHANGELOG.rst"
+    write_to = "CHANGELOG.short.rst"
+
+Then you use the ``CHANGELOG.short.rst`` file for your ``long_description`` metadata field.
+
+Additional options are:
+
+``count``
+    The number of changelog entries to include.
+    Defaults to ``5``.
+
+``delimiter``
+    The delimiter to look for in each entry.
+    Defaults to the ``^--+`` regular expression to find docutils titles using ``-`` characters.
+
+``title``
+    The title to add to the top of the shortened CHANGELOG file.
+    Defaults to ``Changelog\n=========``.
+
+
