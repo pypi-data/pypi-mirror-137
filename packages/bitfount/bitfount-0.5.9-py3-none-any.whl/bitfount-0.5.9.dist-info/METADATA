@@ -1,0 +1,599 @@
+Metadata-Version: 2.1
+Name: bitfount
+Version: 0.5.9
+Summary: Machine Learning and Federated Learning Library.
+Home-page: https://github.com/bitfount/bitfount
+Author: Bitfount
+Author-email: info@bitfount.com
+License: UNKNOWN
+Project-URL: Documentation, https://docs.bitfount.com/
+Project-URL: Homepage, https://bitfount.com
+Project-URL: Source, https://github.com/bitfount/bitfount/
+Keywords: sample setuptools development
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Financial and Insurance Industry
+Classifier: Intended Audience :: Healthcare Industry
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Topic :: Scientific/Engineering :: Medical Science Apps.
+Classifier: Topic :: Scientific/Engineering :: Image Processing
+Classifier: Topic :: Security :: Cryptography
+Classifier: Topic :: System :: Distributed Computing
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8,<3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: aiohttp (>=3.7.4)
+Requires-Dist: bleach (>=3.3.0)
+Requires-Dist: cryptography (>=3.3.2)
+Requires-Dist: lxml (>=4.6.5)
+Requires-Dist: nltk (>=3.6.4)
+Requires-Dist: notebook (>=6.4.1)
+Requires-Dist: Pillow (>=8.3.2)
+Requires-Dist: PyYAML (>=5.4)
+Requires-Dist: urllib3 (>=1.26.5)
+Requires-Dist: aiohttp (>=3.8.0)
+Requires-Dist: albumentations (>=1.0.0)
+Requires-Dist: attrs (>=19.3.0)
+Requires-Dist: cryptography (>=3.4.4)
+Requires-Dist: desert (>=2020.1.3)
+Requires-Dist: fire (>=0.1.0)
+Requires-Dist: GPUtil (>=1.4.0)
+Requires-Dist: grpcio (>=1.38.1)
+Requires-Dist: koalas (>=1.8.1)
+Requires-Dist: marshmallow (>=3.13.0)
+Requires-Dist: marshmallow-enum (>=1.5.1)
+Requires-Dist: marshmallow-union (>=0.1.15)
+Requires-Dist: matplotlib (>=3.4.3)
+Requires-Dist: msgpack (>=1.0.0)
+Requires-Dist: numpy (<=1.21.5,>=1.20.0)
+Requires-Dist: pandas (>=1.3.0)
+Requires-Dist: psutil (>=5.0.0)
+Requires-Dist: pydantic (>=1.0)
+Requires-Dist: pyjwt (>=2.0.0)
+Requires-Dist: pyspark (>=3.1.1)
+Requires-Dist: PyYAML (~=5.4)
+Requires-Dist: requests (>=2.26.0)
+Requires-Dist: scikit-image (>=0.18.0)
+Requires-Dist: scikit-learn (>=1.0)
+Requires-Dist: statsmodels (>=0.11.0)
+Requires-Dist: lightgbm (>=3.0.0)
+Requires-Dist: opacus (<1.0.0,>=0.11.0)
+Requires-Dist: pytorch-lightning (~=1.3.8)
+Requires-Dist: pytorch-tabnet (>=3.0.0)
+Requires-Dist: torch (>=1.7.0)
+Requires-Dist: torch-optimizer (>=0.1.0)
+Requires-Dist: torchmetrics (<=0.5.1,>=0.2.0)
+Requires-Dist: torchvision (>=0.8.0)
+Provides-Extra: dev
+Requires-Dist: altgraph (==0.17.2) ; extra == 'dev'
+Requires-Dist: attrs (==21.4.0) ; extra == 'dev'
+Requires-Dist: bandit (==1.7.2) ; extra == 'dev'
+Requires-Dist: black (==22.1.0) ; extra == 'dev'
+Requires-Dist: certifi (==2021.10.8) ; extra == 'dev'
+Requires-Dist: cfgv (==3.3.1) ; extra == 'dev'
+Requires-Dist: click (==8.0.3) ; extra == 'dev'
+Requires-Dist: colorama (==0.4.4) ; extra == 'dev'
+Requires-Dist: distlib (==0.3.4) ; extra == 'dev'
+Requires-Dist: filelock (==3.4.2) ; extra == 'dev'
+Requires-Dist: flake8 (==4.0.1) ; extra == 'dev'
+Requires-Dist: flake8-bugbear (==22.1.11) ; extra == 'dev'
+Requires-Dist: flake8-docstrings (==1.6.0) ; extra == 'dev'
+Requires-Dist: gitdb (==4.0.9) ; extra == 'dev'
+Requires-Dist: gitpython (==3.1.26) ; extra == 'dev'
+Requires-Dist: grpc-stubs (==1.24.7) ; extra == 'dev'
+Requires-Dist: grpcio (==1.43.0) ; extra == 'dev'
+Requires-Dist: grpcio-tools (==1.43.0) ; extra == 'dev'
+Requires-Dist: identify (==2.4.7) ; extra == 'dev'
+Requires-Dist: idna (==3.3) ; extra == 'dev'
+Requires-Dist: importlib-metadata (==4.10.1) ; extra == 'dev'
+Requires-Dist: interrogate (==1.5.0) ; extra == 'dev'
+Requires-Dist: ipython-genutils (==0.2.0) ; extra == 'dev'
+Requires-Dist: isort (==5.10.1) ; extra == 'dev'
+Requires-Dist: jsonpointer (==2.2) ; extra == 'dev'
+Requires-Dist: jsonschema[format] (==3.2.0) ; extra == 'dev'
+Requires-Dist: jupyter-core (==4.9.1) ; extra == 'dev'
+Requires-Dist: jupytext (==1.13.6) ; extra == 'dev'
+Requires-Dist: macholib (==1.15.2) ; extra == 'dev'
+Requires-Dist: mako (==1.1.6) ; extra == 'dev'
+Requires-Dist: markdown (==3.3.6) ; extra == 'dev'
+Requires-Dist: markdown-it-py (==1.1.0) ; extra == 'dev'
+Requires-Dist: markupsafe (==2.0.1) ; extra == 'dev'
+Requires-Dist: mccabe (==0.6.1) ; extra == 'dev'
+Requires-Dist: mdit-py-plugins (==0.3.0) ; extra == 'dev'
+Requires-Dist: modulegraph (==0.19.2) ; extra == 'dev'
+Requires-Dist: msgpack-types (==0.2.0) ; extra == 'dev'
+Requires-Dist: mypy (==0.931) ; extra == 'dev'
+Requires-Dist: mypy-extensions (==0.4.3) ; extra == 'dev'
+Requires-Dist: nbformat (==5.1.3) ; extra == 'dev'
+Requires-Dist: nodeenv (==1.6.0) ; extra == 'dev'
+Requires-Dist: pandas-stubs (==1.2.0.47) ; extra == 'dev'
+Requires-Dist: pathspec (==0.9.0) ; extra == 'dev'
+Requires-Dist: pbr (==5.8.0) ; extra == 'dev'
+Requires-Dist: pdoc3 (==0.10.0) ; extra == 'dev'
+Requires-Dist: pep517 (==0.12.0) ; extra == 'dev'
+Requires-Dist: pip-tools (==6.4.0) ; extra == 'dev'
+Requires-Dist: platformdirs (==2.4.1) ; extra == 'dev'
+Requires-Dist: pre-commit (==2.17.0) ; extra == 'dev'
+Requires-Dist: protobuf (==3.19.4) ; extra == 'dev'
+Requires-Dist: py (==1.11.0) ; extra == 'dev'
+Requires-Dist: py2app (==0.26.1) ; extra == 'dev'
+Requires-Dist: pycodestyle (==2.8.0) ; extra == 'dev'
+Requires-Dist: pydocstyle (==6.1.1) ; extra == 'dev'
+Requires-Dist: pyflakes (==2.4.0) ; extra == 'dev'
+Requires-Dist: pyinstaller (==4.8) ; extra == 'dev'
+Requires-Dist: pyinstaller-hooks-contrib (==2022.0) ; extra == 'dev'
+Requires-Dist: pyrsistent (==0.18.1) ; extra == 'dev'
+Requires-Dist: pyyaml (==5.4.1) ; extra == 'dev'
+Requires-Dist: rfc3987 (==1.3.8) ; extra == 'dev'
+Requires-Dist: rope (==0.22.0) ; extra == 'dev'
+Requires-Dist: six (==1.16.0) ; extra == 'dev'
+Requires-Dist: smmap (==5.0.0) ; extra == 'dev'
+Requires-Dist: snowballstemmer (==2.2.0) ; extra == 'dev'
+Requires-Dist: sphobjinv (==2.2) ; extra == 'dev'
+Requires-Dist: stevedore (==3.5.0) ; extra == 'dev'
+Requires-Dist: strict-rfc3339 (==0.7) ; extra == 'dev'
+Requires-Dist: tabulate (==0.8.9) ; extra == 'dev'
+Requires-Dist: toml (==0.10.2) ; extra == 'dev'
+Requires-Dist: tomli (==1.2.3) ; extra == 'dev'
+Requires-Dist: traitlets (==5.1.1) ; extra == 'dev'
+Requires-Dist: types-click (==7.1.8) ; extra == 'dev'
+Requires-Dist: types-flask (==1.1.6) ; extra == 'dev'
+Requires-Dist: types-jinja2 (==2.11.9) ; extra == 'dev'
+Requires-Dist: types-markupsafe (==1.1.10) ; extra == 'dev'
+Requires-Dist: types-pillow (==9.0.5) ; extra == 'dev'
+Requires-Dist: types-psutil (==5.8.20) ; extra == 'dev'
+Requires-Dist: types-pytest-lazy-fixture (==0.6.2) ; extra == 'dev'
+Requires-Dist: types-python-dateutil (==2.8.9) ; extra == 'dev'
+Requires-Dist: types-pyyaml (==6.0.4) ; extra == 'dev'
+Requires-Dist: types-requests (==2.27.8) ; extra == 'dev'
+Requires-Dist: types-selenium (==3.141.7) ; extra == 'dev'
+Requires-Dist: types-setuptools (==57.4.8) ; extra == 'dev'
+Requires-Dist: types-urllib3 (==1.26.8) ; extra == 'dev'
+Requires-Dist: types-werkzeug (==1.0.9) ; extra == 'dev'
+Requires-Dist: typing-extensions (==4.0.1) ; extra == 'dev'
+Requires-Dist: virtualenv (==20.13.0) ; extra == 'dev'
+Requires-Dist: webcolors (==1.11.1) ; extra == 'dev'
+Requires-Dist: wheel (==0.37.1) ; extra == 'dev'
+Requires-Dist: zipp (==3.7.0) ; extra == 'dev'
+Provides-Extra: tests
+Requires-Dist: absl-py (==1.0.0) ; extra == 'tests'
+Requires-Dist: aiohttp (==3.8.1) ; extra == 'tests'
+Requires-Dist: aiosignal (==1.2.0) ; extra == 'tests'
+Requires-Dist: alembic (==1.7.5) ; extra == 'tests'
+Requires-Dist: async-generator (==1.10) ; extra == 'tests'
+Requires-Dist: async-timeout (==4.0.2) ; extra == 'tests'
+Requires-Dist: attrs (==21.4.0) ; extra == 'tests'
+Requires-Dist: boto3 (==1.20.46) ; extra == 'tests'
+Requires-Dist: botocore (==1.23.46) ; extra == 'tests'
+Requires-Dist: bravado (==11.0.3) ; extra == 'tests'
+Requires-Dist: bravado-core (==5.17.0) ; extra == 'tests'
+Requires-Dist: cachetools (==5.0.0) ; extra == 'tests'
+Requires-Dist: certifi (==2021.10.8) ; extra == 'tests'
+Requires-Dist: cffi (==1.15.0) ; extra == 'tests'
+Requires-Dist: charset-normalizer (==2.0.11) ; extra == 'tests'
+Requires-Dist: chromedriver-autoinstaller (==0.3.1) ; extra == 'tests'
+Requires-Dist: click (==8.0.3) ; extra == 'tests'
+Requires-Dist: cloudpickle (==2.0.0) ; extra == 'tests'
+Requires-Dist: configparser (==5.2.0) ; extra == 'tests'
+Requires-Dist: coverage[toml] (==6.3) ; extra == 'tests'
+Requires-Dist: cryptography (==36.0.1) ; extra == 'tests'
+Requires-Dist: databricks-cli (==0.16.2) ; extra == 'tests'
+Requires-Dist: distlib (==0.3.4) ; extra == 'tests'
+Requires-Dist: docker (==5.0.3) ; extra == 'tests'
+Requires-Dist: docker-pycreds (==0.4.0) ; extra == 'tests'
+Requires-Dist: entrypoints (==0.3) ; extra == 'tests'
+Requires-Dist: execnet (==1.9.0) ; extra == 'tests'
+Requires-Dist: filelock (==3.4.2) ; extra == 'tests'
+Requires-Dist: flask (==2.0.2) ; extra == 'tests'
+Requires-Dist: frozenlist (==1.3.0) ; extra == 'tests'
+Requires-Dist: future (==0.18.2) ; extra == 'tests'
+Requires-Dist: gitdb (==4.0.9) ; extra == 'tests'
+Requires-Dist: gitpython (==3.1.26) ; extra == 'tests'
+Requires-Dist: google-auth (==2.6.0) ; extra == 'tests'
+Requires-Dist: google-auth-oauthlib (==0.4.6) ; extra == 'tests'
+Requires-Dist: greenlet (==1.1.2) ; extra == 'tests'
+Requires-Dist: grpcio (==1.43.0) ; extra == 'tests'
+Requires-Dist: gunicorn (==20.1.0) ; extra == 'tests'
+Requires-Dist: h11 (==0.13.0) ; extra == 'tests'
+Requires-Dist: idna (==3.3) ; extra == 'tests'
+Requires-Dist: imageio (==2.14.1) ; extra == 'tests'
+Requires-Dist: importlib-metadata (==4.10.1) ; extra == 'tests'
+Requires-Dist: importlib-resources (==5.4.0) ; extra == 'tests'
+Requires-Dist: iniconfig (==1.1.1) ; extra == 'tests'
+Requires-Dist: ipython-genutils (==0.2.0) ; extra == 'tests'
+Requires-Dist: itsdangerous (==2.0.1) ; extra == 'tests'
+Requires-Dist: jinja2 (==3.0.3) ; extra == 'tests'
+Requires-Dist: jmespath (==0.10.0) ; extra == 'tests'
+Requires-Dist: jsonpointer (==2.2) ; extra == 'tests'
+Requires-Dist: jsonref (==0.2) ; extra == 'tests'
+Requires-Dist: jsonschema[format] (==3.2.0) ; extra == 'tests'
+Requires-Dist: jupyter-client (==7.1.2) ; extra == 'tests'
+Requires-Dist: jupyter-core (==4.9.1) ; extra == 'tests'
+Requires-Dist: jupytext (==1.13.6) ; extra == 'tests'
+Requires-Dist: mako (==1.1.6) ; extra == 'tests'
+Requires-Dist: markdown (==3.3.6) ; extra == 'tests'
+Requires-Dist: markdown-it-py (==1.1.0) ; extra == 'tests'
+Requires-Dist: markupsafe (==2.0.1) ; extra == 'tests'
+Requires-Dist: mdit-py-plugins (==0.3.0) ; extra == 'tests'
+Requires-Dist: mlflow (==1.23.1) ; extra == 'tests'
+Requires-Dist: monotonic (==1.6) ; extra == 'tests'
+Requires-Dist: msgpack (==1.0.3) ; extra == 'tests'
+Requires-Dist: multidict (==6.0.2) ; extra == 'tests'
+Requires-Dist: nbclient (==0.5.10) ; extra == 'tests'
+Requires-Dist: nbformat (==5.1.3) ; extra == 'tests'
+Requires-Dist: neptune-client (==0.14.3) ; extra == 'tests'
+Requires-Dist: nest-asyncio (==1.5.4) ; extra == 'tests'
+Requires-Dist: numpy (==1.21.5) ; extra == 'tests'
+Requires-Dist: oauthlib (==3.2.0) ; extra == 'tests'
+Requires-Dist: outcome (==1.1.0) ; extra == 'tests'
+Requires-Dist: packaging (==21.3) ; extra == 'tests'
+Requires-Dist: pandas (==1.4.0) ; extra == 'tests'
+Requires-Dist: partialtesting (==1.0) ; extra == 'tests'
+Requires-Dist: pathtools (==0.1.2) ; extra == 'tests'
+Requires-Dist: pillow (==9.0.0) ; extra == 'tests'
+Requires-Dist: platformdirs (==2.4.1) ; extra == 'tests'
+Requires-Dist: pluggy (==1.0.0) ; extra == 'tests'
+Requires-Dist: prometheus-client (==0.13.1) ; extra == 'tests'
+Requires-Dist: prometheus-flask-exporter (==0.18.7) ; extra == 'tests'
+Requires-Dist: promise (==2.3) ; extra == 'tests'
+Requires-Dist: protobuf (==3.19.4) ; extra == 'tests'
+Requires-Dist: psutil (==5.9.0) ; extra == 'tests'
+Requires-Dist: py (==1.11.0) ; extra == 'tests'
+Requires-Dist: pyasn1 (==0.4.8) ; extra == 'tests'
+Requires-Dist: pyasn1-modules (==0.2.8) ; extra == 'tests'
+Requires-Dist: pycparser (==2.21) ; extra == 'tests'
+Requires-Dist: pyjwt (==2.3.0) ; extra == 'tests'
+Requires-Dist: pyopenssl (==22.0.0) ; extra == 'tests'
+Requires-Dist: pyparsing (==3.0.7) ; extra == 'tests'
+Requires-Dist: pyrsistent (==0.18.1) ; extra == 'tests'
+Requires-Dist: pytest (==6.2.5) ; extra == 'tests'
+Requires-Dist: pytest-aiohttp (==1.0.3) ; extra == 'tests'
+Requires-Dist: pytest-asyncio (==0.17.2) ; extra == 'tests'
+Requires-Dist: pytest-cov (==3.0.0) ; extra == 'tests'
+Requires-Dist: pytest-custom-exit-code (==0.3.0) ; extra == 'tests'
+Requires-Dist: pytest-flask (==1.2.0) ; extra == 'tests'
+Requires-Dist: pytest-forked (==1.4.0) ; extra == 'tests'
+Requires-Dist: pytest-lazy-fixture (==0.6.3) ; extra == 'tests'
+Requires-Dist: pytest-mock (==3.7.0) ; extra == 'tests'
+Requires-Dist: pytest-randomly (==3.11.0) ; extra == 'tests'
+Requires-Dist: pytest-timeout (==2.1.0) ; extra == 'tests'
+Requires-Dist: pytest-xdist[psutil] (==2.5.0) ; extra == 'tests'
+Requires-Dist: python-dateutil (==2.8.2) ; extra == 'tests'
+Requires-Dist: python-dotenv (==0.19.2) ; extra == 'tests'
+Requires-Dist: pytz (==2021.3) ; extra == 'tests'
+Requires-Dist: pyyaml (==5.4.1) ; extra == 'tests'
+Requires-Dist: pyzmq (==22.3.0) ; extra == 'tests'
+Requires-Dist: querystring-parser (==1.2.4) ; extra == 'tests'
+Requires-Dist: requests (==2.27.1) ; extra == 'tests'
+Requires-Dist: requests-oauthlib (==1.3.1) ; extra == 'tests'
+Requires-Dist: requests-toolbelt (==0.9.1) ; extra == 'tests'
+Requires-Dist: responses (==0.16.0) ; extra == 'tests'
+Requires-Dist: rfc3987 (==1.3.8) ; extra == 'tests'
+Requires-Dist: rsa (==4.8) ; extra == 'tests'
+Requires-Dist: s3transfer (==0.5.0) ; extra == 'tests'
+Requires-Dist: scipy (==1.7.3) ; extra == 'tests'
+Requires-Dist: selenium (==4.1.0) ; extra == 'tests'
+Requires-Dist: sentry-sdk (==1.5.4) ; extra == 'tests'
+Requires-Dist: shortuuid (==1.0.8) ; extra == 'tests'
+Requires-Dist: simplejson (==3.17.6) ; extra == 'tests'
+Requires-Dist: six (==1.16.0) ; extra == 'tests'
+Requires-Dist: smmap (==5.0.0) ; extra == 'tests'
+Requires-Dist: sniffio (==1.2.0) ; extra == 'tests'
+Requires-Dist: sortedcontainers (==2.4.0) ; extra == 'tests'
+Requires-Dist: sqlalchemy (==1.4.31) ; extra == 'tests'
+Requires-Dist: sqlparse (==0.4.2) ; extra == 'tests'
+Requires-Dist: strict-rfc3339 (==0.7) ; extra == 'tests'
+Requires-Dist: subprocess32 (==3.5.4) ; extra == 'tests'
+Requires-Dist: swagger-spec-validator (==2.7.4) ; extra == 'tests'
+Requires-Dist: tabulate (==0.8.9) ; extra == 'tests'
+Requires-Dist: tensorboard (==2.8.0) ; extra == 'tests'
+Requires-Dist: tensorboard-data-server (==0.6.1) ; extra == 'tests'
+Requires-Dist: tensorboard-plugin-wit (==1.8.1) ; extra == 'tests'
+Requires-Dist: termcolor (==1.1.0) ; extra == 'tests'
+Requires-Dist: test-tube (==0.7.5) ; extra == 'tests'
+Requires-Dist: testbook (==0.4.2) ; extra == 'tests'
+Requires-Dist: toml (==0.10.2) ; extra == 'tests'
+Requires-Dist: tomli (==1.2.3) ; extra == 'tests'
+Requires-Dist: torch (==1.10.2) ; extra == 'tests'
+Requires-Dist: tornado (==6.1) ; extra == 'tests'
+Requires-Dist: tox (==3.24.5) ; extra == 'tests'
+Requires-Dist: traitlets (==5.1.1) ; extra == 'tests'
+Requires-Dist: trio (==0.19.0) ; extra == 'tests'
+Requires-Dist: trio-websocket (==0.9.2) ; extra == 'tests'
+Requires-Dist: typing-extensions (==4.0.1) ; extra == 'tests'
+Requires-Dist: urllib3[secure] (==1.26.8) ; extra == 'tests'
+Requires-Dist: virtualenv (==20.13.0) ; extra == 'tests'
+Requires-Dist: wandb (==0.12.9) ; extra == 'tests'
+Requires-Dist: webcolors (==1.11.1) ; extra == 'tests'
+Requires-Dist: websocket-client (==1.2.3) ; extra == 'tests'
+Requires-Dist: werkzeug (==2.0.2) ; extra == 'tests'
+Requires-Dist: wheel (==0.37.1) ; extra == 'tests'
+Requires-Dist: wsproto (==1.0.0) ; extra == 'tests'
+Requires-Dist: yarl (==1.7.2) ; extra == 'tests'
+Requires-Dist: yaspin (==2.1.0) ; extra == 'tests'
+Requires-Dist: zipp (==3.7.0) ; extra == 'tests'
+Provides-Extra: tutorial
+Requires-Dist: appnope (==0.1.2) ; extra == 'tutorial'
+Requires-Dist: argon2-cffi (==21.3.0) ; extra == 'tutorial'
+Requires-Dist: argon2-cffi-bindings (==21.2.0) ; extra == 'tutorial'
+Requires-Dist: asttokens (==2.0.5) ; extra == 'tutorial'
+Requires-Dist: attrs (==21.4.0) ; extra == 'tutorial'
+Requires-Dist: backcall (==0.2.0) ; extra == 'tutorial'
+Requires-Dist: black (==22.1.0) ; extra == 'tutorial'
+Requires-Dist: bleach (==4.1.0) ; extra == 'tutorial'
+Requires-Dist: cffi (==1.15.0) ; extra == 'tutorial'
+Requires-Dist: click (==8.0.3) ; extra == 'tutorial'
+Requires-Dist: debugpy (==1.5.1) ; extra == 'tutorial'
+Requires-Dist: decorator (==5.1.1) ; extra == 'tutorial'
+Requires-Dist: defusedxml (==0.7.1) ; extra == 'tutorial'
+Requires-Dist: entrypoints (==0.3) ; extra == 'tutorial'
+Requires-Dist: executing (==0.8.2) ; extra == 'tutorial'
+Requires-Dist: ipykernel (==6.7.0) ; extra == 'tutorial'
+Requires-Dist: ipython (==8.0.1) ; extra == 'tutorial'
+Requires-Dist: ipython-genutils (==0.2.0) ; extra == 'tutorial'
+Requires-Dist: ipywidgets (==7.6.5) ; extra == 'tutorial'
+Requires-Dist: jedi (==0.18.1) ; extra == 'tutorial'
+Requires-Dist: jinja2 (==3.0.3) ; extra == 'tutorial'
+Requires-Dist: jsonschema (==3.2.0) ; extra == 'tutorial'
+Requires-Dist: jupyter-client (==7.1.2) ; extra == 'tutorial'
+Requires-Dist: jupyter-contrib-core (==0.3.3) ; extra == 'tutorial'
+Requires-Dist: jupyter-contrib-nbextensions (==0.5.1) ; extra == 'tutorial'
+Requires-Dist: jupyter-core (==4.9.1) ; extra == 'tutorial'
+Requires-Dist: jupyter-highlight-selected-word (==0.2.0) ; extra == 'tutorial'
+Requires-Dist: jupyter-latex-envs (==1.4.6) ; extra == 'tutorial'
+Requires-Dist: jupyter-nbextensions-configurator (==0.4.1) ; extra == 'tutorial'
+Requires-Dist: jupyterlab-pygments (==0.1.2) ; extra == 'tutorial'
+Requires-Dist: jupyterlab-widgets (==1.0.2) ; extra == 'tutorial'
+Requires-Dist: jupytext (==1.13.6) ; extra == 'tutorial'
+Requires-Dist: lxml (==4.7.1) ; extra == 'tutorial'
+Requires-Dist: markdown-it-py (==1.1.0) ; extra == 'tutorial'
+Requires-Dist: markupsafe (==2.0.1) ; extra == 'tutorial'
+Requires-Dist: matplotlib-inline (==0.1.3) ; extra == 'tutorial'
+Requires-Dist: mdit-py-plugins (==0.3.0) ; extra == 'tutorial'
+Requires-Dist: mistune (==0.8.4) ; extra == 'tutorial'
+Requires-Dist: mypy-extensions (==0.4.3) ; extra == 'tutorial'
+Requires-Dist: nbclient (==0.5.10) ; extra == 'tutorial'
+Requires-Dist: nbconvert (==6.4.1) ; extra == 'tutorial'
+Requires-Dist: nbformat (==5.1.3) ; extra == 'tutorial'
+Requires-Dist: nest-asyncio (==1.5.4) ; extra == 'tutorial'
+Requires-Dist: notebook (==6.4.8) ; extra == 'tutorial'
+Requires-Dist: packaging (==21.3) ; extra == 'tutorial'
+Requires-Dist: pandocfilters (==1.5.0) ; extra == 'tutorial'
+Requires-Dist: parso (==0.8.3) ; extra == 'tutorial'
+Requires-Dist: pathspec (==0.9.0) ; extra == 'tutorial'
+Requires-Dist: pexpect (==4.8.0) ; extra == 'tutorial'
+Requires-Dist: pickleshare (==0.7.5) ; extra == 'tutorial'
+Requires-Dist: platformdirs (==2.4.1) ; extra == 'tutorial'
+Requires-Dist: prometheus-client (==0.13.1) ; extra == 'tutorial'
+Requires-Dist: prompt-toolkit (==3.0.26) ; extra == 'tutorial'
+Requires-Dist: ptyprocess (==0.7.0) ; extra == 'tutorial'
+Requires-Dist: pure-eval (==0.2.2) ; extra == 'tutorial'
+Requires-Dist: pycparser (==2.21) ; extra == 'tutorial'
+Requires-Dist: pygments (==2.11.2) ; extra == 'tutorial'
+Requires-Dist: pyparsing (==3.0.7) ; extra == 'tutorial'
+Requires-Dist: pyrsistent (==0.18.1) ; extra == 'tutorial'
+Requires-Dist: python-dateutil (==2.8.2) ; extra == 'tutorial'
+Requires-Dist: pyyaml (==5.4.1) ; extra == 'tutorial'
+Requires-Dist: pyzmq (==22.3.0) ; extra == 'tutorial'
+Requires-Dist: send2trash (==1.8.0) ; extra == 'tutorial'
+Requires-Dist: six (==1.16.0) ; extra == 'tutorial'
+Requires-Dist: stack-data (==0.1.4) ; extra == 'tutorial'
+Requires-Dist: terminado (==0.13.1) ; extra == 'tutorial'
+Requires-Dist: testpath (==0.5.0) ; extra == 'tutorial'
+Requires-Dist: toml (==0.10.2) ; extra == 'tutorial'
+Requires-Dist: tomli (==1.2.3) ; extra == 'tutorial'
+Requires-Dist: tornado (==6.1) ; extra == 'tutorial'
+Requires-Dist: tqdm (==4.62.3) ; extra == 'tutorial'
+Requires-Dist: traitlets (==5.1.1) ; extra == 'tutorial'
+Requires-Dist: typing-extensions (==4.0.1) ; extra == 'tutorial'
+Requires-Dist: wcwidth (==0.2.5) ; extra == 'tutorial'
+Requires-Dist: webencodings (==0.5.1) ; extra == 'tutorial'
+Requires-Dist: widgetsnbextension (==3.5.2) ; extra == 'tutorial'
+
+# Bitfount
+
+<!-- Github workflow badges are case sensitive - the name must match the name of the workflow exactly -->
+
+![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)
+![CI](https://github.com/bitfount/bitfount/workflows/CI/badge.svg?branch=develop)
+![tutorials](https://github.com/bitfount/bitfount/workflows/tutorials/badge.svg?branch=develop)
+[![codecov](https://codecov.io/gh/bitfount/bitfount/branch/develop/graph/badge.svg?token=r1hulrgehK)](https://codecov.io/gh/bitfount/bitfount)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+[![mypy type checked](https://img.shields.io/badge/mypy-checked-blue)](#mypy)
+[![flake8](https://img.shields.io/badge/linter-flake8-success)](https://github.com/PyCQA/flake8)
+
+<!-- ![docs-coverage](interrogate.svg) -->
+
+This repository enables quick and easy experimentation with machine learning and federated learning models.
+
+## Table of Contents
+
+- [Bitfount](#bitfount)
+  - [Table of Contents](#table-of-contents)
+  - [Using the Docker images](#using-the-docker-images)
+  - [Running the Python code](#running-the-python-code)
+    - [Installation](#installation)
+    - [Environment variables](#environment-variables)
+    - [Getting started (Tutorials)](#getting-started-tutorials)
+    - [Federated training scripts](#federated-training-scripts)
+    - [Basic Local Usage](#basic-local-usage)
+  - [License](#license)
+
+## Using the Docker images
+
+There are two docker images, one for running a Pod (`ghcr.io/bitfount/pod:stable`),
+and another for running a modelling task (`ghcr.io/bitfount/modeller:stable`).
+
+Both of the images require a `config.yaml` file to be provided to them,
+by default they will try to load it from `/mount/config/config.yaml` inside the docker container.
+You can provide this file easily by mounting/binding a volume to the container,
+how you do this may vary depending on your platform/environment (Docker/docker-compose/ECS),
+if you have any problems doing this then feel free to reach out to us.
+
+Alternative you could copy a config file into a stopped container using [docker cp](https://docs.docker.com/engine/reference/commandline/cp/).
+
+If you're using a CSV data source then you'll also need to mount your data to the container,
+this will need to be mounted at the path specified in your config, for simplicity it's easiest
+put your config and your CSV in the same directory and then mount it to the container.
+
+Once your container is running you will need to check the logs and complete the login step,
+allowing your container to authenticate with Bitfount.
+The process is the same as when running locally (e.g. the tutorials),
+except that we can't open the login page automatically for you.
+
+## Running the Python code
+
+### Installation
+
+#### Where to get it
+
+Binary installers for the latest released version are available at the [Python
+Package Index (PyPI)](https://pypi.org/project/bitfount).
+
+`pip install bitfount`
+
+#### Installation from sources
+
+To install `bitfount` from source you need to create a python 3.8 virtual environment.
+
+In the `bitfount` directory (same one where you found this file after
+cloning the git repo), execute:
+
+`pip install -r requirements/requirements.in`
+
+These requirements are set to permissive ranges but are not guaranteed to work for all releases, especially the latest versions. For a pinned version of these requirements which are guaranteed to work, run the following command instead:
+
+`pip install -r requirements/requirements.txt`
+
+For MacOS you also need to install `libomp`:
+
+`brew install libomp`
+
+### Environment variables
+
+The following environment variables can optionally be set:
+
+- `BITFOUNT_ENGINE`: determines the backend used. Current accepted values are "basic" or "pytorch". If pytorch is installed, this will automatically be selected
+- `BITFOUNT_LOG_TO_FILE`: determines whether bitfount logs to file as well as console. Accepted values are "true" or "false". Defaults to "true"
+- `BITFOUNT_LOGS_DIR`: determines where logfiles are stored. If empty, logs will be stored in a subdirectory called `bitfount_logs` in the directory where the script is run from
+- `BITFOUNT_ENVIRONMENT`: accepted values are "production" or "staging". Defaults to "production". Should only be used for development purposes.
+- `BITFOUNT_POD_VITALS_PORT`: determines the TCP port number to serve the pod vitals health check over. You can check the state of a running pod's health by accessing `http://localhost:{{ BITFOUNT_POD_VITALS_PORT }}/health`. A random open port will be selected if `BITFOUNT_POD_VITALS_PORT` is not set.
+
+### Getting started (Tutorials)
+
+In order to run the tutorials, you also need to install the tutorial requirements:
+
+`pip install -r requirements/requirements-tutorial.txt`
+
+To get started using the Bitfount package in a federated setting,
+we recommend that you start with our tutorials. Run `jupyter notebook`
+and open up the first tutorial at: `tutorials/FL - Part 1 - Training a model.ipynb`
+
+### Federated training scripts
+
+Some simple scripts have been provided to run a Pod or Modelling job from a config file.
+
+> ⚠️ If you are running from a source install (such as from `git clone`) you will
+> need to use <span style="white-space: nowrap">`python -m scripts.<script_name>`</span>
+> rather than use `bitfount <script_name>` directly.
+
+To run a pod:
+
+`bitfount run_pod --path_to_config_yaml=<CONFIG_FILE>`
+
+To run a modelling job:
+
+`bitfount run_modeller --path_to_config_yaml=<CONFIG_FILE>`
+
+### Basic Local Usage
+
+As well as providing the ability to use data in remote pods, this package also enables local ML training. Some example code for this purpose is given below.
+
+**1\. Import bitfount**
+
+```python
+import bitfount as bf
+```
+
+**2\. Create DataSource**
+
+```python
+prosper = bf.DataSource(
+    data="https://bitfount-hosted-downloads.s3.eu-west-2.amazonaws.com/prosper.csv",
+    ignore_cols=['NPV', 'IRR', 'PROFIT'],
+)
+```
+
+**3\. Create Schema**
+
+```python
+schema = bf.BitfountSchema(prosper, force_stype={'categorical':["TARGET", "CreditGrade"]})
+```
+
+**4\. Transform Data**
+
+```python
+clean_data = bf.CleanDataTransformation()
+processor = bf.TransformationProcessor([clean_data], schema)
+prosper.data = processor.transform(prosper.data)
+schema.add_datasource_features(prosper)
+```
+
+**5\. Create DataStructure**
+
+```python
+prosper_data_structure=bf.DataStructure(
+  target='TARGET'
+)
+```
+
+**6\. Create and Train Model**
+
+```python
+nn = bf.PyTorchTabularClassifier(
+    datastructure=prosper_data_structure,
+    schema=schema,
+    epochs=2,
+    batch_size=256,
+    optimizer=bf.Optimizer("RAdam", {"lr": 0.001})
+)
+nn.fit(prosper)
+nn.serialize("demo_task_model.pt")
+```
+
+**7\. Evaluate**
+
+```python
+preds, targs = nn.evaluate()
+metrics = bf.MetricCollection.create_from_model(nn)
+results = metrics.compute(targs, preds)
+print(results)
+```
+
+**8\. Assert results**
+
+```python
+import numpy as np
+assert nn._train_loss is not np.nan
+assert nn._validation_loss is not np.nan
+assert results["AUC"] > 0.7
+```
+
+## License
+
+The license for this software is available in the `LICENSE.md` file.
+This can be found in the Github Repository, as well as inside the Docker image.
+
+
