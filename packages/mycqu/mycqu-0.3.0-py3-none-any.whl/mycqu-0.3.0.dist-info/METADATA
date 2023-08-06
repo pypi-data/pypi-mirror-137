@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: mycqu
+Version: 0.3.0
+Summary: 重庆重庆大学新教务网及相关 api 的封装
+Home-page: https://pymycqu.hagb.name
+License: AGPL-3.0-or-later
+Keywords: cqu,Chongqing University,data model
+Author: Hagb
+Author-email: hagb_green@qq.com
+Requires-Python: >=3.7,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Natural Language :: Chinese (Simplified)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Software Development :: Libraries
+Provides-Extra: pycryptodome
+Provides-Extra: pycryptodomex
+Requires-Dist: pyaes (>=1.2.0)
+Requires-Dist: pycryptodome (>=3,<4); extra == "pycryptodome"
+Requires-Dist: pycryptodomex (>=3,<4); extra == "pycryptodomex"
+Requires-Dist: pydantic (>=1,<2)
+Requires-Dist: pytz
+Requires-Dist: requests (>=2,<3)
+Project-URL: Documentation, https://pymycqu.hagb.name
+Project-URL: Repository, https://github.com/Hagb/pymycqu
+Description-Content-Type: text/markdown
+
+# pymycqu
+
+这个库对重庆大学 <https://my.cqu.edu.cn> 和统一身份认证的部分 web api 进行了封装，同时整理了相关数据模型。
+
+Work in progress... 欢迎反馈和补充
+
+感谢 <https://github.com/CQULHW/CQUQueryGrade> 项目提供了 <https://my.cqu.edu.cn> 的登陆方式。
+
+## 安装
+
+```bash
+pip install mycqu
+```
+
+## 例子及文档
+
+见 <https://pymycqu.hagb.name>.
+
+## 许可
+
+AGPL 3.0
+
