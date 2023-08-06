@@ -1,0 +1,89 @@
+Metadata-Version: 2.1
+Name: snowshu
+Version: 0.0.4a1
+Summary: Sample image management for data transform TDD.
+Home-page: https://snowshu.readthedocs.io/en/master/index.html
+Author: Health Union Data Team
+Author-email: data@health-union.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: pyyaml (==5.4.1)
+Requires-Dist: pandas (==1.3.4)
+Requires-Dist: docker (==5.0.2)
+Requires-Dist: click (==8.0.2)
+Requires-Dist: coloredlogs (==15.0)
+Requires-Dist: networkx (==2.6.2)
+Requires-Dist: tabulate (==0.8.8)
+Requires-Dist: psycopg2-binary (==2.9.1)
+Requires-Dist: scipy (==1.7.3)
+Requires-Dist: overrides (==3.1.0)
+Requires-Dist: jsonschema (==3.2.0)
+Requires-Dist: tenacity (==7.0.0)
+Requires-Dist: snowflake-sqlalchemy (==1.3.2)
+Requires-Dist: sqlalchemy (==1.4.0)
+Requires-Dist: snowflake-connector-python (==2.7.2)
+Requires-Dist: asn1crypto (==1.4.0)
+Requires-Dist: azure-common (==1.1.27)
+Requires-Dist: azure-storage-blob (==12.9.0)
+Requires-Dist: boto3 (==1.20.38)
+Requires-Dist: botocore (==1.23.38)
+Requires-Dist: certifi (==2021.10.8)
+Requires-Dist: cffi (==1.15.0)
+Requires-Dist: chardet (==3.0.4)
+Requires-Dist: cryptography (==3.4.8)
+Requires-Dist: docutils (==0.18)
+Requires-Dist: idna (==2.10)
+Requires-Dist: oscrypto (==1.2.1)
+Requires-Dist: pycryptodomex (==3.10.1)
+Requires-Dist: pyjwt (==2.0.1)
+Requires-Dist: pyOpenSSL (==19.1.0)
+Requires-Dist: pytz (==2021.1)
+Requires-Dist: requests (==2.25.1)
+Requires-Dist: urllib3 (==1.26.5)
+
+# SnowShu
+_by Health Union_
+
+![Coverage](https://bitbucket.org/healthunion/snowshu/downloads/coverage.svg)
+![Pipeline](https://bitbucket.org/healthunion/snowshu/downloads/pipeline.svg)
+
+SnowShu enables data developers to author transforms and models in a highly performant, fully local environment. It is designed to make true red-green TDD not only possible for data development, but painless and blazingly fast.
+
+![SnowShu Logo](docs/assets/snowshu_logo.png)
+
+**Note:** SnowShu requires Docker, if you have not done so first [install Docker](https://docs.docker.com/install/).
+
+To get started install with 
+
+```
+pip install snowshu
+
+```
+Then create new `replica.yml` and `credentials.yml` files with 
+
+```
+
+snowshu init
+
+```
+
+Configure your `replica.yml` and `credentials.yml` files, then execute with 
+
+```
+
+snowshu create
+
+```
+
+and your replica is ready for use! 
+
+
+Check out the full documentation [here](https://snowshu.readthedocs.org)
+
+
