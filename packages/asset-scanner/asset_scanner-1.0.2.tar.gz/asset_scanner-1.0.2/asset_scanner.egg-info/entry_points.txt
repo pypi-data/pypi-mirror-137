@@ -1,0 +1,38 @@
+[asset_scanner.extraction_methods.header_extract.backends]
+cf = asset_scanner.plugins.extraction_methods.header_extract.backends.cf:CfBackend
+xarray = asset_scanner.plugins.extraction_methods.header_extract.backends.xarray:XarrayBackend
+
+[asset_scanner.facet_extractors]
+header_extract = asset_scanner.plugins.extraction_methods.header_extract.header_extract:HeaderExtract
+iso19115 = asset_scanner.plugins.extraction_methods.iso19115_extract:ISO19115Extract
+regex = asset_scanner.plugins.extraction_methods.regex_extract:RegexExtract
+xml_extract = asset_scanner.plugins.extraction_methods.xml_extract:XMLExtract
+
+[asset_scanner.input_plugins]
+file_system = asset_scanner.plugins.input_plugins.file_system_input:FileSystemInputPlugin
+intake_esm = asset_scanner.plugins.input_plugins.intake_esm_input:IntakeESMInputPlugin
+object_store = asset_scanner.plugins.input_plugins.object_store_input:ObjectStoreInputPlugin
+rabbit_mq = asset_scanner.plugins.input_plugins.rabbit_mq_input:RabbitMQInputPlugin
+thredds = asset_scanner.plugins.input_plugins.thredds_input:ThreddsInputPlugin
+
+[asset_scanner.output_plugins]
+elasticsearch = asset_scanner.plugins.output_plugins.elasticsearch_backend:ElasticsearchOutputBackend
+standard_out = asset_scanner.plugins.output_plugins.standard_out:StdoutOutputBackend
+
+[asset_scanner.plugin_filters]
+path_regex = asset_scanner.plugins.filters.path_regex:PathRegexFilter
+
+[asset_scanner.post_processors]
+date_combinator = asset_scanner.plugins.extraction_methods.postprocessors:DateCombinatorProcessor
+facet_map = asset_scanner.plugins.extraction_methods.postprocessors:FacetMapProcessor
+isodate_processor = asset_scanner.plugins.extraction_methods.postprocessors:ISODateProcessor
+stac_bbox = asset_scanner.plugins.extraction_methods.postprocessors:BBOXProcessor
+string_join = asset_scanner.plugins.extraction_methods.postprocessors:StringJoinProcessor
+
+[asset_scanner.pre_processors]
+ceda_observation = asset_scanner.plugins.extraction_methods.preprocessors:CEDAObservation
+filename_reducer = asset_scanner.plugins.extraction_methods.preprocessors:ReducePathtoName
+
+[console_scripts]
+asset_scanner = asset_scanner.scripts.asset_scanner:main
+
