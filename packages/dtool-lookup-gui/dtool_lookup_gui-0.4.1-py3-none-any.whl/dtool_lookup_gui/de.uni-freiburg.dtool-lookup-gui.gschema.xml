@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<schemalist>
+
+    <schema path="/de/uni-freiburg/dtool-lookup-gui/" id="de.uni-freiburg.dtool-lookup-gui">
+
+        <key name='dependency-keys' type='s'>
+            <default>'["readme.derived_from.uuid","annotations.source_dataset_uuid"]'</default>
+            <summary>Fields that may identify source datasets for querying dependency graphs.</summary>
+        </key>
+
+        <key name='local-base-uris' type='as'>
+            <default>[]</default>
+            <summary>Local directories displayed in the base URI list.</summary>
+        </key>
+
+    </schema>
+
+</schemalist>
