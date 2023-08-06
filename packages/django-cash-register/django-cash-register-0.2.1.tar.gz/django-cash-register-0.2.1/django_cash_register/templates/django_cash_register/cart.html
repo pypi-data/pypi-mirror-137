@@ -1,0 +1,44 @@
+{% load static %}
+<div class="cart">
+    <div class="cart-container">
+        {% if products %}
+            <hr class="cart-item-separator">
+            {% for product in products %}
+                <div class="cart-item">
+                    <div class=item-image>
+                        <img src="{% if product.product.image %}{{ product.product.image.url }}{% else %}static/images/defaul_image.png{% endif %}"
+                             alt="{{ product.product.name }}" loading="lazy" width="80" height="100"/>
+                    </div>
+                    <div class="item-about">
+                        <div class="item-title">
+                            <p class="item-about-inner">{{ product.product.name }}</p>
+                        </div>
+                       <div class="item-subtitle">
+                           <p class="item-about-inner">{{ product.product.weight }} {{ product.product.unit }}</p>
+                       </div>
+                    </div>
+                    <div class="item-counter">
+                        <div class="item-counter-container">
+                            <a href="" name="product_{{ product.pk }}" class="item-counter-plus">
+                                <button class="item-counter-btn item-counter-btn-animation">+</button>
+                            </a>
+                            <div class="item-counter-count">{{ product.product_count }}</div>
+                            <a href="" name="product_{{ product.pk }}" class="item-counter-minus">
+                                <button class="item-counter-btn item-counter-btn-animation">-</button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="item-price">
+                        <div class="item-amount">
+                            {% if currency.1 %}{{ product.total_price }}{{ currency.0 }}{% else %}{{ currency.0 }}{{ product.total_price }}{% endif %}
+                        </div>
+                        <a href="" name="product_{{ product.pk }}" class="item-remove">
+                            <button class="btn-remove">Remove</button>
+                        </a>
+                    </div>
+                </div>
+                <hr class="cart-item-separator">
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

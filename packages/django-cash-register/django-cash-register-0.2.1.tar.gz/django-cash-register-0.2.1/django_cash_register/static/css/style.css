@@ -1,0 +1,477 @@
+a{
+ text-decoration: none;
+ outline: none;
+}
+button{
+ outline: none;
+}
+
+/* body */
+body{
+ margin: 0;
+ padding: 0;
+ height: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background: linear-gradient(to bottom, #E3F0FF, #FAFCFF);
+}
+.body-container{
+ width: 100%;
+ height: 90vh;
+ padding: 5vh;
+}
+/* end body */
+
+/* header */
+.header{
+ width: 100%;
+ height: 15%;
+ overflow: hidden;
+ box-shadow: 0 25px 40px #1687d933;
+ border-radius: 20px 20px 0 0;
+ background-color: #fff;
+}
+.header-container{
+ width: 95%;
+ height: 100%;
+ margin: auto;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+
+.cart-selected{
+ color: #2F3841;
+ font-size: 20px;
+ font-weight: 700;
+}
+
+.items-remove-all{
+ color: #a50e0e;
+ cursor: pointer;
+ font-size: 14px;
+ font-weight: 600;
+ border-radius: 5px;
+ border: 1px solid #a50e0e;
+ background-color: #fff;
+ padding: 10px 16px 10px 16px;
+}
+/*end header */
+
+/* cart */
+.cart{
+ width: 100%;
+ height: 65%;
+ overflow: hidden;
+ background-color: #fff;
+ border-radius: 0 0 20px 20px;
+ box-shadow: 0 25px 40px #1687d933;
+}
+.cart-container {
+ width: 95%;
+ height: 100%;
+ overflow: auto;
+ padding: 0 2.5% 0 2.5%;
+}
+/* end cart */
+
+/* cart-item */
+.cart-item{
+ width: 100%;
+ height: 100px;
+ display: flex;
+ padding: 2vh 0;
+}
+.cart-item-separator{
+ border: 0;
+ margin: 0;
+ height: 1px;
+ border-top: 1px solid #d9d9d9;
+}
+/* end cart-item */
+
+/* item-image */
+.item-image{
+ width: 100px;
+ height: 100px;
+ overflow: hidden;
+}
+.item-image img {
+ margin: auto;
+ max-height: 100%;
+}
+/* end item-image */
+
+/* item-about */
+.item-about{
+ float: left;
+ width: 72.5%;
+ height: 100%;
+}
+
+.item-title{
+ color: #202020;
+ width: 100%;
+ height: 60px;
+ font-size: 30px;
+ font-weight: 900;
+ display: table-row;
+ word-wrap: break-word;
+ vertical-align: middle;
+}
+.item-about-inner {
+ margin: 0;
+ display: table-cell;
+ vertical-align: middle;
+}
+.item-subtitle{
+ width: 100%;
+ height: 40px;
+ color: #6e6e6e;
+ font-size: 18px;
+ font-weight: 600;
+ display: table-row;
+ vertical-align: middle;
+}
+/* end item-about */
+
+/* item-counter */
+.item-counter{
+ width: 20%;
+}
+.item-counter-btn{
+ width: 40px;
+ height: 40px;
+ display: flex;
+ color: #202020;
+ cursor: pointer;
+ font-size: 20px;
+ border-radius: 50%;
+ align-items: center;
+ justify-content: center;
+ border: 1px solid #909090;
+ background-color: #fff;
+}
+
+.item-counter-container{
+ width: 50%;
+ height: 100%;
+ margin: auto;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+.item-counter-btn:hover, .item-counter-plus:hover > .item-counter-btn, .item-counter-minus:hover > .item-counter-btn{
+ border: 1px solid #d9d9d9;
+ background-color: #d9d9d9;
+}
+.item-counter-btn:focus, .item-counter-plus:focus > .item-counter-btn, .item-counter-minus:focus > .item-counter-btn{
+ animation: item-counter-btn-glowing 1s ease-in-out infinite;
+}
+@keyframes item-counter-btn-glowing {
+ 0% {background-color: #fff;}
+ 50% {background-color: #d9d9d9;}
+ 100% {background-color: #fff;}
+}
+
+.item-counter-count{
+ color: #202020;
+ font-size: 20px;
+ /*font-weight: 900;*/
+}
+/* end item-counter */
+
+/* item-price */
+.item-price{
+ width: 7.5%;
+ height: 100%;
+ text-align: center;
+}
+
+.item-amount{
+ padding: 10px;
+ color: #202020;
+ font-size: 26px;
+ overflow: hidden;
+ font-weight: 800;
+}
+
+.btn-remove{
+ border: none;
+ color: #a50e0e;
+ cursor: pointer;
+ font-size: 14px;
+ font-weight: 600;
+ border-radius: 5px;
+ background-color: #fce8e8;
+ padding: 10px 16px 10px 16px;
+}
+.btn-remove:hover, .item-remove-all:hover > .btn-remove, .item-remove:hover > .btn-remove{
+ animation: btn-remove-glowing 1350ms ease-in-out infinite;
+}
+.btn-remove:focus, .item-remove-all:focus > .btn-remove, .item-remove:focus > .btn-remove{
+ animation: btn-remove-glowing 1s ease-in-out infinite;
+}
+
+@keyframes btn-remove-glowing {
+ 0% {background-color: #fce8e8; color: #a50e0e}
+ 25% {color: #fff;}
+ 50% {background-color: #a50e0e; color: #fff}
+ 100% {background-color: #fce8e8; color: #a50e0e}
+}
+/* end item-price */
+
+/* total */
+.total{
+ width: 100%;
+ height: auto;
+ overflow: hidden;
+ margin-top: 2.5%;
+ border-radius: 20px;
+ background-color: #fff;
+ box-shadow: 0 25px 40px #1687d933;
+}
+.total-container {
+ width: 95%;
+ height: 120px;
+ margin: auto;
+}
+/* end total */
+
+.total-sell{
+ width: 55%;
+ height: 100%;
+ float: left;
+}
+.total-sell:before{
+ height: 100%;
+ content: '';
+ display: inline-block;
+ vertical-align: middle;
+}
+.total-sell-btn{
+ width: 99%;
+ height: 55px;
+ border: None;
+ cursor: pointer;
+ color: #174ea6;
+ font-size: 16px;
+ font-weight: 600;
+ border-radius: 20px;
+ display: inline-block;
+ background: #8eb7eb8a;
+ vertical-align: middle;
+}
+.total-sell-btn:hover, .sell:hover > .total-sell-btn, .login-btn:hover{
+ color: #202020;
+ background: #00FF7F;
+}
+.total-sell-btn:focus, .sell:focus > .total-sell-btn, .login-btn:focus{
+ animation: total-sell-btn-glowing 1s ease-in-out infinite;
+}
+@keyframes total-sell-btn-glowing {
+ 0% {background-color: #8eb7eb8a; color: #174ea6}
+ 25% {color: #fff;}
+ 50% {background-color: #174ea6; color: #fff}
+ 100% {background-color: #8eb7eb8a; color: #174ea6}
+}
+
+/* total-amount */
+.total-amount{
+ width: 25%;
+ height: 100%;
+ float: left;
+ color: #202020;
+ font-size: 40px;
+ font-weight: 900;
+ text-align: center;
+ display: table-cell;
+ vertical-align: middle;
+}
+.total-amount:before{
+ height: 100%;
+ content: '';
+ display: inline-block;
+ vertical-align: middle;
+}
+.total-amount-inner{
+  display: inline-block;
+  vertical-align: middle;
+}
+/* end total-amount */
+
+/* subtotal */
+.subtotal {
+ margin-left: 5%;
+ width: 15%;
+ height: 100%;
+ float: left;
+}
+.subtotal-text{
+ color: #202020;
+ height: 70px;
+ font-size: 30px;
+ font-weight: 900;
+ display: flex;
+ align-items: flex-end;
+ justify-content: center;
+}
+.subtotal p {
+ margin: 0;
+}
+
+.subtotal-items{
+ width: 100%;
+ height: 50px;
+ color: #6e6e6e;
+ display: flex;
+ font-size: 20px;
+ font-weight: 600;
+ align-items: flex-start;
+ justify-content: center;
+}
+/* end subtotal */
+
+/* login */
+.login-container {
+ width: 300px;
+ height: 450px;
+ margin: auto;
+ overflow: hidden;
+ background-color: #fff;
+ box-shadow: 0 25px 40px #1687d933;
+ border-radius: 20px 20px 20px 20px;
+ transform: translate(-50%, -50%);
+ position: fixed; top: 50%; left: 50%;
+}
+
+.login-form{
+ margin: auto;
+ height: 250px;
+ text-align: center;
+ transform: translate(-50%, -50%);
+ position: fixed; top: 50%; left: 50%;
+}
+
+.login-input{
+ margin: 5px;
+ padding: 10px;
+ font-size: 16px;
+ text-align:center;
+ border-radius: 5px;
+ border: 1px solid #d9d9d9;
+}
+
+.login-form > p{
+ margin: 10px;
+ color: #a50e0e;
+}
+
+.login-btn{
+ width: 100%;
+ height: 50px;
+ border: None;
+ cursor: pointer;
+ color: #174ea6;
+ font-size: 16px;
+ font-weight: 600;
+ border-radius: 20px;
+ background: #8eb7eb8a;
+ margin-top: 30px;
+}
+/* end login */
+
+
+@media screen and (max-width: 1366px) {
+  .item-about{
+   width: 62.5%;
+  }
+ .item-counter{
+  width: 30%;
+ }
+}
+
+@media screen and (max-width: 1112px) {
+  .item-about{
+   width: 54.5%;
+  }
+ .item-counter{
+  width: 35%;
+ }
+ .item-price{
+  width: 10.5%;
+ }
+}
+
+@media screen and (max-width: 949px) {
+  .item-about{
+   width: 44.5%;
+  }
+ .item-counter{
+  width: 45%;
+ }
+ .item-price{
+  width: 11.5%;
+ }
+ .total-sell-btn{
+  width: 98%;
+ }
+}
+
+@media screen and (max-width: 800px) {
+  .item-about{
+   width: 43.5%;
+  }
+ .item-counter{
+  width: 45%;
+ }
+ .item-price{
+  width: 12.5%;
+ }
+}
+
+@media screen and (max-width: 768px) {
+  .item-about{
+   width: 44.5%;
+  }
+ .item-counter{
+  width: 30%;
+ }
+ .item-price{
+  width: 14.5%;
+ }
+}
+
+@media screen and (max-width: 568px) {
+  .item-about{
+   width: 33.5%;
+  }
+ .item-counter{
+  width: 30%;
+ }
+ .item-price{
+  width: 17.5%;
+ }
+}
+
+@media screen and (max-width: 414px) {
+ .total-sell{
+  width: 30%;
+ }
+ .total-sell-btn{
+  width: 96%;
+ }
+ .subtotal{
+  width: 17%;
+ }
+ .total-amount{
+  width: 48%;
+ }
+}
+
+@media screen and (max-width: 375px) {
+ .total-sell-btn{
+  width: 97%;
+ }
+}
