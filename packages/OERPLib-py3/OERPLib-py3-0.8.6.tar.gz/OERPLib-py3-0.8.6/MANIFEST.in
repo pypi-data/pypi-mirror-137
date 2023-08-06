@@ -1,0 +1,9 @@
+include AUTHORS.txt
+include CHANGELOG.rst
+include LICENSE.txt
+include README.rst
+include doc/Makefile doc/make.bat
+recursive-include doc/source *
+recursive-include examples *
+recursive-include tests *.py
+prune tests/__pycache__
