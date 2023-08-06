@@ -1,0 +1,15 @@
+{% extends "core/site-base.html" %}
+
+{% block tabtitle %}
+Simmate
+{% endblock %}
+
+{% block body %}
+{% include "core/search-form.html" %}
+{% include "core/search-results.html" %}
+{% endblock %}
+
+
+{% block extrafooter %}
+{% include "core/datatable.html" %}
+{% endblock %}
