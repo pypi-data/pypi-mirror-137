@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="view_tree_order_telecom" model="ir.ui.view">
+      <field name="model">sale.order</field>
+      <field name="name">sale.order.tree.telecom</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="state"/>
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="product_id"/>
+          <field name="substate_id"/>
+        </tree>
+      </field>
+    </record>
+    <record id="view_search_order_telecom" model="ir.ui.view">
+      <field name="model">sale.order</field>
+      <field name="name">sale.order.search.telecom</field>
+      <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+      <field name="arch" type="xml">
+        <search>
+          <filter string="Mobile" name="is_mobile" domain="[('is_mobile', '=', True)]"/>
+          <filter string="ADSL" name="is_adsl" domain="[('is_adsl', '=', True)]"/>
+          <filter string="Fiber" name="is_fiber" domain="[('is_fiber', '=', True)]"/>
+          <filter string="Landline" name="is_landline" domain="[('is_landline', '=', True)]"/>
+          <filter string="Radiofrequency" name="is_radiofrequency" domain="[('is_radiofrequency', '=', True)]"/>
+        </search>
+      </field>
+    </record>
+    <record id="view_form_order_telecom" model="ir.ui.view">
+      <field name="model">sale.order</field>
+      <field name="name">sale.order.form.telecom</field>
+      <field name="arch" type="xml">
+        <form string="Sale Order">
+          <header name="state">
+            <button name="action_confirm" id="action_confirm" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+            <button name="action_cancel" states="draft,sent,sale" type="object" string="Cancel"/>
+            <button name="action_draft" states="cancel" type="object" string="Set to Quotation"/>
+            <field name="state" widget="statusbar"/>
+          </header>
+          <header name="substate">
+            <field name="product_template_id" invisible="1"/>
+            <field name="substate_id" widget="statusbar" options="{'clickable': '1',}" domain="[('product_template_ids', '=', product_template_id)]"/>
+          </header>
+          <sheet>
+            <div class="oe_button_box" name="button_box">
+              <button name="action_show_contracts" type="object" icon="fa-book" class="oe_stat_button" attrs="{'invisible': ['|', '|', ('is_contract', '!=', True), ('state', 'not in', ['sale', 'done']), ('contract_count', '=', 0)]}">
+                <field string="Contracts" name="contract_count" widget="statinfo"/>
+              </button>
+            </div>
+            <group name="Customer">
+              <field name="partner_id"/>
+            </group>
+            <group name="Service">
+              <field name="is_contract" invisible="1"/>
+              <field name="product_id"/>
+              <field name="isp_info"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record id="view_pivot_order_telecom" model="ir.ui.view">
+      <field name="model">sale.order</field>
+      <field name="name">sale.order.pivot.telecom</field>
+      <field name="arch" type="xml">
+        <pivot/>
+      </field>
+    </record>
+
+    <act_window id="action_sale_order_telecom" name="Telecom SaleOrders"
+      res_model="sale.order" view_mode="tree,form,pivot"
+      domain="[('is_telecom','=',True)]"
+      />
+
+    <record model="ir.actions.act_window.view" id="action_sale_order_telecom_tree">
+      <field name="sequence">0</field>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_tree_order_telecom" />
+      <field name="act_window_id" ref="action_sale_order_telecom" />
+    </record>
+    <record model="ir.actions.act_window.view" id="action_sale_order_telecom_form">
+      <field name="sequence">1</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_form_order_telecom" />
+      <field name="act_window_id" ref="action_sale_order_telecom" />
+    </record>
+
+    <record model="ir.actions.act_window" id="sale.action_orders">
+      <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')),('is_telecom', '=', False)]</field>
+    </record>
+    <record model="ir.actions.act_window" id="sale.action_quotations_with_onboarding">
+      <field name="domain">[('is_telecom', '=', False)]</field>
+    </record>
+  </data>
+</odoo>

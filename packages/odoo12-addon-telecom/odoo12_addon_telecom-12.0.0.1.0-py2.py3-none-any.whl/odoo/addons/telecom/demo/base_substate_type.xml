@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="base.substate.type" id="base_substate_type_mobile">
+            <field name="name">Mobile</field>
+            <field name="model">sale.order</field>
+            <field name="product_template_ids" eval="[(6, 0, [ ref('gsm_recurring_product_template')])]"/>
+            <field name="target_state_field">state</field>
+        </record>
+        <record model="base.substate.type" id="base_substate_type_broadband">
+            <field name="name">Broadband</field>
+            <field name="model">sale.order</field>
+            <field name="product_template_ids" eval="[(6, 0, [
+              ref('adsl_recurring_product_template'),
+              ref('fiber_recurring_product_template'),
+              ref('radiofrequency_recurring_product_template'),
+            ])]"/>
+            <field name="target_state_field">state</field>
+        </record>
+        <record model="base.substate.type" id="base_substate_type_landline">
+            <field name="name">Landline</field>
+            <field name="model">sale.order</field>
+            <field name="product_template_ids" eval="[(6, 0, [ ref('landline_recurring_product_template')])]"/>
+            <field name="target_state_field">state</field>
+        </record>
+    </data>
+</odoo>

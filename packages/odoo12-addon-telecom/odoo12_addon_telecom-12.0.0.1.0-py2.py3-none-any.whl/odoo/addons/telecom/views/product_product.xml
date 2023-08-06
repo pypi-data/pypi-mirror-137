@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_product_tree_inherited_view" model="ir.ui.view">
+        <field name="name">product.product.tree.inherited.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <field name="name" position="replace">
+                <field name="showed_name"/>
+                <field name="type"/>
+                <field name="main"/>
+            </field>
+        </field>
+    </record>
+    <record id="product_search_form_view" model="ir.ui.view">
+        <field name="name">product.product.search</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_template_search_view" />
+        <field name="arch" type="xml">
+            <search string="Product">
+                <filter name="groupby_categ_id" string="Product Category" context="{'group_by': 'categ_id'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="product_variant_easy_edit_view" model="ir.ui.view">
+        <field name="name">product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="priority">1</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="replace">
+                <field name="showed_name"/>
+            </field>
+        </field>
+    </record>
+</odoo>

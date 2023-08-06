@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <menuitem
+      id="menu_sale_order_telecom"
+      name="Telecom Orders"
+      action="action_sale_order_telecom"
+      web_icon="telecom,static/description/mobile_lead_lines.png"
+      />
+    <record id="sale.menu_products" model="ir.ui.menu">
+      <field name="groups_id" eval="[(6,0,[ref('telecom.group_telecom_user'),ref('telecom.group_telecom_manager')])]" />
+    </record>
+    <record id="sale.menu_product_template_action" model="ir.ui.menu" >
+      <field name="groups_id" eval="[(6,0,[ref('telecom.group_telecom_admin')])]" />
+    </record>
+    <menuitem
+      id="menu_contract_telecom"
+      name="Telecom Contracts"
+      action="action_contract_telecom"
+      web_icon="telecom,static/description/mobile_lead_lines.png"
+      />
+  </data>
+</odoo>

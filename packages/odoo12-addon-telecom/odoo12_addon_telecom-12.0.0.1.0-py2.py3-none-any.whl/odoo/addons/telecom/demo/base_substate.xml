@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="base.substate" id="base_substate_mobile_draft_line_active">
+            <field name="name">Line active</field>
+            <field name="target_state_value_id" ref="telecom.target_state_value_mobile_draft"/>
+            <field name="model">sale.order</field>
+        </record>
+        <record model="base.substate" id="base_substate_mobile_sale_contract_created">
+            <field name="name">Contract created</field>
+            <field name="target_state_value_id" ref="telecom.target_state_value_mobile_sale"/>
+            <field name="model">sale.order</field>
+        </record>
+        <record model="base.substate" id="base_substate_broadband_draft_installed">
+            <field name="name">Installed</field>
+            <field name="target_state_value_id" ref="telecom.target_state_value_broadband_draft"/>
+            <field name="model">sale.order</field>
+        </record>
+        <record model="base.substate" id="base_substate_broadband_sale_contract_created">
+            <field name="name">Contract created</field>
+            <field name="target_state_value_id" ref="telecom.target_state_value_broadband_sale"/>
+            <field name="model">sale.order</field>
+        </record>
+    </data>
+</odoo>
