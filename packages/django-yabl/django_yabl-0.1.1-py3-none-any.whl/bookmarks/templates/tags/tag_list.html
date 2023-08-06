@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Tags | BrandX</title>  {% endblock title %}
+
+{% block content %}
+    <main class="container">
+        <h1 class="my-3">Your Tags</h1>
+        <ul class="list-group">
+            {% for tag in tags %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <details>
+                        <summary>
+                            <a class="fs-3 text-decoration-none lead" href="{% url 'bookmarks:filter_objects_by_tag_models' tag.name %}">{{tag.name}}</a>
+                        </summary>
+                        {% include './tag_list_annotated_model_list.html' %}
+                    </details>
+                </li>
+            {% empty %}
+                <h3> No tags supplied. </h3>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock content %}
