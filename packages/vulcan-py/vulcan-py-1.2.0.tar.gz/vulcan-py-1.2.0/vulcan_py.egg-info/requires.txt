@@ -1,0 +1,20 @@
+setuptools~=59.0
+wheel~=0.36.2
+typing_extensions~=3.7
+tomlkit~=0.9
+ppsetuptools==2.0.2
+editables~=0.2
+
+[:python_version <= "3.6"]
+dataclasses~=0.8
+
+[:python_version <= "3.7"]
+importlib_metadata~=4.6
+
+[cli]
+shiv~=0.5.2
+build[virtualenv]~=0.3.0
+click~=8.0
+
+[convert]
+pkginfo~=1.7
