@@ -1,0 +1,83 @@
+Metadata-Version: 2.1
+Name: yamsl
+Version: 0.1.0
+Summary: Yet Another Meteo Swiss Library
+Home-page: https://github.com/gwrd-ch/yamsl
+Author: gwrd-ch
+Author-email: dev@gwrd.ch
+License: MIT
+Description: # YAMSL
+        ![License](https://img.shields.io/github/license/gwrd-ch/yamsl)
+        
+        Yet Another Meteo Swiss Library
+        
+        ## General Info
+        This python library provides an easy way to get forecasts from MeteoSwiss.
+        
+        ## Installation
+        Install with pip:
+        ```
+        $ pip install yamsl
+        ```
+        
+        ## Usage
+        
+        ```
+        from yamsl import MeteoSwiss
+        
+        
+        meteo = MeteoSwiss() # instanciate MeteoSwiss
+        await meteo.setup(8001) # setup with zip-code
+        forecast = await meteo.updateForecast() # update forecast (also returns forecast)
+        ```
+        
+        ## Licence
+        
+        
+        ## Disclaimer
+        The code is provided as is. This is an unofficial client.
+        
+        ## Thanks
+        * This repo helped a lot: https://github.com/caco3/MeteoSwiss-Forecast
+        
+        ## Development
+        
+        After cloning repo:
+        ```
+        // Create the virtual environment
+        $ python3 -m venv venv
+        $ python -m venv venv
+        
+        // Activate the virtual environment (Linux/macOS)
+        $ source venv/bin/activate
+        
+        // Install requirements
+        $ pip install -r requirements.txt
+        ```
+        
+        Before checking in again:
+        ```
+        // Freeze requirements
+        $ pip freeze > requirements.txt
+        ```
+        
+        ## Deploy
+        
+        Compile and test
+        ```
+        python setup.py sdist bdist_wheel
+        twine check dist/*
+        twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+        twine upload dist/*
+        ```
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
