@@ -1,0 +1,73 @@
+Metadata-Version: 2.1
+Name: SciFiReaders
+Version: 0.0.4
+Summary: Tools for extracting data and metadata from scientific data files
+Home-page: https://pycroscopy.github.io/SciFiReaders/about.html
+Author: Pycroscopy contributors
+Author-email: pycroscopy@gmail.com
+License: MIT
+Keywords: imaging,spectra,multidimensional,scientific
+Platform: Linux
+Platform: Mac OSX
+Platform: Windows 10/8.1/8/7
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+License-File: LICENSE
+Requires-Dist: numpy (>=1.10)
+Requires-Dist: toolz
+Requires-Dist: cytoolz
+Requires-Dist: dask (>=2.20.0)
+Requires-Dist: sidpy (>=0.0.2)
+Requires-Dist: pillow (>=5.4.0)
+Provides-Extra: gwyddion
+Requires-Dist: gwyfile ; extra == 'gwyddion'
+Provides-Extra: hyperspy
+Requires-Dist: hyperspy ; extra == 'hyperspy'
+Provides-Extra: igor
+Requires-Dist: igor ; extra == 'igor'
+Provides-Extra: nanonispy
+Requires-Dist: nanonispy ; extra == 'nanonispy'
+Provides-Extra: sid
+Requires-Dist: pyUSID ; extra == 'sid'
+Requires-Dist: pyNSID ; extra == 'sid'
+
+SciFiReaders
+============
+
+.. image:: https://github.com/pycroscopy/SciFiReaders/workflows/build/badge.svg?branch=main
+    :target: https://github.com/pycroscopy/SciFiReaders/actions?query=workflow%3Abuild
+    :alt: GitHub Actions
+
+.. image:: https://img.shields.io/pypi/v/SciFiReaders.svg
+    :target: https://pypi.org/project/SciFiReaders/
+    :alt: PyPI
+
+.. image:: https://img.shields.io/pypi/l/SciFiReaders.svg
+    :target: https://pypi.org/project/SciFiReaders/
+    :alt: License
+
+.. image:: http://pepy.tech/badge/SciFiReaders
+    :target: http://pepy.tech/project/SciFiReaders
+    :alt: Downloads
+    
+.. image:: https://codecov.io/gh/pycroscopy/SciFiReaders/branch/main/graph/badge.svg?token=5511SG1YWE
+    :target: https://codecov.io/gh/pycroscopy/SciFiReaders
+    :alt: Coverage
+
+Tools for extracting data and metadata from scientific data files.
+Extracted information are returned as `sidpy.Dataset <https://pycroscopy.github.io/sidpy/_autosummary/sidpy.sid.dataset.Dataset.html#sidpy.sid.dataset.Dataset>`_ objects.
+
+Please see `SciFiReaders documentation website <https://pycroscopy.github.io/SciFiReaders/index.html>`_ for more information.
+
+
