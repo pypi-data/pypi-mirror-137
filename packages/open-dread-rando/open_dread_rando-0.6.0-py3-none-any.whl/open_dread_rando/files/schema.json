@@ -1,0 +1,189 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "starting_location": {
+            "$ref": "#/$defs/actor_reference"
+        },
+        "pickups": {
+            "type": "array",
+            "minItems": 146,
+            "maxItems": 148,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "pickup_type": {
+                        "type": "string",
+                        "enum": [
+                            "actor",
+                            "emmi",
+                            "corex",
+                            "corpius"
+                        ]
+                    },
+                    "caption": {
+                        "type": "string"
+                    },
+                    "resources": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "item_id": {
+                                    "type": "string"
+                                },
+                                "quantity": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "item_id",
+                                "quantity"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "pickup_type",
+                    "caption",
+                    "resources"
+                ],
+                "if": {
+                    "properties": {
+                        "pickup_type": {
+                            "const": "actor"
+                        }
+                    }
+                },
+                "then": {
+                    "properties": {
+                        "pickup_actor": {
+                            "$ref": "#/$defs/actor_reference_with_layer"
+                        },
+                        "model": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "pickup_actor",
+                        "model"
+                    ]
+                },
+                "else": {
+                    "properties": {
+                        "pickup_actordef": {
+                            "type": "string",
+                            "pattern": "[a-zA-Z0-9_/]+?\\.bmsad"
+                        },
+                        "pickup_string_key": {
+                            "type": "string"
+                        },
+                        "pickup_lua_callback": {
+                            "$ref": "#/$defs/scenario_lua_callback"
+                        }
+                    },
+                    "required": [
+                        "pickup_actordef",
+                        "pickup_string_key",
+                        "pickup_lua_callback"
+                    ]
+                }
+            }
+        },
+        "elevators": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "teleporter": {
+                        "$ref": "#/$defs/actor_reference_with_layer"
+                    },
+                    "destination": {
+                        "$ref": "#/$defs/actor_reference"
+                    }
+                },
+                "required": [
+                    "teleporter",
+                    "destination"
+                ]
+            }
+        },
+        "debug_export_modified_files": {
+            "type": "boolean",
+            "default": false,
+            "description": "Saves all modified files to a _debug sub-directory."
+        },
+        "starting_items": {
+            "type": "object"
+        }
+    },
+    "required": [
+        "starting_location",
+        "starting_items"
+    ],
+    "$defs": {
+        "scenario_lua_callback": {
+            "type": "object",
+            "properties": {
+                "scenario": {
+                    "$ref": "#/$defs/scenario_name"
+                },
+                "function": {
+                    "type": "string"
+                },
+                "args": {
+                    "type": "number",
+                    "default": 0
+                }
+            }
+        },
+        "actor_reference_with_layer": {
+            "type": "object",
+            "properties": {
+                "scenario": {
+                    "$ref": "#/$defs/scenario_name"
+                },
+                "layer": {
+                    "type": "string",
+                    "default": "default"
+                },
+                "actor": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "scenario",
+                "actor"
+            ]
+        },
+        "actor_reference": {
+            "type": "object",
+            "properties": {
+                "scenario": {
+                    "$ref": "#/$defs/scenario_name"
+                },
+                "actor": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "scenario",
+                "actor"
+            ]
+        },
+        "scenario_name": {
+            "type": "string",
+            "enum": [
+                "s010_cave",
+                "s020_magma",
+                "s030_baselab",
+                "s040_aqua",
+                "s050_forest",
+                "s060_quarantine",
+                "s070_basesanc",
+                "s080_shipyard",
+                "s090_skybase"
+            ]
+        }
+    }
+}
