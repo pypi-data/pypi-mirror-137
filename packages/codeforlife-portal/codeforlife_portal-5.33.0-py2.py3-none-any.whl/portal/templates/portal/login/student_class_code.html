@@ -1,0 +1,25 @@
+{% extends 'portal/form_shapes.html' %}
+{% load staticfiles %}
+{% load app_tags %}
+
+{% block form_content %}
+    <div id="student_login_page_class_code"></div>
+    <h4 class="center-block">Welcome</h4>
+    <h5>Please enter your class code.</h5>
+    <form id="form-login-school-class-code" method="post" autocomplete="off">
+
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="form__input">
+            {{ form.access_code }}
+            <small>{{ form.access_code.help_text }}</small>
+            {{ form.access_code.errors }}
+        </div>
+
+        <button type="submit" name="school_login_class_code" class="button button--primary button--login">Log in</button>
+    </form>
+
+    <p>Forgotten your login details? Please check with your teacher.</p>
+{% endblock form_content %}
