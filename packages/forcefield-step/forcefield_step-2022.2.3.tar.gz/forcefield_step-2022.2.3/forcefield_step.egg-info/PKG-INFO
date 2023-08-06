@@ -1,0 +1,122 @@
+Metadata-Version: 2.1
+Name: forcefield-step
+Version: 2022.2.3
+Summary: A SEAMM plug-in for setting up a forcefield or EAM potentials for subsequent simulations.
+Home-page: https://github.com/molssi-seam/forcefield_step
+Author: Paul Saxe
+Author-email: psaxe@molssi.org
+License: BSD-3-Clause
+Keywords: SEAMM,plug-in,flowchart,forcefield,EAM,OpenKIM
+Platform: Linux
+Platform: Mac OS-X
+Platform: Unix
+Platform: Windows
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: AUTHORS.rst
+
+.. image:: https://img.shields.io/github/issues-pr-raw/molssi-seamm/forcefield_step
+   :target: https://github.com/molssi-seamm/forcefield_step/pulls
+   :alt: GitHub pull requests
+
+.. image:: https://github.com/molssi-seamm/forcefield_step/workflows/CI/badge.svg
+   :target: https://github.com/molssi-seamm/forcefield_step/actions
+   :alt: Build Status
+
+.. image:: https://codecov.io/gh/molssi-seamm/forcefield_step/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/molssi-seamm/forcefield_step
+   :alt: Code Coverage
+
+.. image:: https://img.shields.io/lgtm/grade/python/g/molssi-seamm/forcefield_step.svg?logo=lgtm&logoWidth=18
+   :target: https://lgtm.com/projects/g/molssi-seamm/forcefield_step/context:python
+   :alt: Code Quality
+
+.. image:: https://github.com/molssi-seamm/forcefield_step/workflows/Documentation/badge.svg
+   :target: https://molssi-seamm.github.io/forcefield_step/index.html
+   :alt: Documentation Status
+
+.. image:: https://pyup.io/repos/github/molssi-seamm/forcefield_step/shield.svg
+   :target: https://pyup.io/repos/github/molssi-seamm/forcefield_step/
+   :alt: Updates for Dependencies
+
+.. image:: https://img.shields.io/pypi/v/forcefield_step.svg
+   :target: https://pypi.python.org/pypi/forcefield_step
+   :alt: PyPi VERSION
+
+========================
+SEAMM Forcefield Plug-in
+========================
+
+A SEAMM plug-in for setting up a forcefield or EAM potentials for
+subsequent simulations.
+
+This plug-in provides a graphical user interface (GUI) for choosing
+the forcefield or EAM potentials use by subsequent simulation steps.
+
+* Free software: BSD license
+* Documentation: https://molssi-seamm.github.io/forcefield_step/index.html
+
+Features
+--------
+
+* Support for PCFF class II forcefield.
+* Support for OpenKIM and the potentials it supports.
+* For OpenKIM potentials choice is managed through a periodic table
+  interface, making it simple to find the right potentials.
+
+Acknowledgements
+----------------
+
+This package was created with Cookiecutter_ and the `molssi-seamm/cookiecutter-seamm-plugin`_ project template.
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`molssi-seamm/cookiecutter-seamm-plugin`: https://github.com/molssi-seamm/cookiecutter-seamm-plugin
+
+Developed by the Molecular Sciences Software Institute (MolSSI_),
+which receives funding from the `National Science Foundation`_ under
+award ACI-1547580
+
+.. _MolSSI: https://www.molssi.org
+.. _`National Science Foundation`: https://www.nsf.gov
+
+
+=======
+History
+=======
+
+2021.2.10 (10 February 2021)
+----------------------------
+
+* Updated the README file to give a better description.
+* Updated the short description in setup.py to work with the new installer.
+* Added keywords for better searchability.
+
+2020.8.1 (1 August 2020)
+------------------------
+
+* Added support for OpenKIM potentials in LAMMPS
+
+0.9.1 (24 May 2020)
+-------------------
+
+* Added the specialized NaCl_water forcefield for testing the MolSSI
+  Driver Interface (MDI) metadynamics driver.
+
+0.9 (15 April 2020)
+-------------------
+
+* Internal changes for compatibility
+  
+0.1.0 (24 December 2017)
+------------------------
+
+* First release on PyPI.
+
+
