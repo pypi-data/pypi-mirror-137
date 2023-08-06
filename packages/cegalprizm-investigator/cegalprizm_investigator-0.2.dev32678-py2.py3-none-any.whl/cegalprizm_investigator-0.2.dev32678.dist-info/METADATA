@@ -1,0 +1,75 @@
+Metadata-Version: 2.1
+Name: cegalprizm-investigator
+Version: 0.2.dev32678
+Summary: Cegal Prizm Investigator
+Home-page: https://docs.prizm.cegal-geo.com/
+Author: Cegal Prizm Team
+Author-email: prizm@cegal.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas
+Requires-Dist: cloudpickle
+Requires-Dist: pillow
+Requires-Dist: ipyplot
+Requires-Dist: matplotlib
+Requires-Dist: grpcio
+Requires-Dist: protobuf
+Requires-Dist: cegal-keystoneauth
+Requires-Dist: cegalprizm-hub (>=1.*)
+
+# Introduction
+
+A Python client library to use with a Cegal Hub Server and Cegal Hub Connector applications. Cegal Hub allows for exchange of data and messages across process boundaries on the local machine or across a network or internet. Out of the box the library allows for working with local or remote Cegal Hub Agents or Cegal Hub Connectors such as the Cegal Hub Petrel Connector and for queries against a running Cegal Hub Server which may also be local or remote. The library is designed to be consumed by other Python libraries with knowledge about specific Cegal Hub Connectors and functionality. Cegal Hub is secured using Cegal Keystone.
+
+# Usage
+
+1. Configure logging (Optional) 
+2. Create a Hub object to work with a Cegal Hub Server
+3. Make queries against a running Cegal Hub Server
+4. Make client requests against Cegal Hub Connector applications
+
+
+# Basic Example working with a local running Cegal Hub Server
+
+```python
+import logging
+
+# Import the Hub object
+from cegalprizm.hub import Hub
+
+# Configure logging to stdout with info level
+logging.getLogger()
+logging.basicConfig(
+    format="%(asctime)s %(levelname)s %(message)s",
+    level=logging.INFO,
+    stream=sys.stdout,
+)
+
+# Create a Hub object
+hub = Hub()
+
+# Verify that the local Hub Server is running
+hub.verify_health()
+
+# Check that the version of the Python client library is compatible with the running Hub Server
+hub.is_version_compatible()
+
+# Query the server
+hub.print_query_server()
+
+# Query the available connectors
+hub.print_query_connectors()
+```
+
+# Further information and examples
+Please see the Cegal Prizm Documentation site [here](https://docs.prizm.cegal-geo.com)
+
+# License
+Copyright (2022) Cegal, As. This library (the "Software") may not be used except in connection with the Licensees use of the Cegal Prizm Hub pursuant to an Agreement (defined below) between Licensee (defined below) and Cegal, AS. ("Cegal"). This Software shall be deemed part of the "Subscription Services" under the Agreement. Licensees use of the Software must comply at all times with any restrictions applicable to the Subscription Services, generally, and must be used in accordance with any applicable documentation. If you have not agreed to an Agreement or otherwise do not agree to these terms, you may not use the Software. This license terminates automatically upon the termination of the Agreement or Licensees breach of these terms. Agreement: the agreement between Cegal and Licensee governing the use of the Cegal Prizm Hub, which shall be, with respect to Cegal, and the Cegal Terms of Service located at https://cegal.com/about/terms-and-conditions , in each case unless Licensee has entered into a separate written agreement with Cegal governing the use of the applicable Cegal Services. Licensee: the user of the Software, or, if the Software is being used on behalf of a company, the company.
+
