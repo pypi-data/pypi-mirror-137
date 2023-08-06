@@ -1,0 +1,84 @@
+Metadata-Version: 2.1
+Name: dismusic
+Version: 1.1.0
+Summary: Music cog for discord bots. Supports YouTube, YoutubeMusic, SoundCloud and Spotify.
+Home-page: https://github.com/shahriyardx/dismusic/
+Author: Md Shahriyar Alam
+Author-email: contact@shahriyar.dev
+License: MIT
+Project-URL: Bug Reports, https://github.com/shahriyardx/dismusic/issues
+Project-URL: Source, https://github.com/shahriyardx/dismusic/
+Keywords: discord discord-music music-bot discord-music-bot lavalink wavelink
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Framework :: aiohttp
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.7, <4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# dismusic
+Music cog for discord bots. Supports YouTube, YoutubeMusic, SoundCloud and Spotify.
+
+# Installation
+```sh
+python3 -m pip install dismusic
+```
+
+# Usage
+
+```python
+from discord.ext import commands
+
+bot = commands.Bot(command_prefix='..')
+
+bot.lavalink_nodes = [
+    {"host": "lavalink.eu", "port": 2333, "password": "Raccoon"}
+]
+
+# If you want to use spotify search
+bot.spotify_credentials = {
+    'client_id': 'CLIENT_ID_HERE', 
+    'client_secret': 'CLIENT_SECRET_HERE'
+}
+
+bot.load_extension('dismusic')
+bot.run('TOKEN')
+```
+
+# Commands
+
+**connect** - `Connect to vc` \
+**disconnect** - `Disconnect from vc` 
+
+**play** - `Play a song or playlist` \
+**pause** - `Pause player` \
+**resume** - `Resume player`
+
+**seek** - `Seek player` \
+**nowplaying** - `Now playing` \
+**queue** - `See queue` \
+**volume** - `Set volume` \
+**loop** - `Loop song/playlist`
+
+> Filter commands coming soon.
+
+# Lavalink Configs
+```py
+# No SSL/HTTPS
+{"host": "lavalink.eu", "port": 2333, "password": "Raccoon"}
+{"host": "losingtime.dpaste.org", "port": 2124, "password": "SleepingOnTrains"}
+{"host": "lava.link", "port": 80, "password": "dismusic"}
+{"host": "lavalink.islantay.tk", "port": 8880, "password": "waifufufufu"}
+```
+
+[Join Discord](https://discord.gg/7SaE8v2) For any kind of help
+
