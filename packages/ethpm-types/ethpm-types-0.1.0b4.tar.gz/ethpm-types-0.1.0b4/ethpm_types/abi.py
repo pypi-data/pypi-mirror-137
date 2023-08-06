@@ -1,0 +1,159 @@
+from typing import List, Optional, Union
+
+from .base import BaseModel
+
+try:
+    from typing import Literal  # type: ignore
+except ImportError:
+    from typing_extensions import Literal  # type: ignore
+
+
+class ABIType(BaseModel):
+    name: Optional[str] = None  # NOTE: Tuples don't have names by default
+    type: Union[str, "ABIType"]
+    internalType: Optional[str] = None
+
+    @property
+    def canonical_type(self) -> str:
+        if isinstance(self.type, str):
+            return self.type
+
+        else:
+            # Recursively discover the canonical type
+            return self.type.canonical_type
+
+    @property
+    def signature(self) -> str:
+        if self.name:
+            return f"{self.canonical_type} {self.name}"
+        else:
+            return self.canonical_type
+
+
+class EventABIType(ABIType):
+    indexed: bool = False  # Only event ABI types should have this field
+
+    @property
+    def signature(self) -> str:
+        sig = self.canonical_type
+        # For events (handles both None and False conditions)
+        if self.indexed:
+            sig += " indexed"
+        if self.name:
+            sig += f" {self.name}"
+        return sig
+
+
+class ConstructorABI(BaseModel):
+    type: Literal["constructor"]
+
+    # No `name` field
+    stateMutability: str = "nonpayable"  # NOTE: Should be either "payable" or "nonpayable"
+
+    inputs: List[ABIType] = []
+
+    @property
+    def is_payable(self) -> bool:
+        return self.stateMutability == "payable"
+
+    @property
+    def selector(self) -> str:
+        """
+        String representing the function selector, used to compute ``method_id``.
+        """
+        # NOTE: There is no space between input args for selector
+        input_names = ",".join(i.canonical_type for i in (self.inputs))
+        return f"{self.type}({input_names})"
+
+
+class FallbackABI(BaseModel):
+    type: Literal["fallback"]
+
+    # No `name` field
+    stateMutability: str = "nonpayable"  # NOTE: Should be either "payable" or "nonpayable"
+
+    @property
+    def is_payable(self) -> bool:
+        return self.stateMutability == "payable"
+
+    @property
+    def selector(self) -> str:
+        """
+        String representing the function selector, used to compute ``method_id``.
+        """
+        return f"{self.type}()"
+
+
+class MethodABI(BaseModel):
+    type: Literal["function"]
+
+    name: str
+    stateMutability: str = "nonpayable"
+
+    inputs: List[ABIType] = []
+    outputs: List[ABIType] = []
+
+    @property
+    def is_payable(self) -> bool:
+        return self.stateMutability == "payable"
+
+    @property
+    def is_stateful(self) -> bool:
+        return self.stateMutability not in ("view", "pure")
+
+    @property
+    def selector(self) -> str:
+        """
+        String representing the function selector, used to compute ``method_id`` and ``event_id``.
+        """
+        # NOTE: There is no space between input args for selector
+        input_names = ",".join(i.canonical_type for i in (self.inputs))
+        return f"{self.name}({input_names})"
+
+    @property
+    def signature(self) -> str:
+        """
+        String representing the function/event signature, which includes the arg names and types,
+        and output names (if any) and type(s)
+        """
+        input_args = ", ".join(i.signature for i in self.inputs)
+        output_args = ""
+
+        if self.outputs:
+            output_args = " -> "
+            if len(self.outputs) > 1:
+                output_args += "(" + ", ".join(o.canonical_type for o in self.outputs) + ")"
+
+            else:
+                output_args += self.outputs[0].canonical_type
+
+        return f"{self.name}({input_args}){output_args}"
+
+
+class EventABI(BaseModel):
+    type: Literal["event"]
+
+    name: str
+    inputs: List[EventABIType] = []
+    anonymous: bool = False
+
+    @property
+    def selector(self) -> str:
+        """
+        String representing the function selector, used to compute ``event_id``.
+        """
+        # NOTE: There is no space between input args for selector
+        input_names = ",".join(i.canonical_type for i in (self.inputs))
+        return f"{self.name}({input_names})"
+
+    @property
+    def signature(self) -> str:
+        """
+        String representing the function/event signature, which includes the arg names and types,
+        and output names (if any) and type(s)
+        """
+        input_args = ", ".join(i.signature for i in self.inputs)
+        return f"{self.name}({input_args})"
+
+
+ABI = Union[ConstructorABI, FallbackABI, MethodABI, EventABI]
