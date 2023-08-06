@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "blueye.protocol"
+version = "1.5.0"
+description = "Python protocol definition for the Blueye Pioneer"
+authors = ["Sindre Hansen <sindre.hansen@blueye.no>",
+           "Johannes Schrimpf <johannes.schrimpf@blueye.no>",
+           "Aksel Lenes <aksel.lenes@blueye.no>",
+           "Alexander Vedeler <alexander.vedeler@blueye.no>",
+          ]
+license = "LGPL-3.0"
+packages = [
+    { include = "blueye" },
+]
+readme = "README.md"
+repository="https://github.com/blueye-robotics/blueye.protocol"
+homepage ="https://www.blueyerobotics.com"
+keywords = ["Blueye", "Pioneer", "Robotics", "Protocol"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+numpy = "^1.17"
+setuptools = ">=40"
+pytest-timeout = "^1.4.2"
+
+[tool.poetry.dev-dependencies]
+Jinja2 = "^3.0"
+pytest = "^6.2.5"
+pytest-mock = "^1.10.4"
+invoke = "^1.6"
+pytest-cov = "^3.0"
+toml = "^0.10.0"
+flake8 = "^3.8.4"
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"
