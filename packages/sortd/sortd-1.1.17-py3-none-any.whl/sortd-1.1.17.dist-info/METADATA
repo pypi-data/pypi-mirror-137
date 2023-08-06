@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: sortd
+Version: 1.1.17
+Summary: sorting commands for stdin -> stdout
+Home-page: https://github.com/ms-jpq/sortd
+Author: ms-jpq
+Author-email: github@bigly.dog
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: PyYAML (==5.4.1)
+Requires-Dist: toml (==0.10.2)
+
+# Sortd
+
+Collection of `stdin` -> `stdout` sorting commands
+
+```sh
+sortd <fmt> [options...]
+```
+
+Supported formats:
+
+`cfg`, `csv`, `json`, `lines`, `plist`, `toml`, `yaml`
+
+## [Install](https://pypi.org/project/sortd)
+
+```sh
+pip3 install -U sortd
+```
+
+
