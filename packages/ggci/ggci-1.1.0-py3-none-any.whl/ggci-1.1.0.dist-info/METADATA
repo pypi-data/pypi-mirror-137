@@ -1,0 +1,114 @@
+Metadata-Version: 2.1
+Name: ggci
+Version: 1.1.0
+Summary: GitLab Google Chat Integration
+Home-page: https://github.com/lukany/ggci
+License: MIT
+Author: Jan Lukány
+Author-email: lukany.jan@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: Framework :: Flask
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Communications :: Chat
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI :: Application
+Classifier: Topic :: Software Development :: Version Control
+Classifier: Topic :: Software Development :: Version Control :: Git
+Requires-Dist: flask (>=1.1.2,<2.0.0)
+Requires-Dist: flexmock (>=0.10.4,<0.11.0)
+Requires-Dist: pyyaml (>=5.4.1,<6.0.0)
+Requires-Dist: requests (>=2.25.1,<3.0.0)
+Requires-Dist: tenacity (>=7.0.0,<8.0.0)
+Project-URL: Repository, https://github.com/lukany/ggci
+Description-Content-Type: text/markdown
+
+# Gitlab Google Chat Integration
+
+A Python Flask web application that forwards webhook requests
+from GitLab to Google Chat.
+
+![GGCI showcase](https://raw.githubusercontent.com/lukany/ggci/cb0886eb6594e36c5e56e54f00dbfdb71d3d8629/showcase.png)
+
+## Installation
+
+`ggci` is available as a Python package
+on [PyPI](https://pypi.org/project/ggci).
+It can be installed via standard package managers in Python, e.g. pip:
+
+```sh
+pip install ggci
+```
+
+## Usage
+
+`ggci` provides a standard Flask application factory `create_app()`:
+
+```python
+from ggci import create_app
+
+app = create_app()
+```
+
+For how to use this application factory refer to the official [Flask
+documentation](https://flask.palletsprojects.com/en/1.1.x/).
+
+## Configuration
+
+There are several ways how `ggci` can be configured.
+
+### YAML config (default)
+
+By default `create_app()` looks for a YAML configuration file specified
+by `GGCI_CONFIG` environment variable.
+Example config:
+
+```YAML
+ggci_secret: xxxxxxx
+
+user_mappings:  # OPTIONAL, used for mentions; key: GitLab ID, val: Google Chat ID
+  5894317: 120984893489384029908  # Gandalf
+  4985120: 109238409842809234892  # Chuck Norris
+```
+
+### Config Object
+
+Alternatively, `create_app()` also accepts optional argument `config` of type
+`ggci.Config`.
+
+```python
+from ggci import Config, create_app
+
+config = Config(
+    ggci_secret='xxxxxxx',
+    user_mappings={
+        5894317: 120984893489384029908,  # Gandalf
+        4985120: 109238409842809234892,  # Chuck Norris
+    },
+)
+
+app = create_app(config=config)
+```
+
+## Features
+
+### Merge Request Events Notifications
+
+Notifications for merge requests actions.
+All notifications for one MR are posted to the same thread (identified
+by merge request ID).
+Supported actions:
+
+- *open*: includes link with title, event author, mentions of assignees
+  and description
+- *approved*: includes link and event author
+- *update of assigness*: includes link and mentions of current assignees
+- *merged*: includes link and action author
+- *closed*: includes link and action author
+- *reopened*: includes link and action author
+
