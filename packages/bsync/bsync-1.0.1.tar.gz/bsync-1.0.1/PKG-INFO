@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: bsync
+Version: 1.0.1
+Summary: Sync files from your computer to Box.com using the Box API. Think rsync for Box.com
+Home-page: https://github.com/spacetelescope/bsync
+Author: Justin Quick
+Author-email: jquick@stsci.edu
+License: APACHE 2
+Project-URL: Documentation, https://bsync.readthedocs.io/en/latest/
+Project-URL: Source, https://github.com/spacetelescope/bsync
+Description: # bsync
+        Sync files from your computer to Box.com using the Box API
+        
+        Think rsync for Box
+        
+        ## Features
+        
+        - Preserves directory structure when uploading
+        - Can handle large files with chunked upload support
+          - Large files are uploaded with a progress bar indicator
+        - Only uploads existing files if they have changed on disk
+        - Define which files to sync base on glob expressions
+        - Reports what's been uploaded in a CSV artifact
+        
+        ## Install
+        
+        `pip install bsync`
+        
+        Now the `bsync` command should be available in your shell (`bsync.exe` for Win)
+        
+        ## Documentation
+        
+        Please see the official documentation for more information and usage
+        
+        [https://bsync.readthedocs.io/en/latest/](https://bsync.readthedocs.io/en/latest/)
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: Console
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
