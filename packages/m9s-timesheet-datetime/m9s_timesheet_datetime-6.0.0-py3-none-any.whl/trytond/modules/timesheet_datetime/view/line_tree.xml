@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<data>
+    <xpath expr="/tree" position="replace_attributes">
+        <tree editable="1"/>
+    </xpath>
+    <xpath expr="/tree/field[@name='date']" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name='duration']" position="before">
+	<field name="start_time" widget="date"/>
+	<field name="start_time" widget="time" string="Start Time"/>
+	<field name="end_time" widget="date"/>
+	<field name="end_time" widget="time" string="End Time"/>
+    </xpath>
+</data>
