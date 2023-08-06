@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: bcdi
+Version: 0.2.3
+Summary: BCDI: tools for pre(post)-processing Bragg and
+     forward coherent X-ray diffraction imaging data
+Home-page: https://github.com/carnisj/bcdi
+Author: Jerome Carnis
+Author-email: carnis_jerome@yahoo.fr
+License: CeCILL-B
+Project-URL: Documentation, https://bcdi.readthedocs.io/en/latest/
+Keywords: BCDI Bragg coherent X-rays diffraction imaging
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: CeCILL-B Free Software License Agreement (CECILL-B)
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6*
+Description-Content-Type: text/x-rst
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: scikit-image (<=0.18.3)
+Requires-Dist: matplotlib
+Requires-Dist: hdf5plugin
+Requires-Dist: h5py
+Requires-Dist: traits
+Requires-Dist: vtk
+Requires-Dist: importlib-resources
+Requires-Dist: xrayutilities
+Requires-Dist: fabio
+Requires-Dist: silx
+Requires-Dist: pyyaml
+Requires-Dist: black
+Requires-Dist: doit
+Requires-Dist: coverage
+Requires-Dist: tables
+Requires-Dist: lmfit
+Requires-Dist: moviepy
+Requires-Dist: pillow
+Requires-Dist: pandas
+Requires-Dist: pyqt5
+Requires-Dist: ipywidgets
+Provides-Extra: dev
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: coverage ; extra == 'dev'
+Requires-Dist: doit ; extra == 'dev'
+Requires-Dist: mypy ; extra == 'dev'
+Requires-Dist: pycodestyle ; extra == 'dev'
+Requires-Dist: pydocstyle ; extra == 'dev'
+Requires-Dist: pyfakefs ; extra == 'dev'
+Requires-Dist: twine ; extra == 'dev'
+Requires-Dist: wheel ; extra == 'dev'
+Provides-Extra: doc
+Requires-Dist: sphinx ; extra == 'doc'
+Requires-Dist: sphinxcontrib-mermaid ; extra == 'doc'
+
+
+BCDI: tools for pre(post)-processing Bragg and forward coherent X-ray
+diffraction imaging data.
+
+BCDI stands for *Bragg coherent X-ray diffraction imaging*.
+
+It can be used for:
+
+ 1. Pre-processing BCDI and forward CDI data (masking aliens, detector gaps)
+    before phase retrieval.
+ 2. Post-processing phased data (phase offset and phase ramp removal,
+    averaging, apodization...).
+ 3. Data analysis on diffraction data (stereographic projection,
+    angular cross correlation analysis, domain orientation fitting ...).
+ 4. Data analysis on phased data (resolution calculation, statistics on the
+    retrieved strain...).
+ 5. Simulation of diffraction intensity (including noise, detector gaps,
+    displacement...).
+ 6. Creating figures for publication using templates.
+
