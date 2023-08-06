@@ -1,0 +1,120 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+        local('MaterialIcons-Regular'),
+        url(../font/materialicons/v103/MaterialIcons-Regular.ttf) format('truetype'),
+        url(../font/materialicons/v103/MaterialIcons-Regular.woff2) format('woff2');
+}
+
+@media all {
+    .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;  /* Preferred icon size */
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+
+        /* Support for all WebKit browsers. */
+        -webkit-font-smoothing: antialiased;
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Support for IE. */
+        font-feature-settings: 'liga';
+    }
+}
+
+@media all {
+    .aa-sovtimer-timer-elapsed {
+        color: rgb(255, 0, 0);
+    }
+
+    .aa-sov-timer-zkb-icon {
+        margin-left: 1rem;
+    }
+
+    .aa-sovtimer-active-campaign {
+        border-right: 1px solid rgb(255, 0, 0);
+        border-left: 1px solid rgb(255, 0, 0);
+    }
+
+    .aa-sovtimer-active-campaign td {
+        background-color: rgba(255, 0, 0, 0.125);
+    }
+
+    .aa-sovtimer-upcoming-campaign {
+        border-right: 1px solid rgb(255, 165, 0);
+        border-left: 1px solid rgb(255, 165, 0);
+    }
+
+    .aa-sovtimer-upcoming-campaign td {
+        background-color: rgba(255, 165, 0, 0.125);
+    }
+
+    .aa-sovtimer-trend {
+        display: inline-block;
+        cursor: default;
+        position: relative;
+        top: 0.75rem;
+        left: 0.5rem;
+        margin-right: 1rem;
+    }
+
+    .aa-sovtimer-trend-up {
+        color: rgb(76, 175, 80);
+    }
+
+    .aa-sovtimer-trend-down {
+        color: rgb(255, 0, 0);
+    }
+
+    .aa-sovtimer-campaigns-progress-column {
+        width: 100px !important;
+    }
+
+    .aa-sovtimer-entity-logo-left {
+        margin-right: 0.5rem;
+    }
+
+    .aa-sovtimer .aa-sovtimer-campaigns td {
+        vertical-align: middle;
+    }
+}
+
+/* DataTables
+--------------------------------------------------------------------------------------------------------------------- */
+@media all {
+    .dataTables_wrapper > .form-inline {
+        margin-bottom: 1rem;
+    }
+
+    .dataTables_wrapper > .form-inline select {
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .dataTables_wrapper > .form-inline select:last-child {
+        margin-right: 0;
+    }
+
+    .dataTables_length select {
+        margin: 0 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .dataTables_wrapper > .form-inline select:first-child {
+        margin-left: 1rem;
+    }
+}
