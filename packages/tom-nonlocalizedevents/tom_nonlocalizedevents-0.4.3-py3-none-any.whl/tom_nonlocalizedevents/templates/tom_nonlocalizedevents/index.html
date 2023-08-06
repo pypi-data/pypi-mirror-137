@@ -1,0 +1,34 @@
+{% extends 'tom_common/index.html' %}
+<!-- tom_superevent/index.html -->
+{% block content %}
+<!-- block content -->
+<h1>Non-Localized Event Index</h1>
+{% if object_list %}
+  <table class="table">
+      <thead>
+      <tr>
+          <th scope="col">#</th>
+          <th scope="col">Event ID</th>
+          <th scope="col">Event Type</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for event in object_list %}
+      <tr>
+          <td scope="row">
+              <a href="{% url 'nonlocalizedevents:detail'  event.id %}">{{ event.id }}</a>
+          </td>
+          <td>
+              <a href="{{ event.superevent_url }}">{{ event.superevent_id }}</a>
+          </td>
+          <td>{{ event.superevent_type }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+{% else %}
+    <p>No events have been created. Create Superevents via the admin interface or REST API.</p>
+    <p>Coming soon: event creation from the <a href="{% url 'tom_alerts:list' %}">SCiMMA Alert Broker</a>.</p>
+{% endif %}
+
+{% endblock content %}
