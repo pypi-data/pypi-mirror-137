@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "fathomnet"
+version = "0.3.0"
+description = "fathomnet-py is a client-side API to help scientists, researchers, and developers interact with FathomNet data."
+license = "MIT"
+authors = ["Kevin Barnard <kbarnard@mbari.org>"]
+maintainers = ["Kevin Barnard <kbarnard@mbari.org>"]
+readme = "README.md"
+homepage = "https://github.com/fathomnet/fathomnet-py"
+repository = "https://github.com/fathomnet/fathomnet-py"
+documentation = "https://fathomnet-py.readthedocs.io"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+dataclasses-json = "^0.5.4"
+requests = "^2.20.0"
+lxml = "^4.6.0"
+coco-lib = "^0.1.1"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+fathomnet-generate = 'fathomnet.scripts.fathomnet_generate:main'
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/fathomnet/fathomnet-py/issues"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
