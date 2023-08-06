@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<tryton>
+    <data group="1">
+        <record model="ir.message" id="missing_journal_account">
+            <field name="text">Missing account on Batch Journal.
+Please configure the Batch Journal before proceeding.</field>
+        </record>
+        <record model="ir.message" id="unposted_lines">
+            <field name="text">There are unposted batch lines for one of the accounts used in the journal of this batch.
+
+You must proceed these batch lines before being able to create further transactions.</field>
+        </record>
+        <record model="ir.message" id="same_account_and_contra">
+            <field name="text">Account and contra account are the same.
+Please provide different accounts.</field>
+        </record>
+        <record model="ir.message" id="amount_greater_invoice_amount_to_pay">
+            <field name="text">Amount %s is greater than the amount to pay for invoice %s (Seq.: %s): %s.</field>
+        </record>
+        <record model="ir.message" id="missing_vat_code">
+            <field name="text">This tax requires a vat code.
+Please provide a party with a valid vat code.</field>
+        </record>
+        <record model="ir.message" id="no_period_fiscalyear">
+            <field name="text">No open period found for fiscalyear %s.</field>
+        </record>
+        <record model="ir.message" id="msg_cancelation">
+            <field name="text">Cancelation</field>
+        </record>
+        <record model="ir.message" id="line_missing_type">
+            <field name="text">To create a line on account "%(account)s", you must set a type.</field>
+        </record>
+        <record model="ir.message" id="line_closed_account">
+            <field name="text">To create a line on account "%(account)s", you must reopen it.</field>
+        </record>
+    </data>
+</tryton>
