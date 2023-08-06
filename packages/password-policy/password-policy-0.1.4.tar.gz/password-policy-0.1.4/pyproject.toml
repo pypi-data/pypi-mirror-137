@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "password-policy"
+version = "0.1.4"
+description = "Library for representing password policies in a machine-readable format. Also supports validating passwords against policies and for estimating the strength of passwords created under a given policy."
+authors = ["Scott Ruoti <ruoti@utk.edu>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://bitbucket.org/user-lab/password-policy/src/master/"
+repository = "https://bitbucket.org/user-lab/password-policy/src/master/"
+include = [
+    "LICENSE",
+]
+
+[tool.poetry.dependencies]
+python = "^3.6.8"
+pydantic = "^1.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
