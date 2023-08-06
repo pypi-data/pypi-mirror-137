@@ -1,0 +1,16 @@
+[package]
+name = "nucypher-core-python"
+authors = ["Bogdan Opanchuk <bogdan@opanchuk.net>"]
+version = "0.0.3"
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = "0.15"
+nucypher-core = { version = "0.0.3" }
+umbral-pre = { version = "0.5.1", features = ["bindings-python", "serde-support"] }
+
+[build-dependencies]
+pyo3-build-config = "*"
