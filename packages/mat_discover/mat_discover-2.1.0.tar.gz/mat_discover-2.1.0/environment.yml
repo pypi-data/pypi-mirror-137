@@ -1,0 +1,53 @@
+name: mat_discover
+channels:
+  - conda-forge
+  - pytorch
+  - numba/label/ci_llvmlite_0.38
+  - numba
+  - sgbaird
+  - defaults
+dependencies:
+  # core:
+  - matplotlib >=3.4.3
+  - pandas
+  - pytorch >=1.9.0
+  - plotly
+  - python >=3.7,<3.10
+  - scipy
+  - cudatoolkit <11.4
+  - numba >=0.53.1
+  - seaborn
+  - tqdm
+  - python-kaleido
+  - umap-learn
+  - numpy
+  - scikit-learn
+  - hdbscan
+  - pymatgen
+  - pytest
+  - dill
+  - pip
+  - pqdm ==0.1.0 #sgbaird
+  - crabnet >= 1.0.6
+  - chem_wasserstein >=1.0.6
+  - conda-souschef
+  - pip:
+    # core:
+    - ElM2D ==0.4.1
+  # optional:
+  - ipykernel
+  - nbformat >=4.2.0
+  - notebook
+  - flit
+  - pipreqs
+  - black
+  - pre_commit
+  - flake8 # probably taken care of already by others (dep)
+  - mypy
+  - mypy_extensions
+  - pydocstyle
+  - grayskull # maybe not grayskull, since conda smithy ci-skeleton seems to work better with conda-smithy
+  # - graphviz
+  # - python-graphviz
+  # - elmd==0.4.8 #sgbaird
+prefix: C:\Users\sterg\anaconda3\envs\mat_discover
