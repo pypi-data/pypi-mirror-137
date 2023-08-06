@@ -1,0 +1,81 @@
+/** Styles and definitions for modal dialog boxes. */
+/**
+ * A modal dialog box that displays over the page contents.
+ *
+ * Note that this is a legacy component that does not follow modern
+ * CSS Component standards. It may receive significant layout and styling
+ * changes sometime after Djblets 2.0.
+ *
+ * Structure:
+ *     <div class="modalbox">
+ *      <div class="modalbox-inner">
+ *       ...
+ *      </div>
+ *     </div>
+ */
+.modalbox {
+  background: white;
+  border: 1px #888A85 solid;
+  margin: 10px;
+  /**
+   * The buttons shown on the modalbox.
+   *
+   * Structure:
+   *     <div class="modalbox-buttons">
+   *      <button>...</button>
+   *      ...
+   *     </div>
+   */
+  /**
+   * The caller-provided contents of the modalbox.
+   *
+   * This generally contains forms or dialog text.
+   *
+   * Structure:
+   *     <div class="modalbox-contents">
+   *      ...
+   *     </div>
+   */
+  /**
+   * The inner part of a modalbox.
+   *
+   * This contains the content of the modalbox itself.
+   *
+   * Structure:
+   *     <div class="modalbox-inner">
+   *      <h1 class="modalbox-title">...</h1>
+   *      <div class="modalbox-contents">...</div>
+   *      <div class="modalnbox-buttons">...</div>
+   *     </div>
+   */
+  /**
+   * The title of a modalbox.
+   *
+   * Structure:
+   *     <h1 class="modalbox-title">...</h1>
+   */
+}
+.modalbox-buttons {
+  position: absolute;
+  margin: 10px;
+  text-align: right;
+  bottom: 0;
+  right: 0;
+}
+.modalbox-buttons button,
+.modalbox-buttons input,
+.modalbox-buttons [role="button"] {
+  margin-left: 10px;
+}
+.modalbox-contents {
+  margin: 10px;
+  position: relative;
+}
+.modalbox-title {
+  background: #A2BEDC;
+  border-bottom: 1px #728EAC solid;
+  font-size: 120%;
+  margin: 0;
+  padding: 5px 10px 5px 5px;
+}
+/*# sourceMappingURL=modalbox.css.map */
