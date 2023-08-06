@@ -1,0 +1,16 @@
+{% block head %}
+    {% with request.get_host as hostname %}
+        <title>{{ hostname }}</title>
+    
+        <meta charset="UTF-8">
+
+        <meta name="theme-color" content="#E3F0FF">
+
+        <meta name='viewport' content='width=device-width, initial-scale=1'/>
+        <meta name='HandheldFriendly' content='true' />
+        <meta name='MobileOptimized' content='width' />
+        <meta name='apple-mobile-web-app-capable' content='yes' />
+
+        {% include "django_cash_register/links.html" %}
+    {% endwith %}
+{% endblock %}
