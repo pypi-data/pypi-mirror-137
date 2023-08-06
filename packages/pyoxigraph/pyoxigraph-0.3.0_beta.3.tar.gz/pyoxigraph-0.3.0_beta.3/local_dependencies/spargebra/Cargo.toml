@@ -1,0 +1,27 @@
+[dependencies]
+oxilangtag = "0.1"
+oxiri = "0.2"
+peg = "0.8"
+rand = "0.8"
+
+[dependencies.oxrdf]
+path = "../oxrdf"
+version = "0.1.0-beta.3"
+
+[features]
+default = []
+rdf-star = ["oxrdf/rdf-star"]
+
+[package]
+authors = ["Tpt <thomas@pellissier-tanon.fr>"]
+description = "A SPARQL parser\n"
+edition = "2021"
+homepage = "https://oxigraph.org/"
+keywords = ["SPARQL"]
+license = "MIT OR Apache-2.0"
+name = "spargebra"
+readme = "README.md"
+repository = "https://github.com/oxigraph/oxigraph/tree/master/lib/spargebra"
+version = "0.2.0-beta.3"
+[package.metadata.docs.rs]
+all-features = true

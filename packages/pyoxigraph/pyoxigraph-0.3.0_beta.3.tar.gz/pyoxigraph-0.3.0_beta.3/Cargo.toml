@@ -1,0 +1,25 @@
+[dependencies.oxigraph]
+features = ["http_client"]
+path = "local_dependencies/oxigraph"
+version = "0.3.0-beta.3"
+
+[dependencies.pyo3]
+features = ["extension-module", "abi3-py37"]
+version = "0.15"
+
+[lib]
+crate-type = ["cdylib"]
+doctest = false
+name = "pyoxigraph"
+
+[package]
+authors = ["Tpt"]
+description = "Python bindings of Oxigraph, a SPARQL database and RDF toolkit"
+edition = "2021"
+homepage = "https://oxigraph.org/pyoxigraph/"
+keywords = ["RDF", "SPARQL", "graph-database", "database"]
+license = "MIT OR Apache-2.0"
+name = "pyoxigraph"
+readme = "README.md"
+repository = "https://github.com/oxigraph/oxigraph/tree/master/python"
+version = "0.3.0-beta.3"
