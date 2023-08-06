@@ -1,0 +1,53 @@
+# file stubs/ogdf/TreeLayout/TreeStructure.py generated from structogdf_1_1_tree_layout_1_1_tree_structure
+import enum
+from typing import *
+from ogdf_python import ogdf, cpp
+std = cpp.std
+class TreeStructure(object):
+
+	#: Actual highest ancestor.
+	m_ancestor : NodeArray[node] = ...
+
+	#: Change of shift applied to subtrees.
+	m_change : NodeArray[ float ] = ...
+
+	#: Leftmost child, 0 if leaf.
+	m_firstChild : NodeArray[node] = ...
+
+	m_ga : GraphAttributes = ...
+
+	#: Rightmost child, 0 if leaf.
+	m_lastChild : NodeArray[node] = ...
+
+	#: Left sibling, 0 if none.
+	m_leftSibling : NodeArray[node] = ...
+
+	#: Modifier of x-coordinates.
+	m_modifier : NodeArray[ float ] = ...
+
+	#: Consecutive numbers for children.
+	m_number : NodeArray[  int ] = ...
+
+	#: Parent node, 0 if root.
+	m_parent : NodeArray[node] = ...
+
+	#: Preliminary x-coordinates.
+	m_preliminary : NodeArray[ float ] = ...
+
+	#: Shift applied to subtrees.
+	m_shift : NodeArray[ float ] = ...
+
+	#: Thread, 0 if none.
+	m_thread : NodeArray[node] = ...
+
+	def __init__(self, tree : Graph, GA : GraphAttributes, roots : List[node]) -> None:
+		...
+
+	def isLeaf(self, v : node) -> bool:
+		...
+
+	def nextOnLeftContour(self, v : node) -> node:
+		...
+
+	def nextOnRightContour(self, v : node) -> node:
+		...

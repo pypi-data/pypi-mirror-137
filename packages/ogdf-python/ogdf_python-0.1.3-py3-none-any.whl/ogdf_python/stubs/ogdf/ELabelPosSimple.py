@@ -1,0 +1,23 @@
+# file stubs/ogdf/ELabelPosSimple.py generated from classogdf_1_1_e_label_pos_simple
+import enum
+from typing import *
+from ogdf_python import ogdf, cpp
+std = cpp.std
+class ELabelPosSimple(object):
+
+	m_absolut : bool = ...
+
+	m_edgeDistance : float = ...
+
+	m_marginDistance : float = ...
+
+	m_midOnEdge : bool = ...
+
+	def __init__(self) -> None:
+		...
+
+	def __destruct__(self) -> None:
+		...
+
+	def call(self, ug : GraphAttributes, eli : ELabelInterface[ float ]) -> None:
+		...

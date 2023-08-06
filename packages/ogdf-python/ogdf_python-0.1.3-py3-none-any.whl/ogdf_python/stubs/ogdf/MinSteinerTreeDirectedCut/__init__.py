@@ -1,0 +1,119 @@
+# file stubs/ogdf/MinSteinerTreeDirectedCut/__init__.py generated from classogdf_1_1_min_steiner_tree_directed_cut
+import enum
+from typing import *
+from ogdf_python import ogdf, cpp
+std = cpp.std
+T = TypeVar('T')
+
+class MinSteinerTreeDirectedCut(ogdf.MinSteinerTreeModule[ T ], Generic[T]):
+
+	"""This class implements the Directed Cut Integer Linear Program for the Steiner tree problem."""
+
+	m_addDegreeConstraints : bool = ...
+
+	m_addFlowBalanceConstraints : bool = ...
+
+	m_addGSEC2Constraints : bool = ...
+
+	m_addIndegreeEdgeConstraints : bool = ...
+
+	m_backCutComputation : bool = ...
+
+	m_callPrimalHeuristic : int = ...
+
+	m_configFile : str = ...
+
+	m_eps : float = ...
+
+	m_maxFlowModuleOption : std.unique_ptr[MaxFlowModule[ float ] ] = ...
+
+	m_maxNrAddedCuttingPlanes : int = ...
+
+	m_minCardinalityCuts : bool = ...
+
+	m_nestedCutComputation : bool = ...
+
+	m_poolSizeInitFactor : int = ...
+
+	m_primalHeuristic : MinSteinerTreeModule[ float ] = ...
+
+	m_saturationStrategy : int = ...
+
+	m_separationStrategy : int = ...
+
+	m_shuffleTerminals : bool = ...
+
+	def __init__(self) -> None:
+		...
+
+	def setConfigFile(self, configfile : str) -> None:
+		"""Set a configuration file to use. The contents of the configuration file can override all other used options."""
+		...
+
+	def setEpsilon(self, eps : float) -> None:
+		"""Set the epsilon for the LP."""
+		...
+
+	def setMaxFlowModule(self, module : MaxFlowModule[ float ]) -> None:
+		"""Set the maximum flow module to be used for separation."""
+		...
+
+	def setMaxNumberAddedCuttingPlanes(self, b : int) -> None:
+		"""Set maximum number of added cutting planes per iteration."""
+		...
+
+	def setPoolSizeInitFactor(self, b : int) -> None:
+		"""Set factor for the initial size of the cutting pool."""
+		...
+
+	def setPrimalHeuristic(self, b : MinSteinerTreeModule[ float ]) -> None:
+		"""Set the module option for the primal heuristic (useMinSteinerTreeModule<double>types). Default: MinSteinerTreeModuleTakahashi."""
+		...
+
+	def setPrimalHeuristicCallStrategy(self, b : int) -> None:
+		"""Set primal heuristic call strategy."""
+		...
+
+	def setSaturationStrategy(self, b : int) -> None:
+		"""Set saturation strategy for nested cuts."""
+		...
+
+	def setSeparationStrategy(self, b : int) -> None:
+		"""Set separation strategy for nested cuts."""
+		...
+
+	def useBackCuts(self, b : bool) -> None:
+		"""Switch computation of back-cuts on or off."""
+		...
+
+	def useDegreeConstraints(self, b : bool) -> None:
+		"""Switch usage of degree constraints (like indeg <= 1) on or off."""
+		...
+
+	def useFlowBalanceConstraints(self, b : bool) -> None:
+		"""Switch usage of flow balance constraints on or off."""
+		...
+
+	def useGSEC2Constraints(self, b : bool) -> None:
+		"""Switch usage of constraints x_uv + x_vu <= 1 on or off."""
+		...
+
+	def useIndegreeEdgeConstraints(self, b : bool) -> None:
+		"""Switch usage of indegree edge constraints (indeg(v) >= outgoing edge(v,x) for all x) on or off."""
+		...
+
+	def useMinCardinalityCuts(self, b : bool) -> None:
+		"""Switch usage of the cardinality heuristic (minimum-cardinality cuts) on or off."""
+		...
+
+	def useNestedCuts(self, b : bool) -> None:
+		"""Switch computation of nested cuts on or off."""
+		...
+
+	def useTerminalShuffle(self, b : bool) -> None:
+		"""Switch terminal shuffling before separation on or off."""
+		...
+
+	def computeSteinerTree(self, G : EdgeWeightedGraph[ T ], terminals : List[node], isTerminal : NodeArray[ bool ], finalSteinerTree : EdgeWeightedGraphCopy[ T ]) -> T:
+		"""Computes the actual Steiner tree."""
+		...

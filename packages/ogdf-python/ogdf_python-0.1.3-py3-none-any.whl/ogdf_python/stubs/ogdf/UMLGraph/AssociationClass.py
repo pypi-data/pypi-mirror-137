@@ -1,0 +1,23 @@
+# file stubs/ogdf/UMLGraph/AssociationClass.py generated from classogdf_1_1_u_m_l_graph_1_1_association_class
+import enum
+from typing import *
+from ogdf_python import ogdf, cpp
+std = cpp.std
+class AssociationClass(object):
+
+	"""Modelling of association classes."""
+
+	m_edge : edge = ...
+
+	m_height : float = ...
+
+	m_node : node = ...
+
+	m_width : float = ...
+
+	m_x : float = ...
+
+	m_y : float = ...
+
+	def __init__(self, e : edge, width : float = 1.0, height : float = 1.0, x : float = 0.0, y : float = 0.0) -> None:
+		...
