@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: dead-salmon-brain
+Version: 0.0.5
+Summary: Dead Salmon Brain is a cluster computing system for analysing A/B experiments
+Author: Dead Salmon Brain
+Author-email: deadsalmonbrain@gmail.com
+License: Apache License v2.0
+Project-URL: Source code, https://github.com/Salmon-Brain/dead-salmon-brain/tree/main/python
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Dead salmon brain
+
+Python API for analysis A/B experiments
+
+## Getting Started
+
+### Build from source
+
+```
+1) Clone git repository
+2) Create virtual environment or activate existed pyspark env
+3) Check spark,scala,hadoop and set correct in 4 step
+4) bash setup.sh spark=3.1.2 scala=2.12.15 hadoop=3.2 is_build=true is_install_python_lib=true
+
+```
+
+### Setup from released packages
+```bash
+1) Clone git repository
+2) Create virtual environment or activate existed pyspark env
+3) Check spark,scala,hadoop and set correct in 4 step
+4) bash setup.sh version=0.0.4 spark=3.1.2 scala=2.12.15 hadoop=3.2 is_build=false is_install_python_lib=true
+
+```
+
+### Examples
+
+```
+Colab example
+https://colab.research.google.com/drive/1uzxBpkpxVDLNhIcS2clfeOJK57AbH-pf?usp=sharing
+
+Jupyter example you can find in python/examples.
+But before you should read how to configure jupyter with pyspark.
+```
+
+
