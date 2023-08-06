@@ -1,0 +1,46 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <title>Formulaire carte la Faabrick Cherdet</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <link rel="stylesheet" href="{% static 'css/form-faabrick.css' %}">
+        <script type="module" src="https://unpkg.com/@startinblox/core@0.15"></script>
+        <script src="https://unpkg.com/@webcomponents/webcomponentsjs@1.2.7/webcomponents-loader.js"></script>
+        <script type="text/javascript" src="{% static 'js/form-faabrick.js' %}"></script>
+    </head>
+    <body>
+        <main>
+            <h1>Ajouter de nouvelles sociétés</h1>
+            <p>pour la carte de la Faabrick Cherdet sur les Formes Altenatives d'Activité.</p>
+            <solid-form
+                data-src="https://api.faabrick-cherdet.startinblox.com/societes/"
+                class="address-form"
+                fields="name, logo, activity, siren, address, postcode, city, dpt, website, mail, phone, lat, lng, peps"
+                label-name="Nom de la société"
+                label-logo="Logo"
+                label-activity="Forme alternative d’activité"
+                label-siren="Siren"
+                label-address="Adresse"
+                label-postcode="Code postal"
+                label-city="Ville"
+                label-website="Site internet"
+                label-mail="Adresse mail"
+                label-phone="Téléphone"
+                label-peps="PEPS"
+                class-address="adrs"
+                class-postcode="adrs"
+                class-city="adrs"
+                range-activity="https://api.faabrick-cherdet.startinblox.com/companytypes/"
+                upload-url-logo="https://api.faabrick-cherdet.startinblox.com/upload/"
+                widget-peps="solid-form-checkbox"
+                widget-dpt="solid-form-hidden"
+                widget-lat="solid-form-hidden"
+                widget-lng="solid-form-hidden"
+            ></solid-form>
+            <a href="https://api.faabrick-cherdet.startinblox.com/admin/">Retour à l'administration</a>
+        </main>
+    </body>
+</html>
