@@ -1,0 +1,28 @@
+[project]
+name = "pglet"
+version = "0.5.12"
+description = "Pglet client for Python - easily build interactive web apps in Python"
+readme = "README.md"
+dependencies = [ "websocket-client>=1.2.1", "beartype>=0.9.1",]
+requires-python = ">=3.7"
+classifiers = [ "Programming Language :: Python :: 3", "Programming Language :: Python :: 3.7", "Programming Language :: Python :: 3.8", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent",]
+[[project.authors]]
+name = "Appveyor Systems Inc."
+email = "hello@pglet.io"
+
+[build-system]
+requires = [ "git+https://github.com/pdm-project/pdm-pep517.git",]
+build-backend = "pdm.pep517.api"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+repository = "https://github.com/pglet/pglet-python"
+documentation = "https://pglet.io/docs/"
+
+[project.optional-dependencies]
+
+[tool.pdm.dev-dependencies]
+tests = [ "pytest>=6.1.2",]
+dev = []
