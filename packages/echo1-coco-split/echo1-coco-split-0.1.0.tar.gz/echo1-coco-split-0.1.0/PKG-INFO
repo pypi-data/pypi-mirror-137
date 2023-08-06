@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: echo1-coco-split
+Version: 0.1.0
+Summary: 
+Home-page: https://github.com/e1-io/echo1-coco-builder
+License: MIT
+Author: Michael Mohamed
+Author-email: michael.mohamed@echo1.io
+Requires-Python: >=3.7.1,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: funcy (>=1.17,<2.0)
+Requires-Dist: scikit-learn (>=1.0.2,<2.0.0)
+Project-URL: Repository, https://github.com/e1-io/echo1-coco-builder
+Description-Content-Type: text/markdown
+
+# echo1-coco-split
+echo1-coco-split provides a faster, safer way to split coco formatted datasets into train, validation and test sets.
+
+```shell
+python echo1_coco_split.py --has_annotations --valid_ratio .2 --test_ratio .1 --annotations_file /Users/michael/Downloads/export_all/annotations/instances_default.json
+```
