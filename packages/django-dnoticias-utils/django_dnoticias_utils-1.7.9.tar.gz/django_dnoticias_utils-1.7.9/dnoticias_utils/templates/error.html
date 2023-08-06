@@ -1,0 +1,61 @@
+{% load static %}
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Diário de Notícias | {{ error_code }}</title>
+    <meta name="description" content="Diário de Notícias | 404">
+    <meta name="author" content="Diário de Notícias Madeira">
+    <!-- FONT -->
+    <link href="//fonts.googleapis.com/css?family=Titillium+Web:400,700" rel="stylesheet">
+    <style type="text/css">
+      html, body {
+        width: 100%; min-height: 100%; height: auto;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        margin: 0; padding: 0;
+        background: #edf0f4 url(https://static-storage.dnoticias.pt/www-assets.dnoticias.pt/errors/pageerror.jpg) no-repeat right bottom;
+      }
+      .wrapper {
+        display: block; position: relative;
+        width: 100%; height: 100%; overflow: hidden;
+      }
+      h1 {
+        display: block; position: relative; margin: 28px 0;
+        width: 100%; text-align: center;
+      }
+      h2, p {
+        font: 700 18px/22px 'Titillium Web', Helvetica, Arial, sans serif;
+        color: #000; text-align: center; margin: 0;
+      }
+      h3 {
+        display: block; position: absolute;
+        left: 0; bottom: 0; width: 100%; margin: 28px 0;
+        font: 700 18px/22px 'Titillium Web', Helvetica, Arial, sans serif;
+        text-align: center; color: #c9cccf;
+      }
+      p {font-weight: 400;}
+      a, a:hover {color: #000;}
+      a:hover {text-decoration: none; color: #c4161c;}
+      .center {
+        display: block; position: absolute;
+        width: 100%; text-align: center;
+        top: 50%; margin-top: -50px;
+        box-sizing: border-box; padding: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1><img src="https://static-storage.dnoticias.pt/www-assets.dnoticias.pt/errors/dnoticiaspt-id.png" alt="dnoticias.pt" width="150px"></h1>
+      <div class="center">
+        <h2>{{ description }}</h2>
+        <p>Consultar o <a href="//www.dnoticias.pt">www.dnoticias.pt</a></p>
+      </div>
+      <h3>ERRO {{ error_code }}</h3>
+    </div>
+  </body>
+</html>
