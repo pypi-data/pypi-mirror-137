@@ -1,0 +1,109 @@
+{
+    "count": 3,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 5853,
+            "url": "http://0.0.0.0:8000/api/dcim/interfaces/5853/",
+            "device": {
+                "id": 372,
+                "url": "http://0.0.0.0:8000/api/dcim/devices/372/",
+                "name": "EFR2.IX2.ATL",
+                "display_name": "EFR2.IX2.ATL",
+                "tenant": null
+            },
+            "name": "xe-0/0/21",
+            "type": {
+                "value": "10gbase-x-sfpp",
+                "label": "SFP+ (10GE)"
+            },
+            "enabled": true,
+            "lag": null,
+            "mtu": null,
+            "mac_address": null,
+            "mgmt_only": false,
+            "description": "",
+            "connected_endpoint_type": null, #NUJNJUNHJUNSJUJUNS
+            "connected_endpoint": null, #jnjndjndjndj
+            "connected_endpoint_reachable": null,
+            "cable": {
+                "id": 39,
+                "url": "http://0.0.0.0:8000/api/dcim/cables/39/",
+                "label": "",
+                "status": "connected"
+            },
+            "cable_peer": { #ujdujndjuned
+                "id": 11,
+                "url": "http://0.0.0.0:8000/api/circuits/circuit-terminations/11/",
+                "circuit": {
+                    "id": 15,
+                    "url": "http://0.0.0.0:8000/api/circuits/circuits/15/",
+                    "cid": "00666386",
+                    "tenant": {
+                        "id": 22,
+                        "url": "http://0.0.0.0:8000/api/tenancy/tenants/22/",
+                        "display": "Hivelocity Ventures Corp",
+                        "name": "Hivelocity Ventures Corp",
+                        "slug": "0014M00001pjed1QAA"
+                    }
+                },
+                "term_side": "Z"
+            },
+            "cable_peer_type": "circuits.circuittermination",
+            "mode": {
+                "value": "tagged",
+                "label": "Tagged"
+            },
+            "untagged_vlan": null,
+            "tagged_vlans": [
+                {
+                    "id": 24,
+                    "url": "http://0.0.0.0:8000/api/ipam/vlans/24/",
+                    "vid": 155,
+                    "name": "CUST:Hivelocity_155_EFR2_IX2_ATL",
+                    "display_name": "CUST:Hivelocity_155_EFR2_IX2_ATL (155)",
+                    "prefixes": [],
+                    "status": "active",
+                    "virtual_circuit": {
+                        "vcid": 1000,
+                        "name": "CUST:Hivelocity_VCC_1000",
+                        "status": "configured",
+                        "context": "internal-hivelocity-ventures-corp"
+                    }
+                },
+                {
+                    "id": 25,
+                    "url": "http://0.0.0.0:8000/api/ipam/vlans/25/",
+                    "vid": 156,
+                    "name": "CUST:Hivelocity_156_EFR2_IX2_ATL",
+                    "display_name": "CUST:Hivelocity_156_EFR2_IX2_ATL (156)",
+                    "prefixes": [],
+                    "status": "active",
+                    "virtual_circuit": {
+                        "vcid": 1001,
+                        "name": "CUST:Hivelocity_VCC_1001",
+                        "status": "configured",
+                        "context": "internal-hivelocity-ventures-corp"
+                    }
+                },
+                {
+                    "id": 26,
+                    "url": "http://0.0.0.0:8000/api/ipam/vlans/26/",
+                    "vid": 1006,
+                    "name": "CUST:Hivelocity_1006_EFR2_IX2_ATL",
+                    "display_name": "CUST:Hivelocity_1006_EFR2_IX2_ATL (1006)",
+                    "prefixes": [],
+                    "status": "active",
+                    "virtual_circuit": {
+                        "vcid": 1002,
+                        "name": "CUST:Hivelocity_VCC_1002",
+                        "status": "configured",
+                        "context": "internal-hivelocity-ventures-corp"
+                    }
+                }
+            ],
+            "tags": [],
+            "count_ipaddresses": 0
+        }
+}
