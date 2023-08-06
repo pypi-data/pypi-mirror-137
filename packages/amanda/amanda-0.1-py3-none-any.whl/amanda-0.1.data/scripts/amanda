@@ -1,0 +1,50 @@
+#!python
+
+import os
+import sys
+import argparse
+from distutils.dir_util import copy_tree
+
+
+def strip_file(filename, outfile=None):
+    lines = open(filename, 'r').readlines()
+    out = filename if outfile is None else outfile
+    with open(out, 'w') as fout:
+        pruning = False
+        for line in lines:
+            if "BEGIN STRIP" in line:
+                pruning = True
+                continue
+            elif "END STRIP" in line:
+                pruning = False
+                continue
+            if not pruning:
+                fout.write(line.replace("// STUDENT", ""))
+
+
+def strip_directory(path):
+    for file in os.listdir(path):
+        path_file = os.path.join(path, file)
+        if os.path.isdir(path_file):
+            strip_directory(path_file)
+        else:
+            strip_file(path_file)
+
+def main():
+        parser = argparse.ArgumentParser(description='Amanda strips your code to make it naked')
+
+        parser.add_argument('--orig',
+                            help='The path to the directory containing the original (unstripped) code.')
+
+        parser.add_argument('--dest',
+                            help='The path to the directory where to produce a stripped copy of the code')
+
+        args = parser.parse_args()
+
+        copy_tree(args.orig,args.dest)
+
+        strip_directory(args.dest)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

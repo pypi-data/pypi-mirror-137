@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: amanda
+Version: 0.1
+Summary: Strip your java source code to make it naked.
+Home-page: https://github.com/pschaus/strip
+Author: Pierre Schaus
+Author-email: pschaus@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+amanda is a tool to strip your java source code to make it naked.
+We use this tool to hide solutions in programming exercises.
+
+This input:
+
+public int computeSum(int a, int b) {
+// STUDENT return 0; // TODO
+// BEGIN STRIP
+    return a + b; // the solution to hide
+// END STRIP
+}
+
+Gives as output
+
+public int computeSum(int a, int b) {
+    return 0; // TODO
+}
+
