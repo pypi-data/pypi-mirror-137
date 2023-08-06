@@ -1,0 +1,60 @@
+#!/usr/bin/env python
+
+import sys
+import argparse
+import wlabkit
+from wlabkit import getseq, parse_antismash_result
+
+
+
+# create the top-level parser
+parser = argparse.ArgumentParser(
+    prog='wlabkit',
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    description='''
+This is a toolkit to handle bio-data from WeiBin Lab.
+
+Author: Gavin <gavinchou64@gmail.com>
+Source code: https://github.com/BioGavin/wlab''',
+    epilog='''
+Use "wlabkit [subcommand] --help" for more information about a command''')
+
+
+parser.add_argument("-v", "--version", action="version", version="%(prog)s version {}".format(wlabkit.__version__))
+
+# create the sub-level parser
+subparsers = parser.add_subparsers(title='subcommands')
+
+# create the sub-parser for the "getseq" command
+parser_getseq = subparsers.add_parser('getseq', help='get target sequences from a header list',
+                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser_getseq.add_argument('-i', '--input_fasta', required=True,
+                           type=str, help='fasta file for searching target sequences')
+parser_getseq.add_argument('-l', '--target_list', required=True,
+                           type=str, help='a list file containing target sequence headers')
+parser_getseq.add_argument('-o', '--output_fasta', default='target.fasta',
+                           type=str, help='output fasta file containing target sequences')
+parser_getseq.set_defaults(func=getseq.get_target_seq)
+
+# create the sub-parser for the "antismash_getdir" command
+parser_getseq = subparsers.add_parser('antismash_getdir', help='get gbk file dir of target BGC type from an antiSMASH result folder',
+                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser_getseq.add_argument('-i', '--input_path', required=True,
+                           type=str, help='path of antiSMASH result folder or Zip file')
+parser_getseq.add_argument('-t', '--target_type', required=True,
+                           type=str, help='a type of target BGC or a text file containing a list of target BGC type')
+parser_getseq.add_argument('-o', '--output_file', required=False,
+                           type=str, help='output text file containing path of target gbk file')
+parser_getseq.set_defaults(func=parse_antismash_result.get_target_type_gbk_dir)
+
+
+def main():
+    args = parser.parse_args()
+    args.func(args)
+
+if __name__ == '__main__':
+    main()
+
+
+
+
