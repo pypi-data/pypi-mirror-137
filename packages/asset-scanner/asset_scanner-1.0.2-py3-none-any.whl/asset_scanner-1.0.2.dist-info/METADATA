@@ -1,0 +1,48 @@
+Metadata-Version: 2.1
+Name: asset-scanner
+Version: 1.0.2
+Summary: Framework to provide plugin architecture to allow the scanning of assets to extract metadata and facets.
+Home-page: https://github.com/cedadev/asset-scanner/
+Author: Richard Smith
+License: BSD - See asset_extractor/LICENSE file for details
+Platform: UNKNOWN
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+Requires-Dist: pyyaml
+Requires-Dist: ceda-directory-tree
+Requires-Dist: tqdm
+Requires-Dist: pydantic
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Requires-Dist: elasticsearch ; extra == 'docs'
+Requires-Dist: sphinxcontrib-programoutput ; extra == 'docs'
+Provides-Extra: elasticsearch
+Requires-Dist: elasticsearch ; extra == 'elasticsearch'
+Provides-Extra: intake-esm
+Requires-Dist: intake-esm ; extra == 'intake-esm'
+Provides-Extra: rabbitmq
+Requires-Dist: pika ; extra == 'rabbitmq'
+Provides-Extra: thredds
+Requires-Dist: siphon ; extra == 'thredds'
+
+# Asset Scanner
+
+[![Test](https://github.com/cedadev/asset-scanner/actions/workflows/tests.yml/badge.svg)](https://github.com/cedadev/asset-scanner/actions/workflows/tests.yml)
+[![Docs](https://github.com/cedadev/asset-scanner/actions/workflows/docs_build.yml/badge.svg)](https://github.com/cedadev/asset-scanner/actions/workflows/docs_build.yml)
+[![Documentation Status](https://readthedocs.org/projects/pip/badge/?version=stable)](https://pip.pypa.io/en/stable/?badge=stable)
+[![Upload Python Package](https://github.com/cedadev/asset-scanner/actions/workflows/release.yml/badge.svg)](https://pypi.org/project/asset-scanner/)
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+
+Legacy Documentation: https://cedadev.github.io/asset-scanner/
+
+Documentation: https://asset-scanner.readthedocs.io/en/latest/index.html
+
+The asset scanner provides the framework and access to shared tools.
+The framework allows you to build extractors to get metadata from file objects using plugins to change the source of the
+files, the output of the metadata and the processing chain which extracts the metadata.
+The framework leverages a modular, plugin architecture to allow users to modify the workflow to fit their needs.
+
+![Asset Scanner Diagram](docs/source/images/asset_scanner_diagram.png)
+
+
