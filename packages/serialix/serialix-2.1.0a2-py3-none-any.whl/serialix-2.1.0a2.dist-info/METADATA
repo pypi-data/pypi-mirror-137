@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: serialix
+Version: 2.1.0a2
+Summary: Powerful and easy to use tool for working with various data interchange formats (json, yaml, etc.)
+Home-page: https://github.com/maximilionus/serialix
+Author: maximilionus
+Author-email: maximilionuss@gmail.com
+License: MIT
+Project-URL: Documentation, https://maximilionus.github.io/serialix
+Project-URL: Tracker, https://github.com/maximilionus/serialix/issues
+Keywords: data interchange format files dif json yaml toml
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: User Interfaces
+Classifier: Topic :: Text Processing
+Requires-Python: ~=3.5
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Provides-Extra: full
+Requires-Dist: ujson (<=6.0.0) ; extra == 'full'
+Requires-Dist: ruamel.yaml (<=0.18.0) ; extra == 'full'
+Requires-Dist: toml (<=0.11.0) ; extra == 'full'
+Provides-Extra: test
+Requires-Dist: ujson (<=6.0.0) ; extra == 'test'
+Requires-Dist: ruamel.yaml (<=0.18.0) ; extra == 'test'
+Requires-Dist: toml (<=0.11.0) ; extra == 'test'
+Requires-Dist: pytest (<7) ; extra == 'test'
+Provides-Extra: toml
+Requires-Dist: toml (<=0.11.0) ; extra == 'toml'
+Provides-Extra: ujson
+Requires-Dist: ujson (<=6.0.0) ; extra == 'ujson'
+Provides-Extra: yaml
+Requires-Dist: ruamel.yaml (<=0.18.0) ; extra == 'yaml'
+
+serialix
+=======================================
+
+About
+--------------------------------------
+``serialix`` is a powerful and easy-to-use tool that provides a unified interaction layer for various data interchange formats *(DIF)* like json, yaml, etc. Due to the how this tool designed, all the supported languages share the identical base between each other, meaning that process of working with those languages will be almost the same. Tool can also be extended for your purposes or even your own DIF language parser support.
+
+Supported Languages
+--------------------------------------
+List of currently supported languages.
+
+- Native Support
+    - ``json``
+- External Support
+    - ``ujson`` *(replacement for python built-in json parser)*
+    - ``yaml`` *(version <= 1.2)*
+    - ``toml``
+
+..
+
+    Languages, listed in **Native Support** are supported by python without any external packages, while **External Support** requires external packages to be installed. For more detailed information go here: `Intallation Guide <https://maximilionus.github.io/serialix/guide_installation.html>`__
+
+Documentation
+--------------------------------------
+All information about this module installation and usage is located in documentation `on this link <https://maximilionus.github.io/serialix/index.html>`__
+
+
