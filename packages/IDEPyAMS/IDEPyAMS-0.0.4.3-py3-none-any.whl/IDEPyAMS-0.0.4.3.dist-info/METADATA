@@ -1,0 +1,110 @@
+Metadata-Version: 2.1
+Name: IDEPyAMS
+Version: 0.0.4.3
+Summary: PyAMS: Python for Analog and Mixed Signals
+Home-page: https://pyams.org
+Author: d.fathi
+License: UNKNOWN
+Keywords: Creating new symbols ,CAD System,Simulation circuit,PyAMS
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: PyQt5
+Requires-Dist: PyQtWebEngine
+
+
+# PyAMS
+PyAMS: Python for Analog and Mixed Signals
+
+<h1 align="center">
+    <a href="https://www.pyams.org"><img src="https://pyams.org/logo.png" width="175px" alt="PyAMS"></a>
+</h1>
+
+---
+
+<p align="center">
+ 
+ <a href="#News">
+    <img src="https://img.shields.io/badge/Version-0.0.4.3-blue" alt="V 0.0.4.3">
+ </a>
+  <a href="#Installation">
+      <img src="https://img.shields.io/badge/Python->=3-blue" alt="Python 3+">
+  </a>
+    
+  <a href="https://github.com/d-fathi/PyAMS/blob/main/LICENSE">
+      <img src="https://img.shields.io/badge/License-Free-blue" alt="Free">
+  </a>
+</p>
+
+
+**************
+What is PyAMS?
+**************
+
+PyAMS is a software used to simplify modeling analog elements and simulate electronic circuit using Python
+The objectives of PyAMS is:
+
+*	Drawing circuit by schematic (CAD approach: IDEPyAMS.py);
+*	Creating new PyAMS models of electrical elements by using Python language;
+*	Creating new symbols for models;
+*	Simulating the circuit in the selected mode of operation;
+*	Presenting simulation results in a dedicated waveform editor (future) and probe;
+*   Simulating the circuit by AppPyAMS commands (future);
+*   PyAMS used Python3+ and works on  Linux, Windows, and OSX.
+*   **Licensed under:** PyAMS is free to use. No license is necessary .
+
+
+## News
+
+What is changed in versions
+
+V0.0.4.3
+--------
+Date 02-02-2022: PyAMS Pre-alpha 0.0.4.3
+
+* Update pin shape (type dot/clk)
+* New shape: polygon
+* Element's identifier by id.
+* Simulator Options:
+    * Convergence:
+         * ABSTOL: the absolute current or flow tolerance.
+         * VNTOL: the absolute voltage or potontial tolerance.
+         * RELTOL: the relative voltage(potontial) and current(flow) tolerances.
+         * ITL1: the maximum number of iterations the Newton-Raphon method.
+    * Interactive:
+         * Interval: interval of simulation in miliseconds.
+* New analog elements:
+    * Diode (Semiconductor library).
+    * Diode Zener (Semiconductor library).
+    * Diode bridge (Semiconductor library).
+    * Voltmeter (Multimeter library).
+    * Ammeter (Multimeter library).
+	
+
+## Note of installation
+
+*   Add packages: PyQt5 and PyQtWebEngine by pip.
+*   install IDEPyAMS using pip: **pip install IDEPyAMS**.
+*   And type that command in the python shell or in source code:
+
+```
+
+    #for PyAMS IDE
+    import IDEPyAMS;
+    IDEPyAMS.exec();
+	
+```
+
+
+```
+
+    #for symbol editor
+    import SymbolEditor;
+    SymbolEditor.exec();
+```
+
+
