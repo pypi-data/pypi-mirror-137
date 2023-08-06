@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: nvimclient
+Version: 0.1.1
+Summary: Open new file in existing neovim instance, worked on both windows and linux, powered by pynvim.
+Author: Verf
+Author-email: verf@protonmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# nvimclient
+Open new file in existing neovim instance, worked on both windows and linux, powered by pynvim.
+
+# Install
+```bash
+pip install nvimclient
+```
+
+# Usage
+```bash
+nvc foo.txt
+nvc foo.txt -g # open in nvim-qt if not exist
+```
+
+
