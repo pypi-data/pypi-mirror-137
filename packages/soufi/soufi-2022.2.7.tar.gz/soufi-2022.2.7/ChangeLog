@@ -1,0 +1,189 @@
+CHANGES
+=======
+
+2022.02.07
+----------
+
+* Release 2022.02.07
+* Extend caching behavior to all finders, add functional tests
+* Use dogpile.cache + pylru instead of functools.lru\_cache, rewrite YumFinder
+* Simplify YumFinder; Everything is a generator
+
+2022.01.25
+----------
+
+* Release 2022.01.25
+* RHEL: redo visibility of YumFinder methods
+* CentOS: redo visibility of YumFinder methods
+* Photon: redo visibility of YumFinder methods
+* Yum: redo visibility of YumFinder methods
+* CentOS: improve TestCentosFinder.test\_\_get\_dirs clarity
+* CentOS: reimplement CentosFinder.\_get\_\*\_repos as generators
+* Yum: adjust LRU cache sizes
+* Add a RHEL (UBI) finder to Soufi
+* Refactor CentOS finder as a subclass of YumFinder
+* Refactor Photon OS finder as a subclass of YumFinder
+* Create a new common YumFinder class
+* Update test requirements, addressing iPython CVE
+
+2021.10.24
+----------
+
+* Release 2021.10.24
+* Add a finder for Photon OS
+* Update vscode unittest path
+* Add release instructions and tox envs
+
+2021.09.29
+----------
+
+* Release 2021.09.29
+* clarity++
+* Get rid of contentious lambda, add comments and docstrings
+* Verify SHA-512 checksums on Alpine source downloads
+
+2021.09.10
+----------
+
+* Add a rudimentary Ruby Gem finder to Soufi
+
+2021.08.27
+----------
+
+* Release 2021.08.27
+* Use manual package finding
+
+2021.08.23
+----------
+
+* Fix setup.cfg URL
+
+2021.08.22
+----------
+
+* Prepare for pypi package publication
+* Fix metadata in setup.py
+* Clarify Python version requirements in the readme
+* Remove Python 3.6 from workflow matrix
+* Remove pypy from workflow matrix
+* Add tox to GH workflow dependency installation
+* Add Github workflow for tests
+* Add licence and remove local CI Jenkinsfiles
+
+2021.08.17
+----------
+
+* Add raise\_for\_status in soufi.finder.DiscoveredSource.download\_file (#28)
+
+2021.08.03
+----------
+
+* Add a HACKING.txt
+* Add copyright notice to files
+* Rename sofi to soufi
+
+2021.07.28
+----------
+
+* Add a Java source finder
+
+2021.07.15
+----------
+
+* Vastly simplify Go downloads
+* Add Golang finder
+
+2021.07.06
+----------
+
+
+2021.07.05
+----------
+
+* Use urllib to download ftp as requests can't
+
+2021.07.04
+----------
+
+* alpine: Work around a bug found in one of the APKBUILD files (#21)
+* Cope with ftp:// schemes in Alpine sources (#20)
+
+2021.07.01
+----------
+
+* Add timeout= kwarg to requests.get, Launchpad.login\_anonymously methods
+* Extend CentOS finder to inspect more places (#18)
+
+2021.06.29
+----------
+
+* Add Alpine source finder
+
+2021.06.17
+----------
+
+* Improve Centos when source name is different from binary
+
+2021.06.16
+----------
+
+* Improve CentOS source finding (#15)
+
+2021.06.15
+----------
+
+* Add CentOS source finding
+
+2021.05.26
+----------
+
+* Add devpi support to the Python finder (#13)
+
+2021.05.21
+----------
+
+* Use auto file naming when writing with -O (#12)
+* Add file name extension support; fix python CLI; fix README
+
+2021.05.19
+----------
+
+* Add Python finder
+* Allow find() to work with optional parameters
+
+2021.05.14
+----------
+
+* Relax minversion to Python 3.6
+* Add a FinderFactory.supported\_types property (#7)
+
+2021.05.05
+----------
+
+* Add NPM source finding
+* General Packing Cleanup (#5)
+
+2021.03.30
+----------
+
+* Relax requirements slightly
+
+2021.03.29
+----------
+
+* Fix the Debian finder
+* Add click to requirements.txt
+* Rename MANIFEST to MANIFEST.in
+* Add MANIFEST
+* Add vars dir with Groovy Utils
+* Ensure downloads are chunked
+* Add Jenkinsfiles
+* Tests added for library classes
+* REFACTORATE!
+* Implement make\_archive for Debian
+* Add README
+* Add Debian Finder tests
+* Add Debian finder (tests to come)
+* Add partial UbuntuFinder tests
+* Add testing for base classes
+* Basic framework and test CLI to get Launchpad source URLs
