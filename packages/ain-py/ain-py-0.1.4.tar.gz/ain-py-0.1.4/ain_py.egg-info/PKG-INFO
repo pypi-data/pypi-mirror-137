@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: ain-py
+Version: 0.1.4
+Summary: AI Network Client Library for Python3
+Home-page: https://github.com/ainblockchain/ain-py
+Author: AIN Dev Team
+Author-email: dev@ainetwork.ai
+License: MPL license
+Keywords: ain,ainetwork,ainblockchain,API
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# ain-py
+
+A python version of [ain-js](https://www.npmjs.com/package/@ainblockchain/ain-js).
+
+## Installation
+```
+pip install ain-py
+```
+
+## Run all test
+```
+tox
+```
+
+## Examples
+```python
+from ain.ain import Ain
+import asyncio
+
+ain = Ain('http://node.ainetwork.ai:8080/', chainId=None)
+
+async def process():
+    accounts = await ain.db.ref('/accounts').getValue()
+    print(accounts)
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(process())
+```
+
