@@ -1,0 +1,26 @@
+ewokscore
+PyQt5
+orange-canvas-core
+orange-widget-base
+
+[dev]
+black
+flake8
+pytest
+ewokscore[test]
+
+[dev:python_version < "3.7"]
+importlib_resources
+
+[doc]
+sphinx
+
+[orange]
+Orange3
+
+[test]
+pytest
+ewokscore[test]
+
+[test:python_version < "3.7"]
+importlib_resources
