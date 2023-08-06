@@ -1,0 +1,65 @@
+Metadata-Version: 2.1
+Name: latin-to-arabic-number
+Version: 0.0.3
+Summary: This library helps to reverse numbers order OR change latin numbers to arabic in a .docx file
+Home-page: https://github.com/berkansems/latin_to_arabic_number
+Author: berkan sems
+Author-email: berkansems@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+Requires-Dist: Document (>=0.8.11)
+
+## Reverse Latin Numbers Order || Change It To Arabic
+By Using This Library You Can Change Latin Numbers Order From Left to Right or change them to Arabic and store them in new file.
+
+
+
+### Installation
+-------------
+```pip install latin_to_arabic_number```
+
+
+
+### How to use it?
+--------------
+There are two methods:
+1. latin_to_arabic(file_to_read,file_to_save) 
+2. reverse_numbers_order(file_to_read,file_to_save) 
+
+   - These methods receive two parameters:
+     - file_to_read: This is the target file which changes need to apply for.
+     - file_to_save: Directory To save result.
+
+
+
+### Example
+--------------
+
+```python
+from latin_to_arabic_number import reverse_numbers_order, latin_to_arabic
+
+file_to_read= "/tmp/personal/target_file_name.docx"
+file_to_save= "/tmp/personal/new_file_name.docx"
+
+#returns 'A new file with reversed numbers'
+#If we have 'I am 28 years old' the result would be 'I am 82 years old'
+reverse_numbers_order(file_to_read=file_to_read,file_to_save=file_to_save)
+
+#returns 'A new file with changed latin numbers to arabic'
+#If you have a text like 'I am 28 years old' the result would be 'I am ۲۸ years old'
+latin_to_arabic(file_to_read=file_to_read,file_to_save=file_to_save) 
+```
+
+
+
+
