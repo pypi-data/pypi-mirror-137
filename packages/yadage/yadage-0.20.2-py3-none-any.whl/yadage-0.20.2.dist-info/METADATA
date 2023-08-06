@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: yadage
+Version: 0.20.2
+Summary: yadage - YAML based adage
+Home-page: https://github.com/yadage/yadage
+Author: Lukas Heinrich
+Author-email: lukas.heinrich@cern.ch
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+License-File: LICENSE
+Requires-Dist: adage (>=0.10.2)
+Requires-Dist: packtivity
+Requires-Dist: yadage-schemas
+Requires-Dist: click
+Requires-Dist: psutil
+Requires-Dist: requests[security] (>=2.9)
+Requires-Dist: pyyaml
+Requires-Dist: jsonref
+Requires-Dist: jsonschema
+Requires-Dist: jsonpointer (>=1.10)
+Requires-Dist: jsonpath-rw
+Requires-Dist: checksumdir
+Requires-Dist: glob2
+Requires-Dist: jq
+Provides-Extra: celery
+Requires-Dist: celery ; extra == 'celery'
+Requires-Dist: redis ; extra == 'celery'
+Provides-Extra: develop
+Requires-Dist: pre-commit ; extra == 'develop'
+Requires-Dist: pytest (>=3.2.0) ; extra == 'develop'
+Requires-Dist: pytest-cov (>=2.5.1) ; extra == 'develop'
+Requires-Dist: python-coveralls ; extra == 'develop'
+Provides-Extra: lint
+Requires-Dist: pyflakes ; extra == 'lint'
+Requires-Dist: isort ; extra == 'lint'
+Requires-Dist: black[jupyter] (>=22.1.0) ; extra == 'lint'
+Provides-Extra: viz
+Requires-Dist: adage[viz] (>=0.10.3) ; extra == 'viz'
+Requires-Dist: pydotplus (>=2.0.0) ; extra == 'viz'
+
+UNKNOWN
+
