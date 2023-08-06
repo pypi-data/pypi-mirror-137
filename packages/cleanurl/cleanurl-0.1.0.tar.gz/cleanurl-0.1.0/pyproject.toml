@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "cleanurl"
+version = "0.1.0"
+description = "Removes clutter from URLs and returns a canonicalized version"
+authors = ["Alexandru Cojocaru <hi@xojoc.pw>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+urllib3 = "^1.26.8"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
