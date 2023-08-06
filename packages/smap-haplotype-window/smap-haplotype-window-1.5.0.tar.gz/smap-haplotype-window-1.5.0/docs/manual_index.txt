@@ -1,0 +1,55 @@
+SMAP design
+
+    Scope & Quick Start
+        Scope
+        Guidelines for sgRNA design with CRISPOR
+        Quick Start and options
+            Mandatory arguments
+            General Options
+                general options
+                amplicon filter options
+                guide filter options
+                guide-amplicon overlap filter options
+        Output
+            graphical output
+            tabular output
+            gff output
+    
+    Feature Description
+        Definition of reference gene, CDS, amplicons, guides, and overlaps
+        Including polymorphisms during amplicon design
+    
+    How It Works
+        Preparing reference gene sets
+        Step 1. Positioning guides
+        Step 2. Designing amplicons
+        Step 3. Overlapping guides and amplicons
+        Step 4. Ranking amplicons
+        Step 5. Selecting amplicons and guides
+        
+    Example Data
+        Illustration of primer and sgRNA design
+            small divergent gene family
+            large and conserved gene family
+            small gene family in heterozygous species
+    
+    Recommendations & Troubleshooting
+        Picking reference sequences for primer design
+            group by HOMOLOGY
+            group by INTERPRO
+            group by PATHWAY    
+        Specificity and coverage of primer designs versus completeness in the reference gene set
+        Primer designs for specific sequencing technologies
+            HiPlex amplicon sequening HiSeq
+            Multiplex amplicon sequencing MiSeq: 
+            Singleplex amplicon sequencing Sanger, Ice/Tide
+            LongRange PCR, MinION (?)
+        Troubleshooting
+    
+    Summary of Commands
+        Mandatory arguments
+        General Options
+            general options
+            amplicon filter options
+            guide filter options
+            guide-amplicon overlap filter options
