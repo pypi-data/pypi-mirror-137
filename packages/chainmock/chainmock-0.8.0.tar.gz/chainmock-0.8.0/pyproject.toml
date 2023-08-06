@@ -1,0 +1,102 @@
+[tool.poetry]
+name = "chainmock"
+version = "0.8.0"
+description = "Mocking library for Python and Pytest"
+authors = ["Olli Paakkunainen <olli@paakkunainen.fi>"]
+license = "MIT"
+repository = "https://github.com/ollipa/chainmock"
+documentation = "https://chainmock.readthedocs.io"
+readme = "README.md"
+keywords = ["testing", "mock", "mocking", "pytest"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Development Status :: 4 - Beta",
+    "Framework :: Pytest",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Testing :: Mocking",
+    "Topic :: Software Development :: Testing :: Unit",
+    "Typing :: Typed",
+]
+packages = [{ include = "chainmock", from = "src" }]
+
+[tool.poetry.urls]
+"Issue Tracker" = "https://github.com/ollipa/chainmock/issues"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest = ">= 6.0.0"
+typing-extensions = ">=3.10.0; python_version<'3.10'"
+
+[tool.poetry.dev-dependencies]
+mypy = "*"
+pylint = "*"
+isort = "*"
+black = "*"
+ipython = "*"
+pytest-asyncio = "*"
+coverage = "*"
+tox = "*"
+mkdocs-material = "*"
+markdown-include = "*"
+mkdocstrings = "*"
+
+[tool.poetry.plugins.pytest11]
+chainmock = "chainmock._pytest_plugin"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pylint.MASTER]
+load-plugins = [
+    "pylint.extensions.docparams",
+    "pylint.extensions.docstyle",
+    "pylint.extensions.typing",
+]
+good-names = ["fn", "T", "P"]
+
+[tool.pylint.messages_control]
+disable = [
+    "too-few-public-methods",
+    "too-many-public-methods",
+    "duplicate-code",
+]
+
+[tool.pylint.format]
+max-line-length = "100"
+
+[tool.isort]
+line_length = 100
+profile = "black"
+
+[tool.black]
+line_length = 100
+
+[tool.mypy]
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+
+disallow_subclassing_any = true
+disallow_any_generics = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+
+check_untyped_defs = true
+no_implicit_optional = true
+ignore_missing_imports = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+xfail_strict = true
+asyncio_mode = "auto"
