@@ -1,0 +1,454 @@
+Metadata-Version: 2.1
+Name: TFOD-Automatic
+Version: 1.2
+Summary: Automated Object detection for Beginner using python and Tensorflow
+Home-page: https://TFOD-Automatic.readthedocs.io/
+Author: Lohit Sundaramahalingam
+Author-email: lohit.cs19@bitsathy.ac.in
+License: MIT License
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: Microsoft :: Windows :: Windows 10
+Description-Content-Type: text/x-rst
+Requires-Dist: absl-py (==0.12.0)
+Requires-Dist: apache-beam (==2.33.0)
+Requires-Dist: argon2-cffi (==21.1.0)
+Requires-Dist: astunparse (==1.6.3)
+Requires-Dist: attrs (==21.2.0)
+Requires-Dist: avro-python3 (==1.9.2.1)
+Requires-Dist: backcall (==0.2.0)
+Requires-Dist: bleach (==4.1.0)
+Requires-Dist: cachetools (==4.2.2)
+Requires-Dist: certifi (==2021.5.30)
+Requires-Dist: cffi (==1.14.6)
+Requires-Dist: charset-normalizer (==2.0.4)
+Requires-Dist: clang (==5.0)
+Requires-Dist: colorama (==0.4.4)
+Requires-Dist: contextlib2 (==21.6.0)
+Requires-Dist: crcmod (==1.7)
+Requires-Dist: cycler (==0.10.0)
+Requires-Dist: Cython (==0.29.24)
+Requires-Dist: debugpy (==1.4.1)
+Requires-Dist: decorator (==5.0.9)
+Requires-Dist: defusedxml (==0.7.1)
+Requires-Dist: dill (==0.3.1.1)
+Requires-Dist: distlib (==0.3.4)
+Requires-Dist: dm-tree (==0.1.6)
+Requires-Dist: docopt (==0.6.2)
+Requires-Dist: entrypoints (==0.3)
+Requires-Dist: fastavro (==1.4.7)
+Requires-Dist: filelock (==3.4.2)
+Requires-Dist: flatbuffers (==1.12)
+Requires-Dist: future (==0.18.2)
+Requires-Dist: gast (==0.4.0)
+Requires-Dist: gin-config (==0.4.0)
+Requires-Dist: gitdb (==4.0.7)
+Requires-Dist: GitPython (==3.1.24)
+Requires-Dist: google-api-core (==2.0.1)
+Requires-Dist: google-api-python-client (==2.27.0)
+Requires-Dist: google-auth (==1.35.0)
+Requires-Dist: google-auth-httplib2 (==0.1.0)
+Requires-Dist: google-auth-oauthlib (==0.4.6)
+Requires-Dist: google-pasta (==0.2.0)
+Requires-Dist: googleapis-common-protos (==1.53.0)
+Requires-Dist: grpcio (==1.39.0)
+Requires-Dist: h5py (==3.1.0)
+Requires-Dist: hdfs (==2.6.0)
+Requires-Dist: httplib2 (==0.19.1)
+Requires-Dist: idna (==3.2)
+Requires-Dist: importlib-resources (==5.2.2)
+Requires-Dist: ipykernel (==6.3.1)
+Requires-Dist: ipython (==7.27.0)
+Requires-Dist: ipython-genutils (==0.2.0)
+Requires-Dist: ipywidgets (==7.6.4)
+Requires-Dist: jedi (==0.18.0)
+Requires-Dist: Jinja2 (==3.0.1)
+Requires-Dist: joblib (==1.0.1)
+Requires-Dist: jsonschema (==3.2.0)
+Requires-Dist: jupyter (==1.0.0)
+Requires-Dist: jupyter-client (==7.0.2)
+Requires-Dist: jupyter-console (==6.4.0)
+Requires-Dist: jupyter-core (==4.7.1)
+Requires-Dist: jupyterlab-pygments (==0.1.2)
+Requires-Dist: jupyterlab-widgets (==1.0.1)
+Requires-Dist: kaggle (==1.5.12)
+Requires-Dist: keras (==2.6.0)
+Requires-Dist: Keras-Preprocessing (==1.1.2)
+Requires-Dist: kiwisolver (==1.3.2)
+Requires-Dist: labelImg (==1.8.5)
+Requires-Dist: lvis (==0.5.3)
+Requires-Dist: lxml (==4.6.3)
+Requires-Dist: Markdown (==3.3.4)
+Requires-Dist: MarkupSafe (==2.0.1)
+Requires-Dist: matplotlib (==3.4.3)
+Requires-Dist: matplotlib-inline (==0.1.2)
+Requires-Dist: mistune (==0.8.4)
+Requires-Dist: nbclient (==0.5.4)
+Requires-Dist: nbconvert (==6.1.0)
+Requires-Dist: nbformat (==5.1.3)
+Requires-Dist: nest-asyncio (==1.5.1)
+Requires-Dist: notebook (==6.4.3)
+Requires-Dist: numpy (==1.19.5)
+Requires-Dist: oauth2client (==4.1.3)
+Requires-Dist: oauthlib (==3.1.1)
+Requires-Dist: opencv-python (==4.5.3.56)
+Requires-Dist: opencv-python-headless (==4.5.4.58)
+Requires-Dist: opt-einsum (==3.3.0)
+Requires-Dist: orjson (==3.6.4)
+Requires-Dist: packaging (==21.0)
+Requires-Dist: pandas (==1.3.2)
+Requires-Dist: pandocfilters (==1.4.3)
+Requires-Dist: parso (==0.8.2)
+Requires-Dist: pickleshare (==0.7.5)
+Requires-Dist: Pillow (==8.3.2)
+Requires-Dist: platformdirs (==2.4.1)
+Requires-Dist: portalocker (==2.3.2)
+Requires-Dist: prometheus-client (==0.11.0)
+Requires-Dist: promise (==2.3)
+Requires-Dist: prompt-toolkit (==3.0.20)
+Requires-Dist: protobuf (==3.17.3)
+Requires-Dist: psutil (==5.8.0)
+Requires-Dist: py-cpuinfo (==8.0.0)
+Requires-Dist: pyarrow (==4.0.1)
+Requires-Dist: pyasn1 (==0.4.8)
+Requires-Dist: pyasn1-modules (==0.2.8)
+Requires-Dist: pycocotools-windows (==2.0.0.2)
+Requires-Dist: pycparser (==2.20)
+Requires-Dist: pydot (==1.4.2)
+Requires-Dist: Pygments (==2.10.0)
+Requires-Dist: pyparsing (==2.4.7)
+Requires-Dist: PyQt5 (==5.15.4)
+Requires-Dist: PyQt5-Qt5 (==5.15.2)
+Requires-Dist: PyQt5-sip (==12.9.0)
+Requires-Dist: pyrsistent (==0.18.0)
+Requires-Dist: python-dateutil (==2.8.2)
+Requires-Dist: python-slugify (==5.0.2)
+Requires-Dist: pytz (==2021.1)
+Requires-Dist: pywin32 (==301)
+Requires-Dist: pywinpty (==1.1.4)
+Requires-Dist: PyYAML (==5.4.1)
+Requires-Dist: pyzmq (==22.2.1)
+Requires-Dist: qtconsole (==5.1.1)
+Requires-Dist: QtPy (==1.11.0)
+Requires-Dist: regex (==2021.8.28)
+Requires-Dist: requests (==2.26.0)
+Requires-Dist: requests-oauthlib (==1.3.0)
+Requires-Dist: rsa (==4.7.2)
+Requires-Dist: sacrebleu (==2.0.0)
+Requires-Dist: scikit-learn (==0.24.2)
+Requires-Dist: scipy (==1.7.1)
+Requires-Dist: Send2Trash (==1.8.0)
+Requires-Dist: sentencepiece (==0.1.96)
+Requires-Dist: seqeval (==1.2.2)
+Requires-Dist: six (==1.15.0)
+Requires-Dist: smmap (==4.0.0)
+Requires-Dist: tabulate (==0.8.9)
+Requires-Dist: tensorboard (==2.6.0)
+Requires-Dist: tensorboard-data-server (==0.6.1)
+Requires-Dist: tensorboard-plugin-wit (==1.8.0)
+Requires-Dist: tensorflow (==2.6.0)
+Requires-Dist: tensorflow-addons (==0.14.0)
+Requires-Dist: tensorflow-datasets (==4.4.0)
+Requires-Dist: tensorflow-estimator (==2.6.0)
+Requires-Dist: tensorflow-hub (==0.12.0)
+Requires-Dist: tensorflow-io (==0.23.1)
+Requires-Dist: tensorflow-io-gcs-filesystem (==0.23.1)
+Requires-Dist: tensorflow-metadata (==1.2.0)
+Requires-Dist: tensorflow-model-optimization (==0.6.0)
+Requires-Dist: tensorflow-text (==2.6.0)
+Requires-Dist: termcolor (==1.1.0)
+Requires-Dist: terminado (==0.11.1)
+Requires-Dist: testpath (==0.5.0)
+Requires-Dist: text-unidecode (==1.3)
+Requires-Dist: tf-models-official (==2.6.0)
+Requires-Dist: tf-slim (==1.1.0)
+Requires-Dist: threadpoolctl (==2.2.0)
+Requires-Dist: tornado (==6.1)
+Requires-Dist: tqdm (==4.62.2)
+Requires-Dist: traitlets (==5.1.0)
+Requires-Dist: typeguard (==2.12.1)
+Requires-Dist: typing-extensions (==3.7.4.3)
+Requires-Dist: uritemplate (==3.0.1)
+Requires-Dist: urllib3 (==1.26.6)
+Requires-Dist: virtualenv (==20.13.0)
+Requires-Dist: wcwidth (==0.2.5)
+Requires-Dist: webencodings (==0.5.1)
+Requires-Dist: Werkzeug (==2.0.1)
+Requires-Dist: wget (==3.2)
+Requires-Dist: widgetsnbextension (==3.5.1)
+Requires-Dist: wincertstore (==0.2)
+Requires-Dist: wrapt (==1.12.1)
+Requires-Dist: zipp (==3.5.0)
+
+**TFOD-Automatic**
+
+Tensorflow object detection automatically from user input.
+
+TFOD-Automatic Setup
+
+In this we going to setup requirements for object detection
+automatically using TFOD-Automatic.setup.
+
+.. code:: python
+
+   from TFOD-Automatic import setup
+
+
+
+**start_download()**
+
+
+start_download is used to download the tensorflow model garden from the
+github.If the model garden is present already in the working
+directory.it automatically skip this process.
+
+.. code:: python
+
+   from TFOD-Automatic.setup import start_download
+   start_download()
+
+
+
+**check_model()**
+
+check_model is used to check whether the model garden folder is present
+or not.if the folder is present it return True and else it return False.
+
+.. code:: python
+
+   from TFOD-Automatic.setup import check_model
+   check_model()
+
+
+
+**protobuf_setup()**
+
+
+protobuf_setup is used to setup the protobuf.Protobufs to configure
+model and training parameters.The Protobuf version is 3.19.
+
+Steps: - Protobuf is downloaded successfully and saved in folder
+protobuf. - Now copy the folder protobuf folder and Go to C:/Program
+File and paste it inside - Now copy the location of the file like
+“C:/Program File /protobuf/bin” - Now open Edit envirnoment variable and
+go to Enviroment Variable and paste the location inside Path and save. -
+Finaly the open new Anaconda comment prompt and start project.
+
+To Check whether the protobuf is set or not use check_protobuf() method.
+
+.. code:: python
+
+   from TFOD-Automatic.setup import protobuf_setup
+   protobuf_setup()
+
+
+
+**check_protobuf()**
+
+
+check_protobuf is used to check whether the protobuf is setup is
+completed or not.Returns true if the setup is correct and False if the
+setup is incorrect.
+
+.. code:: python
+
+   from TFOD-Automatic.setup import check_protobuf
+   check_protobuf()
+
+Note: - Now the tensorflow object detection setup is completed.Next we
+are going to install the require package automaticaly
+
+
+
+TFOD-Automatic Install Package
+
+
+In this we going to install the require package for tensorflow object
+detection automatically using TFOD-Automatic.install.
+
+.. code:: python
+
+   from TFOD-Automatic import install
+
+**install_packages()**
+
+
+install_packages is used to install the required Packages like
+cython,cocoapi,labelImg,pycocotools-windows.To install these package we
+need visual studio c++ build support.If the visual studio c++ build
+support is not install then first install it then only we can install
+the package. All require package get installed.
+
+.. code:: python
+
+   from TFOD-Automatic.install import install_packages
+   install_packages()
+
+**check_installed()**
+
+
+Check the all packages are installed or not.If the require package is
+not install it show the error.
+
+.. code:: python
+
+   from TFOD-Automatic.install import check_installed
+   check_installed()
+
+**install_all()**
+
+
+install_packages is used to install the required Packages like
+cython,cocoapi,labelImg,pycocotools-windows.To install these package we
+need visual studio c++ build support.If the visual studio c++ build
+support is not install then first install it then only we can install
+the package. All require package get installed and check all the
+packages are installed.
+
+.. code:: python
+
+   from TFOD-Automatic.install import install_all
+   install_all()
+
+Note:
+
+
+-  Now the tensorflow object detection setup is completed and every
+   package is installed.Now we are going to create the object detection
+   model.
+
+To create the tensorflow object detection model there are two method in TFOD-Automatic they are CreateModel and BuildModel:
+
+
+-  BuildModel: It is beginner-friendly.Example one command is used to
+   create model and complete the training.
+-  CreateModel: It is some advance method. It has many command to create
+   ,train, export the model.
+
+BuildModel:
+
+
+Download The Tensorflow model garden and Build object Detect model
+automaticaly.
+
+.. code:: python
+
+   from TFOD-Automatic import model
+
+**ModelSetup()**:
+
+
+ModelSetup class is used to automatically create the Folder setup in
+working directory.And also check every package are installed and setup
+is completed or not.
+
+.. code:: python
+
+   from TFOD-Automatic.model import ModelSetup
+   model_setup=ModelSetup()
+
+
+**BuildModel()**:
+
+
+BuildModel is used to automatical create the model.BuildModel complete
+Generate the data file,Download the pretrained model,Create Pipeline
+file,export the model.
+
+Generate the data file:
+
+
+It generate record file from the input image.
+
+Download the pretrained model:
+
+
+It download the model from the tensorflow model zoo.It is pretrained
+model.
+
+Create Pipeline file:
+
+
+Pipeline file contains of the number of training steps,batch size,train
+and test folder path also the record file path etc.
+
+Export the model:
+
+
+Finally we need to export the model for future use.
+
+Parameter:
+
+
+-  number_of_class:int default:NO DEFAULT VALUE Number of training set
+-  pretrained_model_name:string
+   default:ssd_mobilenet_v2_320x320_coco17_tpu Please copy pretrained
+   model name from the tensorflow model zoo
+-  modelUrl:string
+   default:http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_320x320_coco17_tpu-8.tar.gz
+   Pretrained model is downloaded from here.Copy url from tensorflow
+   model zoo
+-  batch_size_for_train:int default:8 batch while training the model
+-  train_steps:int default:2000 Training epochs
+
+.. code:: python
+
+   from TFOD-Automatic.model import BuildModel
+   build_model=BuildModel(number_of_class)
+
+Notes
+
+
+-  It creates the model with number_of_class with batch_size of 8 and
+   train_step of 2000.
+-  It takes some time. so be patient.
+-  After the training is completed their will be the folder called
+   ->workspace->training_demo->exported-models. You will find the
+   exported model.It can used for future use.
+
+CreateModel
+
+-  number_of_class:int default:NO DEFAULT VALUE Number of training set
+-  pretrained_model_name:string
+   default:ssd_mobilenet_v2_320x320_coco17_tpu Please copy pretrained
+   model name from the tensorflow model zoo
+-  modelUrl:string
+   default:http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_320x320_coco17_tpu-8.tar.gz
+   Pretrained model is downloaded from here.Copy url from tensorflow
+   model zoo
+-  batch_size_for_train:int default:8 batch while training the model
+-  train_steps:int default:2000 Training epochs
+
+.. code:: python
+
+   from TFOD-Automatic.model import CreateModel
+   # create the class instance
+   createmodel=CreateModel()
+
+   # model_setup() is used to check whether the package is installed and setup is correct completed.
+   createmodel.model_setup()
+
+   # create_folder() is used to create the require folder in the working directory
+   createmodel.create_folder()
+
+   # image_data() is used to generate the label map in .pbtxt format
+   createmodel.image_data()
+
+   # generate_file() is used to generate the .record file for the train and test image
+   createmodel.generate_file()
+
+   # download_model() is used to Download the pretrained model from tensorflow model zoo.
+   createmodel.download_model()
+
+   # configure_pipeline() used to create Pipeline file:Pipeline file contains of the number of training steps,batch size, train and test folder path also the record file path etc.
+   createmodel.configure_pipeline()
+
+   #export_model() is used to export the model.Finally we need to export the model for future use.
+   createmodel.export_model()
+
+
