@@ -1,0 +1,76 @@
+Metadata-Version: 2.1
+Name: ipyparallel
+Version: 8.2.0
+Summary: Interactive Parallel Computing with IPython
+Home-page: https://ipython.org
+Author: IPython Development Team
+Author-email: ipython-dev@scipy.org
+License: BSD
+Keywords: Interactive,Interpreter,Shell,Parallel
+Platform: Linux
+Platform: Mac OS X
+Platform: Windows
+Classifier: Framework :: Jupyter
+Classifier: Framework :: Jupyter :: JupyterLab
+Classifier: Framework :: Jupyter :: JupyterLab :: 3
+Classifier: Framework :: Jupyter :: JupyterLab :: Extensions
+Classifier: Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Provides-Extra: nbext
+Provides-Extra: serverextension
+Provides-Extra: labextension
+Provides-Extra: retroextension
+Provides-Extra: benchmark
+Provides-Extra: test
+License-File: COPYING.md
+
+# Interactive Parallel Computing with IPython
+
+IPython Parallel (`ipyparallel`) is a Python package and collection of CLI scripts for controlling clusters of IPython processes, built on the Jupyter protocol.
+
+IPython Parallel provides the following commands:
+
+- ipcluster - start/stop/list clusters
+- ipcontroller - start a controller
+- ipengine - start an engine
+
+## Install
+
+Install IPython Parallel:
+
+    pip install ipyparallel
+
+This will install and enable the IPython Parallel extensions
+for Jupyter Notebook and (as of 7.0) Jupyter Lab 3.0.
+
+## Run
+
+Start a cluster:
+
+    ipcluster start
+
+Use it from Python:
+
+```python
+import os
+import ipyparallel as ipp
+
+cluster = ipp.Cluster(n=4)
+with cluster as rc:
+    ar = rc[:].apply_async(os.getpid)
+    pid_map = ar.get_dict()
+```
+
+See [the docs](https://ipyparallel.readthedocs.io) for more info.
+
+
