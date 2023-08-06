@@ -1,0 +1,75 @@
+[build-system]
+requires = [
+  "setuptools >= 42",
+  "wheel",
+  "setuptools_scm[toml]>=3.4"
+]
+build-backend = "setuptools.build_meta"
+
+
+[tool.setuptools_scm]
+write_to = "napari_plot/_version.py"
+
+[tool.black]
+line-length = 120
+target-version = ['py36', 'py37', 'py38']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | examples
+    | windows
+    | macOS
+    | linux
+    | dist
+    | build
+    | _qt_resources_*.py
+  )/
+  | scripts/minreq.py
+)
+'''
+
+[tool.check-manifest]
+ignore = [
+  "bundle.py",
+  ".cirrus.yml",
+  ".pre-commit-config.yaml",
+  "asv.conf.json",
+  "codecov.yml",
+  "Makefile",
+  "mypy.ini",
+  "tools/minreq.py",
+  "tox.ini",
+  ".deepsource.toml",
+  "*.pyi",  # added by make typestubs
+  "napari_plot/_version.py",  # added during build by setuptools_scm
+  "scripts/*.bat",  # scripts
+  "renovate.json",
+]
+
+[tool.isort]
+line_length = 120
+profile = "black"
+skip_glob = ["*examples/*"]
+
+[tool.pytest.ini_options]
+# These follow standard library warnings filters syntax.  See more here:
+# https://docs.python.org/3/library/warnings.html#describing-warning-filters
+addopts = "--maxfail=10 --durations=10"
+
+filterwarnings = [
+  "error:::napari_plot", # turn warnings from napari into errors
+  "ignore::DeprecationWarning:shibokensupport",
+  "ignore::DeprecationWarning:ipykernel",
+  "ignore::DeprecationWarning:pyreadline",
+]
