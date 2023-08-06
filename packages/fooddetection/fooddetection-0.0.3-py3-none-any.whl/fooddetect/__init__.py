@@ -1,0 +1,1 @@
+from fooddetect.fooddetect import *
