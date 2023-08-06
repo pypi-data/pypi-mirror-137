@@ -1,0 +1,72 @@
+from dataclasses import dataclass
+from typing import Literal, Optional, Union
+
+from yarl import URL
+
+from avilla.core.elements import Image
+from avilla.core.message import Element
+from avilla.core.selectors import resource as resource_selector
+
+
+class FlashImage(Image):
+    pass
+
+
+@dataclass
+class Face(Element):
+    id: str
+
+
+class RPS(Element):
+    pass
+
+
+class Dice(Element):
+    pass
+
+
+class Shake(Element):
+    pass
+
+
+@dataclass
+class Poke(Element):
+    type: str
+    id: str
+    name: str
+
+
+class Anonymous(Element):
+    ignore: bool
+
+
+class Share(Element):
+    url: URL
+    title: str
+    content: Optional[str] = None
+    image: Optional[URL] = None
+
+
+class Contact(Element):
+    type: Union[Literal["qq"], Literal["group"]]
+    id: str
+
+
+class Location(Element):
+    lat: float
+    lon: float
+    title: str
+    content:str
+class Music(Element):
+    type: Union[Literal["qq"], Literal["163"],Literal["xm"]|Literal["custom"]]
+    id:Optional[str]=None
+    url:Optional[URL]=None
+    audio:Optional[URL]=None
+    title:Optional[str]=None
+    content:Optional[str]=None
+    image:Optional[URL]=None
+
+
+@dataclass
+class Reply(Element):
+    id: str
