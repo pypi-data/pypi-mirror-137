@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      tal:omit-tag="">
+
+  <link rel="stylesheet" type="text/css" href=""
+        tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++collective.sendinblue.stylesheets/sendinblue.css" />
+
+  <dl tal:attributes="class string:portlet portletSendinblue portletSendinblue"
+      i18n:domain="collective.sendinblue">
+
+    <dt class="portletHeader">
+      <span class="portletTopLeft"></span>
+      <span tal:replace="view/header" />
+      <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletContent odd">
+
+      <p tal:condition="view/description"
+         tal:content="view/description" />
+
+      <span tal:replace="structure view/form/render" />
+
+      <div class="archives"
+           tal:condition="view/archive_url">
+          <a href=""
+             tal:attributes="href view/archive_url"
+             i18n:translate="archives">Archives</a>
+      </div>
+
+      <div class="visualClear" />
+
+    </dd>
+
+  </dl>
+
+</html>

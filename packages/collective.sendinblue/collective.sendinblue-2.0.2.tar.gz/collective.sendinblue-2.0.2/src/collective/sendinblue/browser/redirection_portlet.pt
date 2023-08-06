@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      tal:omit-tag="">
+
+  <dl tal:attributes="class string:portlet portletSendinblue portletSendinblue"
+      i18n:domain="collective.sendinblue">
+
+    <dt class="portletHeader">
+      <span class="portletTopLeft"></span>
+      <span tal:replace="view/header" />
+      <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletContent odd">
+
+      <p tal:condition="view/description"
+         tal:content="view/description" />
+
+      <span tal:replace="structure view/form/render" />
+
+      <p tal:condition="view/text"
+         tal:content="structure view/text" />
+
+    </dd>
+
+  </dl>
+
+</html>
