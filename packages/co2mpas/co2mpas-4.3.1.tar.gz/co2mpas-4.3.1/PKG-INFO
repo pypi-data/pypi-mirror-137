@@ -1,0 +1,122 @@
+Metadata-Version: 2.1
+Name: co2mpas
+Version: 4.3.1
+Summary: The Type-Approving vehicle simulator predicting NEDC CO2 emissions from WLTP
+Home-page: https://github.com/JRCSTU/co2mpas-ta
+Author: CO2MPAS-Team
+Author-email: JRC-CO2MPAS@ec.europa.eu
+License: EUPL 1.1+
+Download-URL: https://github.com/JRCSTU/co2mpas-ta/tarball/v4.3.1
+Project-URL: Documentation, http://co2mpas.readthedocs.io
+Project-URL: Issue tracker, https://github.com/JRCSTU/co2mpas-ta/issues
+Keywords: CO2,fuel-consumption,WLTP,NEDC,vehicle,automotive,EU,JRC,IET,STU,correlation,back-translation,policy,monitoring,M1,N1,simulator,engineering,scientific
+Platform: any
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Development Status :: 4 - Beta
+Classifier: Natural Language :: English
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Manufacturing
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Obsoletes: co2mpas (< 4.0)
+Requires-Python: >=3.5
+Provides-Extra: cli
+Provides-Extra: sync
+Provides-Extra: plot
+Provides-Extra: io
+Provides-Extra: dice
+Provides-Extra: all
+Provides-Extra: dev
+License-File: LICENSE
+
+
+What is CO2MPAS?
+****************
+
+CO2MPAS is backward-looking longitudinal-dynamics CO2 and
+fuel-consumption simulator for light-duty M1 & N1 vehicles (cars and
+vans), specially crafted to *estimate the CO2 emissions of vehicles
+undergoing NEDC* testing based on the emissions produced *WLTP
+testing* during type-approval, according to the EU legislations
+*1152/EUR/2017 and 1153/EUR/2017* (see `History`_ section, below).
+
+It is an open-source project (`EUPL 1.1+
+<https://joinup.ec.europa.eu/software/page/eupl>`_) developed for
+Python-3.6+. It runs either as a *console command* or as a *desktop
+GUI application*, and it uses Excel-files or pure python structures
+(dictionary and lists) for its input & output data.
+
+
+History
+=======
+
+The *European Commission* has introduced the *WLTP* as the test
+procedure for the type I test of the European type-approval of
+Light-duty vehicles as of September 2017. Its introduction has
+required the adaptation of CO2 certification and monitoring procedures
+set by European regulations (443/2009, 510/2011, 1152/EUR/2017 and
+1153/EUR/2017). European Commission’s *Joint Research Centre* (JRC)
+has been assigned the development of this vehicle simulator to
+facilitate this adaptation.
+
+The European Regulation setting the conditions for using CO2MPAS can
+be found in `the Comitology Register
+<http://ec.europa.eu/transparency/regcomitology/index.cfm?do=search.documentdetail&dos_id=0&ds_id=45835&version=2>`_
+after its adoption by the *Climate Change Committee* which took place
+on June 23, 2016, and its 2nd vote for modifications, in April 27,
+2017.
+
+
+Installation
+************
+
+To install CO2MPAS use (with root privileges):
+
+.. code:: console
+
+   $ pip install co2mpas
+
+Or download the latest git version and use (with root privileges):
+
+.. code:: console
+
+   $ python setup.py install
+
+Some additional functionality is enabled installing the following
+extras:
+
+*  ``cli``: enables the command line interface.
+
+*  ``sync``: enables the time series synchronization tool (i.e.,
+   `syncing <https://github.com/vinci1it2000/syncing>`_ previously
+   named ``datasync``).
+
+*  ``gui``: enables the graphical user interface.
+
+*  ``plot``: enables to plot the CO2MPAS model and the workflow of
+   each run.
+
+*  ``io``: enables to read/write excel files.
+
+*  ``driver``: enables the driver model (currently is not available).
+
+To install co2mpas and all extras, do:
+
+.. code:: console
+
+   $ pip install 'co2mpas[all]'
+
+
