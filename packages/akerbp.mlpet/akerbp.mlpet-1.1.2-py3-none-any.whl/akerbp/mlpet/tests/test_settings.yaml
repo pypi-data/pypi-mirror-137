@@ -1,0 +1,43 @@
+curves:
+  - GR
+  - DEPTH
+  - BS
+  - NEU
+  - RMED
+  - RDEP
+  - DENC
+  - lsuName
+curves_to_normalize:
+  - GR
+curves_to_scale: []
+drop_original_curves: false
+# Setting to null is supported and data can instead be passed at runtime
+data_path: "null"
+gradient_features:
+  - GR
+  - BS
+  - NEU
+  - RMED
+  - RDEP
+  - DENC
+id_column: well_name
+depth_column: DEPTH
+imputer: null
+label_column: AC
+log_features:
+  - GR
+  - BS
+  - NEU
+  - RMED
+  - RDEP
+  - DENC
+num_filler: 0
+scaler_method: MinMaxScaler
+window: 10
+rolling_features:
+  - GR
+  - BS
+  - NEU
+  - RMED
+  - RDEP
+  - DENC
