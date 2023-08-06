@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: cardo-python-utils
+Version: 0.1.0
+Summary: Python library enhanced with a wide range of functions for different scenarios.
+Home-page: https://github.com/CardoAI/cardo-python-utils
+Author: Kristi Kotini
+Author-email: hello@cardoai.com
+License: MIT (X11)
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: >=3.9
+Provides-Extra: pandas
+Provides-Extra: django
+Provides-Extra: rest
+Provides-Extra: all
+License-File: LICENSE
+
+============================
+CardoAI Python Helper Module
+============================
+
+This library allows the utilization of different functions for different scenarios.
+
+Main utils:
+
+* time
+* string
+* data_structures
+* db
+* django
+* django_rest
+* finder
+* calculation
+* pandas
+* exception
+
+
+Quick start
+-----------
+1. Import wanted function like this::
+
+    from python_utils.time import date_range
+    date_range(start_date, end_date)
+
+Tests
+-----
+1. Inside venv run  ``pip install -r tests/requirements.txt``
+
+2. Run tests via ``pytest`` command
+
+
