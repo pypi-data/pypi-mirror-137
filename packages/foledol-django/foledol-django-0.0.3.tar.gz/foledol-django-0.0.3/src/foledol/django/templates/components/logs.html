@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Historique</div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+            <th>Date</th>
+            <th>Utilisateur</th>
+            <th>Action</th>
+            </thead>
+            {% for log in logs %}
+            <tr onclick="goto('{% url 'sandbox:log_update' log.id %}')">
+                <td>{{ log.date|date:'d/m/Y H:i' }}</td>
+                <td>{{ log.author }}</td>
+                <td>{{ log.action }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
