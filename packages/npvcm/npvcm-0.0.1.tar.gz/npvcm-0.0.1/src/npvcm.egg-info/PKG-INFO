@@ -1,0 +1,124 @@
+Metadata-Version: 2.1
+Name: npvcm
+Version: 0.0.1
+Summary: nonparametric varying coefficient model
+Home-page: https://git.xiaojukeji.com/CoreDataScience/nonparamvcm
+Author: Xi Zhou
+Author-email: tedlaw@126.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+#### 非参数化VCM时间片轮转实验评估
+
+#### 1. 更新
+增加指标增量delta估计（2021-12-01）
+
+说明：对于比例指标 $`ratio = \frac{y}{x}`$, 先用模型估计在拉齐分母$`x`$下的分子增量$`\Delta_y`$，然后用$`\Delta_{ratio} = \frac{\Delta_y}{x_{treatment}}`$ 计算比例的提升。
+
+
+#### 2. 使用例子
+
+```python
+import pandas as pd
+import numpy as np
+from datetime import datetime
+from scipy.stats import norm
+from NonParamVCM import NonParamVCM
+############################ 评估比例指标 ############################
+np.random.seed(10)
+
+# 输入待评估数据数据
+data = pd.read_csv('./data/data_example.csv') 
+# 响应变量，对比例指标的评估选择分子
+ycol = ['wandan_cnt_pcl']  
+# 潜在协变量
+xcols = ['hujiao_cnt_pcl', 'like_gesake_online_dur', 
+         'intercept','exp_group', 'intensity', 
+         'temperature', 'is_weekend'] 
+# 对比例指标的评估选择分母，常规指标设置为空list
+denominator = ['hujiao_cnt_pcl']
+# 基函数数量
+knots = 10 
+# 正则化惩罚参数
+lamb = 1e-4   
+# 协变量选择阈值
+threshold = 1e-2  
+# bootstrap迭代次数
+runs = 500 
+# 评估时间区间（小时）
+sum_window = np.arange(6,23) 
+
+# 非参VCM模型评估
+result = NonParamVCM(data=data, ycol=ycol, xcols=xcols, denominator=denominator, 
+                      knots=knots, lamb =lamb, threshold=threshold, 
+                      sum_window = sum_window, runs = runs)
+# 结果result 中包含p值，策略在各个小时上的效应，各个城市选择的协变量，实验组和对照组指标观测值平均以及策略带来的提升（delta）
+############################ 评估常规指标 ############################
+data = data
+ycol = ['gmv']
+xcols = ['call_cnt', 'temperature', 'online_time','is_weekend', 'exp_group']
+knots = 10
+lamb = 1e-4
+threshold = 1e-2
+runs = 100 # number of bootstrap iteration
+sum_window = np.arange(6,24) # treatment time window
+
+result_gmv = NonParamVCM(data=data, ycol=ycol, xcols=xcols, knots=knots, lamb =lamb, threshold=threshold, sum_window = sum_window, runs = runs)
+```
+
+详细的评估过程和数据导入，见 ‘评估脚本.ipynb’
+
+#### 3. 输出结果分析
+
+NonParamVCM运行过程中会输出三个主要结果（对各个城市，以及所有城市汇总）
+
+分别展示：
+
+1. 策略在各个小时上对指标的提升（比例指标则是对分子），以及置信区间；
+2. 一天之内（或者sum_window指定的时间区间）策略提升总量和零假设（没有提升）下的估计值分布的比较；
+3. 实验组和对照组指标观测值，策略带来的提升值（delta)，p值，以及对于该城市模型选择的协变量
+
+<img src="./image/varying-effect.png" alt="img1" style="zoom:50%;" />
+
+<img src="./image/hist.png" alt="img2" style="zoom:50%;" />
+
+<img src="./image/table.png" alt="img3" style="zoom:30%;" />
+
+
+
+#### 4. 主要参数简要说明
+
+| 参数名称 | 参数含义                                                     |
+| -------- | ---------------------------------------------------------|
+|ycol|被评估的变量名称，如果评估比例指标则添加分子指标名称|
+|xcols|所有潜在可能被拉齐的协变量，如果评估比例指标，必须包含分母变量|
+|denominator|如果评估比例指标，则设置为分母变量名；对常规指标设定为空|
+| knots    | 基函数个数（将协变量分时效应视为函数，将其在基函数（样条函数）上展开；通常选择一天中小时数的一半左右，比如24小时选择10个基函数） |
+|lamb| 正则化协变量选择过程中的惩罚参数|
+|threshold | 在正则化回归后，只有其效应函数对应的$l_1$距离大于该参数的协变量才会最终进入到模型。|
+|sum_window| 用于评估的区间（比如只在早高峰进行策略的实验，设置sum_window = [7,8,9] （小时）） |
+|runs| bootstrap构造置信区间时的迭代次数|
+
+
+
+
+#### 5. NonParamVCM.py 中主要函数及功能：
+|函数名称|作用|
+|--------------------|--------------------|
+|NonParamVCM| 总的评估函数：正则化协变量选择+elastic net 超参数选择 + elastic net评估实验效应评估|
+|covariates_selection |正则化模型选择|
+|elastic_tuning|elastic net回归超参数选择|
+|elastic_predict|elastic net回归估计|
+|bootstrap|bootstrap构造参数置信区间|
+
+
+
+
+
