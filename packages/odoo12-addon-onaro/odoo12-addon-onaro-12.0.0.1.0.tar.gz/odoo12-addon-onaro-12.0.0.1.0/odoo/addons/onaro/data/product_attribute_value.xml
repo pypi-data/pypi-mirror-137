@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data noupdate="1">
+    <record id="SinMinutos" model="product.attribute.value">
+      <field name="name">Sin Minutos</field>
+      <field name="attribute_id" ref="telecom.Min" />
+    </record>
+    <record id="150Min" model="product.attribute.value">
+      <field name="name">150 Min</field>
+      <field name="attribute_id" ref="telecom.Min" />
+    </record>
+    <record id="300Min" model="product.attribute.value">
+      <field name="name">200 Min</field>
+      <field name="attribute_id" ref="telecom.Min" />
+    </record>
+    <record id="LlamadasIlimitadas" model="product.attribute.value">
+      <field name="name">Llamadas Ilimitadas</field>
+      <field name="attribute_id" ref="telecom.Min" />
+    </record>
+
+    <record id="SinDatos" model="product.attribute.value">
+      <field name="name">Sin Datos</field>
+      <field name="attribute_id" ref="telecom.Data" />
+    </record>
+    <record id="2GB" model="product.attribute.value">
+      <field name="name">2 GB</field>
+      <field name="attribute_id" ref="telecom.Data" />
+    </record>
+    <record id="3GB" model="product.attribute.value">
+      <field name="name">3 GB</field>
+      <field name="attribute_id" ref="telecom.Data" />
+    </record>
+    <record id="5GB" model="product.attribute.value">
+      <field name="name">5 GB</field>
+      <field name="attribute_id" ref="telecom.Data" />
+    </record>
+    <record id="9GB" model="product.attribute.value">
+      <field name="name">9 GB</field>
+      <field name="attribute_id" ref="telecom.Data" />
+    </record>
+    <record id="23GB" model="product.attribute.value">
+      <field name="name">23 GB</field>
+      <field name="attribute_id" ref="telecom.Data" />
+    </record>
+    <record id="30GB" model="product.attribute.value">
+      <field name="name">30 GB</field>
+      <field name="attribute_id" ref="telecom.Data" />
+    </record>
+    <record id="50GB" model="product.attribute.value">
+      <field name="name">50 GB</field>
+      <field name="attribute_id" ref="telecom.Data" />
+    </record>
+
+    <record id="30Mb" model="product.attribute.value">
+      <field name="name">30 Mb</field>
+      <field name="attribute_id" ref="telecom.Bandwidth" />
+    </record>
+    <record id="100Mb" model="product.attribute.value">
+      <field name="name">100 Mb</field>
+      <field name="attribute_id" ref="telecom.Bandwidth" />
+    </record>
+    <record id="600Mb" model="product.attribute.value">
+      <field name="name">600 Mb</field>
+      <field name="attribute_id" ref="telecom.Bandwidth" />
+    </record>
+  </data>
+</odoo>

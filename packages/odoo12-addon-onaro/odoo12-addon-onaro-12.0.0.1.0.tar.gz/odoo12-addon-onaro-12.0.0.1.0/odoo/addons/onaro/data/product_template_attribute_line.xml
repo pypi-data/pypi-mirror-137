@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="SinMinutosSinDatos_product_template_attribute_line" model="product.template.attribute.line">
+      <field name="product_tmpl_id" ref="SinMinutosSinDatos_product_template" />
+      <field name="attribute_id" ref="telecom.Data" />
+      <field name="value_ids" eval="[(6, 0, [ref('SinDatos'),ref('SinDatos')])]"/>
+    </record>
+    <record id="150Min2GB_product_template_attribute_line" model="product.template.attribute.line">
+      <field name="product_tmpl_id" ref="150Min2GB_product_template" />
+      <field name="attribute_id" ref="telecom.Data" />
+      <field name="value_ids" eval="[(6, 0, [ref('2GB')])]"/>
+    </record>
+    <record id="200Min3GB_product_template_attribute_line" model="product.template.attribute.line">
+      <field name="product_tmpl_id" ref="200Min3GB_product_template" />
+      <field name="attribute_id" ref="telecom.Data" />
+      <field name="value_ids" eval="[(6, 0, [ref('3GB'),ref('5GB')])]"/>
+    </record>
+    <record id="LlamadasIlimitadasSinDatos_product_template_attribute_line" model="product.template.attribute.line">
+      <field name="product_tmpl_id" ref="LlamadasIlimitadasSinDatos_product_template" />
+      <field name="attribute_id" ref="telecom.Data" />
+      <field name="value_ids" eval="[(6, 0, [ref('SinDatos'),ref('9GB'),ref('23GB'),ref('30GB'),ref('50GB')])]"/>
+    </record>
+    <record id="Radiofrecuencia30Mb_product_template_attribute_line" model="product.template.attribute.line">
+      <field name="product_tmpl_id" ref="Radiofrecuencia30Mb_product_template" />
+      <field name="attribute_id" ref="telecom.Bandwidth" />
+      <field name="value_ids" eval="[(6, 0, [ref('30Mb')])]"/>
+    </record>
+    <record id="Fibra100Mb_product_template_attribute_line" model="product.template.attribute.line">
+      <field name="product_tmpl_id" ref="Fibra100Mb_product_template" />
+      <field name="attribute_id" ref="telecom.Bandwidth" />
+      <field name="value_ids" eval="[(6, 0, [ref('100Mb'),ref('600Mb')])]"/>
+    </record>
+  </data>
+</odoo>
