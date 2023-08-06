@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: zepben.opendss
+Version: 0.1.0
+Summary: Library for exporting Zepben CIM network models to OPENDSS models
+Home-page: https://github.com/zepben/opendss-exporter
+Author: Zeppelin Bend
+Author-email: oss@zepben.com
+License: MPL 2.0
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: zepben.evolve (==0.27.0b7)
+Requires-Dist: requests (==2.26.0)
+Requires-Dist: aiofiles (==0.8.0)
+Requires-Dist: aiohttp (==3.8.1)
+Requires-Dist: ujson (==5.1.0)
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: pytest-asyncio ; extra == 'test'
+Requires-Dist: hypothesis (<6) ; extra == 'test'
+
+UNKNOWN
+
