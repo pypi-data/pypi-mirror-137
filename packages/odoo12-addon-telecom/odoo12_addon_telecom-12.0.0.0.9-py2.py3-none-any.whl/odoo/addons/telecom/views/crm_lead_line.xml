@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="view_crm_lead_products" model="ir.ui.view">
+      <field name="name">crm.lead.products</field>
+      <field name="model">crm.lead.line</field>
+      <field name="inherit_id" ref="crm_lead_product.view_tree_lead_line"/>
+      <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+          <attribute name="create">false</attribute>
+        </xpath>
+        <field name="product_tmpl_id" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="name" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="name" position="after">
+          <field name="supplier_external_reference"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_telecom_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_telecom_management"/>
+        <field name="implied_ids" eval="[(6, 0, [
+            ref('base.group_user'),
+            ref('account.group_account_invoice'),
+            ref('account_payment_order.group_account_payment'),
+          ])]"/>
+    </record>
+    <record id="group_telecom_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_telecom_management"/>
+        <field name="implied_ids" eval="[(6, 0, [
+            ref('group_telecom_user'),
+            ref('base_substate.group_substate_manager'),
+            ref('product.group_product_variant'),
+          ])]"/>
+        <field name="users"
+               eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="group_telecom_admin" model="res.groups">
+        <field name="name">IT</field>
+        <field name="implied_ids"
+               eval="[(6, 0, [ref('product.group_product_variant')])]"/>
+        <field name="users"
+               eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+</odoo>

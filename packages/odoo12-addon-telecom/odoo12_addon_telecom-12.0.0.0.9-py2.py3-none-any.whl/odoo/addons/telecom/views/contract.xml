@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="view_form_contract_customer" model="ir.ui.view">
+      <field name="model">contract.contract</field>
+      <field name="name">contract.form.telecom</field>
+      <field name="inherit_id" ref="contract.contract_contract_customer_form_view"/>
+      <field name="arch" type="xml">
+        <field name="current_tariff" position="replace"/>
+        <field name="partner_id" position="after">
+          <field name="product_id"/>
+          <field name="isp_info"/>
+        </field>
+      </field>
+    </record>
+    <record id="view_tree_contract" model="ir.ui.view">
+      <field name="model">contract.contract</field>
+      <field name="name">contract.contract.tree.telecom</field>
+      <field name="inherit_id" ref="contract.contract_contract_tree_view"/>
+      <field name="arch" type="xml">
+        <field name="partner_id" position="after">
+          <field name="product_id"/>
+        </field>
+      </field>
+    </record>
+    <act_window id="action_contract_telecom" name="Telecom Contracts"
+      res_model="contract.contract" view_mode="tree,form,pivot"
+      domain="[('product_id.main','=',True)]"
+      />
+    <record id="view_pivot_contract" model="ir.ui.view">
+      <field name="model">contract.contract</field>
+      <field name="name">contract.pivot.telecom</field>
+      <field name="arch" type="xml">
+        <pivot/>
+      </field>
+    </record>
+  </data>
+</odoo>
