@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+package blits;
+
+service Blitskrieg {
+    /**
+    Create a docker stack with the requested LN nodes.
+    */
+    rpc CreateStack (CreateStackRequest) returns (CreateStackResponse);
+
+    /**
+    Get BLITSkrieg info.
+    */
+    rpc GetInfo (GetInfoRequest) returns (GetInfoResponse);
+
+    /**
+    Remove any existing docker stack.
+    */
+    rpc RemoveStack (RemoveStackRequest) returns (RemoveStackResponse);
+}
+
+service Bitcoin {
+    /**
+    Get a bitcoin address.
+    */
+    rpc GetAddress (GetAddressRequest) returns (GetAddressResponse);
+
+    /**
+    Generate the requested number of blocks, each containing the requested
+    number of transactions with the specified number of inputs and outputs.
+    */
+    rpc GenTransactions (GenTransactionsRequest)
+        returns (GenTransactionsResponse);
+
+    /**
+    Mine the requested number of blocks, optionally sending the mining reward
+    to a specific address.
+    */
+    rpc MineBlock (MineBlockRequest) returns (MineBlockResponse);
+
+    /**
+    Send the requested amount of BTC to the requested address.
+    */
+    rpc Send (SendRequest) returns (SendResponse);
+}
+
+service Lightning {
+    /**
+    Send BTC to all LN nodes.
+    */
+    rpc FundNodes (FundNodesRequest) returns (FundNodesResponse);
+}
+
+message CreateStackRequest {
+    uint32 clightning = 1;
+    uint32 eclair = 2;
+    uint32 electrum = 3;
+    uint32 lnd = 4;
+}
+
+message CreateStackResponse {
+}
+
+message GetInfoRequest {
+}
+
+message GetInfoResponse {
+    string version = 1;
+}
+
+message RemoveStackRequest {
+}
+
+message RemoveStackResponse {
+}
+
+message GetAddressRequest {
+}
+
+message GetAddressResponse {
+    // bitcoin address from mining wallet
+    string address = 1;
+}
+
+message GenTransactionsRequest {
+    // number of blocks to be created
+    uint32 blocks = 1;
+    // number of transactions to insert in each block
+    uint64 transactions = 2;
+    // number of inputs of each transaction (default 1, max 3)
+    uint32 n_inputs = 3;
+    // number of outputs of each transaction (default 1, max 3)
+    uint32 n_outputs = 4;
+}
+
+message GenTransactionsResponse {
+}
+
+message MineBlockRequest {
+    // number of blocks to be mined
+    uint32 blocks = 1;
+    // bitcoin mining address
+    string address = 2;
+}
+
+message MineBlockResponse {
+    // a list of mined blocks hashes
+    repeated string block_hashes = 1;
+    // current block height
+    uint32 height = 2;
+}
+
+message SendRequest {
+    // address where to send BTC
+    string address = 1;
+    // amount of BTC to send
+    double amount = 2;
+    // number of confirmations requested for the sending transaction
+    uint32 confirmations = 3;
+}
+
+message SendResponse {
+    // ID of the sending transaction
+    string txid = 1;
+}
+
+message FundNodesRequest {
+}
+
+message FundNodesResponse {
+    // amount sent to nodes, in satoshi
+    int64 sent_amount = 1;
+}
