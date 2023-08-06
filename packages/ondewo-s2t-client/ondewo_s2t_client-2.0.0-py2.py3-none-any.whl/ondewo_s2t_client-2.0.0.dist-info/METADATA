@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: ondewo-s2t-client
+Version: 2.0.0
+Summary: exposes the ondewo-s2t-grpc-server endpoints in a user-friendly way
+Home-page: https://github.com/ondewo/ondewo-s2t-client-python
+Author: ONDEWO GbmH
+Author-email: info@ondewo.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=2.7, !=3.0.1
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: grpcio (==1.42.0)
+Requires-Dist: grpcio-reflection (==1.42.0)
+Requires-Dist: grpcio-tools (==1.42.0)
+Requires-Dist: mypy-protobuf (==3.00)
+Requires-Dist: ondewo-client-utils (>=0.1.0)
+
+![Logo](https://raw.githubusercontent.com/ondewo/ondewo-logos/master/github/ondewo_logo_github_2.png)
+
+ONDEWO-S2T Client Library
+======================
+
+This library facilitates the interaction between a user and an ONDEWO-S2T server instance. 
+
+It is structured around a series of python files generated from protobuf files. These protobuf files specify the details of the interface, and can be used to generate code in 10+ high-level languages. They are found in the [apis submodule](./ondewo-s2t-api).
+
+Python Installation
+-------------------
+
+```bash
+git clone git@github.com:ondewo/ondewo-s2t-client-python.git
+cd ondewo-s2t-client-python
+pip install -r requirements.txt
+```
+
+Let's Get Started! (WIP)
+------------------
+Import your programming interface:
+```bash
+ls ondewo
+```
+
+Get a suitable example:
+```bash
+ls examples
+```
+
