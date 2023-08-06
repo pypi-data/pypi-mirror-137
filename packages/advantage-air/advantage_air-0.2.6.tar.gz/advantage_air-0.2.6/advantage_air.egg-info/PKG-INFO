@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: advantage-air
+Version: 0.2.6
+Summary: API helper for Advantage Air's MyAir and e-zone API
+Home-page: https://github.com/Bre77/advantage_air
+Author: Brett Adams
+Author-email: brett@ba.id.au
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+Advantage Air API Wrapper
+
+~~~~{.python}
+import asyncio
+import aiohttp
+from advantage_air import advantage_air
+
+async def main():
+    async with aiohttp.ClientSession() as session:
+        aa = advantage_air("192.168.100.24",port=2025,session=session,retry=5)
+        if(await aa.async_get(1)):
+            print(await aa.async_get())
+            print(await aa.async_change({}))
+
+asyncio.run(main())
+~~~~
+
