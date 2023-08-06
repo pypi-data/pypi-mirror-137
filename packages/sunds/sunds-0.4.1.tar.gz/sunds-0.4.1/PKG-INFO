@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: sunds
+Version: 0.4.1
+Summary: Datasets for scene understanding and neural rendering.
+Keywords: datasets,scene-understanding,neural rendering,nerf
+Author-email: Sunds team <sunds@google.com>
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: absl-py
+Requires-Dist: etils[epath-no-tf,etqdm]
+Requires-Dist: numpy>=1.17
+Requires-Dist: tensorflow_datasets>=4.4
+Requires-Dist: typing_extensions
+Requires-Dist: pytest>=3.4 ; extra == "dev"
+Requires-Dist: pytest-xdist ; extra == "dev"
+Requires-Dist: pillow ; extra == "dev"
+Project-URL: homepage, https://github.com/google-research/sunds
+Project-URL: repository, https://github.com/google-research/sunds
+Provides-Extra: dev
+
+# Scene understanding datasets
+
+[![Unittests](https://github.com/google-research/sunds/actions/workflows/pytest.yml/badge.svg)](https://github.com/google-research/sunds/actions/workflows/pytest.yml)
+[![PyPI version](https://badge.fury.io/py/sunds.svg)](https://badge.fury.io/py/sunds)
+
+SunDs is a collection of ready-to-use datasets for scene understanding tasks (3d
+object detection, semantic segmentation, nerf rendering,...). It provides:
+
+*   An API to easily load datasets to feed into your ML models.
+*   A collection of ready-to-use datasets.
+*   Helper tools to create new datasets.
+
+```python
+import sunds
+
+ds = sunds.load('nerf_synthetic/lego', split='train', task=sunds.task.Nerf())
+for ex in ds:
+  ex['ray_origin']
+```
+
+To use sunds, see the documentation:
+
+*  [Intro guide](https://github.com/google-research/sunds/blob/master/docs/intro.md)
+*  [Nerf guide](https://github.com/google-research/sunds/blob/master/docs/nerf.md)
+
+*This is not an official Google product.*
+
