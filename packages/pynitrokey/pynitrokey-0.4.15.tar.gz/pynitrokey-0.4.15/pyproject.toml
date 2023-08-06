@@ -1,0 +1,59 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pynitrokey"
+authors = [
+  { name = "Nitrokey", email = "pypi@nitrokey.com" },
+]
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "License :: OSI Approved :: Apache Software License",
+  "Intended Audience :: Developers",
+  "Intended Audience :: End Users/Desktop",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+]
+dependencies = [
+  "cbor",
+  "cffi",
+  "click >=7.0",
+  "cryptography >=3.4.4",
+  "ecdsa",
+  "fido2 >=0.9.3",
+  "intelhex",
+  "nkdfu",
+  "python-dateutil",
+  "pyusb",
+  "requests",
+  "spsdk >=1.6.0",
+  "tqdm",
+  "urllib3",
+]
+dynamic = ["version", "description"]
+
+[project.optional-dependencies]
+dev = [
+  "black ==21.12b0",
+  "flake8",
+  "flit >=3.2,<4",
+  "ipython",
+  "isort",
+  "mypy",
+  "types-requests",
+]
+
+[project.urls]
+Source = "https://github.com/Nitrokey/pynitrokey"
+
+[project.scripts]
+nitropy = "pynitrokey.cli:nitropy"
+
+[tool.isort]
+profile = "black"
