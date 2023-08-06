@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_tiledb_inc_pybabylonjs=self.webpackChunk_tiledb_inc_pybabylonjs||[]).push([[568],{1568:(e,t,i)=>{i.r(t),i.d(t,{default:()=>r});var n=i(8233),s=i(5592),a=i(8657);const r={id:"@tiledb-inc/pybabylonjs:plugin",requires:[n.IJupyterWidgetRegistry],autoStart:!0,activate:function(e,t){t.registerWidget({name:a.o,version:a.Y,exports:s})}}}}]);
