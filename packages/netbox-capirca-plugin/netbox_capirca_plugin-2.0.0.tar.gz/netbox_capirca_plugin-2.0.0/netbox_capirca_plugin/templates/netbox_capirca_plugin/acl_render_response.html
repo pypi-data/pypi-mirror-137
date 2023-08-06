@@ -1,0 +1,23 @@
+{% extends "base/layout.html" %}
+{% load helpers %}
+
+
+{% block content %}
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="card">
+				<h5 class="card-header">ACL {{ object.name }}</h5>
+			<div class="card-body">
+			<pre><code>{{ acl_text }}</code></pre>
+			</div>
+        </div>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-right">
+            {% block buttons %}
+                <a href="{% url 'plugins:netbox_capirca_plugin:acl' pk=object.pk %}" class="btn btn-primary">Back</a>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
