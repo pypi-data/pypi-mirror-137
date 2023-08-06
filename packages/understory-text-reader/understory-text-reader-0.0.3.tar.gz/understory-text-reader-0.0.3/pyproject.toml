@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "understory-text-reader"
+version = "0.0.3"
+description = "A text reader for the Understory framework."
+authors = ["Angelo Gladding <self@angelogladding.com>"]
+license = "CC0-1.0"
+packages = [{include = "understory"}]
+
+[tool.poetry.plugins."web.apps"]
+text_reader = "understory.apps.text_reader:app"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+understory = "^0"
+microsub = "^0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.9b0"
+isort = "^5.9.3"
+flake8 = "^3.9.2"
+flake8-docstrings = "^1.6.0"
+pep8-naming = "^0.12.1"
+radon = "^5.1.0"
+understory = {path = "../understory"}
+microsub = {path = "../microsub-python"}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
