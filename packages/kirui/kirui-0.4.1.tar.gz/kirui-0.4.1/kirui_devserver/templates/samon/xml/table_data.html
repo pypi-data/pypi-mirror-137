@@ -1,0 +1,14 @@
+<kr-table class="table table-bordered" style="margin-top: 30px;">
+    <kr-columns>
+        <kr-column id="first" style="width: 500px;">Első</kr-column>
+        <kr-column id="second">Második</kr-column>
+    </kr-columns>
+
+    <kr-rows c:if="page is not None">
+        <kr-row c:for="row in page.object_list">
+            <kr-cell b:text="row.first"></kr-cell>
+            <kr-cell b:text="row.second"></kr-cell>
+        </kr-row>
+    </kr-rows>
+    <kr-paginator b:prevpage="page.previous_page_number()" b:actpage="page.number" b:nextpage="page.next_page_number()" />
+</kr-table>
