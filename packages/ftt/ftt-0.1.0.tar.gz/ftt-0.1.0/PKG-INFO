@@ -1,0 +1,108 @@
+Metadata-Version: 2.1
+Name: ftt
+Version: 0.1.0
+Summary: Financial Trading Tool (FTT) – is an asset management application that helps to make the right decision on time.
+Author: Artem Melnykov
+Author-email: melnykov.artem.v@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Financial and Insurance Industry
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Office/Business :: Financial :: Investment
+Requires-Dist: Riskfolio-Lib (>=2.0.0,<3.0.0)
+Requires-Dist: SQLAlchemy (>=1.4.31,<2.0.0)
+Requires-Dist: Yahoo-ticker-downloader (>=3.0.1,<4.0.0)
+Requires-Dist: cvxopt (==1.2.7)
+Requires-Dist: pandas (>=1.4.0,<2.0.0)
+Requires-Dist: pandas_datareader (>=0.9,<0.10)
+Requires-Dist: peewee (>=3.14.0,<4.0.0)
+Requires-Dist: pendulum (>=2.1.2,<3.0.0)
+Requires-Dist: pyportfolioopt (>=1.2.7,<2.0.0)
+Requires-Dist: python-nubia (>=0.2b5,<0.3)
+Requires-Dist: pyyaml (>=6.0,<7.0)
+Requires-Dist: result (>=0.7.0,<0.8.0)
+Requires-Dist: rich (>=11.1,<12.0)
+Requires-Dist: yfinance (>=0.1.54,<0.2.0)
+Project-URL: Bug Tracker, https://github.com/ftt-project/ftt/issues
+Project-URL: Homepage, https://github.com/ftt-project/ftt
+Description-Content-Type: text/markdown
+
+# FTT
+
+## Financial Trading Tools
+
+> Finance is hard. Programming is hard.
+
+FTT is a financial asset management application that helps to make right decision on time. 
+
+## Main features
+
+* Portfolio Building
+* Assets Recommendation
+* Portfolio testing
+* Strategy testing
+* Portfolio value tracking over the time
+* Integration with Interactive Brokers
+* Realtime signals trading decisions
+* Web interface
+* CLI interface
+
+## Collaborators
+- [Artem M](https://github.com/ignar)
+- [Ihor M](https://github.com/IhorMok)
+
+
+## Quickstart
+
+```
+pip install ftt
+ftt bootstrap
+ftt example
+```
+
+
+### Portfolio creation
+
+*Import portfolio configuration from file*
+
+```yaml
+name: S&P companies
+budget: 10000
+symbols:
+  - AAPL
+  - MSFT
+  - SHOP
+period_start: 2020-01-01
+period_end: 2021-01-01
+interval: 5m
+```
+
+```
+fft> portfolio import sp_companies.yml
+```
+
+*Create weights for portfolio*
+
+```
+ftt> portfolio build <ID>
+```
+
+## Development
+
+Dependencies
+
+* pyenv
+* poetry
+
+```commandline
+pyenv install PYTHON_VERSION
+pip install cmake
+poetry update
+```
