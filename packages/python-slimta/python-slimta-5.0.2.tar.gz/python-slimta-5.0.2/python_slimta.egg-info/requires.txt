@@ -1,0 +1,18 @@
+gevent>=1.1rc
+pysasl>=0.5.0
+pycares>=1
+
+[aws]
+boto
+
+[disk]
+
+[disk:platform_system == "Linux"]
+pyaio>=0.4
+
+[redis]
+redis
+
+[spf]
+pyspf
+py3dns
