@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: addr2line
+Version: 0.0.3
+Summary: interact with addr2line command
+Home-page: https://github.com/ramwin/addr2line
+Author: Xiang Wang
+Author-email: ramwin@qq.com
+License: MIT
+Keywords: addr2line
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Provides-Extra: test
+
+# addr2line
+interact with addr2line command
+
+# Installation
+
+    pip install addr2line
+
+
+# Test
+
+    python -m unittest discover tests
+
+
+# usage
+
+
+        with Addr2lineContext(Path("tests/source.out")) as c:
+            self.assertEqual(
+                c.get_function(0x1189),
+                "function3",
+            )
+            self.assertEqual(
+                c.get_function(0x11a8),
+                "main",
+            )
+
+
