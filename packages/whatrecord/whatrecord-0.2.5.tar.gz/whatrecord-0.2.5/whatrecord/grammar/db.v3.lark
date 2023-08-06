@@ -1,0 +1,111 @@
+// Lark grammar for db and dbd files
+// Based on epics-base specified grammar in dbStatic (dbLex/dbYacc)
+//
+// Version 3, or more specifically <= V3.15
+
+?start: database
+
+%import common.WS_INLINE
+%import common.WS
+%ignore WS_INLINE
+%ignore WS
+
+COMMENT     : "#" /[^\n\r]/*
+%ignore COMMENT
+
+NEWLINE     : "\n"
+BACKSLASH   : "\\"
+DOUBLEQUOTE : "\""
+WHITESPACE  : /[ \t\r\n]/
+ESCAPE      : BACKSLASH /./
+STRINGCHAR  : /[^"\n\\]/
+BAREWORD    : /[a-zA-Z0-9_\-+:.\[\]<>;]/
+
+TOKEN_INCLUDE     : "include"
+TOKEN_PATH        : "path"
+TOKEN_ADDPATH     : "addpath"
+TOKEN_MENU        : "menu"
+TOKEN_CHOICE      : "choice"
+TOKEN_RECORDTYPE  : "recordtype"
+TOKEN_FIELD       : "field"
+TOKEN_DEVICE      : "device"
+TOKEN_DRIVER      : "driver"
+TOKEN_BREAKTABLE  : "breaktable"
+TOKEN_RECORD      : "record"
+TOKEN_GRECORD     : "grecord"
+TOKEN_ALIAS       : "alias"
+TOKEN_INFO        : "info"
+TOKEN_REGISTRAR   : "registrar"
+TOKEN_FUNCTION    : "function"
+TOKEN_VARIABLE    : "variable"
+
+UNQUOTED_STRING_OR_NUMBER: BAREWORD+
+QUOTED_STRING:  DOUBLEQUOTE (STRINGCHAR | ESCAPE )* DOUBLEQUOTE
+string: UNQUOTED_STRING_OR_NUMBER -> unquoted_string
+      | QUOTED_STRING
+
+
+TOKEN_CDEFS: "%" /.*/
+
+JSON_NULL: "null"
+JSON_TRUE: "true"
+JSON_FALSE: "false"
+
+database: dbitem*
+
+dbitem: include
+      | TOKEN_PATH string                                            -> path
+      | TOKEN_ADDPATH string                                         -> addpath
+      | TOKEN_MENU menu_head menu_body                               -> menu
+      | TOKEN_RECORDTYPE recordtype_head recordtype_body             -> recordtype
+      | TOKEN_DEVICE "(" string "," string "," string "," string ")" -> device
+      | TOKEN_DRIVER "(" string ")"                                  -> driver
+      | TOKEN_REGISTRAR "(" string ")"                               -> registrar
+      | TOKEN_FUNCTION "(" string ")"                                -> function
+      | TOKEN_VARIABLE "(" string ["," string ] ")"                  -> variable
+      | TOKEN_BREAKTABLE break_head break_body                       -> breaktable
+      | (TOKEN_RECORD | TOKEN_GRECORD) record_head record_body       -> record
+      | TOKEN_ALIAS "(" string "," string ")"                        -> standalone_alias
+
+include:    TOKEN_INCLUDE string
+
+menu_head:  "(" string ")"
+
+menu_body:  "{" choice* "}"
+
+choice: TOKEN_CHOICE "(" string "," string ")"
+      | include
+
+recordtype_head: "(" string ")"
+
+recordtype_body: "{" recordtype_field* "}"
+
+recordtype_field: TOKEN_FIELD recordtype_field_head recordtype_field_body
+                | TOKEN_CDEFS -> cdef
+                | include     -> recordtype_field_include
+
+recordtype_field_head: "(" string "," string ")"
+
+recordtype_field_body: "{" recordtype_field_item* "}"
+
+recordtype_field_item: string "(" string ")"      -> recordtype_field_item
+                     | TOKEN_MENU "(" string ")"  -> recordtype_field_item_menu
+
+break_head: "(" string ")"
+
+break_body : "{" break_list "}"
+
+break_list: _optionally_comma_separated{break_item}
+
+break_item: string
+
+record_head: "(" string "," string ")"
+
+record_body: [ "{" record_field* "}" ]
+
+record_field: TOKEN_FIELD "(" string "," string ")" -> record_field
+            | TOKEN_INFO "(" string "," string ")"  -> record_field_info
+            | TOKEN_ALIAS "(" string ")"            -> record_field_alias
+            | include
+
+_optionally_comma_separated{x}: x (","? x)* ","?

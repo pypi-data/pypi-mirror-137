@@ -1,0 +1,71 @@
+// Lark grammar for dbLoadTemplate
+// Based on epics-base dbtemplate as part of the msi tool (dbLoadTemplate_lex.l)
+
+?start: substitution_file
+
+%import common.WS_INLINE
+%import common.WS
+%ignore WS_INLINE
+%ignore WS
+
+COMMENT     : "#" /[^\n\r]/*
+%ignore COMMENT
+
+NEWLINE     : "\n"
+BACKSLASH   : "\\"
+SINGLEQUOTE : "'"
+DOUBLEQUOTE : "\""
+WHITESPACE  : /[ \t\r\n]/
+ESCAPE      : BACKSLASH /./
+DSTRINGCHAR : /[^"\n\\]/
+SSTRINGCHAR : /[^'\n\\]/
+BAREWORD    : /[a-zA-Z0-9_\-+:.\/\\\[\]<>;]/
+_COMMA      : ","
+
+PATTERN: "pattern"
+DBFILE : "file"
+GLOBAL : "global"
+
+UNQUOTED_STRING: BAREWORD+
+QUOTED_STRING: DOUBLEQUOTE (DSTRINGCHAR | ESCAPE )* DOUBLEQUOTE
+             | SINGLEQUOTE (SSTRINGCHAR | ESCAPE )* SINGLEQUOTE
+ANY_STRING : QUOTED_STRING | UNQUOTED_STRING
+
+substitution_file: (global_definitions | dbfile)+
+
+global_definitions: GLOBAL "{" variable_definitions? "}"
+
+dbfile: DBFILE template_filename "{" substitutions? "}"
+
+template_filename: ANY_STRING
+
+substitutions: pattern_substitutions
+             | variable_substitutions
+
+pattern_substitutions: pattern_header pattern_definition*
+
+pattern_names: _maybe_comma_separated{pattern_name}
+pattern_header: PATTERN "{" (pattern_name _COMMA?)* "}"
+
+pattern_name: UNQUOTED_STRING
+
+pattern_definition: global_definitions
+                  | "{" "}"                                           -> empty
+                  | "{" (pattern_value _COMMA?)+ "}"                  -> pattern_values
+                  | UNQUOTED_STRING "{" (pattern_value _COMMA?)+ "}"  -> pattern_values_deprecated
+
+pattern_value: ANY_STRING
+
+variable_substitutions: variable_substitution+
+
+variable_substitution: global_definitions
+                     | "{" "}"                                      -> empty
+                     | "{" variable_definitions+ "}"                -> variable_subs
+                     | UNQUOTED_STRING "{" variable_definitions "}" -> variable_deprecated
+
+variable_definitions: (variable_definition _COMMA?)* variable_definition _COMMA?
+
+variable_definition: UNQUOTED_STRING "=" UNQUOTED_STRING
+                   | UNQUOTED_STRING "=" QUOTED_STRING
+
+_maybe_comma_separated{x}: (x _COMMA?)* x _COMMA?
