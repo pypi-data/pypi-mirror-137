@@ -1,0 +1,98 @@
+[tool.black]
+line-length = 88
+skip-magic-trailing-comma = true
+
+[tool.isort]
+line_length = 88
+force_grid_wrap = 0
+multi_line_output = 3
+use_parentheses = true
+include_trailing_comma = true
+combine_as_imports = true
+force_alphabetical_sort_within_sections = true
+
+[tool.pylint.FORMAT]
+max-line-length = "88"
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = """
+    fixme,
+    missing-docstring,
+    invalid-name,
+    ungrouped-imports,
+    wrong-import-order,
+    wrong-import-position,
+    import-outside-toplevel,
+    unused-argument,
+    no-self-use,
+    no-member,
+    protected-access,
+    attribute-defined-outside-init,
+    too-few-public-methods,
+    too-many-public-methods,
+    too-many-ancestors,
+    too-many-instance-attributes,
+    too-many-arguments,
+    too-many-locals,
+    too-many-statements,
+    too-many-lines,
+    too-many-branches,
+    too-many-nested-blocks,
+    too-many-return-statements,
+    too-many-boolean-expressions,
+"""
+
+[tool.pydocstyle]
+convention = "pep257"
+add-ignore = "D100,D101,D102,D103,D104,D105,D106,D107"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.poetry]
+name = "shinymdc"
+version = "9.1.1"  # managed by `poetry-dynamic-versioning`
+description = "Tool to compile markdown files to tex/pdf using pandoc, latexmk"
+readme = "README.md"
+authors = ["Jayanth Koushik <jnkoushik@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/jayanthkoushik/mdc"
+packages = [{ include = "mdc" }]
+include = ["CHANGELOG.md"]
+
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Topic :: Utilities",
+]
+
+[tool.poetry.scripts]
+mdc = "mdc.mdc:main"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+corgy = { version="^4.4", extras = ["colors"] }
+typing_extensions = { version = "^4.0", python = "<3.9" }
+
+[tool.poetry.dev-dependencies]
+black = { version = ">=20.8b0", allow-prereleases = true }
+pylint = "^2.9"
+pre-commit = "^2.0"
+isort = "^5.1"
+mypy = ">=0.8"
+pydocstyle = "^6.0"
+
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = "git"
+style = "semver"
+
+[tool.poetry-dynamic-versioning.substitution]
+files = ["*/_version.py"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry.core.masonry.api"

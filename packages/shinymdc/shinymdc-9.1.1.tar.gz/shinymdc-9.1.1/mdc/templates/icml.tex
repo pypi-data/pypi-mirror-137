@@ -1,0 +1,219 @@
+\RequirePackage{scrlfile}
+\PreventPackageFromLoading{subfig}
+
+\RequirePackage{luatex85}
+
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[no-math]{fontspec}
+\usepackage[babel=true,protrusion=true,expansion=true]{microtype}
+\usepackage[american]{babel}
+\usepackage{nowidow}
+\usepackage[unicode=true,hidelinks]{hyperref}
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
+\usepackage{nidanfloat}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{footnote}
+\usepackage{acronym}
+\usepackage{relsize}
+\usepackage{upquote}
+\usepackage{fancyvrb}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mleftright}
+\usepackage{bm}
+\usepackage{environ}
+\usepackage$if(submission)$$else$[accepted]$endif${$if(local)$icml$else$$dotmdc$/icml$endif$}
+
+% Pandoc crossref workaround
+\let\pandoccrossrefsubfigures\figure
+\let\endpandoccrossrefsubfigures\endfigure
+
+% Pandoc mods
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Keep aspect ratio of figures
+\let\origincgfx\includegraphics
+\renewcommand{\includegraphics}[2][]{\origincgfx[#1,max width=\textwidth,max height=\textheight,keepaspectratio]{#2}}
+
+% Automatically use figure/figure* depending on width
+\let\oldfigure\figure%
+\let\endoldfigure\endfigure%
+\RenewEnviron{figure}{%
+  \let\oldcaption\caption%
+  \let\oldlabel\label%
+  \let\oldsetcaptionsubtype\setcaptionsubtype
+
+  \renewcommand{\caption}[1]{}
+  \renewcommand{\label}[1]{}
+  \renewcommand{\setcaptionsubtype}{}
+
+  \sbox{0}{\BODY}
+
+  \renewcommand{\caption}[1]{\oldcaption{##1}}
+  \renewcommand{\label}[1]{\oldlabel{##1}}
+  \renewcommand{\setcaptionsubtype}{\oldsetcaptionsubtype}
+
+  \ifdim\wd0>200pt
+    \begin{figure*}[tbp]
+      \BODY%
+    \end{figure*}
+  \else
+    \begin{oldfigure}[htbp]
+      \BODY%
+    \end{oldfigure}
+  \fi
+}
+
+% Automatically use table/table* depending on width
+\let\oldtable\table%
+\let\endoldtable\endtable%
+\RenewEnviron{table}{%
+    \let\oldcaption\caption%
+    \let\oldlabel\label%
+
+    \renewcommand{\caption}[1]{}
+    \renewcommand{\label}[1]{}
+
+    \sbox{0}{\BODY}
+
+    \renewcommand{\caption}[1]{\oldcaption{##1}}
+    \renewcommand{\label}[1]{\oldlabel{##1}}
+
+    \ifdim\wd0>200pt
+      \let\oldcolwidth\columnwidth%
+      \let\columnwidth\linewidth%
+      \begin{table*}[tbp]
+        \BODY%
+      \end{table*}
+      \let\columnwidth\oldcolwidth
+    \else
+      \begin{oldtable}[htbp]
+        \BODY%
+      \end{oldtable}
+    \fi
+}
+
+% Configure float placement
+\setcounter{topnumber}{1}
+\setcounter{dbltopnumber}{2}
+\setcounter{bottomnumber}{1}
+\setcounter{dblbotnumber}{1}
+\setcounter{totalnumber}{2}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\dbltopfraction}{0.8}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.2}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\dblfloatpagefraction}{0.8}
+\setlength{\textfloatsep}{32pt plus 4pt minus 2pt}
+\setlength{\floatsep}{12pt plus 4pt minus 2pt}
+\setlength{\intextsep}{12pt plus 4pt minus 2pt}
+\makeatletter
+\def\fps@figure{htbp}
+\def\fps@table{htbp}
+\makeatother
+
+% Configure float arrangement on float-only pages
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{12pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+
+% Use mleftright
+\renewcommand\left\mleft
+\renewcommand\right\mright
+
+% Automatically use \left and \right with parentheses
+\makeatletter
+\def\resetMathstrut@{%
+  \setbox\z@\hbox{%
+    \mathchardef\@tempa\mathcode`\[\relax
+    \mathchardef\@tempc\mathcode`\]\relax
+    \def\@tempb##1"##2##3{\the\textfont"##3\char"}%
+    \expandafter\@tempb\meaning\@tempa \relax
+  }%
+  \ht\Mathstrutbox@\ht\z@ \dp\Mathstrutbox@\dp\z@}
+\makeatother
+\begingroup
+  \catcode`(\active \xdef({\left\string(}
+  \catcode`)\active \xdef){\right\string)}
+\endgroup
+\mathcode`(="8000 \mathcode`)="8000
+
+% Configure acronym font
+\renewcommand*{\acsfont}[1]{{\addfontfeature{LetterSpace=10.0}\scshape\textsmaller{#1}}}
+
+\icmltitlerunning{$if(running-title)$$running-title$$else$$title$$endif$}
+
+$for(include-before)$$include-before$$endfor$
+
+\begin{document}
+
+% Enable french spacing
+\frenchspacing
+
+\twocolumn[
+\icmltitle{$title$}
+
+\icmlsetsymbol{equal}{*}
+
+\begin{icmlauthorlist}
+$for(author)$
+\icmlauthor{$author.name$}{$if(author.equalcontrib)$equal,$endif$$author.affiliation.id$}
+$endfor$
+\end{icmlauthorlist}
+
+$for(institute)$
+\icmlaffiliation{$institute.id$}{$institute.name$}
+$endfor$
+
+$for(author)$
+$if(author.corresponding)$
+\icmlcorrespondingauthor{$author.name$}{$author.email$}
+$endif$
+$endfor$
+
+$if(keyword)$
+\icmlkeywords{$for(keyword)$$keyword$$sep$, $endfor$}
+$endif$
+
+\vskip 0.3in
+]
+
+\setnowidow[2]
+
+$if(skipequal)$\printAffiliationsAndNotice{}$else$\printAffiliationsAndNotice{\icmlEqualContribution}$endif$
+
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
+$body$
+
+$if(bibliography)$
+\small
+\bibliography{$bibliography$}
+\bibliographystyle{$if(local)$icml$else$.mdc/icml$endif$}
+\normalsize
+$endif$
+
+$if(appendix)$
+\renewcommand\thefigure{S\arabic{figure}}
+\renewcommand\thetable{S\arabic{table}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\clearpage
+\appendix
+\input{$appendix$}
+$endif$
+
+\end{document}
