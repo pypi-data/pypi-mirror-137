@@ -1,0 +1,48 @@
+Metadata-Version: 2.1
+Name: xdj-oauth
+Version: 0.0.3
+Summary: a app for django auth
+Home-page: https://gitee.com/xdjango/xdj_utils.git
+Author: 18580543261
+Author-email: 595127207@qq.com
+License: MIT Licence
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+#usage
+##install
+```
+pip install xdj-oauth
+```
+##setting
+###additional
+```
+WX_APP_ID = 'xxxx'
+WX_APP_SECRET = 'xxxxx'
+WX_AC_TOKEN = 'xxxx'
+```
+###modification
+```
+INSTALLED_APPS = [
+    ...
+    'xdj_oauth',
+]
+```
+
