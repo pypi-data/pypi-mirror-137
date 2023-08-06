@@ -1,0 +1,26 @@
+[build-system]
+requires = [
+    'param >=1.6.1',
+    'pyct >= 0.4.8',
+    'setuptools >= 54.1.2',
+    'wheel >= 0.36.2',
+]
+[tool.check-manifest]
+ignore = [
+    '.appveyor.yml',
+    '.version',
+    'CHANGELOG.md',
+    'CODE_OF_CONDUCT.md',
+    'CONTRIBUTING.md',
+    'Citation-styles.md',
+    'RELEASE.md',
+    'requirements-dev.txt',
+    'requirements.txt',
+    'test_examples_cli.py',
+    'tox.ini',
+    'benchmarks/*',
+    'examples/*',
+    'examples/user_guide/*',
+    'img/*',
+    'test_pip_packaging/*',
+]
