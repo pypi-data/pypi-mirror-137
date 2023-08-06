@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: camt
+Version: 0.1.2
+Summary: Zip labeled images
+Home-page: https://github.com/lucienmakutano/camt
+Author: Lucien Makutano
+Author-email: makutanolucien@gmail.com
+License: MIT
+Keywords: camt compression python package
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Compression CLI tool
+
+`camt` is a `CLI` tool built in python, a tool for isolating images labeled with the labelImg tool.
+
+## Requirements
+* Python
+* Pip
+
+## How to run
+Start by creating the folder that will be used as `[name]` in the command bellow
+
+### Command 
+```
+$ pip install camt
+$ camt compress --dest-dir [name] --src-dir [path] --format [zip, tar, gztar, bztar, or xztar]
+```
+
+# Future plans
+* Add the ability to upload the zip file to a cloud provider `GCP`
+
+# Contribution
+You can contribute by opening an `Issue` or a `Pull request`.
+
+
