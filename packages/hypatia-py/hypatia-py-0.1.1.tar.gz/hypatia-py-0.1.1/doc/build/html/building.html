@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building and Running a Model &mdash; hypatia 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Analyzing and Visualizing a Model" href="analyzing.html" />
+    <link rel="prev" title="Contributors" href="contributors.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> hypatia
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building and Running a Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-a-model">Building a model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reference-energy-system-res">Reference Energy System (RES)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#technology-categorization">Technology categorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#carrier-types">Carrier types</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#definiton-of-the-structural-inputs-sets">Definiton of the structural inputs (sets)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-a-model">Running a model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="analyzing.html">Analyzing and Visualizing a Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formulation.html">Mathematical Formulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_references.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cvxpy.html">Why CVXPY</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hypatia</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Building and Running a Model</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/building.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="building-and-running-a-model">
+<h1>Building and Running a Model<a class="headerlink" href="#building-and-running-a-model" title="Permalink to this headline"></a></h1>
+<section id="building-a-model">
+<h2>Building a model<a class="headerlink" href="#building-a-model" title="Permalink to this headline"></a></h2>
+<p>Building a model in Hypatia is very simple and includes three main steps:</p>
+<ol class="arabic simple">
+<li><p>Defining the <strong>Reference Energy System (RES)</strong></p></li>
+<li><p>Delivering the structural inputs (sets) to the model through a number of excel-based files</p></li>
+<li><p>Delivering the parameters (data) to the model through a number of excel-based files generated automatically by the model</p></li>
+</ol>
+<section id="reference-energy-system-res">
+<h3>Reference Energy System (RES)<a class="headerlink" href="#reference-energy-system-res" title="Permalink to this headline"></a></h3>
+<p>In order to create the RES based on your model application, you just need the Hypatia terminology to define the correct type of technologies and energy carriers.</p>
+<section id="technology-categorization">
+<h4>Technology categorization<a class="headerlink" href="#technology-categorization" title="Permalink to this headline"></a></h4>
+<p>Hypatia uses a technology classification inspired by <a class="reference external" href="https://calliope.readthedocs.io/en/stable/index.html">Calliope</a> as follows:</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">The technology categorization in Hypatia</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Technoloy Category</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Schematic Representation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Supply</p></td>
+<td><p>Supplies an energy carrier to the system without consuming any other carriers</p></td>
+<td><a class="reference internal image-reference" href="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/supply.png?raw=true"><img alt="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/supply.png?raw=true" class="align-center" src="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/supply.png?raw=true" style="width: 105px;" /></a>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Demand</p></td>
+<td><p>Consumes and sinks an energy carrier from the energy system</p></td>
+<td><a class="reference internal image-reference" href="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/demand.png?raw=true"><img alt="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/demand.png?raw=true" class="align-center" src="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/demand.png?raw=true" style="width: 110px;" /></a>
+</td>
+</tr>
+<tr class="row-even"><td><p>Transmission</p></td>
+<td><p>Transmits an energy carrier locally from a supply point to a demand point</p></td>
+<td><a class="reference internal image-reference" href="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/transmission.png?raw=true"><img alt="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/transmission.png?raw=true" class="align-center" src="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/transmission.png?raw=true" style="width: 140px;" /></a>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Conversion</p></td>
+<td><p>Converts an energy carrier to another</p></td>
+<td><a class="reference internal image-reference" href="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/conversion.png?raw=true"><img alt="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/conversion.png?raw=true" class="align-center" src="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/conversion.png?raw=true" style="width: 140px;" /></a>
+</td>
+</tr>
+<tr class="row-even"><td><p>Conversion_plus</p></td>
+<td><p>Converts one/muliple energy carrier to one/multiple other carriers</p></td>
+<td><a class="reference internal image-reference" href="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/conversion_plus.png?raw=true"><img alt="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/conversion_plus.png?raw=true" class="align-center" src="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/conversion_plus.png?raw=true" style="width: 140px;" /></a>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Storage</p></td>
+<td><p>Stores and energy carrier and discharge it when it is required</p></td>
+<td><a class="reference internal image-reference" href="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/storage.png?raw=true"><img alt="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/storage.png?raw=true" class="align-center" src="https://github.com/SESAM-Polimi/Hypatia/blob/main/doc/source/_static/Tech_ctgry/storage.png?raw=true" style="width: 115px;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, it is only possible to model the on-grid storage utilities in the hourly resolution. Other types of storage for other temporal resolutions and
+the possibility of connecting a storage facility to another technologies are still under development in the Hypatia framework and it will be available in the
+next version release.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All the technologies in a Hypatia model can have only one carrier input and one carrier output except the technologies within the Conversion-plus category
+which can have multiple carrier inputs and outputs.</p>
+</div>
+</section>
+<section id="carrier-types">
+<h4>Carrier types<a class="headerlink" href="#carrier-types" title="Permalink to this headline"></a></h4>
+<p>besides the technology classifications, hypatia also considers different kinds of energy carriers as follow:</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">Different carrier types in a hypatia model</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Carrier Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Resource</p></td>
+<td><p>The energy resource extracted from the nature (by a supply technology) that are not still processed such as raw oil</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intermediate</p></td>
+<td><p>An energy carrier that can be consumed by <strong>non-Demand</strong> technologies</p></td>
+</tr>
+<tr class="row-even"><td><p>Demand</p></td>
+<td><p>An energy carrier that can be consumed by <strong>Demand</strong> technologies</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Reference Energy System in a Hypatia model should always starts from Supply technologies (such as resource extraction technologies) and ends with Demand technologies</p>
+</div>
+</section>
+</section>
+<section id="definiton-of-the-structural-inputs-sets">
+<h3>Definiton of the structural inputs (sets)<a class="headerlink" href="#definiton-of-the-structural-inputs-sets" title="Permalink to this headline"></a></h3>
+<p>The sets of the model must be defined through “n+1” number of excel files in different tables where “n” is the number of regions within the model.
+The first excel file defines the global sets and must be named as <span class="guilabel"><span class="accelerator">g</span>lobal.xlsx</span>.
+Following tables should be included within the global file:</p>
+<ul class="simple">
+<li><p><strong>Regions:</strong> Including all the regions within the model with the follwoing columns. The region in a hypatia model has a general definition and can include any geographical scale.
+For example, if the user is modelling the whole world, each region can be the representative of each country or if they are modelling a specific country, each region can be the
+representative of each province.</p>
+<ul>
+<li><p><strong>Region:</strong> The region codes which are going to be used within source code</p></li>
+<li><p><strong>Region_name:</strong> The main name of the regions</p></li>
+</ul>
+</li>
+<li><p><strong>Years:</strong> Including all the modelling years within the time horizon of the model with the following columns. The operation mode of the model accepts only one year, while
+the planning mode acceptes multiple years with both short-term and long-term horizons.</p>
+<ul>
+<li><p><strong>Years:</strong> The year codes</p></li>
+<li><p><strong>Years_name:</strong> The main name of the years</p></li>
+</ul>
+</li>
+<li><p><strong>Technologies_glob:</strong> Including all the technologies within all the regions of the model with following columns</p>
+<ul>
+<li><p><strong>Technology:</strong> The technology codes</p></li>
+<li><p><strong>Tech_name:</strong> The real name of the technologies</p></li>
+<li><p><strong>Tech_category:</strong> The cargory of technologies</p></li>
+<li><p><strong>Tech_cap_unit:</strong> The capacity units of technologies</p></li>
+<li><p><strong>Tech_act_unit:</strong> The activity units of technologies</p></li>
+</ul>
+</li>
+<li><p><strong>Carriers_glob:</strong> Including all the carriers within all the regions of the model with the follwowing columns:</p>
+<ul>
+<li><p><strong>Carrier:</strong> The carrier codes</p></li>
+<li><p><strong>Carr_name:</strong> The real name of the carriers</p></li>
+<li><p><strong>Carr_type:</strong> The carrier types</p></li>
+<li><p><strong>Carr_unit:</strong> The carrier units</p></li>
+</ul>
+</li>
+<li><p><strong>Timesteps:</strong> Including all the time slices within each year of the model with the follwowing columns. The temporal resolution is completely arbitary and can differ based on the user goal,
+from seasonal timeslices down to hourly resolutions in both the operation and planning modes.</p>
+<ul>
+<li><p><strong>Timeslice:</strong> The ordered number of the timeslices</p></li>
+<li><p><strong>Timeslice_name:</strong> The names of the timeslices</p></li>
+<li><p><strong>Timeslice_fraction:</strong> The fraction each the timeslice to the length of the whole year</p></li>
+</ul>
+</li>
+</ul>
+<p>When the <span class="guilabel"><span class="accelerator">g</span>lobal.xlsx</span> is prepared, for every single region, an excel file is required. The name of the regional files must be exactly similar to the region
+codes given in the <span class="guilabel"><span class="accelerator">g</span>lobal.xlsx</span> file. For example if “reg1” is given as the region code of the first region, the set file for this region
+should be named as <span class="guilabel"><span class="accelerator">r</span>eg1.xlsx</span>.</p>
+<p>For every single regional file, it is required to provide the following information:</p>
+<ul class="simple">
+<li><p><strong>Technologies:</strong> Including all the technologies within the RES of the specified region with following columns:</p>
+<ul>
+<li><p><strong>Technology:</strong> The technology codes</p></li>
+<li><p><strong>Tech_name:</strong> The real name of the technologies</p></li>
+<li><p><strong>Tech_category:</strong> The cargory of technologies</p></li>
+</ul>
+</li>
+<li><p><strong>Carriers:</strong> Including all the carriers within the RES of the specified region with the follwowing columns:</p>
+<ul>
+<li><p><strong>Carrier:</strong> The carrier codes</p></li>
+<li><p><strong>Carr_name:</strong> The real name of the carriers</p></li>
+<li><p><strong>Carr_type:</strong> The carrier types</p></li>
+</ul>
+</li>
+<li><p><strong>Carrier_input:</strong> Including the input carriers of different technologies with the follwowing columns:</p>
+<ul>
+<li><p><strong>Technology:</strong> The technology codes</p></li>
+<li><p><strong>Carrier_in:</strong> The input carrier</p></li>
+</ul>
+</li>
+<li><p><strong>Carrier_output:</strong> Including the output carriers of different technologies with the follwowing columns:</p>
+<ul>
+<li><p><strong>Technology:</strong> The technology codes</p></li>
+<li><p><strong>Carrier_out:</strong> The output carrier</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there are similar technologies in various regions, their names must be identical in different regional set files
+and therefore, only one name as the representative of that technology in all the regions must be included in the “Technologies_glob” in the global set file.
+For example, if there is Hydropower plant in some of the considered locations within the geographical coverage of the model, one single name such as “Hydro PP”
+must be considered in all the regional set files and this name should be brought only once in the “global” set file.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Supply technologies have no Carrier_in and accept only Carrier_out</p></li>
+<li><p>Demand technologies have no Carrier_out and accpet only Carrier_in</p></li>
+<li><p>Conversion technologies accept only one Carrier_in and one Carrier_out</p></li>
+<li><p>Conversion_plus technologies accept multiple Carrier_in and multiple Carrier_out</p></li>
+</ul>
+</div>
+<p>When these excel files are ready, you can start creating your <strong>Model</strong> and debuging possile mistakes in the definition of sets.
+In order to initialize the model, you need to import the <span class="guilabel"><span class="accelerator">M</span>odel</span> class. Two inputs must be passed to the Model class for initializing the model:</p>
+<ol class="arabic simple">
+<li><p>path to the folder where the sets files are located</p></li>
+<li><p>the mode of the model:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Operation:</strong> for the operational analysis in one year</p></li>
+<li><p><strong>Planning:</strong> for continuous capacity deployment analysis</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hypatia</span> <span class="kn">import</span> <span class="n">Model</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span>
+  <span class="n">path</span><span class="o">=</span> <span class="s1">&#39;path/to/sets/folder&#39;</span><span class="p">,</span>
+  <span class="n">mode</span><span class="o">=</span> <span class="s1">&#39;Planning&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In order to have a rapid look on the model sets, you can print the model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The “Operational” mode of Hypatia is implementable only when the lenght of the time horizon is equal or less than one year.</p>
+</div>
+<p>When the sets are parsed successfully, the nexts step is to define the parameters for the model. Similar to the sets, parameters should be prepared in a set of excel files. The number
+of the parameter files which can be created by the model is “n+2” where “n” is the number of the given regions. These files are named as follows:</p>
+<ul class="simple">
+<li><p><strong>parameters_connections.xlsx:</strong> If a multi-node model model application is applied</p></li>
+<li><p><strong>parameters_global.xlsx:</strong> If a nulti-node model application is applied</p></li>
+<li><p><strong>paramaters_{region_code}.xlsx:</strong> For each region a parameter file will be created. These files are named based on the region codes that are given in the <span class="guilabel"><span class="accelerator">g</span>lobal.xlsx</span> set file.</p></li>
+</ul>
+<p>Each parameter file includes different sheets for different data. As an example, the following table includes different sheets the regional parameter files.</p>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 59%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Group</p></th>
+<th class="head"><p>Sheet Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Time dimension</p></th>
+<th class="head"><p>Mode</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Economic</p></td>
+<td><p>V_OM</p></td>
+<td><p>Specific variable operation and maintenance cost per unit of production of each technology</p></td>
+<td><p>Currency / Production unit (e.g. USD/GWh)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-odd"><td><p>Economic</p></td>
+<td><p>F_OM</p></td>
+<td><p>Specific fixed operation and maintenance cost per unit of total installed capacity of each technology</p></td>
+<td><p>Currency / Capacity unit (e.g. USD/GW)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-even"><td><p>Economic</p></td>
+<td><p>INV</p></td>
+<td><p>Specific investment cost per unit of new installed capacity of each technology</p></td>
+<td><p>Currency / Capacity unit (e.g. USD/GW)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-odd"><td><p>Economic</p></td>
+<td><p>Decom_cost</p></td>
+<td><p>Specific decomissioning cost per unit of dismantled capacity of each technology</p></td>
+<td><p>Currency / Capacity unit (e.g. USD/GW)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-even"><td><p>Economic</p></td>
+<td><p>Economic_lifetime</p></td>
+<td><p>The period over which the investment annuities are spread. In other words, each required investment in a specific year “y” is divided into a stream of annuities during several years starting from “y+1” to “y+economic lifetime”</p></td>
+<td><p>years</p></td>
+<td><p>None</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-odd"><td><p>Economic</p></td>
+<td><p>Interest_rate</p></td>
+<td><p>Technology-specific interest rate is required to calculate the depreciation rate of each technology</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-even"><td><p>Economic</p></td>
+<td><p>Discount_rate</p></td>
+<td><p>General discount rate for calculating the net present value of the cost components of the objective function</p></td>
+<td><p>None</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-odd"><td><p>Technical</p></td>
+<td><p>Tech_lifetime</p></td>
+<td><p>The useful operational lifetime of technologies before dismantling</p></td>
+<td><p>years</p></td>
+<td><p>None</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-even"><td><p>Technical</p></td>
+<td><p>Tech_efficiency</p></td>
+<td><p>The ratio between the output activity of the technology to the input activity (Due to the possible difference between the input and output activity units, this parameter can be also higher than one)</p></td>
+<td><p>None</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-odd"><td><p>Technical</p></td>
+<td><p>AnnualProd_perunit_capacity</p></td>
+<td><p>The amount of output activity per unit of installed capcity of each technology in each modelling year of the time horizon</p></td>
+<td><p>Activity unit per year / Capacity unit (e.g. GWh/y/GW )</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-even"><td><p>Technical</p></td>
+<td><p>Residual_capacity</p></td>
+<td><p>The total installed capacity of each technology before starting the modelling horizon</p></td>
+<td><p>Capacity unit (e.g. GW)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-odd"><td><p>Technical</p></td>
+<td><p>Capacity_factor_tech</p></td>
+<td><p>Average capacity of a technology over on year divided by its nominal total capacity (allows to consider the planned outages or the operation and maintenance times)</p></td>
+<td><p>None</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-even"><td><p>Technical</p></td>
+<td><p>capacity_factor_resource</p></td>
+<td><p>The max production of one unit capacity of each technology in each time slice based on the variable resource availability (allows to consider the availability of resources especially for renewable technologies in each time slice of the year)</p></td>
+<td><p>None</p></td>
+<td><p>Modelling years &amp; timeslices</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-odd"><td><p>Environmental</p></td>
+<td><p>Specific_emission</p></td>
+<td><p>Specific CO2 or CO2-equivalent emission of each technology per unit of production</p></td>
+<td><p>emission unit / activity unit (e.g. ton/GWh)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-even"><td><p>Scenario-based</p></td>
+<td><p>Investment_taxsub</p></td>
+<td><p>Taxes and subsidies as a fraction per unit of investment cost</p></td>
+<td><p>Currency / currency (e.g. USD of tax or sub / USD of investment)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scenario-based</p></td>
+<td><p>Fix_taxsub</p></td>
+<td><p>Taxes and subsidies as a fraction per unit of fixed O&amp;M cost</p></td>
+<td><p>Currency / currency (e.g. USD of tax or sub / USD of fixed cost)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-even"><td><p>Scenario-based</p></td>
+<td><p>Carbon_tax</p></td>
+<td><p>The tax defined for each unit of produced CO2 emissions</p></td>
+<td><p>Currency / CO2 emission unit (e.g. USD of tax / tons of CO2 emissions)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scenario-based</p></td>
+<td><p>Min_newcap</p></td>
+<td><p>The minimum allowed annual new installed capacity of each technology specified in a particular scenario</p></td>
+<td><p>Capacity units (e.g. GW)</p></td>
+<td><p>Modelling year</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-even"><td><p>Scenario-based</p></td>
+<td><p>Max_newcap</p></td>
+<td><p>The maximum allowed annual new installed capacity of each technology specified in a particular scenario</p></td>
+<td><p>Capacity units (e.g. GW)</p></td>
+<td><p>Modelling year</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scenario-based</p></td>
+<td><p>Min_totalcap</p></td>
+<td><p>The minimum allowed annual total installed capacity of each technology specified in a particular scenario</p></td>
+<td><p>Capacity units (e.g. GW)</p></td>
+<td><p>Modelling year</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-even"><td><p>Scenario-based</p></td>
+<td><p>Max_totalcap</p></td>
+<td><p>The maximum allowed annual total installed capacity of each technology specified in a particular scenario</p></td>
+<td><p>Capacity units (e.g. GW)</p></td>
+<td><p>Modelling year</p></td>
+<td><p>Planning</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scenario-based</p></td>
+<td><p>Min_production</p></td>
+<td><p>The minimum allowed annual production of each technology specified in a particular scenario</p></td>
+<td><p>Activity units (e.g. GWh)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-even"><td><p>Scenario-based</p></td>
+<td><p>Max_production</p></td>
+<td><p>The maximum allowed annual production of each technology specified in a particular scenario</p></td>
+<td><p>Activity units (e.g. GWh)</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scenario-based</p></td>
+<td><p>Emission_cap_annual</p></td>
+<td><p>The allowed cap on the annual CO2 emission production</p></td>
+<td><p>CO2 emission units</p></td>
+<td><p>Modelling years</p></td>
+<td><p>Planning, operational</p></td>
+</tr>
+<tr class="row-even"><td><p>Demand</p></td>
+<td><p>Demand</p></td>
+<td><p>The final demand specified for each demand technology</p></td>
+<td><p>Activity units (e.g. GWh)</p></td>
+<td><p>Modelling years &amp; timeslices</p></td>
+<td><p>Planning, Operational</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer to the example gallery for a better understanding of the structure of both the set and parameter files.</p>
+</div>
+<p>Since the parameter excel files are supposed to follow strict format and it is not easy to create all the sheets, you may use <span class="guilabel"><span class="accelerator">c</span>reate_data_excels</span> function to automatically gerneate all the excel files.
+Then, you can fill the excel files accordingly. For example, to save all the excel files in a directory called ‘parameters’:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">create_data_excels</span><span class="p">(</span>
+  <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;parameters&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>When the files are filled, you can parse the data to the model by specifing the directory of the folder containing the filled excel files:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">read_input_data</span><span class="p">(</span>
+  <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;parameters&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-a-model">
+<h2>Running a model<a class="headerlink" href="#running-a-model" title="Permalink to this headline"></a></h2>
+<p>When the inputs of the model are correctly parsed to the model, you can run the model with specifying a couple of parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+  <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;solver that you prefer&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>If model finds an optimum solution, you can have access to the results through <span class="guilabel"><span class="accelerator">r</span>esults</span> attribute. For saving the results to your computer, use <span class="guilabel"><span class="accelerator">t</span>o_csv</span> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+  <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;path/to/directory&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="contributors.html" class="btn btn-neutral float-left" title="Contributors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="analyzing.html" class="btn btn-neutral float-right" title="Analyzing and Visualizing a Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SESAM, Politecnico di Milano.
+ Developed by: Hypatia team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; hypatia 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Download and Installation" href="installation.html" />
+    <link rel="prev" title="Hypatia: An Operation and Planning Energy System Modelling Framework" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> hypatia
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-hypatia">What is Hypatia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-it-is-developed">Why it is developed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building and Running a Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyzing.html">Analyzing and Visualizing a Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formulation.html">Mathematical Formulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_references.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cvxpy.html">Why CVXPY</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hypatia</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/SESAM-Polimi/MARIO/767d2c0e9e42ae0b6acf7c3a1cc379d7bcd367fa/doc/source/_static/images/polimi.svg"><img alt="https://raw.githubusercontent.com/SESAM-Polimi/MARIO/767d2c0e9e42ae0b6acf7c3a1cc379d7bcd367fa/doc/source/_static/images/polimi.svg" class="align-right" src="https://raw.githubusercontent.com/SESAM-Polimi/MARIO/767d2c0e9e42ae0b6acf7c3a1cc379d7bcd367fa/doc/source/_static/images/polimi.svg" width="200" /></a>
+<section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+<section id="what-is-hypatia">
+<h2>What is Hypatia<a class="headerlink" href="#what-is-hypatia" title="Permalink to this headline"></a></h2>
+<p>Hypatia is an energy system modelling framework written in the objective oriented
+Python programming language. Contrary to most of the Python-based open-source energy and power
+system modelling frameworks that are using <a class="reference external" href="https://pyomo.readthedocs.io/en/stable/">Pyomo</a> for
+solving the optimization problem, Hypatia is based on <a class="reference external" href="https://www.cvxpy.org/">CVXPY</a> Domain-Specific Language
+developed by <a class="reference internal" href="#diamond2016" id="id1"><span>[Diamond2016]</span></a> . Hypatia can optimize both the hourly dispatch
+and the annual capacity deployments of the energy system. Its final objective is
+to minimize the total discounted cost of the system by considering all the required cost components
+in each of its optimization modes. In summery, Hypatia is designed with the following main goals:</p>
+<ul class="simple">
+<li><p>Allow easy interaction with the model code by using excel-based input data</p></li>
+<li><p>Formulated to cover both operation and dynamic investment decisions</p></li>
+<li><p>Provide the possibility to consider the investment annuities in its planning mode
+based on the given economic lifetime and interest rate of each technology</p></li>
+<li><p>Allow to model various categories of technologies such as supply, conversion,
+transmission and storage.</p></li>
+<li><p>Able to consider the synergies among different sectors of the energy system including
+power, heat, transport, clean fuel (Hydrogen) and the others.</p></li>
+<li><p>Designed to follow both the single-node and multi-node approach at will by the user.
+Each node in Hypatia can be representative of a broad spectrum of spatial resolutions
+starting from small-scale applications to the national and continental applications.</p></li>
+<li><p>Allow to model the bilateral trade among any pairs of nodes through modelling the
+inter-regional transmission links for all the represented energy carriers within the Reference Energy System</p></li>
+<li><p>Able to adopt arbitary resolutions in time for each modelling year,
+allowing to consider the full hourly variability of both demand and supply sides.</p></li>
+<li><p>Have a fully transparent and open-source code, flexible to any possible future
+modification and integration</p></li>
+</ul>
+</section>
+<section id="why-it-is-developed">
+<h2>Why it is developed<a class="headerlink" href="#why-it-is-developed" title="Permalink to this headline"></a></h2>
+<p>Hypatia is inspired by the other existing energy system optimization models
+particulary <a class="reference external" href="http://www.osemosys.org/">OSeMOSYS</a> by <a class="reference internal" href="#howells2011" id="id2"><span>[Howells2011]</span></a>,
+<a class="reference external" href="https://calliope.readthedocs.io/en/stable/user/introduction.html">Calliope</a> by <a class="reference internal" href="#pfenninger-pickering2018" id="id3"><span>[Pfenninger-Pickering2018]</span></a>
+and <a class="reference external" href="https://iea-etsap.org/index.php/documentation">TIMES</a> by <a class="reference internal" href="#loulou2005" id="id4"><span>[Loulou2005]</span></a>.
+It is designed to compelete the path of these frameworks by addressing the main
+challenges of the modern energy system modelling frameworks that are shortly explained in the following:</p>
+<ul class="simple">
+<li><p><strong>Dynamic annual investments on the energy system:</strong> With the aim of
+exploring the possible evolution of the energy systems in the transition pathways,
+the energy modeling frameworks need to cover both the operation and planning modes by simulateneously
+delivering the required dynamic annual capacity expansions and full hourly dispatch of different technologies within the energy systems.
+However, most of the existing models with high temporal resolution are falling
+short of delivering all the required annual investments in the long-term horizons and just
+follow a snapshot approach for estimating the required new capacities to be installed for the future growths in the final demand.</p></li>
+<li><p><strong>Resolution in time:</strong> On the other hand, most of the planning models are not computationally
+able to include fine temporal resolutions down to hourly timesteps within each modelling year
+of the time horizon. Therefore, they may deliver inaccurate results due to missing the full variability
+of the both demand and supply sides of the energy system.</p></li>
+<li><p><strong>Resolution in space:</strong> The concept of spatial resolution contains not only the ability of
+representing multiple regions in different dimensions but also the possibility to model the
+interconnections among various regions by modelling the inter-regional transmission links.</p></li>
+<li><p><strong>Sector coupling:</strong> The interactions and synergies among different sectors of the energy system
+must be considered in the energy modelling frameworks by following a comprehensive technology definition
+similar to all the above mentioned models.</p></li>
+<li><p><strong>Transparency:</strong> The concept of transparency and opennes has manifold aspects. The open science
+approach for an energy model is not only about publishing the governing structures and equations but also
+following several critieria such as:</p>
+<ul>
+<li><p>Convenient access to source code, data and assumptions</p></li>
+<li><p>Providing understanble input data structure not only for the experts but also for any potential user</p></li>
+<li><p>Clear and modular core code</p></li>
+<li><p>Flexible source code to any possible future modification and integration</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="acknowledgement">
+<h2>Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>The development of Hypatia was not possible without the kind attention and help of Professor
+<a class="reference external" href="https://www4.ceda.polimi.it/manifesti/manifesti/controller/ricerche/RicercaPerDocentiPublic.do?EVN_DIDATTICA=evento&amp;k_doc=44891&amp;lang=EN&amp;aa=2014&amp;tab_ricerca=1">Emanuela Colombo</a>.
+We are fully grateful for having the chance to work under her supervison and would like to express our gratitude for her unwavering support.</p></li>
+<li><p>We would also like to acknowledge <a class="reference external" href="https://stevediamond.github.io/WWW/">Steve Dimond</a> for his kind support and guide that allows us to better understand and use CVXPY for this framework</p></li>
+</ul>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h2>
+<a class="reference external image-reference" href="https://www.apache.org/licenses/"><img alt="https://img.shields.io/badge/License-Apache_2.0-blue.svg" src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" /></a>
+<p>This work is licensed under <a class="reference external" href="https://www.apache.org/licenses/">Apache 2.0</a></p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<dl class="citation">
+<dt class="label" id="diamond2016"><span class="brackets"><a class="fn-backref" href="#id1">Diamond2016</a></span></dt>
+<dd><p>Diamond, S., &amp; Boyd, S. (2016). CVXPY: A Python-embedded modeling language for convex optimization. The Journal of Machine Learning Research, 17(1), 2909-2913.</p>
+</dd>
+<dt class="label" id="howells2011"><span class="brackets"><a class="fn-backref" href="#id2">Howells2011</a></span></dt>
+<dd><p>Howells, M., Rogner, H., Strachan, N., Heaps, C., Huntington, H., Kypreos, S., … &amp; Roehrl, A. (2011). OSeMOSYS: the open source energy modeling system: an introduction to its ethos, structure and development. Energy Policy, 39(10), 5850-5870.</p>
+</dd>
+<dt class="label" id="pfenninger-pickering2018"><span class="brackets"><a class="fn-backref" href="#id3">Pfenninger-Pickering2018</a></span></dt>
+<dd><p>Pfenninger, S., &amp; Pickering, B. (2018). Calliope: a multi-scale energy systems modelling framework. Journal of Open Source Software, 3(29), 825.</p>
+</dd>
+<dt class="label" id="loulou2005"><span class="brackets"><a class="fn-backref" href="#id4">Loulou2005</a></span></dt>
+<dd><p>Loulou, R., Remme, U., Kanudia, A., Lehtila, A., &amp; Goldstein, G. (2005). Documentation for the times model part ii. Energy Technology Systems Analysis Programme.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Hypatia: An Operation and Planning Energy System Modelling Framework" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Download and Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SESAM, Politecnico di Milano.
+ Developed by: Hypatia team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

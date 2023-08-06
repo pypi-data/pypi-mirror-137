@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathematical Formulation &mdash; hypatia 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Documentation" href="api_references.html" />
+    <link rel="prev" title="Planning mode" href="example2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> hypatia
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building and Running a Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyzing.html">Analyzing and Visualizing a Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Gallery</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mathematical Formulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#objective-function">Objective function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#planning-mode">Planning mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#total-objective-function">Total Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#regional-objective-function">Regional Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trades-objective-function">Trades Objective Function</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#operation-mode">Operation mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Total Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Regional Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Trades Objective Function</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#equations">Equations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#costs">costs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#investment-cost">Investment Cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#investment-salvage-value">Investment Salvage Value</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fixed-cost">Fixed Cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#taxes-subsidies">Taxes &amp; Subsidies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#decommissioning-cost">Decommissioning Cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#variable-cost">Variable Cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#carbon-tax">Carbon Tax</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#capacity">Capacity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#accumulated-new-installed-capacity">Accumulated New Installed Capacity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#total-installed-capacity">Total Installed Capacity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#decomissioned-capacity">Decomissioned Capacity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#emission">Emission</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#energy-balance">Energy balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trade-balance">Trade balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resource-technology-availability">Resource &amp; Technology Availability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Capacity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-minimum-regional-total-capacity">Maximum &amp; Minimum Regional Total Capacity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-minimum-regional-new-capacity">Maximum &amp; Minimum Regional New Capacity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-minimum-overall-total-capacity">Maximum &amp; Minimum Overall Total Capacity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-minimum-overall-new-capacity">Maximum &amp; Minimum Overall New Capacity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#activity">Activity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-minimum-regional-production">Maximum &amp; Minimum Regional Production</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-minimum-overall-production">Maximum &amp; Minimum Overall Production</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#output-to-input-activity-ratio">Output to Input Activity Ratio</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#co2-equivalent-emissions">CO<sub>2</sub> Equivalent Emissions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#regional-emission-cap">Regional Emission cap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#overall-emission-cap">Overall Emission cap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_references.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cvxpy.html">Why CVXPY</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hypatia</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Mathematical Formulation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/formulation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="mathematical-formulation">
+<h1>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Permalink to this headline"></a></h1>
+<section id="objective-function">
+<h2>Objective function<a class="headerlink" href="#objective-function" title="Permalink to this headline"></a></h2>
+<p>The objective function equation of the planning mode is the sum of all the regional costs
+in addition to the inter-regional tranmission link costs discounted to the reference year.
+While, in the operational mode, the objective function is just the sum of the
+fixed and variable costs with their related taxes within the modeled year.</p>
+<section id="planning-mode">
+<h3>Planning mode<a class="headerlink" href="#planning-mode" title="Permalink to this headline"></a></h3>
+<section id="total-objective-function">
+<h4>Total Objective Function<a class="headerlink" href="#total-objective-function" title="Permalink to this headline"></a></h4>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   min: Eq\_{obj} = \sum_{reg} Reg\_{obj}(reg) + Exchange\_{links}\_{obj} \;\;\;  \forall reg \in regions
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="regional-objective-function">
+<h4>Regional Objective Function<a class="headerlink" href="#regional-objective-function" title="Permalink to this headline"></a></h4>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   Reg\_{obj}(reg) =
+    \sum_{year} (1+Discount\_{rate}(year,reg))^{-year}
+    \times \sum_{tech} \bigg[InvCost(reg,year,tech)+FixCost(reg,tech,year)+
+    DecomCost(reg,tech,year)+VarCost(reg,tech,year)+FixTax(reg,tech,year)+InvTax(reg,tech,year)-
+    InvSub(reg,tech,year)-FixSub(reg,tech,year)+
+    CO2Cost(reg,tech,year)-InvSalvage(reg,tech,year)\bigg]
+   \;\;\; \forall reg \in regions , \forall year \in years , \forall tech \in technologies
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="trades-objective-function">
+<h4>Trades Objective Function<a class="headerlink" href="#trades-objective-function" title="Permalink to this headline"></a></h4>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   Exchange\_{links}\_{obj} =
+   \sum_{year} (1+Discount_{rate}(year))^{-year}
+   \times \sum_{link} \bigg[InvCost\_{link}(year,link)+
+   FixCost\_{link}(year,link)+DecomCost\_{link}(year,link)+
+   VarCost\_{link}(year,link)+FixTax\_{link}(year,link)+
+   InvTax\_{link}(year,link)-InvSub\_{link}(year,link)-
+   FixSub\_{link}(year,link)-InvSalvage\_{link}\bigg]
+   \;\;\; \forall year \in years , \forall link \in links
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+</section>
+<section id="operation-mode">
+<h3>Operation mode<a class="headerlink" href="#operation-mode" title="Permalink to this headline"></a></h3>
+<section id="id1">
+<h4>Total Objective Function<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   min: Eq\_{obj} = \sum_{reg} Reg\_{obj}(reg) + Exchange\_{links}\_{obj}
+   \;\;\; \forall reg \in regions
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="id2">
+<h4>Regional Objective Function<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   Reg\_{obj}(reg) = \sum_{tech}
+   \bigg[FixCost(reg,tech)+
+   VarCost(reg,tech)+FixTax(reg,tech)-
+   FixSub(reg,tech)+CO2Cost(reg,tech)\bigg]
+   \;\;\; \forall reg \in regions , \forall tech \in technologies
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="id3">
+<h4>Trades Objective Function<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   Exchange\_{links}\_{obj} = \sum_{link}
+   \bigg[FixCost\_{link}(link)+VarCost\_{link}(link)+
+   FixTax\_{link}(link)-FixSub\_{link}(link)\bigg]
+   \;\;\; \forall link \in links
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+</section>
+</section>
+<section id="equations">
+<h2>Equations<a class="headerlink" href="#equations" title="Permalink to this headline"></a></h2>
+<section id="costs">
+<h3>costs<a class="headerlink" href="#costs" title="Permalink to this headline"></a></h3>
+<p>calculating the components of the objective function including the investment,
+fixed and variable operation and maintenance and decommissioning costs followed
+by the related taxes considered for each unit of investment or fixed cost
+of the technologies. Carbon taxes are also included to be applied for the
+carbon-intensive technologies. Alongside the related costs of technologies,
+some revenues are considered in the objective function with a negative sign.
+These revenues are including the salvage values on some of the investments where the operational
+lifetime of the technology lasts longer than the end of the modelling time horizon
+and subsidies that are applied to some technologies based on the national policies.
+The Hypatia model considers the economic life time of the technologies in the
+investment cost calculation. Therefore, each required investment in a specific
+year “y” is divided into a stream of annuities during several years
+(from “y+1” to “y+ELIFE”) which is determined by the technology-specific
+economic lifetime, depreciation rate and time value of money.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In Hypatia, the inter-regional links are modeled as technologies. Therefore all the below
+equations for calculating the objective function cost components and intermediate
+variables except the taxes and subsidies have been correspondingly written in the source code
+for the transmission links.</p>
+</div>
+<section id="investment-cost">
+<h4>Investment Cost<a class="headerlink" href="#investment-cost" title="Permalink to this headline"></a></h4>
+<p>The cost required for the new installed capacity of the technologies.</p>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \forall reg \in regions , \forall tech \in technologies ,
+   \forall year \in years:
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{Inv\_{present}}(reg,tech,year) =
+   \boldsymbol{NewCapcity}(reg,tech,year)
+   \times INV(reg,tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   Depreciation(reg,tech) = \frac{r(1+r)^n}{(1+r)^n-1}
+   \;\;\; \text{where:} \; n = Economic\_{lifetime}(reg,tech) \;\;
+   r = Interest\_{rate}(reg,tech)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{Annuity}(reg,tech,year_k) =
+   Depreciation(reg,tech) \times
+   \boldsymbol{Inv\_{present}}(reg,tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{InvCost}(reg,tech,y) =
+   \sum_{year_k=year+1}^{year+Economic\_{lifetime}+1}
+   (1+Discount\_{rate})^{year-year_k} \times \boldsymbol{annuity}(reg,tech,year_k)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="investment-salvage-value">
+<h4>Investment Salvage Value<a class="headerlink" href="#investment-salvage-value" title="Permalink to this headline"></a></h4>
+<p>The revenues calculated at the end of the time horizon for the unused period of the investments whose technical liftime exceeds
+the modelling horizon.</p>
+</section>
+<section id="fixed-cost">
+<h4>Fixed Cost<a class="headerlink" href="#fixed-cost" title="Permalink to this headline"></a></h4>
+<p>The fixed annual operation and maintenance cost based on the total installed capacity of each technology.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{FixCost}(reg,tech,year) =
+   \boldsymbol{TotalCapacity}(reg,tech,year)
+   \times F\_{OM}(reg,tech,year)  \;\;\; \forall reg \in regions ,
+   \forall tech \in technologies , \forall year \in years
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="taxes-subsidies">
+<h4>Taxes &amp; Subsidies<a class="headerlink" href="#taxes-subsidies" title="Permalink to this headline"></a></h4>
+<p>Taxes and incentives calculated based on the total investment and fixed cost of each technology.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \forall reg \in regions , \forall tech \in technologies , \forall year \in years:
+
+\end{eqnarray}</div></div>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{InvTax}(reg,tech,year) = \boldsymbol{NewCapacity}(reg,tech,year) \times Investment\_{tax}(reg,tech,year) \times INV(reg,tech,year)
+\end{eqnarray}</div></div>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{InvSub}(reg,tech,year) = \boldsymbol{NewCapacity}(reg,tech,year) \times Investment\_{sub}(reg,tech,year) \times INV(reg,tech,year)
+\end{eqnarray}</div></div>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{FixTax}(reg,tech,year) = \boldsymbol{TotalCapacity}(reg,tech,year) \times Fix\_{tax}(reg,tech,year) \times F\_{OM}(reg,tech,year)
+\end{eqnarray}</div></div>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{FixSub}(reg,tech,year) = \boldsymbol{TotalCapacity}(reg,tech,year) \times Fix\_{sub}(reg,tech,year) \times F\_{OM}(reg,tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="decommissioning-cost">
+<h4>Decommissioning Cost<a class="headerlink" href="#decommissioning-cost" title="Permalink to this headline"></a></h4>
+<p>Cost of dismantling the new capacities installed in the vintage years of the modelling horizon.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{DecomCost}(reg,tech,year) =
+   \boldsymbol{DecomCap}(reg,tech,year)
+   \times Decom\_{cost}(reg,tech,year)
+   \;\;\; \forall reg \in regions , \forall tech \in technologies ,
+   \forall year \in years
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="variable-cost">
+<h4>Variable Cost<a class="headerlink" href="#variable-cost" title="Permalink to this headline"></a></h4>
+<p>Annual variable operation and maintenance costs including the cost of consumed fuels.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{VarCost}(reg,tech,year) =
+   \boldsymbol{Production\_{annual}}(reg,tech,year)
+   \times V\_{OM}(reg,tech,year)  \;\;\; \forall reg \in regions ,
+   \forall tech \in technologies , \forall year \in years
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="carbon-tax">
+<h4>Carbon Tax<a class="headerlink" href="#carbon-tax" title="Permalink to this headline"></a></h4>
+<p>The taxed dedicated to the amount of CO2 emitted by each technology.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{CO2Cost}(reg,tech,year) =
+   \boldsymbol{Production\_{annual}}(reg,tech,year)
+   \times Specific\_{emission}(reg,tech,year)
+   \times Carbon\_{tax}(reg,tech,year)    \;\;\; \forall reg
+   \in regions , \forall tech \in technologies ,
+   \forall year \in years
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+</section>
+<section id="capacity">
+<h3>Capacity<a class="headerlink" href="#capacity" title="Permalink to this headline"></a></h3>
+<section id="accumulated-new-installed-capacity">
+<h4>Accumulated New Installed Capacity<a class="headerlink" href="#accumulated-new-installed-capacity" title="Permalink to this headline"></a></h4>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{Accumulated\_{NewCapacity}}(reg,tech,year) =
+   \sum_{vintage\_{year}} \boldsymbol{NewCapacity}(reg,tech,vintage\_{year})
+    \;\;\; \forall reg \in regions , \forall tech \in technologies ,
+   \forall year \in years
+   \;\;\; if \; year - vintage\_{year} \leq Tech\_{lifetime}(reg,tech)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="total-installed-capacity">
+<h4>Total Installed Capacity<a class="headerlink" href="#total-installed-capacity" title="Permalink to this headline"></a></h4>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{TotalCapacity}(reg,tech,year) =
+   \boldsymbol{Accumulated\_{NewCapacity}}(reg,tech,year) +
+   Residual\_{capacity}(reg,tech,year)    \;\;\; \forall reg \in regions ,
+   \forall tech \in technologies , \forall year \in years
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="decomissioned-capacity">
+<h4>Decomissioned Capacity<a class="headerlink" href="#decomissioned-capacity" title="Permalink to this headline"></a></h4>
+<p>Calculates the annual decommissioning capacities based on the previously installed
+new capacities in the vintage years of the horizon.</p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{DecomCapacity}(reg,tech,y) =
+   \sum_{vintage\_{year}} \boldsymbol{NewCapacity}(reg,tech,vintage\_{year})
+   \;\;\; \forall reg \in regions , \forall tech \in technologies ,
+   \forall year \in years \;\;\; if \; year - vintage\_{year}
+   \geq Tech\_{lifetime}(reg,tech)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+</section>
+<section id="emission">
+<h3>Emission<a class="headerlink" href="#emission" title="Permalink to this headline"></a></h3>
+<p>Calculates the annual CO2 emission based on the annual production of each technology
+and the exogenous specific emission given by the user per unit of output activity.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{CO2\_{equivalent}}(reg,tech,year) =
+   \boldsymbol{Production\_{annual}}(reg,tech,year)
+   \times Specific\_{emission}(reg,tech,year)
+   \;\;\; \forall reg \in regions , \forall tech \in technologies ,
+   \forall year \in years
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+</section>
+<section id="constraints">
+<h2>Constraints<a class="headerlink" href="#constraints" title="Permalink to this headline"></a></h2>
+<section id="energy-balance">
+<h3>Energy balance<a class="headerlink" href="#energy-balance" title="Permalink to this headline"></a></h3>
+<p>Guarantees the balance between the supply and demand sides of the energy system.</p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \forall reg \in regions ,
+   \forall carr \in carriers ,
+   \forall tech \in technologies ,
+   \forall year \in years ,
+   \forall ts \in timesteps
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{tech \notin tech\_{Demand}}
+   \boldsymbol{Production}(reg,carr,tech,year,ts) +
+   \sum_{REG} \boldsymbol{Imports}(reg,carr,REG,year,ts)
+   \geq \sum_{tech \notin tech\_{Demand} \&amp; tech\_{Supply}}
+   \boldsymbol{Use}(reg,carr,tech,year,ts) + \sum_{REG}
+   \boldsymbol{Exports}(reg,carr,REG,year,ts) +
+   \sum_{tech \in tech\_{Demand}} \boldsymbol{Demand}(reg,carr,tech,year,ts)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All the technologies within Hypatia have one input carrier or/and one output
+carrier except for the conversion-plus technologies whose the production and use of
+each input and output carrier must be calculated from the following equations based on
+the given input and output carrier ratios given by the user:</p>
+</div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{Production}(reg,carr,tech,year,ts) =
+   \boldsymbol{Production\_{total}}(reg,tech,year,ts)
+   \times Carrier\_{ratio}\_{output}(reg,carr,tech,year,ts)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{Use}(reg,carr,tech,year,ts) =
+   \boldsymbol{Use\_{total}}(reg,tech,year,ts)
+   \times Carrier\_{ratio}\_{input}(reg,carr,tech,year,ts)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="trade-balance">
+<h3>Trade balance<a class="headerlink" href="#trade-balance" title="Permalink to this headline"></a></h3>
+<p>Ensures that the amounts of imports and exports among any pair of
+regions are completely balanced.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{Imports}(reg,carr,REG,year,ts) =
+   \boldsymbol{Exports}(REG,carr,reg,year,ts)
+   \;\;\; \forall reg \&amp; REG \in regions ,
+   \forall carr \in carriers ,
+   \forall year \in years ,
+   \forall ts \in timesteps
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="resource-technology-availability">
+<h3>Resource &amp; Technology Availability<a class="headerlink" href="#resource-technology-availability" title="Permalink to this headline"></a></h3>
+<p>Ensures that the production of each technology does not exceed its
+available activity based both the technology capacity factor and resource capacity factor.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{carr} \boldsymbol{Production}(reg,carr,tech,year,ts)
+   \leq \boldsymbol{TotalCapacity}(reg,tech,year)
+   \times Resource\_{capacity}\_{factor}(reg,tech,year,ts)
+   \times Annual\_{production}\_{per}\_{unitcapacity}(reg,tech)
+   \times Timeslice\_{fraction}(ts)       \;\;\; \forall reg \in regions ,
+   \forall carr \in carriers , \forall tech \in technologies,
+   \forall year \in years , \forall ts \in timesteps
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{carr} \sum_{ts} \boldsymbol{Production}(reg,carr,tech,year,ts)
+   \leq Capacity\_{factor}\_{}tech \times \sum_{ts}
+   \bigg[\boldsymbol{TotalCapacity}(reg,tech,year)
+   \times Resource\_{capacity}\_{factor}(reg,tech,year,ts)
+   \times Annual\_{production}\_{per}\_{unitcapacity}(reg,tech)
+   \times Timeslice\_{fraction}(ts)\bigg] \forall reg \in regions ,
+   \;\;\; \forall carr \in carriers , \forall tech \in technologies,
+   \forall year \in years , \forall ts \in timesteps
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="id4">
+<h3>Capacity<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<section id="maximum-minimum-regional-total-capacity">
+<h4>Maximum &amp; Minimum Regional Total Capacity<a class="headerlink" href="#maximum-minimum-regional-total-capacity" title="Permalink to this headline"></a></h4>
+<p>Maximum and minimum allowed annual total installed capacity for each
+technology in each region based on the defined scenario.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \forall reg \in regions ,
+   \forall tech \in technologies,
+   \forall year \in years:
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{TotalCapacity}(reg,tech,year)
+   \leq Max\_{totalcap}(reg,tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{TotalCapacity}(reg,tech,year)
+   \geq Min\_{totalcap}(reg,tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="maximum-minimum-regional-new-capacity">
+<h4>Maximum &amp; Minimum Regional New Capacity<a class="headerlink" href="#maximum-minimum-regional-new-capacity" title="Permalink to this headline"></a></h4>
+<p>Maximum and minimum allowed annual new installed capacity for each technology in each region
+based on the defined scenario.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \forall reg \in regions , \forall tech \in technologies, \forall year \in years:
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{NewCapacity}(reg,tech,year) \leq Max\_{newcap}(reg,tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{NewCapacity}(reg,tech,year) \geq Min\_{newcap}(reg,tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="maximum-minimum-overall-total-capacity">
+<h4>Maximum &amp; Minimum Overall Total Capacity<a class="headerlink" href="#maximum-minimum-overall-total-capacity" title="Permalink to this headline"></a></h4>
+<p>Maximum and minimum allowed annual aggregated total installed capacity for each technology over all the regions
+based on the defined scenario.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \forall reg \in regions , \forall tech \in technologies, \forall year \in years:
+
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{reg} \boldsymbol{TotalCapacity}(reg,tech,year) \leq Max\_{totalcap}\_{global}(tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{reg} \boldsymbol{TotalCapacity}(reg,tech,year) \geq Min\_{totalcap}\_{global}(tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="maximum-minimum-overall-new-capacity">
+<h4>Maximum &amp; Minimum Overall New Capacity<a class="headerlink" href="#maximum-minimum-overall-new-capacity" title="Permalink to this headline"></a></h4>
+<p>Maximum and minimum allowed annual aggregated new installed capacity for each technology over all the regions
+based on the defined scenario.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \forall reg \in regions , \forall tech \in technologies, \forall year \in years:
+
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{reg} \boldsymbol{NewCapacity}(reg,tech,year) \leq Max\_{newcap}\_{global}(tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{reg} \boldsymbol{NewCapacity}(reg,tech,year) \geq Min\_{newcap}\_{global}(tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+</section>
+<section id="activity">
+<h3>Activity<a class="headerlink" href="#activity" title="Permalink to this headline"></a></h3>
+<section id="maximum-minimum-regional-production">
+<h4>Maximum &amp; Minimum Regional Production<a class="headerlink" href="#maximum-minimum-regional-production" title="Permalink to this headline"></a></h4>
+<p>Maximum and minimum allowed production of each technology in each region
+based on the defined scenario.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \forall reg \in regions , \forall tech \in technologies, \forall year \in years:
+
+
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{Production\_{annual}}(reg,tech,year) \leq Max\_{production}(reg,tech,year)
+
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{Production\_{annual}}(reg,tech,year) \geq Min\_{production}(reg,tech,year)
+
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="maximum-minimum-overall-production">
+<h4>Maximum &amp; Minimum Overall Production<a class="headerlink" href="#maximum-minimum-overall-production" title="Permalink to this headline"></a></h4>
+<p>Maximum and minimum aggregated production of each technology over all the regions
+based on the defined scenario.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \forall reg \in regions , \forall tech \in technologies, \forall year \in years:
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{reg} \boldsymbol{Production\_{annual}}(reg,tech,year) \leq Max\_{production}\_{global}(tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{reg} \boldsymbol{Production\_{annual}}(reg,tech,year) \geq Min\_{production}\_{global}(tech,year)
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="output-to-input-activity-ratio">
+<h4>Output to Input Activity Ratio<a class="headerlink" href="#output-to-input-activity-ratio" title="Permalink to this headline"></a></h4>
+<p>Ensures the relationship between the production and consumption of each technology based on the given efficiency (output/input activity ratio)
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \boldsymbol{Production}(reg,tech,year,ts) = Output\_{input}\_{act}\_{ratio}(reg,tech,year) \times \boldsymbol{Use}(reg,tech,year,ts) \;\;\; \forall reg \in regions , \forall tech \in technologies, \forall year \in years , \forall ts \in timesteps
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+</section>
+<section id="co2-equivalent-emissions">
+<h3>CO<sub>2</sub> Equivalent Emissions<a class="headerlink" href="#co2-equivalent-emissions" title="Permalink to this headline"></a></h3>
+<section id="regional-emission-cap">
+<h4>Regional Emission cap<a class="headerlink" href="#regional-emission-cap" title="Permalink to this headline"></a></h4>
+<p>Ensures that the annual amount of CO2 emisstion emitted in each region does not exceed the given maximum allowed annual carbon emissions.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{tech} \boldsymbol{CO2\_{equivalent}}(reg,tech,year) \leq Emission\_{cap}\_{annual}(reg,year) \;\;\; \forall reg \in regions , \forall tech \in technologies, \forall year \in years
+
+\end{eqnarray}</div></div>
+<p><span class="raw-html"><br /></span>
+<span class="raw-html"><br /></span></p>
+</section>
+<section id="overall-emission-cap">
+<h4>Overall Emission cap<a class="headerlink" href="#overall-emission-cap" title="Permalink to this headline"></a></h4>
+<p>Ensures that the aggregated annual amount of CO2 emitted over all the regions does not exceed the maixmum allowed annual values by the user.
+<span class="raw-html"><br /></span></p>
+<div class="scrolling-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\begin{eqnarray}
+   \sum_{reg} \sum_{tech} \boldsymbol{CO2\_{equivalent}}(reg,tech,year) \leq Global\_{emission}\_{cap}\_{annual}(year) \;\;\; \forall reg \in regions , \forall tech \in technologies, \forall year \in years:
+\end{eqnarray}</div></div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="example2.html" class="btn btn-neutral float-left" title="Planning mode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api_references.html" class="btn btn-neutral float-right" title="API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SESAM, Politecnico di Milano.
+ Developed by: Hypatia team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

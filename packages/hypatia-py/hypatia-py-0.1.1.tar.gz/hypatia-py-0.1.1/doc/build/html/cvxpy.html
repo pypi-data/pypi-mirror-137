@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why CVXPY &mdash; hypatia 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/wrapper.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="hypatia.Plotter.plot_hourly_prod_by_tech" href="api_document/hypatia.Plotter.plot_hourly_prod_by_tech.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> hypatia
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building and Running a Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyzing.html">Analyzing and Visualizing a Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formulation.html">Mathematical Formulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_references.html">API Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Why CVXPY</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-cvxpy">What is CVXPY</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyomo-version">Pyomo Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cvxpy-version">CVXPY Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hypatia</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Why CVXPY</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cvxpy.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="why-cvxpy">
+<h1>Why CVXPY<a class="headerlink" href="#why-cvxpy" title="Permalink to this headline"></a></h1>
+<section id="what-is-cvxpy">
+<h2>What is CVXPY<a class="headerlink" href="#what-is-cvxpy" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://www.cvxpy.org">CVXPY</a> is Python-based domain-specific language (DSL) for convex optimization problems.
+To use a convex optimization problem in an application, it is needed to develop a costum solver or convert the problem into a standard form
+required by the solvers. An alternative is to use a DSL like CVXPY that lets the modeller to express an optimization problem in a natural way that follows the math.
+CVXPY helped us to add a lot if potentials to the Hypatia framework. One of the most salient ones is the possibility to include two dimensional variables and
+parameters in the model which allow us to construct element-wise vector and matrix-based equations. To be more specific, rather than using scalar-based
+mathematical equations that are mostly used in Pyomo-based energy optimization models, Hypatia uses element-wise matrix-based equations which help to
+bypass most of the rquired for loops on some of the structural inputs (sets) of the energy model such as the modelling years, technologies and more
+importantly the timesteps defined within each year of the time horizon. Therefore it is possible to say that “vectorized” problems are less time consuming
+compared to “scalar-based” problems in terms of building and passing the model to the solver.</p>
+<p>In this document, we compare the performance of CVXPY vs. <a class="reference external" href="https://github.com/Pyomo/pyomo">Pyomo</a> that is the most popular Python optimization library for the energy modellers.
+To test the performance of these two optimization libraries in terms of the required time to build a unique model, A dummy two-node energy system application with hourly time resolution and annual capacity expansion is created in
+both Pyomo and CVXPY langiages. We configure the solvers to terminate immidiately after one single iteration to avoid considering the time required to solve the problem and, therefore, only the time required to
+generate and load the problem to the solver has been investigated. Moreover, through this example, one can also understand how defining an optimization problem in CVXPY is more convinient and transparent than in Pyomo. Tnis feature of CVXPY helps energy modellers without professional coding
+skills understand the models and contribute to the development easier.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The data of the test along with its jupyter notebook script are available in GitHub.</p>
+</div>
+<section id="pyomo-version">
+<h3>Pyomo Version<a class="headerlink" href="#pyomo-version" title="Permalink to this headline"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">AbstractModel</span><span class="p">()</span>
+
+<span class="c1"># Definition of sets</span>
+<span class="n">model</span><span class="o">.</span><span class="n">years</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="k">lambda</span> <span class="n">model</span><span class="p">:</span> <span class="n">years</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">hours</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="k">lambda</span> <span class="n">model</span><span class="p">:</span> <span class="n">hours</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">techs</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="k">lambda</span> <span class="n">model</span><span class="p">:</span> <span class="n">techs</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">regs</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="k">lambda</span> <span class="n">model</span><span class="p">:</span> <span class="n">regions</span><span class="p">)</span>
+
+<span class="c1"># Definition of Vars</span>
+<span class="n">model</span><span class="o">.</span><span class="n">production</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">techs</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">new_capacity</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">techs</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">total_capacity</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">techs</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span>
+<span class="p">)</span>
+<span class="c1"># Definition of paramters</span>
+<span class="n">model</span><span class="o">.</span><span class="n">inv_cost</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">techs</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span>
+    <span class="n">initialize</span><span class="o">=</span><span class="k">lambda</span> <span class="n">model</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="n">inv_cost</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">var_cost</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">techs</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span>
+    <span class="n">initialize</span><span class="o">=</span><span class="k">lambda</span> <span class="n">model</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="n">var_cost</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">availability</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">techs</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span>
+    <span class="n">initialize</span><span class="o">=</span><span class="k">lambda</span> <span class="n">model</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="n">availability</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">t</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">demand</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span>
+    <span class="n">initialize</span><span class="o">=</span><span class="k">lambda</span> <span class="n">model</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="s2">&quot;demand&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Definition of rules</span>
+<span class="k">def</span> <span class="nf">tot_cap</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="n">years</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">total_capacity</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span> <span class="o">==</span> <span class="n">model</span><span class="o">.</span><span class="n">new_capacity</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">total_capacity</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span>
+        <span class="o">==</span> <span class="n">model</span><span class="o">.</span><span class="n">total_capacity</span><span class="p">[</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">new_capacity</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">demand_prod</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">production</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">techs</span><span class="p">)</span>
+        <span class="o">==</span> <span class="n">model</span><span class="o">.</span><span class="n">demand</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">availability_prod</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">production</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span>
+        <span class="o">&lt;=</span> <span class="n">model</span><span class="o">.</span><span class="n">total_capacity</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">availability</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">objective_function</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+
+    <span class="n">tot_inv</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">inv_cost</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">new_capacity</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">years</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">techs</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">regs</span>
+    <span class="p">)</span>
+    <span class="n">tot_var</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">var_cost</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span>
+        <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">production</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">hours</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">years</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">techs</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">regs</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">tot_inv</span> <span class="o">+</span> <span class="n">tot_var</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">balance_rule</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">demand_prod</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">availability_rule</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">techs</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">availability_prod</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">capacity_rule</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">years</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">techs</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">tot_cap</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">OBJ</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+
+<span class="n">instance</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">create_instance</span><span class="p">()</span>
+
+<span class="n">opt</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="n">solver</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cvxpy-version">
+<h3>CVXPY Version<a class="headerlink" href="#cvxpy-version" title="Permalink to this headline"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">tot_var_cost</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">tot_inv_cost</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">rr</span> <span class="ow">in</span> <span class="n">regions</span><span class="p">:</span>
+    <span class="c1"># Creting variables</span>
+    <span class="n">production</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">years</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">hours</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">techs</span><span class="p">)),</span>
+        <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">new_capacity</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">years</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">techs</span><span class="p">)),</span> <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># meeting the demand</span>
+    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">cp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">production</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">years</span><span class="p">,</span> <span class="s2">&quot;demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="p">)</span>
+
+    <span class="c1"># total capacity -&gt; cummulative sum of new capacity assuming</span>
+    <span class="c1"># there is no disposed capacity</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">years</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">total_capacity</span> <span class="o">=</span> <span class="n">new_capacity</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">total_capacity</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">new_capacity</span><span class="p">)</span>
+
+    <span class="c1"># Production lower than the available capacity</span>
+
+    <span class="k">for</span> <span class="n">yy</span><span class="p">,</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">years</span><span class="p">):</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">production</span><span class="p">[</span><span class="n">yy</span> <span class="o">*</span> <span class="mi">8760</span> <span class="p">:</span> <span class="p">(</span><span class="n">yy</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8760</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="o">&lt;=</span> <span class="n">cp</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+                <span class="n">total_capacity</span><span class="p">[</span><span class="n">yy</span> <span class="p">:</span> <span class="n">yy</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">availability</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">year</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)),</span> <span class="p">:]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">tot_var_cost</span> <span class="o">+=</span> <span class="n">cp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">cp</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+                <span class="n">cp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">production</span><span class="p">[</span><span class="n">yy</span> <span class="o">*</span> <span class="mi">8760</span> <span class="p">:</span> <span class="p">(</span><span class="n">yy</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8760</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                <span class="n">var_cost</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">year</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">tot_inv_cost</span> <span class="o">+=</span> <span class="n">cp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">new_capacity</span><span class="p">,</span> <span class="n">inv_cost</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">years</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+
+<span class="c1"># Definition of objective function</span>
+<span class="n">objective</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Minimize</span><span class="p">(</span><span class="n">tot_var_cost</span> <span class="o">+</span> <span class="n">tot_inv_cost</span><span class="p">)</span>
+
+<span class="c1"># Problem definition</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="o">=</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">)</span>
+<span class="n">probblem</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="results">
+<h3>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h3>
+<p>As it is illustrated below, CVXPY always show a better performance in terms of time needed to pass the model to the solver. While for short time horizons, the difference is quite negligible, for long time horizon, the difference is so considerable.</p>
+<img alt="_images/test_speed.png" class="align-center" src="_images/test_speed.png" />
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api_document/hypatia.Plotter.plot_hourly_prod_by_tech.html" class="btn btn-neutral float-left" title="hypatia.Plotter.plot_hourly_prod_by_tech" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SESAM, Politecnico di Milano.
+ Developed by: Hypatia team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
