@@ -1,0 +1,23 @@
+query getNewsFeed($symbols: [String], $sectors: [String], $page: Int!, $overview: Boolean, $macro: Boolean, $research: Boolean, $enableResearch: Boolean, $includeBrokerageActions: Boolean, $onlyPlus: Boolean, $following: Boolean) {
+    newsFeed(symbols: $symbols, sectors: $sectors, page: $page, overview: $overview, macro: $macro, research: $research, enableResearch: $enableResearch, following: $following, includeBrokerageActions: $includeBrokerageActions, onlyPlus: $onlyPlus) {
+        news {
+            id
+            headlineText
+            revised
+            story
+            linkableCompanyRICs
+            linkableSectors
+            type
+            saved
+            inPlayBIPStory {
+            categories
+            __typename
+            }
+            isAtomPlus
+            __typename
+        }
+        page
+        hasMore
+        __typename
+    }
+}

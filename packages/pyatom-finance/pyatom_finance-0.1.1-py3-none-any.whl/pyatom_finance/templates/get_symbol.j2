@@ -1,0 +1,42 @@
+query getSymbol($symbol: String!) {
+    symbol(symbol: $symbol) {
+        id
+        symbol
+        name
+        description
+        CEO
+        exchange
+        iexSector
+        iexIndustry
+        sector
+        industry
+        industryCode
+        marketCap
+        netDebt
+        ev
+        beta
+        borrowCost
+        nextEarningsDate
+        dividendPerShare
+        averageVolume
+        revenue
+        ebitda
+        ebit
+        eps
+        listingStatus
+        trAssetCategory
+        trSearchAllCategory
+        metric {
+            id
+            atomMarketCap
+            price
+            __typename
+        }
+        kpiSnapshots {
+            id
+            sectorLabel
+            __typename
+        }
+    __typename
+    }
+}

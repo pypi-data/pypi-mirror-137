@@ -1,0 +1,13 @@
+query getChartInterday($symbol: String!, $chartType: String, $rangeUnit: String, $rangeCount: Int) {
+    interday(symbol: $symbol, chartType: $chartType, rangeUnit: $rangeUnit, rangeCount: $rangeCount) {
+        date
+        price
+        volume
+        changePercent
+        open
+        close
+        high
+        low
+        __typename
+    }
+}

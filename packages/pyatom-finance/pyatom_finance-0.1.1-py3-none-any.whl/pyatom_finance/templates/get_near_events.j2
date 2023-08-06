@@ -1,0 +1,32 @@
+query getNearEvents($symbols: [String]!) {
+    nearEvents(symbols: $symbols) {
+        pastEvents {
+            EventId
+            name
+            eventType
+            startDate
+            transcriptId
+            LiveDialInStartDate
+            liveDialInPassword
+            liveDialInPhoneNumber
+            liveDialInStatus
+            transcriptDownloadStatus
+            actualSymbols
+            __typename
+        }
+        futureEvents {
+            EventId
+            name
+            eventType
+            startDate
+            transcriptId
+            LiveDialInStartDate
+            liveDialInPassword
+            liveDialInPhoneNumber
+            liveDialInStatus
+            actualSymbols
+            __typename
+        }
+        __typename
+    }
+}

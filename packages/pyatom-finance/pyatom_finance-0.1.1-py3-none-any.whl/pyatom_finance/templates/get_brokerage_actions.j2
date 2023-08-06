@@ -1,0 +1,44 @@
+query getBrokerageActions($symbols: [String]!) {
+    symbols(symbols: $symbols) {
+        symbol
+        brokerageActions {
+            action
+            actionType
+            oldActionType
+            brokerageName
+            date
+            oldTargetPrice
+            targetPrice
+            __typename
+        }
+        guidanceActions {
+            period
+            periodYear
+            currency
+            benzingaUpdated
+            ...GuidanceData
+            __typename
+        }
+        __typename
+    }
+}
+
+fragment GuidanceData on Guidance {
+    adjEpsMax
+    adjEpsMin
+    gaapEpsMax
+    gaapEpsMin
+    adjEpsPriorMax
+    adjEpsPriorMin
+    gaapEpsPriorMax
+    gaapEpsPriorMin
+    adjRevenueMax
+    adjRevenueMin
+    gaapRevenueMax
+    gaapRevenueMin
+    adjRevenuePriorMax
+    adjRevenuePriorMin
+    gaapRevenuePriorMax
+    gaapRevenuePriorMin
+    __typename
+}

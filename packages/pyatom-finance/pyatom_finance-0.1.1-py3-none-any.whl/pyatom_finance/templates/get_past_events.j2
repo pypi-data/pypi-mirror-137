@@ -1,0 +1,19 @@
+query getManyEvents($symbols: [String]!) {
+    manyEvents(symbols: $symbols) {
+        pastEvents {
+            EventId
+            name
+            eventType
+            startDate
+            transcriptId
+            LiveDialInStartDate
+            liveDialInPassword
+            liveDialInPhoneNumber
+            liveDialInStatus
+            transcriptDownloadStatus
+            actualSymbols
+            __typename
+        }
+        __typename
+    }
+}
