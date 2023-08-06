@@ -1,0 +1,67 @@
+{% block head %}
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2f353a">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img class="navbar-brand-minimized ml-2" src="{{ url_for('static', filename='images/molssi-favicon-inverted.svg') }}" width="30" height="30" alt="MolSSI Logo">
+            Dashboard Admin
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="/"> Home</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" id="login-info">
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    {% for message in get_flashed_messages() %}
+        {% if 'successfully' not in message %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='node_modules/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='node_modules/popper.js/dist/umd/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js') }}"></script>
+<script src="{{ url_for('static', filename='node_modules/@fortawesome/fontawesome-free/js/all.min.js')}}"></script>
+<script src="{{ url_for('static', filename='node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='node_modules/datatables.net-dt/js/dataTables.dataTables.min.js') }}"></script> 
+<script src="{{ url_for('static', filename='node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script> 
+<script src="{{ url_for('static', filename='node_modules/datatables.net-select/js/dataTables.select.min.js') }}"></script>
+<script src="{{ url_for('static', filename='node_modules/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+
+{% if "delete" not in request.path %}
+<script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/setup.js') }}"></script>
+{% endif %}
+
+<script>
+    $("body").addClass('bg-white')
+    $('[data-toggle="tooltip"]').tooltip()
+</script>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "auth/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>{{ form.specialprojecst_read }}</h1>
+    {% if "manage_group" in request.path %}
+        <h1>Manage Group {{ group_name }}</h1>
+    {% else %}
+        <h1>Create New Group</h1>
+    {% endif %}
+</div>
+<div class="container mt-5">
+
+    <a href="{{ url_for('admin.manage_groups') }}"><button type="button" class="btn btn-light btn-lg mb-3"><i class="fas fa-chevron-circle-left mr-3"></i>Groups List</button></a>
+
+
+    {% if "manage_group" in request.path %}
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+            <a class="nav-link active" href="#">Manage Group</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/admin/manage_group/{{ group_id }}/delete">Remove Group</a>
+            </li>
+        </ul>
+    {% endif %}
+
+    <form action method="post">
+        {{ form.csrf_token }}
+        <div class="card" >
+            <div class="card-header">
+            Group Information<span class="edit-section float-right" id="group-info-button"></span>
+            </div>
+            <div class="card-body" id="group-info">
+                <h5 class="card-title">Group Name and Members</h5>
+                {% if "manage_group" in request.path %}
+                <p class="card-text font-weight-light font-italic">Update the group name and members for group.</p>
+                {% else %}
+                    <p class="card-text font-weight-light font-italic">Create a new group and add members to the group.</p>
+                {% endif %}
+
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        {{ wtf.form_field(form.group_name, class="form-control", 
+                            placeholder='New Group Name') }}
+                        {% for error in form.group_name.errors %}
+                            <div class="alert alert-danger">{{ error }} </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        {{ wtf.form_field(form.group_members, class="form-control") }}
+                    </div>
+                </div>
+            </div>
+    </div>
+    {% if "manage_group" in request.path %}
+        <div class="card" >
+            <div class="card-header">
+                Owned Project Permissions <span class="edit-section float-right" id="owned-permissions-info-button"></span>
+            </div>
+            <div class="card-body" id="owned-permissions-info">
+                <p class="card-text font-weight-light font-italic">Update permissions for the group.</p>
+                <div class="card-body">
+                    {% if owned_project_names|length > 0 %}
+                        <table class="table">
+                            <tr>
+                                <th>Project Name</th>
+                                <th>read</th>
+                                <th>update</th>
+                                <th>create</th>
+                                <th>delete</th>
+                                <th>manage</th>
+                            </tr>
+
+                            {% for project in owned_project_names %}
+                                <tr>  
+                                <td>{{ project["name"] }}</td>
+                                    {% for permission in ["read", "update", "create", "delete", "manage"] %}
+                                        <td>
+                                            {{ form["ownedproject_"+project["id"]|string+"_"+permission] }}
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% else %}
+                        <p class="card-text font-weight-light font-italic">There are no projects in the dashboard which this group owns.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+    <div class="card" >
+        <div class="card-header">
+            Special Project Permissions <span class="edit-section float-right" id="special-permissions-info-button"></span>
+        </div>
+        <div class="card-body" id="special-permissions-info">
+            {% if "manage_group" in request.path %}
+            <p class="card-text font-weight-light font-italic">Update permissions for the group.</p>
+            {% else %}
+                <p class="card-text font-weight-light font-italic">Add special project permissions.</p>
+            {% endif %}
+            <div class="card-body">
+                {% if special_project_names|length > 0 %}
+                    <table class="table">
+                        <tr>
+                            <th>Project Name</th>
+                            <th>read</th>
+                            <th>update</th>
+                            <th>create</th>
+                            <th>delete</th>
+                            <th>manage</th>
+                        </tr>
+
+                        {% for project in special_project_names %}
+                            <tr>  
+                            <td>{{ project["name"] }}</td>
+                                {% for permission in ["read", "update", "create", "delete", "manage"] %}
+                                    <td>
+                                        {{ form["specialproject_"+project["id"]|string+"_"+permission] }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p class="card-text font-weight-light font-italic">There are no projects in the dashboard which this group does not own.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+        {{ wtf.form_field(form.submit, class="btn btn-primary form-control") }}
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='node_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='node_modules/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='node_modules/@fortawesome/fontawesome-free/js/all.min.js')}}"></script>
+
+    <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/setup.js') }}"></script>
+
+{% if "manage_group" in request.path %}
+    <script src="{{ url_for('static', filename='js/manage_user.js') }}"></script>
+{% endif %}
+
+
+<script>
+    $("body").addClass('bg-white')
+</script>
+{% endblock %}
+

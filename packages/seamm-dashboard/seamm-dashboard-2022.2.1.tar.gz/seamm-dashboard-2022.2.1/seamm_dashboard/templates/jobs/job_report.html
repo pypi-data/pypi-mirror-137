@@ -1,0 +1,49 @@
+<!-- Plugins and scripts required by this view-->
+<script src= "{{ url_for('static', filename='js/util.js') }}"></script>
+<script src= "{{ url_for('static', filename='js/job_report.js') }}"></script>
+<script src= "{{ url_for('static', filename='js/tooltips.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom_flowchart.css') }}">
+
+
+<div class="animated fadeIn vh-100 mh-100 hidden" id="view">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="h4 mt-3 row"><span id="root-folder"></span><span><button type="button" id="refresh-file-list" class="btn btn btn-outline-primary float-right mb-3 ml-5" title="Refresh Job Info" data-toggle="tooltip" data-placement="top"><i class="fas fa-sync"></i></button></span></div>
+        <div class="row"><strong>Title: </strong> <span id="job-title" class="ml-2">{{ job.title }}</span></div>
+        <div class="row"><strong>Status: </strong><span id="job-status" class="ml-2"></span></div>
+        <div class="row"><strong>{{ own_string }}</strong></div>
+        <div class="row mt-2"><strong><h5>Actions:</h5> </strong></div>
+        <div id="buttons" class="row">
+          <button type="button" id="load-description" class="btn btn-lg btn-primary float-left mx-1" title="Load Job Description" data-toggle="tooltip" data-placement="top"><i class="fas fa-align-justify"></i></button>
+          {% if edit_job == true %}
+            <a href="{{ edit_url }}"><button type="button" id="edit-job" class="btn btn-lg btn-primary float-left mx-1" title="Edit Job Description and Title" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i></button></a>
+          {% else %}
+          <button type="button" id="edit-job" class="btn btn-lg btn-primary float-left mx-1" title="You do not have permission to edit this job" data-toggle="tooltip" data-placement="top" disabled><i class="fas fa-edit"></i></button>
+          {% endif %}
+
+        </div>
+        <div class='h5 mt-3'>Browse files for job</div>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search Files" id="search">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" id="btn-search">Search</button>
+          </span>
+        </div>
+        <div id='js-tree' class="animated fadeIn m-3 mh-100" style="overflow:auto"></div>
+      </div>
+      <div class="col-sm-9 mt-3 mh-100 my-2" id="view-card">
+        <div class= "card h-100 mb-0 border-0" id="outer-card">
+          <div class="card-header btn">
+            <span id="file-name">Click Files to view</span>
+            <button type="button" id="refresh" class="btn btn-sm btn-outline-primary float-right" title="Refresh File Contents" data-toggle="tooltip" data-placement="top"><i class="fas fa-sync"></i></button>
+          </div>
+          <div id ="view-card-content" class="px-2 py-2 h-100">
+            <div id='file-content' class="my-0 load-content" style="overflow-y: scroll;"></div>
+            <div id='structure' class="load-content animated fadeIn"></div>
+            <div id="cytoscape" class="load-content  animated fadeIn"></div>
+            <table id="csv-data" class="load-content animated fadeIn table table-responsive-sm table-bordered table-striped table-sm"></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
