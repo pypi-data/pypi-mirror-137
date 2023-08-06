@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: openmc-mesh-tally-to-vtk
+Version: 0.2.1
+Summary: A Python package for converting OpenMC mesh tallies to VTK files and optionally converting the units
+Home-page: https://github.com/fusion-energy/openmc_mesh_tally_to_vtk
+Author: The Regular Mesh Plotter Development Team
+Author-email: mail@jshimwell.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Natural Language :: English
+Classifier: Topic :: Scientific/Engineering
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy (>=1.21.1)
+Requires-Dist: matplotlib (>=3.4.2)
+Requires-Dist: trimesh
+Requires-Dist: shapely
+Requires-Dist: scipy
+Requires-Dist: dagmc-geometry-slice-plotter
+Requires-Dist: openmc-tally-unit-converter
+Requires-Dist: vtk
+
+
+Convert an OpenMC mesh tally to a VTK file with optional unit conversion
+
+# Installation
+
+```python
+pip install openmc-mesh-tally-to-vtk
+```
+
+# Python API Usage
+
+The package can be used in conjunction with OpenMC to produce a VTK file of a ```openmc.RegularMesh``` tally.
+
+The simplest example is to read in an OpenMC tally and write it out as a VTK file which can then be opened with programs like [Paraview](https://www.paraview.org).
+
+```python
+from openmc_mesh_tally_to_vtk import write_mesh_tally_to_vtk
+import openmc
+
+# assumes you have a statepoint file from the OpenMC simulation
+statepoint = openmc.StatePoint('statepoint.3.h5')
+
+# assumes the statepoint file has a RegularMesh tally with a certain name
+my_tally = statepoint.get_tally(name='tally_on_regular_mesh')
+
+# converts the tally result into a VTK file
+write_mesh_tally_to_vtk(
+    tally=my_tally,
+    filename = "vtk_file_from_openmc_mesh.vtk",
+)
+```
+
+# Acknowledge
+
+This package is based on a [GitHub Gist by](https://gist.github.com/pshriwise/da30da3daf08594dddf1a58b9f10dcc8) by Patrick Shriwise
+
+
