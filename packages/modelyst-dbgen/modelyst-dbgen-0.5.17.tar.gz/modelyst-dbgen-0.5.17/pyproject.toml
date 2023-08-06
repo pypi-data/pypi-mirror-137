@@ -1,0 +1,92 @@
+
+[tool.black]
+line-length = 110
+skip-string-normalization = true
+target-version = ['py36', 'py37', 'py38']
+
+[tool.poetry]
+authors = ["Michael Statt <michael.statt@modelyst.io>", "Kristopher Brown <kris.brown@modelyst.io"]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3.9",
+]
+description = "DBgen (Database Generator) is an open-source Python library for connecting raw data, scientific theories, and relational databases"
+documentation = "https://www.dbgen.modelyst.com"
+exclude = ["tests*"]
+homepage = "https://www.dbgen.modelyst.com"
+include = ["requirements.txt", "LICENSE", "src/dbgen/git_version"]
+keywords = ["ETL", "Postgres", "Databases"]
+license = "Apache-2.0"
+maintainers = ["Michael Statt <michael.statt@modelyst.io>"]
+name = "modelyst-dbgen"
+packages = [
+  {include = "dbgen", from = "src"},
+]
+readme = "README.md"
+repository = "https://github.com/modelyst/dbgen"
+version = "0.5.17"
+
+[tool.poetry.dependencies]
+Jinja2 = "^3.0.1"
+SQLAlchemy = "^1.4.25"
+boto3 = "^1.18.42"
+cookiecutter = {version = "^1.7.3", optional = true}
+modelyst-sqlmodel = "^0.0.7"
+networkx = "^2.6.3"
+psutil = "^5.9.0"
+psycopg = "^3.0.1"
+psycopg2-binary = "^2.9.1"
+pydantic = {version = "^1.8.2", extras = ["dotenv"]}
+pydasher = "^0.0.13"
+python = ">=3.8,<4.0"
+rich = "^11.1.0"
+tqdm = "^4.62.2"
+typer = "^0.4.0"
+typing-extensions = ">=3.10.0.1"
+
+[tool.poetry.dev-dependencies]
+Faker = "^9.7.1"
+autoflake = "^1.4"
+black = "^21.9b0"
+flake8 = "^3.9.2"
+hypothesis = "^6.21.3"
+interrogate = "^1.5.0"
+isort = "^5.9.3"
+markdown-include = "^0.6.0"
+mkdocs = "^1.2.3"
+mkdocs-autorefs = "^0.3.0"
+mkdocs-markdownextradata-plugin = "^0.2.4"
+mkdocs-material = "^7.3.3"
+mkdocs-pymdownx-material-extras = "^1.5.4"
+mkdocstrings = "^0.16.2"
+mypy = "^0.930"
+pdocs = "^1.1.1"
+pre-commit = "^2.16.0"
+pydocstyle = "^6.1.1"
+pytest = "^6.2.5"
+pytest-benchmark = "^3.4.1"
+pytest-cov = "^2.12.1"
+pytest-sugar = "^0.9.4"
+pytest-xdist = "^2.5.0"
+rich = "^11.0.0"
+
+[tool.poetry.extras]
+cookiecutter = ["cookiecutter"]
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.poetry.scripts]
+dbgen = "dbgen.__main__:main"
+
+[tool.pytest.ini_options]
+markers = [
+  "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+  "database: marks a test that requires a database (deselt with '-m \"not database\"",
+]
+testpaths = [
+  "tests",
+]
