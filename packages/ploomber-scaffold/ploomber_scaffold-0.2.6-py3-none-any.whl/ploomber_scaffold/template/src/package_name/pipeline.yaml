@@ -1,0 +1,23 @@
+meta:
+  # paths in task sources (e.g., scripts/fit.py) are relative to src/package_name
+  source_loader:
+    module: package_name
+
+
+tasks:
+  - source: package_name.tasks.raw.get
+    product: products/raw/get.csv
+
+  - source: package_name.tasks.features.sepal
+    product: products/features/sepal.csv
+
+  - source: package_name.tasks.features.petal
+    product: products/features/petal.csv
+
+  - source: package_name.tasks.features.features
+    product: products/features/features.csv
+
+  - source: scripts/fit.py
+    product:
+      nb: products/report.ipynb
+      model: products/model.pickle
