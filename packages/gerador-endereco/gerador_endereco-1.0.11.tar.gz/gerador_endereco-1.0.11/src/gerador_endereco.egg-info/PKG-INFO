@@ -1,0 +1,90 @@
+Metadata-Version: 2.1
+Name: gerador-endereco
+Version: 1.0.11
+Summary: API para criação de endereços aleatórios em um município específico.
+Home-page: https://github.com/open-dsa/gerador_endereco
+Download-URL: https://github.com/open-dsa/gerador_endereco
+Author: Michel Metran
+Author-email: michelmetran@gmail.com
+License: MIT
+Project-URL: Documentation, https://github.com/open-dsa/gerador_endereco#readme
+Project-URL: Issue Tracker, https://github.com/open-dsa/gerador_endereco/issues
+Project-URL: Source Code, https://github.com/open-dsa/gerador_endereco
+Keywords: python,endereço aleatório,address
+Platform: any
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: Portuguese
+Classifier: Natural Language :: Portuguese (Brazilian)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Gerador Endereço
+
+<br>
+
+Programa para gerar endereços aleatórios de um município específico, com objetivo de popular bancos de dados.
+
+<br>
+
+----
+
+### Como Instalar?
+
+<br>
+
+```bash
+pip install gerador-endereco --upgrade
+```
+
+<br>
+
+----
+
+### Como usar?
+
+<br>
+
+Inicialmente é necessário gerar um conjunto/lista de CEPs únicos e aleatórios, definindo apenas a unidade da federação e nome do município. Como resultado, são geradas duas listas:
+
+1. A primeira lista contem CEPs;
+2. A segunda lista contem bairros.
+
+```python
+import random
+from gerador_endereco import *
+
+list_ceps, list_bairros = get_list_ceps_bairros(estado='sp', municipio='piracicaba')
+
+print(list_ceps[0:10])
+print(list_bairros[0:10])
+```
+
+<br>
+
+Uma vez com essa lista de CEPs aleatórios, é possível obter o logradouro completo por meio da função.
+
+```python
+cep = random.choice(listas[0])
+get_random_complete_address(cep)
+```
+
+<br>
+
+O resultado será um endereço aleatório, por exemplo:
+
+```python
+Rua José Alexandre de Almeida, 291 - Água das Pedras - Piracicaba, SP - CEP: 13404-206
+```
+
+<br>
+
+Caso tenha interesse, há um [*Google Colab*](https://colab.research.google.com/drive/1fljRarvBgD9Lm3k3PO23a6m_E8Zd5kFL#scrollTo=3CyI_-0SbCPm) para testes.
+
+
