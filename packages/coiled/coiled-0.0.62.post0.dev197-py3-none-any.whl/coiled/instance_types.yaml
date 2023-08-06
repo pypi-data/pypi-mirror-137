@@ -1,0 +1,67 @@
+aws:
+  t3.large:
+    cpu: 2
+    memory: "8 GiB"
+    cost: 0.0832
+    gpu: false
+  t3.xlarge:
+    cpu: 4
+    memory: "16 GiB"
+    cost: 0.1664
+    gpu: false
+  m5.xlarge:
+    cpu: 4
+    memory: "16 GiB"
+    cost: 0.192
+    gpu: false
+  m5n.large:
+    cpu: 2
+    memory: "8 GiB"
+    cost: 0.119
+    gpu: false
+  m5zn.large:
+    cpu: 2
+    memory: "8 GiB"
+    cost: 0.1652
+    gpu: false
+  i3.large:
+    cpu: 2
+    memory: "15.25 GiB"
+    cost: 0.156
+    gpu: false
+  i3.xlarge:
+    cpu: 4
+    memory: "30.5 GiB"
+    cost: 0.312
+    gpu: false
+  i3.2xlarge:
+    cpu: 8
+    memory: "61 GiB"
+    cost: 0.624
+    gpu: false
+  g4dn.xlarge:
+    cpu: 4
+    memory: "16 GiB"
+    cost: 0.526
+    gpu: true
+gcp:
+  e2-standard-2:
+    cpu: 2
+    memory: "8 GiB"
+    cost: 0.067006
+    gpu: false
+  c2-standard-4:
+    cpu: 4
+    memory: "16 GiB"
+    cost: 0.2088
+    gpu: false
+  n1-standard-4:
+    cpu: 4
+    memory: "15 GiB"
+    cost: 0.189999
+    gpu: true
+  n1-highmem-2:
+    cpu: 2
+    memory: "13 GiB"
+    cost: 0.118303
+    gpu: true
