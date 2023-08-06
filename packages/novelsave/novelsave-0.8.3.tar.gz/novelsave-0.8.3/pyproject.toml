@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "novelsave"
+version = "0.8.3"
+description = "This is a tool to download and convert novels from popular sites to e-books."
+authors = ["Mensch272 <47662901+mensch272@users.noreply.github.com>"]
+maintainers = ["Mensch272 <47662901+mensch272@users.noreply.github.com>"]
+repository = "https://github.com/mensch272/novelsave"
+license = "Apache-2.0"
+readme = "README.md"
+include = ["novelsave/resources/*.*"]
+keywords = ["novel", "lightnovel", "scraper", "epub", "mobi"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: English",
+    "Intended Audience :: End Users/Desktop",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Games/Entertainment"
+]
+
+[tool.poetry.urls]
+"Source Code" = "https://github.com/mensch272/novelsave"
+"Issue Tracker" = "https://github.com/mensch272/novelsave/issues"
+"Documentation" = "https://github.com/mensch272/novelsave/blob/master/README.md"
+
+[tool.poetry.scripts]
+novelsave = "novelsave.client.cli.main:main"
+novelsave-discord-bot = "novelsave.client.bots.discord.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+appdirs = "^1.4.4"
+requests = "^2.26.0"
+EbookLib = "^0.17.1"
+loguru = "^0.6.0"
+SQLAlchemy = "^1.4.24"
+dependency-injector = "^4.37.0"
+alembic = "^1.7.5"
+novelsave-sources = "^0.3.2"
+click = "^8.0.1"
+beautifulsoup4 = "^4.10.0"
+lxml = "^4.6.5"
+browser-cookie3 = "^0.13.0"
+tqdm = "^4.62.3"
+Mako = "^1.1.5"
+tabulate = "^0.8.9"
+nextcord = { version = "^2.0.0-alpha.3", optional = true }
+python-dotenv = { version = "^0.19.2", optional = true }
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-mock = "^3.6.1"
+pre-commit = "^2.15.0"
+
+[tool.poetry.extras]
+discord = ["nextcord"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
