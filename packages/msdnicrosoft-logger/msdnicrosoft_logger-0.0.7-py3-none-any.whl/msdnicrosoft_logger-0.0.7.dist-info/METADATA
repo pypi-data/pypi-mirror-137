@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: msdnicrosoft-logger
+Version: 0.0.7
+Summary: 自己手写的 logger
+Home-page: https://github.com/MSDNicrosoft/logger
+Author: MSDNicrosoft
+Author-email: wang3311835119@hotmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: colorama (>=0.4.4)
+
+## 自己手写的 logger
+>不喜勿喷
+>
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+
+## Getting Started:
+```bash
+pip install msdnicrosoft_logger
+```
+
+## Example:
+```python
+import msdnicrosoft_logger
+logger = msdnicrosoft_logger.Log(Shell=True,LogFile=True,FileName="%Y-%m-%d_%H-%M.log")
+# ... Enter your code there
+```
+
+
+
