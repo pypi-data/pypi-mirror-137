@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: LabSmith-uProcess
+Version: 1.7.5.3.9
+Summary: Python x32 support for controlling LabSmith uDevices
+Home-page: http://www.labsmith.com
+Author: LabSmith
+Author-email: ecummings@labsmith.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Natural Language :: English
+Requires-Python: >=3.9,<3.10
+Description-Content-Type: text/markdown
+
+# uProcess
+2/5/2022 uProcess Python support V 1.7.5.3.X (Version now ends with the python version and subversion since these need 
+to match the distribution).  
+
+**Note that you may need to move uProcess.pyd from its subfolder in 'site-packages' directly to 'site-packages' or to 'DLLs.' If so, delete the 'site-packages\uProcess' folder and its other contents so python can find this extension.**  
+
+The python extension uProcess.pyd contains Python3.X (Windows, 32-bit) support for controlling LabSmith uDevices.  
+-  usage: from uProcess import *  
+It contains the following objects:   
+	-  CEIB: electrical interface
+	-  C4AM: 4AM 4-channel analog module
+	-  C4PM: 4PM 4-channel power module
+	-  C4VM: 4VM 4-channel valve driver module
+	-  CValve: valve module
+	-  CSyringe: SPS01 syringe pump module
+	-  CSensor: sensor module
+	-  CLoad: load module
+	-  CEP01: electrophoresis power supply module
+	-  SRegulate: regulation settings and status
+	-  SValveCal: valve motion/calibration settings
+	-  C4PMChDat: 4PM channel settings and status
+	-  PMCh: enum of 4PM channel indices
+	-  PMMode: enum of 4PM regulation modes
+	-  DigCh: enum of digital channel indices
+
+Use help(<object>) for a list of supported methods and variables.  
+print(uProcess.help()) displays this list of objects  
+
+
