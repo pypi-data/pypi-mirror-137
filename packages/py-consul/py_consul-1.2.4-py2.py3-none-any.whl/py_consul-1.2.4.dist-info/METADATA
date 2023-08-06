@@ -1,0 +1,142 @@
+Metadata-Version: 2.1
+Name: py-consul
+Version: 1.2.4
+Summary: Python client for Consul (http://www.consul.io/)
+Home-page: https://github.com/criteo-forks/py-consul
+Author: Criteo
+Author-email: github@criteo.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+License-File: LICENSE
+Requires-Dist: requests (>=2.0)
+Provides-Extra: asyncio
+Requires-Dist: aiohttp ; extra == 'asyncio'
+Provides-Extra: tornado
+Requires-Dist: tornado ; extra == 'tornado'
+Provides-Extra: twisted
+Requires-Dist: twisted ; extra == 'twisted'
+Requires-Dist: treq ; extra == 'twisted'
+
+Python client for `Consul.io <http://www.consul.io/>`_
+======================================================
+
+Fork intent
+-----------
+
+The origin project https://github.com/cablehead/python-consul is not maintained
+since 2018.  As we're not able to get in touch with the maintainer (cablehead)
+to merge and release our PRs, we've forked the project in order to continue the
+maintenance of the project.  We also renamed the project to be able to upload
+on pypi; see https://pypi.org/project/py-consul/
+
+Example
+-------
+
+.. code:: python
+
+    import consul
+
+    c = consul.Consul()
+
+    # poll a key for updates
+    index = None
+    while True:
+        index, data = c.kv.get('foo', index=index)
+        print data['Value']
+
+    # in another process
+    c.kv.put('foo', 'bar')
+
+Installation
+------------
+
+::
+
+    pip install py-consul
+
+**Note:** When using py-consul library in environment with proxy server, setting of ``http_proxy``, ``https_proxy`` and ``no_proxy`` environment variables can be required for proper functionality.
+
+Contributing
+------------
+
+py-consul is currently maintained by Criteo folks.
+
+Please reach out if you're interested in being a maintainer as well. Otherwise,
+open a PR or Issue we'll try and respond as quickly as we're able.
+
+When you create a PR please ensure:
+
+#. To add tests for your new features, if reasonable
+#. To add docstrings for new api features you may add
+
+
+Change log
+==========
+
+1.2.4
+-----
+* feature: aio: allow setting timeout by request
+
+1.2.3
+-----
+* feature: base: ensure return format of json callback is more consistent
+
+1.2.2
+-----
+* bugfix: connect: fix wrong endpoints callbacks
+
+1.2.1
+-----
+* feature: Add support for context-managers
+* feature: Add support for /agent/service/:service_id API
+* bugfix: rename internal connect method
+
+1.2.0
+-----
+* feature: Support deregister field in Check.script
+* feature: Introduce Consul Connect-related API wrappers
+* feature: Add token support missing in multiple methods
+* bugfix: aio: fix timeout type
+* feature: allow multiple tags in service health query
+
+1.1.5
+-----
+* Dummy release to overcome a pypi release issue
+
+1.1.4
+-----
+* bugfix: fixed connection_timeout usage for aiohttp
+
+1.1.3
+-----
+* bugfix: fixed connection_limit usage for aiohttp
+
+1.1.2
+-----
+* add support for connection_limit and connection_timeout in aiohttp
+* fix asyncio session close
+
+1.1.1
+-----
+
+* Add support for python 3.7 and 3.8
+* Fix asyncio compatibility to support latest python version
+* Remove six dependency
+* Use new style of class declaration
+* Get rid of py3.4 old compat
+* Drop support of deprecated python2
+* base: allow weights parameter in service register
+
+Base fork
+---------
+Criteo starts forking this library from https://github.com/cablehead/python-consul
+
+
