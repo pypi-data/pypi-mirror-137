@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+packages = \
+['cache_house', 'cache_house.backends']
+
+package_data = \
+{'': ['*']}
+
+install_requires = \
+['redis>=4.1.0,<5.0.0']
+
+setup_kwargs = {
+    'name': 'cache-house',
+    'version': '0.2.1',
+    'description': 'Caching tool for python',
+    'long_description': '\n<div align="center"> <h2> Caching tool for python, working with Redis single instance and Redis cluster mode <h1> </div>\n\n\n[PyPi link](https://pypi.org/project/cache-house/)\n\n### Installation ###\n\n```sh\n $ pip install cache-house \n```\nor with poetry\n```sh\npoetry add cache-house\n```\n\n\n*****\n### ***Quick Start*** ###\n*****\n\ncache decorator work with async and sync functions\n\n```python\nfrom cache_house.backends import RedisFactory\nfrom cache_house.cache import cache\nimport asyncio\n\nRedisFactory.init()\n\n@cache() # default expire time is 180 seconds\nasync def test_cache(a: int,b: int):\n    print("async cached")\n    return [a,b]\n\n@cache()\ndef test_cache_1(a: int, b: int):\n    print("cached")\n    return [a, b]\n\n\nif __name__ == "__main__":\n    print(test_cache_1(3,4))\n    print(asyncio.run(test_cache(1,2)))\n```\n\nCheck stored cache key\n```sh\n➜ $ rdcli KEYS "*"\n1) cachehouse:main:8f65aed1010f0062a783c83eb430aca0\n2) cachehouse:main:f665833ea64e4fc32653df794257ca06\n\n```\n\n*****\n### ***Setup Redis cache instance***\n*****\n\nYou can pass all [redis-py](https://github.com/redis/redis-py) arguments to  RedisCache.init method and additional arguments : \n\n```python\ndef RedisFactory.init(\n        host: str = "localhost",\n        port: int = 6379,\n        encoder: Callable[..., Any] = ...,\n        decoder: Callable[..., Any] = ...,\n        namespace: str = ...,\n        key_prefix: str = ...,\n        key_builder: Callable[..., Any] = ...,\n        password: str = ...,\n        db: int = ...,\n        cluster_mode: bool =False\n        **redis_kwargs\n    )\n```\nor you can set your own encoder and decoder functions\n\n```python\nfrom cache_house.backends import RedisFactory\n\ndef custom_encoder(data):\n    return json.dumps(data)\n\ndef custom_decoder(data):\n    return json.loads(data)\n\nRedisFactory.init(encoder=custom_encoder, decoder=custom_decoder)\n\n```\n\n#### ***Default encoder and decoder is pickle module.***\n\n*****\n### ***Setup Redis Cluster cache instance***\n*****\n\nAll manipulation with RedisCache  same with a RedisClusterCache\n\n```python\n\nfrom cache_house.backends import RedisFactory\nfrom cache_house.cache import cache\n\nRedisFactory.init(cluster_mode=True)\n\n@cache()\nasync def test_cache(a: int,b: int):\n    print("cached")\n    return [a,b]\n\n```\n\n```python \n\ndef RedisFactory.init(   # for redis cluster\n        cls,\n        host="localhost",\n        port=6379,\n        encoder: Callable[..., Any] = pickle_encoder,\n        decoder: Callable[..., Any] = pickle_decoder,\n        namespace: str = DEFAULT_NAMESPACE,\n        key_prefix: str = DEFAULT_PREFIX,\n        key_builder: Callable[..., Any] = key_builder,\n        cluster_mode: bool = False,\n        startup_nodes=None,\n        cluster_error_retry_attempts: int = 3,\n        require_full_coverage: bool = True,\n        skip_full_coverage_check: bool = False,\n        reinitialize_steps: int = 10,\n        read_from_replicas: bool = False,\n    )\n```\n\n*****\n### ***Setup cache instance with FastAPI***\n*****\n\n\n```python\n\nimport logging\nimport uvicorn\nfrom fastapi.applications import FastAPI\nfrom cache_house.backends import RedisFactory\nfrom cache_house.cache import cache\n\napp = FastAPI()\n\n\n@app.on_event("startup")\nasync def startup():\n    print("app started")\n    RedisFactory.init()\n\n\n@app.on_event("shutdown")\nasync def shutdown():\n    print("SHUTDOWN")\n    RedisFactory.close_connections()\n\n@app.get("/notcached")\nasync def test_route():\n    print("notcached")\n    return {"hello": "world"}\n\n\n@app.get("/cached")\n@cache()\nasync def test_route():\n    print("cached") # second time when you request this print is not working\n    return {"hello": "world"}\n\nif __name__ == "__main__":\n    uvicorn.run(app, port=8033)\n\n```\n\n\n*****\n### You can set expire time (seconds) , namespace and key prefix in cache decorator ###\n*****\n\n```python\n\n@cache(expire=30, namespace="app", key_prefix="test") \nasync def test_cache(a: int,b: int):\n    print("cached")\n    return [a,b]\n\n\nif __name__ == "__main__":\n    print(asyncio.run(test_cache(1,2)))\n```\nCheck stored cache\n```sh\nrdcli KEYS "*"\n1) test:app:f665833ea64e4fc32653df794257ca06\n```\n\n*****\n### ***If your function works with non-standard data types, you can pass custom encoder and decoder functions to the *cache* decorator.***\n*****\n\n```python\n\nimport asyncio\nimport json\nfrom cache_house.backends import RedisFactory\nfrom cache_house.cache import cache\n\nRedisFactory.init()\n\ndef custom_encoder(data):\n    return json.dumps(data)\n\ndef custom_decoder(data):\n    return json.loads(data)\n\n@cache(expire=30, encoder=custom_encoder, decoder=custom_decoder, namespace="custom")\nasync def test_cache(a: int, b: int):\n    print("async cached")\n    return {"a": a, "b": b}\n\n\n@cache(expire=30)\ndef test_cache_1(a: int, b: int):\n    print("cached")\n    return [a, b]\n\n\nif __name__ == "__main__":\n    print(asyncio.run(test_cache(1, 2)))\n    print(test_cache_1(3, 4))\n\n```\n\nCheck stored cache\n```sh\nrdcli KEYS "*"\n1) cachehouse:main:8f65aed1010f0062a783c83eb430aca0\n2) cachehouse:custom:f665833ea64e4fc32653df794257ca06\n```\n*****\n### ***All examples works fine with Redis Cluster and single Redis instance.***\n*****\n\n# Contributing #\n\n#### Free to open issue and send PR ####\n\n### cache-house  supports Python >= 3.7\n',
+    'author': 'Tural Muradov',
+    'author_email': 'tural_m@hotmail.com',
+    'maintainer': None,
+    'maintainer_email': None,
+    'url': 'https://github.com/Turall/cache-house',
+    'packages': packages,
+    'package_data': package_data,
+    'install_requires': install_requires,
+    'python_requires': '>=3.8,<4.0',
+}
+
+
+setup(**setup_kwargs)
