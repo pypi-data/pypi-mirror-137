@@ -1,0 +1,45 @@
+repos:
+  # Check that the commit message adheres to the Angular convention
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v2.20.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  # Python formatting and linting
+  - repo: https://github.com/psf/black
+    rev: 21.11b1
+    hooks:
+      - id: black
+  - repo: https://github.com/pycqa/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        args: ["--profile", "black", "--filter-files", "--line-length", "148"]
+  # Python tests
+  - repo: local
+    hooks:
+      - id: pytest-for-roheboam
+        name: pytest-for-roheboam
+        stages: [push]
+        entry: pytest tests
+        language: system
+        always_run: true
+        pass_filenames: false
+  - repo: local
+    hooks:
+      - id: pytest-for-examples
+        name: pytest-for-examples
+        stages: [push]
+        entry: pytest --suppress-no-test-exit-code examples
+        language: system
+        always_run: true
+        pass_filenames: false

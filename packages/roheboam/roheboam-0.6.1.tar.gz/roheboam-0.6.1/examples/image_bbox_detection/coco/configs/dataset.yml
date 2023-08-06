@@ -1,0 +1,77 @@
+Resources:
+  LoadImage:
+    properties:
+      pointer: imread_rgb
+      partial: true
+      output_names:
+        - Function
+  TrainDatasetCreator:
+    properties:
+      pointer: ImageBoundingBoxDetectionDatasetV2
+      partial: true
+      arguments:
+        convert_image_to_tensor_fn: !Ref ImageToTensor.Function
+        convert_bboxes_to_tensor_fn: !Ref BboxesToTensor.Function
+      output_names:
+        - Creator
+
+  TrainDataLoaderCreator:
+    properties:
+      pointer: DataLoader
+      arguments:
+        collate_fn: !Ref CollateSamples.Function
+        batch_size: !Var train_batch_size
+        num_workers: !Var train_num_workers
+        shuffle: true
+      partial: true
+      output_names:
+        - Creator
+
+  ValDatasetCreator:
+    properties:
+      pointer: ImageBoundingBoxDetectionDatasetV2
+      partial: true
+      arguments:
+        convert_image_to_tensor_fn: !Ref ImageToTensor.Function
+        convert_bboxes_to_tensor_fn: !Ref BboxesToTensor.Function
+      output_names:
+        - Creator
+
+  ValDataLoaderCreator:
+    properties:
+      pointer: DataLoader
+      arguments:
+        collate_fn: !Ref CollateSamples.Function
+        batch_size: !Var val_batch_size
+        num_workers: !Var val_num_workers
+      partial: true
+      output_names:
+        - Creator
+
+  TestDatasetCreator:
+    properties:
+      pointer: ImageBoundingBoxDetectionDatasetV2
+      partial: true
+      arguments:
+        convert_image_to_tensor_fn: !Ref ImageToTensor.Function
+        convert_bboxes_to_tensor_fn: !Ref BboxesToTensor.Function
+      output_names:
+        - Creator
+
+  TestDataLoaderCreator:
+    properties:
+      pointer: DataLoader
+      arguments:
+        collate_fn: !Ref CollateSamples.Function
+        batch_size: !Var test_batch_size
+        num_workers: !Var test_num_workers
+      partial: true
+      output_names:
+        - Creator
+
+  CollateSamples:
+    properties:
+      pointer: image_bounding_box_detection_torchvision_collate_fn
+      partial: true
+      output_names:
+        - Function

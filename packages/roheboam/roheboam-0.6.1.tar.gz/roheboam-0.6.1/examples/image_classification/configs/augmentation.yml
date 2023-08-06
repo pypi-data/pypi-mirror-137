@@ -1,0 +1,36 @@
+Resources:
+  TrainAugment:
+    properties:
+      pointer: create_augmentation_fn
+      arguments:
+        aug_fns:
+          - !Ref Resize.Function
+      output_names:
+        - Function
+  ValAugment:
+    properties:
+      pointer: create_augmentation_fn
+      arguments:
+        aug_fns:
+          - !Ref Resize.Function
+      output_names:
+        - Function
+
+  TestAugment:
+    properties:
+      pointer: create_augmentation_fn
+      arguments:
+        aug_fns:
+          - !Ref Resize.Function
+      output_names:
+        - Function
+
+  Resize:
+    properties:
+      pointer: Resize
+      arguments:
+        height: 224
+        width: 224
+        always_apply: true
+      output_names:
+        - Function

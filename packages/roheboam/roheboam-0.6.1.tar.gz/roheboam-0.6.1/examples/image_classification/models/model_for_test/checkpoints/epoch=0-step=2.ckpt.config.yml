@@ -1,0 +1,437 @@
+Resources:
+  CallbackHandler:
+    properties:
+      arguments:
+        callbacks:
+        - !Ref 'PyTorchLightningModelCheckpoint.Callback'
+        - !Ref 'PerSampleLossRecorder.Callback'
+        - !Ref 'CallbackMethodIsCalled.Callback'
+        - !Ref 'TensorboardRecorder.Callback'
+        - !Ref 'ImageClassificationInferenceRecorder.Callback'
+        - !Ref 'ImageClassificationResultRecorder.Callback'
+      output_names:
+      - Output
+      pointer: CallbackHandler
+  CallbackMethodIsCalled:
+    properties:
+      output_names:
+      - Callback
+      pointer: CallbackMethodIsCalled
+  CollateFunction:
+    properties:
+      output_names:
+      - Function
+      partial: true
+      pointer: image_classification_collate_fn
+  CreateLabelsFromTrainingSamplesData:
+    properties:
+      arguments:
+        sample_arguments: !Ref 'TrainSampleDataCreator.Samples'
+      output_names:
+      - Samples
+      - Labels
+      pointer: create_labels_from_sample_arguments_for_label_per_folder
+  CrossEntropyLoss:
+    properties:
+      output_names:
+      - Loss
+      pointer: CrossEntropyLoss
+  DataSplitCreator:
+    properties:
+      arguments:
+        X: !Ref 'CreateLabelsFromTrainingSamplesData.Samples'
+        test_size: !Var 'test_size'
+        y: !Ref 'CreateLabelsFromTrainingSamplesData.Labels'
+      output_names:
+      - Creator
+      partial: true
+      pointer: StratifiedShuffleSplit
+  ImageClassificationInferenceRecorder:
+    properties:
+      arguments:
+        convert_tensor_to_image_fn: !Ref 'TensorToImage.Function'
+      output_names:
+      - Callback
+      pointer: ImageClassificationInferenceRecorder
+      should_remove: !Ref 'IsNotDeployed.Value'
+  ImageClassificationResultRecorder:
+    properties:
+      arguments:
+        convert_tensor_to_image_fn: !Ref 'TensorToImage.Function'
+      output_names:
+      - Callback
+      pointer: ImageClassificationResultRecorder
+      should_remove: !Ref 'IsDeployed.Value'
+  IsDeployed:
+    properties:
+      arguments:
+        boolean: !Var 'is_deployed'
+      output_names:
+      - Value
+      pointer: return_boolean
+  IsNotDeployed:
+    properties:
+      arguments:
+        boolean: !Var 'is_deployed'
+      output_names:
+      - Value
+      pointer: return_negated_boolean
+  Loss:
+    properties:
+      arguments:
+        losses:
+        - !Ref 'CrossEntropyLoss.Loss'
+      output_names:
+      - Loss
+      pointer: LossWrapper
+  ModelBackboneCreator:
+    properties:
+      arguments:
+        pretrained: imagenet
+      output_names:
+      - Creator
+      partial: true
+      pointer: !Var 'model_name'
+  ModelCreator:
+    properties:
+      arguments:
+        model_creator: !Ref 'ModelBackboneCreator.Creator'
+        out_features: 2
+      output_names:
+      - Creator
+      partial: true
+      pointer: cadene_change_last_linear
+  ModuleCreator:
+    properties:
+      arguments:
+        callback_handler: !Ref 'CallbackHandler.Output'
+        loss: !Ref 'Loss.Loss'
+        model_creator: !Ref 'ModelCreator.Creator'
+        optimizer_creator: !Ref 'OptimizerCreator.Creator'
+        test_dataloader_creator: !Ref 'TestDataLoaderCreator.Creator'
+        test_dataset_creator: !Ref 'TestDatasetCreator.Creator'
+        train_dataloader_creator: !Ref 'TrainDataLoaderCreator.Creator'
+        train_dataset_creator: !Ref 'TrainDatasetCreator.Creator'
+        val_dataloader_creator: !Ref 'ValDataLoaderCreator.Creator'
+        val_dataset_creator: !Ref 'ValDatasetCreator.Creator'
+      output_names:
+      - Creator
+      partial: true
+      pointer: create_pytorch_lightning_image_classification_module
+  OptimizerCreator:
+    properties:
+      arguments:
+        lr: 9.0e-06
+      output_names:
+      - Creator
+      partial: true
+      pointer: Adam
+  PerSampleLossRecorder:
+    properties:
+      output_names:
+      - Callback
+      pointer: PerSampleLossRecorder
+      should_remove: !Ref 'IsDeployed.Value'
+  PyTorchLightningModelCheckpoint:
+    properties:
+      arguments:
+        root_save_path: !Ref 'TimeStampedSavePath.Path'
+      output_names:
+      - Callback
+      pointer: PyTorchLightningModelCheckpoint
+      should_remove: !Ref 'IsDeployed.Value'
+  Resize:
+    properties:
+      arguments:
+        always_apply: true
+        height: 224
+        width: 224
+      output_names:
+      - Function
+      pointer: Resize
+  SampleCreator:
+    properties:
+      arguments:
+        fn: !Ref '_SampleCreator.Function'
+      output_names:
+      - Function
+      partial: true
+      pointer: spread_arguments_before_call
+  ServingModel:
+    properties:
+      output_names:
+      - Model
+      pointer: MLFlowPyfuncImageClassificationModel
+  TensorboardRecorder:
+    properties:
+      arguments:
+        root_save_path: !Ref 'TimeStampedSavePath.Path'
+      output_names:
+      - Callback
+      pointer: TensorboardRecorder
+      should_remove: !Ref 'IsDeployed.Value'
+  TestAugment:
+    properties:
+      arguments:
+        aug_fns:
+        - !Ref 'Resize.Function'
+      output_names:
+      - Function
+      pointer: create_augmentation_fn
+  TestDataLoaderCreator:
+    properties:
+      arguments:
+        batch_size: !Var 'test_batch_size'
+        collate_fn: !Ref 'CollateFunction.Function'
+        num_workers: !Var 'test_num_workers'
+        shuffle: false
+      output_names:
+      - Creator
+      partial: true
+      pointer: DataLoader
+  TestDatasetCreator:
+    properties:
+      arguments:
+        augment_fn: !Ref 'TestAugment.Function'
+        convert_image_to_tensor_fn: !Ref 'ImageToTensor.Function'
+        create_sample_fn: !Ref 'SampleCreator.Function'
+      output_names:
+      - Creator
+      partial: true
+      pointer: ImageClassificationDataset
+  TestSampleDataCreator:
+    properties:
+      arguments:
+        label_map: !Var 'label_map'
+        root_label_folder: !Var 'test_data_path'
+      output_names:
+      - Samples
+      pointer: create_image_classification_samples_data_for_label_per_folder
+  TimeStampedSavePath:
+    properties:
+      arguments:
+        root_save_directory: !Var 'root_save_directory'
+      output_names:
+      - Path
+      pointer: create_time_stamped_save_path
+  TrainAugment:
+    properties:
+      arguments:
+        aug_fns:
+        - !Ref 'Resize.Function'
+      output_names:
+      - Function
+      pointer: create_augmentation_fn
+  TrainDataLoaderCreator:
+    properties:
+      arguments:
+        batch_size: !Var 'train_batch_size'
+        collate_fn: !Ref 'CollateFunction.Function'
+        num_workers: !Var 'train_num_workers'
+        shuffle: true
+      output_names:
+      - Creator
+      partial: true
+      pointer: DataLoader
+  TrainDatasetCreator:
+    properties:
+      arguments:
+        augment_fn: !Ref 'TrainAugment.Function'
+        convert_image_to_tensor_fn: !Ref 'ImageToTensor.Function'
+        create_sample_fn: !Ref 'SampleCreator.Function'
+      output_names:
+      - Creator
+      partial: true
+      pointer: ImageClassificationDataset
+  TrainSampleDataCreator:
+    properties:
+      arguments:
+        label_map: !Var 'label_map'
+        root_label_folder: !Var 'train_data_path'
+      output_names:
+      - Samples
+      pointer: create_image_classification_samples_data_for_label_per_folder
+  TrainerCreator:
+    properties:
+      arguments:
+        callback_handler: !Ref 'CallbackHandler.Output'
+        gpus: !Var 'gpus'
+        max_epochs: !Var 'max_epochs'
+      output_names:
+      - Creator
+      partial: true
+      pointer: create_pytorch_lightning_trainer
+  Transformations:
+    ImageToTensor:
+      properties:
+        arguments:
+          normalize_image_fn: !Ref 'NormalizeImage.Function'
+          normalize_tensor_fn: !Ref 'NormalizeTensor.Function'
+          scale_to_range_fn: !Ref 'ScaleToRange.Function'
+        output_names:
+        - Function
+        partial: true
+        pointer: image_to_tensor
+    NormalizeImage:
+      properties:
+        arguments:
+          mean:
+          - 0
+          - 0
+          - 0
+          std:
+          - 1
+          - 1
+          - 1
+        output_names:
+        - Function
+        partial: true
+        pointer: normalize_image
+    NormalizeTensor:
+      properties:
+        arguments:
+          mean: !Var 'Transformations.TensorNormalization.mean'
+          std: !Var 'Transformations.TensorNormalization.std'
+        output_names:
+        - Function
+        partial: true
+        pointer: normalize_tensor
+    ScaleToRange:
+      properties:
+        arguments:
+          max_val: 1
+          min_val: 0
+          original_max_val: 255
+          original_min_val: 0
+        output_names:
+        - Function
+        partial: true
+        pointer: scale_to_range
+    TensorToImage:
+      properties:
+        arguments:
+          convert_to_image_type_fn: !Ref 'ToUint8.Function'
+          unnormalize_image_fn: !Ref 'UnnormalizeImage.Function'
+          unnormalize_tensor_fn: !Ref 'UnnormalizeTensor.Function'
+          unscale_to_range_fn: !Ref 'UnscaleToRange.Function'
+        output_names:
+        - Function
+        partial: true
+        pointer: tensor_to_image
+    ToOneHot:
+      properties:
+        arguments:
+          channel_first: true
+          n: !Var 'Transformations.ToOneHot.n'
+        output_names:
+        - Function
+        partial: true
+        pointer: make_one_hot
+    ToUint8:
+      properties:
+        output_names:
+        - Function
+        partial: true
+        pointer: to_uint8_image
+    UnnormalizeImage:
+      properties:
+        arguments:
+          mean:
+          - 0
+          - 0
+          - 0
+          std:
+          - 1
+          - 1
+          - 1
+        output_names:
+        - Function
+        partial: true
+        pointer: unnormalize_image
+    UnnormalizeTensor:
+      properties:
+        arguments:
+          mean: !Var 'Transformations.TensorNormalization.mean'
+          std: !Var 'Transformations.TensorNormalization.std'
+        output_names:
+        - Function
+        partial: true
+        pointer: unnormalize_tensor
+    UnscaleToRange:
+      properties:
+        arguments:
+          max_val: 255
+          min_val: 0
+          original_max_val: 1
+          original_min_val: 0
+        output_names:
+        - Function
+        partial: true
+        pointer: scale_to_range
+  ValAugment:
+    properties:
+      arguments:
+        aug_fns:
+        - !Ref 'Resize.Function'
+      output_names:
+      - Function
+      pointer: create_augmentation_fn
+  ValDataLoaderCreator:
+    properties:
+      arguments:
+        batch_size: !Var 'val_batch_size'
+        collate_fn: !Ref 'CollateFunction.Function'
+        num_workers: !Var 'val_num_workers'
+        shuffle: false
+      output_names:
+      - Creator
+      partial: true
+      pointer: DataLoader
+  ValDatasetCreator:
+    properties:
+      arguments:
+        augment_fn: !Ref 'ValAugment.Function'
+        convert_image_to_tensor_fn: !Ref 'ImageToTensor.Function'
+        create_sample_fn: !Ref 'SampleCreator.Function'
+      output_names:
+      - Creator
+      partial: true
+      pointer: ImageClassificationDataset
+  _SampleCreator:
+    properties:
+      output_names:
+      - Function
+      partial: true
+      pointer: create_image_classification_sample
+Variables:
+  Transformations:
+    TensorNormalization:
+      mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      std:
+      - 0.229
+      - 0.224
+      - 0.225
+    ToOneHot:
+      n: 2
+  first_n_samples: 5
+  gpus: 1
+  is_deployed: false
+  label_map:
+    hot_dog: 1
+    not_hot_dog: 0
+  max_epochs: 1
+  model_name: resnet18
+  model_save_path: experiments/20211221-173418/checkpoints/epoch=0-step=2.ckpt
+  root_save_directory: experiments
+  test_batch_size: 4
+  test_data_path: /home/kevin/Documents/Projects/roheboam/examples/image_classification/data/hotdog_not_hotdog_test/test
+  test_num_workers: 0
+  test_size: 0.1
+  train_batch_size: 4
+  train_data_path: /home/kevin/Documents/Projects/roheboam/examples/image_classification/data/hotdog_not_hotdog_test/train
+  train_num_workers: 0
+  val_batch_size: 4
+  val_num_workers: 0

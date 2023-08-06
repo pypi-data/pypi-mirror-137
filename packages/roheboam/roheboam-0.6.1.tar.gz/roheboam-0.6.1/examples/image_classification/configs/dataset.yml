@@ -1,0 +1,84 @@
+Resources:
+  TrainDatasetCreator:
+    properties:
+      pointer: ImageClassificationDataset
+      partial: true
+      arguments:
+        augment_fn: !Ref TrainAugment.Function
+        create_sample_fn: !Ref SampleCreator.Function
+        convert_image_to_tensor_fn: !Ref ImageToTensor.Function
+      output_names:
+        - Creator
+  ValDatasetCreator:
+    properties:
+      pointer: ImageClassificationDataset
+      partial: true
+      arguments:
+        augment_fn: !Ref ValAugment.Function
+        create_sample_fn: !Ref SampleCreator.Function
+        convert_image_to_tensor_fn: !Ref ImageToTensor.Function
+      output_names:
+        - Creator
+  TestDatasetCreator:
+    properties:
+      pointer: ImageClassificationDataset
+      partial: true
+      arguments:
+        augment_fn: !Ref TestAugment.Function
+        create_sample_fn: !Ref SampleCreator.Function
+        convert_image_to_tensor_fn: !Ref ImageToTensor.Function
+      output_names:
+        - Creator
+  SampleCreator:
+    properties:
+      pointer: spread_arguments_before_call
+      partial: true
+      arguments:
+        fn: !Ref _SampleCreator.Function
+      output_names:
+        - Function
+  _SampleCreator:
+    properties:
+      pointer: create_image_classification_sample
+      partial: true
+      output_names:
+        - Function
+  CollateFunction:
+    properties:
+      pointer: image_classification_collate_fn
+      partial: true
+      output_names:
+        - Function
+  TrainDataLoaderCreator:
+    properties:
+      pointer: DataLoader
+      partial: true
+      arguments:
+        batch_size: !Var train_batch_size
+        shuffle: true
+        collate_fn: !Ref CollateFunction.Function
+        num_workers: !Var train_num_workers
+      output_names:
+        - Creator
+  ValDataLoaderCreator:
+    properties:
+      pointer: DataLoader
+      partial: true
+      arguments:
+        shuffle: false
+        batch_size: !Var val_batch_size
+        collate_fn: !Ref CollateFunction.Function
+        num_workers: !Var val_num_workers
+      output_names:
+        - Creator
+  TestDataLoaderCreator:
+    properties:
+      pointer: DataLoader
+      partial: true
+      arguments:
+        shuffle: false
+        batch_size: !Var test_batch_size
+        collate_fn: !Ref CollateFunction.Function
+        num_workers: !Var test_num_workers
+      output_names:
+        - Creator

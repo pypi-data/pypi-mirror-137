@@ -1,0 +1,74 @@
+Resources:
+  CallbackHandler:
+    properties:
+      pointer: CallbackHandler
+      arguments:
+        callbacks:
+          - !Ref PyTorchLightningModelCheckpoint.Callback
+          - !Ref PerSampleLossRecorder.Callback
+          - !Ref CallbackMethodIsCalled.Callback
+          - !Ref TensorboardRecorder.Callback
+          - !Ref ImageClassificationInferenceRecorder.Callback
+          - !Ref ImageClassificationResultRecorder.Callback
+      output_names:
+        - Output
+
+  PerSampleLossRecorder:
+    properties:
+      pointer: PerSampleLossRecorder
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+
+  TensorboardRecorder:
+    properties:
+      pointer: TensorboardRecorder
+      arguments:
+        root_save_path: !Ref TimeStampedSavePath.Path
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+
+  ImageClassificationResultRecorder:
+    properties:
+      pointer: ImageClassificationResultRecorder
+      arguments:
+        convert_tensor_to_image_fn: !Ref TensorToImage.Function
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+
+  ImageClassificationInferenceRecorder:
+    properties:
+      pointer: ImageClassificationInferenceRecorder
+      arguments:
+        convert_tensor_to_image_fn: !Ref TensorToImage.Function
+      should_remove: !Ref IsNotDeployed.Value
+      propagate_should_remove: false
+      output_names:
+        - Callback
+
+  CallbackMethodIsCalled:
+    properties:
+      pointer: CallbackMethodIsCalled
+      output_names:
+        - Callback
+
+  PyTorchLightningModelCheckpoint:
+    properties:
+      pointer: PyTorchLightningModelCheckpoint
+      arguments:
+        root_save_path: !Ref TimeStampedSavePath.Path
+      should_remove: !Ref IsDeployed.Value
+
+      output_names:
+        - Callback
+
+  ImageClassificationResultRecorder:
+    properties:
+      pointer: ImageClassificationResultRecorder
+      arguments:
+        convert_tensor_to_image_fn: !Ref TensorToImage.Function
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback

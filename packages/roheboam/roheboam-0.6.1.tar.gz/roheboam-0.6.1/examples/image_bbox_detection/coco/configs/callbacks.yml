@@ -1,0 +1,60 @@
+Resources:
+  CallbackHandler:
+    properties:
+      pointer: CallbackHandler
+      arguments:
+        callbacks:
+          - !Ref CallbackMethodIsCalled.Callback
+          - !Ref PerSampleLossRecorder.Callback
+          - !Ref TensorboardRecorder.Callback
+          - !Ref ImageBoundingBoxDetectionResultRecorder.Callback
+          - !Ref ImageBoundingBoxDetectionInferenceRecorder.Callback
+          - !Ref PyTorchLightningModelCheckpoint.Callback
+      output_names:
+        - Output
+  CallbackMethodIsCalled:
+    properties:
+      pointer: CallbackMethodIsCalled
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+  PerSampleLossRecorder:
+    properties:
+      pointer: PerSampleLossRecorder
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+  ImageBoundingBoxDetectionResultRecorder:
+    properties:
+      pointer: ImageBoundingBoxDetectionResultRecorder
+      arguments:
+        convert_tensor_to_image_fn: !Ref TensorToImage.Function
+        convert_tensor_to_bboxes_fn: !Ref TensorToBboxes.Function
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+  ImageBoundingBoxDetectionInferenceRecorder:
+    properties:
+      pointer: ImageBoundingBoxDetectionInferenceRecorder
+      arguments:
+        convert_tensor_to_image_fn: !Ref TensorToImage.Function
+        convert_tensor_to_bboxes_fn: !Ref TensorToBboxes.Function
+      should_remove: !Ref IsNotDeployed.Value
+      output_names:
+        - Callback
+  TensorboardRecorder:
+    properties:
+      pointer: TensorboardRecorder
+      arguments:
+        root_save_path: !Ref TimeStampedSavePath.Path
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+  PyTorchLightningModelCheckpoint:
+    properties:
+      pointer: PyTorchLightningModelCheckpoint
+      arguments:
+        root_save_path: !Ref TimeStampedSavePath.Path
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback

@@ -1,0 +1,27 @@
+Resources:
+  TrainSampleDataCreator:
+    properties:
+      pointer: create_image_classification_samples_data_for_label_per_folder
+      arguments:
+        root_label_folder: !Var train_data_path
+        label_map: !Var label_map
+      tags:
+        - TRAIN
+      output_names:
+        - Samples
+  TestSampleDataCreator:
+    properties:
+      pointer: create_image_classification_samples_data_for_label_per_folder
+      arguments:
+        root_label_folder: !Var test_data_path
+        label_map: !Var label_map
+      output_names:
+        - Samples
+  CreateLabelsFromTrainingSamplesData:
+    properties:
+      pointer: create_labels_from_sample_arguments_for_label_per_folder
+      arguments:
+        sample_arguments: !Ref TrainSampleDataCreator.Samples
+      output_names:
+        - Samples
+        - Labels

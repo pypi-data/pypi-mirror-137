@@ -1,0 +1,49 @@
+Resources:
+  TrainSampleDataCreator:
+    properties:
+      pointer: create_segmentation_samples_data_from_paths
+      arguments:
+        image_paths: !Ref CreateTrainImagePaths.Paths
+        mask_paths: !Ref CreateTrainMaskPaths.Paths
+      output_names:
+        - Samples
+  TestSampleDataCreator:
+    properties:
+      pointer: create_segmentation_samples_data_from_paths
+      arguments:
+        image_paths: !Ref CreateTestImagePaths.Paths
+        mask_paths: !Ref CreateTestMaskPaths.Paths
+      output_names:
+        - Samples
+  CreateTrainImagePaths:
+    properties:
+      pointer: glob_path
+      arguments:
+        path: !Var train_image_path
+        glob_string: !Var image_glob_string
+      output_names:
+        - Paths
+  CreateTrainMaskPaths:
+    properties:
+      pointer: glob_path
+      arguments:
+        path: !Var train_mask_path
+        glob_string: !Var mask_glob_string
+      output_names:
+        - Paths
+  CreateTestImagePaths:
+    properties:
+      pointer: glob_path
+      arguments:
+        path: !Var test_image_path
+        glob_string: !Var image_glob_string
+      output_names:
+        - Paths
+  CreateTestMaskPaths:
+    properties:
+      pointer: glob_path
+      arguments:
+        path: !Var test_mask_path
+        glob_string: !Var mask_glob_string
+      output_names:
+        - Paths

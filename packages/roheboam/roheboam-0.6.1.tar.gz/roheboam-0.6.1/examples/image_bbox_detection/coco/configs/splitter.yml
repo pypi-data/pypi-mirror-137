@@ -1,0 +1,10 @@
+Resources:
+  DataSplitCreator:
+    properties:
+      pointer: ShuffleSplit
+      arguments:
+        X: !Ref TrainSamples.Samples
+        test_size: !Var test_size
+      partial: true
+      output_names:
+        - Creator

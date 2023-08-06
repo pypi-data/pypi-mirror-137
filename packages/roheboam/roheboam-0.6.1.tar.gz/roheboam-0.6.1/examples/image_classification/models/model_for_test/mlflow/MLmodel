@@ -1,0 +1,15 @@
+flavors:
+  python_function:
+    artifacts:
+      config_path:
+        path: artifacts/epoch=0-step=2.ckpt.config.yml
+        uri: /home/kevin/Documents/Projects/roheboam/examples/image_classification/experiments/20211221-173418/checkpoints/epoch=0-step=2.ckpt.config.yml
+      model_save_path:
+        path: artifacts/epoch=0-step=2.ckpt
+        uri: /home/kevin/Documents/Projects/roheboam/examples/image_classification/experiments/20211221-173418/checkpoints/epoch=0-step=2.ckpt
+    cloudpickle_version: 1.6.0
+    env: conda.yaml
+    loader_module: mlflow.pyfunc.model
+    python_model: python_model.pkl
+    python_version: 3.7.9
+utc_time_created: '2021-12-21 06:34:35.094563'

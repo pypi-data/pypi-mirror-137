@@ -1,0 +1,58 @@
+Resources:
+  ImageToTensor:
+    properties:
+      pointer: image_to_tensor
+      partial: true
+      arguments:
+        scale_to_range_fn: !Ref ScaleToRange.Function
+      output_names:
+        - Function
+  BboxesToTensor:
+    properties:
+      pointer: bboxes_to_tensor
+      partial: true
+      output_names:
+        - Function
+  ScaleToRange:
+    properties:
+      pointer: scale_to_range
+      partial: true
+      arguments:
+        min_val: 0
+        max_val: 1
+        original_min_val: 0
+        original_max_val: 255
+      output_names:
+        - Function
+  TensorToBboxes:
+    properties:
+      pointer: tensor_to_bboxes
+      partial: true
+      output_names:
+        - Function
+  TensorToImage:
+    properties:
+      pointer: tensor_to_image
+      partial: true
+      arguments:
+        unscale_to_range_fn: !Ref UnscaleToRange.Function
+        convert_to_image_type_fn: !Ref ToUint8.Function
+      output_names:
+        - Function
+  UnscaleToRange:
+    properties:
+      pointer: scale_to_range
+      partial: true
+      arguments:
+        min_val: 0
+        max_val: 255
+        original_min_val: 0
+        original_max_val: 1
+      output_names:
+        - Function
+  ToUint8:
+    properties:
+      pointer: to_uint8_image
+      partial: true
+      output_names:
+        - Function

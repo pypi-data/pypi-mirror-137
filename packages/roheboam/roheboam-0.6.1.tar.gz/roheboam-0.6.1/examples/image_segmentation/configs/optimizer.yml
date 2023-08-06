@@ -1,0 +1,9 @@
+Resources:
+  OptimizerCreator:
+    properties:
+      pointer: Adam
+      partial: true
+      arguments:
+        lr: !Var learning_rate
+      output_names:
+        - Creator

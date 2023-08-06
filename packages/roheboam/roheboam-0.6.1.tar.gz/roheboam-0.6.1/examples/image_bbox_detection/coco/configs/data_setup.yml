@@ -1,0 +1,64 @@
+Resources:
+  TrainSamples:
+    properties:
+      pointer: create_bboxes_detection_samples_from_ultralytics_format
+      arguments:
+        image_paths: !Ref TrainImages.Paths
+        labels_paths: !Ref TrainLabels.Paths
+        bboxes_format: YOLO
+        transform_to_bboxes_format: PASCAL_VOC
+      tags: 
+        - TRAIN
+      output_names:
+        - Samples
+
+  TrainImages:
+    properties:
+      pointer: glob_path
+      arguments:
+        path: !Var train_image_path
+        glob_string: !Var train_image_glob_string
+        first_n_paths: !Var first_n_paths
+      output_names:
+        - Paths
+
+  TrainLabels:
+    properties:
+      pointer: glob_path
+      arguments:
+        path: !Var train_label_path
+        glob_string: !Var train_label_glob_string
+        first_n_paths: !Var first_n_paths
+      output_names:
+        - Paths
+
+  TestSamples:
+    properties:
+      pointer: create_bboxes_detection_samples_from_ultralytics_format
+      arguments:
+        image_paths: !Ref TestImages.Paths
+        labels_paths: !Ref TestLabels.Paths
+        bboxes_format: YOLO
+        transform_to_bboxes_format: PASCAL_VOC
+      output_names:
+        - Samples
+
+  TestImages:
+    properties:
+      pointer: glob_path
+      arguments:
+        path: !Var test_image_path
+        glob_string: !Var test_image_glob_string
+        first_n_paths: !Var first_n_paths
+      output_names:
+        - Paths
+
+  TestLabels:
+    properties:
+      pointer: glob_path
+      arguments:
+        path: !Var test_label_path
+        glob_string: !Var test_label_glob_string
+        first_n_paths: !Var first_n_paths
+      output_names:
+        - Paths

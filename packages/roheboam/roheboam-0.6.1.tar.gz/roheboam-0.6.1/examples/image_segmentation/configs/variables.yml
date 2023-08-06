@@ -1,0 +1,75 @@
+Variables:
+  train_image_path: null
+  train_label_path: null
+  train_num_workers: 28
+  val_num_workers: 28
+  test_num_workers: 28
+  test_image_path: null
+  test_label_path: null
+  image_glob_string: null
+  mask_glob_string: null
+  is_deployed: false
+  only_include_class: null
+  root_save_directory: experiments
+  model_save_path: null
+  gpus: 1
+  max_epochs: 25
+  learning_rate: 0.00009
+  test_size: 0.1
+
+  Callbacks:
+    Recorder:
+      record_every_n_steps: 25
+  Augmentation:
+    Resize:
+      height: 192
+      width: 256
+    RandomCrop:
+      height: 64
+      width: 64
+  Transformations:
+    Tiling:
+      original_image_height: 192
+      original_image_width: 256
+      tile_size: 64
+    TensorNormalization:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+  Model:
+    name: unet_with_resnet18_backbone
+    n_classes: 3
+    pretrained: true
+    include_encoder: false
+  Train:
+    DataLoader:
+      batch_size: 2
+  Val:
+    DataLoader:
+      batch_size: 1
+  Test:
+    DataLoader:
+      batch_size: 1
+
+Resources:
+  IsDeployed:
+    properties:
+      pointer: return_boolean
+      arguments:
+        boolean: !Var is_deployed
+      output_names:
+        - Value
+
+  IsNotDeployed:
+    properties:
+      pointer: return_negated_boolean
+      arguments:
+        boolean: !Var is_deployed
+      output_names:
+        - Value
+  TimeStampedSavePath:
+    properties:
+      pointer: create_time_stamped_save_path
+      arguments:
+        root_save_directory: !Var root_save_directory
+      output_names:
+        - Path

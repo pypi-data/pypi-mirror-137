@@ -1,0 +1,21 @@
+Resources:
+  Loss:
+    properties:
+      pointer: LossWrapper
+      arguments:
+        losses:
+          - !Ref FocalLoss.Loss
+      output_names:
+        - Loss
+  CrossEntropyLoss:
+    properties:
+      pointer: CrossEntropyLoss
+      output_names:
+        - Loss
+  FocalLoss:
+    properties:
+      pointer: FocalLoss
+      arguments:
+        gamma: 5
+      output_names:
+        - Loss

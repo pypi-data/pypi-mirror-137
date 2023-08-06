@@ -1,0 +1,66 @@
+Resources:
+  CallbackHandler:
+    properties:
+      pointer: CallbackHandler
+      arguments:
+        callbacks:
+          - !Ref TensorboardRecorder.Callback
+          - !Ref ImageSegmentationInferenceRecorder.Callback
+          - !Ref ImageSegmentationResultRecorder.Callback
+          - !Ref CallbackMethodIsCalled.Callback
+          - !Ref PyTorchLightningModelCheckpoint.Callback
+      output_names:
+        - Output
+  TensorboardRecorder:
+    properties:
+      pointer: TensorboardRecorder
+      arguments:
+        root_save_path: !Ref TimeStampedSavePath.Path
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+  PyTorchLightningModelCheckpoint:
+    properties:
+      pointer: PyTorchLightningModelCheckpoint
+      arguments:
+        root_save_path: !Ref TimeStampedSavePath.Path
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+  ImageSegmentationInferenceRecorder:
+    properties:
+      pointer: ImageSegmentationInferenceRecorder
+      arguments:
+        inference_merge_tiles_fn: !Ref MergeSquareTiles.Function
+        convert_tensor_to_image_fn: !Ref TensorToImage.Function
+        convert_tensor_to_mask_fn: !Ref TensorToMask.Function
+      should_remove: !Ref IsNotDeployed.Value
+      output_names:
+        - Callback
+  ImageSegmentationResultRecorder:
+    properties:
+      pointer: ImageSegmentationResultRecorder
+      arguments:
+        inference_merge_tiles_fn: !Ref MergeSquareTiles.Function
+        convert_tensor_to_image_fn: !Ref TensorToImage.Function
+        convert_tensor_to_mask_fn: !Ref TensorToMask.Function
+        record_every_n_steps: !Var Callbacks.Recorder.record_every_n_steps
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback
+  MergeSquareTiles:
+    properties:
+      pointer: merge_tiled_square_crops
+      partial: true
+      arguments:
+        original_height: !Var Transformations.Tiling.original_image_height
+        original_width: !Var Transformations.Tiling.original_image_width
+        size: !Var Transformations.Tiling.tile_size
+      output_names:
+        - Function
+  CallbackMethodIsCalled:
+    properties:
+      pointer: CallbackMethodIsCalled
+      should_remove: !Ref IsDeployed.Value
+      output_names:
+        - Callback

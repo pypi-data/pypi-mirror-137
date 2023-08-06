@@ -1,0 +1,106 @@
+Variables:
+  Transformations:
+    ToOneHot:
+      n: 2
+    TensorNormalization:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+
+Resources:
+  Transformations:
+    ToOneHot:
+      properties:
+        pointer: make_one_hot
+        partial: true
+        arguments:
+          n: !Var Transformations.ToOneHot.n
+          channel_first: true
+        output_names:
+          - Function
+
+    ImageToTensor:
+      properties:
+        pointer: image_to_tensor
+        partial: true
+        arguments:
+          normalize_image_fn: !Ref NormalizeImage.Function
+          scale_to_range_fn: !Ref ScaleToRange.Function
+          normalize_tensor_fn: !Ref NormalizeTensor.Function
+        output_names:
+          - Function
+    TensorToImage:
+      properties:
+        pointer: tensor_to_image
+        partial: true
+        arguments:
+          unnormalize_image_fn: !Ref UnnormalizeImage.Function
+          unscale_to_range_fn: !Ref UnscaleToRange.Function
+          unnormalize_tensor_fn: !Ref UnnormalizeTensor.Function
+          convert_to_image_type_fn: !Ref ToUint8.Function
+        output_names:
+          - Function
+    ToUint8:
+      properties:
+        pointer: to_uint8_image
+        partial: true
+        output_names:
+          - Function
+    NormalizeImage:
+      properties:
+        pointer: normalize_image
+        partial: true
+        arguments:
+          mean: [0, 0, 0]
+          std: [1, 1, 1]
+        output_names:
+          - Function
+    UnnormalizeImage:
+      properties:
+        pointer: unnormalize_image
+        partial: true
+        arguments:
+          mean: [0, 0, 0]
+          std: [1, 1, 1]
+        output_names:
+          - Function
+
+    ScaleToRange:
+      properties:
+        pointer: scale_to_range
+        partial: true
+        arguments:
+          min_val: 0
+          max_val: 1
+          original_min_val: 0
+          original_max_val: 255
+        output_names:
+          - Function
+    UnscaleToRange:
+      properties:
+        pointer: scale_to_range
+        partial: true
+        arguments:
+          min_val: 0
+          max_val: 255
+          original_min_val: 0
+          original_max_val: 1
+        output_names:
+          - Function
+    NormalizeTensor:
+      properties:
+        pointer: normalize_tensor
+        partial: true
+        arguments:
+          mean: !Var Transformations.TensorNormalization.mean
+          std: !Var Transformations.TensorNormalization.std
+        output_names:
+          - Function
+    UnnormalizeTensor:
+      properties:
+        pointer: unnormalize_tensor
+        partial: true
+        arguments:
+          mean: !Var Transformations.TensorNormalization.mean
+          std: !Var Transformations.TensorNormalization.std
+        output_names:
+          - Function

@@ -1,0 +1,23 @@
+Resources:
+  ModelBackboneCreator:
+    properties:
+      pointer: !Var model_name
+      partial: true
+      arguments:
+        pretrained: imagenet
+      output_names:
+        - Creator
+  ModelCreator:
+    properties:
+      pointer: cadene_change_last_linear
+      partial: true
+      arguments:
+        model_creator: !Ref ModelBackboneCreator.Creator
+        out_features: 2
+      output_names:
+        - Creator
+  ServingModel:
+    properties:
+      pointer: MLFlowPyfuncImageClassificationModel
+      output_names:
+        - Model

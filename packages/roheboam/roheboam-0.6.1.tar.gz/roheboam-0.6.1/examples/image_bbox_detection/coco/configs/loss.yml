@@ -1,0 +1,44 @@
+Resources:
+  Loss:
+    properties:
+      pointer: LossWrapper
+      arguments:
+        losses:
+          - !Ref ClassiferLoss.Loss
+          - !Ref BoxRegressionLoss.Loss
+          - !Ref ObjectnessLoss.Loss
+          - !Ref RPNBoxRegressionLoss.Loss
+      output_names:
+        - Loss
+  ClassiferLoss:
+    properties:
+      pointer: TorchVisionFasterRCNNLoss
+      arguments:
+        name: ClassifierLoss
+        loss_key: loss_classifier
+      output_names:
+        - Loss
+  BoxRegressionLoss:
+    properties:
+      pointer: TorchVisionFasterRCNNLoss
+      arguments:
+        name: BoxRegressionLoss
+        loss_key: loss_box_reg
+      output_names:
+        - Loss
+  ObjectnessLoss:
+    properties:
+      pointer: TorchVisionFasterRCNNLoss
+      arguments:
+        name: ObjectnessLoss
+        loss_key: loss_objectness
+      output_names:
+        - Loss
+  RPNBoxRegressionLoss:
+    properties:
+      pointer: TorchVisionFasterRCNNLoss
+      arguments:
+        name: RPNBoxRegressionLoss
+        loss_key: loss_rpn_box_reg
+      output_names:
+        - Loss

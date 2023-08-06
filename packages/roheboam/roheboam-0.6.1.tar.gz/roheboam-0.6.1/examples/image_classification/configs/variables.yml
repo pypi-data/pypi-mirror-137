@@ -1,0 +1,51 @@
+Variables:
+  train_data_path: /data/train
+  test_data_path: /data/test
+  label_map:
+    not_hot_dog: 0
+    hot_dog: 1
+
+  train_batch_size: 4
+  train_num_workers: 8
+  val_batch_size: 4
+  val_num_workers: 8
+  test_batch_size: 4
+  test_num_workers: 8
+  test_size: 0.1
+
+  gpus: 1
+  max_epochs: 10
+  model_name: resnet18
+
+  root_save_directory: experiments
+  model_save_path: null
+  is_deployed: false
+
+Resources:
+  IsDeployed:
+    properties:
+      pointer: return_boolean
+      arguments:
+        boolean: !Var is_deployed
+      output_names:
+        - Value
+
+  IsNotDeployed:
+    properties:
+      pointer: return_negated_boolean
+      arguments:
+        boolean: !Var is_deployed
+      output_names:
+        - Value
+  TimeStampedSavePath:
+    properties:
+      pointer: create_time_stamped_save_path
+      arguments:
+        root_save_directory: !Var root_save_directory
+      output_names:
+        - Path
+  TemporaryPath:
+    properties:
+      pointer: create_temp_path
+      output_names: 
+        - Path

@@ -1,0 +1,14 @@
+Resources:
+  ModelCreator:
+    properties:
+      pointer: fasterrcnn_resnet50_fpn
+      partial: true
+      arguments:
+        num_classes: !Var num_classes
+      output_names:
+        - Creator
+  ServingModel:
+    properties:
+      pointer: MLFlowPyfuncImageBoundingBoxDetectionModel
+      output_names:
+        - Model

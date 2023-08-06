@@ -1,0 +1,74 @@
+Resources:
+  Augmentation:
+    TestAugment:
+      properties:
+        pointer: Compose
+        arguments:
+          transforms:
+            - !Ref Resize.Function
+          keypoint_params: null
+          additional_targets: null
+          p: 1.0
+        output_names:
+          - Function
+    ValAugment:
+      properties:
+        pointer: Compose
+        arguments:
+          transforms:
+            - !Ref Resize.Function
+          keypoint_params: null
+          additional_targets: null
+          p: 1.0
+        output_names:
+          - Function
+    TrainAugment:
+      properties:
+        pointer: Compose
+        arguments:
+          transforms:
+            - !Ref RandomCropNearBBox.Function
+            # - !Ref RandomSizedCrop.Function
+            # - !Ref RandomRotate90.Function
+            # - !Ref RGBShift.Function
+          keypoint_params: null
+          additional_targets: null
+          p: 1.0
+        output_names:
+          - Function
+    RandomCropNearBBox:
+      properties:
+        pointer: RandomCropNearBBox
+        arguments:
+          p: 0.5
+        output_names:
+          - Functio
+    RandomSizedCrop:
+      properties:
+        pointer: RandomCrop
+        arguments:
+          height: !Var Augmentation.RandomCrop.height
+          width: !Var Augmentation.RandomCrop.width
+        output_names:
+          - Function
+    RandomRotate90:
+      properties:
+        pointer: RandomRotate90
+        output_names:
+          - Function
+
+    RGBShift:
+      properties:
+        pointer: RGBShift
+        output_names:
+          - Function
+
+    Resize:
+      properties:
+        pointer: Resize
+        arguments:
+          height: !Var Augmentation.Resize.height
+          width: !Var Augmentation.Resize.width
+          always_apply: true
+        output_names:
+          - Function

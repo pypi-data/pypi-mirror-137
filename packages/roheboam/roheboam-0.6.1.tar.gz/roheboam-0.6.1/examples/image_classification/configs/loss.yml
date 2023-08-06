@@ -1,0 +1,14 @@
+Resources:
+  Loss:
+    properties:
+      pointer: LossWrapper
+      arguments:
+        losses:
+          - !Ref CrossEntropyLoss.Loss
+      output_names:
+        - Loss
+  CrossEntropyLoss:
+    properties:
+      pointer: CrossEntropyLoss
+      output_names:
+        - Loss

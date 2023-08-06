@@ -1,0 +1,14 @@
+Resources:
+  DataSplitCreator:
+    properties:
+      pointer: StratifiedShuffleSplit
+      arguments:
+        X: !Ref CreateLabelsFromTrainingSamplesData.Samples
+        y: !Ref CreateLabelsFromTrainingSamplesData.Labels
+        test_size: !Var test_size
+      partial: true
+      tags: 
+        - TRAIN
+      output_names:
+        - Creator
+    

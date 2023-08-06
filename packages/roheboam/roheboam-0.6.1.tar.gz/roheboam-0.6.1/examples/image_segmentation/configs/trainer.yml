@@ -1,0 +1,28 @@
+Resources:
+  ModuleCreator:
+    properties:
+      pointer: create_pytorch_lightning_unet_module
+      partial: true
+      arguments:
+        callback_handler: !Ref CallbackHandler.Output
+        model_creator: !Ref ModelCreator.Creator
+        optimizer_creator: !Ref OptimizerCreator.Creator
+        loss: !Ref Loss.Loss
+        train_dataset_creator: !Ref TrainDatasetCreator.Creator
+        train_dataloader_creator: !Ref TrainDataLoaderCreator.Creator
+        val_dataset_creator: !Ref ValDatasetCreator.Creator
+        val_dataloader_creator: !Ref ValDataLoaderCreator.Creator
+        test_dataset_creator: !Ref TestDatasetCreator.Creator
+        test_dataloader_creator: !Ref TestDataLoaderCreator.Creator
+      output_names:
+        - Creator
+  TrainerCreator:
+    properties:
+      pointer: create_pytorch_lightning_trainer
+      partial: true
+      arguments:
+        callback_handler: !Ref CallbackHandler.Output
+        max_epochs: !Var max_epochs
+        gpus: !Var gpus
+      output_names:
+        - Creator

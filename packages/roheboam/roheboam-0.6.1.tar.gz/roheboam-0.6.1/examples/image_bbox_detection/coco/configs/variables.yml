@@ -1,0 +1,55 @@
+Variables:
+  root_save_directory: experiments
+  model_save_path: null
+  first_n_paths: 5
+
+  num_classes: 80
+  gpus: 1
+  max_epochs: 10
+  gradient_clip_val: 1
+  labels_to_keep:
+    - 45
+
+  train_batch_size: 4
+  train_num_workers: 28
+  train_image_path: null
+  train_image_glob_string: null
+  train_label_path: null
+  train_label_glob_string: null
+
+  val_batch_size: 8
+  val_num_workers: 28
+
+  test_batch_size: 2
+  test_num_workers: 28
+  test_size: 0.1
+  test_image_path: null
+  test_image_glob_string: null
+  test_label_path: null
+  test_label_glob_string: null
+
+  is_deployed: false
+
+Resources:
+  IsDeployed:
+    properties:
+      pointer: return_boolean
+      arguments:
+        boolean: !Var is_deployed
+      output_names:
+        - Value
+
+  IsNotDeployed:
+    properties:
+      pointer: return_negated_boolean
+      arguments:
+        boolean: !Var is_deployed
+      output_names:
+        - Value
+  TimeStampedSavePath:
+    properties:
+      pointer: create_time_stamped_save_path
+      arguments:
+        root_save_directory: !Var root_save_directory
+      output_names:
+        - Path

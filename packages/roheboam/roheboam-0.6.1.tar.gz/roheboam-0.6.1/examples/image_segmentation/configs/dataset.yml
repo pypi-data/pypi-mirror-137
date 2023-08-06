@@ -1,0 +1,130 @@
+Resources:
+  SampleCreator:
+    properties:
+      pointer: spread_arguments_before_call
+      partial: true
+      arguments:
+        fn: !Ref _CreateSegmentationSample.Function
+      output_names:
+        - Function
+  _CreateSegmentationSample:
+    properties:
+      pointer: create_segmentation_sample
+      arguments:
+        load_mask_fn: !Ref LoadMask.Function
+      partial: true
+      output_names:
+        - Function
+  LoadMask:
+    properties:
+      pointer: function_composer
+      arguments:
+        fns:
+          - !Ref LoadGrayScaleImage.Function
+          - !Ref SetOnlyClass.Function
+      output_names:
+        - Function
+  LoadGrayScaleImage:
+    properties:
+      pointer: imread_grayscale
+      partial: true
+      output_names:
+        - Function
+  SetOnlyClass:
+    properties:
+      pointer: set_only_class
+      partial: true
+      arguments:
+        only_class: !Var only_include_class
+      output_names:
+        - Function
+
+  CollateFunction:
+    properties:
+      pointer: image_segmentation_collate_fn
+      partial: true
+      output_names:
+        - Function
+
+  CreateSquareTiles:
+    properties:
+      pointer: create_tiled_square_crops
+      partial: true
+      arguments:
+        size: !Var Transformations.Tiling.tile_size
+      output_names:
+        - Function
+
+  TrainDatasetCreator:
+    properties:
+      pointer: ImageSegmentationDataset
+      partial: true
+      arguments:
+        create_sample_fn: !Ref SampleCreator.Function
+        augment_fn: !Ref TrainAugment.Function
+        convert_image_to_tensor_fn: !Ref ImageToTensor.Function
+        convert_mask_to_tensor_fn: !Ref MaskToTensor.Function
+      output_names:
+        - Creator
+
+  TrainDataLoaderCreator:
+    properties:
+      pointer: DataLoader
+      partial: true
+      arguments:
+        batch_size: !Var Train.DataLoader.batch_size
+        shuffle: true
+        collate_fn: !Ref CollateFunction.Function
+        num_workers: !Var train_num_workers
+      output_names:
+        - Creator
+
+  ValDatasetCreator:
+    properties:
+      pointer: ImageSegmentationDataset
+      partial: true
+      arguments:
+        create_sample_fn: !Ref SampleCreator.Function
+        augment_fn: !Ref ValAugment.Function
+        tile_fn: !Ref CreateSquareTiles.Function
+        convert_image_to_tensor_fn: !Ref ImageToTensor.Function
+        convert_mask_to_tensor_fn: !Ref MaskToTensor.Function
+      output_names:
+        - Creator
+
+  ValDataLoaderCreator:
+    properties:
+      pointer: DataLoader
+      partial: true
+      arguments:
+        batch_size: !Var Val.DataLoader.batch_size
+        shuffle: false
+        collate_fn: !Ref CollateFunction.Function
+        num_workers: !Var val_num_workers
+      output_names:
+        - Creator
+
+  TestDatasetCreator:
+    properties:
+      pointer: ImageSegmentationDataset
+      partial: true
+      arguments:
+        create_sample_fn: !Ref SampleCreator.Function
+        augment_fn: !Ref TestAugment.Function
+        tile_fn: !Ref CreateSquareTiles.Function
+        convert_image_to_tensor_fn: !Ref ImageToTensor.Function
+        convert_mask_to_tensor_fn: !Ref MaskToTensor.Function
+      output_names:
+        - Creator
+
+  TestDataLoaderCreator:
+    properties:
+      pointer: DataLoader
+      partial: true
+      arguments:
+        batch_size: !Var Test.DataLoader.batch_size
+        shuffle: false
+        collate_fn: !Ref CollateFunction.Function
+        num_workers: !Var test_num_workers
+      output_names:
+        - Creator
