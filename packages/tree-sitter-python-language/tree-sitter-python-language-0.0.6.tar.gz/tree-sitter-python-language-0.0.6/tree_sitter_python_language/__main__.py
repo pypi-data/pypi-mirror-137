@@ -1,0 +1,3 @@
+from _build import fetch_and_build_python_language
+
+fetch_and_build_python_language()
