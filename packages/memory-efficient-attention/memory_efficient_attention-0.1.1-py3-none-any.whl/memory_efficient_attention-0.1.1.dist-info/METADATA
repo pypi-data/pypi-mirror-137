@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: memory-efficient-attention
+Version: 0.1.1
+Summary: Memory Efficient Attention (O(sqrt(n)) for Jax and PyTorch
+Home-page: https://github.com/AminRezaei0x443/memory-efficient-attention
+Author: Amin Rezaei
+Author-email: AminRezaei0x443@gmail.com
+License: MIT
+Keywords: attention,pytorch,jax
+Platform: UNKNOWN
+Requires-Dist: numpy
+Provides-Extra: jax
+Requires-Dist: jax ; extra == 'jax'
+Provides-Extra: testing
+Requires-Dist: jax ; extra == 'testing'
+Requires-Dist: torch ; extra == 'testing'
+Requires-Dist: flax ; extra == 'testing'
+Provides-Extra: torch
+Requires-Dist: torch ; extra == 'torch'
+
+UNKNOWN
+
