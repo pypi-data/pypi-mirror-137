@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "win_gpg_agent"
+version = "0.1.0"
+description = "Utility for tunnelling gpg-agent and ssh-agent from Windows to WSL."
+authors = ["Christian Volkmann <ch.volkmann@gmail.com>"]
+readme = 'README.md'
+repository = "https://github.com/chvolkmann/win_gpg_agent"
+license = 'MIT'
+keywords = ["win-gpg-agent", "gpg-agent", "ssh-agent", "gpg", "wsl"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+click = "^8.0.3"
+psutil = "^5.9.0"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+black = "^22.1.0"
+isort = "^5.10.1"
+rope = "^0.22.0"
+
+[tool.poetry.scripts]
+win-gpg-agent = "win_gpg_agent:cli"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
