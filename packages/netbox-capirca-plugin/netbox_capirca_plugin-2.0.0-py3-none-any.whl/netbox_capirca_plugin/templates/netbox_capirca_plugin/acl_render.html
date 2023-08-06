@@ -1,0 +1,36 @@
+{% extends 'base/layout.html' %}
+{% load form_helpers %}
+{% load helpers %}
+
+{% block title %}
+        Render ACL - {{ object }}
+{% endblock %}
+
+{% block content %}
+    <div class="tab-content">
+				<form action="" method="post" enctype="multipart/form-data" class="form form-horizontal">
+					{% csrf_token %}
+					<div class="field-group my-5">
+						<div class="row mb-2">
+							<h5 class="offset-sm-3">Render ACL</h5>
+						</div>
+					{% render_form form %}
+					{% if form.non_field_errors %}
+					<div class="col-md-9 col-md-offset-3">
+						<ul>
+							{% for error in form.non_field_errors %}
+							<li class="text-danger">{{ error }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+					</div>
+					<div class="text-end my-3">
+						{% block buttons %}
+							<a href="{% url 'plugins:netbox_capirca_plugin:acl' pk=object.pk %}" class="btn btn-outline-danger">Cancel</a>
+							<button type="submit" name="_update" class="btn btn-primary">Render</button>
+						{% endblock %}
+					</div>
+				</form>
+    </div>
+{% endblock %}
