@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: load-modules
+Version: 0.0.1
+Summary: Dynamically load modules from directories
+Home-page: https://github.com/rhhayward/py_load_modules
+Author: Ryan Hayward
+Author-email: rhhayward@att.net
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/rhhayward/py_load_modules/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+###
+
+# py_load_modules
+
+## Description
+
+py_load_modules is a python3 library which takes a class, and a list of
+directories.  It will search within those directories (without any recursive
+searching) for classes which implement the argument class. It will return a
+list of instances of those classes for use.
+
+## Installation
+
+```
+python3 -m pip install  git+https://github.com/rhhayward/py_load_modules.git@master
+```
+
+## Usage
+
+Assuming a directory structure like this:
+
+```
+from load_modules import load_modules
+
+modules = load_modules.load(SuperClass, ['/path/to/py_files/', 'relative_path/to/py_files'])
+for module in modules:
+    module.class_method()
+```
+
+
