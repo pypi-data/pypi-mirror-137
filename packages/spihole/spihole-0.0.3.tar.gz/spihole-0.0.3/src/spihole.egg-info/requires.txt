@@ -1,0 +1,11 @@
+click
+numpy
+Pillow
+
+[:platform_system != "Linux" or platform_machine != "armv6l"]
+fake_rpi
+
+[:platform_system == "Linux" and platform_machine == "armv6l"]
+picamera
+spidev
+RPi.GPIO
