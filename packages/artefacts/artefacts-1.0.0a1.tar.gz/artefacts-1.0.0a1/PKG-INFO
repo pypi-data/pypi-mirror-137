@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: artefacts
+Version: 1.0.0a1
+Summary: Deserialization for dbt artifacts
+Author: Tom Waterman
+Author-email: tjwaterman99@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: dbt-core (>=1.0.1,<2.0.0)
+Requires-Dist: dbt-postgres (>=1.0.1,<2.0.0)
+Requires-Dist: pydantic (>=1.9.0,<2.0.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Description-Content-Type: text/markdown
+
+# artefacts
+
+A deserialization library for dbt artifacts.
+
+### Usage
+
+The simplest way to use artefacts is by importing the `api`.
+
+```py
+>>> import artefacts.api
+
+```
+
+The `api` provides convenient methods for interacting with your dbt project's compiled artifacts.
+
+#### `artefacts.api.models()`
+
+```py
+>>> models = artefacts.api.models()
+>>> len(models) > 0
+True
+
+```
+
+#### `artefacts.api.tests()`
+
+```py
+>>> tests = artefacts.api.tests()
+>>> len(tests) > 0
+True
+
+```
+
+### Development Setup
+
+Open this repository in a Github Codespace. (Click the green `Code` button in the repository's [Github page](https://github.com/tjwaterman99/artefacts) and select `New Codespace`).
+
+#### Testing
+
+```
+poetry run pytest
+```
+
+By default, pytest will test against the dbt project located at `DBT_PROJECT_DIR`. To test against a different dbt project, update that environment variable and build the project.
+
+```
+export DBT_PROJECT_DIR=$PWD/dbt_projects/dbt-starter-project
+poetry run dbt build --project-dir $DBT_PROJECT_DIR
+poetry run pytest
+```
