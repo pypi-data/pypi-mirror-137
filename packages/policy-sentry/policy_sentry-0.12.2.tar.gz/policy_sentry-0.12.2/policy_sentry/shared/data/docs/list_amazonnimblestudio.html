@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html ng-app="AWSDocsDocPageApp" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <title>
+   Actions, resources, and condition keys for Amazon Nimble Studio - Service Authorization Reference
+  </title>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="/assets" name="assets_root"/>
+  <meta content="list_amazonnimblestudio" name="target_state"/>
+  <meta content="list_amazonnimblestudio" name="default_state"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="shortcut icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonnimblestudio.html" rel="canonical"/>
+  <meta content="Lists all of the available service-specific resources, actions, and condition keys that can be used in IAM policies to control access to Amazon Nimble Studio." name="description"/>
+  <meta content="IAD" name="deployment_region"/>
+  <meta content="Service Authorization Reference" name="product"/>
+  <meta content="Service Authorization Reference" name="guide"/>
+  <meta content="Provides a list of the actions, resources, and condition keys supported by each AWS service that can be used in an IAM policy." name="abstract"/>
+  <meta content="en_us" name="guide-locale"/>
+  <meta content="toc-contents.json" name="tocs"/>
+  <meta content="Service Authorization Docs" name="feedback-item"/>
+  <meta content="Service Authorization Reference" name="this_doc_product"/>
+  <meta content="Service Authorization Reference" name="this_doc_guide"/>
+  <link href="https://docs.aws.amazon.com/assets/css/vendor4.css?version=2021.12.02" rel="stylesheet"/>
+  <link href="https://docs.aws.amazon.com/assets/css/awsdocs-common.css?version=2021.12.02" rel="stylesheet"/>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor3.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor4.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor1.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-common.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-doc-app.js?version=2021.12.02" type="text/javascript">
+  </script>
+ </head>
+ <body class="awsdocs awsui" ng-csp="no-unsafe-eval">
+  <div class="awsdocs-container">
+   <awsdocs-header>
+   </awsdocs-header>
+   <awsui-app-layout class="awsui-util-no-gutters" header-selector="awsdocs-header" id="app-layout" navigation-change="$ctrl.onNavChange($event)" navigation-hide="false" navigation-open="$ctrl.navOpen" navigation-width="$ctrl.navWidth" ng-controller="ContentController as $ctrl" tools-change="$ctrl.onToolsChange($event)" tools-hide="$ctrl.hideTools" tools-open="$ctrl.toolsOpen" tools-width="$ctrl.toolsWidth">
+    <div dom-region="navigation" id="guide-toc">
+     <awsdocs-toc>
+     </awsdocs-toc>
+    </div>
+    <div dom-region="content" id="main-column" tabindex="-1">
+     <awsdocs-view class="awsdocs-view">
+      <div id="awsdocs-content">
+       <head>
+        <title>
+         Actions, resources, and condition keys for Amazon Nimble Studio - Service Authorization Reference
+        </title>
+        <meta content="service-authorization.pdf#list_amazonnimblestudio" name="pdf"/>
+        <meta content="http://forums.aws.amazon.com/forum.jspa?forumID=76" name="forums"/>
+        <meta content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service%20Authorization%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonnimblestudio.html" name="feedback"/>
+        <meta content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonnimblestudio.html" name="feedback-yes"/>
+        <meta content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonnimblestudio.html" name="feedback-no"/>
+       </head>
+       <body>
+        <div id="main">
+         <div style="display: none">
+          <a href="service-authorization.pdf#list_amazonnimblestudio" rel="noopener noreferrer" target="_blank" title="Open PDF">
+          </a>
+         </div>
+         <div class="breadcrumb" id="breadcrumbs">
+          <a href="http://aws.amazon.com">
+           AWS
+          </a>
+          <a href="/index.html">
+           Documentation
+          </a>
+          <a href="/iam/index.html">
+           Service Authorization Reference
+          </a>
+          <a href="reference.html">
+           Service Authorization Reference
+          </a>
+         </div>
+         <div id="page-toc-src">
+          <a href="#amazonnimblestudio-actions-as-permissions">
+           Actions
+          </a>
+          <a href="#amazonnimblestudio-resources-for-iam-policies">
+           Resource types
+          </a>
+          <a href="#amazonnimblestudio-policy-keys">
+           Condition keys
+          </a>
+         </div>
+         <div class="awsui-util-container" id="main-content">
+          <div id="main-col-body">
+           <awsdocs-language-banner data-service="$ctrl.pageService">
+           </awsdocs-language-banner>
+           <h1 class="topictitle" id="list_amazonnimblestudio">
+            Actions, resources, and condition keys for      Amazon Nimble Studio
+           </h1>
+           <div class="awsdocs-page-header-container">
+            <awsdocs-page-header>
+            </awsdocs-page-header>
+            <awsdocs-filter-selector id="awsdocs-filter-selector">
+            </awsdocs-filter-selector>
+           </div>
+           <p>
+            Amazon Nimble Studio (service prefix:
+            <code class="code">
+             nimble
+            </code>
+            ) provides the following    service-specific resources, actions, and condition context keys for use in IAM permission    policies.
+           </p>
+           <p>
+            References:
+           </p>
+           <div class="itemizedlist">
+            <ul class="itemizedlist" type="disc">
+             <li class="listitem">
+              <p>
+               Learn how to
+               <a href="https://docs.aws.amazon.com/nimble-studio/latest/userguide/">
+                configure this service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               View a list of the
+               <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/">
+                API operations available for this          service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               Learn how to secure this service and its resources by
+               <a href="https://docs.aws.amazon.com/nimble-studio/latest/userguide/security-iam.html">
+                using          IAM
+               </a>
+               permission policies.
+              </p>
+             </li>
+            </ul>
+           </div>
+           <div class="highlights" id="inline-topiclist">
+            <p>
+             <strong>
+              Topics
+             </strong>
+            </p>
+            <ul>
+             <li>
+              <a href="#amazonnimblestudio-actions-as-permissions">
+               Actions defined by        Amazon Nimble Studio
+              </a>
+             </li>
+             <li>
+              <a href="#amazonnimblestudio-resources-for-iam-policies">
+               Resource types defined by        Amazon Nimble Studio
+              </a>
+             </li>
+             <li>
+              <a href="#amazonnimblestudio-policy-keys">
+               Condition keys for        Amazon Nimble Studio
+              </a>
+             </li>
+            </ul>
+           </div>
+           <h2 id="amazonnimblestudio-actions-as-permissions">
+            Actions defined by        Amazon Nimble Studio
+           </h2>
+           <p>
+            You can specify the following actions in the
+            <code class="code">
+             Action
+            </code>
+            element of an IAM      policy statement. Use policies to grant permissions to perform an operation in AWS. When you      use an action in a policy, you usually allow or deny access to the API operation or CLI      command with the same name. However, in some cases, a single action controls access to more      than one operation. Alternatively, some operations require several different actions.
+           </p>
+           <p>
+            The
+            <b>
+             Resource types
+            </b>
+            column indicates whether each action supports      resource-level permissions. If there is no value for this column, you must specify all      resources ("*") in the
+            <code class="code">
+             Resource
+            </code>
+            element of your policy statement. If the column      includes a resource type, then you can specify an ARN of that type in a statement with that      action. Required resources are indicated in the table with an asterisk (*). If you specify a      resource-level permission ARN in a statement using this action, then it must be of this type.      Some actions support multiple resource types. If the resource type is optional (not indicated      as required), then you can choose to use one but not the other.
+           </p>
+           <p>
+            For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#actions_table" rel="noopener noreferrer" target="_blank">
+             Actions table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d922c11b9">
+              <thead>
+               <tr>
+                <th>
+                 Actions
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Access level
+                </th>
+                <th>
+                 Resource types (*required)
+                </th>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Dependent actions
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-AcceptEulas">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_AcceptEulas.html">
+                 AcceptEulas
+                </a>
+               </td>
+               <td>
+                Grants permission to accept EULAs
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-eula">
+                  eula*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-CreateLaunchProfile">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_CreateLaunchProfile.html">
+                 CreateLaunchProfile
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a launch profile
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ec2:CreateNetworkInterface
+                </p>
+                <p>
+                 ec2:DescribeNatGateways
+                </p>
+                <p>
+                 ec2:DescribeNetworkAcls
+                </p>
+                <p>
+                 ec2:DescribeRouteTables
+                </p>
+                <p>
+                 ec2:DescribeSubnets
+                </p>
+                <p>
+                 ec2:DescribeVpcEndpoints
+                </p>
+                <p>
+                 ec2:RunInstances
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-CreateStreamingImage">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_CreateStreamingImage.html">
+                 CreateStreamingImage
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a streaming image
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ec2:DescribeImages
+                </p>
+                <p>
+                 ec2:DescribeSnapshots
+                </p>
+                <p>
+                 ec2:ModifyInstanceAttribute
+                </p>
+                <p>
+                 ec2:ModifySnapshotAttribute
+                </p>
+                <p>
+                 ec2:RegisterImage
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-CreateStreamingSession">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_CreateStreamingSession.html">
+                 CreateStreamingSession
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a streaming session
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ec2:CreateNetworkInterface
+                </p>
+                <p>
+                 ec2:CreateNetworkInterfacePermission
+                </p>
+                <p>
+                 nimble:GetLaunchProfile
+                </p>
+                <p>
+                 nimble:GetLaunchProfileInitialization
+                </p>
+                <p>
+                 nimble:ListEulaAcceptances
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-CreateStreamingSessionStream">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_CreateStreamingSessionStream.html">
+                 CreateStreamingSessionStream
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a StreamingSessionStream
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-session">
+                  streaming-session*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_requesterPrincipalId">
+                  nimble:requesterPrincipalId
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-CreateStudio">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_CreateStudio.html">
+                 CreateStudio
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a studio
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 iam:PassRole
+                </p>
+                <p>
+                 sso:CreateManagedApplicationInstance
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-CreateStudioComponent">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_CreateStudioComponent.html">
+                 CreateStudioComponent
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a studio component. A studio component designates a network resource to which a launch profile will provide access
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ds:AuthorizeApplication
+                </p>
+                <p>
+                 ds:DescribeDirectories
+                </p>
+                <p>
+                 ec2:DescribeSecurityGroups
+                </p>
+                <p>
+                 fsx:DescribeFileSystems
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-DeleteLaunchProfile">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_DeleteLaunchProfile.html">
+                 DeleteLaunchProfile
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a launch profile
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-DeleteLaunchProfileMember">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_DeleteLaunchProfileMember.html">
+                 DeleteLaunchProfileMember
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a launch profile member
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-DeleteStreamingImage">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_DeleteStreamingImage.html">
+                 DeleteStreamingImage
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a streaming image
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-image">
+                  streaming-image*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ec2:DeleteSnapshot
+                </p>
+                <p>
+                 ec2:DeregisterImage
+                </p>
+                <p>
+                 ec2:ModifyInstanceAttribute
+                </p>
+                <p>
+                 ec2:ModifySnapshotAttribute
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-DeleteStreamingSession">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_DeleteStreamingSession.html">
+                 DeleteStreamingSession
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to delete a streaming session
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-session">
+                  streaming-session*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ec2:DeleteNetworkInterface
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_requesterPrincipalId">
+                  nimble:requesterPrincipalId
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-DeleteStudio">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_DeleteStudio.html">
+                 DeleteStudio
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a studio
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 sso:DeleteManagedApplicationInstance
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-DeleteStudioComponent">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_DeleteStudioComponent.html">
+                 DeleteStudioComponent
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a studio component
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio-component">
+                  studio-component*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ds:UnauthorizeApplication
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-DeleteStudioMember">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_DeleteStudioMember.html">
+                 DeleteStudioMember
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a studio member
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetEula">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetEula.html">
+                 GetEula
+                </a>
+               </td>
+               <td>
+                Grants permission to get a EULA
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-eula">
+                  eula*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetFeatureMap">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/userguide/security-iam-service-with-iam.html">
+                 GetFeatureMap
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to allow Nimble Studio portal to show the appropriate features for this account
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetLaunchProfile">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetLaunchProfile.html">
+                 GetLaunchProfile
+                </a>
+               </td>
+               <td>
+                Grants permission to get a launch profile
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetLaunchProfileDetails">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetLaunchProfileDetails.html">
+                 GetLaunchProfileDetails
+                </a>
+               </td>
+               <td>
+                Grants permission to get a launch profile's details, which includes the summary of studio components and streaming images used by the launch profile
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetLaunchProfileInitialization">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetLaunchProfileInitialization.html">
+                 GetLaunchProfileInitialization
+                </a>
+               </td>
+               <td>
+                Grants permission to get a launch profile initialization. A launch profile initialization is a dereferenced version of a launch profile, including attached studio component connection information
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ds:DescribeDirectories
+                </p>
+                <p>
+                 ec2:DescribeSecurityGroups
+                </p>
+                <p>
+                 fsx:DescribeFileSystems
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetLaunchProfileMember">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetLaunchProfileMember.html">
+                 GetLaunchProfileMember
+                </a>
+               </td>
+               <td>
+                Grants permission to get a launch profile member
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetStreamingImage">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetStreamingImage.html">
+                 GetStreamingImage
+                </a>
+               </td>
+               <td>
+                Grants permission to get a streaming image
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-image">
+                  streaming-image*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-GetStreamingSession">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetStreamingSession.html">
+                 GetStreamingSession
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to get a streaming session
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-session">
+                  streaming-session*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_requesterPrincipalId">
+                  nimble:requesterPrincipalId
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-GetStreamingSessionStream">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetStreamingSessionStream.html">
+                 GetStreamingSessionStream
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to get a streaming session stream
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-session">
+                  streaming-session*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_requesterPrincipalId">
+                  nimble:requesterPrincipalId
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetStudio">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetStudio.html">
+                 GetStudio
+                </a>
+               </td>
+               <td>
+                Grants permission to get a studio
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetStudioComponent">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetStudioComponent.html">
+                 GetStudioComponent
+                </a>
+               </td>
+               <td>
+                Grants permission to get a studio component
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio-component">
+                  studio-component*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-GetStudioMember">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_GetStudioMember.html">
+                 GetStudioMember
+                </a>
+               </td>
+               <td>
+                Grants permission to get a studio member
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-ListEulaAcceptances">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListEulaAcceptances.html">
+                 ListEulaAcceptances
+                </a>
+               </td>
+               <td>
+                Grants permission to list EULA acceptances
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-eula-acceptance">
+                  eula-acceptance*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-ListEulas">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListEulas.html">
+                 ListEulas
+                </a>
+               </td>
+               <td>
+                Grants permission to list EULAs
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-eula">
+                  eula*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-ListLaunchProfileMembers">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListLaunchProfileMembers.html">
+                 ListLaunchProfileMembers
+                </a>
+               </td>
+               <td>
+                Grants permission to list launch profile members
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-ListLaunchProfiles">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListLaunchProfiles.html">
+                 ListLaunchProfiles
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to list launch profiles
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_principalId">
+                  nimble:principalId
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_requesterPrincipalId">
+                  nimble:requesterPrincipalId
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-ListStreamingImages">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListStreamingImages.html">
+                 ListStreamingImages
+                </a>
+               </td>
+               <td>
+                Grants permission to list streaming images
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-ListStreamingSessions">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListStreamingSessions.html">
+                 ListStreamingSessions
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to list streaming sessions
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_createdBy">
+                  nimble:createdBy
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_ownedBy">
+                  nimble:ownedBy
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_requesterPrincipalId">
+                  nimble:requesterPrincipalId
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-ListStudioComponents">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListStudioComponents.html">
+                 ListStudioComponents
+                </a>
+               </td>
+               <td>
+                Grants permission to list studio components
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-ListStudioMembers">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListStudioMembers.html">
+                 ListStudioMembers
+                </a>
+               </td>
+               <td>
+                Grants permission to list studio members
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-ListStudios">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListStudios.html">
+                 ListStudios
+                </a>
+               </td>
+               <td>
+                Grants permission to list all studios
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="5">
+                <a id="amazonnimblestudio-ListTagsForResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_ListTagsForResource.html">
+                 ListTagsForResource
+                </a>
+               </td>
+               <td rowspan="5">
+                Grants permission to list all tags on a Nimble Studio resource
+               </td>
+               <td rowspan="5">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-image">
+                  streaming-image
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-session">
+                  streaming-session
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio-component">
+                  studio-component
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-PutLaunchProfileMembers">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_PutLaunchProfileMembers.html">
+                 PutLaunchProfileMembers
+                </a>
+               </td>
+               <td>
+                Grants permission to add/update launch profile members
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 sso-directory:DescribeUsers
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-PutStudioLogEvents">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/userguide/security-iam-service-with-iam.html">
+                 PutStudioLogEvents
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to report metrics and logs for the Nimble Studio portal to monitor application health
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-PutStudioMembers">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_PutStudioMembers.html">
+                 PutStudioMembers
+                </a>
+               </td>
+               <td>
+                Grants permission to add/update studio members
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 sso-directory:DescribeUsers
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-StartStreamingSession">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_StartStreamingSession.html">
+                 StartStreamingSession
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to start a streaming session
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-session">
+                  streaming-session*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 nimble:GetLaunchProfile
+                </p>
+                <p>
+                 nimble:GetLaunchProfileMember
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_requesterPrincipalId">
+                  nimble:requesterPrincipalId
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-StartStudioSSOConfigurationRepair">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_StartStudioSSOConfigurationRepair.html">
+                 StartStudioSSOConfigurationRepair
+                </a>
+               </td>
+               <td>
+                Grants permission to repair the studio's AWS SSO configuration
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 sso:CreateManagedApplicationInstance
+                </p>
+                <p>
+                 sso:GetManagedApplicationInstance
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonnimblestudio-StopStreamingSession">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_StopStreamingSession.html">
+                 StopStreamingSession
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to stop a streaming session
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-session">
+                  streaming-session*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 nimble:GetLaunchProfile
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_requesterPrincipalId">
+                  nimble:requesterPrincipalId
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="6">
+                <a id="amazonnimblestudio-TagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_TagResource.html">
+                 TagResource
+                </a>
+               </td>
+               <td rowspan="6">
+                Grants permission to add or overwrite one or more tags for the specified Nimble Studio resource
+               </td>
+               <td rowspan="6">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-image">
+                  streaming-image
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-session">
+                  streaming-session
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio-component">
+                  studio-component
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="6">
+                <a id="amazonnimblestudio-UntagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_UntagResource.html">
+                 UntagResource
+                </a>
+               </td>
+               <td rowspan="6">
+                Grants permission to disassociate one or more tags from the specified Nimble Studio resource
+               </td>
+               <td rowspan="6">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-image">
+                  streaming-image
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-session">
+                  streaming-session
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio-component">
+                  studio-component
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-UpdateLaunchProfile">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_UpdateLaunchProfile.html">
+                 UpdateLaunchProfile
+                </a>
+               </td>
+               <td>
+                Grants permission to update a launch profile
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ec2:DescribeNatGateways
+                </p>
+                <p>
+                 ec2:DescribeNetworkAcls
+                </p>
+                <p>
+                 ec2:DescribeRouteTables
+                </p>
+                <p>
+                 ec2:DescribeSubnets
+                </p>
+                <p>
+                 ec2:DescribeVpcEndpoints
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-UpdateLaunchProfileMember">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_UpdateLaunchProfileMember.html">
+                 UpdateLaunchProfileMember
+                </a>
+               </td>
+               <td>
+                Grants permission to update a launch profile member
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-launch-profile">
+                  launch-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-UpdateStreamingImage">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_UpdateStreamingImage.html">
+                 UpdateStreamingImage
+                </a>
+               </td>
+               <td>
+                Grants permission to update a streaming image
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-streaming-image">
+                  streaming-image*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-UpdateStudio">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_UpdateStudio.html">
+                 UpdateStudio
+                </a>
+               </td>
+               <td>
+                Grants permission to update a studio
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio">
+                  studio*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 iam:PassRole
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-UpdateStudioComponent">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_UpdateStudioComponent.html">
+                 UpdateStudioComponent
+                </a>
+               </td>
+               <td>
+                Grants permission to update a studio component
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-studio-component">
+                  studio-component*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 ds:AuthorizeApplication
+                </p>
+                <p>
+                 ds:DescribeDirectories
+                </p>
+                <p>
+                 ec2:DescribeSecurityGroups
+                </p>
+                <p>
+                 fsx:DescribeFileSystems
+                </p>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="amazonnimblestudio-resources-for-iam-policies">
+            Resource types defined by        Amazon Nimble Studio
+           </h2>
+           <p>
+            The following resource types are defined by this service and can be used in the
+            <code class="code">
+             Resource
+            </code>
+            element of IAM permission policy statements. Each action in the
+            <a href="#amazonnimblestudio-actions-as-permissions">
+             Actions table
+            </a>
+            identifies the      resource types that can be specified with that action. A resource type can also define which      condition keys you can include in a policy. These keys are displayed in the last column of the      table. For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#resources_table" rel="noopener noreferrer" target="_blank">
+             Resource types table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d922c13b5">
+              <thead>
+               <tr>
+                <th>
+                 Resource types
+                </th>
+                <th>
+                 ARN
+                </th>
+                <th>
+                 Condition keys
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-studio">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_Studio.html">
+                 studio
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:nimble:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:studio/$
+                 <span>
+                  {
+                 </span>
+                 StudioId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_studioId">
+                  nimble:studioId
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-streaming-image">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_StreamingImage.html">
+                 streaming-image
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:nimble:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:streaming-image/$
+                 <span>
+                  {
+                 </span>
+                 StreamingImageId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_studioId">
+                  nimble:studioId
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-studio-component">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_StudioComponent.html">
+                 studio-component
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:nimble:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:studio-component/$
+                 <span>
+                  {
+                 </span>
+                 StudioComponentId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_studioId">
+                  nimble:studioId
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-launch-profile">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_LaunchProfile.html">
+                 launch-profile
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:nimble:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:launch-profile/$
+                 <span>
+                  {
+                 </span>
+                 LaunchProfileId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_studioId">
+                  nimble:studioId
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-streaming-session">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_StreamingSession.html">
+                 streaming-session
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:nimble:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:streaming-session/$
+                 <span>
+                  {
+                 </span>
+                 StreamingSessionId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_createdBy">
+                  nimble:createdBy
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_ownedBy">
+                  nimble:ownedBy
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-eula">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_Eula.html">
+                 eula
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:nimble:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:eula/$
+                 <span>
+                  {
+                 </span>
+                 EulaId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-eula-acceptance">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/APIReference/API_EulaAcceptance.html">
+                 eula-acceptance
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:nimble:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:eula-acceptance/$
+                 <span>
+                  {
+                 </span>
+                 EulaAcceptanceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonnimblestudio-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonnimblestudio-nimble_studioId">
+                  nimble:studioId
+                 </a>
+                </p>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="amazonnimblestudio-policy-keys">
+            Condition keys for        Amazon Nimble Studio
+           </h2>
+           <p>
+            Amazon Nimble Studio defines the following condition keys that can be used in the
+            <code class="code">
+             Condition
+            </code>
+            element of an IAM policy. You can use these keys to further refine      the conditions under which the policy statement applies. For details about the columns in the      following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#context_keys_table" rel="noopener noreferrer" target="_blank">
+             Condition keys table
+            </a>
+            .
+           </p>
+           <p>
+            To view the global condition keys that are available to all services, see
+            <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys">
+             Available global condition keys
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d922c15b7">
+              <thead>
+               <tr>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Type
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-aws_RequestTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag">
+                 aws:RequestTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters access by a tag key and value pair that is allowed in the request
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-aws_ResourceTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag">
+                 aws:ResourceTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters access by a tag key and value pair of a resource
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-aws_TagKeys">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tagkeys">
+                 aws:TagKeys
+                </a>
+               </td>
+               <td>
+                Filters access by a list of tag keys that are allowed in the request
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-nimble_createdBy">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/userguide/security-iam-service-with-iam.html">
+                 nimble:createdBy
+                </a>
+               </td>
+               <td>
+                Filters access by the createdBy request parameter or the ID of the creator of the resource
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-nimble_ownedBy">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/userguide/security-iam-service-with-iam.html">
+                 nimble:ownedBy
+                </a>
+               </td>
+               <td>
+                Filters access by the ownedBy request parameter or the ID of the owner of the resource
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-nimble_principalId">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/userguide/security-iam-service-with-iam.html">
+                 nimble:principalId
+                </a>
+               </td>
+               <td>
+                Filters access by the principalId request parameter
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-nimble_requesterPrincipalId">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/userguide/security-iam-service-with-iam.html">
+                 nimble:requesterPrincipalId
+                </a>
+               </td>
+               <td>
+                Filters access by the ID of the logged in user
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonnimblestudio-nimble_studioId">
+                </a>
+                <a href="https://docs.aws.amazon.com/nimble-studio/latest/userguide/security-iam-service-with-iam.html">
+                 nimble:studioId
+                </a>
+               </td>
+               <td>
+                Filters access by a specific studio
+               </td>
+               <td>
+                ARN
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <awsdocs-copyright class="copyright-print">
+           </awsdocs-copyright>
+           <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}">
+           </awsdocs-thumb-feedback>
+          </div>
+          <noscript>
+           <div>
+            <div>
+             <div>
+              <div id="js_error_message">
+               <p>
+                <img alt="Warning" src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png"/>
+                <strong>
+                 Javascript is disabled or is unavailable in your browser.
+                </strong>
+               </p>
+               <p>
+                To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.
+               </p>
+              </div>
+             </div>
+            </div>
+           </div>
+          </noscript>
+          <div class="awsui-util-font-size-0" id="main-col-footer">
+           <div id="doc-conventions">
+            <a href="/general/latest/gr/docconventions.html" target="_top">
+             Document Conventions
+            </a>
+           </div>
+           <div class="prev-next">
+            <div accesskey="p" class="prev-link" href="./list_networkmanager.html" id="previous">
+             Network Manager
+            </div>
+            <div accesskey="n" class="next-link" href="./list_amazonopensearchservicesuccessortoamazonelasticsearchservice.html" id="next">
+             Amazon OpenSearch Service (successor to Amazon Elasticsearch Service)
+            </div>
+           </div>
+          </div>
+          <awsdocs-page-utilities>
+          </awsdocs-page-utilities>
+         </div>
+         <div id="quick-feedback-yes" style="display: none;">
+          <div class="title">
+           Did this page help you? - Yes
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know we're doing a good job!
+           </p>
+           <p>
+            If you've got a moment, please tell us what we did right so we can do more of it.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonnimblestudio.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+         <div id="quick-feedback-no" style="display: none;">
+          <div class="title">
+           Did this page help you? - No
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know this page needs work. We're sorry we let you down.
+           </p>
+           <p>
+            If you've got a moment, please tell us how we can make the documentation better.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonnimblestudio.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+        </div>
+       </body>
+      </div>
+     </awsdocs-view>
+     <div class="page-loading-indicator" id="page-loading-indicator">
+      <awsui-spinner size="large">
+      </awsui-spinner>
+     </div>
+    </div>
+    <div dom-region="tools" id="tools-panel">
+     <awsdocs-tools-panel id="awsdocs-tools-panel">
+     </awsdocs-tools-panel>
+    </div>
+   </awsui-app-layout>
+   <awsdocs-cookie-banner class="doc-cookie-banner">
+   </awsdocs-cookie-banner>
+  </div>
+ </body>
+</html>

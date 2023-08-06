@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html ng-app="AWSDocsDocPageApp" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <title>
+   Actions, resources, and condition keys for AWS Backup - Service Authorization Reference
+  </title>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="/assets" name="assets_root"/>
+  <meta content="list_awsbackup" name="target_state"/>
+  <meta content="list_awsbackup" name="default_state"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="shortcut icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsbackup.html" rel="canonical"/>
+  <meta content="Lists all of the available service-specific resources, actions, and condition keys that can be used in IAM policies to control access to AWS Backup." name="description"/>
+  <meta content="IAD" name="deployment_region"/>
+  <meta content="Service Authorization Reference" name="product"/>
+  <meta content="Service Authorization Reference" name="guide"/>
+  <meta content="Provides a list of the actions, resources, and condition keys supported by each AWS service that can be used in an IAM policy." name="abstract"/>
+  <meta content="en_us" name="guide-locale"/>
+  <meta content="toc-contents.json" name="tocs"/>
+  <meta content="Service Authorization Docs" name="feedback-item"/>
+  <meta content="Service Authorization Reference" name="this_doc_product"/>
+  <meta content="Service Authorization Reference" name="this_doc_guide"/>
+  <link href="https://docs.aws.amazon.com/assets/css/vendor4.css?version=2021.12.02" rel="stylesheet"/>
+  <link href="https://docs.aws.amazon.com/assets/css/awsdocs-common.css?version=2021.12.02" rel="stylesheet"/>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor3.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor4.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor1.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-common.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-doc-app.js?version=2021.12.02" type="text/javascript">
+  </script>
+ </head>
+ <body class="awsdocs awsui" ng-csp="no-unsafe-eval">
+  <div class="awsdocs-container">
+   <awsdocs-header>
+   </awsdocs-header>
+   <awsui-app-layout class="awsui-util-no-gutters" header-selector="awsdocs-header" id="app-layout" navigation-change="$ctrl.onNavChange($event)" navigation-hide="false" navigation-open="$ctrl.navOpen" navigation-width="$ctrl.navWidth" ng-controller="ContentController as $ctrl" tools-change="$ctrl.onToolsChange($event)" tools-hide="$ctrl.hideTools" tools-open="$ctrl.toolsOpen" tools-width="$ctrl.toolsWidth">
+    <div dom-region="navigation" id="guide-toc">
+     <awsdocs-toc>
+     </awsdocs-toc>
+    </div>
+    <div dom-region="content" id="main-column" tabindex="-1">
+     <awsdocs-view class="awsdocs-view">
+      <div id="awsdocs-content">
+       <head>
+        <title>
+         Actions, resources, and condition keys for AWS Backup - Service Authorization Reference
+        </title>
+        <meta content="service-authorization.pdf#list_awsbackup" name="pdf"/>
+        <meta content="http://forums.aws.amazon.com/forum.jspa?forumID=76" name="forums"/>
+        <meta content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service%20Authorization%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsbackup.html" name="feedback"/>
+        <meta content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsbackup.html" name="feedback-yes"/>
+        <meta content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsbackup.html" name="feedback-no"/>
+       </head>
+       <body>
+        <div id="main">
+         <div style="display: none">
+          <a href="service-authorization.pdf#list_awsbackup" rel="noopener noreferrer" target="_blank" title="Open PDF">
+          </a>
+         </div>
+         <div class="breadcrumb" id="breadcrumbs">
+          <a href="http://aws.amazon.com">
+           AWS
+          </a>
+          <a href="/index.html">
+           Documentation
+          </a>
+          <a href="/iam/index.html">
+           Service Authorization Reference
+          </a>
+          <a href="reference.html">
+           Service Authorization Reference
+          </a>
+         </div>
+         <div id="page-toc-src">
+          <a href="#awsbackup-actions-as-permissions">
+           Actions
+          </a>
+          <a href="#awsbackup-resources-for-iam-policies">
+           Resource types
+          </a>
+          <a href="#awsbackup-policy-keys">
+           Condition keys
+          </a>
+         </div>
+         <div class="awsui-util-container" id="main-content">
+          <div id="main-col-body">
+           <awsdocs-language-banner data-service="$ctrl.pageService">
+           </awsdocs-language-banner>
+           <h1 class="topictitle" id="list_awsbackup">
+            Actions, resources, and condition keys for      AWS Backup
+           </h1>
+           <div class="awsdocs-page-header-container">
+            <awsdocs-page-header>
+            </awsdocs-page-header>
+            <awsdocs-filter-selector id="awsdocs-filter-selector">
+            </awsdocs-filter-selector>
+           </div>
+           <p>
+            AWS Backup (service prefix:
+            <code class="code">
+             backup
+            </code>
+            ) provides the following    service-specific resources, actions, and condition context keys for use in IAM permission    policies.
+           </p>
+           <p>
+            References:
+           </p>
+           <div class="itemizedlist">
+            <ul class="itemizedlist" type="disc">
+             <li class="listitem">
+              <p>
+               Learn how to
+               <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/">
+                configure this service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               View a list of the
+               <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/">
+                API operations available for this          service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               Learn how to secure this service and its resources by
+               <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/security-considerations.html#authentication">
+                using          IAM
+               </a>
+               permission policies.
+              </p>
+             </li>
+            </ul>
+           </div>
+           <div class="highlights" id="inline-topiclist">
+            <p>
+             <strong>
+              Topics
+             </strong>
+            </p>
+            <ul>
+             <li>
+              <a href="#awsbackup-actions-as-permissions">
+               Actions defined by        AWS Backup
+              </a>
+             </li>
+             <li>
+              <a href="#awsbackup-resources-for-iam-policies">
+               Resource types defined by        AWS Backup
+              </a>
+             </li>
+             <li>
+              <a href="#awsbackup-policy-keys">
+               Condition keys for        AWS Backup
+              </a>
+             </li>
+            </ul>
+           </div>
+           <h2 id="awsbackup-actions-as-permissions">
+            Actions defined by        AWS Backup
+           </h2>
+           <p>
+            You can specify the following actions in the
+            <code class="code">
+             Action
+            </code>
+            element of an IAM      policy statement. Use policies to grant permissions to perform an operation in AWS. When you      use an action in a policy, you usually allow or deny access to the API operation or CLI      command with the same name. However, in some cases, a single action controls access to more      than one operation. Alternatively, some operations require several different actions.
+           </p>
+           <p>
+            The
+            <b>
+             Resource types
+            </b>
+            column indicates whether each action supports      resource-level permissions. If there is no value for this column, you must specify all      resources ("*") in the
+            <code class="code">
+             Resource
+            </code>
+            element of your policy statement. If the column      includes a resource type, then you can specify an ARN of that type in a statement with that      action. Required resources are indicated in the table with an asterisk (*). If you specify a      resource-level permission ARN in a statement using this action, then it must be of this type.      Some actions support multiple resource types. If the resource type is optional (not indicated      as required), then you can choose to use one but not the other.
+           </p>
+           <p>
+            For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#actions_table" rel="noopener noreferrer" target="_blank">
+             Actions table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d135c11b9">
+              <thead>
+               <tr>
+                <th>
+                 Actions
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Access level
+                </th>
+                <th>
+                 Resource types (*required)
+                </th>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Dependent actions
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="awsbackup-CopyFromBackupVault">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_StartCopyJob.html">
+                 CopyFromBackupVault
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to copy from a backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backup_CopyTargets">
+                  backup:CopyTargets
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsbackup-backup_CopyTargetOrgPaths">
+                  backup:CopyTargetOrgPaths
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-CopyIntoBackupVault">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_StartCopyJob.html">
+                 CopyIntoBackupVault
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to copy into a backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsbackup-CreateBackupPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_CreateBackupPlan.html">
+                 CreateBackupPlan
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a new backup plan
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsbackup-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-CreateBackupSelection">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_CreateBackupSelection.html">
+                 CreateBackupSelection
+                </a>
+               </td>
+               <td>
+                Grants permission to create a new resource assignment in a backup plan
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 iam:PassRole
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsbackup-CreateBackupVault">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_CreateBackupVault.html">
+                 CreateBackupVault
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a new backup vault
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsbackup-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsbackup-CreateFramework">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_CreateFramework.html">
+                 CreateFramework
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a new framework
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-framework">
+                  framework*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsbackup-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsbackup-CreateReportPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_CreateReportPlan.html">
+                 CreateReportPlan
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a new report plan
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-reportPlan">
+                  reportPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsbackup-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsbackup-backup_FrameworkArns">
+                  backup:FrameworkArns
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DeleteBackupPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DeleteBackupPlan.html">
+                 DeleteBackupPlan
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a backup plan
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DeleteBackupSelection">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DeleteBackupSelection.html">
+                 DeleteBackupSelection
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a resource assignment from a backup plan
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DeleteBackupVault">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DeleteBackupVault.html">
+                 DeleteBackupVault
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DeleteBackupVaultAccessPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DeleteBackupVaultAccessPolicy.html">
+                 DeleteBackupVaultAccessPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to delete backup vault access policy
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DeleteBackupVaultLockConfiguration">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DeleteBackupVaultLockConfiguration.html">
+                 DeleteBackupVaultLockConfiguration
+                </a>
+               </td>
+               <td>
+                Grants permission to remove the lock configuration from a backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DeleteBackupVaultNotifications">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DeleteBackupVaultNotifications.html">
+                 DeleteBackupVaultNotifications
+                </a>
+               </td>
+               <td>
+                Grants permission to remove the notifications from a backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DeleteFramework">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DeleteFramework.html">
+                 DeleteFramework
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a framework
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-framework">
+                  framework*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DeleteRecoveryPoint">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DeleteRecoveryPoint.html">
+                 DeleteRecoveryPoint
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a recovery point from a backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DeleteReportPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DeleteReportPlan.html">
+                 DeleteReportPlan
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a report plan
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-reportPlan">
+                  reportPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeBackupJob">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeBackupJob.html">
+                 DescribeBackupJob
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a backup job
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeBackupVault">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeBackupVault.html">
+                 DescribeBackupVault
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a new backup vault with the specified name
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeCopyJob">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeCopyJob.html">
+                 DescribeCopyJob
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a copy job
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeFramework">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeFramework.html">
+                 DescribeFramework
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a framework with the specified name
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-framework">
+                  framework*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeGlobalSettings">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeGlobalSettings.html">
+                 DescribeGlobalSettings
+                </a>
+               </td>
+               <td>
+                Grants permission to describe global settings
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeProtectedResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeProtectedResource.html">
+                 DescribeProtectedResource
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a protected resource
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeRecoveryPoint">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeRecoveryPoint.html">
+                 DescribeRecoveryPoint
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a recovery point
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeRegionSettings">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeRegionSettings.html">
+                 DescribeRegionSettings
+                </a>
+               </td>
+               <td>
+                Grants permission to describe region settings
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeReportJob">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeReportJob.html">
+                 DescribeReportJob
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a report job
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeReportPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeReportPlan.html">
+                 DescribeReportPlan
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a report plan with the specified name
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-reportPlan">
+                  reportPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DescribeRestoreJob">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DescribeRestoreJob.html">
+                 DescribeRestoreJob
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a restore job
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-DisassociateRecoveryPoint">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_DisassociateRecoveryPoint.html">
+                 DisassociateRecoveryPoint
+                </a>
+               </td>
+               <td>
+                Grants permission to disassociate a recovery point from a backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ExportBackupPlanTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ExportBackupPlanTemplate.html">
+                 ExportBackupPlanTemplate
+                </a>
+               </td>
+               <td>
+                Grants permission to export a backup plan as a JSON
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-GetBackupPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_GetBackupPlan.html">
+                 GetBackupPlan
+                </a>
+               </td>
+               <td>
+                Grants permission to get a backup plan
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-GetBackupPlanFromJSON">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_GetBackupPlanFromJSON.html">
+                 GetBackupPlanFromJSON
+                </a>
+               </td>
+               <td>
+                Grants permission to transform a JSON to a backup plan
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-GetBackupPlanFromTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_GetBackupPlanFromTemplate.html">
+                 GetBackupPlanFromTemplate
+                </a>
+               </td>
+               <td>
+                Grants permission to transform a template to a backup plan
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-GetBackupSelection">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_GetBackupSelection.html">
+                 GetBackupSelection
+                </a>
+               </td>
+               <td>
+                Grants permission to get a backup plan resource assignment
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-GetBackupVaultAccessPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_GetBackupVaultAccessPolicy.html">
+                 GetBackupVaultAccessPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to get backup vault access policy
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-GetBackupVaultNotifications">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_GetBackupVaultNotifications.html">
+                 GetBackupVaultNotifications
+                </a>
+               </td>
+               <td>
+                Grants permission to get backup vault notifications
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-GetRecoveryPointRestoreMetadata">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_GetRecoveryPointRestoreMetadata.html">
+                 GetRecoveryPointRestoreMetadata
+                </a>
+               </td>
+               <td>
+                Grants permission to get recovery point restore metadata
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-GetSupportedResourceTypes">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_GetSupportedResourceTypes.html">
+                 GetSupportedResourceTypes
+                </a>
+               </td>
+               <td>
+                Grants permission to get supported resource types
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListBackupJobs">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListBackupJobs.html">
+                 ListBackupJobs
+                </a>
+               </td>
+               <td>
+                Grants permission to list backup jobs
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListBackupPlanTemplates">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListBackupPlanTemplates.html">
+                 ListBackupPlanTemplates
+                </a>
+               </td>
+               <td>
+                Grants permission to list backup plan templates provided by AWS Backup
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListBackupPlanVersions">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListBackupPlanVersions.html">
+                 ListBackupPlanVersions
+                </a>
+               </td>
+               <td>
+                Grants permission to list backup plan versions
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListBackupPlans">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListBackupPlans.html">
+                 ListBackupPlans
+                </a>
+               </td>
+               <td>
+                Grants permission to list backup plans
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListBackupSelections">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListBackupSelections.html">
+                 ListBackupSelections
+                </a>
+               </td>
+               <td>
+                Grants permission to list resource assignments for a specific backup plan
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListBackupVaults">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListBackupVaults.html">
+                 ListBackupVaults
+                </a>
+               </td>
+               <td>
+                Grants permission to list backup vaults
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListCopyJobs">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListCopyJobs.html">
+                 ListCopyJobs
+                </a>
+               </td>
+               <td>
+                Grants permission to list copy jobs
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListFrameworks">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListFrameworks.html">
+                 ListFrameworks
+                </a>
+               </td>
+               <td>
+                Grants permission to list frameworks
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListProtectedResources">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListProtectedResources.html">
+                 ListProtectedResources
+                </a>
+               </td>
+               <td>
+                Grants permission to list protected resources by AWS Backup
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListRecoveryPointsByBackupVault">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListRecoveryPointsByBackupVault.html">
+                 ListRecoveryPointsByBackupVault
+                </a>
+               </td>
+               <td>
+                Grants permission to list recovery points inside a backup vault
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListRecoveryPointsByResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListRecoveryPointsByResource.html">
+                 ListRecoveryPointsByResource
+                </a>
+               </td>
+               <td>
+                Grants permission to list recovery points for a resource
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListReportJobs">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListReportJobs.html">
+                 ListReportJobs
+                </a>
+               </td>
+               <td>
+                Grants permission to list report jobs
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListReportPlans">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListReportPlans.html">
+                 ListReportPlans
+                </a>
+               </td>
+               <td>
+                Grants permission to list report plans
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-ListRestoreJobs">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListRestoreJobs.html">
+                 ListRestoreJobs
+                </a>
+               </td>
+               <td>
+                Grants permission to lists restore jobs
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="5">
+                <a id="awsbackup-ListTags">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListTags.html">
+                 ListTags
+                </a>
+               </td>
+               <td rowspan="5">
+                Grants permission to list tags for a resource
+               </td>
+               <td rowspan="5">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-framework">
+                  framework
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-reportPlan">
+                  reportPlan
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-PutBackupVaultAccessPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_PutBackupVaultAccessPolicy.html">
+                 PutBackupVaultAccessPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to add an access policy to the backup vault
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-PutBackupVaultLockConfiguration">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_PutBackupVaultLockConfiguration.html">
+                 PutBackupVaultLockConfiguration
+                </a>
+               </td>
+               <td>
+                Grants permission to add a lock configuration to the backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-PutBackupVaultNotifications">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_PutBackupVaultNotifications.html">
+                 PutBackupVaultNotifications
+                </a>
+               </td>
+               <td>
+                Grants permission to add an SNS topic to the backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-StartBackupJob">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_StartBackupJob.html">
+                 StartBackupJob
+                </a>
+               </td>
+               <td>
+                Grants permission to start a new backup job
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 iam:PassRole
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-StartCopyJob">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_StartCopyJob.html">
+                 StartCopyJob
+                </a>
+               </td>
+               <td>
+                Grants permission to copy a backup from a source backup vault to a destination backup vault
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 iam:PassRole
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-StartReportJob">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_StartReportJob.html">
+                 StartReportJob
+                </a>
+               </td>
+               <td>
+                Grants permission to start a new report job
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-reportPlan">
+                  reportPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-StartRestoreJob">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_StartRestoreJob.html">
+                 StartRestoreJob
+                </a>
+               </td>
+               <td>
+                Grants permission to start a new restore job
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 iam:PassRole
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-StopBackupJob">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_StopBackupJob.html">
+                 StopBackupJob
+                </a>
+               </td>
+               <td>
+                Grants permission to stop a backup job
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="6">
+                <a id="awsbackup-TagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_TagResource.html">
+                 TagResource
+                </a>
+               </td>
+               <td rowspan="6">
+                Grants permission to tag a resource
+               </td>
+               <td rowspan="6">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-framework">
+                  framework
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-reportPlan">
+                  reportPlan
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsbackup-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="6">
+                <a id="awsbackup-UntagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UntagResource.html">
+                 UntagResource
+                </a>
+               </td>
+               <td rowspan="6">
+                Grants permission to untag a resource
+               </td>
+               <td rowspan="6">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupVault">
+                  backupVault
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-framework">
+                  framework
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsbackup-reportPlan">
+                  reportPlan
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-UpdateBackupPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html">
+                 UpdateBackupPlan
+                </a>
+               </td>
+               <td>
+                Grants permission to update a backup plan
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backupPlan">
+                  backupPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-UpdateFramework">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateFramework.html">
+                 UpdateFramework
+                </a>
+               </td>
+               <td>
+                Grants permission to update a framework
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-framework">
+                  framework*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-UpdateGlobalSettings">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateGlobalSettings.html">
+                 UpdateGlobalSettings
+                </a>
+               </td>
+               <td>
+                Grants permission to update the current global settings for the AWS Account
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-UpdateRecoveryPointLifecycle">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateRecoveryPointLifecycle.html">
+                 UpdateRecoveryPointLifecycle
+                </a>
+               </td>
+               <td>
+                Grants permission to update the lifecycle of the recovery point
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-recoveryPoint">
+                  recoveryPoint*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-UpdateRegionSettings">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateRegionSettings.html">
+                 UpdateRegionSettings
+                </a>
+               </td>
+               <td>
+                Grants permission to update the current service opt-in settings for the Region
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsbackup-UpdateReportPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateReportPlan.html">
+                 UpdateReportPlan
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to update a report plan
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-reportPlan">
+                  reportPlan*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-backup_FrameworkArns">
+                  backup:FrameworkArns
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="awsbackup-resources-for-iam-policies">
+            Resource types defined by        AWS Backup
+           </h2>
+           <p>
+            The following resource types are defined by this service and can be used in the
+            <code class="code">
+             Resource
+            </code>
+            element of IAM permission policy statements. Each action in the
+            <a href="#awsbackup-actions-as-permissions">
+             Actions table
+            </a>
+            identifies the      resource types that can be specified with that action. A resource type can also define which      condition keys you can include in a policy. These keys are displayed in the last column of the      table. For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#resources_table" rel="noopener noreferrer" target="_blank">
+             Resource types table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d135c13b5">
+              <thead>
+               <tr>
+                <th>
+                 Resource types
+                </th>
+                <th>
+                 ARN
+                </th>
+                <th>
+                 Condition keys
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="awsbackup-backupVault">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/vaults.html">
+                 backupVault
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:backup:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:backup-vault:$
+                 <span>
+                  {
+                 </span>
+                 BackupVaultName}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-backupPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/about-backup-plans.html">
+                 backupPlan
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:backup:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:backup-plan:$
+                 <span>
+                  {
+                 </span>
+                 BackupPlanId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-recoveryPoint">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/recovery-points.html">
+                 recoveryPoint
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:$
+                 <span>
+                  {
+                 </span>
+                 Vendor}:$
+                 <span>
+                  {
+                 </span>
+                 Region}:*:$
+                 <span>
+                  {
+                 </span>
+                 ResourceType}:$
+                 <span>
+                  {
+                 </span>
+                 RecoveryPointId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-framework">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/frameworks.html">
+                 framework
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:backup:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:framework:$
+                 <span>
+                  {
+                 </span>
+                 FrameworkName}-$
+                 <span>
+                  {
+                 </span>
+                 FrameworkId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-reportPlan">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/report-plans.html">
+                 reportPlan
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:backup:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:report-plan:$
+                 <span>
+                  {
+                 </span>
+                 ReportPlanName}-$
+                 <span>
+                  {
+                 </span>
+                 ReportPlanId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsbackup-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="awsbackup-policy-keys">
+            Condition keys for        AWS Backup
+           </h2>
+           <p>
+            AWS Backup defines the following condition keys that can be used in the
+            <code class="code">
+             Condition
+            </code>
+            element of an IAM policy. You can use these keys to further refine      the conditions under which the policy statement applies. For details about the columns in the      following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#context_keys_table" rel="noopener noreferrer" target="_blank">
+             Condition keys table
+            </a>
+            .
+           </p>
+           <p>
+            To view the global condition keys that are available to all services, see
+            <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys">
+             Available global condition keys
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d135c15b7">
+              <thead>
+               <tr>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Type
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="awsbackup-aws_RequestTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag">
+                 aws:RequestTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters access by the allowed set of values for each of the tags
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-aws_ResourceTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag">
+                 aws:ResourceTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters access by the tags associated with the resource
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-aws_TagKeys">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tagkeys">
+                 aws:TagKeys
+                </a>
+               </td>
+               <td>
+                Filters access by the presence of mandatory tags in the request
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-backup_CopyTargetOrgPaths">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/access-control.html#amazon-backup-keys">
+                 backup:CopyTargetOrgPaths
+                </a>
+               </td>
+               <td>
+                Filters access by the organization unit
+               </td>
+               <td>
+                ArrayOfString
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-backup_CopyTargets">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/access-control.html#amazon-backup-keys">
+                 backup:CopyTargets
+                </a>
+               </td>
+               <td>
+                Filters access by the ARN of an backup vault
+               </td>
+               <td>
+                ArrayOfARN
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsbackup-backup_FrameworkArns">
+                </a>
+                <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/access-control.html#amazon-backup-keys">
+                 backup:FrameworkArns
+                </a>
+               </td>
+               <td>
+                Filters access by the Framework ARNs
+               </td>
+               <td>
+                ArrayOfARN
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <awsdocs-copyright class="copyright-print">
+           </awsdocs-copyright>
+           <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}">
+           </awsdocs-thumb-feedback>
+          </div>
+          <noscript>
+           <div>
+            <div>
+             <div>
+              <div id="js_error_message">
+               <p>
+                <img alt="Warning" src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png"/>
+                <strong>
+                 Javascript is disabled or is unavailable in your browser.
+                </strong>
+               </p>
+               <p>
+                To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.
+               </p>
+              </div>
+             </div>
+            </div>
+           </div>
+          </noscript>
+          <div class="awsui-util-font-size-0" id="main-col-footer">
+           <div id="doc-conventions">
+            <a href="/general/latest/gr/docconventions.html" target="_top">
+             Document Conventions
+            </a>
+           </div>
+           <div class="prev-next">
+            <div accesskey="p" class="prev-link" href="./list_awsdatasync.html" id="previous">
+             AWSDataSync
+            </div>
+            <div accesskey="n" class="next-link" href="./list_awsbackupgateway.html" id="next">
+             AWS Backup Gateway
+            </div>
+           </div>
+          </div>
+          <awsdocs-page-utilities>
+          </awsdocs-page-utilities>
+         </div>
+         <div id="quick-feedback-yes" style="display: none;">
+          <div class="title">
+           Did this page help you? - Yes
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know we're doing a good job!
+           </p>
+           <p>
+            If you've got a moment, please tell us what we did right so we can do more of it.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsbackup.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+         <div id="quick-feedback-no" style="display: none;">
+          <div class="title">
+           Did this page help you? - No
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know this page needs work. We're sorry we let you down.
+           </p>
+           <p>
+            If you've got a moment, please tell us how we can make the documentation better.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsbackup.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+        </div>
+       </body>
+      </div>
+     </awsdocs-view>
+     <div class="page-loading-indicator" id="page-loading-indicator">
+      <awsui-spinner size="large">
+      </awsui-spinner>
+     </div>
+    </div>
+    <div dom-region="tools" id="tools-panel">
+     <awsdocs-tools-panel id="awsdocs-tools-panel">
+     </awsdocs-tools-panel>
+    </div>
+   </awsui-app-layout>
+   <awsdocs-cookie-banner class="doc-cookie-banner">
+   </awsdocs-cookie-banner>
+  </div>
+ </body>
+</html>

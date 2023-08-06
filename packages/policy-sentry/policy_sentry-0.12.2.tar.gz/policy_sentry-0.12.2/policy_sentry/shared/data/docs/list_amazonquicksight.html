@@ -1,0 +1,5409 @@
+<!DOCTYPE html>
+<html ng-app="AWSDocsDocPageApp" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <title>
+   Actions, resources, and condition keys for Amazon QuickSight - Service Authorization Reference
+  </title>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="/assets" name="assets_root"/>
+  <meta content="list_amazonquicksight" name="target_state"/>
+  <meta content="list_amazonquicksight" name="default_state"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="shortcut icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonquicksight.html" rel="canonical"/>
+  <meta content="Lists all of the available service-specific resources, actions, and condition keys that can be used in IAM policies to control access to Amazon QuickSight." name="description"/>
+  <meta content="IAD" name="deployment_region"/>
+  <meta content="Service Authorization Reference" name="product"/>
+  <meta content="Service Authorization Reference" name="guide"/>
+  <meta content="Provides a list of the actions, resources, and condition keys supported by each AWS service that can be used in an IAM policy." name="abstract"/>
+  <meta content="en_us" name="guide-locale"/>
+  <meta content="toc-contents.json" name="tocs"/>
+  <meta content="Service Authorization Docs" name="feedback-item"/>
+  <meta content="Service Authorization Reference" name="this_doc_product"/>
+  <meta content="Service Authorization Reference" name="this_doc_guide"/>
+  <link href="https://docs.aws.amazon.com/assets/css/vendor4.css?version=2021.12.02" rel="stylesheet"/>
+  <link href="https://docs.aws.amazon.com/assets/css/awsdocs-common.css?version=2021.12.02" rel="stylesheet"/>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor3.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor4.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor1.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-common.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-doc-app.js?version=2021.12.02" type="text/javascript">
+  </script>
+ </head>
+ <body class="awsdocs awsui" ng-csp="no-unsafe-eval">
+  <div class="awsdocs-container">
+   <awsdocs-header>
+   </awsdocs-header>
+   <awsui-app-layout class="awsui-util-no-gutters" header-selector="awsdocs-header" id="app-layout" navigation-change="$ctrl.onNavChange($event)" navigation-hide="false" navigation-open="$ctrl.navOpen" navigation-width="$ctrl.navWidth" ng-controller="ContentController as $ctrl" tools-change="$ctrl.onToolsChange($event)" tools-hide="$ctrl.hideTools" tools-open="$ctrl.toolsOpen" tools-width="$ctrl.toolsWidth">
+    <div dom-region="navigation" id="guide-toc">
+     <awsdocs-toc>
+     </awsdocs-toc>
+    </div>
+    <div dom-region="content" id="main-column" tabindex="-1">
+     <awsdocs-view class="awsdocs-view">
+      <div id="awsdocs-content">
+       <head>
+        <title>
+         Actions, resources, and condition keys for Amazon QuickSight - Service Authorization Reference
+        </title>
+        <meta content="service-authorization.pdf#list_amazonquicksight" name="pdf"/>
+        <meta content="http://forums.aws.amazon.com/forum.jspa?forumID=76" name="forums"/>
+        <meta content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service%20Authorization%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonquicksight.html" name="feedback"/>
+        <meta content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonquicksight.html" name="feedback-yes"/>
+        <meta content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonquicksight.html" name="feedback-no"/>
+       </head>
+       <body>
+        <div id="main">
+         <div style="display: none">
+          <a href="service-authorization.pdf#list_amazonquicksight" rel="noopener noreferrer" target="_blank" title="Open PDF">
+          </a>
+         </div>
+         <div class="breadcrumb" id="breadcrumbs">
+          <a href="http://aws.amazon.com">
+           AWS
+          </a>
+          <a href="/index.html">
+           Documentation
+          </a>
+          <a href="/iam/index.html">
+           Service Authorization Reference
+          </a>
+          <a href="reference.html">
+           Service Authorization Reference
+          </a>
+         </div>
+         <div id="page-toc-src">
+          <a href="#amazonquicksight-actions-as-permissions">
+           Actions
+          </a>
+          <a href="#amazonquicksight-resources-for-iam-policies">
+           Resource types
+          </a>
+          <a href="#amazonquicksight-policy-keys">
+           Condition keys
+          </a>
+         </div>
+         <div class="awsui-util-container" id="main-content">
+          <div id="main-col-body">
+           <awsdocs-language-banner data-service="$ctrl.pageService">
+           </awsdocs-language-banner>
+           <h1 class="topictitle" id="list_amazonquicksight">
+            Actions, resources, and condition keys for      Amazon QuickSight
+           </h1>
+           <div class="awsdocs-page-header-container">
+            <awsdocs-page-header>
+            </awsdocs-page-header>
+            <awsdocs-filter-selector id="awsdocs-filter-selector">
+            </awsdocs-filter-selector>
+           </div>
+           <p>
+            Amazon QuickSight (service prefix:
+            <code class="code">
+             quicksight
+            </code>
+            ) provides the following    service-specific resources, actions, and condition context keys for use in IAM permission    policies.
+           </p>
+           <p>
+            References:
+           </p>
+           <div class="itemizedlist">
+            <ul class="itemizedlist" type="disc">
+             <li class="listitem">
+              <p>
+               Learn how to
+               <a href="https://docs.aws.amazon.com/quicksight/latest/user/welcome.html">
+                configure this service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               View a list of the
+               <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/">
+                API operations available for this          service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               Learn how to secure this service and its resources by
+               <a href="https://docs.aws.amazon.com/quicksight/latest/user/working-with-iam.html">
+                using          IAM
+               </a>
+               permission policies.
+              </p>
+             </li>
+            </ul>
+           </div>
+           <div class="highlights" id="inline-topiclist">
+            <p>
+             <strong>
+              Topics
+             </strong>
+            </p>
+            <ul>
+             <li>
+              <a href="#amazonquicksight-actions-as-permissions">
+               Actions defined by        Amazon QuickSight
+              </a>
+             </li>
+             <li>
+              <a href="#amazonquicksight-resources-for-iam-policies">
+               Resource types defined by        Amazon QuickSight
+              </a>
+             </li>
+             <li>
+              <a href="#amazonquicksight-policy-keys">
+               Condition keys for        Amazon QuickSight
+              </a>
+             </li>
+            </ul>
+           </div>
+           <h2 id="amazonquicksight-actions-as-permissions">
+            Actions defined by        Amazon QuickSight
+           </h2>
+           <p>
+            You can specify the following actions in the
+            <code class="code">
+             Action
+            </code>
+            element of an IAM      policy statement. Use policies to grant permissions to perform an operation in AWS. When you      use an action in a policy, you usually allow or deny access to the API operation or CLI      command with the same name. However, in some cases, a single action controls access to more      than one operation. Alternatively, some operations require several different actions.
+           </p>
+           <p>
+            The
+            <b>
+             Resource types
+            </b>
+            column indicates whether each action supports      resource-level permissions. If there is no value for this column, you must specify all      resources ("*") in the
+            <code class="code">
+             Resource
+            </code>
+            element of your policy statement. If the column      includes a resource type, then you can specify an ARN of that type in a statement with that      action. Required resources are indicated in the table with an asterisk (*). If you specify a      resource-level permission ARN in a statement using this action, then it must be of this type.      Some actions support multiple resource types. If the resource type is optional (not indicated      as required), then you can choose to use one but not the other.
+           </p>
+           <p>
+            For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#actions_table" rel="noopener noreferrer" target="_blank">
+             Actions table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d990c11b9">
+              <thead>
+               <tr>
+                <th>
+                 Actions
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Access level
+                </th>
+                <th>
+                 Resource types (*required)
+                </th>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Dependent actions
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CancelIngestion">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CancelIngestion.html">
+                 CancelIngestion
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to cancel a SPICE ingestions on a dataset
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-ingestion">
+                  ingestion*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-CreateAccountCustomization">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateAccountCustomization.html">
+                 CreateAccountCustomization
+                </a>
+               </td>
+               <td>
+                Grants permission to create an account customization for QuickSight account or namespace
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateAdmin">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 CreateAdmin
+                </a>
+                [permission only]
+               </td>
+               <td rowspan="2">
+                Grants permission to provision Amazon QuickSight administrators, authors, and readers
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateAnalysis">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateAnalysis.html">
+                 CreateAnalysis
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create an analysis from a template
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-CreateCustomPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 CreateCustomPermissions
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to create a custom permissions resource for restricting user access
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateDashboard">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateDashboard.html">
+                 CreateDashboard
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a QuickSight Dashboard
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateDataSet">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateDataSet.html">
+                 CreateDataSet
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a dataset
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-datasource">
+                  datasource*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 quicksight:PassDataSource
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-CreateDataSource">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateDataSource.html">
+                 CreateDataSource
+                </a>
+               </td>
+               <td>
+                Grants permission to create a data source
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-CreateEmailCustomizationTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/customizing-quicksight-email-templates.html">
+                 CreateEmailCustomizationTemplate
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to create a QuickSight email customization template
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-emailCustomizationTemplate">
+                  emailCustomizationTemplate*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateFolder">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateFolder.html">
+                 CreateFolder
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a QuickSight folder
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="4">
+                <a id="amazonquicksight-CreateFolderMembership">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateFolderMembership.html">
+                 CreateFolderMembership
+                </a>
+               </td>
+               <td rowspan="4">
+                Grants permission to add a QuickSight Dashboard, Analysis or Dataset to a QuickSight Folder
+               </td>
+               <td rowspan="4">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dataset">
+                  dataset
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateGroup.html">
+                 CreateGroup
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a QuickSight group
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-group">
+                  group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateGroupMembership">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateGroupMembership.html">
+                 CreateGroupMembership
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to add a QuickSight user to a QuickSight group
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-group">
+                  group*
+                 </a>
+                </p>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-quicksight_UserName">
+                  quicksight:UserName
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-CreateIAMPolicyAssignment">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateIAMPolicyAssignment.html">
+                 CreateIAMPolicyAssignment
+                </a>
+               </td>
+               <td>
+                Grants permission to create an assignment with one specified IAM Policy ARN that will be assigned to specified groups or users of QuickSight
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-assignment">
+                  assignment*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateIngestion">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateIngestion.html">
+                 CreateIngestion
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to start a SPICE ingestion on a dataset
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-ingestion">
+                  ingestion*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateNamespace">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateNamespace.html">
+                 CreateNamespace
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create an QuickSight namespace
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-namespace">
+                  namespace*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateReader">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 CreateReader
+                </a>
+                [permission only]
+               </td>
+               <td rowspan="2">
+                Grants permission to provision Amazon QuickSight readers
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateTemplate.html">
+                 CreateTemplate
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a template
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateTemplateAlias">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateTemplateAlias.html">
+                 CreateTemplateAlias
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a template alias
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateTheme">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateTheme.html">
+                 CreateTheme
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a theme
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateThemeAlias">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateThemeAlias.html">
+                 CreateThemeAlias
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create an alias for a theme version
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-CreateUser">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 CreateUser
+                </a>
+                [permission only]
+               </td>
+               <td rowspan="2">
+                Grants permission to provision Amazon QuickSight authors and readers
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-CreateVPCConnection">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/vpc-creating-a-connection-in-quicksight.html">
+                 CreateVPCConnection
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to create a VPC connection
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteAccountCustomization">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteAccountCustomization.html">
+                 DeleteAccountCustomization
+                </a>
+               </td>
+               <td>
+                Grants permission to delete an account customization for QuickSight account or namespace
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-customization">
+                  customization*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteAnalysis">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteAnalysis.html">
+                 DeleteAnalysis
+                </a>
+               </td>
+               <td>
+                Grants permission to delete an analysis
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteCustomPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 DeleteCustomPermissions
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to delete a custom permissions resource
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteDashboard">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteDashboard.html">
+                 DeleteDashboard
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a QuickSight Dashboard
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-DeleteDataSet">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteDataSet.html">
+                 DeleteDataSet
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to delete a dataset
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dataset">
+                  dataset*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-DeleteDataSource">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteDataSource.html">
+                 DeleteDataSource
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to delete a data source
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-datasource">
+                  datasource*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteEmailCustomizationTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/customizing-quicksight-email-templates.html">
+                 DeleteEmailCustomizationTemplate
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to delete a QuickSight email customization template
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-emailCustomizationTemplate">
+                  emailCustomizationTemplate*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteFolder">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteFolder.html">
+                 DeleteFolder
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a QuickSight Folder
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="4">
+                <a id="amazonquicksight-DeleteFolderMembership">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteFolderMembership.html">
+                 DeleteFolderMembership
+                </a>
+               </td>
+               <td rowspan="4">
+                Grants permission to remove a QuickSight Dashboard, Analysis or Dataset from a QuickSight Folder
+               </td>
+               <td rowspan="4">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dataset">
+                  dataset
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteGroup.html">
+                 DeleteGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to remove a user group from QuickSight
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-group">
+                  group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteGroupMembership">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteGroupMembership.html">
+                 DeleteGroupMembership
+                </a>
+               </td>
+               <td>
+                Grants permission to remove a user from a group so that he/she is no longer a member of the group
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-group">
+                  group*
+                 </a>
+                </p>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-quicksight_UserName">
+                  quicksight:UserName
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteIAMPolicyAssignment">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteIAMPolicyAssignment.html">
+                 DeleteIAMPolicyAssignment
+                </a>
+               </td>
+               <td>
+                Grants permission to update an existing assignment
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-assignment">
+                  assignment*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteNamespace">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteNamespace.html">
+                 DeleteNamespace
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a QuickSight namespace
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-namespace">
+                  namespace*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteTemplate.html">
+                 DeleteTemplate
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a template
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteTemplateAlias">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteTemplateAlias.html">
+                 DeleteTemplateAlias
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a template alias
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteTheme">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteTheme.html">
+                 DeleteTheme
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a theme
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteThemeAlias">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteThemeAlias.html">
+                 DeleteThemeAlias
+                </a>
+               </td>
+               <td>
+                Grants permission to delete the alias of a theme
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteUser">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteUser.html">
+                 DeleteUser
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a QuickSight user, given the user name
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteUserByPrincipalId">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DeleteUserByPrincipalId.html">
+                 DeleteUserByPrincipalId
+                </a>
+               </td>
+               <td>
+                Grants permission to deletes a user identified by its principal ID
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DeleteVPCConnection">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/vpc-creating-a-connection-in-quicksight.html">
+                 DeleteVPCConnection
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to delete a VPC connection
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeAccountCustomization">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeAccountCustomization.html">
+                 DescribeAccountCustomization
+                </a>
+               </td>
+               <td>
+                Grants permission to describe an account customization for QuickSight account or namespace
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-customization">
+                  customization*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeAccountSettings">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeAccountSettings.html">
+                 DescribeAccountSettings
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the administrative account settings for QuickSight account
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeAnalysis">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeAnalysis.html">
+                 DescribeAnalysis
+                </a>
+               </td>
+               <td>
+                Grants permission to describe an analysis
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeAnalysisPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeAnalysisPermissions.html">
+                 DescribeAnalysisPermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to describe permissions for an analysis
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeCustomPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 DescribeCustomPermissions
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to describe a custom permissions resource in a QuickSight account
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeDashboard">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeDashboard.html">
+                 DescribeDashboard
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a QuickSight Dashboard
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeDashboardPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeDashboardPermissions.html">
+                 DescribeDashboardPermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to describe permissions for a QuickSight Dashboard
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-DescribeDataSet">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeDataSet.html">
+                 DescribeDataSet
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to describe a dataset
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dataset">
+                  dataset*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-DescribeDataSetPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeDataSetPermissions.html">
+                 DescribeDataSetPermissions
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to describe the resource policy of a dataset
+               </td>
+               <td rowspan="2">
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dataset">
+                  dataset*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-DescribeDataSource">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeDataSource.html">
+                 DescribeDataSource
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to describe a data source
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-datasource">
+                  datasource*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-DescribeDataSourcePermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeDataSourcePermissions.html">
+                 DescribeDataSourcePermissions
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to describe the resource policy of a data source
+               </td>
+               <td rowspan="2">
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-datasource">
+                  datasource*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeEmailCustomizationTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/customizing-quicksight-email-templates.html">
+                 DescribeEmailCustomizationTemplate
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to describe a QuickSight email customization template
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-emailCustomizationTemplate">
+                  emailCustomizationTemplate*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeFolder">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeFolder.html">
+                 DescribeFolder
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a QuickSight Folder
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeFolderPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeFolderPermissions.html">
+                 DescribeFolderPermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to describe permissions for a QuickSight Folder
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeFolderResolvedPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeFolderResolvedPermissions.html">
+                 DescribeFolderResolvedPermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to describe resolved permissions for a QuickSight Folder
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeGroup.html">
+                 DescribeGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a QuickSight group
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-group">
+                  group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeIAMPolicyAssignment">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeIAMPolicyAssignment.html">
+                 DescribeIAMPolicyAssignment
+                </a>
+               </td>
+               <td>
+                Grants permission to describe an existing assignment
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-assignment">
+                  assignment*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-DescribeIngestion">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeIngestion.html">
+                 DescribeIngestion
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to describe a SPICE ingestion on a dataset
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-ingestion">
+                  ingestion*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeIpRestriction">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeIpRestriction.html">
+                 DescribeIpRestriction
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the IP restrictions for QuickSight account
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeNamespace">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeNamespace.html">
+                 DescribeNamespace
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a QuickSight namespace
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-namespace">
+                  namespace*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeTemplate.html">
+                 DescribeTemplate
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a template
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeTemplateAlias">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeTemplateAlias.html">
+                 DescribeTemplateAlias
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a template alias
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeTemplatePermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeTemplatePermissions.html">
+                 DescribeTemplatePermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to describe permissions for a template
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeTheme">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeTheme.html">
+                 DescribeTheme
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a theme
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeThemeAlias">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeThemeAlias.html">
+                 DescribeThemeAlias
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a theme alias
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeThemePermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeThemePermissions.html">
+                 DescribeThemePermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to describe permissions for a theme
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-DescribeUser">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DescribeUser.html">
+                 DescribeUser
+                </a>
+               </td>
+               <td>
+                Grants permission to describe a QuickSight user given the user name
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-GenerateEmbedUrlForAnonymousUser">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForAnonymousUser.html">
+                 GenerateEmbedUrlForAnonymousUser
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to generate a URL used to embed a QuickSight Dashboard for a user not registered with QuickSight
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-namespace">
+                  namespace*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-GenerateEmbedUrlForRegisteredUser">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForRegisteredUser.html">
+                 GenerateEmbedUrlForRegisteredUser
+                </a>
+               </td>
+               <td>
+                Grants permission to generate a URL used to embed a QuickSight Dashboard for a user registered with QuickSight
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-GetAnonymousUserEmbedUrl">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GetDashboardEmbedUrl.html">
+                 GetAnonymousUserEmbedUrl
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to get a URL used to embed a QuickSight Dashboard for a user not registered with QuickSight
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-GetAuthCode">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 GetAuthCode
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to get an auth code representing a QuickSight user
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-GetDashboardEmbedUrl">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GetDashboardEmbedUrl.html">
+                 GetDashboardEmbedUrl
+                </a>
+               </td>
+               <td>
+                Grants permission to get a URL used to embed a QuickSight Dashboard
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-GetGroupMapping">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 GetGroupMapping
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to use Amazon QuickSight, in Enterprise edition, to identify and display the Microsoft Active Directory (Microsoft Active Directory) directory groups that are mapped to roles in Amazon QuickSight
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-GetSessionEmbedUrl">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GetSessionEmbedUrl.html">
+                 GetSessionEmbedUrl
+                </a>
+               </td>
+               <td>
+                Grants permission to get a URL to embed QuickSight console experience
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListAnalyses">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListAnalyses.html">
+                 ListAnalyses
+                </a>
+               </td>
+               <td>
+                Grants permission to list all analyses in an account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListCustomPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 ListCustomPermissions
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to list custom permissions resources in QuickSight account
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListDashboardVersions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListDashboardVersions.html">
+                 ListDashboardVersions
+                </a>
+               </td>
+               <td>
+                Grants permission to list all versions of a QuickSight Dashboard
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListDashboards">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListDashboards.html">
+                 ListDashboards
+                </a>
+               </td>
+               <td>
+                Grants permission to list all Dashboards in a QuickSight Account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListDataSets">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListDataSets.html">
+                 ListDataSets
+                </a>
+               </td>
+               <td>
+                Grants permission to list all datasets
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListDataSources">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListDataSources.html">
+                 ListDataSources
+                </a>
+               </td>
+               <td>
+                Grants permission to list all data sources
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListFolderMembers">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListFolderMembers.html">
+                 ListFolderMembers
+                </a>
+               </td>
+               <td>
+                Grants permission to list all members in a folder
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListFolders">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListFolders.html">
+                 ListFolders
+                </a>
+               </td>
+               <td>
+                Grants permission to list all Folders in a QuickSight Account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListGroupMemberships">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListGroupMemberships.html">
+                 ListGroupMemberships
+                </a>
+               </td>
+               <td>
+                Grants permission to list member users in a group
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-group">
+                  group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListGroups">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListGroups.html">
+                 ListGroups
+                </a>
+               </td>
+               <td>
+                Grants permission to list all user groups in QuickSight
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-group">
+                  group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListIAMPolicyAssignments">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListIAMPolicyAssignments.html">
+                 ListIAMPolicyAssignments
+                </a>
+               </td>
+               <td>
+                Grants permission to list all assignments in the current Amazon QuickSight account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-assignment">
+                  assignment*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListIAMPolicyAssignmentsForUser">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListIAMPolicyAssignmentsForUser.html">
+                 ListIAMPolicyAssignmentsForUser
+                </a>
+               </td>
+               <td>
+                Grants permission to list all assignments assigned to a user and the groups it belongs
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-assignment">
+                  assignment*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListIngestions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListIngestions.html">
+                 ListIngestions
+                </a>
+               </td>
+               <td>
+                Grants permission to list all SPICE ingestions on a dataset
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListNamespaces">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListNamespaces.html">
+                 ListNamespaces
+                </a>
+               </td>
+               <td>
+                Grants permission to lists all namespaces in a QuickSight account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="5">
+                <a id="amazonquicksight-ListTagsForResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListTagsForResource.html">
+                 ListTagsForResource
+                </a>
+               </td>
+               <td rowspan="5">
+                Grants permission to list tags of a QuickSight resource
+               </td>
+               <td rowspan="5">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-customization">
+                  customization
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListTemplateAliases">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListTemplateAliases.html">
+                 ListTemplateAliases
+                </a>
+               </td>
+               <td>
+                Grants permission to list all aliases for a template
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListTemplateVersions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListTemplateVersions.html">
+                 ListTemplateVersions
+                </a>
+               </td>
+               <td>
+                Grants permission to list all versions of a template
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListTemplates">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListTemplates.html">
+                 ListTemplates
+                </a>
+               </td>
+               <td>
+                Grants permission to list all templates in a QuickSight account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListThemeAliases">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListThemeAliases.html">
+                 ListThemeAliases
+                </a>
+               </td>
+               <td>
+                Grants permission to list all aliases of a theme
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListThemeVersions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListThemeVersions.html">
+                 ListThemeVersions
+                </a>
+               </td>
+               <td>
+                Grants permission to list all versions of a theme
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListThemes">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListThemes.html">
+                 ListThemes
+                </a>
+               </td>
+               <td>
+                Grants permission to list all themes in an account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListUserGroups">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListUserGroups.html">
+                 ListUserGroups
+                </a>
+               </td>
+               <td>
+                Grants permission to list groups that a given user is a member of
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ListUsers">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListUsers.html">
+                 ListUsers
+                </a>
+               </td>
+               <td>
+                Grants permission to list all of the QuickSight users belonging to this account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-PassDataSet">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/qs-api-overview.html">
+                 PassDataSet
+                </a>
+                [permission only]
+               </td>
+               <td rowspan="2">
+                Grants permission to use a dataset for a template
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dataset">
+                  dataset*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-PassDataSource">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/qs-api-overview.html">
+                 PassDataSource
+                </a>
+                [permission only]
+               </td>
+               <td rowspan="2">
+                Grants permission to use a data source for a data set
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-datasource">
+                  datasource*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-RegisterUser">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_RegisterUser.html">
+                 RegisterUser
+                </a>
+               </td>
+               <td>
+                Grants permission to create a QuickSight user, whose identity is associated with the IAM identity/role specified in the request
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-quicksight_IamArn">
+                  quicksight:IamArn
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-quicksight_SessionName">
+                  quicksight:SessionName
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-RestoreAnalysis">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_RestoreAnalysis.html">
+                 RestoreAnalysis
+                </a>
+               </td>
+               <td>
+                Grants permission to restore a deleted analysis
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-SearchAnalyses">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SearchAnalyses.html">
+                 SearchAnalyses
+                </a>
+               </td>
+               <td>
+                Grants permission to search for a sub-set of analyses
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-SearchDashboards">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SearchDashboards.html">
+                 SearchDashboards
+                </a>
+               </td>
+               <td>
+                Grants permission to search for a sub-set of QuickSight Dashboards
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-SearchDirectoryGroups">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 SearchDirectoryGroups
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to use Amazon QuickSight, in Enterprise edition, to display your Microsoft Active Directory directory groups so that you can choose which ones to map to roles in Amazon QuickSight
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-SearchFolders">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SearchFolders.html">
+                 SearchFolders
+                </a>
+               </td>
+               <td>
+                Grants permission to search for a sub-set of QuickSight Folders
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-SetGroupMapping">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 SetGroupMapping
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to use Amazon QuickSight, in Enterprise edition, to display your Microsoft Active Directory directory groups so that you can choose which ones to map to roles in Amazon QuickSight
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-Subscribe">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 Subscribe
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to subscribe to Amazon QuickSight, and also to allow the user to upgrade the subscription to Enterprise edition
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-quicksight_Edition">
+                  quicksight:Edition
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-quicksight_DirectoryType">
+                  quicksight:DirectoryType
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="6">
+                <a id="amazonquicksight-TagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TagResource.html">
+                 TagResource
+                </a>
+               </td>
+               <td rowspan="6">
+                Grants permission to add tags to a QuickSight resource
+               </td>
+               <td rowspan="6">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-customization">
+                  customization
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-Unsubscribe">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 Unsubscribe
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to unsubscribe from Amazon QuickSight, which permanently deletes all users and their resources from Amazon QuickSight
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="6">
+                <a id="amazonquicksight-UntagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UntagResource.html">
+                 UntagResource
+                </a>
+               </td>
+               <td rowspan="6">
+                Grants permission to remove tags from a QuickSight resource
+               </td>
+               <td rowspan="6">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-customization">
+                  customization
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateAccountCustomization">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateAccountCustomization.html">
+                 UpdateAccountCustomization
+                </a>
+               </td>
+               <td>
+                Grants permission to update an account customization for QuickSight account or namespace
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-customization">
+                  customization*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateAccountSettings">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateAccountSettings.html">
+                 UpdateAccountSettings
+                </a>
+               </td>
+               <td>
+                Grants permission to update the administrative account settings for QuickSight account
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateAnalysis">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateAnalysis.html">
+                 UpdateAnalysis
+                </a>
+               </td>
+               <td>
+                Grants permission to update an analysis
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateAnalysisPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateAnalysisPermissions.html">
+                 UpdateAnalysisPermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to update permissions for an analysis
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-analysis">
+                  analysis*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateCustomPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 UpdateCustomPermissions
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to update a custom permissions resource
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateDashboard">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateDashboard.html">
+                 UpdateDashboard
+                </a>
+               </td>
+               <td>
+                Grants permission to update a QuickSight Dashboard
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateDashboardPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateDashboardPermissions.html">
+                 UpdateDashboardPermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to update permissions for a QuickSight Dashboard
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateDashboardPublishedVersion">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateDashboardPublishedVersion.html">
+                 UpdateDashboardPublishedVersion
+                </a>
+               </td>
+               <td>
+                Grants permission to update a QuickSight Dashboard’s Published Version
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dashboard">
+                  dashboard*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="3">
+                <a id="amazonquicksight-UpdateDataSet">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateDataSet.html">
+                 UpdateDataSet
+                </a>
+               </td>
+               <td rowspan="3">
+                Grants permission to update a dataset
+               </td>
+               <td rowspan="3">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dataset">
+                  dataset*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 quicksight:PassDataSource
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-datasource">
+                  datasource
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-UpdateDataSetPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateDataSetPermissions.html">
+                 UpdateDataSetPermissions
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to update the resource policy of a dataset
+               </td>
+               <td rowspan="2">
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-dataset">
+                  dataset*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-UpdateDataSource">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateDataSource.html">
+                 UpdateDataSource
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to update a data source
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-datasource">
+                  datasource*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazonquicksight-UpdateDataSourcePermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateDataSourcePermissions.html">
+                 UpdateDataSourcePermissions
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to update the resource policy of a data source
+               </td>
+               <td rowspan="2">
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-datasource">
+                  datasource*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazonquicksight-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateEmailCustomizationTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/customizing-quicksight-email-templates.html">
+                 UpdateEmailCustomizationTemplate
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to update a QuickSight email customization template
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-emailCustomizationTemplate">
+                  emailCustomizationTemplate*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateFolder">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateFolder.html">
+                 UpdateFolder
+                </a>
+               </td>
+               <td>
+                Grants permission to update a QuickSight Folder
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateFolderPermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateFolderPermissions.html">
+                 UpdateFolderPermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to update permissions for a QuickSight Folder
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-folder">
+                  folder*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateGroup.html">
+                 UpdateGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to change group description
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-group">
+                  group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateIAMPolicyAssignment">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateIAMPolicyAssignment.html">
+                 UpdateIAMPolicyAssignment
+                </a>
+               </td>
+               <td>
+                Grants permission to update an existing assignment
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-assignment">
+                  assignment*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateIpRestriction">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateIpRestriction.html">
+                 UpdateIpRestriction
+                </a>
+               </td>
+               <td>
+                Grants permission to update the IP restrictions for QuickSight account
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateTemplate.html">
+                 UpdateTemplate
+                </a>
+               </td>
+               <td>
+                Grants permission to update a template
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateTemplateAlias">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateTemplateAlias.html">
+                 UpdateTemplateAlias
+                </a>
+               </td>
+               <td>
+                Grants permission to update a template alias
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateTemplatePermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateTemplatePermissions.html">
+                 UpdateTemplatePermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to update permissions for a template
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-template">
+                  template*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateTheme">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateTheme.html">
+                 UpdateTheme
+                </a>
+               </td>
+               <td>
+                Grants permission to update a theme
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateThemeAlias">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateThemeAlias.html">
+                 UpdateThemeAlias
+                </a>
+               </td>
+               <td>
+                Grants permission to update the alias of a theme
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateThemePermissions">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateThemePermissions.html">
+                 UpdateThemePermissions
+                </a>
+               </td>
+               <td>
+                Grants permission to update permissions for a theme
+               </td>
+               <td>
+                Permissions management
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-theme">
+                  theme*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-UpdateUser">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdateUser.html">
+                 UpdateUser
+                </a>
+               </td>
+               <td>
+                Grants permission to update an Amazon QuickSight user
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-user">
+                  user*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="amazonquicksight-resources-for-iam-policies">
+            Resource types defined by        Amazon QuickSight
+           </h2>
+           <p>
+            The following resource types are defined by this service and can be used in the
+            <code class="code">
+             Resource
+            </code>
+            element of IAM permission policy statements. Each action in the
+            <a href="#amazonquicksight-actions-as-permissions">
+             Actions table
+            </a>
+            identifies the      resource types that can be specified with that action. A resource type can also define which      condition keys you can include in a policy. These keys are displayed in the last column of the      table. For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#resources_table" rel="noopener noreferrer" target="_blank">
+             Resource types table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d990c13b5">
+              <thead>
+               <tr>
+                <th>
+                 Resource types
+                </th>
+                <th>
+                 ARN
+                </th>
+                <th>
+                 Condition keys
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="amazonquicksight-user">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_User.html">
+                 user
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:user/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-group">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Group.html">
+                 group
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:group/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-analysis">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Analysis.html">
+                 analysis
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:analysis/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-dashboard">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Dashboard.html">
+                 dashboard
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:dashboard/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-template">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Template.html">
+                 template
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:template/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-datasource">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSource.html">
+                 datasource
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:datasource/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-dataset">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSet.html">
+                 dataset
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:dataset/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-ingestion">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Ingestion.html">
+                 ingestion
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:dataset/$
+                 <span>
+                  {
+                 </span>
+                 DatasetId}/ingestion/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-theme">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Theme.html">
+                 theme
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:theme/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-assignment">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_IAMPolicyAssignment.html">
+                 assignment
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight::$
+                 <span>
+                  {
+                 </span>
+                 Account}:assignment/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-customization">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AccountCustomization.html">
+                 customization
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:customization/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-namespace">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Namespace.html">
+                 namespace
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:namespace/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-folder">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Folder.html">
+                 folder
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:folder/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazonquicksight-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-emailCustomizationTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/customizing-quicksight-email-templates.html">
+                 emailCustomizationTemplate
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:quicksight:$
+                 <span>
+                  {
+                 </span>
+                 Region}:$
+                 <span>
+                  {
+                 </span>
+                 Account}:email-customization-template/$
+                 <span>
+                  {
+                 </span>
+                 ResourceId}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="amazonquicksight-policy-keys">
+            Condition keys for        Amazon QuickSight
+           </h2>
+           <p>
+            Amazon QuickSight defines the following condition keys that can be used in the
+            <code class="code">
+             Condition
+            </code>
+            element of an IAM policy. You can use these keys to further refine      the conditions under which the policy statement applies. For details about the columns in the      following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#context_keys_table" rel="noopener noreferrer" target="_blank">
+             Condition keys table
+            </a>
+            .
+           </p>
+           <p>
+            To view the global condition keys that are available to all services, see
+            <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys">
+             Available global condition keys
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d990c15b7">
+              <thead>
+               <tr>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Type
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="amazonquicksight-aws_RequestTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag">
+                 aws:RequestTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters access by tag key-value pairs in the request
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-aws_ResourceTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag">
+                 aws:ResourceTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters access by tag key-value pairs attached to the resource
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-aws_TagKeys">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tagkeys">
+                 aws:TagKeys
+                </a>
+               </td>
+               <td>
+                Filters access by tag keys
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-quicksight_DirectoryType">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/security-scp.html">
+                 quicksight:DirectoryType
+                </a>
+               </td>
+               <td>
+                Filters access by the user management options
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-quicksight_Edition">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/security-scp.html">
+                 quicksight:Edition
+                </a>
+               </td>
+               <td>
+                Filters access by the edition of QuickSight
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-quicksight_IamArn">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 quicksight:IamArn
+                </a>
+               </td>
+               <td>
+                Filters access by IAM user or role ARN
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-quicksight_SessionName">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 quicksight:SessionName
+                </a>
+               </td>
+               <td>
+                Filters access by session name
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazonquicksight-quicksight_UserName">
+                </a>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/iam-actions.html">
+                 quicksight:UserName
+                </a>
+               </td>
+               <td>
+                Filters access by user name
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <awsdocs-copyright class="copyright-print">
+           </awsdocs-copyright>
+           <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}">
+           </awsdocs-thumb-feedback>
+          </div>
+          <noscript>
+           <div>
+            <div>
+             <div>
+              <div id="js_error_message">
+               <p>
+                <img alt="Warning" src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png"/>
+                <strong>
+                 Javascript is disabled or is unavailable in your browser.
+                </strong>
+               </p>
+               <p>
+                To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.
+               </p>
+              </div>
+             </div>
+            </div>
+           </div>
+          </noscript>
+          <div class="awsui-util-font-size-0" id="main-col-footer">
+           <div id="doc-conventions">
+            <a href="/general/latest/gr/docconventions.html" target="_top">
+             Document Conventions
+            </a>
+           </div>
+           <div class="prev-next">
+            <div accesskey="p" class="prev-link" href="./list_amazonqldb.html" id="previous">
+             Amazon QLDB
+            </div>
+            <div accesskey="n" class="next-link" href="./list_amazonrds.html" id="next">
+             Amazon RDS
+            </div>
+           </div>
+          </div>
+          <awsdocs-page-utilities>
+          </awsdocs-page-utilities>
+         </div>
+         <div id="quick-feedback-yes" style="display: none;">
+          <div class="title">
+           Did this page help you? - Yes
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know we're doing a good job!
+           </p>
+           <p>
+            If you've got a moment, please tell us what we did right so we can do more of it.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonquicksight.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+         <div id="quick-feedback-no" style="display: none;">
+          <div class="title">
+           Did this page help you? - No
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know this page needs work. We're sorry we let you down.
+           </p>
+           <p>
+            If you've got a moment, please tell us how we can make the documentation better.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazonquicksight.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+        </div>
+       </body>
+      </div>
+     </awsdocs-view>
+     <div class="page-loading-indicator" id="page-loading-indicator">
+      <awsui-spinner size="large">
+      </awsui-spinner>
+     </div>
+    </div>
+    <div dom-region="tools" id="tools-panel">
+     <awsdocs-tools-panel id="awsdocs-tools-panel">
+     </awsdocs-tools-panel>
+    </div>
+   </awsui-app-layout>
+   <awsdocs-cookie-banner class="doc-cookie-banner">
+   </awsdocs-cookie-banner>
+  </div>
+ </body>
+</html>

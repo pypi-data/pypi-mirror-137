@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html ng-app="AWSDocsDocPageApp" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <title>
+   Actions, resources, and condition keys for Amazon Inspector - Service Authorization Reference
+  </title>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="/assets" name="assets_root"/>
+  <meta content="list_amazoninspector" name="target_state"/>
+  <meta content="list_amazoninspector" name="default_state"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="shortcut icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazoninspector.html" rel="canonical"/>
+  <meta content="Lists all of the available service-specific resources, actions, and condition keys that can be used in IAM policies to control access to Amazon Inspector." name="description"/>
+  <meta content="IAD" name="deployment_region"/>
+  <meta content="Service Authorization Reference" name="product"/>
+  <meta content="Service Authorization Reference" name="guide"/>
+  <meta content="Provides a list of the actions, resources, and condition keys supported by each AWS service that can be used in an IAM policy." name="abstract"/>
+  <meta content="en_us" name="guide-locale"/>
+  <meta content="toc-contents.json" name="tocs"/>
+  <meta content="Service Authorization Docs" name="feedback-item"/>
+  <meta content="Service Authorization Reference" name="this_doc_product"/>
+  <meta content="Service Authorization Reference" name="this_doc_guide"/>
+  <link href="https://docs.aws.amazon.com/assets/css/vendor4.css?version=2021.12.02" rel="stylesheet"/>
+  <link href="https://docs.aws.amazon.com/assets/css/awsdocs-common.css?version=2021.12.02" rel="stylesheet"/>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor3.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor4.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor1.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-common.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-doc-app.js?version=2021.12.02" type="text/javascript">
+  </script>
+ </head>
+ <body class="awsdocs awsui" ng-csp="no-unsafe-eval">
+  <div class="awsdocs-container">
+   <awsdocs-header>
+   </awsdocs-header>
+   <awsui-app-layout class="awsui-util-no-gutters" header-selector="awsdocs-header" id="app-layout" navigation-change="$ctrl.onNavChange($event)" navigation-hide="false" navigation-open="$ctrl.navOpen" navigation-width="$ctrl.navWidth" ng-controller="ContentController as $ctrl" tools-change="$ctrl.onToolsChange($event)" tools-hide="$ctrl.hideTools" tools-open="$ctrl.toolsOpen" tools-width="$ctrl.toolsWidth">
+    <div dom-region="navigation" id="guide-toc">
+     <awsdocs-toc>
+     </awsdocs-toc>
+    </div>
+    <div dom-region="content" id="main-column" tabindex="-1">
+     <awsdocs-view class="awsdocs-view">
+      <div id="awsdocs-content">
+       <head>
+        <title>
+         Actions, resources, and condition keys for Amazon Inspector - Service Authorization Reference
+        </title>
+        <meta content="service-authorization.pdf#list_amazoninspector" name="pdf"/>
+        <meta content="http://forums.aws.amazon.com/forum.jspa?forumID=76" name="forums"/>
+        <meta content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service%20Authorization%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoninspector.html" name="feedback"/>
+        <meta content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoninspector.html" name="feedback-yes"/>
+        <meta content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoninspector.html" name="feedback-no"/>
+       </head>
+       <body>
+        <div id="main">
+         <div style="display: none">
+          <a href="service-authorization.pdf#list_amazoninspector" rel="noopener noreferrer" target="_blank" title="Open PDF">
+          </a>
+         </div>
+         <div class="breadcrumb" id="breadcrumbs">
+          <a href="http://aws.amazon.com">
+           AWS
+          </a>
+          <a href="/index.html">
+           Documentation
+          </a>
+          <a href="/iam/index.html">
+           Service Authorization Reference
+          </a>
+          <a href="reference.html">
+           Service Authorization Reference
+          </a>
+         </div>
+         <div id="page-toc-src">
+          <a href="#amazoninspector-actions-as-permissions">
+           Actions
+          </a>
+          <a href="#amazoninspector-resources-for-iam-policies">
+           Resource types
+          </a>
+          <a href="#amazoninspector-policy-keys">
+           Condition keys
+          </a>
+         </div>
+         <div class="awsui-util-container" id="main-content">
+          <div id="main-col-body">
+           <awsdocs-language-banner data-service="$ctrl.pageService">
+           </awsdocs-language-banner>
+           <h1 class="topictitle" id="list_amazoninspector">
+            Actions, resources, and condition keys for      Amazon Inspector
+           </h1>
+           <div class="awsdocs-page-header-container">
+            <awsdocs-page-header>
+            </awsdocs-page-header>
+            <awsdocs-filter-selector id="awsdocs-filter-selector">
+            </awsdocs-filter-selector>
+           </div>
+           <p>
+            Amazon Inspector (service prefix:
+            <code class="code">
+             inspector
+            </code>
+            ) provides the following    service-specific resources, actions, and condition context keys for use in IAM permission    policies.
+           </p>
+           <p>
+            References:
+           </p>
+           <div class="itemizedlist">
+            <ul class="itemizedlist" type="disc">
+             <li class="listitem">
+              <p>
+               Learn how to
+               <a href="https://docs.aws.amazon.com/inspector/latest/userguide/">
+                configure this service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               View a list of the
+               <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/">
+                API operations available for this          service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               Learn how to secure this service and its resources by
+               <a href="https://docs.aws.amazon.com/inspector/latest/userguide/access_permissions.html">
+                using          IAM
+               </a>
+               permission policies.
+              </p>
+             </li>
+            </ul>
+           </div>
+           <div class="highlights" id="inline-topiclist">
+            <p>
+             <strong>
+              Topics
+             </strong>
+            </p>
+            <ul>
+             <li>
+              <a href="#amazoninspector-actions-as-permissions">
+               Actions defined by        Amazon Inspector
+              </a>
+             </li>
+             <li>
+              <a href="#amazoninspector-resources-for-iam-policies">
+               Resource types defined by        Amazon Inspector
+              </a>
+             </li>
+             <li>
+              <a href="#amazoninspector-policy-keys">
+               Condition keys for        Amazon Inspector
+              </a>
+             </li>
+            </ul>
+           </div>
+           <h2 id="amazoninspector-actions-as-permissions">
+            Actions defined by        Amazon Inspector
+           </h2>
+           <p>
+            You can specify the following actions in the
+            <code class="code">
+             Action
+            </code>
+            element of an IAM      policy statement. Use policies to grant permissions to perform an operation in AWS. When you      use an action in a policy, you usually allow or deny access to the API operation or CLI      command with the same name. However, in some cases, a single action controls access to more      than one operation. Alternatively, some operations require several different actions.
+           </p>
+           <p>
+            The
+            <b>
+             Resource types
+            </b>
+            column indicates whether each action supports      resource-level permissions. If there is no value for this column, you must specify all      resources ("*") in the
+            <code class="code">
+             Resource
+            </code>
+            element of your policy statement. If the column      includes a resource type, then you can specify an ARN of that type in a statement with that      action. Required resources are indicated in the table with an asterisk (*). If you specify a      resource-level permission ARN in a statement using this action, then it must be of this type.      Some actions support multiple resource types. If the resource type is optional (not indicated      as required), then you can choose to use one but not the other.
+           </p>
+           <p>
+            For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#actions_table" rel="noopener noreferrer" target="_blank">
+             Actions table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d638c11b9">
+              <thead>
+               <tr>
+                <th>
+                 Actions
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Access level
+                </th>
+                <th>
+                 Resource types (*required)
+                </th>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Dependent actions
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="amazoninspector-AddAttributesToFindings">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_AddAttributesToFindings.html">
+                 AddAttributesToFindings
+                </a>
+               </td>
+               <td>
+                Grants permission to assign attributes (key and value pairs) to the findings that are specified by the ARNs of the findings
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-CreateAssessmentTarget">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_CreateAssessmentTarget.html">
+                 CreateAssessmentTarget
+                </a>
+               </td>
+               <td>
+                Grants permission to create a new assessment target using the ARN of the resource group that is generated by CreateResourceGroup
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-CreateAssessmentTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_CreateAssessmentTemplate.html">
+                 CreateAssessmentTemplate
+                </a>
+               </td>
+               <td>
+                Grants permission to create an assessment template for the assessment target that is specified by the ARN of the assessment target
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-CreateExclusionsPreview">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_CreateExclusionsPreview.html">
+                 CreateExclusionsPreview
+                </a>
+               </td>
+               <td>
+                Grants permission to start the generation of an exclusions preview for the specified assessment template
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-CreateResourceGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_CreateResourceGroup.html">
+                 CreateResourceGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to create a resource group using the specified set of tags (key and value pairs) that are used to select the EC2 instances to be included in an Amazon Inspector assessment target
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DeleteAssessmentRun">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DeleteAssessmentRun.html">
+                 DeleteAssessmentRun
+                </a>
+               </td>
+               <td>
+                Grants permission to delete the assessment run that is specified by the ARN of the assessment run
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DeleteAssessmentTarget">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DeleteAssessmentTarget.html">
+                 DeleteAssessmentTarget
+                </a>
+               </td>
+               <td>
+                Grants permission to delete the assessment target that is specified by the ARN of the assessment target
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DeleteAssessmentTemplate">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DeleteAssessmentTemplate.html">
+                 DeleteAssessmentTemplate
+                </a>
+               </td>
+               <td>
+                Grants permission to delete the assessment template that is specified by the ARN of the assessment template
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DescribeAssessmentRuns">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DescribeAssessmentRuns.html">
+                 DescribeAssessmentRuns
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the assessment runs that are specified by the ARNs of the assessment runs
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DescribeAssessmentTargets">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DescribeAssessmentTargets.html">
+                 DescribeAssessmentTargets
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the assessment targets that are specified by the ARNs of the assessment targets
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DescribeAssessmentTemplates">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DescribeAssessmentTemplates.html">
+                 DescribeAssessmentTemplates
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the assessment templates that are specified by the ARNs of the assessment templates
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DescribeCrossAccountAccessRole">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DescribeCrossAccountAccessRole.html">
+                 DescribeCrossAccountAccessRole
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the IAM role that enables Amazon Inspector to access your AWS account
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DescribeExclusions">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DescribeExclusions.html">
+                 DescribeExclusions
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the exclusions that are specified by the exclusions' ARNs
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DescribeFindings">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DescribeFindings.html">
+                 DescribeFindings
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the findings that are specified by the ARNs of the findings
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DescribeResourceGroups">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DescribeResourceGroups.html">
+                 DescribeResourceGroups
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the resource groups that are specified by the ARNs of the resource groups
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-DescribeRulesPackages">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_DescribeRulesPackages.html">
+                 DescribeRulesPackages
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the rules packages that are specified by the ARNs of the rules packages
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-GetAssessmentReport">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_GetAssessmentReport.html">
+                 GetAssessmentReport
+                </a>
+               </td>
+               <td>
+                Grants permission to produce an assessment report that includes detailed and comprehensive results of a specified assessment run
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-GetExclusionsPreview">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_GetExclusionsPreview.html">
+                 GetExclusionsPreview
+                </a>
+               </td>
+               <td>
+                Grants permission to retrieve the exclusions preview (a list of ExclusionPreview objects) specified by the preview token
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-GetTelemetryMetadata">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_GetTelemetryMetadata.html">
+                 GetTelemetryMetadata
+                </a>
+               </td>
+               <td>
+                Grants permission to get information about the data that is collected for the specified assessment run
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-ListAssessmentRunAgents">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_ListAssessmentRunAgents.html">
+                 ListAssessmentRunAgents
+                </a>
+               </td>
+               <td>
+                Grants permission to list the agents of the assessment runs that are specified by the ARNs of the assessment runs
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-ListAssessmentRuns">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_ListAssessmentRuns.html">
+                 ListAssessmentRuns
+                </a>
+               </td>
+               <td>
+                Grants permission to list the assessment runs that correspond to the assessment templates that are specified by the ARNs of the assessment templates
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-ListAssessmentTargets">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_ListAssessmentTargets.html">
+                 ListAssessmentTargets
+                </a>
+               </td>
+               <td>
+                Grants permission to list the ARNs of the assessment targets within this AWS account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-ListAssessmentTemplates">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_ListAssessmentTemplates.html">
+                 ListAssessmentTemplates
+                </a>
+               </td>
+               <td>
+                Grants permission to list the assessment templates that correspond to the assessment targets that are specified by the ARNs of the assessment targets
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-ListEventSubscriptions">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_ListEventSubscriptions.html">
+                 ListEventSubscriptions
+                </a>
+               </td>
+               <td>
+                Grants permission to list all the event subscriptions for the assessment template that is specified by the ARN of the assessment template
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-ListExclusions">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_ListExclusions.html">
+                 ListExclusions
+                </a>
+               </td>
+               <td>
+                Grants permission to list exclusions that are generated by the assessment run
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-ListFindings">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_ListFindings.html">
+                 ListFindings
+                </a>
+               </td>
+               <td>
+                Grants permission to list findings that are generated by the assessment runs that are specified by the ARNs of the assessment runs
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-ListRulesPackages">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_ListRulesPackages.html">
+                 ListRulesPackages
+                </a>
+               </td>
+               <td>
+                Grants permission to list all available Amazon Inspector rules packages
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-ListTagsForResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_ListTagsForResource.html">
+                 ListTagsForResource
+                </a>
+               </td>
+               <td>
+                Grants permission to list all tags associated with an assessment template
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-PreviewAgents">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_PreviewAgents.html">
+                 PreviewAgents
+                </a>
+               </td>
+               <td>
+                Grants permission to preview the agents installed on the EC2 instances that are part of the specified assessment target
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-RegisterCrossAccountAccessRole">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_RegisterCrossAccountAccessRole.html">
+                 RegisterCrossAccountAccessRole
+                </a>
+               </td>
+               <td>
+                Grants permission to register the IAM role that Amazon Inspector uses to list your EC2 instances at the start of the assessment run or when you call the PreviewAgents action
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-RemoveAttributesFromFindings">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_RemoveAttributesFromFindings.html">
+                 RemoveAttributesFromFindings
+                </a>
+               </td>
+               <td>
+                Grants permission to remove entire attributes (key and value pairs) from the findings that are specified by the ARNs of the findings where an attribute with the specified key exists
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-SetTagsForResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_SetTagsForResource.html">
+                 SetTagsForResource
+                </a>
+               </td>
+               <td>
+                Grants permission to set tags (key and value pairs) to the assessment template that is specified by the ARN of the assessment template
+               </td>
+               <td>
+                Tagging
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-StartAssessmentRun">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_StartAssessmentRun.html">
+                 StartAssessmentRun
+                </a>
+               </td>
+               <td>
+                Grants permission to start the assessment run specified by the ARN of the assessment template
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-StopAssessmentRun">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_StopAssessmentRun.html">
+                 StopAssessmentRun
+                </a>
+               </td>
+               <td>
+                Grants permission to stop the assessment run that is specified by the ARN of the assessment run
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-SubscribeToEvent">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_SubscribeToEvent.html">
+                 SubscribeToEvent
+                </a>
+               </td>
+               <td>
+                Grants permission to enable the process of sending Amazon Simple Notification Service (SNS) notifications about a specified event to a specified SNS topic
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-UnsubscribeFromEvent">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_UnsubscribeFromEvent.html">
+                 UnsubscribeFromEvent
+                </a>
+               </td>
+               <td>
+                Grants permission to disable the process of sending Amazon Simple Notification Service (SNS) notifications about a specified event to a specified SNS topic
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoninspector-UpdateAssessmentTarget">
+                </a>
+                <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_UpdateAssessmentTarget.html">
+                 UpdateAssessmentTarget
+                </a>
+               </td>
+               <td>
+                Grants permission to update the assessment target that is specified by the ARN of the assessment target
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="amazoninspector-resources-for-iam-policies">
+            Resource types defined by        Amazon Inspector
+           </h2>
+           <p>
+            Amazon Inspector does not support specifying a resource ARN in the
+            <code class="code">
+             Resource
+            </code>
+            element of an IAM policy statement. To allow access to      Amazon Inspector, specify
+            <code class="code">
+             “Resource”: “*”
+            </code>
+            in your policy.
+           </p>
+           <h2 id="amazoninspector-policy-keys">
+            Condition keys for        Amazon Inspector
+           </h2>
+           <p>
+            Inspector has no service-specific context keys that can be used in the
+            <code class="code">
+             Condition
+            </code>
+            element of policy statements. For the list of the global context keys      that are available to all services, see
+            <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys">
+             Available keys for conditions
+            </a>
+            .
+           </p>
+           <awsdocs-copyright class="copyright-print">
+           </awsdocs-copyright>
+           <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}">
+           </awsdocs-thumb-feedback>
+          </div>
+          <noscript>
+           <div>
+            <div>
+             <div>
+              <div id="js_error_message">
+               <p>
+                <img alt="Warning" src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png"/>
+                <strong>
+                 Javascript is disabled or is unavailable in your browser.
+                </strong>
+               </p>
+               <p>
+                To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.
+               </p>
+              </div>
+             </div>
+            </div>
+           </div>
+          </noscript>
+          <div class="awsui-util-font-size-0" id="main-col-footer">
+           <div id="doc-conventions">
+            <a href="/general/latest/gr/docconventions.html" target="_top">
+             Document Conventions
+            </a>
+           </div>
+           <div class="prev-next">
+            <div accesskey="p" class="prev-link" href="./list_awsimportexportdiskservice.html" id="previous">
+             AWS Import Export Disk Service
+            </div>
+            <div accesskey="n" class="next-link" href="./list_amazoninspector2.html" id="next">
+             Amazon Inspector2
+            </div>
+           </div>
+          </div>
+          <awsdocs-page-utilities>
+          </awsdocs-page-utilities>
+         </div>
+         <div id="quick-feedback-yes" style="display: none;">
+          <div class="title">
+           Did this page help you? - Yes
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know we're doing a good job!
+           </p>
+           <p>
+            If you've got a moment, please tell us what we did right so we can do more of it.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoninspector.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+         <div id="quick-feedback-no" style="display: none;">
+          <div class="title">
+           Did this page help you? - No
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know this page needs work. We're sorry we let you down.
+           </p>
+           <p>
+            If you've got a moment, please tell us how we can make the documentation better.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoninspector.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+        </div>
+       </body>
+      </div>
+     </awsdocs-view>
+     <div class="page-loading-indicator" id="page-loading-indicator">
+      <awsui-spinner size="large">
+      </awsui-spinner>
+     </div>
+    </div>
+    <div dom-region="tools" id="tools-panel">
+     <awsdocs-tools-panel id="awsdocs-tools-panel">
+     </awsdocs-tools-panel>
+    </div>
+   </awsui-app-layout>
+   <awsdocs-cookie-banner class="doc-cookie-banner">
+   </awsdocs-cookie-banner>
+  </div>
+ </body>
+</html>
