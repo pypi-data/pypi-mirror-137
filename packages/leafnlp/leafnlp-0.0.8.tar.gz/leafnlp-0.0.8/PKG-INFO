@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: leafnlp
+Version: 0.0.8
+Summary: Domain-specific Natural Language Processing with LeafNLP
+Home-page: https://leafnlp.org
+Author: LeafNLP Team
+Author-email: 
+License: UNKNOWN
+Description: # LeafNLP - A package for domain specific natural language processing
+        
+        This repository contains pipes and models of LeafNLP.
+        
+        ## Installation
+        Just simply run
+        
+        ```pip install leafnlp```
+        
+        to install LeafNLP.
+        
+        ## Usage
+        
+        ```
+        from leafnlp.NER.BERT import ModelNER
+        
+        ner_model = ModelNER(model_param="model_ner_bert_v1")
+        
+        input_text = [{"text": "The storm hits New York."}]
+        output = ner_model.annotate(input_text)
+        ```
+        
+        ## Available Models
+        
+        |Task|Model|model_param|Note|
+        |-|-|-|-|
+        |NER|BERT|model_ner_bert_v1||
+        
+        ## Citation
+        
+        If you use LeafNLP in your research, please cite 
+        
+        ```
+        Will be here.
+        ```
+        
+        
+        ## Acknowledgements
+        LeafNLP is maintained by the Leaf-AI-LAB at Stevens Institute of Technology.
+Keywords: leafnlp NLP Deep Learning
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.8.10
+Description-Content-Type: text/markdown
