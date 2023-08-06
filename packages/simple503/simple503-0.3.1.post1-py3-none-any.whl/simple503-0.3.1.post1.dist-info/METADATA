@@ -1,0 +1,182 @@
+Metadata-Version: 2.1
+Name: simple503
+Version: 0.3.1.post1
+Summary: PEP 503 Python package repository generator.
+Author-email: Dominic Davis-Foster <dominic@davis-foster.co.uk>
+License: MIT
+Keywords: pep503,pep658,pip,pypi
+Home-page: https://github.com/repo-helper/simple503
+Project-URL: Issue Tracker, https://github.com/repo-helper/simple503/issues
+Project-URL: Source Code, https://github.com/repo-helper/simple503
+Project-URL: Documentation, https://simple503.readthedocs.io/en/latest
+Platform: Windows
+Platform: macOS
+Platform: Linux
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: System :: Archiving :: Packaging
+Classifier: Typing :: Typed
+Requires-Python: >=3.6
+Requires-Dist: airium>=0.2.2
+Requires-Dist: apeye>=1.0.1
+Requires-Dist: click>=8.0.1
+Requires-Dist: consolekit>=1.2.2
+Requires-Dist: dataclasses>=0.8; python_version == "3.6"
+Requires-Dist: dist-meta>=0.1.0
+Requires-Dist: dom-toml>=0.5.1
+Requires-Dist: domdf-python-tools>=2.9.1
+Requires-Dist: natsort>=7.1.1
+Requires-Dist: shippinglabel>=0.15.0
+Requires-Dist: typing-extensions>=3.7.4.1
+Provides-Extra: incremental
+Requires-Dist: beautifulsoup4>=4.9.3; extra == 'incremental'
+Provides-Extra: all
+Requires-Dist: beautifulsoup4>=4.9.3; extra == 'all'
+Description-Content-Type: text/x-rst
+
+
+==========
+simple503
+==========
+
+.. start short_desc
+
+**PEP 503 Python package repository generator.**
+
+.. end short_desc
+
+
+``simple503`` generates a static, `PEP 503`_ simple repository of Python distributions.
+It takes a directory of Python `wheels`_ and generates the necessary directories and ``index.html`` files.
+The source directory can optionally be pre-sorted by project name, or ``simple503`` can do this for you.
+
+An example repository can be seen at https://repo-helper.uk/simple503/
+
+.. _PEP 503: https://www.python.org/dev/peps/pep-0503/
+.. _wheels: https://www.python.org/dev/peps/pep-0427/
+
+.. start shields
+
+.. list-table::
+	:stub-columns: 1
+	:widths: 10 90
+
+	* - Docs
+	  - |docs| |docs_check|
+	* - Tests
+	  - |actions_linux| |actions_windows| |actions_macos| |coveralls|
+	* - PyPI
+	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Activity
+	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
+	* - QA
+	  - |codefactor| |actions_flake8| |actions_mypy|
+	* - Other
+	  - |license| |language| |requires|
+
+.. |docs| image:: https://img.shields.io/readthedocs/simple503/latest?logo=read-the-docs
+	:target: https://simple503.readthedocs.io/en/latest
+	:alt: Documentation Build Status
+
+.. |docs_check| image:: https://github.com/repo-helper/simple503/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/repo-helper/simple503/actions?query=workflow%3A%22Docs+Check%22
+	:alt: Docs Check Status
+
+.. |actions_linux| image:: https://github.com/repo-helper/simple503/workflows/Linux/badge.svg
+	:target: https://github.com/repo-helper/simple503/actions?query=workflow%3A%22Linux%22
+	:alt: Linux Test Status
+
+.. |actions_windows| image:: https://github.com/repo-helper/simple503/workflows/Windows/badge.svg
+	:target: https://github.com/repo-helper/simple503/actions?query=workflow%3A%22Windows%22
+	:alt: Windows Test Status
+
+.. |actions_macos| image:: https://github.com/repo-helper/simple503/workflows/macOS/badge.svg
+	:target: https://github.com/repo-helper/simple503/actions?query=workflow%3A%22macOS%22
+	:alt: macOS Test Status
+
+.. |actions_flake8| image:: https://github.com/repo-helper/simple503/workflows/Flake8/badge.svg
+	:target: https://github.com/repo-helper/simple503/actions?query=workflow%3A%22Flake8%22
+	:alt: Flake8 Status
+
+.. |actions_mypy| image:: https://github.com/repo-helper/simple503/workflows/mypy/badge.svg
+	:target: https://github.com/repo-helper/simple503/actions?query=workflow%3A%22mypy%22
+	:alt: mypy status
+
+.. |requires| image:: https://dependency-dash.herokuapp.com/github/repo-helper/simple503/badge.svg
+	:target: https://dependency-dash.herokuapp.com/github/repo-helper/simple503/
+	:alt: Requirements Status
+
+.. |coveralls| image:: https://img.shields.io/coveralls/github/repo-helper/simple503/master?logo=coveralls
+	:target: https://coveralls.io/github/repo-helper/simple503?branch=master
+	:alt: Coverage
+
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/repo-helper/simple503?logo=codefactor
+	:target: https://www.codefactor.io/repository/github/repo-helper/simple503
+	:alt: CodeFactor Grade
+
+.. |pypi-version| image:: https://img.shields.io/pypi/v/simple503
+	:target: https://pypi.org/project/simple503/
+	:alt: PyPI - Package Version
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/simple503?logo=python&logoColor=white
+	:target: https://pypi.org/project/simple503/
+	:alt: PyPI - Supported Python Versions
+
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/simple503
+	:target: https://pypi.org/project/simple503/
+	:alt: PyPI - Supported Implementations
+
+.. |wheel| image:: https://img.shields.io/pypi/wheel/simple503
+	:target: https://pypi.org/project/simple503/
+	:alt: PyPI - Wheel
+
+.. |license| image:: https://img.shields.io/github/license/repo-helper/simple503
+	:target: https://github.com/repo-helper/simple503/blob/master/LICENSE
+	:alt: License
+
+.. |language| image:: https://img.shields.io/github/languages/top/repo-helper/simple503
+	:alt: GitHub top language
+
+.. |commits-since| image:: https://img.shields.io/github/commits-since/repo-helper/simple503/v0.3.1.post1
+	:target: https://github.com/repo-helper/simple503/pulse
+	:alt: GitHub commits since tagged version
+
+.. |commits-latest| image:: https://img.shields.io/github/last-commit/repo-helper/simple503
+	:target: https://github.com/repo-helper/simple503/commit/master
+	:alt: GitHub last commit
+
+.. |maintained| image:: https://img.shields.io/maintenance/yes/2022
+	:alt: Maintenance
+
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/simple503
+	:target: https://pypi.org/project/simple503/
+	:alt: PyPI - Downloads
+
+.. end shields
+
+Installation
+--------------
+
+.. start installation
+
+``simple503`` can be installed from PyPI.
+
+To install with ``pip``:
+
+.. code-block:: bash
+
+	$ python -m pip install simple503
+
+.. end installation
