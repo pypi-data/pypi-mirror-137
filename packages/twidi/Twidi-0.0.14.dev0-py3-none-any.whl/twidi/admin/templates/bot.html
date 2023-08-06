@@ -1,0 +1,168 @@
+{% extends 'admin/master.html' %}
+
+
+{% block body %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        startBot = function (e) {
+            $.post('start_bot',
+                function (data) {
+                    location.reload();
+                    //do nothing
+                });
+        }
+
+        loadCog = function (e) {
+            $.post('load_cog/' + e,
+
+                function (data) {
+                    location.reload();
+                    //do nothing
+                })
+
+        }
+        unloadCog = function (e) {
+            $.post('unload_cog/' + e,
+
+                function (data) {
+                    location.reload();
+                    //do nothing
+                });
+        }
+        loadRedemptions = function (e) {
+            $.post('redemptions',
+
+                function (data) {
+                    location.reload();
+                    //do nothing
+                });
+        }
+    </script>
+
+    {{ super() }}
+
+    <div class="container">
+
+        <div class="container">
+
+            <div class="row align-center align-content-center">
+
+                <div class="col-8 justify-content-center d-flex">
+                    <div> Bot Running: <span class="text-danger">{{ data.status }}</span></div>
+
+                    <form>
+                        <button class="btn-danger" style="font-size: 0.9rem" disabled>
+                            Stop Bot
+                        </button>
+                        <button onclick="startBot()" class="btn-primary" style="font-size: 0.9rem">
+                            Start Bot
+                        </button>
+                        <button onclick="loadRedemptions()" class="btn-primary" style="font-size: 0.9rem">
+                            Refresh Redemption List
+                        </button>
+                        <button class="btn-secondary" style="font-size: 0.9rem">
+                            View Logs
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+            <h3>Cogs</h3>
+            <table class="table table-condensed table-bordered table-responsive">
+                <thead>
+                <tr>
+                    <th>Cog</th>
+                    <th>Load/Unload</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cog in data.loaded_cogs %}
+                    <tr>
+                        <td>{{ cog.label }}</td>
+                        <td>
+                            <form>
+                                <button onclick="unloadCog('{{ cog.id }}')" data-id={{ cog.label }} class="button
+                                        btn-danger
+                                ">Unload
+                                Cog
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <button class="button btn-secondary">
+                                <a href="{{ url_for('cog.edit_view', id=cog.id, url=request.path) }}">Edit Cog</a>
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% for cog in data.unloaded_cogs %}
+                    <tr>
+                        <td>{{ cog.label }}</td>
+                        <td>
+                            <button onclick="loadCog('{{ cog.id }}')" data-id={{ cog.label }} class="button btn-success
+                            ">Load Cog
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button btn-secondary">
+                                <a href="{{ url_for('cog.edit_view', id=cog.id, url=request.path) }}">Edit Cog</a>
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <h3> Loaded Commands </h3>
+            <table class="table table-condensed table-bordered table-responsive">
+                <thead>
+                <tr>
+                    <th>Cog</th>
+                    <th>Command</th>
+                    <th>Message</th>
+                    <th>Redemption</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cog in data.loaded_cogs %}
+                    {% for command in cog.commands %}
+                        <tr>
+                            <td>{{ cog.label }}</td>
+                            <td>{{ command.label }}</td>
+
+                            {% if command.midi_message.type == 'control_change' %}
+                                <td>
+                                    <a class="text-decoration-none"
+                                       href="{{ url_for('controlmessage.edit_view', id=command.midi_message.id, url=request.path) }}">{{ command.midi_message.label }}</a>
+                                </td>
+                            {% endif %}
+                            {% if command.midi_message.type == 'note_on' %}
+                                <td>
+                                    <a class="text-decoration-none"
+                                       href="{{ url_for('notemessage.edit_view', id=command.midi_message.id, url=request.path) }}">{{ command.midi_message.label }}</a>
+                                </td>
+                            {% endif %}
+                            <td><a class="text-decoration-none"
+                                   href="{{ url_for('pointredemption.edit_view', id=command.point_redemption.id, url=request.path) }}">{{ command.point_redemption.title }}</a>
+                            </td>
+
+                            <td>
+                                <button class="button btn-secondary">
+                                    <a class="text-decoration-none"
+                                       href="{{ url_for('command.edit_view', id=command.id, url=request.path) }}">Edit
+                                        Command</a>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}
