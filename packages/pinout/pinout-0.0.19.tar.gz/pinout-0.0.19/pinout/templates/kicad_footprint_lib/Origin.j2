@@ -1,0 +1,19 @@
+({{ component_type }} "Origin" 
+{% if version >= 6 %}
+(version {{ timestamp }}) (generator pinout)
+{% endif %}
+  (layer "{{ layer }}")
+  {% if version >= 6 %}
+    (tedit 0)
+  {%endif%}
+  (descr "Set origin coordinates for pinout")
+  (attr {% if version >= 6 %}exclude_from_pos_files exclude_from_bom{%else%}virtual{%endif%})
+  (fp_text reference "pinout_origin" (at 1.5 1.5)  (layer "{{ layer }}") hide
+    (effects (font (size 1 1) (thickness 0.15)) (justify left))
+  )
+  (fp_text value "Pinout Origin: Place at image top left." (at 1.5 3.5)  (layer "{{ layer }}")
+    (effects (font (size 1 1) (thickness 0.15)) (justify left))
+  )
+  (fp_line (start 0.1 0.1) (end 4 0.1) (layer "{{ layer }}") (width 0.2))
+  (fp_line (start 0.1 0.1) (end 0.1 4) (layer "{{ layer }}") (width 0.2))
+)
