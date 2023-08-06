@@ -1,0 +1,61 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="medialog.abovecontentportlets"
+    >
+
+  <!--i18n:registerTranslations directory="locales" /-->
+  <!--includeDependencies package="." /-->
+  <!--include package=".browser" /-->
+   <include package="plone.app.portlets"/>
+
+  <genericsetup:registerProfile
+      name="default"
+      title="medialog.abovecontentportlets"
+      directory="profiles/default"
+      description="Installs the medialog.abovecontentportlets add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.post_install"
+      />
+
+      <genericsetup:registerProfile
+          name="uninstall"
+          title="Uninstall: medialog.abovecontentportlets"
+          directory="profiles/uninstall"
+          description="Uninstalls the medialog.abovecontentportlets add-on"
+          provides="Products.GenericSetup.interfaces.EXTENSION"
+          post_handler=".setuphandlers.uninstall"
+        />
+
+
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="medialog.abovecontentportlets-hiddenprofiles" />
+
+  <!-- Portlets Below Content -->
+  <browser:viewlet
+        name="medialog.belowportlets"
+        layer=".interfaces.IMedialogAboveContentPortletsLayer"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+        class=".viewlets.BelowViewlet"
+        permission="zope.Public"
+    />
+
+  <!-- Portlets Above Content -->
+  <browser:viewlet
+        name="medialog.aboveportlets"
+        layer=".interfaces.IMedialogAboveContentPortletsLayer"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+        class=".viewlets.AboveViewlet"
+        permission="zope.Public"
+    />
+
+
+
+</configure>

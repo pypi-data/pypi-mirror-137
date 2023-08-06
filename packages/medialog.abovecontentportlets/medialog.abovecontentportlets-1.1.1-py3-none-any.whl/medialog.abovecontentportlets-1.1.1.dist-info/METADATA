@@ -1,0 +1,92 @@
+Metadata-Version: 2.1
+Name: medialog.abovecontentportlets
+Version: 1.1.1
+Summary: Add portlets above content
+Home-page: https://pypi.python.org/pypi/medialog.abovecontentportlets
+Author: Espen Moe-Nilssen
+Author-email: espen@medialog.no
+License: GPL version 2
+Keywords: Python Plone
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Plone
+Classifier: Framework :: Plone :: 5.0
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Requires-Dist: plone.app.theming
+Provides-Extra: test
+Requires-Dist: plone.app.testing ; extra == 'test'
+
+medialog.abovecontentportlets
+==========================================
+
+
+
+Features
+--------
+
+- adds portlets above content
+- adds portlets below content
+
+
+Installation
+------------
+
+Install medialog.abovecontentportlets by adding it to your buildout::
+
+    [buildout]
+
+    ...
+
+    eggs =
+        medialog.abovecontentportlets
+
+
+and then running ``bin/buildout``
+
+
+Contribute
+----------
+
+- Issue Tracker: https://github.com/espenmn/medialog.abovecontentportlets/issues
+- Source Code: https://github.com/espenmn/medialog.abovecontentportlets
+
+
+Support
+-------
+
+If you are having issues, please let us know.
+espen@medialog.no
+
+
+License
+-------
+
+The project is licensed under the GPLv2.
+
+
+Author
+============
+
+- Espen Moe-Nilssen, espen@medialog.no
+
+
+Changelog
+=========
+
+
+1.1 (02.02.2022)
+------------------
+
+- Updates for Plone 5.2   [espenmn]
+- Add uninstall profile  [espenmn]
+
+
+1.0a1 (unreleased)
+------------------
+
+- Initial release  [espenmn]
+
+
