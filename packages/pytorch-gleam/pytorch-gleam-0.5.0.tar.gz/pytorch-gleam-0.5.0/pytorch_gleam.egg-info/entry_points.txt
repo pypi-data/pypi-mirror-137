@@ -1,0 +1,18 @@
+[console_scripts]
+e-parse = pytorch_gleam.parse.eparse:main
+ex-bqueue = pytorch_gleam.exqueue.exbqueue:main
+ex-queue = pytorch_gleam.exqueue.exqueue:main
+ex-rm = pytorch_gleam.exqueue.exrm:main
+ex-start = pytorch_gleam.exqueue.exstart:main
+ex-stat = pytorch_gleam.exqueue.exstat:main
+f-parse = pytorch_gleam.parse.fparse:main
+free-gpus = pytorch_gleam.gpu.free_gpus:main
+gleam-parse-raw-tweet = pytorch_gleam.parse.parse_raw_tweet:main
+gleam-rerank = pytorch_gleam.search.rerank:main
+gleam-rerank-format = pytorch_gleam.search.rerank_format:main
+gleam-search-candidates = pytorch_gleam.search.select_candidates:main
+gleam-search-tweet-index = pytorch_gleam.search.tweet_index_search:main
+gleam-tweet-to-jsonl = pytorch_gleam.search.tweet_to_jsonl:main
+request-gpus = pytorch_gleam.gpu.request_gpus:main
+t-parse = pytorch_gleam.parse.tparse:main
+
