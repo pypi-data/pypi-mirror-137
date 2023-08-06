@@ -1,0 +1,68 @@
+Metadata-Version: 2.1
+Name: velbus-aio
+Version: 2022.2.2
+Summary: Python Library for the Velbus protocol based on asyncio
+Home-page: https://github.com/Cereal2nd/velbus-aio
+Author: Maikel Punie
+Author-email: maikel.punie@gmail.com
+License: MIT
+Keywords: home,velbus,automation
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Home Automation
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: ~=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyserial (>=3.5.0)
+Requires-Dist: pyserial-asyncio (>=0.5)
+Requires-Dist: backoff (>=1.10.0)
+
+![Python checks](https://github.com/Cereal2nd/velbus-aio/actions/workflows/main.yml/badge.svg)
+![CodeQL](https://github.com/Cereal2nd/velbus-aio/workflows/CodeQL/badge.svg)
+
+# velbus-aio
+
+Velbus Asyncio, a library to support the [Velbus](https://www.velbus.eu/) home automation system.
+
+This Lib is a rewrite in python3 with asyncio of the [python-velbus](https://github.com/thomasdelaet/python-velbus/) module.
+Part of the code from the above lib is reused.
+Its also build on top of the [openHab velbus protocol description](https://github.com/StefCoene/moduleprotocol).
+
+The latest version of the library is published as a python package on [pypi](https://pypi.org/project/velbus-aio/)
+
+# Supported connections:
+
+| Type          | Example                 | Description                                                                              |
+| ------------- | ----------------------- | ---------------------------------------------------------------------------------------- |
+| serial        | /dev/ttyACME0           | a serial device                                                                          |
+| ip:port       | 192.168.1.9:1234        | An ip address + tcp port combination, used in combination with any velbus => tcp gateway |
+| tls://ip:port | tls://192.168.1.9:12345 | A connection to [Signum](https://www.velbus.eu/products/view/?id=458140)                 |
+
+# Develop Installation
+
+1. Clone the repo
+   - git clone --recurse-submodules https://github.com/Cereal2nd/velbus-aio
+2. cd into the cloned repo
+   - cd velbus-aio
+3. create and activate a virtual environment
+   - python3 -m venv venv
+   - source venv/bin/activate
+4. install the module
+   - python setup.py develop
+5. define the connection parameters
+   - modify examples/load_modules.py
+6. run the example
+   - python examples/load_modules.py
+
+
