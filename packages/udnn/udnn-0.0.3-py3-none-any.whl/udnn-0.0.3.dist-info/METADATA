@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: udnn
+Version: 0.0.3
+Summary: UDNN
+Home-page: https://github.com/DimitriosBellos/UDNN
+Author: Dimitrios Bellos
+Author-email: Dimitrios.Bellos@nottingham.ac.uk
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.6.4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pillow
+Requires-Dist: pytorch (>=0.4)
+Requires-Dist: h5py
+
+# UDNN
+A Convolutional Neural Network for fast upscaling of low-resolution sinograms in x-ray CT time-series
+
+To install visit first the Pytorch website (https://pytorch.org/get-started/locally/) to manually install the correct version depending on the OS, Python and CUDA version you are using.
+
+Then install either via pip:
+
+`pip install udnn`
+
+Or using conda:
+
+`conda install -c dimitriosbellos udnn`
+
+
