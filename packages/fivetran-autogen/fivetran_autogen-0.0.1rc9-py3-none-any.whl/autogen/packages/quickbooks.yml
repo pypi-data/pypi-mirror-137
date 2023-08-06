@@ -1,0 +1,80 @@
+name: fivetran/quickbooks
+version: [">=0.4.0", "<0.5.0"]
+
+# dataset location
+source_data_location:
+  schema_variable: quickbooks_schema
+  database_variable: quickbooks_database
+
+# variables that are conditional on tables being present
+enabled_variables:
+  - name: using_address
+    required_tables:
+      - address
+
+  - name: using_bill
+    required_tables:
+      - bill
+      - bill_payment
+
+  - name: using_credit_memo
+    required_tables:
+      - credit_memo
+      - credit_memo_line
+
+  - name: using_department
+    required_tables:
+      - department
+
+  - name: using_deposit
+    required_tables:
+      - deposit
+      - deposit_line
+
+  - name: using_estimate
+    required_tables:
+      - estimate
+      - estimate_line
+
+  - name: using_invoice
+    required_tables:
+      - invoice
+      - invoice_line
+
+  - name: using_invoice_bundle
+    required_tables:
+      - invoice_line_bundle
+
+  - name: using_journal_entry
+    required_tables:
+      - journal_entry
+      - journal_entry_line
+
+  - name: using_payment
+    required_tables:
+      - payment
+      - payment_line
+
+  - name: using_refund_receipt
+    required_tables:
+      - refund_receipt
+      - refund_receipt_line
+
+  - name: using_transfer
+    required_tables:
+      - transfer
+
+  - name: using_vendor_credit
+    required_tables:
+      - vendor_credit
+      - vendor_credit_line
+
+  - name: using_sales_receipt
+    required_tables:
+      - sales_receipt
+      - sales_receipt_line
+
+  - name: using_purchase_order
+    required_tables:
+      - purchase_order
+      - purchase_order_line
