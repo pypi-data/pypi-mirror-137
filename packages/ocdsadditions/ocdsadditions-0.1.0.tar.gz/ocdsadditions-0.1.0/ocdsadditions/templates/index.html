@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>OCDS Additions</title>
+    </head>
+    <body>
+
+        <h2>Open Contracting Publisher information:</h2>
+
+        Package:
+
+        <pre>
+            {{ config_package }}
+        </pre>
+
+        Party:
+
+        <pre>
+            {{ config_party }}
+        </pre>
+
+        <h2>Contracting Processes:</h2>
+
+        <ul>
+            {% for ocid in ocids %}
+                <li><a href="{{ url_without_trailing_slash }}/contracting_process/{{ ocid }}/">{{ ocid }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <h2>API:</h2>
+
+        <ul>
+            <li><a href="{{ url_without_trailing_slash }}/api.json">JSON of this page</a></li>
+        </ul>
+    </body>
+</html>

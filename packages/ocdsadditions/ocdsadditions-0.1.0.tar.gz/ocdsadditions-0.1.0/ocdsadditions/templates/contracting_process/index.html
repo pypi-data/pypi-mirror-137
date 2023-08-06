@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>OCDS Additions</title>
+    </head>
+    <body>
+
+        <h2>Record:</h2>
+
+        <ul>
+            <li>
+                <a href="{{ url_without_trailing_slash }}/contracting_process/{{ ocid }}/record.json">Record with compiled release</a>
+                {% if url_without_trailing_slash %}
+                    {% set drturl = url_without_trailing_slash + "/contracting_process/" + ocid + "/record.json"  %}
+                    [ <a href="https://standard.open-contracting.org/review/?source_url={{ drturl|urlencode }}" rel="nofollow">Review in Data Review Tool</a> ]
+                {% endif %}
+            </li>
+        </ul>
+
+        <h2>Releases</h2>
+
+        <ul>
+            {% for release in releases %}
+                <li>
+                    {#  TODO shouldn't be using private variables! #}
+                    <a href="{{ url_without_trailing_slash }}/contracting_process/{{ ocid }}/release/{{ release._directory_name }}/release_package.json">{{ release._directory_name }}</a>
+                    {% if url_without_trailing_slash %}
+                        {% set drturl = url_without_trailing_slash + "/contracting_process/" + ocid + "/release/"+ release._directory_name + "/release_package.json"  %}
+                        [ <a href="https://standard.open-contracting.org/review/?source_url={{ drturl|urlencode }}" rel="nofollow">Review in Data Review Tool</a> ]
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h2>API:</h2>
+
+        <ul>
+            <li><a href="{{ url_without_trailing_slash }}/contracting_process/{{ ocid }}/api.json">JSON of this page</a></li>
+        </ul>
+    </body>
+</html>
