@@ -1,0 +1,81 @@
+[tool.poetry]
+name = "botocove"
+version = "1.5.0"
+description = "A decorator to allow running a function against all AWS accounts in an organization"
+authors = ["Dave Connell <daveconn41@gmail.com>"]
+license = "LGPL-3.0-or-later"
+readme = "README.md"
+repository = "https://github.com/connelldave/botocove"
+keywords = ["AWS", "organizations", "AWS organizations", "boto3"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+boto3 = "*"
+tqdm = "*"
+boto3-stubs = {extras = ["sts", "organizations"], version = "*"}
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+pytest-mock = "*"
+isort = "*"
+black = "*"
+flake8-bugbear = "*"
+flake8-builtins = "*"
+flake8-comprehensions = "*"
+flake8-eradicate = "*"
+flake8-isort = "*"
+flake8-mutable = "*"
+flake8-pytest-style = "*"
+pep8-naming = "*"
+flake8-print = "*"
+mypy = "*"
+pre-commit = "*"
+flakeheaven = "*"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+multi_line_output=3
+include_trailing_comma=true
+force_grid_wrap=0
+use_parentheses=true
+line_length=88
+
+[tool.flakeheaven]
+exclude = ["README.rst", "README.md", ".git","__pycache__",".venv"]
+format = "colored"
+max_line_length = 88
+show_source = true
+
+[tool.flakeheaven.plugins]
+flake8-bandit = ["+*", "-S322"]
+flake8-bugbear = ["+*"]
+flake8-builtins = ["+*"]
+flake8-comprehensions = ["+*"]
+flake8-eradicate = ["+*"]
+flake8-mutable = ["+*"]
+flake8-pytest-style = ["+*"]
+mccabe = ["+*"]
+pep8-naming = ["+*"]
+pycodestyle = ["+*"]
+pyflakes = ["+*"]
+pylint = ["+*"]
+
+[tool.flakeheaven.exceptions."tests/"]
+flake8-bandit = ["+*", "-S322", "-S101"]
+
+[tool.black]
+line_length=88
+
+[tool.pytest.ini_options]
+addopts = "-vv"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+testpaths = [
+    "tests",
+]
