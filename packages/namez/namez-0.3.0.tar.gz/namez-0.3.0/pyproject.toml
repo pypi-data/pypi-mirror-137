@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "namez"
+version = "0.3.0"
+homepage = "https://github.com/shawwn/namez"
+description = "A package for accessing objects by name"
+authors = ["Shawn Presser"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+python-semantic-release = "^7.24.0"
+jupyter = "^1.0.0"
+myst-nb = "^0.13.1"
+sphinx-autoapi = "^1.8.4"
+sphinx-rtd-theme = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.semantic_release]
+version_variable = "pyproject.toml:version"
+branch = "main"
+# pre_commit_command = "poetry build --format sdist; tar -xvf dist/*-`poetry version -s`.tar.gz -O '*/setup.py' > setup.py"
+include_additional_files = "setup.py"
+major_on_zero = false
+build_command = "poetry build"              # build dists
+dist_path = "dist/"                         # where to put dists
+upload_to_pypi = false                      # don't auto-upload to PyPI
+remove_dist = false                         # don't remove dists
