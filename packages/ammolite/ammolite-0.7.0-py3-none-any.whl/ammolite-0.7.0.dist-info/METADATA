@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: ammolite
+Version: 0.7.0
+Summary: Visualize structure data from Biotite with PyMOL
+Home-page: https://ammolite.biotite-python.org
+License: BSD-3-Clause
+Keywords: Bioinformatics,Computational biology,Data visualization
+Author: Patrick Kunzmann
+Author-email: patrick.kunzm@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Requires-Dist: biotite (>=0.28)
+Project-URL: Documentation, https://ammolite.biotite-python.org
+Project-URL: Repository, https://github.com/biotite-dev/ammolite
+Description-Content-Type: text/x-rst
+
+.. image:: https://raw.githubusercontent.com/biotite-dev/ammolite/master/doc/static/assets/ammolite_logo_s.png
+  :alt: Ammolite logo
+  :align: center
+
+Ammolite - From Biotite to PyMOL and back again
+====================================================
+
+This package enables the transfer of structure related objects
+from `Biotite <https://www.biotite-python.org/>`_
+to `PyMOL <https://pymol.org/>`_ for visualization,
+via PyMOL's Python API:
+
+- Import ``AtomArray`` and ``AtomArrayStack`` objects into *PyMOL* -
+  without intermediate structure files.
+- Convert *PyMOL* objects into ``AtomArray`` and ``AtomArrayStack`` instances.
+- Use *Biotite*'s boolean masks for atom selection in *PyMOL*.
+- Display images rendered with *PyMOL* in *Jupyter* notebooks.
+
+Have a look at `this example <https://ammolite.biotite-python.org/examples/gallery/heme_complex.html>`_:
+
+|
+
+.. image:: https://raw.githubusercontent.com/biotite-dev/ammolite/master/doc/demo/demo.gif
+    :alt: ammolite demo
+
+|
+
+*PyMOL is a trademark of Schrodinger, LLC.*
+
