@@ -1,0 +1,11 @@
+from __future__ import annotations
+
+from typing import NamedTuple
+
+
+class Verify_Responses(NamedTuple):
+
+    TokenLifetime: int
+    """
+    The lifetime of the provided access token as the maximum validity period after the last SiLA Server request.
+    """

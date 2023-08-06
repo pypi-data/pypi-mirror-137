@@ -1,0 +1,14 @@
+from __future__ import annotations
+
+from typing import Optional
+
+from sila2.framework.errors.defined_execution_error import DefinedExecutionError
+
+from .authorizationservice_feature import AuthorizationServiceFeature
+
+
+class InvalidAccessToken(DefinedExecutionError):
+    def __init__(self, message: Optional[str] = None):
+        if message is None:
+            message = "The sent access token is not valid."
+        super().__init__(AuthorizationServiceFeature.defined_execution_errors["InvalidAccessToken"], message=message)
