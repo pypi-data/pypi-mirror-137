@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "maxbot"
+version = "0.0.1.dev20220204164736"
+description = ""
+authors = ["Stanislav Arsentyev <arstas@gmail.com>"]
+
+[tool.poetry.scripts]
+maxbot = "maxbot:app"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+typer = {extras = ["all"], version = "^0.4.0"}
+PyYAML = "^6.0"
+requests = "^2.27.1"
+wasabi = "^0.9.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+requests-mock = "^1.9.3"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
