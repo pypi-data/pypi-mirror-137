@@ -1,0 +1,125 @@
+# Copyright 2020 Huawei Technologies Co., Ltd
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============================================================================
+"""
+######################## train alexnet example ########################
+train alexnet and get network model files(.ckpt) :
+python train.py --data_path /YourDataPath
+"""
+
+import os
+import argparse
+from src.config import cfg
+from src.dataset import create_dataset
+from src.generator_lr import get_lr
+from src.alexnet import AlexNet
+import mindspore.nn as nn
+from mindspore import context
+from mindspore import Tensor
+from mindspore.train import Model
+from mindspore.context import ParallelMode
+from mindspore.nn.metrics import Accuracy
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+from mindspore.train.loss_scale_manager import FixedLossScaleManager
+from mindspore.parallel._auto_parallel_context import auto_parallel_context
+from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore.communication.management import init, get_rank, get_group_size
+import mindspore.common.initializer as weight_init
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='MindSpore AlexNet Example')
+    parser.add_argument('--run_distribute', type=bool, default=False, help='Run distribute')
+    parser.add_argument('--device_num', type=int, default=1, help='Device num')
+    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU'],
+                        help='device where the code will be implemented (default: Ascend)')
+    parser.add_argument('--dataset_path', type=str, default="./", help='path where the dataset is saved')
+    parser.add_argument('--pre_trained', type=str, default=None, help='Pre-trained checkpoint path')
+    parser.add_argument('--dataset_sink_mode', type=str, default='True', choices = ['True', 'False'],
+                        help='DataSet sink mode is True or False')
+    args = parser.parse_args()
+
+    target = args.device_target
+    ckpt_save_dir = cfg.save_checkpoint_path
+    dataset_sink_mode = args.dataset_sink_mode=='True'
+
+    context.set_context(mode=context.GRAPH_MODE, device_target=target)
+    if args.run_distribute:
+        if target == "Ascend":
+            device_id = int(os.getenv('DEVICE_ID'))
+            context.set_context(device_id=device_id, enable_auto_mixed_precision=True)
+            context.set_auto_parallel_context(device_num=args.device_num, parallel_mode=ParallelMode.DATA_PARALLEL,
+                                              gradients_mean=True)
+
+            init()
+        # GPU target
+        else:
+            init()
+            context.set_auto_parallel_context(device_num=get_group_size(), parallel_mode=ParallelMode.DATA_PARALLEL,
+                                              gradients_mean=True)
+            ckpt_save_dir = cfg.save_checkpoint_path + "ckpt_" + str(get_rank()) + "/"
+
+
+    data_path = args.dataset_path
+    do_train = True
+
+    ds_train = create_dataset(data_path=data_path, batch_size=cfg.batch_size, do_train=do_train,
+                              target=target, run_distribute=args.run_distribute)
+    step_size = ds_train.get_dataset_size()
+
+    # define net
+    net = AlexNet(cfg.num_classes)
+
+    # init weight
+    if args.pre_trained:
+        param_dict = load_checkpoint(args.pre_trained)
+        load_param_into_net(net, param_dict)
+    else:
+        for _, cell in net.cells_and_names():
+            if isinstance(cell, nn.Conv2d):
+                cell.weight.set_data(weight_init.initializer(weight_init.XavierUniform(),
+                                                             cell.weight.shape,
+                                                             cell.weight.dtype))
+            if isinstance(cell, nn.Dense):
+                cell.weight.set_data(weight_init.initializer(weight_init.TruncatedNormal(),
+                                                             cell.weight.shape,
+                                                             cell.weight.dtype))
+    # define learning rate
+    lr = Tensor(get_lr(0, cfg.lr, cfg.epoch_size, ds_train.get_dataset_size()))
+
+    # define loss, model
+    {% if loss=='SoftmaxCrossEntropyWithLogits' %}
+    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+    {% elif loss=='SoftmaxCrossEntropyExpand' %}
+    loss = nn.SoftmaxCrossEntropyExpand(sparse=True)
+    {% endif %}
+    {% if optimizer=='Momentum' %}
+    opt = nn.Momentum(net.trainable_params(), learning_rate=lr, momentum=cfg.momentum)
+    {% else %}
+    opt = nn.{{ optimizer }}(net.trainable_params(), learning_rate=lr)
+    {% endif %}
+    model = Model(net, loss, opt, metrics={"Accuracy": Accuracy()})
+
+    # define callbacks
+    time_cb = TimeMonitor(data_size=step_size)
+    loss_cb = LossMonitor()
+    cb = [time_cb, loss_cb]
+    if cfg.save_checkpoint:
+        cfg_ck = CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_epochs * step_size,
+                                  keep_checkpoint_max=cfg.keep_checkpoint_max)
+        ckpt_cb = ModelCheckpoint(prefix="alexnet", directory=ckpt_save_dir, config=cfg_ck)
+        cb += [ckpt_cb]
+
+    print("============== Starting Training ==============")
+    model.train(cfg.epoch_size, ds_train, callbacks=cb, dataset_sink_mode=dataset_sink_mode)
