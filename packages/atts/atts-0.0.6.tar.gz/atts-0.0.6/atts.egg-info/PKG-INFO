@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: atts
+Version: 0.0.6
+Summary: Train_test splitter with adversarial validation
+Home-page: https://github.com/alikula314/att_split
+Author: Muhammet Ali Kula
+Author-email: alikula3.14@gmail.com
+License: MIT
+Keywords: adversarial validation train-test-split data-sceince machine-learning
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+License-File: LICENSE.txt
+
+
+Auto_train_test_splitter
+============================================================
+
+Auto train test split with adversarial validation.
+Use it to get the without data leakage train-test split.
+
+The code is Python 3
+
+Installation
+------------------------
+
+Fast install:
+
+::
+
+    pip install atts
+
+For a manual install get this package:
+
+::
+
+    wget https://github.com/alikula314/att_split/atts/archive/master.zip
+    unzip master.zip
+    rm master.zip
+    cd atts-master
+
+Install the package:
+
+::
+
+    python setup.py install    
+
+Example on Red Wine Quality Dataset
+--------------------------------------------------------------------------------
+
+.. code:: python
+
+    pip install atts
+    from atts.auto_test_splitter import atts 
+
+    # run module
+    k = ATTS(df, "quality" , 0.05, 0.50, 0.05)
+
+    # get auc_score - test_size dataframe
+    k.test_sizes_df()
+    
+    #get the plot
+    k.test_sizes_plot(800,400)
+
+
+    
+    
+
+
