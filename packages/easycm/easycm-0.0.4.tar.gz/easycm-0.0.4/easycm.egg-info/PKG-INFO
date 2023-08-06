@@ -1,0 +1,70 @@
+Metadata-Version: 2.1
+Name: easycm
+Version: 0.0.4
+Summary: A simple python package to plot confusion matrices
+Home-page: https://github.com/vhrique/easycm
+Author: Victor Henrique Alves Ribeiro
+License: BSD-3
+Project-URL: Source, https://github.com/vhrique/easycm
+Project-URL: Tracker, https://github.com/vhrique/easycm/issues
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Easy CM
+
+A simple python package to plot confusion matrices.
+
+![Confusion Matrix](./.figures/confusion_plot.png)
+
+## Installation
+
+```console
+foo@bar:~$ pip install easycm
+```
+
+## Usage
+
+You can simply call the function with predictions and true values from your classification problem.
+
+```python
+from easycm import plot_confusion_matrix
+import matplotlib.pyplot as plt
+
+
+y_true = [False, True, True, False]
+y_pred = [False, False, True, True]
+
+plot_confusion_matrix(y_true, y_pred)
+plt.show()
+```
+
+To include your confusion matrix in subplots, you can do the following
+
+```python
+from easycm import plot_confusion_matrix
+import matplotlib.pyplot as plt
+
+
+y_true = [False, True, True, False]
+y_pred = [False, False, True, True]
+
+fig, axs = plt.subplots(1, 2)
+plot_confusion_matrix(y_true, y_pred, ax=axs[0])
+plt.show()
+```
+
+You can also customize the labels for the X and Y axis and the title.
+
+```python
+from easycm import plot_confusion_matrix
+import matplotlib.pyplot as plt
+
+
+y_true = [False, True, True, False]
+y_pred = [False, False, True, True]
+
+plot_confusion_matrix(y_true, y_pred, title='Title', xlabel='X', ylabel='Y')
+plt.show()
+```
+
