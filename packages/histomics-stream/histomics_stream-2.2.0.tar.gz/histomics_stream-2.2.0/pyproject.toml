@@ -1,0 +1,24 @@
+[build-system]
+requires = [
+         "flit_core >=2,<4",
+         ]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "histomics_stream"
+author = "Lee Newberg"
+author-email = "lee.newberg@kitware.com"
+home-page = "https://github.com/DigitalSlideArchive/histomics_stream"
+requires = [
+         # tensorflow is not listed as a requirement because the user
+         # will likely want to specify the version for compatibility
+         # with the CUDA libraries, presence of GPUs, etc.
+         "imagecodecs",
+         "itk",
+         "numpy",
+         "openslide-python",
+         "pillow",
+         "zarr",
+         ]
+description-file = "README.md"
+classifiers = ["License :: OSI Approved :: Apache Software License"]
