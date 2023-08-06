@@ -1,0 +1,1 @@
+from MagicHome import MagicHome
