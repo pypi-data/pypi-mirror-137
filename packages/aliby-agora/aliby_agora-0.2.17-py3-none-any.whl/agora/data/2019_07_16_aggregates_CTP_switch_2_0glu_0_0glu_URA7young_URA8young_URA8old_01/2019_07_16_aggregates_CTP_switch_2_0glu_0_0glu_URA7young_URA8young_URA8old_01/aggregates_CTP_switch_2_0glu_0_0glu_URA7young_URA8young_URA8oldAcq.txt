@@ -1,0 +1,54 @@
+Channels:
+Channel name, Exposure time, Skip, Z sect., Start time, Camera mode, EM gain, Voltage
+ Brightfield,            30,    1,       1,          1,           2,     270,  -9.600
+         GFP,            30,    1,       1,          1,           2,     270,  -8.000
+Z_sectioning:
+Sections,Spacing,PFSon?,AnyZ?,Drift,Method
+       5,   0.60,     1,    1,    0,     2
+Time_settings:
+1,300,180,54000
+Points:
+Position name, X position, Y position, Z position, PFS offset, Group, Brightfield,        GFP
+URA7_young001,    6998.40,    6827.40,   3391.325,    165.850,     1,         30,         30
+URA7_young002,    7246.70,    6904.40,   3392.900,    169.700,     1,         30,         30
+URA7_young003,    7614.90,    6835.50,   3392.925,    159.350,     1,         30,         30
+URA7_young004,    7475.60,    7139.70,   3391.650,    158.250,     1,         30,         30
+URA7_young005,    7141.10,    7059.10,   3389.975,    153.550,     1,         30,         30
+URA7_young006,    6930.90,    6908.70,   3389.675,    160.650,     1,         30,         30
+  URA8_old007,    6869.70,    5166.90,   3387.875,    162.150,     2,         30,         30
+  URA8_old008,    6925.10,    5285.70,   3387.925,    152.750,     2,         30,         30
+  URA8_old009,    6716.50,    5425.10,   3387.525,    161.000,     2,         30,         30
+  URA8_old010,    6660.30,    5187.00,   3386.925,    159.500,     2,         30,         30
+  URA8_old011,    6399.00,    5321.40,   3386.150,    160.300,     2,         30,         30
+  URA8_old012,    6255.40,    5173.50,   3385.475,    165.950,     2,         30,         30
+URA8_young013,    6959.30,    6716.30,   3387.525,    160.150,     3,         30,         30
+URA8_young014,    7001.50,    6981.20,   3387.825,    160.550,     3,         30,         30
+URA8_young015,    7258.20,    7099.30,   3388.375,    158.900,     3,         30,         30
+URA8_young016,    7327.70,    6846.90,   3389.425,    163.350,     3,         30,         30
+URA8_young017,    7595.00,    6831.90,   3389.775,    165.100,     3,         30,         30
+URA8_young018,    7640.50,    6986.20,   3389.350,    155.400,     3,         30,         30
+
+Flow_control:
+Syringe pump details: 2 pumps.
+Pump states at beginning of experiment:
+Pump port, Diameter, Current rate, Direction, Running, Contents
+     COM6,    15.47,         4.00,       INF,       1, 2% glucose in SC
+     COM7,    15.47,         4.00,       INF,       0, 0% glucose in SC
+
+Dynamic flow details:
+Number of pump changes:
+3
+Switching parameters:
+Infuse/withdraw volumes:
+50,50,50
+Infuse/withdraw rates:
+100,100,100
+Times:
+0,300,600
+Switched to:
+2,1,2
+Switched from:
+1,2,1
+Flow post switch:
+4,0,4
+0,4,0
