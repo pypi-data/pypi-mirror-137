@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: cegalprizm-investigator
+Version: 0.2.dev32697
+Summary: Cegal Prizm Investigator
+Home-page: https://docs.prizm.cegal-geo.com/
+Author: Cegal Prizm Team
+Author-email: prizm@cegal.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas
+Requires-Dist: cloudpickle
+Requires-Dist: pillow
+Requires-Dist: ipyplot
+Requires-Dist: matplotlib
+Requires-Dist: grpcio
+Requires-Dist: protobuf
+Requires-Dist: cegal-keystoneauth
+Requires-Dist: cegalprizm-hub (>=1.*)
+
+# Introduction
+
+A Python client library to use with a Blueback Investigator. This library allows investigation objects to be accessed via Python. The investigation can be defined directly in Petrel, in an invpy file or via a Pandas dataframe. The investigation object can be queried at various levels. The metadata that defines the investigation shape can be discovered. The raw sample data can be accessed as a dataframe for further analysis in the Python environment. Various plots (standard data science plots and geo-science specific plots) can be generated to QC the investigation data.  
+
+# Further information and examples
+Please see the Cegal Prizm Documentation site [here](https://docs.prizm.cegal-geo.com)
+
+# License
+Copyright (2022) Cegal, As. This library (the "Software") may not be used except in connection with the Licensees use of the Cegal Prizm Hub pursuant to an Agreement (defined below) between Licensee (defined below) and Cegal, AS. ("Cegal"). This Software shall be deemed part of the "Subscription Services" under the Agreement. Licensees use of the Software must comply at all times with any restrictions applicable to the Subscription Services, generally, and must be used in accordance with any applicable documentation. If you have not agreed to an Agreement or otherwise do not agree to these terms, you may not use the Software. This license terminates automatically upon the termination of the Agreement or Licensees breach of these terms. Agreement: the agreement between Cegal and Licensee governing the use of the Cegal Prizm Hub, which shall be, with respect to Cegal, and the Cegal Terms of Service located at https://cegal.com/about/terms-and-conditions , in each case unless Licensee has entered into a separate written agreement with Cegal governing the use of the applicable Cegal Services. Licensee: the user of the Software, or, if the Software is being used on behalf of a company, the company.
+
