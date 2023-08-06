@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: uapi
+Version: 0.1
+Summary: 
+Author-email: Tin Tvrtkovic <tinchester@gmail.com>
+Requires-Python: >=3.9
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Dist: cattrs
+Requires-Dist: incant >= 0.3
+Requires-Dist: itsdangerous
+Requires-Dist: black ; extra == "dev"
+Requires-Dist: flake8 ; extra == "dev"
+Requires-Dist: isort ; extra == "dev"
+Requires-Dist: pytest-asyncio ; extra == "dev"
+Requires-Dist: httpx ; extra == "dev"
+Requires-Dist: aiohttp ; extra == "dev"
+Requires-Dist: flask ; extra == "dev"
+Requires-Dist: quart ; extra == "dev"
+Requires-Dist: starlette ; extra == "dev"
+Requires-Dist: hypercorn ; extra == "dev"
+Requires-Dist: mypy ; extra == "dev"
+Provides-Extra: dev
