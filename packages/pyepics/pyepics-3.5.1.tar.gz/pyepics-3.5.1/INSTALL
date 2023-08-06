@@ -1,0 +1,61 @@
+Installation instructions for PyEpics3
+=======================================
+
+To install the epics module, use
+
+   pip install pyepics
+
+Or download the source kit from PyPI or Github, unpack that, and use
+
+   python setup.py install
+
+PyEpics requires Python 3.6 or higher.  
+
+
+Epics CA Shared Libraries, and using alternate versions of these
+=====================================================================
+
+Pyepics needs to find and load shared object libraries (DLLs) for Epics
+Channel Access (libca and libCom) at runtime.  Recently-compiled versions of
+these shared object libraries are included with this distribution for
+Windows64, MacOS, Linux64, and LinuxArm and will be installed into the
+pyepics installation folder and used by default.  These are located under the
+epics/clibs folder of the source folder.  Legacy DLLs for 32-bit Windows and
+Linux are also included, but should be used with caution.
+
+By providing and using these shared libraries, pyepics will work "out of the
+box" on most OSes and systems without any other Epics libraries installed.
+
+There may be some OSes used or some situations for which you will want to use
+different versions of libca and libCom, especially on systems already using
+Epics for other applications.  One notable example is if you are using
+pyepics within a Python program or application that has already loaded a
+version of libca, as a single process can load only one version of a shared
+library.  If you are using the `pcaspy` library or running a python script
+that loads pyepics from within an epics IOC, you will need to ensure that all
+libraries loading libca load exactly the same version.
+
+To accommodate this situation, pyepics loads libca as late as possible and
+allows you to set the PYEPICS_LIBCA environmental variable, either globally
+for the shell running the application or within the python program itself
+before any real Channel Access is done -- this can be set after importing the
+pyepics module.   So, for example, you could do
+
+
+    >>> import pyepics
+    >>> import os
+    >>> os.environ['PYEPCICS_LIBCA']='/usr/local/epics/base-7.0.4/lib/linux-x86_64/libca.so'
+    >>> print( epics.caget('XXX:m1'))
+    -0.2500
+
+You can also test which exact 'libca' was used.  For the example above
+
+    >>> print(epics.ca.find_libca())
+    '/usr/local/epics/base-7.0.4/lib/linux-x86_64/libca.so'
+
+whereas by default this will point to something like
+    '../site-packages/pyepics-3.4.3-py3.8.egg/epics/clibs/linux64/libca.so'
+
+
+Matt Newville <newville@cars.uchicago.edu>
+Last Update:  2021-05-22
