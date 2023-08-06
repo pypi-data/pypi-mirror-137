@@ -1,0 +1,40 @@
+Metadata-Version: 1.1
+Name: waihonanumpy
+Version: v0.0.4.5
+Summary: Store and retreive data in Redis.
+Home-page: https://github.com/radiomicsvhio/waihona-numpy
+Author: Camilo A. Monreal
+Author-email: camilomonreal@vhio.net
+License: cc-by-sa-4.0
+Download-URL: https://github.com/radiomicsvhio/waihona-numpy/releases/download/v0.0.1/waihonanumpy-v0.0.1.tar.gz
+Description: <p>Date: February 4, 2022</p>
+        
+        <h2 id="install">Install</h2>
+        <p>Run</p>
+        <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">pip</span> install waihonanumpy</a></code></pre></div>
+        <h2 id="use">Use</h2>
+        <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="im">from</span> waihonanumpy <span class="im">import</span> RedisStorage</a>
+        <a class="sourceLine" id="cb2-2" title="2"><span class="im">import</span> numpy <span class="im">as</span> np</a>
+        <a class="sourceLine" id="cb2-3" title="3"><span class="co"># setup connection to redis database</span></a>
+        <a class="sourceLine" id="cb2-4" title="4">redis <span class="op">=</span> RedisStorage(host<span class="op">=</span><span class="st">&#39;172.27.0.75&#39;</span>, password<span class="op">=</span><span class="st">&#39;password123&#39;</span>)</a>
+        <a class="sourceLine" id="cb2-5" title="5"><span class="co"># store a numpy array </span></a>
+        <a class="sourceLine" id="cb2-6" title="6">redis[<span class="st">&quot;p1&quot;</span>,<span class="st">&quot;r1&quot;</span>] <span class="op">=</span> np.arange(<span class="dv">21</span>).reshape(<span class="dv">3</span>, <span class="dv">7</span>)</a>
+        <a class="sourceLine" id="cb2-7" title="7">redis[<span class="st">&quot;p1&quot;</span>,<span class="st">&quot;r2&quot;</span>] <span class="op">=</span> np.arange(<span class="dv">21</span>).reshape(<span class="dv">21</span>, <span class="dv">1</span>)</a>
+        <a class="sourceLine" id="cb2-8" title="8"><span class="co"># if the result is an only value return a tuple (key,value)</span></a>
+        <a class="sourceLine" id="cb2-9" title="9">a_prime_key, a_prime_value <span class="op">=</span> redis[<span class="st">&quot;p1&quot;</span>,<span class="st">&quot;r1&quot;</span>] </a>
+        <a class="sourceLine" id="cb2-10" title="10"><span class="co"># get a list of tuples (key,value)</span></a>
+        <a class="sourceLine" id="cb2-11" title="11">list_items <span class="op">=</span> redis[<span class="st">&quot;p1&quot;</span>,<span class="st">&quot;*&quot;</span>]</a></code></pre></div>
+        
+Keywords: redis,numpy,store
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
