@@ -1,0 +1,10 @@
+<use
+    {% with params=use %}
+        {% include "component_common.svg" %}
+    {% endwith %}
+
+    xlink:href="#{{ use.target_id }}"
+    href="#{{ use.target_id }}"
+    
+/>
+

@@ -1,0 +1,9 @@
+<g 
+    {% with params=group %}
+        {% include "component_common.svg" %}
+    {% endwith %}
+>
+    {% block content %}
+        {{ group.render_children()|safe }}
+    {% endblock %}
+</g>

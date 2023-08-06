@@ -1,0 +1,8 @@
+<path 
+
+    {% with params=path %}
+        {% include "component_common.svg" %}
+    {% endwith %}
+    
+    d="{{ path.d }}" 
+/>
