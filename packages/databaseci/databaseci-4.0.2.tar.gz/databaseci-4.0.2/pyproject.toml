@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "databaseci"
+version = "4.0.2"
+authors = [ "Robert Lechte <rob@databaseci.com>",]
+license = "Copyright DatabaseCI Pty Ltd 2022"
+readme = "README.md"
+description = "databaseci.com client"
+
+homepage = "https://databaseci.com"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4"
+migra = "*"
+click = "*"
+requests = "*"
+pyyaml = "*"
+py = "*"
+psycopg2-binary = "*"
+console = "*"
+
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+pytest-cov = "*"
+flake8 = "*"
+isort = "*"
+mypy = "*"
+black = "*"
+
+[tool.poetry.scripts]
+databaseci = 'databaseci:command.cli'
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+line_length = 88
