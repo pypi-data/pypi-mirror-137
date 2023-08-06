@@ -1,0 +1,154 @@
+{# -*- engine:django -*- #}
+{% extends "core/base.html" %}
+{% load week_helpers material_form_internal material_form i18n static rules time_helpers %}
+
+{% block browser_title %}{% blocktrans %}Lesson{% endblocktrans %}{% endblock %}
+{% block no_page_title %}{% endblock %}
+{% block extra_head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/alsijil/lesson.css' %}"/>
+{% endblock %}
+
+{% block nav_content %}
+  <ul class="tabs tabs-transparent tabs-icons tabs-fixed-width">
+    <li class="tab">
+      <a href="#lesson-documentation">
+        <i class="material-icons">speaker_notes</i>
+        {% trans "Period" %}
+      </a>
+    </li>
+    {% if register_object.label_ != "lesson_period" or not register_object.get_substitution.cancelled or not request.site.preferences.alsijil__block_personal_notes_for_cancelled %}
+      <li class="tab">
+        <a href="#personal-notes">
+          <i class="material-icons">people</i>
+          {% trans "Persons" %}
+        </a>
+      </li>
+    {% endif %}
+    {% if prev_lesson %}
+      {% has_perm "alsijil.view_lessondocumentation_rule" user prev_lesson as can_view_prev_lesson_documentation %}
+      {% if prev_lesson.get_lesson_documentation and can_view_prev_lesson_documentation %}
+        <li class="tab">
+          <a href="#previous-lesson">
+            <i class="material-icons">history</i>
+            {% trans "Previous" %}
+          </a>
+        </li>
+      {% endif %}
+    {% endif %}
+    <li class="tab">
+      <a href="#more">
+        <i class="material-icons">more_horiz</i>
+        {% trans "More" %}
+      </a>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  {% has_perm "alsijil.view_lessondocumentation_rule" user register_object as can_view_lesson_documentation %}
+  {% has_perm "alsijil.edit_lessondocumentation_rule" user register_object as can_edit_lesson_documentation %}
+  {% has_perm "alsijil.edit_register_object_personalnote_rule" user register_object as can_edit_register_object_personalnote %}
+
+  {% if next_lesson_person or prev_lesson_person or back_to_week_url %}
+    <div class="row margin-bottom z-depth-1 alsijil-nav-header">
+      <div class="col s12 no-padding">
+        {# Back to week view #}
+        {% if back_to_week_url %}
+          <a href="{{ back_to_week_url }}"
+             class="btn secondary-color waves-light waves-effect margin-bottom {% if prev_lesson_person or next_lesson_person %}hide-on-extra-large-only{% endif %}">
+            <i class="material-icons left">chevron_left</i> {% trans "Week view" %}
+          </a>
+        {% endif %}
+
+        {% if prev_lesson_person or next_lesson_person %}
+          <div class="col s12 no-padding center alsijil-nav">
+            {% if back_to_week_url %}
+              <a href="{{ back_to_week_url }}"
+                 class="btn-flat secondary-color-text waves-light waves-effect left hide-on-med-and-down hide-on-large-only show-on-extra-large">
+                <i class="material-icons left">chevron_left</i> {% trans "Week view" %}
+              </a>
+            {% endif %}
+
+            {# Previous lesson #}
+            <a class="btn-flat waves-effect waves-light left primary-color-text {% if not prev_lesson_person %}disabled{% endif %}"
+               title="{% trans "My previous lesson" %}"
+                {% if prev_lesson_person %}
+               href="{% url "lesson_period" prev_lesson_person.week.year prev_lesson_person.week.week prev_lesson_person.id %}"
+                {% endif %}
+            >
+              <i class="material-icons left">navigate_before</i>
+              <span class="hide-on-small-only">{% trans "My previous lesson" %}</span>
+              <span class="hide-on-med-and-up">{% trans "Previous" %}</span>
+            </a>
+            {# Next lesson #}
+            <a class="btn-flat waves-effect waves-light right primary-color-text {% if not next_lesson_person %}disabled{% endif %}"
+               title="{% trans "My next lesson" %}"
+                {% if next_lesson_person %}
+               href="{% url "lesson_period" next_lesson_person.week.year next_lesson_person.week.week next_lesson_person.id %}"
+                {% endif %}
+            >
+              <i class="material-icons right">navigate_next</i>
+              <span class="hide-on-small-only">{% trans "My next lesson" %}</span>
+              <span class="hide-on-med-and-up">{% trans "Next" %}</span>
+            </a>
+            <span class="truncate">{{ request.user.person }}</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  <form method="post" class="row">
+    {% csrf_token %}
+
+    {% if not blocked_because_holidays %}
+      <div class="row">
+        <div class="col s12 no-padding" id="lesson-documentation">
+          {% include "alsijil/partials/lesson/tabs/documentation.html" %}
+        </div>
+
+        {% with prev_doc=prev_lesson.get_lesson_documentation %}
+          {% with absences=prev_lesson.get_absences tardinesses=prev_lesson.get_tardinesses extra_marks=prev_lesson.get_extra_marks %}
+            {% has_perm "alsijil.view_lessondocumentation_rule" user prev_lesson as can_view_prev_lesson_documentation %}
+            {% if prev_doc and can_view_prev_lesson_documentation %}
+              <div class="col s12 no-padding" id="previous-lesson">
+                {% include "alsijil/partials/lesson/tabs/previous_lesson.html" %}
+              </div>
+            {% endif %}
+          {% endwith %}
+        {% endwith %}
+
+        {% if register_object.label_ != "lesson_period" or not register_object.get_substitution.cancelled or not request.site.preferences.alsijil__block_personal_notes_for_cancelled %}
+          <div class="col s12 no-padding" id="personal-notes">
+            {% include "alsijil/partials/lesson/tabs/notes.html" %}
+          </div>
+        {% endif %}
+
+        <div class="col s12 no-padding" id="more">
+          {% include "alsijil/partials/lesson/tabs/more.html" %}
+        </div>
+      </div>
+    {% else %}
+      {% include "alsijil/partials/lesson/heading.html" %}
+
+      <div class="row no-margin">
+        <div class="container">
+          <div class="card">
+            <div class="card-content center-align">
+              <p>
+                <i class="material-icons medium orange-text">warning</i>
+              </p>
+              <p class="card-title">
+                {% blocktrans %}
+                  This lesson overlaps with holidays and can't be edited.
+                {% endblocktrans %}
+              </p>
+              <span class="badge new blue no-float no-margin">{{ holiday }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </form>
+{% endblock %}
