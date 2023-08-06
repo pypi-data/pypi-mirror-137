@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: dj-blacksmith
+Version: 0.2.0
+Summary: Django Bindings for Blacksmith
+Home-page: https://github.com/mardiros/dj-blacksmith
+Author: Guillaume Gauvrit
+Author-email: guillaume@gauvr.it
+Requires-Python: >=3.7,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: Django (>=3.2,<=5)
+Requires-Dist: aioredis (>=2.0.1,<3.0.0)
+Requires-Dist: blacksmith[prometheus] (>=0.13.3,<0.14.0)
+Requires-Dist: redis (>=4.1.2,<5.0.0)
+Requires-Dist: types-setuptools (>=57.4.7,<58.0.0)
+Project-URL: Repository, https://github.com/mardiros/dj-blacksmith
+Description-Content-Type: text/x-rst
+
+dj-blacksmith
+=============
+
+.. image:: https://readthedocs.org/projects/dj-blacksmith/badge/?version=latest
+   :target: https://dj-blacksmith.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. image:: https://github.com/mardiros/dj-blacksmith/actions/workflows/main.yml/badge.svg
+   :target: https://github.com/mardiros/dj-blacksmith/actions/workflows/main.yml
+   :alt: Continuous Integration
+
+.. image:: https://codecov.io/gh/mardiros/dj-blacksmith/branch/main/graph/badge.svg?token=GMCE9HQE98
+   :target: https://codecov.io/gh/mardiros/dj-blacksmith
+   :alt: Coverage
+
+Django bindings for `Blacksmith`_ rest api client.
+
+.. _`Blacksmith`: https://python-blacksmith.readthedocs.io/en/latest/index.html
+
