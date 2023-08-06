@@ -1,0 +1,53 @@
+%ignore /[ \t\n\f\r]+/
+COMMENT: "--" /[^\n]/*
+%ignore COMMENT
+
+source : ("#" ORDER)? (proposition | builtin)+
+
+ORDER : NUMBER
+
+proposition : _prop | "(" _prop ")"
+_prop : (expression | proposition) COMPARATOR (expression | proposition)
+
+expression : _exp | "(" _exp ")"
+_exp : value | expression OPERATOR expression
+
+builtin : PREFIX (_args | "(" _args ")")
+_args : CELL [","] (CELL [","])+
+
+?value : CELL
+	   | NUMBER
+	   | list
+
+list : "(" (expression [","])+ ")"
+CELL : /[a-z]+[1-9][0-9]*/ ["." MODIFIER]
+NUMBER : /\d+/
+
+MODIFIER : "north"
+		 | "south"
+		 | "east"
+		 | "west"
+		 | "horizontal"
+		 | "vertical"
+		 | "ortho"
+		 | "ne"
+		 | "nw"
+		 | "se"
+		 | "sw"
+		 | "any"
+
+
+OPERATOR : "+"
+		 | "-"
+		 | "|"
+		 | "*"
+
+COMPARATOR : "="
+		   | ">"
+		   | "<"
+		   | ">="
+		   | "<="
+		   | "!="
+		   | "||"
+
+PREFIX : "!!"
