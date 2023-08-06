@@ -1,0 +1,167 @@
+/**
+ * Styles for the integration list and configuration pages.
+ */
+/**
+ * Information on an available integration.
+ *
+ * This is displayed in the popup menu (``.djblets-c-integrations-popup``),
+ * and is presented as a clickable tile.
+ *
+ * Structure:
+ *     <li class="djblets-c-integration">
+ *      <a href="...">
+ *       <img class="djblets-c-integration__icon" ...>
+ *       <div class="djblets-c-integration__details">
+ *        <div class="djblets-c-integration__name">...</div>
+ *        <div class="djblets-c-integration__description">...</div>
+ *       </div>
+ *      </a>
+ *     </li>
+ */
+.djblets-c-integration {
+  background: white;
+  border: 1px #AAA solid;
+  display: inline-block;
+  list-style: none;
+  position: relative;
+  /* Overlaps the borders. */
+  margin: -1px 0 0 -1px;
+}
+.djblets-c-integration:hover {
+  background: #E7F1FB;
+}
+.djblets-c-integration > a {
+  color: inherit;
+  display: block;
+  padding: 1em;
+  width: 23em;
+  height: 13em;
+}
+.djblets-c-integration__details {
+  margin-top: 1em;
+  text-align: center;
+}
+.djblets-c-integration__details,
+.djblets-c-integration__icon {
+  display: inline-block;
+  vertical-align: top;
+}
+.djblets-c-integration__icon {
+  display: block;
+  margin: 0 auto;
+}
+.djblets-c-integration__name {
+  font-size: 120%;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+/**
+ * Main component for presenting a list of configurations.
+ *
+ * This houses the popup, Add Integration button, and the list of
+ * configurations.
+ *
+ * Structure:
+ *     <div class="djblets-c-integration-configs">
+ *      <div class="djblets-c-integrations-popup">
+ *       ...
+ *      </div>
+ *      <div class="djblets-l-config-forms-container">
+ *       <button class="djblets-c-integration-configs__add">...</button>
+ *      </div>
+ *      <div class="djblets-l-config-forms-container">
+ *       <table class="djblets-c-config-forms-list">
+ *        <tr class="djblets-c-integration-config
+ *                   djblets-c-config-forms-list__item">...</tr>
+ *        ...
+ *       </table>
+ *      </div>
+ *     </div>
+ */
+.djblets-c-integration-configs {
+  margin: 0;
+}
+/**
+ * Details for an integration configuration.
+ *
+ * This is presented as an item in a list, and contains some information on
+ * the configuration, along with a link for editing the configuration.
+ *
+ * This should be used along with the ``.djblets-c-config-forms-list__item``
+ * class.
+ *
+ * Modifiers:
+ *     -is-disabled:
+ *         The configuration is disabled.
+
+ *     -is-enabled:
+ *         The configuration is enabled.
+ *
+ * Structure:
+ *     <tr class="djblets-c-integration-config
+ *                djblets-c-config-forms-list__item -is-enabled">
+ *      <td class="djblets-c-integration-config__name">
+ *       <img ...>
+ *       <a href="{edit-url}">{name}</a>
+ *      </td>
+ *      <td class="djblets-c-integration-config__integration-name">...</td>
+ *      <td class="djblets-c-integration-config__status">...</td>
+ *     </tr>
+ */
+.djblets-c-integration-config.-is-disabled .djblets-c-integration-config__name img {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+.djblets-c-integration-config.-is-disabled .djblets-c-integration-config__integration-name {
+  color: #999;
+}
+.djblets-c-integration-config__name {
+  width: 100%;
+}
+.djblets-c-integration-config__name a {
+  display: inline-block;
+}
+/**
+ * A popup menu containing a list of integrations to configure.
+ *
+ * Modifiers:
+ *     -is-empty:
+ *         The list is empty. The ``<ul>`` should not be added, and instead
+ *         text inside a ``.djblets-c-integrations-popup__empty`` element
+ *         should be provided.
+ *
+ * Structure:
+ *     <div class="djblets-c-integrations-popup">
+ *      <ul>
+ *       <li class="djblets-c-integration">...</li>
+ *       ...
+ *      </ul>
+ *     </div>
+ *
+ *     If empty:
+ *
+ *     <div class="djblets-c-integrations-popup -is-empty">
+ *      <div class="djblets-c-integrations-popup__empty">...</div>
+ *     </div>
+ */
+.djblets-c-integrations-popup {
+  border: 1px #AAA solid;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  margin: 0 1em 1em 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.djblets-c-integrations-popup > ul {
+  background: #E3E3E3;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.djblets-c-integrations-popup__empty {
+  background: white;
+  margin: 0;
+  padding: 1em;
+}
+/*# sourceMappingURL=integrations.css.map */

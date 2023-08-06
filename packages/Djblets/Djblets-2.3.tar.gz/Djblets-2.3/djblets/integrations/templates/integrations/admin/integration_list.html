@@ -1,0 +1,45 @@
+{% extends "djblets_forms/admin/base_site.html" %}
+{% load djblets_js i18n pipeline %}
+
+
+{% block title %}
+{%  trans "Manage Integrations" %}
+{{block.super}}
+{% endblock title %}
+
+
+{% block admin_css %}
+{%  stylesheet "djblets-config-forms" %}
+{%  stylesheet "djblets-integrations" %}
+{% endblock admin_css %}
+
+
+{% block admin_scripts_post %}
+{%  javascript "djblets-config-forms" %}
+{%  javascript "djblets-integrations" %}
+{% endblock admin_scripts_post %}
+
+
+{% block bodyclass %}{{block.super}} change-list integrations-list-page{% endblock %}
+
+
+{% block content %}
+<h1 class="title">{% trans "Manage Integrations" %}</h1>
+<div id="content-main">
+ <div id="changelist" class="module">
+  <form id="integration_manager" method="POST" action=".">
+{%  include "integrations/parts/integration_list.html" %}
+  </form>
+ </div>
+</div>
+<script>
+
+$(document).ready(function() {
+    var view = new Djblets.IntegrationConfigListView({
+        el: $('#integration_manager'),
+        {{integrationViewData|json_dumps_items:', '}}
+    });
+    view.render();
+});
+</script>
+{% endblock content %}
