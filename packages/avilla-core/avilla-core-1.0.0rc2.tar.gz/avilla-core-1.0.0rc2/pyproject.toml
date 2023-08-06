@@ -1,0 +1,43 @@
+[project]
+dependencies = [ "graia-broadcast<1.0.0,>=0.15.2", "loguru<1.0.0,>=0.6.0", "pydantic<2.0.0,>=1.9.0", "rich<11.0.0,>=10.13.0", "yarl<2.0.0,>=1.6.3",]
+description = ""
+name = "avilla-core"
+readme = "README.md"
+requires-python = ">=3.8,<4.0"
+version = "1.0.0rc2"
+[[project.authors]]
+name = "GreyElaina"
+email = "GreyElaina@outlook.com"
+
+[build-system]
+build-backend = "pdm.pep517.api"
+requires = [ "pdm-pep517",]
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+homepage = "https://github.com/GraiaProject/Avilla"
+repository = "https://github.com/GraiaProject/Avilla"
+
+[project.optional-dependencies]
+aiohttp = [ "aiohttp<4.0.0,>=3.8.1",]
+aioredis = [ "aioredis<3.0.0,>=2.0.0",]
+aiosqlite = [ "aiosqlite<1.0.0,>=0.17.0",]
+pyhocon = [ "pyhocon<1.0.0,>=0.3.59",]
+starlette = [ "starlette<1.0.0,>=0.17.1",]
+uvicorn = [ "uvicorn[standard]<1.0.0,>=0.17.1",]
+
+[tool.pdm]
+includes = [ "avilla/core", "avilla/core/py.typed", "avilla/io", "avilla/onebot",]
+
+[tool.black]
+include = "\\.pyi?$"
+line-length = 110
+target-version = [ "py38",]
+
+[tool.isort]
+profile = "black"
+
+[tool.pdm.dev-dependencies]
+dev = [ "black<22.0,>=21.12b0", "flake8<5.0.0,>=4.0.1", "isort<6.0.0,>=5.10.1", "typing-extensions<4.0.0,>=3.10.0", "graia-scheduler<1.0.0,>=0.0.6",]
