@@ -1,0 +1,150 @@
+Metadata-Version: 2.1
+Name: complaintClassify
+Version: 0.0.6
+Summary: Classification of consumer complaint.
+Home-page: https://github.com/KrSiddhartha/MLPipeline/
+Author: KumarSiddhartha
+Author-email: kr.siddhartha91@gmail.com
+License: BSD-3
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: ==3.8.5
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: absl-py (==0.15.0)
+Requires-Dist: astunparse (==1.6.3)
+Requires-Dist: atomicwrites (==1.4.0)
+Requires-Dist: attrs (==21.4.0)
+Requires-Dist: boto3 (==1.20.49)
+Requires-Dist: botocore (==1.23.49)
+Requires-Dist: bravado (==11.0.3)
+Requires-Dist: bravado-core (==5.17.0)
+Requires-Dist: build (==0.7.0)
+Requires-Dist: cachetools (==5.0.0)
+Requires-Dist: certifi (==2021.10.8)
+Requires-Dist: charset-normalizer (==2.0.11)
+Requires-Dist: click (==8.0.3)
+Requires-Dist: colorama (==0.4.4)
+Requires-Dist: cycler (==0.11.0)
+Requires-Dist: Cython (==0.29.23)
+Requires-Dist: distlib (==0.3.4)
+Requires-Dist: filelock (==3.4.2)
+Requires-Dist: flatbuffers (==1.12)
+Requires-Dist: fonttools (==4.29.1)
+Requires-Dist: future (==0.18.2)
+Requires-Dist: gast (==0.3.3)
+Requires-Dist: gensim (==4.1.2)
+Requires-Dist: gitdb (==4.0.9)
+Requires-Dist: GitPython (==3.1.26)
+Requires-Dist: google-auth (==2.6.0)
+Requires-Dist: google-auth-oauthlib (==0.4.6)
+Requires-Dist: google-pasta (==0.2.0)
+Requires-Dist: grpcio (==1.32.0)
+Requires-Dist: h5py (==2.10.0)
+Requires-Dist: idna (==3.3)
+Requires-Dist: importlib-metadata (==4.10.1)
+Requires-Dist: importlib-resources (==5.4.0)
+Requires-Dist: iniconfig (==1.1.1)
+Requires-Dist: jmespath (==0.10.0)
+Requires-Dist: joblib (==1.1.0)
+Requires-Dist: jsonref (==0.2)
+Requires-Dist: jsonschema (==4.4.0)
+Requires-Dist: keras (==2.8.0)
+Requires-Dist: Keras-Preprocessing (==1.1.2)
+Requires-Dist: kiwisolver (==1.3.2)
+Requires-Dist: libclang (==13.0.0)
+Requires-Dist: Markdown (==3.3.6)
+Requires-Dist: matplotlib (==3.5.1)
+Requires-Dist: monotonic (==1.6)
+Requires-Dist: msgpack (==1.0.3)
+Requires-Dist: neptune-client (==0.14.3)
+Requires-Dist: neptune-tensorflow-keras (==0.9.9)
+Requires-Dist: nltk (==3.6.7)
+Requires-Dist: numpy (==1.19.5)
+Requires-Dist: oauthlib (==3.2.0)
+Requires-Dist: opt-einsum (==3.3.0)
+Requires-Dist: packaging (==21.3)
+Requires-Dist: pandas (==1.4.0)
+Requires-Dist: pep517 (==0.12.0)
+Requires-Dist: Pillow (==9.0.1)
+Requires-Dist: platformdirs (==2.4.1)
+Requires-Dist: pluggy (==1.0.0)
+Requires-Dist: protobuf (==3.19.4)
+Requires-Dist: psutil (==5.9.0)
+Requires-Dist: py (==1.11.0)
+Requires-Dist: pyasn1 (==0.4.8)
+Requires-Dist: pyasn1-modules (==0.2.8)
+Requires-Dist: pydantic (==1.9.0)
+Requires-Dist: PyJWT (==2.3.0)
+Requires-Dist: pyparsing (==3.0.7)
+Requires-Dist: pyrsistent (==0.18.1)
+Requires-Dist: python-dateutil (==2.8.2)
+Requires-Dist: pytz (==2021.3)
+Requires-Dist: PyYAML (==6.0)
+Requires-Dist: regex (==2022.1.18)
+Requires-Dist: requests (==2.27.1)
+Requires-Dist: requests-oauthlib (==1.3.1)
+Requires-Dist: rsa (==4.8)
+Requires-Dist: s3transfer (==0.5.1)
+Requires-Dist: scikit-learn (==1.0.2)
+Requires-Dist: scipy (==1.8.0)
+Requires-Dist: seaborn (==0.11.2)
+Requires-Dist: simplejson (==3.17.6)
+Requires-Dist: six (==1.15.0)
+Requires-Dist: smart-open (==5.2.1)
+Requires-Dist: smmap (==5.0.0)
+Requires-Dist: strictyaml (==1.6.1)
+Requires-Dist: swagger-spec-validator (==2.7.4)
+Requires-Dist: tensorboard (==2.8.0)
+Requires-Dist: tensorboard-data-server (==0.6.1)
+Requires-Dist: tensorboard-plugin-wit (==1.8.1)
+Requires-Dist: tensorflow (==2.4.0)
+Requires-Dist: tensorflow-estimator (==2.4.0)
+Requires-Dist: tensorflow-io-gcs-filesystem (==0.24.0)
+Requires-Dist: termcolor (==1.1.0)
+Requires-Dist: tf-estimator-nightly (==2.8.0.dev2021122109)
+Requires-Dist: threadpoolctl (==3.1.0)
+Requires-Dist: toml (==0.10.2)
+Requires-Dist: tomli (==2.0.0)
+Requires-Dist: tox (==3.24.5)
+Requires-Dist: tqdm (==4.62.3)
+Requires-Dist: typing-extensions (==3.7.4.3)
+Requires-Dist: urllib3 (==1.26.8)
+Requires-Dist: virtualenv (==20.13.1)
+Requires-Dist: websocket-client (==1.2.3)
+Requires-Dist: Werkzeug (==2.0.2)
+Requires-Dist: wrapt (==1.12.1)
+Requires-Dist: zipp (==3.7.0)
+
+This is a Machine Learning Pipeline for "Consumer Complain" classifier that takes complaint as input and then classifies it
+as one of the available classification categories.
+
+Change Log
+==========
+
+0.0.1 (04/02/2022)
+------------------
+- First Release
+
+0.0.2 (04/02/2022)
+------------------
+- Bug fixes
+
+0.0.3 (04/02/2022)
+------------------
+- Bug fixes
+
+0.0.4 (04/02/2022)
+------------------
+- Bug fixes
+
+0.0.5 (07/02/2022)
+------------------
+- Bug fixes
+
+0.0.6 (07/02/2022)
+------------------
+- Bug fixes
+
