@@ -1,0 +1,78 @@
+Metadata-Version: 2.1
+Name: yuio
+Version: 0.0.5
+Summary: Lite and user-friendly CLI library
+Author-email: Tamika Nomara <taminomara@gmail.com>
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Classifier: Development Status :: 1 - Planning
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: User Interfaces
+Classifier: Topic :: System :: Logging
+Classifier: Intended Audience :: Developers
+Classifier: Environment :: Console
+Classifier: Typing :: Typed
+Requires-Dist: sphinx~=4.4 ; extra == "doc"
+Requires-Dist: sphinx-rtd-theme~=1.0 ; extra == "doc"
+Requires-Dist: pytest~=6.2 ; extra == "test"
+Requires-Dist: pytest-mypy~=0.9 ; extra == "test"
+Project-URL: Documentation, https://yuio.readthedocs.io/en/stable/
+Project-URL: Issues, https://github.com/taminomara/yuio/issues
+Project-URL: Source, https://github.com/taminomara/yuio/
+Provides-Extra: doc
+Provides-Extra: test
+
+# Yuio
+
+This is a lightweight, no-dependency python module for building simple human-friendly CLIs
+with python. 
+
+Yuio's features are:
+
+- small, no-dependencies;
+- colored output;
+- status indication with progress bars;
+- user interactions and input parsing;
+- building configs and loading them from file system, env vars or command line arguments;
+- and more.
+
+It is ideal for small things such as automation scripts, utilities for CI, or any other tools.
+Without dependencies, it is easy to use it in places where you either don't or don't want to have
+access to dependency management systems. Just copy-paste its source files into your project,
+and be done with it.
+
+---
+
+![A light-purple-haired catgirl smiling at you and showing heart with her hands](https://github.com/taminomara/yuio/raw/main/docs/source/_static/yuio_small.png "Picture of Yuio")
+
+---
+
+- [Documentation](https://yuio.readthedocs.io/en/stable/)
+- [Issues](https://github.com/taminomara/yuio/issues)
+- [Source](https://github.com/taminomara/yuio/)
+- [PyPi](https://pypi.org/project/yuio/)
+
+## Requirements
+
+- python >= 3.8
+
+## Installation
+
+```sh
+pip3 install yuio
+```
+
+Or just copy-paste the `yuio` directory to somewhere in the `PYTHONPATH` of your project.
+
+## Changelog
+
+*v1.0.0*:
+
+- Initial release.
+
