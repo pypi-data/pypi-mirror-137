@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "fluyd"
+version = "0.1.0"
+description = "Include description"
+authors = ["Gabriel Gazola Milan <gabriel.gazola@poli.ufrj.br>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+importlib-metadata = {version = "^1.0", python = "<3.8"}
+pytest-cov = {version = "^3.0.0", extras = ["test"]}
+pylint = {version = "^2.12.2", extras = ["test"]}
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.extras]
+test = ["pytest-cov^3.0.0", "pylint^2.12.2"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
