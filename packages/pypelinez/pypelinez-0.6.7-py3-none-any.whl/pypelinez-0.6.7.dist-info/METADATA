@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: pypelinez
+Version: 0.6.7
+Summary: 
+Home-page: https://gitlab.com/thecb4/pypelinez
+Author: thecb4
+Author-email: cavelle@thecb4.io
+Requires-Python: >=3.10,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Provides-Extra: docs
+Requires-Dist: Sphinx (>=4.2.0,<5.0.0); extra == "docs"
+Requires-Dist: chuy (>=1.4.0,<2.0.0)
+Requires-Dist: click (>=8.0.3,<9.0.0)
+Requires-Dist: colorama (>=0.4.4,<0.5.0)
+Requires-Dist: semantic-version (>=2.8.5,<3.0.0)
+Requires-Dist: sphinx-click (>=3.1.0,<4.0.0); extra == "docs"
+Requires-Dist: sphinx-rtd-theme (>=1.0.0,<2.0.0); extra == "docs"
+Requires-Dist: sphinxcontrib-napoleon (>=0.7,<0.8); extra == "docs"
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Requires-Dist: twine (>=3.8.0,<4.0.0)
+Project-URL: Repository, https://gitlab.com/thecb4/pypelinez
+Description-Content-Type: text/markdown
+
+# Pypelines
+
+## Description
+Python command line tool to support CI/CD for various platforms
+
+[![pipeline status](https://gitlab.com/thecb4/pypelinez/badges/main/pipeline.svg)](https://gitlab.com/thecb4/pypelinez/-/commits/main)
+
+-- images --
+
+## Installation
+pip install pypelinez
+
+## Usage
+```shell
+$ pypelinez feature start <feature/feature-name>
+```
+
+Current commands:
+* feature start
+* feature add-commit
+* feature submit
+* feature finish
+* release start <version>
+* release add-commit
+* release submit
+* release finish
+* release publish-start
+
+## Support
+
+## Roadmap
+[ ] apple version bump
+[ ] android version bump
+[ ] documentation
+[ ] Simplify version bump process
+
+## Contributing
+
+## Authors and Acknowledgements
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
