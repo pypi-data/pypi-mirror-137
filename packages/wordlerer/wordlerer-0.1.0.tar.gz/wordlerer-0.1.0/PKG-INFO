@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: wordlerer
+Version: 0.1.0
+Summary: Wordlerer can automatically solve wordle puzzle in the browser.
+Home-page: https://github.com/hoou/wordlerer
+License: MIT
+Keywords: wordler,solve,automatically,browser,selenium
+Author: Tibor Mikita
+Author-email: tibor@mikita.eu
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: pydantic (>=1.9.0,<2.0.0)
+Requires-Dist: selenium (>=4.1.0,<5.0.0)
+Project-URL: Repository, https://github.com/hoou/wordlerer
+Description-Content-Type: text/markdown
+
+# Wordlerer
+
+Wordlerer can automatically solve wordle puzzle in the browser.
+
+## Installation
+
+```shell
+pip install wordlerer
+```
+
+## Usage
+
+```python
+from wordlerer import BrowserApp
+
+BrowserApp().run()
+```
+

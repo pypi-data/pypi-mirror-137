@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "wordlerer"
+version = "0.1.0"
+description = "Wordlerer can automatically solve wordle puzzle in the browser."
+authors = ["Tibor Mikita <tibor@mikita.eu>"]
+keywords = ["wordler", "solve", "automatically", "browser", "selenium"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/hoou/wordlerer"
+repository = "https://github.com/hoou/wordlerer"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+selenium = "^4.1.0"
+pydantic = "^1.9.0"
+
+[tool.poetry.dev-dependencies]
+pytest = ">=6"
+black = "^22.1.0"
+packaging = "<21.0"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
