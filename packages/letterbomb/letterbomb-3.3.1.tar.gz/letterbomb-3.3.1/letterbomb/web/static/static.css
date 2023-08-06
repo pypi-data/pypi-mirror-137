@@ -1,0 +1,186 @@
+html, body {
+     min-height: 100vh;
+}
+ body {
+     box-sizing: border-box;
+     font: 1em "Trebuchet MS", Verdana, Arial, sans-serif;
+     text-align: center;
+     background-color: #ededed;
+     margin: auto;
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     justify-content: space-evenly;
+     align-items: center;
+     align-content: center;
+}
+ #form-fluid {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-evenly;
+     align-items: center;
+}
+ #logo-fluid {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+}
+ h1 {
+     font-size: 3em;
+     font-weight: bold;
+}
+ h2 {
+     margin-bottom: 0;
+}
+ label {
+     font-weight: bold;
+}
+ .button {
+     border-radius: 10px;
+     box-shadow: 2px 2px 3px #666;
+     font-size: 20px;
+     padding: 4px 7px;
+     text-align: center;
+     margin: 7px;
+     transition: border-radius 0.4s, box-shadow 0.5s;
+}
+ .button:hover {
+     border-radius: 11px;
+     box-shadow: 2px 2px 3px #555;
+}
+ .button:focus {
+     outline: 0;
+}
+ .buttonr:enabled {
+     border-color: red;
+}
+ .buttonb:enabled {
+     border-color: blue;
+}
+ .buttong:enabled {
+     border-color: green;
+}
+ .buttony:enabled {
+     border-color: orange;
+}
+ #recaptcha {
+     margin: 0 auto;
+}
+ .box {
+     border: 2px solid #ccc;
+     text-transform: uppercase;
+     border-radius: 10px;
+     box-shadow: 2px 2px 3px #666;
+     font-size: 20px;
+     padding: 4px 7px;
+     text-align: center;
+     margin: 2px;
+}
+ .box:focus {
+     border: 2px solid #f28c1f;
+     outline: 0;
+}
+ label {
+     font-size: 28px;
+     display: block;
+     padding: 10px;
+}
+ b {
+     display: inline-block;
+     padding: 20px 0 10px 0;
+}
+ #recaptcha {
+     justify-content: center;
+     display: flex;
+}
+ #buttons {
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+     align-content: center;
+}
+
+ noscript {
+     color: red;
+     font-weight: bold;
+     font-size: 18pt;
+}
+.logo-img {
+     margin: 30px 0 -75px 0;
+}
+ .grad-link {
+     transition: all 0.2s linear;
+     display: inline;
+     text-decoration: none;
+     font-weight: 600;
+     padding-bottom: 5px;
+     color: black;
+     background: linear-gradient(90deg, rgba(240, 96, 96, 1) 35%, rgba(255, 255, 255, 0) 100%);
+     background-size: 0 2px;
+     background-repeat: no-repeat;
+     background-position: left 85%;
+     text-shadow: 0 0 0 #000;
+}
+ .grad-link:hover {
+     background-size: 100% 2px;
+     text-shadow: 0 2.5px 4px rgba(0, 0, 0, 0.5);
+}
+ .git-ribbon {
+     position: fixed;
+     top: 0;
+     width: 150px;
+     height: 150px;
+     overflow: hidden;
+     z-index: 99999;
+     right: 0;
+}
+ .git-ribbon a {
+     display: inline-block;
+     width: 200px;
+     overflow: hidden;
+     padding: 6px 0;
+     text-align: center;
+     transform: rotate(45deg);
+     text-decoration: none;
+     color: rgb(255, 255, 255);
+     position: inherit;
+     top: 45px;
+     font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
+     box-shadow: rgba(0, 0, 0, 0.5) 0 2px 3px 0;
+     background-color: rgb(170, 0, 0);
+     right: -40px;
+     border-width: 1px 0;
+     border-style: dotted;
+     border-color: rgb(255, 255, 255);
+     border-color: rgba(255, 255, 255, 0.7);
+}
+
+.sublinks-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.version {
+    position: fixed;
+    bottom: 10px;
+    left: 15px;
+    font-size: 10pt;
+    color: #5e5e5e;
+}
+
+.error {
+    background-color: #ffecec;
+    border: 1px solid #f5aca6;
+    color: #555;
+    border-radius: 10px;
+    font-size:11pt;
+    padding: 10px 36px;
+    margin: 10px;
+}

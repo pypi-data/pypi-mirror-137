@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>✉️💣 LetterBomb</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='static.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='letterbomb.png') }}" />
+    <script src="{{ url_for('static', filename='web.js') }}" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div id="logo-fluid">
+        <img src="{{ url_for('static', filename='letterbomb.png') }}" width=300 alt="✉️💣" class="logo-img" />
+        <h1>
+            <a class="grad-link" href="https://gitlab.com/whoatemybutter/letterbomb">LetterBomb</a>
+        </h1>
+        {% if sublinks -%}
+        <div>
+            <a class="grad-link" href="https://letterbomb.rtfd.io/">
+                <img src="{{ url_for('static', filename='sublinks/book.svg') }}" width="30px" alt="Docs"
+                     title="Documentation">
+            </a>
+            <a class="grad-link" href="https://wiibrew.org/wiki/LetterBomb">
+                <img src="{{ url_for('static', filename='sublinks/wii.svg') }}" width="30px" alt="Wii"
+                     title="Homebrew wiki">
+            </a>
+            <a class="grad-link" href="https://pypi.org/project/letterbomb/">
+                <img src="{{ url_for('static', filename='sublinks/python.svg') }}" width="30px" alt="PyPi"
+                     title="PyPi page">
+            </a>
+            <!-- Icons designed by Flatpik -->
+        </div>
+        {%- endif %}
+        <noscript>
+            It is recommended you have JavaScript enabled, but it is not required.
+            <br/>
+            Form will <strong>not</strong> be validated client-side.
+        </noscript>
+    </div>
+    <div id="form-fluid">
+        <form method="POST" action="{{ url_for('post') }}">
+            <label>System Menu Version</label>
+            <input type='radio' name='region' value='U' id="region_u" />4.3U
+            <input type='radio' name='region' value='E' id="region_e" />4.3E
+            <input type='radio' name='region' value='J' id="region_j" />4.3J
+            <input type='radio' name='region' value='K' id="region_k" />4.3K
+
+            <label>MAC Address</label>
+            <input type='text' maxlength='2' size='2' name='a' id='a' class='box' placeholder='AA' />
+            <input type='text' maxlength='2' size='2' name='b' id='b' class='box' placeholder='BB' />
+            <input type='text' maxlength='2' size='2' name='c' id='c' class='box' placeholder='CC' />
+            <input type='text' maxlength='2' size='2' name='d' id='d' class='box' placeholder='DD' />
+            <input type='text' maxlength='2' size='2' name='e' id='e' class='box' placeholder='EE' />
+            <input type='text' maxlength='2' size='2' name='f' id='f' class='box' placeholder='FF' />
+            <br />Necessary to create and sign the correct file<br />
+
+            <b>Bundle <a class="blue-link" href="https://bootmii.org/about/">BootMii</a>:</b>
+            <input type='checkbox' name='bootmii' value='1' checked /> <br />
+
+            {% if captcha -%}
+            <div id="recaptcha">
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                <div class="g-recaptcha" data-sitekey="{{ config.RECAPTCHA_PUBLICKEY }}" data-callback="captcha_ok" data-expired-callback="captcha_expired"></div>
+            </div>
+            {%- endif %}
+
+            {% if error -%}
+            <div class="error">
+                {{ error }}
+            </div>
+            {%- endif %}
+
+			<div id="buttons">
+				<input type='submit' value='Cut the red wire' id='submit_btn' class='button buttonr' />
+				<input type='submit' value='Cut the blue wire' id='submit_btn2' class='button buttonb' />
+				<input type='submit' value='Cut the green wire' id='submit_btn3' class='button buttong' />
+				<input type='submit' value='Cut the yellow wire' id='submit_btn4' class='button buttony' />
+			</div>
+        </form>
+    </div>
+    {% if ribbon -%}
+    <div class="git-ribbon">
+        <a target="_blank" href="https://gitlab.com/whoatemybutter/letterbomb">Fork on GitLab</a>
+    </div>
+    {%- endif %}
+    {% if version -%}
+    <span class="version">
+        version: {{ version }}
+    </span>
+    {%- endif %}
+</body>
+
+</html>
