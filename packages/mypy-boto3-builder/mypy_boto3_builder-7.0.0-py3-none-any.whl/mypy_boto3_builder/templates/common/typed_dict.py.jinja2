@@ -1,0 +1,5 @@
+{% if typed_dict.requires_safe_render -%}
+    {% include "common/typed_dict_safe.py.jinja2" with context -%}
+{% else -%}
+    {% include "common/typed_dict_class.py.jinja2" with context -%}
+{% endif -%}
