@@ -1,0 +1,1 @@
+from MixacLib.mc import anticheat
