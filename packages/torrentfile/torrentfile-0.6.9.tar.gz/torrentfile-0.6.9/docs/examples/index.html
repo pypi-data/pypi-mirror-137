@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="TorrentFile CLI Documentation and Examples">
+        
+        <link rel="canonical" href="https://alexpdev.github.io/torrentfile/examples/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+        <title>TorrentFile - TorrentFile Docs</title>
+
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.min.css">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="//use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet">
+        <link href="//use.fontawesome.com/releases/v5.8.1/css/v4-shims.css" rel="stylesheet">
+        <link href="../css/mkapi-common.css" rel="stylesheet">
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
+        <link href="../stylesheets/extra.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="..">
+            
+            TorrentFile Docs
+            </a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+            
+                
+                <li >
+                    <a href="..">
+                      home
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../Commands/">
+                      Command Line
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../Examples.md">
+                      Examples
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../LGPLv3/">
+                      License
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../Hasher.md">
+                      Hasher
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../Torrent.md">
+                      Metafile
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../Interactive/">
+                      Interactive
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../Edit/">
+                      Edit
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../CLI/">
+                      CLI
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../Utils/">
+                      Utils
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../Recheck.md">
+                      Recheck
+                    </a>
+                </li>
+                
+            
+            
+            
+            
+            
+                
+                <li >
+                    <a href="../changelog/">
+                      Changelog
+                    </a>
+                </li>
+                
+            
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+              
+                
+                <li>
+                    <a href="https://github.com/alexpdev/torrentfile/">
+                        
+                            <i class="fa fa-gihub"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3">
+  
+</div>
+            <div class="col-md-9" role="main">
+
+<h1 id="torrentfile">TorrentFile</h1>
+<h2 id="cli-usage-examples">CLI Usage Examples</h2>
+<h3 id="creating-torrents">Creating Torrents</h3>
+<p>Using the sub-command <code>create</code> or <code>c</code> <em>TorrentFile</em> can create a new torrent<br />
+from the contents of a file or directory path. The following examples illustrate<br />
+some of the options available for creating torrents (AKA meta files).</p>
+<ul>
+<li>Create a torrent from any file or directory. example (<code>/path/to/content</code>)</li>
+<li>by default the save path will be the content path with a ".torrent" extension. (<code>/path/to/content.torrent</code>)</li>
+<li>by default torrents are created using bittorrent meta-version 1</li>
+</ul>
+<pre><code class="language-bash">&gt;torrentfile create /path/to/content
+</code></pre>
+<ul>
+<li>The <code>-t</code> or <code>--tracker</code> flag adds one or more urls to tracker list.</li>
+<li>This flag will cause an error if the content path immediately follows it.</li>
+</ul>
+<p>do this</p>
+<pre><code class="language-bash">&gt;torrentfile create /path/to/content --tracker http://tracker1.com
+</code></pre>
+<p>or this</p>
+<pre><code class="language-bash">&gt;torrentfile create -t http://tracker2 http://tracker3 --private /path/to/content
+</code></pre>
+<p>not this</p>
+<pre><code class="language-bash">&gt;torrentfile create --tracker http://tracker /path/to/content   #ERROR
+&gt;torrentfile create -t http://tracker1 http://tracker2 /path/to/content #ERROR
+</code></pre>
+<ul>
+<li>the <code>--private</code> flag indicates use by a private tracker</li>
+<li>the <code>--source</code> flag can be used to help with cross-seeding</li>
+</ul>
+<pre><code class="language-bash">&gt;torrentfile create --private --source /path/to/content --tracker https://tracker/url
+</code></pre>
+<ul>
+<li>to turn off the progress bar shown use <code>--noprogress</code></li>
+<li>this can improve the performance by a very small amount</li>
+</ul>
+<pre><code class="language-bash">&gt;torrentfile -t http://tracker.com --noprogress
+</code></pre>
+<ul>
+<li>to specify the save location use the <code>-o</code> or <code>--out</code> flags</li>
+</ul>
+<pre><code class="language-bash">&gt;torrentfile create -o /specific/path/name.torrent ./content
+</code></pre>
+<ul>
+<li>to create files using bittorrent v2 use <code>--meta-version 2</code></li>
+<li>likewise <code>--meta-version 3</code> creates a hybrid torrent file.</li>
+</ul>
+<pre><code class="language-bash">&gt;torrentfile create --meta-version 2 /path/to/content
+&gt;torrentfile create --meta-version 3 /path/to/content
+</code></pre>
+<ul>
+<li>to output a magnet URI for the created torrent file use <code>--magnet</code></li>
+</ul>
+<pre><code class="language-bash">&gt;torrentfile create --t https://tracker1/annc https://tracker2/annc --magnet /path/to/content
+</code></pre>
+<hr />
+<h3 id="checkrecheck-torrent">Check/Recheck Torrent</h3>
+<p>Using the sub-command <code>recheck</code> or <code>check</code> or <code>r</code> you can check the percentage of a torrent<br />
+is saved to disk by comparing the the contents to a torrent metafile.</p>
+<ul>
+<li>recheck torrent file <code>/path/to/some.torrent</code> with <code>/path/to/content</code></li>
+<li>enter the metafile path first then the content path (the order matters)</li>
+</ul>
+<pre><code class="language-bash">&gt;torrentfile recheck /path/to/some.torrent /path/to/content
+</code></pre>
+<hr />
+<h3 id="edit-torrent">Edit Torrent</h3>
+<p>Using the sub-command <code>edit</code> or <code>e</code> enables editting a pre-existing torrent file.
+The edit sub-command works the same as the <code>create</code> sub-command and accepts many
+of the same arguments.</p>
+<hr />
+<h3 id="create-magnet">Create Magnet</h3>
+<p>To create a magnet URI for a pre-existing torrent meta file, use the sub-command<br />
+<code>magnet</code> or <code>m</code> with the path to the torrent file.</p>
+<pre><code class="language-bash">&gt;torrentfile magnet /path/to/some.torrent
+</code></pre>
+<hr />
+<h4 id="interactive-mode">Interactive Mode</h4>
+<p>Alternatively to supplying a bunch of command line arguments, <code>interactive mode</code>
+allows users to specify program options one at a time from a series of prompts.</p>
+<ul>
+<li>to activate interactive mode use <code>-i</code> or <code>--interactive</code> flag</li>
+</ul>
+<pre><code class="language-bash">&gt;torrentfile -i
+</code></pre>
+<h3 id="gui">GUI</h3>
+<p>If you prefer a graphical windowed interface please check out the official GUI frontend <a href="https://github.com/alexpdev/TorrentFileQt">here</a></p></div>
+        </div>
+
+    <footer class="col-md-12">
+        <hr>
+        
+        <center>alexpdev 2021</center>
+        
+    </footer>
+
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script src="../js/base.js"></script>
+        <script src="../js/mkapi.js"></script>
+        <script src="../search/main.js"></script>
+    </body>
+</html>
