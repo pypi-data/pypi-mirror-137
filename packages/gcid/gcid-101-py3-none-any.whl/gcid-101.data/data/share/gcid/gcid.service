@@ -1,0 +1,14 @@
+[Unit]
+Description=GCID daemon (reconsider OTP-CR-117/19)
+After=multi-user.target
+
+[Service]
+DynamicUser=True
+StateDirectory=gcid
+LogsDirectory=gcid
+CacheDirectory=gcid
+ExecStart=/usr/local/bin/gcidd
+CapabilityBoundingSet=CAP_NET_RAW
+
+[Install]
+WantedBy=multi-user.target
