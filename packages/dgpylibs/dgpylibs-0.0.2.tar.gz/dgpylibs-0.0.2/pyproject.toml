@@ -1,0 +1,247 @@
+[tool.poetry]
+name = "dgpylibs"
+version = "0.0.2"
+description = "Dynamic Graphics Python libraries"
+authors = ["jessekrubin <jesse@dgi.com>"]
+license = "MIT"
+repository = "https://github.com/dynamic-graphics-inc/dgpy-libs"
+homepage = "https://github.com/dynamic-graphics-inc/dgpy-libs"
+packages = [
+    { include = "dgpylibs", from = "." },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Typing :: Typed"
+]
+keywords = [
+    "generators", "itertools", "dgpy", "typed",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+aiopen = "*"
+asyncify = "*"
+fmts = "*"
+funkify = "*"
+h5 = "*"
+jsonbourne = "*"
+lager = "*"
+listless = "*"
+requires = "*"
+shellfish = "*"
+xtyping = "*"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+flake8 = "^4.0.1"
+h5py = "^3.4.0"
+isort = "^5.7.0"
+mypy = "^0.931"
+nox = "^2022.1.7"
+orjson = "^3.6.3"
+pip-tools = "^6.4.0"
+pydantic = "^1.8.2"
+pytest = "^6.2.2"
+pytest-asyncio = "^0.17.2"
+pytest-cov = "^2.12.1"
+python-rapidjson = "^1.4"
+xdoctest = "^0.15.10"
+aiopen = { path = "./libs/aiopen/", develop = true }
+asyncify = { path = "./libs/asyncify/", develop = true }
+fmts = { path = "./libs/fmts/", develop = true }
+funkify = { path = "./libs/funkify/", develop = true }
+h5 = { path = "./libs/h5/", develop = true }
+jsonbourne = { path = "./libs/jsonbourne/", develop = true }
+lager = { path = "./libs/lager/", develop = true }
+listless = { path = "./libs/listless/", develop = true }
+requires = { path = "./libs/requires/", develop = true }
+shellfish = { path = "./libs/shellfish/", develop = true }
+xtyping = { path = "./libs/xtyping/", develop = true }
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# =============================================================================
+# /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+# =============================================================================
+#  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\
+# /  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \
+# =============================================================================
+# \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+# =============================================================================
+
+[tool.black]
+line-length = 88
+target-version = ['py37', 'py38']
+skip-string-normalization = false
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.nox
+    | \.nox_win
+    | \.nox_lin
+    | \.nox_wsl
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | .pytype
+  )/
+)
+'''
+
+# =============================================================================
+# /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+# =============================================================================
+#  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\
+# /  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \
+# =============================================================================
+# \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+# =============================================================================
+[tool.isort]
+profile = "black"
+line_length = 88
+include_trailing_comma = true
+lines_between_types = 1
+multi_line_output = 3
+skip_glob = ["*/setup.py", ".nox*", "*/.nox_win/**", "*/.pytype/*", "*/loguru_tests/*"]
+force_grid_wrap = 0
+ensure_newline_before_comments = true
+combine_as_imports = true
+use_parentheses = true
+known_first_party = [
+    "aiopen",
+    "asyncify",
+    "funkify",
+    "h5",
+    "jsonbourne",
+    "lager",
+    "listless",
+    "requires",
+    "shellfish",
+    "xtyping",
+]
+
+# =============================================================================
+# /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+# =============================================================================
+#  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\
+# /  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \
+# =============================================================================
+# \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+# =============================================================================
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "-ra",
+    "--strict-config",
+    "--strict-markers",
+    "--doctest-modules",
+    "--disable-warnings"
+]
+testpaths = [
+    "libs/aiopen",
+    "libs/asyncify",
+    "libs/funkify",
+    "libs/h5",
+    "libs/jsonbourne",
+    "libs/lager",
+    "libs/requires",
+    "libs/shellfish",
+    "libs/xtyping",
+]
+
+xfail_strict = true
+filterwarnings = [
+    "error",
+    'ignore:"@coroutine" decorator is deprecated since Python 3\.8, use "async def" instead:DeprecationWarning',
+    "ignore::RuntimeWarning",
+    "ignore::pytest.PytestUnraisableExceptionWarning",
+    "ignore::DeprecationWarning"
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "timeout",
+]
+# =============================================================================
+# /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+# =============================================================================
+#  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\  /\
+# /  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \
+# =============================================================================
+# \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+# =============================================================================
+
+[tool.mypy]
+python_version = "3.9"
+show_error_codes = true
+follow_imports = 'silent'
+disallow_any_generics = false
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = false
+warn_return_any = true
+ignore_missing_imports = true
+implicit_reexport = false
+strict_equality = true
+show_error_context = true
+
+
+[tool.pyright]
+include = [
+    #    "libs/aiopen",
+    "libs/asyncify",
+    "libs/funkify",
+    "libs/h5",
+    #    "libs/jsonbourne",
+    "libs/lager",
+    "libs/requires",
+    "libs/shellfish",
+    "libs/listless",
+    "libs/xtyping",
+]
+extraPaths = [
+    #    "libs/aiopen",
+    "libs/asyncify",
+    "libs/funkify",
+    "libs/h5",
+    #    "libs/jsonbourne",
+    "libs/lager",
+    "libs/requires",
+    "libs/shellfish",
+    "libs/listless",
+    "libs/xtyping",
+]
+exclude = [
+    "**/.pytype",
+    "**/node_modules",
+    "**/__pycache__",
+    "docs",
+    "**/.nox",
+    "**/.nox_win"
+]
+reportMissingImports = true
+reportMissingTypeStubs = false
+pythonVersion = "3.8"
