@@ -1,0 +1,113 @@
+Metadata-Version: 2.1
+Name: qplot
+Version: 1.1.0
+Summary: Visualization of SciGRID_gas networks structures
+Home-page: https://github.com/pypa/qplot
+Author: Adam Pluta
+Author-email: Adam.Pluta@dlr.de
+License: UNKNOWN
+Description: ``` eval_rst
+        
+        qplot
+        =============
+        
+        
+        `qplot` is matplotlib based Python library to visualize `SciGRID_gas data  <https://www.gas.scigrid.de/downloads.html>`_ 
+        
+        It is independent of the `SciGRID_gas main library <https://www.gas.scigrid.de/downloads.html>`_ or 
+        the `osmscigrid library  <https://www.gas.scigrid.de/downloads.html>`_.
+        
+        
+        Features
+        --------
+        
+        What it provides:
+        
+        - Automatic and customisable visualisation of SciGRID_gas data
+        - Visualisation of a backgroundmap for Europe or one of its states
+        - Piperoutes can be colormapped to parameters
+        - The thickness of Piperoute can be mapped to parameters 
+        - Components other than Piperoutes can be made clickable to provide meta information (beta)
+        - A mechanism to read SciGRID_gas data from CSV files into a SciGRID_gas network class.
+        
+        
+        
+        Installation
+        ------------
+        
+        ``qplot`` depends on a Python version of 3.6 or above as well as the
+        following libraries:
+        
+        -   "matplotlib==3.3.3",
+        -   "mplcursors>=0.3",
+        -   "PyShp",
+        -   "numpy==1.19.4",
+        -   "pathlib>=1.0.1",
+        -   "descartes==1.1.0",
+        -   "adjustText==0.7.3",
+        -   "Unidecode==1.1.1",
+        -   "Shapely==1.7.1"
+        
+        Use ``pip`` to install ``qplot``:
+        
+        .. code:: bash
+        
+            $ pip install qplot
+        
+        From there you can import the quickplot function via:
+        
+        .. code:: bash
+        
+            $from qplot.qplot import quickplot
+        
+        Download of WorldBorders
+        ------------------------
+        
+        In the next step you need to navigate to
+        
+        https://thematicmapping.org/downloads/world_borders.php
+        
+        and download the TM_WORLD_BORDERS-zipfile.
+        
+        You can pass the variable 'TM_Borders_filename'
+        to the quickplot function.
+        
+        The presetting is: 
+        ```
+        
+        ```python
+        TM_Borders_filename='../TM_World_Borders/TM_WORLD_BORDERS-0.3.shp'
+        ```
+        
+        ``` eval_rst
+        Please remember to use '\' as folder separator if you are a Windows user ;)
+        
+        Documentation
+        -------------
+        For more details, jump to the
+        [documentation](https://dlr-ve-esy.gitlab.io/qplot/).
+        
+        License
+        -------
+        
+        ``qplot`` is licensed under the `GNU General Public License version
+        3.0 <https://www.gnu.org/licenses/gpl-3.0.html>`_.
+        
+        
+        The Team
+        --------
+        
+        ``qplot`` is developed at the
+        `DLR <https://www.dlr.de/EN/Home/home_node.html>`_ Institute of
+        `Networked Energy Systems
+        <https://www.dlr.de/ve/en/desktopdefault.aspx/tabid-12472/21440_read-49440/>`_
+        in the departement for `Energy Systems Analysis (ESY)
+        <https://www.dlr.de/ve/en/desktopdefault.aspx/tabid-12471/21741_read-49802/>`_.
+        ```
+        
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
