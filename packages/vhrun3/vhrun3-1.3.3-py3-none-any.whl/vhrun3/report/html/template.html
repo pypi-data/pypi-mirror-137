@@ -1,0 +1,472 @@
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{html_report_name}} - TestReport</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            color: #333;
+            margin: 0 auto;
+            width: 960px;
+        }
+
+        #summary {
+            width: 960px;
+            margin-bottom: 20px;
+        }
+
+        #summary th {
+            background-color: skyblue;
+            padding: 5px 12px;
+        }
+
+        #summary td {
+            background-color: lightblue;
+            text-align: center;
+            padding: 4px 8px;
+        }
+
+        .details {
+            width: 960px;
+            margin-bottom: 20px;
+        }
+
+        .details th {
+            background-color: skyblue;
+            padding: 5px 12px;
+        }
+
+        .details tr .passed {
+            background-color: lightgreen;
+        }
+
+        .details tr .failed {
+            background-color: red;
+        }
+
+        .details tr .unchecked {
+            background-color: gray;
+        }
+
+        .details td {
+            background-color: lightblue;
+            padding: 5px 12px;
+        }
+
+        .details .detail {
+            background-color: lightgrey;
+            font-size: smaller;
+            padding: 5px 10px;
+            line-height: 20px;
+            text-align: left;
+        }
+
+        .details .success {
+            background-color: greenyellow;
+        }
+
+        .details .error {
+            background-color: red;
+        }
+
+        .details .failure {
+            background-color: salmon;
+        }
+
+        .details .skipped {
+            background-color: gray;
+        }
+
+        .button {
+            /*font-size: 1em;*/
+            /*padding: 6px;*/
+            /*width: 4em;*/
+            /*text-align: center;*/
+            margin-top:2px;
+            margin-bottom:2px;
+            background-color: #06d85f;
+            border-radius: 20px/50px;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+        }
+
+        a.button {
+            color: gray;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .button:hover {
+            background: #2cffbd;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 500ms;
+            visibility: hidden;
+            opacity: 0;
+            line-height: 25px;
+        }
+
+        .overlay:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup {
+            margin: 70px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            width: 50%;
+            position: relative;
+            transition: all 3s ease-in-out;
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #333;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .popup .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .popup .close:hover {
+            color: #06d85f;
+        }
+
+        .popup .content {
+            max-height: 80%;
+            overflow: auto;
+            text-align: left;
+        }
+
+        .popup .separator {
+            color: royalblue
+        }
+
+        @media screen and (max-width: 700px) {
+            .box {
+                width: 70%;
+            }
+
+            .popup {
+                width: 70%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<h1>Test Report: {{html_report_name}}</h1>
+
+<h2>Summary</h2>
+<table id="summary">
+    <tr>
+        <th>START AT</th>
+        <td colspan="4">{{time.start_datetime}}</td>
+    </tr>
+    <tr>
+        <th>DURATION</th>
+        <td colspan="4">{{ '%0.3f'| format(time.duration|float) }} seconds</td>
+    </tr>
+    <tr>
+        <th>PLATFORM</th>
+        <td>HttpRunner {{ platform.httprunner_version }}</td>
+        <td>{{ platform.python_version }}</td>
+        <td colspan="2">{{ platform.platform }}</td>
+    </tr>
+    <tr>
+        <th>STAT</th>
+        <th colspan="2">TESTCASES (success/fail)</th>
+        <th colspan="2">TESTSTEPS (success/fail/error/skip)</th>
+    </tr>
+    <tr>
+        <td>total (details) =></td>
+        <td colspan="2">{{stat.testcases.total}} ({{stat.testcases.success}}/{{stat.testcases.fail}})</td>
+        <td colspan="2">{{stat.teststeps.total}}
+            ({{stat.teststeps.successes}}/{{stat.teststeps.failures}}/{{stat.teststeps.errors}}/{{stat.teststeps.skipped}})
+        </td>
+    </tr>
+</table>
+
+<h2>Details</h2>
+{% for suite_name, test_suite in suites.items() %}
+{% set suite_index = loop.index %}
+<div id=suite
+     style="font-size: 1.5em; width: 960px; margin: 20px 0 20px 0;overflow: hidden;border-bottom-style:solid;border-bottom-width:1px;padding-bottom: 20px"
+>
+        <span id="name"
+              onclick="suite_show_hide('{{ suite_name }}', '{{ suite_index }}')"
+        >
+            {{ suite_index }}、{{ suite_name }}
+        </span>
+    <span style="margin-left: 0;float: right;">
+        {% if test_suite.stat.testcases.total > 0 %}
+            <span style="font-size: 0.8em;color: blue">总用例数：{{ test_suite.stat.testcases.total}} | </span>
+            <span style="font-size: 0.8em;color: green">成功数：{{ test_suite.stat.testcases.success}} | </span>
+            {% if test_suite.stat.testcases.fail > 0 %}
+                <span style="font-size: 0.8em;color: red">失败数：{{ test_suite.stat.testcases.fail}}</span>
+            {% else %}
+                <span style="font-size: 0.8em;">失败数：{{ test_suite.stat.testcases.fail}}</span>
+            {% endif %}
+        {% else %}
+            <a class="button" href="#popup_attachment_{{suite_index}}">Parse Error</a>
+            <div id="popup_attachment_{{suite_index}}" class="overlay">
+                <div class="popup">
+                    <h2>Traceback</h2>
+                    <a class="close" href="#record_{{suite_index}}">&times;</a>
+                    <div class="content">
+                        <pre>{{ test_suite.stat.errmsg | e }}</pre>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        </span>
+</div>
+<div id="suite_{{ suite_index }}" style="display: none">
+    {% for test_case in test_suite.details %}
+    {% set case_index = loop.index %}
+    <h3 id=case style="font-size: 1.2em; width: 960px;overflow: hidden">
+        {% if test_case.success %}
+        <span style="color: green" onclick="case_show_hide('{{ suite_name }}', '{{ case_index }}')">测试用例{{ case_index }}：{{ test_case.name }}</span>
+        <span style="color: green;float: right">执行状态：成功</span>
+        {% else %}
+        <span style="color: red" onclick="case_show_hide('{{ suite_name }}', '{{ case_index }}')">测试用例{{ case_index }}：{{ test_case.name }}</span>
+        <span style="color: red;float: right">执行状态：失败</span>
+        {% endif %}
+    </h3>
+    <table id="{{ suite_name }}case_{{ case_index }}" class="details" style="width: 960px;display: none">
+        <tr>
+            <td>TOTAL: {{test_case.stat.total}}</td>
+            <td>SUCCESS: {{test_case.stat.successes}}</td>
+            <td>FAILED: {{test_case.stat.failures}}</td>
+            <td>ERROR: {{test_case.stat.errors}}</td>
+            <td>SKIPPED: {{test_case.stat.skipped}}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <th colspan="2">TestSteps</th>
+            <th>Response Time</th>
+            <th>Detail</th>
+        </tr>
+
+        {% for record in test_case.records %}
+        {% set record_index = loop.index %}
+        {% set record_meta_datas = record.meta_datas_expanded %}
+        <tr id="record_{{record_index}}">
+            <th class="{{record.status}}" style="width:5em;">{{record.status}}</th>
+            <td colspan="2">步骤{{loop.index}}：{{record.name}}</td>
+            <td style="text-align:center;width:6em;">{{ record.response_time }} ms</td>
+            <td class="detail">
+
+                {% for meta_data in record_meta_datas %}
+                    {% set meta_data_index = loop.index %}
+                    {% set meta_data_index = "{}_{}_{}_{}".format(suite_index, case_index, record_index, meta_data_index) %}
+                    {% if loop.length > 1 %}
+                        <a class="button" href="#popup_log_{{meta_data_index}}">{{loop.index}}、{{ meta_data.name }}</a>
+                        <br>
+                    {% else %}
+                        <a class="button" href="#popup_log_{{meta_data_index}}">{{ meta_data.name }}</a>
+                    {% endif %}
+                    <div id="popup_log_{{meta_data_index}}" class="overlay">
+                    <div class="popup">
+                        <h2>Request and Response data</h2>
+                        <a class="close" href="#record_{{meta_data_index}}">&times;</a>
+
+                        <div class="content">
+                            <h3>Name: {{ meta_data.name }}</h3>
+
+                            {% for req_resp in meta_data.data %}
+
+                            {% if loop.index > 1 %}
+                            <div class="separator">==================================== redirect to
+                                ====================================
+                            </div>
+                            {% endif %}
+
+                            <h3>Request:</h3>
+                            <div style="overflow: auto">
+                                <table>
+                                    {% for key, value in req_resp.request.items() %}
+                                    <tr>
+                                        <th>{{key}}</th>
+                                        <td>
+                                            {% if key in ["headers", "body", "SSH", "cookies"] %}
+                                            <pre>{{ value | e }}</pre>
+                                            {% else %}
+                                            {{value}}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+
+                            <h3>Response:</h3>
+                            <div style="overflow: auto">
+                                <table>
+                                    {% for key, value in req_resp.response.items() %}
+                                    <tr>
+                                        <th>{{key}}</th>
+                                        <td>
+                                            {% if key == "headers" %}
+                                            <pre>{{ value | e }}</pre>
+                                            {% elif key in ["body", "response", "cookies"] %}
+                                            {% if "image" in req_resp.response.content_type %}
+                                            <img src="{{ req_resp.response.content }}"/>
+                                            {% else %}
+                                            <pre>{{ value | e }}</pre>
+                                            {% endif %}
+                                            {% else %}
+                                            {{ value }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            {% endfor %}
+
+                            <h3>Validators:</h3>
+                            <div style="overflow: auto">
+                                {% set validate_extractors = meta_data.validators.validate_extractor %}
+                                {% if validate_extractors %}
+                                <table>
+                                    <tr>
+                                        <th>status</th>
+                                        <th>comparator</th>
+                                        <th>expect value</th>
+                                        <th>actual value</th>
+                                    </tr>
+                                    {% for validator in validate_extractors %}
+                                    <tr>
+                                        {% if validator.check_result == "pass" %}
+                                            <td class="passed">PASS</td>
+                                        {% elif validator.check_result == "fail" %}
+                                            <td class="failed">FAIL</td>
+                                        {% elif validator.check_result == "unchecked" %}
+                                            <td class="unchecked">UNCHECK</td>
+                                        {% endif %}
+                                            <td>{{validator.comparator}}</td>
+                                            <td>{{validator.expect | e}}</td>
+                                            <td>{{validator.check_value | e}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                {% endif %}
+
+                                {% set validate_script = meta_data.validators.validate_script %}
+                                {% if validate_script %}
+                                <table>
+                                    <tr>
+                                        <th>validate script</th>
+                                        <th>output</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <pre>{{validate_script.validate_script | safe}}</pre>
+                                        </td>
+                                        {% if validate_script.check_result == "pass" %}
+                                        <td class="passed">
+                                            {% elif validate_script.check_result == "fail" %}
+                                        <td class="failed">
+                                            {% endif %}
+                                            {{validate_script.output}}
+                                        </td>
+                                    </tr>
+                                </table>
+                                {% endif %}
+                            </div>
+
+                            <h3>Extracted Variables:</h3>
+                            <div style="overflow: auto">
+                                {% set extracted_variables = meta_data.extracted_variables %}
+                                {% if extracted_variables %}
+                                <table>
+                                    <tr>
+                                        <th>variable</th>
+                                        <th>value</th>
+                                    </tr>
+                                    {% for var_name, var_value in extracted_variables.items() %}
+                                    <tr>
+                                        <td>{{var_name}}</td>
+                                        <td>{{var_value}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% if record.attachment %}
+                {% set record_traceback_index = "{}_{}_{}".format(suite_index, case_index, record_index) %}
+                <a class="button" href="#popup_attachment_{{record_traceback_index}}">traceback</a>
+                <div id="popup_attachment_{{record_traceback_index}}" class="overlay">
+                    <div class="popup">
+                        <h2>Traceback Message</h2>
+                        <a class="close" href="#record_{{record_traceback_index}}">&times;</a>
+                        <div class="content">
+                            <pre>{{ record.attachment | e }}</pre>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endfor %}
+</div>
+{% endfor %}
+</body>
+
+<script>
+    function case_show_hide(suite_name, num) {
+        var id = suite_name + "case_" + num;
+        var el_style = document.getElementById(id).style;
+        var status = el_style.display;
+        if (status === "none") {
+            el_style.display = 'block';
+        } else {
+            el_style.display = 'none';
+        }
+    }
+
+    function suite_show_hide(suite_name, num) {
+        var id = "suite_" + num;
+        var el_style = document.getElementById(id).style;
+        var status = el_style.display;
+        if (status === "none") {
+            el_style.display = 'block';
+        } else {
+            el_style.display = 'none';
+        }
+
+        for (var i = 1; i < 1000; i++) {
+            var case_id = suite_name + "case_" + i;
+            console.log(case_id)
+            document.getElementById(case_id).style.display = 'none';
+        }
+    }
+</script>
