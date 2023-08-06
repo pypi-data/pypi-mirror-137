@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+packages = \
+['reasonable']
+
+package_data = \
+{'': ['*']}
+
+install_requires = \
+['brickschema>=0.5,<0.6']
+
+setup_kwargs = {
+    'name': 'reasonable',
+    'version': '0.1.52a1',
+    'description': "Python interface to 'reasonable', a Datalog implementation of the OWL 2 RL profile",
+    'long_description': '# Reasonable\n\n![Nightly Build](https://github.com/gtfierro/reasonable/workflows/Nightly%20Build/badge.svg)\n![Build](https://github.com/gtfierro/reasonable/workflows/Build/badge.svg)\n[![PyPI version](https://badge.fury.io/py/reasonable.svg)](https://badge.fury.io/py/reasonable)\n\nAn OWL 2 RL reasoner with reasonable performance\n\n## Performance\n\nComparing performance of `reasonable` with [OWLRL](https://github.com/RDFLib/OWL-RL) and [Allegro](https://franz.com/agraph/support/documentation/current/materializer.html). Evaluation consisted of loading Brick models of different sizes into the respective reasoning engine and timing how long it took to produce the materialization. `reasonable` is about 7x faster than Allegro and 38x faster than OWLRL on this workload.\n\n![benchmark](img/benchmark.png)\n\n## How to Use\n\n### Python\n\nTo facilitate usage, we use the [pyo3](https://pyo3.rs/) project to generate Python 3.x bindings to this project.\nInstalling these *should* be as easy as `pip install reasonable`.\n\nSee also the [`brickschema`](https://github.com/BrickSchema/py-brickschema) package for working with Brick models. The package provides a generic interface to this reasoner and several others.\n\nUsage looks like:\n\n```python\nimport reasonable\n\n# import triples from an rdflib Graph\nimport rdflib\ng = rdflib.Graph()\ng.parse("example_models/ontologies/Brick.n3", format="n3")\ng.parse("example_models/small1.n3", format="n3")\n\nr = reasonable.PyReasoner()\nr.from_graph(g)\ntriples = r.reason()\nprint("from rdflib:", len(triples))\n\n# import triples from files on disk\nr = reasonable.PyReasoner()\nr.load_file("example_models/ontologies/Brick.n3")\nr.load_file("example_models/small1.n3")\ntriples = r.reason()\nprint("from files:", len(triples))\n```\n\n### Rust\n\nSee [Rust docs](https://docs.rs/reasonable)\n\nExample of usage from Rust:\n\n```rust\nuse ::reasonable::owl::Reasoner;\nuse std::env;\nuse std::time::Instant;\nuse log::info;\n\nfn main() {\n    env_logger::init();\n    let mut r = Reasoner::new();\n    env::args().skip(1).map(|filename| {\n        info!("Loading file {}", &filename);\n        r.load_file(&filename).unwrap()\n    }).count();\n    let reasoning_start = Instant::now();\n    info!("Starting reasoning");\n    r.reason();\n    info!("Reasoning completed in {:.02}sec", reasoning_start.elapsed().as_secs_f64());\n    r.dump_file("output.ttl").unwrap();\n}\n```\n\n\n## OWL 2 Rules\n\nUsing rule definitions from [here](https://www.w3.org/TR/owl2-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules).\n\n**TODO**: implement RDF/RDFS entailment semantics as described [here](https://www.w3.org/TR/rdf11-mt/)\n\n**Note**: haven\'t implemented rules that produce exceptions; waiting to determine the best way of handling these errors.\n\n### Equality Semantics\n\n|Completed| Rule name | Notes |\n|---------|----------|-------|\n| no     | `eq-ref` | implementation is very inefficient; causes lots of flux       |\n| **yes**| `eq-sym` |       |\n| **yes**| `eq-trans` |       |\n| **yes**| `eq-rep-s` |       |\n| **yes**| `eq-rep-p` |       |\n| **yes**| `eq-rep-o` |       |\n| no     | `eq-diff1` | throws exception |\n| no     | `eq-diff2` | throws exception |\n| no     | `eq-diff3` | throws exception |\n\n### Property Axiom Semantics\n\n|Completed| Rule name | Notes |\n|---------|----------|-------|\n| no        | `prp-ap` |       |\n| **yes**   | `prp-dom` |       |\n| **yes**   | `prp-rng` |       |\n| **yes**   | `prp-fp` |       |\n| **yes**   | `prp-ifp` |       |\n| **yes**   | `prp-irp` | throws exception |\n| **yes**   | `prp-symp` |       |\n| **yes**   | `prp-asyp` | throws exception |\n| **yes**   | `prp-trp` |       |\n| **yes**   | `prp-spo1` |       |\n| no        | `prp-spo2` |       |\n| **yes**   | `prp-eqp1` |       |\n| **yes**   | `prp-eqp2` |       |\n| **yes**   | `prp-pdw` | throws exception |\n| no        | `prp-adp` | throws exception |\n| **yes**   | `prp-inv1` |       |\n| **yes**   | `prp-inv2` |       |\n| no        | `prp-key` |       |\n| no        | `prp-npa1` | throws exception |\n| no        | `prp-npa2` | throws exception |\n\n### Class Semantics\n\n|Completed| Rule name | Notes |\n|---------|----------|-------|\n| **yes**| `cls-thing` |       |\n| **yes**| `cls-nothing1` |       |\n| **yes**| `cls-nothing2` | throws exception       |\n| **yes**| `cls-int1` |       |\n| **yes**| `cls-int2` |       |\n| **yes**| `cls-uni` |       |\n| **yes**| `cls-com` | throws exception    |\n| **yes**| `cls-svf1` |       |\n| **yes**| `cls-svf2` |       |\n| **yes**| `cls-avf` |       |\n| **yes**| `cls-hv1` |       |\n| **yes**| `cls-hv2` |       |\n| no     | `cls-maxc1` | throws exception       |\n| no     | `cls-maxc2` |       |\n| no     | `cls-maxqc1` | throws exception       |\n| no     | `cls-maxqc2` | throws exception      |\n| no     | `cls-maxqc3` |       |\n| no     | `cls-maxqc4` |       |\n| no     | `cls-oo` |       |\n\n### Class Axiom Semantics\n\n|Completed| Rule name | Notes |\n|---------|----------|-------|\n| **yes**| `cax-sco` |       |\n| **yes**| `cax-eqc1` |       |\n| **yes**| `cax-eqc2` |       |\n| **yes**| `cax-dw` | throws exception      |\n| no     | `cax-adc` |  throws exception     |\n\n### Other\n\n- no datatype semantics for now\n',
+    'author': 'Gabe Fierro',
+    'author_email': 'gtfierro@mines.edu',
+    'maintainer': None,
+    'maintainer_email': None,
+    'url': 'https://github.com/gtfierro/reasonable',
+    'packages': packages,
+    'package_data': package_data,
+    'install_requires': install_requires,
+    'python_requires': '>=3.7,<4.0',
+}
+
+
+setup(**setup_kwargs)
