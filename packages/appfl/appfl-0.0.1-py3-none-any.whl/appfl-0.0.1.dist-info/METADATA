@@ -1,0 +1,94 @@
+Metadata-Version: 2.1
+Name: appfl
+Version: 0.0.1
+Summary: An open-source package for privacy-preserving federated learning
+Home-page: https://github.com/APPFL/APPFL
+Author: Kibaek Kim <kimk@anl.gov>, Minseok Ryu <mryu@anl.gov>, Youngdae Kim <youngdae@anl.gov>, Mark Xiao <ymxiao@anl.gov>
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/APPFL/APPFL/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: torch
+Requires-Dist: grpcio
+Requires-Dist: google
+Requires-Dist: mpi4py
+Requires-Dist: omegaconf
+Provides-Extra: analytics
+Requires-Dist: jupyter ; extra == 'analytics'
+Requires-Dist: tensorboard ; extra == 'analytics'
+Requires-Dist: matplotlib ; extra == 'analytics'
+Provides-Extra: dev
+Requires-Dist: sphinx ; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme ; extra == 'dev'
+Requires-Dist: myst-parser ; extra == 'dev'
+Requires-Dist: nbsphinx ; extra == 'dev'
+Requires-Dist: twine ; extra == 'dev'
+Requires-Dist: build ; extra == 'dev'
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: pytest-mpi ; extra == 'dev'
+Provides-Extra: examples
+Requires-Dist: opencv-python ; extra == 'examples'
+Requires-Dist: torchvision ; extra == 'examples'
+
+# APPFL: Argonne Privacy-Preserving Federated Learning
+
+[![Documentation Status](https://readthedocs.org/projects/appfl/badge/?version=latest)](https://appfl.readthedocs.io/en/latest/?badge=latest)
+
+APPFL is an open-source software framework that allows research communities to implement, test, and validate various ideas for privacy-preserving federated learning (PPFL).
+With this framework, developers and/or users can
+
+- train a user-defined neural network model on **decentralized data with differential privacy**,
+- **simulate** various PPFL algorithms on high-performance computing (HPC) architecture with MPI,
+- implement **user-defined PPFL algorithms** in a plug-and-play manner.
+
+Such algorithmic components include federated learning (FL) algorithm, privacy technique, communication protocol, FL model to train, and data.
+
+- [Documentation](http://appfl.rtfd.io/): please check out the documentation for tutorials, users guide, and developers guide.
+
+## Installation
+
+We highly recommend to create new Conda virtual environment and install the required packages for APPFL.
+
+```shell
+conda create -n APPFL python=3.8
+conda activate APPFL
+```
+
+### User installation
+
+For most users such as data scientists, this simple installation must be sufficient for running the package.
+
+```shell
+pip install pip --upgrade
+pip install "appfl[analytics,examples]"
+```
+
+If we want to even minimize the installation of package dependencies, we can skip the installation of a few pacakges (e.g., `matplotlib` and `jupyter`):
+
+```shell
+pip install "appfl"
+```
+
+### Developer installation
+
+Code developers and contributors may want to work on the local repositofy. 
+To set up the development environment, 
+
+```shell
+git clone https://github.com/APPFL/APPFL.git
+cd APPFL
+pip install -e ".[dev,examples,analytics]"
+```
+
+## Acknowledgements
+
+This material is based upon work supported by the U.S. Department of Energy, Office of Science, under contract number DE-AC02-06CH11357.
+
+
