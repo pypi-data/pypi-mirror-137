@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: ADBox
+Version: 0.1.0
+Summary: ADBox is a viewer for active directory objects.
+Home-page: https://github.com/Ping-P0ng/ADBox
+Author: Ping-P0ng
+Author-email: 6xefe1d5@protonmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: ldap3 (==2.9.1)
+Requires-Dist: PySide6 (==6.2.3)
+
+# ADBox
+
+---
+ADBox is a viewer for active directory objects.
+
+# Installation
+
+---
+```shell
+pip3 install ADBox
+```
+#### or
+```shell
+python3 setup.py install
+```
+
+# Usage
+
+---
+- #### dump - module for extracting AD objects (users/computers/groups) and saving to the database (sqlite3)
+```python
+    python3 -m ADBox -m dump -srv 192.168.1.100 -usr TEST\user -passwd TestPassword
+```
+- #### gui - graphical interface for viewing objects
+```python
+    python3 -m ADBox -m gui
+```
+
+
