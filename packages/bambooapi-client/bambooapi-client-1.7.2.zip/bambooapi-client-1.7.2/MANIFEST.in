@@ -1,0 +1,10 @@
+graft bambooapi_client
+
+# Include README, CHANGELOG
+include *.md
+
+include requirements.txt
+
+#include tox.ini
+
+global-exclude *.py[cod] __pycache__ *.so
