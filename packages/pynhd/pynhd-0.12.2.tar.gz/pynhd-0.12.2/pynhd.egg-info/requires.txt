@@ -1,0 +1,25 @@
+async-retriever>=0.3.1
+cytoolz
+geopandas>=0.7
+networkx
+numpy>=1.17
+pandas>=1.0
+pyarrow
+pygeoogc>=0.12
+pygeoutils>=0.12
+shapely>=1.6
+
+[:python_version < "3.8"]
+importlib-metadata
+
+[test]
+coverage[toml]
+pytest-cov
+pytest-xdist[psutil]
+
+[typeguard]
+coverage[toml]
+pygments
+pytest-cov
+pytest-xdist[psutil]
+typeguard
