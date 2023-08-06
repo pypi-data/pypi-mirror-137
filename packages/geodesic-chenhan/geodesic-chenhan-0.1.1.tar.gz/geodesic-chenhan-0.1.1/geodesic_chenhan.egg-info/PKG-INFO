@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: geodesic-chenhan
+Version: 0.1.1
+Summary: UNKNOWN
+Home-page: https://github.com/vanandrew/geodesic-chenhan
+Author: Andrew Van
+Author-email: vanandrew@wustl.edu
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+geodesic-chenhan
+=================
+
+This is an updated fork of the original [chenhan_cython](https://github.com/aalavandhaann/chenhan_cython) repo. It uses `pyproject.toml` to pre-install `Cython` and `autowrap` before the compilation step, so that you don't need to install it beforehand. It also has some slight changes to the C++ code to make it work for some
+projects I'm working on.
+
+Future work will focus on creating an interface for this module to work with the [Trimesh](https://github.com/mikedh/trimesh) library.
+
+
