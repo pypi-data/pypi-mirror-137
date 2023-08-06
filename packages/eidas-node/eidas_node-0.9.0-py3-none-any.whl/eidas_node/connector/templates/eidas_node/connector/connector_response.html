@@ -1,0 +1,23 @@
+{% extends "eidas_node/connector/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "eIDAS Node" %}{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "eidas_node/connector/formautosubmit.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <p>{% trans "An error occurred during processing of eIDAS Node response." %}</p>
+        <p>{{ error }}</p>
+    {% else %}
+        <p>{% trans "Redirect to Service Provider is in progress. If you are not redirected automatically, use Continue button below." %}</p>
+        <form class="auto-submit" action="{{ service_provider_endpoint }}" method="post" id="connector-response-form">
+            <input type="hidden" name="SAMLResponse" value="{{ saml_response }}"/>
+            <input type="hidden" name="RelayState" value="{{ relay_state }}"/>
+            <input type="submit" value="{% trans 'Continue' %}"/>
+        </form>
+    {% endif %}
+{% endblock %}

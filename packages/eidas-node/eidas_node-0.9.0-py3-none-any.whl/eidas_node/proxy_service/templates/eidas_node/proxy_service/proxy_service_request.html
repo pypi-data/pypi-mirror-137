@@ -1,0 +1,23 @@
+{% extends "eidas_node/proxy_service/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "eIDAS Node" %}{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "eidas_node/proxy_service/formautosubmit.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <p>{% trans "An error occurred during processing of eIDAS Node request." %}</p>
+        <p>{{ error }}</p>
+    {% else %}
+        <p>{% trans "Redirect to Identity Provider is in progress. If you are not redirected automatically, use Continue button below." %}</p>
+        <form class="auto-submit" action="{{ identity_provider_endpoint }}" method="post" id="proxy-service-request-form">
+            <input type="hidden" name="SAMLRequest" value="{{ saml_request }}"/>
+            <input type="hidden" name="RelayState" value="{{ relay_state }}"/>
+            <input type="submit" value="{% trans 'Continue' %}"/>
+        </form>
+    {% endif %}
+{% endblock %}
