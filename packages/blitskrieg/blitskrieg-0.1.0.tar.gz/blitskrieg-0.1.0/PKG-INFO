@@ -1,0 +1,112 @@
+Metadata-Version: 2.1
+Name: blitskrieg
+Version: 0.1.0
+Summary: The Bitcoin Lightning Integration Test Service
+Home-page: https://gitlab.com/hashbeam/blitskrieg
+Author: hashbeam
+Author-email: hashbeam@protonmail.com
+License: AGPLv3
+Keywords: ln lightning network bitcoin integration test boltlight
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Other/Nonlisted Topic
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: COPYING
+License-File: AUTHORS.md
+
+# BLITSkrieg: Bitcoin Lightning Integration Test Service
+
+BLITSkrieg is a gRPC server in Python that aims to provide a set of utilities
+to test Bitcoin and Lightning Network services.
+
+It uses [boltlight](https://gitlab.com/hashbeam/boltlight) in order to hide
+the differences between the different LN node implementations.
+
+Currently the available services are:
+* `bitcoind` <sup>[1]</sup>
+* `boltlight` <sup>[2]</sup>
+* `c-lightning`
+* `eclair`
+* `electrs` <sup>[3]</sup>
+* `electrum`
+* `lnd`
+
+#### Notes
+
+1. docker image always necessary
+2. docker image necessary to call LN-related commands
+3. docker image necessary to run `electrum`
+
+## System dependencies
+
+- Linux or macOS (_Windows may work, but is not supported_)
+- Python 3.7+
+- docker
+
+## Build
+
+### BLITSkrieg docker image
+
+In order to build a docker image of BLITSkrieg, run:
+```bash
+# production mode
+$ ./unix_helper build
+
+# development mode
+$ ./unix_helper build-dev
+```
+
+### CLI
+
+Inside the docker container of BLITSkrieg you will find `bli`, the command
+line interface for BLITSkrieg.
+In order to install this tool on your local machine (outside docker) you
+can create a Python virtual environment and install it there with:
+```bash
+$ pip install .
+```
+
+## Run
+
+In order to launch the docker image of BLITSkrieg, run:
+```bash
+# production mode
+$ ./unix_helper run
+
+# development mode
+$ ./unix_helper run-dev
+```
+
+## Usage
+
+In order to run a command on BLITSkrieg, you can directly call it by making
+a gRPC call to it, or you can use its CLI.
+
+To get a list of available CLI commands, run:
+```bash
+$ bli --help
+```
+
+In order to perform any action in BLITSkrieg, you first need to call:
+```bash
+$ bli createstack [--<implementation>=<number_of_nodes>]
+```
+
+If you do not specify any LN node, this will run a single `bitcoind` instance
+and only Bitcoin-related commands will be available.
+
+Visit our [docker repository](https://gitlab.com/hashbeam/docker) in
+order to build the required services.
+Otherwise, if the needed docker images are not available, they will be pulled
+from hashbeam's GitLab container registry.
+
+

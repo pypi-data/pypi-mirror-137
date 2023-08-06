@@ -1,0 +1,145 @@
+version: "2.4"
+
+services:
+  bitcoind:
+    image: "hashbeam/bitcoind:22.0"
+    logging:
+      options:
+        max-size: "77m"
+        max-file: "7"
+    cpu_quota: 100000
+    cpu_shares: 128
+    mem_limit: 1280000000
+    memswap_limit: 1280000000
+    restart: "unless-stopped"
+    stop_grace_period: "3m"
+    environment:
+      MYUID: ${MYUID:-1000}
+      MYGID: ${MYGID:-1000}
+    ports:
+      - 18443:18443
+      - 18444:18444
+      - 28333:28333
+      - 28332:28332
+    volumes:
+      - blockchain:/srv/app/.bitcoin
+  c-lightning:
+    image: "hashbeam/c-lightning:0.10.1"
+    logging:
+      options:
+        max-size: "77m"
+        max-file: "7"
+    cpu_quota: 100000
+    cpu_shares: 128
+    mem_limit: 1280000000
+    memswap_limit: 1280000000
+    restart: "unless-stopped"
+    stop_grace_period: "3m"
+    command: "--allow-deprecated-apis=false"
+    environment:
+      MYUID: ${MYUID:-1000}
+      MYGID: ${MYGID:-1000}
+      RGB: "CC0066"
+    ports:
+      - 9735:9735
+      - 9835:9835
+    volumes:
+      - clightning_data:/srv/app/.lightning
+  eclair:
+    image: "hashbeam/eclair:0.6.2"
+    logging:
+      options:
+        max-size: "77m"
+        max-file: "7"
+    cpu_quota: 100000
+    cpu_shares: 128
+    mem_limit: 1280000000
+    memswap_limit: 1280000000
+    restart: "unless-stopped"
+    stop_grace_period: "3m"
+    environment:
+      MYUID: ${MYUID:-1000}
+      MYGID: ${MYGID:-1000}
+      RGB: "0066ff"
+    ports:
+      - 9736:9736
+      - 8080:8080
+    volumes:
+      - eclair_data:/srv/app/data
+  electrum:
+    image: "hashbeam/electrum:4.1.5"
+    logging:
+      options:
+        max-size: "77m"
+        max-file: "7"
+    cpu_quota: 100000
+    cpu_shares: 128
+    mem_limit: 1280000000
+    memswap_limit: 1280000000
+    restart: "unless-stopped"
+    stop_grace_period: "3m"
+    environment:
+      MYUID: ${MYUID:-1000}
+      MYGID: ${MYGID:-1000}
+      WALLET_NAME: alice
+      SRV_HOST: electrs
+    volumes:
+      - electrum_data:/srv/wallet
+    ports:
+      - 7777:7777
+      - 9737:9737
+  electrs:
+    image: "hashbeam/electrs:0.9.4"
+    logging:
+      options:
+        max-size: "77m"
+        max-file: "7"
+    cpu_quota: 100000
+    cpu_shares: 128
+    mem_limit: 1280000000
+    memswap_limit: 1280000000
+    restart: "unless-stopped"
+    stop_grace_period: "3m"
+    environment:
+      MYUID: ${MYUID:-1000}
+      MYGID: ${MYGID:-1000}
+    ports:
+      - 50001:50001
+    volumes:
+      - electrs_data:/srv/app/db
+  lnd:
+    image: "hashbeam/lnd:0.13.3-beta"
+    logging:
+      options:
+        max-size: "77m"
+        max-file: "7"
+    cpu_quota: 100000
+    cpu_shares: 128
+    mem_limit: 1280000000
+    memswap_limit: 1280000000
+    restart: "unless-stopped"
+    stop_grace_period: "3m"
+    environment:
+      MYUID: ${MYUID:-1000}
+      MYGID: ${MYGID:-1000}
+      NO_MACAROONS: 1
+    hostname: "lnd"
+    ports:
+      - 9738:9738
+      - 10009:10009
+    volumes:
+      - lnd_data:/srv/app/.lnd
+
+volumes:
+  blockchain:
+    driver: local
+  clightning_data:
+    driver: local
+  eclair_data:
+    driver: local
+  electrum_data:
+    driver: local
+  lnd_data:
+    driver: local
+  electrs_data:
+    driver: local
