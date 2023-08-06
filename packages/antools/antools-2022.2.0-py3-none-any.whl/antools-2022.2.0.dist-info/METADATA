@@ -1,0 +1,99 @@
+Metadata-Version: 2.1
+Name: antools
+Version: 2022.2.0
+Summary: Private library which is also free to public use. Its purpose is to be useful code keeper.
+Home-page: https://github.com/antonin-drozda
+Author: Antonin Drozda
+Author-email: adrozda.dev@gmail.com
+License: MIT
+Keywords: antools,logging,multiprocessing,threading,helpers
+Platform: UNKNOWN
+Classifier: Framework :: IDLE
+Classifier: Topic :: Utilities
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Natural Language :: English
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: attrs (==21.4.0)
+Requires-Dist: numpy (==1.22.1)
+Requires-Dist: pandas (==1.4.0)
+Requires-Dist: python-dateutil (==2.8.2)
+Requires-Dist: pytz (==2021.3)
+Requires-Dist: six (==1.16.0)
+
+# Antools - Anton's Tools
+
+## Overview
+### Private library which is also free to public use. Its purpose is to be useful code keeper.
+
+Anton's Tools package contains of following modules:
+
+logging
+* Customizable logger (tested on Windows)
+
+multiprocessing
+* MultiProcess class for logging and handling workflow when using multiprocessing
+* MultiProcessHandler as easy multiprocessing framework
+
+threading
+* ThreadProcess class for logging and handling workflow when using threading
+* ThreadHandler as easy multiprocessing framework
+
+validation
+* VarValidator for validation data types and much more
+
+helpers
+* ApproachComparator for testing effeciency of running function in main/multiprocess/threading
+
+## Getting Started
+### Dependencies
+The antools package utilizes following libraries:
+
+*attrs==21.4.0
+*numpy==1.22.1
+*pandas==1.4.0
+*python-dateutil==2.8.2
+*pytz==2021.3
+*six==1.16.0
+*sqlitedict==1.7.0
+
+### Package Installation
+Installable using pip. Execute:
+```
+pip install antools
+```
+
+## Authors
+* **Antonín Drozda** - adrozda.dev@gmail.com
+
+## URLs
+* **GitHub** - https://github.com/antonin-drozda/antools
+* **Pypi** - https://pypi.org/project/antools/
+
+
+Change Log
+==========
+
+
+2022.2.0 (06/02/2022)
+-------------------
+Improvements on Logger.
+Added MultiprocessHandler and ThreadHandler.
+Planned for the next release: TerminalApp (framework for easy apps in terminal)
+
+
+2022.1.0 (31/01/2022)
+-------------------
+Complete rework of previous platform.
+Start package includes Logger, MultiProcess, ThreadProcess and ApproachComparator with examples.
+Planned for the next release: NONE
+
+
