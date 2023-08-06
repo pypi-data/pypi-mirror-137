@@ -1,0 +1,387 @@
+name: fussball
+description: New universe created by cca457c7009eb1f14d6541c8d9e1392e.
+bases:
+    - data
+dependencies:
+    - base
+objects:
+    - data.@string
+    - data.@data
+    - data.@integer
+    - base.object
+    - verband@anzahl_maedchen
+    - verband#anzahl_frauen
+    - verband@schatzmeister
+    - data.@float/
+    - verband#anzahl_mitglieder
+    - verein#verband
+    - verband@anzahl_junioren
+    - verband#anzahl_maedchen
+    - spieler#groesse
+    - verein#logo_url
+    - data.@boolean/
+    - verband#anzahl_vereine
+    - verein@logo_url
+    - spieler@gewicht
+    - verein#seniorinnen
+    - verein@ansprechpartner
+    - spieler@position
+    - verband
+    - gebiet
+    - verein#teams
+    - verband#anzahl_junioren
+    - verband@website
+    - wettbewerb
+    - verein#website
+    - verband#anzahl_senioren
+    - data.@boolean
+    - spieler
+    - verein@seniorinnen
+    - base.object#relation/
+    - spieler#gewicht
+    - base.object#relation/data
+    - verein#gruendungsjahr
+    - data.@string/
+    - spieler@groesse
+    - verein#url
+    - spieler#position
+    - verband#website
+    - verein@url
+    - spieler#geburtsdatum
+    - verband@anzahl_vereine
+    - data.@float
+    - verband#schatzmeister
+    - verein
+    - verein@gruendungsjahr
+    - verein#farben
+    - typ
+    - base.object/data
+    - verein@farben
+    - verein#juniorinnen
+    - verband@anzahl_frauen
+    - verein@teams
+    - spieler@geburtsdatum
+    - spieler@fuss
+    - verein@website
+    - spieler#fuss
+    - verband@anzahl_senioren
+    - base.object/
+    - verein#ansprechpartner
+    - data.@data/
+    - saison
+    - spielklasse
+    - verband@praesident
+    - verband@anzahl_mitglieder
+    - verband#praesident
+    - mannschaftsart
+    - data.@integer/
+    - verein@juniorinnen
+info:
+    - mapping: verein@gruendungsjahr
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: verein@ansprechpartner
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: verband#anzahl_mitglieder
+      type: field
+      description: Field verband#anzahl_mitglieder created by spaethju.
+    - mapping: verein#website
+      type: field
+      description: Field verein#website created by spaethju.
+    - mapping: verein#farben
+      type: field
+      description: Field verein#farben created by spaethju.
+    - mapping: saison
+      type: model
+      description: Model saison created by spaethju.
+    - mapping: spieler#gewicht
+      type: field
+      description: Field spieler#gewicht created by spaethju.
+    - mapping: verband@anzahl_frauen
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: data.@integer
+      type: value
+      description: Value type @integer automatically created from system module data.
+    - mapping: base.object
+      type: model
+      description: Model object automatically created from system module base.
+    - mapping: data.@boolean/
+      type: value
+      description: Value type @boolean automatically created from system module data.
+    - mapping: spieler@groesse
+      type: value
+      description: Extension of @float created by spaethju.
+    - mapping: spieler
+      type: model
+      description: Model spieler created by spaethju.
+    - mapping: verband#website
+      type: field
+      description: Field verband#website created by spaethju.
+    - mapping: base.object/
+      type: model
+      description: Model object automatically created from system module base.
+    - mapping: verein#juniorinnen
+      type: field
+      description: Field verein#juniorinnen created by spaethju.
+    - mapping: data.@float
+      type: value
+      description: Value type @float automatically created from system module data.
+    - mapping: base.object#relation/data
+      type: field
+      description: Field object#relation automatically created from system module base.
+    - mapping: spieler@fuss
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: verband@anzahl_mitglieder
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: spieler@geburtsdatum
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: verband
+      type: model
+      description: Model verband created by spaethju.
+    - mapping: spieler#fuss
+      type: field
+      description: Field spieler#fuss created by spaethju.
+    - mapping: verein@seniorinnen
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: verband@anzahl_senioren
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: mannschaftsart
+      type: model
+      description: Model mannschaftsart created by spaethju.
+    - mapping: verein#gruendungsjahr
+      type: field
+      description: Field verein#gruendungsjahr created by spaethju.
+    - mapping: verein@farben
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: verband@praesident
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: verband@website
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: verband#anzahl_senioren
+      type: field
+      description: Field verband#anzahl_senioren created by spaethju.
+    - mapping: verein@teams
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: verband#anzahl_vereine
+      type: field
+      description: Field verband#anzahl_vereine created by spaethju.
+    - mapping: data.@data/
+      type: value
+      description: Value type @data automatically created from system module data.
+    - mapping: verein@logo_url
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: verein@website
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: spieler#position
+      type: field
+      description: Field spieler#position created by spaethju.
+    - mapping: base.object#relation/
+      type: field
+      description: Field object#relation automatically created from system module base.
+    - mapping: verein#seniorinnen
+      type: field
+      description: Field verein#seniorinnen created by spaethju.
+    - mapping: verband@anzahl_maedchen
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: verein#url
+      type: field
+      description: Field verein#url created by spaethju.
+    - mapping: verband#praesident
+      type: field
+      description: Field verband#praesident created by spaethju.
+    - mapping: spieler@gewicht
+      type: value
+      description: Extension of @float created by spaethju.
+    - mapping: data.@string/
+      type: value
+      description: Value type @string automatically created from system module data.
+    - mapping: verband#schatzmeister
+      type: field
+      description: Field verband#schatzmeister created by spaethju.
+    - mapping: verein@url
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: verein#ansprechpartner
+      type: field
+      description: Field verein#ansprechpartner created by spaethju.
+    - mapping: verband@schatzmeister
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: verband@anzahl_vereine
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: verband#anzahl_junioren
+      type: field
+      description: Field verband#anzahl_junioren created by spaethju.
+    - mapping: verein@juniorinnen
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: data.@string
+      type: value
+      description: Value type @string automatically created from system module data.
+    - mapping: data.@data
+      type: value
+      description: Value type @data automatically created from system module data.
+    - mapping: spieler@position
+      type: value
+      description: Extension of @string created by spaethju.
+    - mapping: spielklasse
+      type: model
+      description: Model Spielklasse created by spaethju.
+    - mapping: verein
+      type: model
+      description: Model verein created by spaethju.
+    - mapping: spieler#geburtsdatum
+      type: field
+      description: Field spieler#geburtsdatum created by spaethju.
+    - mapping: spieler#groesse
+      type: field
+      description: Field spieler#groesse created by spaethju.
+    - mapping: gebiet
+      type: model
+      description: Model gebiet created by spaethju.
+    - mapping: verein#teams
+      type: field
+      description: Field verein#teams created by spaethju.
+    - mapping: data.@boolean
+      type: value
+      description: Value type @boolean automatically created from system module data.
+    - mapping: verein#logo_url
+      type: field
+      description: Field verein#logo_url created by spaethju.
+    - mapping: base.object/data
+      type: model
+      description: Model object automatically created from system module base.
+    - mapping: data.@float/
+      type: value
+      description: Value type @float automatically created from system module data.
+    - mapping: verein#verband
+      type: field
+      description: Field verein#verband created by spaethju.
+    - mapping: verband#anzahl_frauen
+      type: field
+      description: Field verband#anzahl_frauen created by spaethju.
+    - mapping: wettbewerb
+      type: model
+      description: Model wettbewerb created by spaethju.
+    - mapping: verband@anzahl_junioren
+      type: value
+      description: Extension of @integer created by spaethju.
+    - mapping: verband#anzahl_maedchen
+      type: field
+      description: Field verband#anzahl_maedchen created by spaethju.
+    - mapping: data.@integer/
+      type: value
+      description: Value type @integer automatically created from system module data.
+    - mapping: typ
+      type: model
+      description: Model typ created by spaethju.
+relations:
+    - verband#anzahl_junioren:verband:verband@anzahl_junioren
+    - verband#anzahl_vereine:verband:verband@anzahl_vereine
+    - verband#schatzmeister:verband:verband@schatzmeister
+    - verband#anzahl_senioren:verband:verband@anzahl_senioren
+    - verband#anzahl_mitglieder:verband:verband@anzahl_mitglieder
+    - verband#website:verband:verband@website
+    - verband#praesident:verband:verband@praesident
+    - verband#anzahl_frauen:verband:verband@anzahl_frauen
+    - verband#anzahl_maedchen:verband:verband@anzahl_maedchen
+    - spieler#groesse:spieler:spieler@groesse
+    - spieler#position:spieler:spieler@position
+    - spieler#fuss:spieler:spieler@fuss
+    - spieler#gewicht:spieler:spieler@gewicht
+    - spieler#geburtsdatum:spieler:spieler@geburtsdatum
+    - verein#seniorinnen:verein:verein@seniorinnen
+    - verein#gruendungsjahr:verein:verein@gruendungsjahr
+    - verein#juniorinnen:verein:verein@juniorinnen
+    - verein#logo_url:verein:verein@logo_url
+    - verein#url:verein:verein@url
+    - verein#farben:verein:verein@farben
+    - verein#website:verein:verein@website
+    - verein#ansprechpartner:verein:verein@ansprechpartner
+    - verein#verband:verein:verband
+    - base.object#relation/:base.object/:base.object
+abstractions:
+    - data.@float/:spieler@gewicht
+    - base.object#relation/:verein#seniorinnen
+    - data.@string/:verein@ansprechpartner
+    - data.@string/:spieler@position
+    - base.object/:verband
+    - base.object/:gebiet
+    - base.object#relation/:verein#teams
+    - base.object#relation/:verband#anzahl_junioren
+    - data.@string/:verband@website
+    - base.object/:wettbewerb
+    - base.object#relation/:verein#website
+    - base.object#relation/:verband#anzahl_senioren
+    - base.object/:spieler
+    - data.@integer/:verein@seniorinnen
+    - base.object/:base.object#relation/
+    - base.object#relation/data:base.object#relation/
+    - base.object#relation/:spieler#gewicht
+    - data.@string:data.@string/
+    - data.@data/:data.@string/
+    - data.@float/:spieler@groesse
+    - base.object#relation/:verein#url
+    - base.object#relation/:spieler#position
+    - base.object#relation/:verband#website
+    - data.@string/:verein@url
+    - base.object#relation/:spieler#geburtsdatum
+    - base.object#relation/:verein#gruendungsjahr
+    - data.@integer/:verband@anzahl_vereine
+    - base.object#relation/:verband#schatzmeister
+    - base.object/:verein
+    - data.@integer/:verein@gruendungsjahr
+    - base.object#relation/:verein#farben
+    - base.object/:typ
+    - data.@string/:verein@farben
+    - base.object#relation/:verein#juniorinnen
+    - data.@integer/:verband@anzahl_frauen
+    - data.@integer/:verein@teams
+    - data.@string/:spieler@geburtsdatum
+    - data.@string/:spieler@fuss
+    - data.@string/:verein@website
+    - base.object#relation/:spieler#fuss
+    - data.@integer/:verband@anzahl_senioren
+    - base.object/data:base.object/
+    - base.object#relation/:verein#ansprechpartner
+    - base.object/:data.@data/
+    - data.@data:data.@data/
+    - base.object/:saison
+    - base.object/:spielklasse
+    - data.@string/:verband@praesident
+    - data.@integer/:verband@anzahl_mitglieder
+    - base.object#relation/:verband#praesident
+    - base.object/:mannschaftsart
+    - data.@integer:data.@integer/
+    - data.@data/:data.@integer/
+    - data.@integer/:verein@juniorinnen
+    - data.@integer/:verband@anzahl_maedchen
+    - base.object#relation/:verband#anzahl_frauen
+    - data.@string/:verband@schatzmeister
+    - data.@data/:data.@float/
+    - data.@float:data.@float/
+    - base.object#relation/:verband#anzahl_mitglieder
+    - base.object#relation/:verein#verband
+    - data.@integer/:verband@anzahl_junioren
+    - base.object#relation/:verband#anzahl_maedchen
+    - base.object#relation/:spieler#groesse
+    - base.object#relation/:verein#logo_url
+    - data.@data/:data.@boolean/
+    - data.@boolean:data.@boolean/
+    - base.object#relation/:verband#anzahl_vereine
+    - data.@string/:verein@logo_url
