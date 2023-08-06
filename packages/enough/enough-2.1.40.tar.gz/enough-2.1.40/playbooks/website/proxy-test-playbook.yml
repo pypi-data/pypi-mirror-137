@@ -1,0 +1,10 @@
+- name: reverse proxy for website
+  hosts: proxy-service-group
+  become: true
+
+  roles:
+    - role: proxy
+      vars:
+        website_proxy_name: "theproxy"
+        website_proxy_pass: "https://{{ domain }}"
+        website_proxy_monitor_string: "nginx"
