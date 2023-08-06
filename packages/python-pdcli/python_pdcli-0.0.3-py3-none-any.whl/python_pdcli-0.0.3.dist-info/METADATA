@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: python-pdcli
+Version: 0.0.3
+Summary: PD cli
+Home-page: https://github.com/koyeung/python-pdcli
+Author: King-On Yeung
+Author-email: koyeung@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: fire (>=0.4.0,<0.5.0)
+Requires-Dist: pdpyras (>=4.4.0,<5.0.0)
+Project-URL: Repository, https://github.com/koyeung/python-pdcli
+Description-Content-Type: text/markdown
+
+# PD cli
+
+
+## Test
+```
+export PD_ACCOUNT_TOKEN=xyz
+
+pd ls \
+  --statuses=acknowledged,triggered --since=$(date -v -1d +%F) --column \
+  | column -t -s$'\t'
+```
+
+Default output is json string. In order to extract field:
+```shell
+# to extract "id" from user record
+pd user --user-id=me | jq -r .id
+```
+
+
+## Reference
+* https://pypi.org/project/pdpyras/
+* https://developer.pagerduty.com/api-reference/
+
