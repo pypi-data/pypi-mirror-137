@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: ubii-node-python
+Version: 0.2.0a1.dev1
+Summary: "Ubi Interact Python Node"
+Home-page: https://gitlab.lrz.de/IN-FAR/Thesis-Projects/ma-ss21_maximilian-schmidt_ubi-interact-python.git
+Author: Maximilian Schmidt
+Author-email: ga97lul@mytum.de
+License: UNKNOWN
+Keywords: ubi-interact,ubii,distributed,vr,augmented
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Requires-Dist: ubii-message-formats (>=0.2.6.dev9)
+Requires-Dist: codestare-async-utils (>=0.1.dev11)
+Requires-Dist: pyyaml
+Requires-Dist: aiohttp
+Requires-Dist: backports.cached-property ; python_version < "3.8"
+Requires-Dist: typing-extensions ; python_version < "3.8"
+Provides-Extra: cli
+Requires-Dist: importlib-metadata ; (python_version < "3.8") and extra == 'cli'
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-asyncio ; extra == 'test'
+Requires-Dist: ubii-processing-module-ocr (>=0.1.dev11) ; extra == 'test'
+
+UNKNOWN
+
