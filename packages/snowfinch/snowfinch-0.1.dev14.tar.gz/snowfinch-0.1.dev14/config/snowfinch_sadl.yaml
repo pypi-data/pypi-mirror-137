@@ -1,0 +1,35 @@
+snowflake:
+  account: eda.anthemdatalake.us-east-1.privatelink
+  warehouse: D01_VBC_FT_USER_WH_L
+  database: D01_VBC
+  schema: VBC
+  user: AN118647AD
+  password: pass1234
+  role: AN118647AD_PRIVS
+  owner_role: D01_VBC_FT_DVLPR
+  authenticator: externalbrowser
+  profile: aws-dev-vbc
+  add_audit_cols: Y
+  s3_bucket: antm-481935479534-ssm-dev-filetransfer
+teradata:
+  tmode: TERA
+  logmech: LDAP
+  encryptdata: true
+  user: AG29266
+  password: WintFest@22
+  host: DWTEST2COP1.CORP.ANTHEM.COM
+  database: T1F_ETL_DATA_PROV_ADL
+  table:
+  dblist:
+      - T1F_ETL_DATA_PROV_ADL
+  tablelist:
+      - PDL_RHI_G2_STG
+
+bteq:
+  source: local
+  script_dir: /Users/ag29266/Downloads/snowfinch/bteq
+  source_dir:
+  source_files:
+  download_dir:
+  remote_password:
+  ssh_key_path:
