@@ -1,0 +1,39 @@
+[tool.semantic_release]
+version_variable = "pyproject.toml:version" 
+branch = "main"                             
+changelog_file = "CHANGELOG.md"             
+build_command = "pip install poetry && poetry build"  
+dist_path = "dist/"                        
+upload_to_pypi = false                      
+remove_dist = false                         
+patch_without_tag = "true"
+
+[tool.poetry]
+name = "pyeasyeda"
+version = "0.2.8"
+description = "Make exploratory data analysis easier! "
+authors = ["Luming Yang"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.3.5"
+numpy = "^1.22.1"
+seaborn = "^0.11.2"
+matplotlib = "^3.5.1"
+altair = "^4.2.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+codecov = "^2.1.12"
+jupyter = "^1.0.0"
+myst-nb = "^0.13.1"
+sphinx-autoapi = "^1.8.4"
+sphinx-rtd-theme = "^1.0.0"
+python-semantic-release = "^7.24.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
