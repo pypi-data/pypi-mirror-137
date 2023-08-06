@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "masioware"
+version = "0.1.0"
+description = ""
+authors = ["Marcio Martinez <marcioedumartinez@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^2.0.2"
+bson = "^0.5.10"
+isodate = "^0.6.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
