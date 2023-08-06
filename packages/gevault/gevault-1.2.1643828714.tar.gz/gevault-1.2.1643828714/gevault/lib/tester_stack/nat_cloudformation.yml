@@ -1,0 +1,107 @@
+Parameters:
+  VpcId:
+    Description: Targets VpcId for the SG
+    Type: String
+  SubnetId:
+    Description: sn-PctMgmt-AZ1 subnet of the targetted account
+    Type: String
+  AmiId:
+    Type: String
+  InstanceType:
+    AllowedValues:
+    - t1.micro
+    - t2.nano
+    - t2.micro
+    - t2.small
+    - t2.medium
+    - t2.large
+    ConstraintDescription: must be a valid EC2 instance type.
+    Default: t2.micro
+    Description: WebServer EC2 instance type
+    Type: String
+  
+Resources:
+  VaultTestInstance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: !Ref AmiId
+      SecurityGroupIds:
+        - !Ref VaultTestSecurityGroup
+      InstanceType: !Ref InstanceType
+      SubnetId: !Ref SubnetId
+      IamInstanceProfile:
+        Ref: 'VaultTestInstanceProfile'
+      Tags:
+        -
+          Key: "Name"
+          Value: "ISS-GR-VaultTest"
+        -
+          Key: "env"
+          Value: "dev"
+        -
+          Key: "uai"
+          Value: "uai2008328"
+        -
+          Key: "SSM"
+          Value: "false"           
+        -
+          Key: "Description"
+          Value: "Instance for testing Vault connectivity"
+      UserData:
+        'Fn::Base64': !Sub |
+          #!/bin/bash -v
+
+          # Start the amazon ssm agent to register the instance in Systems Manager in the host account
+          sudo start amazon-ssm-agent
+
+          /root/cloudteam/builds/nat-clay/nat.sh n
+
+  VaultTestSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupName: !Join ["-", [!Ref "AWS::StackName", SG]]
+      GroupDescription: "Group for the VaultTest to use for ssh"
+      VpcId: !Ref VpcId
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 3.0.0.0/8
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 10.0.0.0/8
+
+  VaultTestRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: ec2.amazonaws.com
+          Action: sts:AssumeRole
+      Path: '/'
+      ManagedPolicyArns: ['arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM','arn:aws:iam::aws:policy/ReadOnlyAccess']
+      RoleName: !Join ["-", [!Ref "AWS::StackName", Role]]
+
+  VaultTestInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: '/'
+      Roles:
+        - !Ref VaultTestRole
+      InstanceProfileName: !Join ["-", [!Ref "AWS::StackName", Instance-Profile]]
+
+
+Outputs:
+  VaultTestInstanceID:
+    Description: InstanceID of the newly launched VaultTest
+    Value: !Ref VaultTestInstance
+  VaultTestPrivateIP:
+    Description: PrivateIP of the newly launched VaultTest
+    Value: !GetAtt VaultTestInstance.PrivateIp
