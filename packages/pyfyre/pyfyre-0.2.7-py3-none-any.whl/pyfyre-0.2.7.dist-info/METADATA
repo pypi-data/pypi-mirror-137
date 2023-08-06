@@ -1,0 +1,103 @@
+Metadata-Version: 2.1
+Name: pyfyre
+Version: 0.2.7
+Summary: A Web Frontend Framework for building reactive static UI on the web using Python.
+Home-page: https://pyfyre.netlify.app
+Author: Koowentu Technology
+Author-email: koowentu@gmail.com
+License: MIT
+Project-URL: Documentation, https://pyfyre.netlify.app/docs/
+Project-URL: Source, https://github.com/pyfyre/pyfyre
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: AUTHORS
+Requires-Dist: brython
+Requires-Dist: livereload
+
+![image](https://user-images.githubusercontent.com/64759159/151080177-2b2ab45a-86e5-4746-b92f-6c4edd1aaa8f.png)
+
+# PyFyre - The Python Web Frontend Framework
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+
+[![GitHub Version](https://img.shields.io/github/release/pyfyre/pyfyre.svg?style=for-the-badge)](https://github.com/pyfyre/pyfyre/releases)
+[![Github Star](https://img.shields.io/github/stars/pyfyre/pyfyre.svg?style=for-the-badge)](https://github.com/pyfyre/pyfyre/stargazers) 
+[![License](https://img.shields.io/github/license/pyfyre/pyfyre.svg?style=for-the-badge)](https://github.com/pyfyre/pyfyre/blob/main/LICENSE)
+
+PyFyre is a web frontend framework for building reactive static user interfaces on the web using Python.
+- Component-based framework. Developers who have experience of using other frontend frameworks should feel quite at home when using PyFyre., especially Flutter developers.
+- Supports JavaScript interoperability, allowing developers to leverage NPM packages and integrate with existing JavaScript applications.
+- Supports CPython interoparabilty, allowing developers to use existing PyPi packages on the client-side web.
+
+## Documentation
+Documentation for PyFyre is still in development.
+
+## Examples
+We have examples in the [examples](examples) folder. But here is the super simple example.
+See how easy it is to create a simple Hello World web app that shows Hello, World text:
+
+```py
+from pyfyre.widgets import *
+from pyfyre.pyfyre import runApp
+
+class MyWebpage(UsesState):
+    def build(self):
+        return Container(
+            className = "container",
+            children = [
+                Text(
+                    className = "title",
+                    textContent = "Hello, World!"
+                ),
+            ]
+        )
+
+runApp(MyWebpage())
+```
+
+Rendered PyFyre:
+![image](https://user-images.githubusercontent.com/64759159/111881940-d80e4380-89ed-11eb-9ffc-d607d80896fb.png)
+
+## Installation
+
+### Prerequisites
+* python3.x
+
+### Setting Up a Project
+Install the PyFyre CLI:
+```
+py -m pip install PyFyre
+```
+Create a new application:
+```
+pyfyre create-app <app_name>
+```
+Run the application:
+```
+cd <project-name>
+pyfyre runapp
+```
+PyFyre has a built-in hot reload to enhance your productivity tremendously. Try it out by editing the `src/__init__.py` and see the magic works.
+
+## Contributing
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for contributing.
+
+## Stay Updated
+If you would like to get updates about the PyFyre framework, we created a [Facebook Page](https://www.facebook.com/PyFyreframework) where we are going to post all the updates like newly created widgets, adjustments, core updates, and more!
+
+
