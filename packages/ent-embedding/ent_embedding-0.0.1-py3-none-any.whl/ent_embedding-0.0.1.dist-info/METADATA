@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: ent-embedding
+Version: 0.0.1
+Summary: Transforms categorical features into embedded vectors
+Home-page: https://github.com/Avtocado/Entity-Embedding/tree/main/Package
+Author: Avtandil Chakhnashvili, Ilia Latauri
+Author-email: avtuka16.ac@gmail.com
+License: UNKNOWN
+Project-URL: Entity Embedding, https://github.com/Avtocado/Entity-Embedding/tree/main/Package
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+Package transforms your categorical variables into embedded vectors. You should have tensorflow, pandas, numpy, keras and sklearn installed.
+
+Attributes:
+model = EntityEmbedding(dataframe, features from the copy of the df, target column, column you want a vector for)
+
+Hyperparameters you can optimize:
+model.train_fit(activation1='relu', activation2='relu', activation3='relu', loss='mean_squared_error', metrics='mape', dense_size_num=128, dense_size_conc_1=300, dense_size_conc_2=300, alpha=1e-3, epochs=1000, batch_size=512, verbose=1, patience=5)
+
+Inside model.transform(), always provide embedded vector you want to use: model.transform(model.ent_emb)
+
+model.visualize() returns 2 d visualization of your column categories. 
+
