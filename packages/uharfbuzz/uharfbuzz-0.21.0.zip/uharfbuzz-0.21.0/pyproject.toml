@@ -1,0 +1,18 @@
+[build-system]
+requires = [
+    "setuptools >= 36.4",
+    "wheel",
+    "setuptools_scm >= 2.1",
+    "cython >= 0.28.1",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.cibuildwheel]
+# only build for 64-bit
+skip = ["*-manylinux_i686", "*-musllinux*"]
+
+test-requires = "pytest"
+test-command = "pytest {project}/tests"
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "universal2", "arm64"]
