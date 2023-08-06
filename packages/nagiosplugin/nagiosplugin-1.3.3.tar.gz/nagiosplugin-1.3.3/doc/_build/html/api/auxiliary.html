@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auxiliary Classes &mdash; nagiosplugin 1.3.3 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing to Nagiosplugin" href="../hacking.html" />
+    <link rel="prev" title="Intermediate data API" href="intermediate.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> nagiosplugin
+          </a>
+              <div class="version">
+                1.3.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">The nagiosplugin library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">First steps with nagiosplugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">Topic Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intermediate.html">Intermediate data API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Auxiliary Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-nagiosplugin.cookie">nagiosplugin.cookie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-nagiosplugin.logtail">nagiosplugin.logtail</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Contributing to Nagiosplugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">Release History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nagiosplugin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">API docs</a> &raquo;</li>
+      <li>Auxiliary Classes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/auxiliary.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="auxiliary-classes">
+<span id="id1"></span><h1>Auxiliary Classes<a class="headerlink" href="#auxiliary-classes" title="Permalink to this headline">¶</a></h1>
+<p>nagiosplugin’s auxiliary classes are not strictly required to write checks, but
+simplify common tasks and provide convenient access to functionality that is
+regularly needed by plugin authors.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>All classes that plugin authors typically need are imported directly into the
+<a class="reference internal" href="index.html#module-nagiosplugin" title="nagiosplugin"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nagiosplugin</span></code></a> name space. For example, use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nagiosplugin</span>
+<span class="c1"># ...</span>
+<span class="k">with</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Cookie</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">cookie</span><span class="p">:</span>
+   <span class="c1"># ...</span>
+</pre></div>
+</div>
+<p class="last">to get a cookie.</p>
+</div>
+<div class="section" id="module-nagiosplugin.cookie">
+<span id="nagiosplugin-cookie"></span><h2>nagiosplugin.cookie<a class="headerlink" href="#module-nagiosplugin.cookie" title="Permalink to this headline">¶</a></h2>
+<p>Persistent dict to remember state between invocations.</p>
+<p>Cookies are used to remember file positions, counters and the like
+between plugin invocations. It is not intended for substantial amounts
+of data. Cookies are serialized into JSON and saved to a state file. We
+prefer a plain text format to allow administrators to inspect and edit
+its content. See <a class="reference internal" href="#nagiosplugin.logtail.LogTail" title="nagiosplugin.logtail.LogTail"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogTail</span></code></a> for an
+application of cookies to get only new lines of a continuously growing
+file.</p>
+<p>Cookies are locked exclusively so that at most one process at a time has
+access to it. Changes to the dict are not reflected in the file until
+<a class="reference internal" href="#nagiosplugin.cookie.Cookie.commit" title="nagiosplugin.cookie.Cookie.commit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Cookie.commit()</span></code></a> is called. It is recommended to use Cookie as
+context manager to get it opened and committed automatically.</p>
+<dl class="class">
+<dt id="nagiosplugin.cookie.Cookie">
+<em class="property">class </em><code class="descclassname">nagiosplugin.cookie.</code><code class="descname">Cookie</code><span class="sig-paren">(</span><em>statefile=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.cookie.Cookie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a persistent dict to keep state.</p>
+<p>After creation, a cookie behaves like a normal dict.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>statefile</strong> – file name to save the dict’s contents</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If <code class="xref py py-obj docutils literal notranslate"><span class="pre">statefile</span></code> is empty or None, the Cookie will be
+oblivous, i.e., it will forget its contents on garbage
+collection. This makes it possible to explicitely throw away
+state between plugin runs (for example by a command line
+argument).</p>
+</div>
+<dl class="method">
+<dt id="nagiosplugin.cookie.Cookie.__enter__">
+<code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.cookie.Cookie.__enter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows Cookie to be used as context manager.</p>
+<p>Opens the file and passes a dict-like object into the
+subordinate context. See <a class="reference internal" href="#nagiosplugin.cookie.Cookie.open" title="nagiosplugin.cookie.Cookie.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a> for details about opening
+semantics. When the context is left in the regular way (no
+exception raised), the cookie is committed to disk.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Yields:</th><td class="field-body">open cookie</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.cookie.Cookie.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.cookie.Cookie.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes a cookie and its underlying state file.</p>
+<p>This method has no effect if the cookie is already closed.
+Once the cookie is closed, any operation (like <a class="reference internal" href="#nagiosplugin.cookie.Cookie.commit" title="nagiosplugin.cookie.Cookie.commit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">commit()</span></code></a>)
+will raise an exception.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.cookie.Cookie.commit">
+<code class="descname">commit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.cookie.Cookie.commit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Persists the cookie’s dict items in the state file.</p>
+<p>The cookies content is serialized as JSON string and saved to
+the state file. The buffers are flushed to ensure that the new
+content is saved in a durable way.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.cookie.Cookie.open">
+<code class="descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.cookie.Cookie.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads/creates the state file and initializes the dict.</p>
+<p>If the state file does not exist, it is touched into existence.
+An exclusive lock is acquired to ensure serialized access. If
+<a class="reference internal" href="#nagiosplugin.cookie.Cookie.open" title="nagiosplugin.cookie.Cookie.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a> fails to parse file contents, it truncates
+the file before raising an exception. This guarantees that
+plugins will not fail repeatedly when their state files get
+damaged.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Cookie object (self)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – if the state file is corrupted or does not
+deserialize into a dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="topic">
+<p class="topic-title">Cookie example</p>
+<p>Increment a connection count saved in the cookie by <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.new_conns</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Cookie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">statefile</span><span class="p">)</span> <span class="k">as</span> <span class="n">cookie</span><span class="p">:</span>
+   <span class="n">cookie</span><span class="p">[</span><span class="s1">&#39;connections&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cookie</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;connections&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_conns</span>
+</pre></div>
+</div>
+<p>Note that the new content is committed automatically when exiting the <code class="xref py py-obj docutils literal notranslate"><span class="pre">with</span></code>
+block.</p>
+</div>
+</div>
+<div class="section" id="module-nagiosplugin.logtail">
+<span id="nagiosplugin-logtail"></span><h2>nagiosplugin.logtail<a class="headerlink" href="#module-nagiosplugin.logtail" title="Permalink to this headline">¶</a></h2>
+<p>Access previously unseen parts of a growing file.</p>
+<p>LogTail builds on <a class="reference internal" href="#nagiosplugin.cookie.Cookie" title="nagiosplugin.cookie.Cookie"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cookie</span></code></a> to access new lines of a
+continuosly growing log file. It should be used as context manager that
+provides an iterator over new lines to the subordinate context. LogTail
+saves the last file position into the provided cookie object.
+As the path to the log file is saved in the cookie, several LogTail
+instances may share the same cookie.</p>
+<dl class="class">
+<dt id="nagiosplugin.logtail.LogTail">
+<em class="property">class </em><code class="descclassname">nagiosplugin.logtail.</code><code class="descname">LogTail</code><span class="sig-paren">(</span><em>path</em>, <em>cookie</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.logtail.LogTail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates new LogTail context.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> – path to the log file that is to be observed</li>
+<li><strong>cookie</strong> – <a class="reference internal" href="#nagiosplugin.cookie.Cookie" title="nagiosplugin.cookie.Cookie"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cookie</span></code></a> object to save the last
+file position</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nagiosplugin.logtail.LogTail.__enter__">
+<code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.logtail.LogTail.__enter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Seeks to the last seen position and reads new lines.</p>
+<p>The last file position is read from the cookie. If the log file
+has not been changed since the last invocation, LogTail seeks to
+that position and reads new lines. Otherwise, the position saved
+in the cookie is reset and LogTail reads from the beginning.
+After leaving the subordinate context, the new position is saved
+in the cookie and the cookie is closed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Yields:</th><td class="field-body">new lines as bytes strings</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="topic">
+<p class="topic-title">LogTail example</p>
+<p>Calls <code class="xref py py-obj docutils literal notranslate"><span class="pre">process()</span></code> for each new line in a log file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cookie</span> <span class="o">=</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Cookie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">statefile</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">LogTail</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logfile</span><span class="p">,</span> <span class="n">cookie</span><span class="p">)</span> <span class="k">as</span> <span class="n">newlines</span><span class="p">:</span>
+   <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">newlines</span><span class="p">:</span>
+      <span class="n">process</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="intermediate.html" class="btn btn-neutral float-left" title="Intermediate data API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../hacking.html" class="btn btn-neutral float-right" title="Contributing to Nagiosplugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Flying Circus Internet Operations GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

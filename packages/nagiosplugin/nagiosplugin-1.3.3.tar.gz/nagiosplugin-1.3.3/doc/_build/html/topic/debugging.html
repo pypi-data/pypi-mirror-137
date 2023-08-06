@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plugin Debugging &mdash; nagiosplugin 1.3.3 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API docs" href="../api/index.html" />
+    <link rel="prev" title="Topic Guides" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> nagiosplugin
+          </a>
+              <div class="version">
+                1.3.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">The nagiosplugin library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">First steps with nagiosplugin</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Topic Guides</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Plugin Debugging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#an-uncaught-exception-makes-the-plugin-return-unknown-where-is-the-cause">An uncaught exception makes the plugin return UNKNOWN. Where is the cause?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-check-constructor-dies-with-cannot-add-type">A Check constructor dies with “cannot add type &lt;…&gt;”</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#i-m-trying-to-use-pdb-but-i-get-a-timeout-after-10s">I’m trying to use pdb but I get a timeout after 10s</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Contributing to Nagiosplugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">Release History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nagiosplugin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Topic Guides</a> &raquo;</li>
+      <li>Plugin Debugging</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/topic/debugging.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="debugging"></span><div class="section" id="plugin-debugging">
+<span id="index-0"></span><h1>Plugin Debugging<a class="headerlink" href="#plugin-debugging" title="Permalink to this headline">¶</a></h1>
+<p>Debugging plugins can sometimes be complicated since there are so many classes,
+which are tied together in an implicit way. I have collected some frequent
+questions about debugging.</p>
+<div class="section" id="an-uncaught-exception-makes-the-plugin-return-unknown-where-is-the-cause">
+<span id="index-1"></span><h2>An uncaught exception makes the plugin return UNKNOWN. Where is the cause?<a class="headerlink" href="#an-uncaught-exception-makes-the-plugin-return-unknown-where-is-the-cause" title="Permalink to this headline">¶</a></h2>
+<p>When your plugin raises an exception, you may get very little output. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ check_users.py
+USERS UNKNOWN: RuntimeError: error
+</pre></div>
+</div>
+<p>Set the <strong>verbose</strong> parameter of <a class="reference internal" href="../api/core.html#nagiosplugin.check.Check.main" title="nagiosplugin.check.Check.main"><code class="xref py py-meth docutils literal notranslate"><span class="pre">main()</span></code></a>
+to some value greater than zero and you will get the full traceback:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ check_users.py -v
+USERS UNKNOWN: RuntimeError: error
+Traceback (most recent call last):
+  File &quot;nagiosplugin/runtime.py&quot;, line 38, in wrapper
+    return func(*args, **kwds)
+  File &quot;nagiosplugin/examples/check_users.py&quot;, line 104, in main
+    check.main(args.verbose, args.timeout)
+  File &quot;nagiosplugin/check.py&quot;, line 110, in main
+    runtime.execute(self, verbose, timeout)
+  File &quot;nagiosplugin/runtime.py&quot;, line 118, in execute
+    with_timeout(self.timeout, self.run, check)
+  File &quot;nagiosplugin/platform/posix.py&quot;, line 19, in with_timeout
+    func(*args, **kwargs)
+  File &quot;nagiosplugin/runtime.py&quot;, line 107, in run
+    check()
+  File &quot;nagiosplugin/check.py&quot;, line 95, in __call__
+    self._evaluate_resource(resource)
+  File &quot;nagiosplugin/check.py&quot;, line 73, in _evaluate_resource
+    metrics = resource.probe()
+  File &quot;nagiosplugin/examples/check_users.py&quot;, line 57, in probe
+    self.users = self.list_users()
+  File &quot;nagiosplugin/examples/check_users.py&quot;, line 34, in list_users
+    raise RuntimeError(&#39;error&#39;)
+RuntimeError: error
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-check-constructor-dies-with-cannot-add-type">
+<h2>A Check constructor dies with “cannot add type &lt;…&gt;”<a class="headerlink" href="#a-check-constructor-dies-with-cannot-add-type" title="Permalink to this headline">¶</a></h2>
+<p>When you see the following exception raised from
+<a class="reference internal" href="../api/core.html#nagiosplugin.check.Check" title="nagiosplugin.check.Check"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Check()</span></code></a> (or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Check.add()</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UNKNOWN</span><span class="p">:</span> <span class="ne">TypeError</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;cannot add type &lt;class &#39;__main__.Users&#39;&gt; to check&quot;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">__main__</span><span class="o">.</span><span class="n">Users</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f0c64f73f90</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>chances are high that you are trying to add an object that is not an instance
+from Resource, Context, Summary, or Results or its subclasses. A common
+error is to base a resource class on <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code> instead of
+<a class="reference internal" href="../api/core.html#nagiosplugin.resource.Resource" title="nagiosplugin.resource.Resource"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></a>.</p>
+</div>
+<div class="section" id="i-m-trying-to-use-pdb-but-i-get-a-timeout-after-10s">
+<span id="index-2"></span><h2>I’m trying to use pdb but I get a timeout after 10s<a class="headerlink" href="#i-m-trying-to-use-pdb-but-i-get-a-timeout-after-10s" title="Permalink to this headline">¶</a></h2>
+<p>When using an interactive debugger like pdb on plugins, you may experience that
+your debugging session is aborted with a timeout after 10 seconds. Just set the
+<strong>timeout</strong> parameter in <a class="reference internal" href="../api/core.html#nagiosplugin.check.Check.main" title="nagiosplugin.check.Check.main"><code class="xref py py-meth docutils literal notranslate"><span class="pre">main()</span></code></a> to 0 to avoid
+this.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Topic Guides" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/index.html" class="btn btn-neutral float-right" title="API docs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Flying Circus Internet Operations GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

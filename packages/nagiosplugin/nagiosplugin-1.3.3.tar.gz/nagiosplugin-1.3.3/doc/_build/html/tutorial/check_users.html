@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial #3: check_users &mdash; nagiosplugin 1.3.3 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Topic Guides" href="../topic/index.html" />
+    <link rel="prev" title="Tutorial #2: check_load" href="check_load.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> nagiosplugin
+          </a>
+              <div class="version">
+                1.3.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">The nagiosplugin library</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">First steps with nagiosplugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#key-concepts">Key concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#classes-overview">Classes overview</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#id1">Tutorials</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="check_world.html">Tutorial #1: ‘Hello world’ check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="check_load.html">Tutorial #2: check_load</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Tutorial #3: check_users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#multiple-metrics">Multiple metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multiple-contexts">Multiple contexts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logging-and-verbosity-levels">Logging and verbosity levels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">Topic Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Contributing to Nagiosplugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">Release History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nagiosplugin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">First steps with nagiosplugin</a> &raquo;</li>
+      <li>Tutorial #3: check_users</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorial/check_users.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="tutorial-3-check-users">
+<span id="tut3"></span><h1>Tutorial #3: check_users<a class="headerlink" href="#tutorial-3-check-users" title="Permalink to this headline">¶</a></h1>
+<p>In the third tutorial, we will learn how to process multiple metrics.
+Additionally, we will see how to use logging and verbosity levels.</p>
+<div class="section" id="multiple-metrics">
+<h2>Multiple metrics<a class="headerlink" href="#multiple-metrics" title="Permalink to this headline">¶</a></h2>
+<p>A plugin can perform several measurements at once. This is often necessary to
+perform more complex state evaluations or improve latency. Consider a check that
+determines both the number of total logged in users and the number of unique
+logged in users.</p>
+<p>A Resource implementation could look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Users</span><span class="p">(</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Resource</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">users</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unique_users</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">list_users</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return logged in users as list of user names.&quot;&quot;&quot;</span>
+        <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">users</span>
+
+    <span class="k">def</span> <span class="nf">probe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return both total and unique user count.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">users</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_users</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unique_users</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Metric</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">),</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                    <span class="n">context</span><span class="o">=</span><span class="s1">&#39;users&#39;</span><span class="p">),</span>
+                <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Metric</span><span class="p">(</span><span class="s1">&#39;unique&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_users</span><span class="p">),</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                    <span class="n">context</span><span class="o">=</span><span class="s1">&#39;users&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">probe()</span></code> method returns a list containing two metric objects.
+Alternatively, the <code class="xref py py-obj docutils literal notranslate"><span class="pre">probe()</span></code> method can act as generator and yield
+metrics:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">probe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return both total and unique user count.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">users</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_users</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unique_users</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Metric</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">),</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                              <span class="n">context</span><span class="o">=</span><span class="s1">&#39;users&#39;</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Metric</span><span class="p">(</span><span class="s1">&#39;unique&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_users</span><span class="p">),</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                              <span class="n">context</span><span class="o">=</span><span class="s1">&#39;users&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>This may be more comfortable than constructing a list of metrics first and
+returning them all at once.</p>
+<p>To assign a <a class="reference internal" href="../api/core.html#nagiosplugin.context.Context" title="nagiosplugin.context.Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Context</span></code></a> to a
+<a class="reference internal" href="../api/intermediate.html#nagiosplugin.metric.Metric" title="nagiosplugin.metric.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a>, pass the context’s name in the metric’s
+<strong>context</strong> parameter. Both metrics use the same context “users”. This way, the
+main function must define only one context that applies the same thresholds to
+both metrics:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@nagiosplugin</span><span class="o">.</span><span class="n">guarded</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">argp</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">argp</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">check</span> <span class="o">=</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Check</span><span class="p">(</span>
+        <span class="n">Users</span><span class="p">(),</span>
+        <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">ScalarContext</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">critical</span><span class="p">,</span>
+                                   <span class="n">fmt_metric</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{value}</span><span class="s1"> users logged in&#39;</span><span class="p">))</span>
+    <span class="n">check</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiple-contexts">
+<h2>Multiple contexts<a class="headerlink" href="#multiple-contexts" title="Permalink to this headline">¶</a></h2>
+<p>The above example defines only one context for all metrics. This may not be
+practical. Each metric should get its own context now. By default, a metric is
+matched by a context of the same name. So we just leave out the <strong>context</strong>
+parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">probe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Metric</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">),</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Metric</span><span class="p">(</span><span class="s1">&#39;unique&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_users</span><span class="p">),</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>We then define two contexts (one for each metric) in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">main()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@nagiosplugin</span><span class="o">.</span><span class="n">guarded</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">argp</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">check</span> <span class="o">=</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Check</span><span class="p">(</span>
+        <span class="n">Users</span><span class="p">(),</span>
+        <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">ScalarContext</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">critical</span><span class="p">,</span>
+                                   <span class="n">fmt_metric</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{value}</span><span class="s1"> users logged in&#39;</span><span class="p">),</span>
+        <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">ScalarContext</span><span class="p">(</span>
+            <span class="s1">&#39;unique&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">warning_unique</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">critical_unique</span><span class="p">,</span>
+            <span class="n">fmt_metric</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{value}</span><span class="s1"> unique users logged in&#39;</span><span class="p">))</span>
+    <span class="n">check</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively, we can require every context that fits in metric definitions.</p>
+</div>
+<div class="section" id="logging-and-verbosity-levels">
+<h2>Logging and verbosity levels<a class="headerlink" href="#logging-and-verbosity-levels" title="Permalink to this headline">¶</a></h2>
+<p><strong>nagiosplugin</strong> integrates with the <a class="reference external" href="http://docs.python.org/3/library/logging.html">logging</a> module from Python’s standard
+library. If the main function is decorated with <code class="xref py py-obj docutils literal notranslate"><span class="pre">guarded</span></code> (which is heavily
+recommended), the logging module gets automatically configured before the
+execution of the <code class="xref py py-obj docutils literal notranslate"><span class="pre">main()</span></code> function starts. Messages logged to the <em>nagiosplugin</em>
+logger (or any sublogger) are processed with nagiosplugin’s integrated logging.</p>
+<p>Consider the following example check:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">nagiosplugin</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;nagiosplugin&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Logging</span><span class="p">(</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Resource</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">probe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;warning message&#39;</span><span class="p">)</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;info message&#39;</span><span class="p">)</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;debug message&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Metric</span><span class="p">(</span><span class="s1">&#39;zero&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)]</span>
+
+
+<span class="nd">@nagiosplugin</span><span class="o">.</span><span class="n">guarded</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">argp</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">argp</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">argp</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">check</span> <span class="o">=</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Check</span><span class="p">(</span><span class="n">Logging</span><span class="p">())</span>
+    <span class="n">check</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The verbosity level is set in the <code class="xref py py-meth docutils literal notranslate"><span class="pre">check.main()</span></code> invocation depending on
+the number of “-v” flags. Let’s test this check:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ check_verbose.py
+LOGGING OK - zero is <span class="m">0</span> <span class="p">|</span> <span class="nv">zero</span><span class="o">=</span><span class="m">0</span>
+warning message <span class="o">(</span>check_verbose.py:11<span class="o">)</span>
+$ check_verbose.py -v
+LOGGING OK - zero is <span class="m">0</span>
+warning message <span class="o">(</span>check_verbose.py:11<span class="o">)</span>
+<span class="p">|</span> <span class="nv">zero</span><span class="o">=</span><span class="m">0</span>
+$ check_verbose.py -vv
+LOGGING OK - zero is <span class="m">0</span>
+warning message <span class="o">(</span>check_verbose.py:11<span class="o">)</span>
+info message <span class="o">(</span>check_verbose.py:12<span class="o">)</span>
+<span class="p">|</span> <span class="nv">zero</span><span class="o">=</span><span class="m">0</span>
+$ check_verbose.py -vvv
+LOGGING OK - zero is <span class="m">0</span>
+warning message <span class="o">(</span>check_verbose.py:11<span class="o">)</span>
+info message <span class="o">(</span>check_verbose.py:12<span class="o">)</span>
+debug message <span class="o">(</span>check_verbose.py:13<span class="o">)</span>
+<span class="p">|</span> <span class="nv">zero</span><span class="o">=</span><span class="m">0</span>
+</pre></div>
+</div>
+<p>When called with <em>verbose=0,</em> both the summary and the performance data are
+printed on one line and the warning message is displayed. Messages logged with
+<em>warning</em> or <em>error</em> level are always printed.
+Setting <em>verbose</em> to 1 does not change the logging level but enable multi-line
+output. Additionally, full tracebacks would be printed in the case of an
+uncaught exception.
+Verbosity levels of 2 and 3 enable logging with <em>info</em> or <em>debug</em> levels.</p>
+<p>This behaviour conforms to the “Verbose output” suggestions found in the
+<a class="reference external" href="http://nagiosplug.sourceforge.net/developer-guidelines.html#AEN39">Nagios plug-in development guidelines</a>.</p>
+<p>The initial verbosity level is 1 (multi-line output). This means that tracebacks
+are printed for uncaught exceptions raised in the initialization phase (before
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Check.main()</span></code> is called). This is generally a good thing. To suppress
+tracebacks during initialization, call <a class="reference internal" href="../api/core.html#nagiosplugin.runtime.guarded" title="nagiosplugin.runtime.guarded"><code class="xref py py-func docutils literal notranslate"><span class="pre">guarded()</span></code></a>
+with an optional <code class="xref py py-obj docutils literal notranslate"><span class="pre">verbose</span></code> parameter. Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@nagiosplugin</span><span class="o">.</span><span class="n">guarded</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+   <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The initial verbosity level takes effect only until <code class="xref py py-meth docutils literal notranslate"><span class="pre">Check.main()</span></code>
+is called with a different verbosity level.</p>
+</div>
+<p>It is advisable to sprinkle logging statements in the plugin code, especially
+into the resource model classes. A logging example for a users check could look
+like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Users</span><span class="p">(</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Resource</span><span class="p">):</span>
+
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">list_users</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of logged in users.&quot;&quot;&quot;</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;querying users with &quot;</span><span class="si">%s</span><span class="s1">&quot; command&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">who_cmd</span><span class="p">)</span>
+        <span class="n">users</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">who_cmd</span><span class="p">])</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+                <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;who output: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="n">users</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">CheckError</span><span class="p">(</span>
+                <span class="s1">&#39;cannot determine number of users (</span><span class="si">{}</span><span class="s1"> failed)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">who_cmd</span><span class="p">))</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;found users: </span><span class="si">%r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">users</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">users</span>
+</pre></div>
+</div>
+<p>Interesting items to log are: the command which is invoked to query the
+information from the system, or the raw result to verify that parsing works
+correctly.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="check_load.html" class="btn btn-neutral float-left" title="Tutorial #2: check_load" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../topic/index.html" class="btn btn-neutral float-right" title="Topic Guides" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Flying Circus Internet Operations GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial #1: ‘Hello world’ check &mdash; nagiosplugin 1.3.3 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial #2: check_load" href="check_load.html" />
+    <link rel="prev" title="First steps with nagiosplugin" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> nagiosplugin
+          </a>
+              <div class="version">
+                1.3.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">The nagiosplugin library</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">First steps with nagiosplugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#key-concepts">Key concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#classes-overview">Classes overview</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#id1">Tutorials</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Tutorial #1: ‘Hello world’ check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="check_load.html">Tutorial #2: check_load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="check_users.html">Tutorial #3: check_users</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">Topic Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Contributing to Nagiosplugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">Release History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nagiosplugin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">First steps with nagiosplugin</a> &raquo;</li>
+      <li>Tutorial #1: ‘Hello world’ check</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorial/check_world.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="tutorial-1-hello-world-check">
+<span id="tut1"></span><h1>Tutorial #1: ‘Hello world’ check<a class="headerlink" href="#tutorial-1-hello-world-check" title="Permalink to this headline">¶</a></h1>
+<p>In the first tutorial, we will develop <code class="xref py py-obj docutils literal notranslate"><span class="pre">check_world</span></code>. This check will determine
+if the world exists. The algorithm is simple: if the world would not exist, the
+check would not execute.</p>
+<p>This minimalistic check consists of a <code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code> World which models
+the part of the world that is interesting for the purposes of our check.
+Resource classes must define a <code class="xref py py-meth docutils literal notranslate"><span class="pre">Resource.probe()</span></code> method which returns a
+list of metrics. We just return a single <code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code> object that states
+that the world exists.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!python</span>
+
+<span class="sd">&quot;&quot;&quot;Hello world Nagios check.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">nagiosplugin</span>
+
+
+<span class="k">class</span> <span class="nc">World</span><span class="p">(</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Resource</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">probe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Metric</span><span class="p">(</span><span class="s1">&#39;world&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;null&#39;</span><span class="p">)]</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">check</span> <span class="o">=</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Check</span><span class="p">(</span><span class="n">World</span><span class="p">())</span>
+    <span class="n">check</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We don’t have a context to evaluate the returned metric yet, so we resort to the
+built-in “null” context. The “null” context does nothing with its associated
+metrics.</p>
+<p>We now create a <code class="xref py py-class docutils literal notranslate"><span class="pre">Check</span></code> object that is fed only with the resource
+object. We could put context and summary objects into the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Check()</span></code>
+constructor as well. This will be demonstrated in the next tutorial. There is
+also no command line processing nor timeout handling nor output control. We call
+the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Check.main()</span></code> method to evaluate resources, construct text output
+and exit with the appropriate status code.</p>
+<p>Running the plugin creates very simple output:</p>
+<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span>$ check_world.py
+WORLD OK
+</pre></div>
+</td></tr></table></div>
+<p>The plugin’s exit status is 0, signalling success to the calling process.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="First steps with nagiosplugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="check_load.html" class="btn btn-neutral float-right" title="Tutorial #2: check_load" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Flying Circus Internet Operations GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

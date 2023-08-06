@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intermediate data API &mdash; nagiosplugin 1.3.3 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Auxiliary Classes" href="auxiliary.html" />
+    <link rel="prev" title="Core API" href="core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> nagiosplugin
+          </a>
+              <div class="version">
+                1.3.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">The nagiosplugin library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">First steps with nagiosplugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">Topic Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Intermediate data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-nagiosplugin.metric">nagiosplugin.metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-nagiosplugin.state">nagiosplugin.state</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#state-subclasses">State subclasses</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-nagiosplugin.performance">nagiosplugin.performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-nagiosplugin.range">nagiosplugin.range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-nagiosplugin.result">nagiosplugin.result</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auxiliary.html">Auxiliary Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Contributing to Nagiosplugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">Release History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nagiosplugin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">API docs</a> &raquo;</li>
+      <li>Intermediate data API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/intermediate.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="intermediate-data-api">
+<span id="id1"></span><h1>Intermediate data API<a class="headerlink" href="#intermediate-data-api" title="Permalink to this headline">¶</a></h1>
+<p>The following classes allow to handle intermediate data that are used during the
+plugin’s execution in a structured way. Most of them are used by the
+<a class="reference internal" href="index.html#module-nagiosplugin" title="nagiosplugin"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nagiosplugin</span></code></a> library itself to create objects which are passed into
+code written by plugin authors. Other classes (like
+<a class="reference internal" href="#nagiosplugin.metric.Metric" title="nagiosplugin.metric.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a>) are used by plugin authors to generate
+intermediate data during <a class="reference internal" href="../glossary.html#term-acquisition"><span class="xref std std-term">acquisition</span></a> or <a class="reference internal" href="../glossary.html#term-evaluation"><span class="xref std std-term">evaluation</span></a> steps.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>All classes that plugin authors typically need are imported directly into the
+<a class="reference internal" href="index.html#module-nagiosplugin" title="nagiosplugin"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nagiosplugin</span></code></a> name space. For example, use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nagiosplugin</span>
+<span class="c1"># ...</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Result</span><span class="p">(</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="last">to get a <a class="reference internal" href="#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> instance.</p>
+</div>
+<div class="section" id="module-nagiosplugin.metric">
+<span id="nagiosplugin-metric"></span><h2>nagiosplugin.metric<a class="headerlink" href="#module-nagiosplugin.metric" title="Permalink to this headline">¶</a></h2>
+<p>Structured representation for data points.</p>
+<p>This module contains the <a class="reference internal" href="#nagiosplugin.metric.Metric" title="nagiosplugin.metric.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a> class whose instances are
+passed as value objects between most of nagiosplugin’s core classes.
+Typically, <a class="reference internal" href="core.html#nagiosplugin.resource.Resource" title="nagiosplugin.resource.Resource"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></a> objects emit a list of metrics
+as result of their <a class="reference internal" href="core.html#nagiosplugin.resource.Resource.probe" title="nagiosplugin.resource.Resource.probe"><code class="xref py py-meth docutils literal notranslate"><span class="pre">probe()</span></code></a> methods.</p>
+<dl class="class">
+<dt id="nagiosplugin.metric.Metric">
+<em class="property">class </em><code class="descclassname">nagiosplugin.metric.</code><code class="descname">Metric</code><a class="headerlink" href="#nagiosplugin.metric.Metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Single measured value.</p>
+<p>The value should be expressed in terms of base units, so
+Metric(‘swap’, 10240, ‘B’) is better than Metric(‘swap’, 10, ‘kiB’).</p>
+<p>Creates new Metric instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – short internal identifier for the value – appears
+also in the performance data</li>
+<li><strong>value</strong> – data point, usually has a boolen or numeric type,
+but other types are also possible</li>
+<li><strong>uom</strong> – <a class="reference internal" href="../glossary.html#term-unit-of-measure"><span class="xref std std-term">unit of measure</span></a>, preferrably as ISO
+abbreviation like “s”</li>
+<li><strong>min</strong> – minimum value or None if there is no known minimum</li>
+<li><strong>max</strong> – maximum value or None if there is no known maximum</li>
+<li><strong>context</strong> – name of the associated context (defaults to the
+metric’s name if left out)</li>
+<li><strong>contextobj</strong> – reference to the associated context object
+(set automatically by <a class="reference internal" href="core.html#nagiosplugin.check.Check" title="nagiosplugin.check.Check"><code class="xref py py-class docutils literal notranslate"><span class="pre">Check</span></code></a>)</li>
+<li><strong>resource</strong> – reference to the originating
+<a class="reference internal" href="core.html#nagiosplugin.resource.Resource" title="nagiosplugin.resource.Resource"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></a> (set automatically
+by <a class="reference internal" href="core.html#nagiosplugin.check.Check" title="nagiosplugin.check.Check"><code class="xref py py-class docutils literal notranslate"><span class="pre">Check</span></code></a>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="staticmethod">
+<dt id="nagiosplugin.metric.Metric.__new__">
+<em class="property">static </em><code class="descname">__new__</code><span class="sig-paren">(</span><em>cls</em>, <em>name</em>, <em>value</em>, <em>uom=None</em>, <em>min=None</em>, <em>max=None</em>, <em>context=None</em>, <em>contextobj=None</em>, <em>resource=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.metric.Metric.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates new Metric instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – short internal identifier for the value – appears
+also in the performance data</li>
+<li><strong>value</strong> – data point, usually has a boolen or numeric type,
+but other types are also possible</li>
+<li><strong>uom</strong> – <a class="reference internal" href="../glossary.html#term-unit-of-measure"><span class="xref std std-term">unit of measure</span></a>, preferrably as ISO
+abbreviation like “s”</li>
+<li><strong>min</strong> – minimum value or None if there is no known minimum</li>
+<li><strong>max</strong> – maximum value or None if there is no known maximum</li>
+<li><strong>context</strong> – name of the associated context (defaults to the
+metric’s name if left out)</li>
+<li><strong>contextobj</strong> – reference to the associated context object
+(set automatically by <a class="reference internal" href="core.html#nagiosplugin.check.Check" title="nagiosplugin.check.Check"><code class="xref py py-class docutils literal notranslate"><span class="pre">Check</span></code></a>)</li>
+<li><strong>resource</strong> – reference to the originating
+<a class="reference internal" href="core.html#nagiosplugin.resource.Resource" title="nagiosplugin.resource.Resource"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></a> (set automatically
+by <a class="reference internal" href="core.html#nagiosplugin.check.Check" title="nagiosplugin.check.Check"><code class="xref py py-class docutils literal notranslate"><span class="pre">Check</span></code></a>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.metric.Metric.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.metric.Metric.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <a class="reference internal" href="#nagiosplugin.metric.Metric.valueunit" title="nagiosplugin.metric.Metric.valueunit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">valueunit</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.metric.Metric.evaluate">
+<code class="descname">evaluate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.metric.Metric.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates this instance according to the context.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>RuntimeError</strong> – if no context has been associated yet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.metric.Metric.performance">
+<code class="descname">performance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.metric.Metric.performance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates performance data according to the context.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#nagiosplugin.performance.Performance" title="nagiosplugin.performance.Performance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Performance</span></code></a> object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>RuntimeError</strong> – if no context has been associated yet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.metric.Metric.replace">
+<code class="descname">replace</code><span class="sig-paren">(</span><em>**attr</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.metric.Metric.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates new instance with updated attributes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.metric.Metric.description">
+<code class="descname">description</code><a class="headerlink" href="#nagiosplugin.metric.Metric.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Human-readable, detailed string representation.</p>
+<p>Delegates to the <a class="reference internal" href="core.html#nagiosplugin.context.Context" title="nagiosplugin.context.Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Context</span></code></a> to format the value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="core.html#nagiosplugin.context.Context.describe" title="nagiosplugin.context.Context.describe"><code class="xref py py-meth docutils literal notranslate"><span class="pre">describe()</span></code></a> output or
+<a class="reference internal" href="#nagiosplugin.metric.Metric.valueunit" title="nagiosplugin.metric.Metric.valueunit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">valueunit</span></code></a> if no context has been associated yet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.metric.Metric.valueunit">
+<code class="descname">valueunit</code><a class="headerlink" href="#nagiosplugin.metric.Metric.valueunit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compact string representation.</p>
+<p>This is just the value and the unit. If the value is a real
+number, express the value with a limited number of digits to
+improve readability.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-nagiosplugin.state">
+<span id="nagiosplugin-state"></span><h2>nagiosplugin.state<a class="headerlink" href="#module-nagiosplugin.state" title="Permalink to this headline">¶</a></h2>
+<p>Classes  to represent check outcomes.</p>
+<p>This module defines <a class="reference internal" href="#nagiosplugin.state.ServiceState" title="nagiosplugin.state.ServiceState"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServiceState</span></code></a> which is the abstract base class
+for check outcomes. The four states defined by the <a class="reference internal" href="../glossary.html#term-nagios-plugin-api"><span class="xref std std-term">Nagios plugin API</span></a>
+are represented as singleton subclasses.</p>
+<p>Note that the <em>warning</em> state is defined by the <a class="reference internal" href="#nagiosplugin.state.Warn" title="nagiosplugin.state.Warn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Warn</span></code></a> class. The
+class has not been named <code class="xref py py-obj docutils literal notranslate"><span class="pre">Warning</span></code> to avoid being confused with the
+built-in Python exception of the same name.</p>
+<dl class="class">
+<dt id="nagiosplugin.state.ServiceState">
+<em class="property">class </em><code class="descclassname">nagiosplugin.state.</code><code class="descname">ServiceState</code><a class="headerlink" href="#nagiosplugin.state.ServiceState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for all states.</p>
+<p>Each state has two constant attributes: <code class="xref py py-attr docutils literal notranslate"><span class="pre">text</span></code> is the short
+text representation which is printed for example at the beginning of
+the summary line. <code class="xref py py-attr docutils literal notranslate"><span class="pre">code</span></code> is the corresponding exit code.</p>
+<p>Create new instance of ServiceState(code, text)</p>
+<dl class="method">
+<dt id="nagiosplugin.state.ServiceState.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.state.ServiceState.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plugin-API compliant text representation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.state.ServiceState.__int__">
+<code class="descname">__int__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.state.ServiceState.__int__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plugin API compliant exit code.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference internal" href="#nagiosplugin.state.ServiceState" title="nagiosplugin.state.ServiceState"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServiceState</span></code></a> is not imported into the <a class="reference internal" href="index.html#module-nagiosplugin" title="nagiosplugin"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nagiosplugin</span></code></a>
+top-level name space since there is usually no need to access it directly.</p>
+</div>
+<dl class="function">
+<dt id="nagiosplugin.state.worst">
+<code class="descclassname">nagiosplugin.state.</code><code class="descname">worst</code><span class="sig-paren">(</span><em>states</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.state.worst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduce list of <em>states</em> to the most significant state.</p>
+</dd></dl>
+
+<div class="section" id="state-subclasses">
+<h3>State subclasses<a class="headerlink" href="#state-subclasses" title="Permalink to this headline">¶</a></h3>
+<p>The state subclasses are singletons. Plugin authors should use the class
+name (without parentheses) to access the instance. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">state</span> <span class="o">=</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Critical</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="nagiosplugin.state.Ok">
+<code class="descclassname">nagiosplugin.state.</code><code class="descname">Ok</code><a class="headerlink" href="#nagiosplugin.state.Ok" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.state.Warn">
+<code class="descclassname">nagiosplugin.state.</code><code class="descname">Warn</code><a class="headerlink" href="#nagiosplugin.state.Warn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.state.Critical">
+<code class="descclassname">nagiosplugin.state.</code><code class="descname">Critical</code><a class="headerlink" href="#nagiosplugin.state.Critical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.state.Unknown">
+<code class="descclassname">nagiosplugin.state.</code><code class="descname">Unknown</code><a class="headerlink" href="#nagiosplugin.state.Unknown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nagiosplugin.performance">
+<span id="nagiosplugin-performance"></span><h2>nagiosplugin.performance<a class="headerlink" href="#module-nagiosplugin.performance" title="Permalink to this headline">¶</a></h2>
+<p>Performance data (perfdata) representation.</p>
+<p><a class="reference internal" href="../glossary.html#term-performance-data"><span class="xref std std-term">Performance data</span></a> are created during metric evaluation in a context
+and are written into the <em>perfdata</em> section of the plugin’s output.
+<a class="reference internal" href="#nagiosplugin.performance.Performance" title="nagiosplugin.performance.Performance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Performance</span></code></a> allows the creation of value objects that are passed
+between other nagiosplugin objects.</p>
+<p>For sake of consistency, performance data should represent their values in
+their respective base unit, so <code class="xref py py-obj docutils literal notranslate"><span class="pre">Performance('size',</span> <span class="pre">10000,</span> <span class="pre">'B')</span></code> is better
+than <code class="xref py py-obj docutils literal notranslate"><span class="pre">Performance('size',</span> <span class="pre">10,</span> <span class="pre">'kB')</span></code>.</p>
+<dl class="class">
+<dt id="nagiosplugin.performance.Performance">
+<em class="property">class </em><code class="descclassname">nagiosplugin.performance.</code><code class="descname">Performance</code><a class="headerlink" href="#nagiosplugin.performance.Performance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new performance data object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>label</strong> – short identifier, results in graph
+titles for example (20 chars or less recommended)</li>
+<li><strong>value</strong> – measured value (usually an int, float, or bool)</li>
+<li><strong>uom</strong> – unit of measure – use base units whereever possible</li>
+<li><strong>warn</strong> – warning range</li>
+<li><strong>crit</strong> – critical range</li>
+<li><strong>min</strong> – known value minimum (None for no minimum)</li>
+<li><strong>max</strong> – known value maximum (None for no maximum)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="staticmethod">
+<dt id="nagiosplugin.performance.Performance.__new__">
+<em class="property">static </em><code class="descname">__new__</code><span class="sig-paren">(</span><em>cls</em>, <em>label</em>, <em>value</em>, <em>uom=''</em>, <em>warn=''</em>, <em>crit=''</em>, <em>min=''</em>, <em>max=''</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.performance.Performance.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new performance data object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>label</strong> – short identifier, results in graph
+titles for example (20 chars or less recommended)</li>
+<li><strong>value</strong> – measured value (usually an int, float, or bool)</li>
+<li><strong>uom</strong> – unit of measure – use base units whereever possible</li>
+<li><strong>warn</strong> – warning range</li>
+<li><strong>crit</strong> – critical range</li>
+<li><strong>min</strong> – known value minimum (None for no minimum)</li>
+<li><strong>max</strong> – known value maximum (None for no maximum)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.performance.Performance.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.performance.Performance.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>String representation conforming to the plugin API.</p>
+<p>Labels containing spaces or special characters will be quoted.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-nagiosplugin.range">
+<span id="nagiosplugin-range"></span><h2>nagiosplugin.range<a class="headerlink" href="#module-nagiosplugin.range" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nagiosplugin.range.Range">
+<em class="property">class </em><code class="descclassname">nagiosplugin.range.</code><code class="descname">Range</code><a class="headerlink" href="#nagiosplugin.range.Range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a threshold range.</p>
+<p>The general format is “[&#64;][start:][end]”. “start:” may be omitted if
+start==0. “~:” means that start is negative infinity. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">end</span></code> is
+omitted, infinity is assumed. To invert the match condition, prefix
+the range expression with “&#64;”.</p>
+<p>See
+<a class="reference external" href="http://nagiosplug.sourceforge.net/developer-guidelines.html#THRESHOLDFORMAT">http://nagiosplug.sourceforge.net/developer-guidelines.html#THRESHOLDFORMAT</a>
+for details.</p>
+<p>Creates a Range object according to <code class="xref py py-obj docutils literal notranslate"><span class="pre">spec</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>spec</strong> – may be either a string, an int, or another
+Range object.</td>
+</tr>
+</tbody>
+</table>
+<dl class="staticmethod">
+<dt id="nagiosplugin.range.Range.__new__">
+<em class="property">static </em><code class="descname">__new__</code><span class="sig-paren">(</span><em>cls</em>, <em>spec=''</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.range.Range.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Range object according to <code class="xref py py-obj docutils literal notranslate"><span class="pre">spec</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>spec</strong> – may be either a string, an int, or another
+Range object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.range.Range.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.range.Range.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Human-readable range specification.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.range.Range.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.range.Range.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parseable range specification.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.range.Range.match">
+<code class="descname">match</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.range.Range.match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decides if <code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code> is inside/outside the threshold.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> if value is inside the bounds for non-inverted
+Ranges.</td>
+</tr>
+</tbody>
+</table>
+<p>Also available as <code class="xref py py-obj docutils literal notranslate"><span class="pre">in</span></code> operator.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.range.Range.violation">
+<code class="descname">violation</code><a class="headerlink" href="#nagiosplugin.range.Range.violation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Human-readable description why a value does not match.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-nagiosplugin.result">
+<span id="nagiosplugin-result"></span><h2>nagiosplugin.result<a class="headerlink" href="#module-nagiosplugin.result" title="Permalink to this headline">¶</a></h2>
+<p>Outcomes from evaluating metrics in contexts.</p>
+<p>The <a class="reference internal" href="#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> class is the base class for all evaluation results.
+The <a class="reference internal" href="#nagiosplugin.result.Results" title="nagiosplugin.result.Results"><code class="xref py py-class docutils literal notranslate"><span class="pre">Results</span></code></a> class (plural form) provides a result container with
+access functions and iterators.</p>
+<p>Plugin authors may create their own <a class="reference internal" href="#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> subclass to
+accomodate for special needs. <a class="reference internal" href="core.html#nagiosplugin.context.Context" title="nagiosplugin.context.Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Context</span></code></a> constructors
+accept custom Result subclasses in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">result_cls</span></code> parameter.</p>
+<dl class="class">
+<dt id="nagiosplugin.result.Result">
+<em class="property">class </em><code class="descclassname">nagiosplugin.result.</code><code class="descname">Result</code><a class="headerlink" href="#nagiosplugin.result.Result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluation outcome consisting of state and explanation.</p>
+<p>A Result object is typically emitted by a
+<a class="reference internal" href="core.html#nagiosplugin.context.Context" title="nagiosplugin.context.Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Context</span></code></a> object and represents the
+outcome of an evaluation. It contains a
+<a class="reference internal" href="#nagiosplugin.state.ServiceState" title="nagiosplugin.state.ServiceState"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServiceState</span></code></a> as well as an explanation.
+Plugin authors may subclass Result to implement specific features.</p>
+<p>Creates a Result object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state</strong> – state object</li>
+<li><strong>hint</strong> – reason why this result arose</li>
+<li><strong>metric</strong> – reference to the
+<a class="reference internal" href="#nagiosplugin.metric.Metric" title="nagiosplugin.metric.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a> from which this result
+was derived</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="staticmethod">
+<dt id="nagiosplugin.result.Result.__new__">
+<em class="property">static </em><code class="descname">__new__</code><span class="sig-paren">(</span><em>cls</em>, <em>state</em>, <em>hint=None</em>, <em>metric=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.result.Result.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Result object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state</strong> – state object</li>
+<li><strong>hint</strong> – reason why this result arose</li>
+<li><strong>metric</strong> – reference to the
+<a class="reference internal" href="#nagiosplugin.metric.Metric" title="nagiosplugin.metric.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a> from which this result
+was derived</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.result.Result.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.result.Result.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Textual result explanation.</p>
+<p>The result explanation is taken from <code class="xref py py-attr docutils literal notranslate"><span class="pre">metric.description</span></code>
+(if a metric has been passed to the constructur), followed
+optionally by the value of <code class="xref py py-attr docutils literal notranslate"><span class="pre">hint</span></code>. This method’s output
+should consist only of a text for the reason but not for the
+result’s state. The latter is rendered independently.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">result explanation or empty string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.result.Result.context">
+<code class="descname">context</code><a class="headerlink" href="#nagiosplugin.result.Result.context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to the metric used to generate this result.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.result.Result.resource">
+<code class="descname">resource</code><a class="headerlink" href="#nagiosplugin.result.Result.resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to the resource used to generate this result.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nagiosplugin.result.ScalarResult">
+<em class="property">class </em><code class="descclassname">nagiosplugin.result.</code><code class="descname">ScalarResult</code><a class="headerlink" href="#nagiosplugin.result.ScalarResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Special-case result for evaluation in a ScalarContext.</p>
+<p>DEPRECATED: use Result instead.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="nagiosplugin.result.Results">
+<em class="property">class </em><code class="descclassname">nagiosplugin.result.</code><code class="descname">Results</code><span class="sig-paren">(</span><em>*results</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.result.Results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Container for result sets.</p>
+<p>Basically, this class manages a set of results and provides
+convenient access methods by index, name, or result state. It is
+meant to make queries in <a class="reference internal" href="core.html#nagiosplugin.summary.Summary" title="nagiosplugin.summary.Summary"><code class="xref py py-class docutils literal notranslate"><span class="pre">Summary</span></code></a>
+implementations compact and readable.</p>
+<p>The constructor accepts an arbitrary number of result objects and
+adds them to the container.</p>
+<dl class="method">
+<dt id="nagiosplugin.result.Results.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.result.Results.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over all results.</p>
+<p>The iterator is sorted in order of decreasing state
+significance (unknown &gt; critical &gt; warning &gt; ok).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">result object iterator</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.result.Results.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.result.Results.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of results in this container.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.result.Results.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.result.Results.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access result by index or name.</p>
+<p>If <em>item</em> is an integer, the itemth element in the
+container is returned. If <em>item</em> is a string, it is used to
+look up a result with the given name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>KeyError</strong> – if no matching result is found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.result.Results.__contains__">
+<code class="descname">__contains__</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.result.Results.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if a result with given name is present.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nagiosplugin.result.Results.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*results</em><span class="sig-paren">)</span><a class="headerlink" href="#nagiosplugin.result.Results.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds more results to the container.</p>
+<p>Besides passing <a class="reference internal" href="#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> objects in the constructor,
+additional results may be added after creating the container.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – if <code class="xref py py-obj docutils literal notranslate"><span class="pre">result</span></code> is not a <a class="reference internal" href="#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.result.Results.first_significant">
+<code class="descname">first_significant</code><a class="headerlink" href="#nagiosplugin.result.Results.first_significant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects one of the results with most significant state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>IndexError</strong> – if no results are present</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.result.Results.most_significant">
+<code class="descname">most_significant</code><a class="headerlink" href="#nagiosplugin.result.Results.most_significant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of results with most significant state.</p>
+<p>From all results present, a subset with the “worst” state is
+selected.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of <a class="reference internal" href="#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> objects or empty list if no
+results are present</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nagiosplugin.result.Results.most_significant_state">
+<code class="descname">most_significant_state</code><a class="headerlink" href="#nagiosplugin.result.Results.most_significant_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>The “worst” state found in all results.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#nagiosplugin.state.ServiceState" title="nagiosplugin.state.ServiceState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServiceState</span></code></a> object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – if no results are present</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.html" class="btn btn-neutral float-left" title="Core API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="auxiliary.html" class="btn btn-neutral float-right" title="Auxiliary Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Flying Circus Internet Operations GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

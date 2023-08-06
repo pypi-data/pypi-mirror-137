@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial #2: check_load &mdash; nagiosplugin 1.3.3 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial #3: check_users" href="check_users.html" />
+    <link rel="prev" title="Tutorial #1: ‘Hello world’ check" href="check_world.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> nagiosplugin
+          </a>
+              <div class="version">
+                1.3.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">The nagiosplugin library</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">First steps with nagiosplugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#key-concepts">Key concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#classes-overview">Classes overview</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#id1">Tutorials</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="check_world.html">Tutorial #1: ‘Hello world’ check</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Tutorial #2: check_load</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data-acquisition">Data acquisition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#evaluation">Evaluation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#result-presentation">Result presentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#check-setup">Check setup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="check_users.html">Tutorial #3: check_users</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">Topic Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Contributing to Nagiosplugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">Release History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nagiosplugin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">First steps with nagiosplugin</a> &raquo;</li>
+      <li>Tutorial #2: check_load</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorial/check_load.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="tutorial-2-check-load">
+<span id="tut2"></span><h1>Tutorial #2: check_load<a class="headerlink" href="#tutorial-2-check-load" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will discuss important basic features that are present in
+nearly every check. These include command line processing, metric evaluation
+with scalar contexts, status line formatting and logging.</p>
+<p>The <strong class="program">check_load</strong> plugin resembles the one found in the standard Nagios
+plugins collection. It allows to check the system load average against
+thresholds.</p>
+<div class="section" id="data-acquisition">
+<h2>Data acquisition<a class="headerlink" href="#data-acquisition" title="Permalink to this headline">¶</a></h2>
+<p>First, we will subclass <a class="reference internal" href="../api/core.html#nagiosplugin.resource.Resource" title="nagiosplugin.resource.Resource"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></a> to generate metrics for the 1,
+5, and 15 minute load averages.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="k">class</span> <span class="nc">Load</span><span class="p">(</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Domain model: system load.</span>
+
+<span class="sd">    Determines the system load parameters and (optionally) cpu count.</span>
+<span class="sd">    The `probe` method returns the three standard load average numbers.</span>
+<span class="sd">    If `percpu` is true, the load average will be normalized.</span>
+
+<span class="sd">    This check requires Linux-style /proc files to be present.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">percpu</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">percpu</span> <span class="o">=</span> <span class="n">percpu</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cpus</span><span class="p">():</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;counting cpus with &quot;nproc&quot;&#39;</span><span class="p">)</span>
+        <span class="n">cpus</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="s1">&#39;nproc&#39;</span><span class="p">]))</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;found </span><span class="si">%i</span><span class="s1"> cpus in total&#39;</span><span class="p">,</span> <span class="n">cpus</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cpus</span>
+
+    <span class="k">def</span> <span class="nf">probe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;reading load from /proc/loadavg&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/proc/loadavg&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">loadavg</span><span class="p">:</span>
+            <span class="n">load</span> <span class="o">=</span> <span class="n">loadavg</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;raw load is </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">load</span><span class="p">)</span>
+        <span class="n">cpus</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpus</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">percpu</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">load</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">/</span> <span class="n">cpus</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">load</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">period</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">]):</span>
+            <span class="k">yield</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Metric</span><span class="p">(</span><span class="s1">&#39;load</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">period</span><span class="p">,</span> <span class="n">load</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                      <span class="n">context</span><span class="o">=</span><span class="s1">&#39;load&#39;</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+<p><strong class="program">check_load</strong> has two modes of operation: the load averages may either
+be takes as read from the kernel or normalized by cpu. Accordingly, the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Load()</span></code> constructor has a parameter two switch normalization on.</p>
+<p>In the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Load.probe()</span></code> method the check reads the load averages from the
+<code class="file docutils literal notranslate"><span class="pre">/proc</span></code> filesystem and extracts the interesting values. For each value, a
+<a class="reference internal" href="../api/intermediate.html#nagiosplugin.metric.Metric" title="nagiosplugin.metric.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a> object is returned. Each metric has a generated name
+(“load1”, “load5”, “load15”) and a value. We don’t declare a unit of measure
+since load averages come without unit. All metrics will share the same context
+“load” which means that the thresholds for all three values will be the same.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Deriving the number of CPUs from <code class="file docutils literal notranslate"><span class="pre">/proc</span></code> is a little bit messy and
+deserves an extra method. Resource classes may encapsulate arbitrary complex
+measurement logic as long they define a <code class="xref py py-meth docutils literal notranslate"><span class="pre">Resource.probe()</span></code> method that
+returns a list of metrics. In the code example shown above, we sprinkle some
+logging statements which show effects when the check is called with an
+increased logging level (discussed below).</p>
+</div>
+</div>
+<div class="section" id="evaluation">
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<p>The <strong class="program">check_load</strong> plugin should accept warning and critical ranges and
+determine if any load value is outside these ranges. Since this kind of logic is
+pretty standard for most of all Nagios/Icinga plugins,
+<a class="reference internal" href="../api/index.html#module-nagiosplugin" title="nagiosplugin"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nagiosplugin</span></code></a> provides a generalized context class for it. It is
+the <a class="reference internal" href="../api/core.html#nagiosplugin.context.ScalarContext" title="nagiosplugin.context.ScalarContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScalarContext</span></code></a> class which accepts a warning
+and a critical range as well as a template to present metric values in a
+human-readable way.</p>
+<p>When <a class="reference internal" href="../api/core.html#nagiosplugin.context.ScalarContext" title="nagiosplugin.context.ScalarContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScalarContext</span></code></a> is sufficient, it may be
+configured during instantiation right in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code> function. A first
+version of the <code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code> function looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">argp</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">)</span>
+    <span class="n">argp</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-w&#39;</span><span class="p">,</span> <span class="s1">&#39;--warning&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;RANGE&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;return warning if load is outside RANGE&#39;</span><span class="p">)</span>
+    <span class="n">argp</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--critical&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;RANGE&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;return critical if load is outside RANGE&#39;</span><span class="p">)</span>
+    <span class="n">argp</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--percpu&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">argp</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">check</span> <span class="o">=</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Check</span><span class="p">(</span>
+        <span class="n">Load</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">percpu</span><span class="p">),</span>
+        <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">ScalarContext</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">critical</span><span class="p">))</span>
+    <span class="n">check</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note that the context name “load” is referenced by all three metrics returned by
+the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Load.probe</span></code> method.</p>
+<p>This version of <strong class="program">check_load</strong> is already functional:</p>
+<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span>$ ./check_load.py
+LOAD OK - load1 is <span class="m">0</span>.11
+<span class="p">|</span> <span class="nv">load15</span><span class="o">=</span><span class="m">0</span>.21<span class="p">;;;</span><span class="m">0</span> <span class="nv">load1</span><span class="o">=</span><span class="m">0</span>.11<span class="p">;;;</span><span class="m">0</span> <span class="nv">load5</span><span class="o">=</span><span class="m">0</span>.18<span class="p">;;;</span><span class="m">0</span>
+
+$ ./check_load.py -c <span class="m">0</span>.1:0.2
+LOAD CRITICAL - load15 is <span class="m">0</span>.22 <span class="o">(</span>outside <span class="m">0</span>.1:0.2<span class="o">)</span>
+<span class="p">|</span> <span class="nv">load15</span><span class="o">=</span><span class="m">0</span>.22<span class="p">;;</span><span class="m">0</span>.1:0.2<span class="p">;</span><span class="m">0</span> <span class="nv">load1</span><span class="o">=</span><span class="m">0</span>.11<span class="p">;;</span><span class="m">0</span>.1:0.2<span class="p">;</span><span class="m">0</span> <span class="nv">load5</span><span class="o">=</span><span class="m">0</span>.2<span class="p">;;</span><span class="m">0</span>.1:0.2<span class="p">;</span><span class="m">0</span>
+<span class="c1"># exit status 2</span>
+
+$ ./check_load.py -c <span class="m">0</span>.1:0.2 -r
+LOAD OK - load1 is <span class="m">0</span>.105
+<span class="p">|</span> <span class="nv">load15</span><span class="o">=</span><span class="m">0</span>.11<span class="p">;;</span><span class="m">0</span>.1:0.2<span class="p">;</span><span class="m">0</span> <span class="nv">load1</span><span class="o">=</span><span class="m">0</span>.105<span class="p">;;</span><span class="m">0</span>.1:0.2<span class="p">;</span><span class="m">0</span> <span class="nv">load5</span><span class="o">=</span><span class="m">0</span>.1<span class="p">;;</span><span class="m">0</span>.1:0.2<span class="p">;</span><span class="m">0</span>
+</pre></div>
+</td></tr></table></div>
+<p>In the first invocation (lines 1–3), <strong class="program">check_load</strong> reports only the
+first load value which looks bit arbitrary. In the second invocation (lines
+5–8), we set a critical threshold. The range specification is parsed
+automatically according to the <a class="reference internal" href="../glossary.html#term-nagios-plugin-api"><span class="xref std std-term">Nagios plugin API</span></a> and the first metric
+that lies outside is reported. In the third invocation (lines 10–12), we
+request normalization and all values fit in the range this time.</p>
+</div>
+<div class="section" id="result-presentation">
+<h2>Result presentation<a class="headerlink" href="#result-presentation" title="Permalink to this headline">¶</a></h2>
+<p>Although we now have a running check, the output is not as informative as it
+could be. The first line of output (status line) is very important since the
+information presented therein should give the admin a clue what is going on.
+We want the first line to display:</p>
+<ul class="simple">
+<li>a load overview when there is nothing wrong</li>
+<li>which load value violates a threshold, if applicable</li>
+<li>which threshold is being violated, if applicable.</li>
+</ul>
+<p>The last two points are already covered by the <a class="reference internal" href="../api/intermediate.html#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> default
+implementation, but we need to tweak the summary to display a load overview
+as stated in the first point:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="k">class</span> <span class="nc">LoadSummary</span><span class="p">(</span><span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Summary</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Status line conveying load information.</span>
+
+<span class="sd">    We specialize the `ok` method to present all three figures in one</span>
+<span class="sd">    handy tagline. In case of problems, the single-load texts from the</span>
+<span class="sd">    contexts work well.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">percpu</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">percpu</span> <span class="o">=</span> <span class="n">percpu</span>
+
+    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+        <span class="n">qualifier</span> <span class="o">=</span> <span class="s1">&#39;per cpu &#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">percpu</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">return</span> <span class="s1">&#39;loadavg </span><span class="si">%s</span><span class="s1">is </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">qualifier</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">metric</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;load1&#39;</span><span class="p">,</span> <span class="s1">&#39;load5&#39;</span><span class="p">,</span> <span class="s1">&#39;load15&#39;</span><span class="p">]))</span>
+
+
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../api/core.html#nagiosplugin.summary.Summary" title="nagiosplugin.summary.Summary"><code class="xref py py-class docutils literal notranslate"><span class="pre">Summary</span></code></a> class has three methods which can be
+specialized: <a class="reference internal" href="../api/core.html#nagiosplugin.summary.Summary.ok" title="nagiosplugin.summary.Summary.ok"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ok()</span></code></a> to return a status line
+when there are no problems, <a class="reference internal" href="../api/core.html#nagiosplugin.summary.Summary.problem" title="nagiosplugin.summary.Summary.problem"><code class="xref py py-meth docutils literal notranslate"><span class="pre">problem()</span></code></a> to
+return a status line when the overall check status indicates problems, and
+<a class="reference internal" href="../api/core.html#nagiosplugin.summary.Summary.verbose" title="nagiosplugin.summary.Summary.verbose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">verbose()</span></code></a> to generate additional output. All
+three methods get a set of <a class="reference internal" href="../api/intermediate.html#nagiosplugin.result.Result" title="nagiosplugin.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> objects passed
+in. In our code, the <code class="xref py py-obj docutils literal notranslate"><span class="pre">ok</span></code> method queries uses the original metrics referenced by
+the result objects to build an overview like “loadavg is 0.19, 0.16, 0.14”.</p>
+</div>
+<div class="section" id="check-setup">
+<h2>Check setup<a class="headerlink" href="#check-setup" title="Permalink to this headline">¶</a></h2>
+<p>The last step in this tutorial is to put the pieces together:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="nd">@nagiosplugin</span><span class="o">.</span><span class="n">guarded</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">argp</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">)</span>
+    <span class="n">argp</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-w&#39;</span><span class="p">,</span> <span class="s1">&#39;--warning&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;RANGE&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;return warning if load is outside RANGE&#39;</span><span class="p">)</span>
+    <span class="n">argp</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--critical&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;RANGE&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;return critical if load is outside RANGE&#39;</span><span class="p">)</span>
+    <span class="n">argp</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--percpu&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">argp</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;increase output verbosity (use up to 3 times)&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">argp</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">check</span> <span class="o">=</span> <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">Check</span><span class="p">(</span>
+        <span class="n">Load</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">percpu</span><span class="p">),</span>
+        <span class="n">nagiosplugin</span><span class="o">.</span><span class="n">ScalarContext</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">critical</span><span class="p">),</span>
+        <span class="n">LoadSummary</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">percpu</span><span class="p">))</span>
+    <span class="n">check</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In the <code class="xref py py-func docutils literal notranslate"><span class="pre">main()</span></code> function we parse the command line parameters using the
+standard <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code> class. Watch the
+<a class="reference internal" href="../api/core.html#nagiosplugin.check.Check" title="nagiosplugin.check.Check"><code class="xref py py-class docutils literal notranslate"><span class="pre">Check</span></code></a> object creation: its constructor can be fed
+with a variable number of <a class="reference internal" href="../api/core.html#nagiosplugin.resource.Resource" title="nagiosplugin.resource.Resource"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></a>,
+<a class="reference internal" href="../api/core.html#nagiosplugin.context.Context" title="nagiosplugin.context.Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Context</span></code></a>, and
+<a class="reference internal" href="../api/core.html#nagiosplugin.summary.Summary" title="nagiosplugin.summary.Summary"><code class="xref py py-class docutils literal notranslate"><span class="pre">Summary</span></code></a> objects. In this tutorial, instances of
+our specialized <code class="xref py py-obj docutils literal notranslate"><span class="pre">Load</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">LoadSummary</span></code> classes go in.</p>
+<p>We did not specialize a <a class="reference internal" href="../api/core.html#nagiosplugin.context.Context" title="nagiosplugin.context.Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Context</span></code></a> class to evaluate
+the load metrics. Instead, we use the supplied
+<a class="reference internal" href="../api/core.html#nagiosplugin.context.ScalarContext" title="nagiosplugin.context.ScalarContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScalarContext</span></code></a> which compares a scalar value
+against two ranges according to the range syntax defined by the Nagios plugin
+API. The default <a class="reference internal" href="../api/core.html#nagiosplugin.context.ScalarContext" title="nagiosplugin.context.ScalarContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScalarContext</span></code></a>
+implementation covers the majority of evaluation needs. Checks using non-scalar
+metrics or requiring special logic should subclass
+<a class="reference internal" href="../api/core.html#nagiosplugin.context.Context" title="nagiosplugin.context.Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Context</span></code></a> to fit their needs.</p>
+<p>The check’s <a class="reference internal" href="../api/core.html#nagiosplugin.check.Check.main" title="nagiosplugin.check.Check.main"><code class="xref py py-meth docutils literal notranslate"><span class="pre">main()</span></code></a> method runs the check, prints
+the check’s output including summary, log messages and <a class="reference internal" href="../glossary.html#term-performance-data"><span class="xref std std-term">performance data</span></a>
+to <em>stdout</em> and exits the plugin with the appropriate exit code.</p>
+<p>Note the <a class="reference internal" href="../api/core.html#nagiosplugin.runtime.guarded" title="nagiosplugin.runtime.guarded"><code class="xref py py-func docutils literal notranslate"><span class="pre">guarded()</span></code></a> decorator in front of the main
+function. It helps the code part outside <a class="reference internal" href="../api/core.html#nagiosplugin.check.Check" title="nagiosplugin.check.Check"><code class="xref py py-class docutils literal notranslate"><span class="pre">Check</span></code></a> to
+behave: in case of uncaught exceptions, it ensures that the exit code is <strong>3</strong>
+(unknown) and that the exception string is properly formatted. Additionally,
+logging is set up at an early stage so that even messages logged from
+constructors are captured and printed at the right place in the output (between
+status line and performance data).</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="check_world.html" class="btn btn-neutral float-left" title="Tutorial #1: ‘Hello world’ check" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="check_users.html" class="btn btn-neutral float-right" title="Tutorial #3: check_users" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Flying Circus Internet Operations GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
