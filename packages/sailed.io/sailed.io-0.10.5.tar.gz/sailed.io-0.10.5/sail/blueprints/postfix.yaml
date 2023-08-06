@@ -1,0 +1,42 @@
+---
+version: 1
+
+# Install Postfix and configure it to relay mail to a third-party SMTP server,
+# great for Mailgun, Gmail SMTP and other services. You can add a from_name and
+# from_email keys to force the From: and Sender: headers used with wp_mail().
+# Note that some SMTP services overwrite the From/Sender headers anyway.
+postfix:
+  mode: relay
+  host: ${{ smtp_host }}
+  port: ${{ smtp_port }}
+  username: ${{ smtp_username }}
+  password: ${{ smtp_password }}
+  from_name: ${{ from_name }}
+  from_email: ${{ from_email }}
+
+vars:
+- name: smtp_host
+  prompt: SMTP host
+  option: --smtp-host
+
+- name: smtp_port
+  prompt: SMTP port
+  default: 587
+  option: --smtp-port
+
+- name: smtp_username
+  prompt: SMTP username
+  option: --smtp-username
+
+- name: smtp_password
+  prompt: SMTP password
+  option: --smtp-password
+
+- name: from_email
+  prompt: Sender e-mail
+  option: --from-email
+
+- name: from_name
+  prompt: Sender name
+  option: --from-name
+  default: WordPress
