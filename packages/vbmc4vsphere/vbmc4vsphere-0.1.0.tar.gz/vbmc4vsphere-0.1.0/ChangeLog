@@ -1,0 +1,70 @@
+CHANGES
+=======
+
+0.1.0
+-----
+
+* release: release of 0.1.0
+* fix: prepare for upcoming rename, move guides to wiki
+* refactor!: rename commands to vsbmc and vsbmcd
+* update: run container as non root
+* fix: add permission for diag and refactor some syntax
+* add: vSphere role info to README.md
+* Update README.md
+
+0.0.8
+-----
+
+* release: release of 0.0.8
+* fix vm filtering if there is more than 100 virtual machines in vcenter
+
+0.0.7
+-----
+
+* release of 0.0.7
+* Add GitHub Actions for PyPI
+* multiprocess fix - default to 'fork' method
+* Update README.md
+* Add Baremetal IPI
+
+0.0.6
+-----
+
+* Add experimental support for diag command
+
+0.0.5
+-----
+
+* Add support for ipmi get/set boot device command
+
+0.0.4
+-----
+
+* Add docker support
+
+0.0.3
+-----
+
+* Update README.md
+* Update CHANGELOG.md
+* Refactor some comments and codes
+* Add ability to control fake MAC address to pass the sanity check of vCenter Server
+* Add get channel info, channel access, lan configuration parameters support with faked response
+
+0.0.2
+-----
+
+* Change home-page
+* Add CHANGELOG.md
+* Update README.md
+* Add ASF Presence Ping support
+* Remove some unnecessary log
+* Patch pyghmi to support 0x38 in IPMI v2.0
+* Refactor by isort
+* Update README.md
+
+0.0.1
+-----
+
+* Add vSphere support and remove OpenStack support
+* Initial Commit, the latest shallow copy of openstack/virtualbmc@c4c8edb66bc49fcb1b8fb41af77546e06d2e8bce based on 2.1.0.dev
