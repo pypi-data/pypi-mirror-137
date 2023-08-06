@@ -1,0 +1,41 @@
+[package]
+name = "ultrametric_matrix_tools"
+version = "0.1.1"
+authors = ["Andy Oertel <andy.oertel@cs.lth.se>"]
+edition = "2021"
+license = "Apache-2.0"
+readme = "README.md"
+description = "Toolbox that provides functions and data structures to generate and handle ultrametric matrices."
+keywords = ["math", "linear", "algebra", "ultrametric tree", "ultrametric matrix"]
+
+[lib]
+name = "ultrametric_matrix_tools"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+nalgebra = "0.29.0"
+ptree = "0.3.2"
+numpy = "0.14.1"
+ndarray = "0.15.3"
+rand = "0.8.4"
+
+[dependencies.pyo3]
+version = "0.14.5"
+features = ["extension-module", "abi3-py36"]
+
+[dev-dependencies]
+criterion = "0.3.5"
+csv = "1.1.6"
+
+[[bench]]
+name = "single_multiplication"
+harness = false
+
+[[bench]]
+name = "multiple_multiplication"
+harness = false
+
+[[bench]]
+name = "jacobi_method"
+harness = false
