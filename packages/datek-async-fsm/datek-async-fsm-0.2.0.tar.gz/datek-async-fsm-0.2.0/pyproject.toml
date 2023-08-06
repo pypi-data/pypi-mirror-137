@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "datek-async-fsm"
+version = "0.2.0"
+description = "Asynchronous Finite State Machine"
+authors = ["Attila Dudas"]
+include = ["README.md"]
+readme = "README.md"
+repository = "https://github.com/DAtek/datek-async-fsm/"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+pytest = "^6.2.5"
+pytest-cov = "^2.12.1"
+pytest-asyncio = "^0.15.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
