@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Installation &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="PyDy’s Documentation" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="PyDy’s Documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>We recommend the <a class="reference external" href="http://conda.pydata.org/">conda</a> package manager and the <a class="reference external" href="http://docs.continuum.io/anaconda/">Anaconda</a> or <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>
+distributions for easy cross platform installation.</p>
+<p>Once Anaconda (or Miniconda) is installed type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda install -c conda-forge pydy
+</pre></div>
+</div>
+<p>Also, a simple way to install all of the optional dependencies is to install
+the <code class="docutils literal notranslate"><span class="pre">pydy-optional</span></code> metapackage using conda:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda install -c conda-forge pydy-optional
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">pydy-optional</span></code> currently enforces the use of Jupyter 4.0, so you
+may not want to install into your root environment. Create a new environment
+for working with PyDy examples that use the embedded Jupyter visualizations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda create -n pydy -c conda-forge pydy-optional
+$ conda activate pydy
+(pydy)$ python -c &quot;import pydy; print(pydy.__version__)&quot;
+</pre></div>
+</div>
+<section id="other-installation-options">
+<h2>Other installation options<a class="headerlink" href="#other-installation-options" title="Permalink to this headline">¶</a></h2>
+<p>If you have the pip package manager installed you can type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install pydy
+</pre></div>
+</div>
+<p>Installing from source is also supported. The latest stable version of the
+package can be downloaded from PyPi<a class="footnote-reference brackets" href="#id2" id="id1">1</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget https://pypi.python.org/packages/source/p/pydy/pydy-X.X.X.tar.gz
+</pre></div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Change <code class="docutils literal notranslate"><span class="pre">X.X.X</span></code> to the latest version number.</p>
+</dd>
+</dl>
+<p>and extracted and installed<a class="footnote-reference brackets" href="#id4" id="id3">2</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tar -zxvf pydy-X.X.X.tar.gz
+$ cd pydy-X.X.X
+$ python setup.py install
+</pre></div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>For system wide installs you may need root permissions (perhaps prepend
+commands with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>).</p>
+</dd>
+</dl>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>PyDy has hard dependencies on the following software<a class="footnote-reference brackets" href="#id6" id="id5">3</a>:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id5">3</a></span></dt>
+<dd><p>We only test PyDy with these minimum dependencies; these module versions
+are provided in the Ubuntu 20.04 packages. Previous versions may work.</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>Python &gt;= 3.7</p></li>
+<li><p>setuptools &gt;= 44.0.0</p></li>
+<li><p><a href="#id7"><span class="problematic" id="id8">NumPy_</span></a> &gt;= 1.16.5</p></li>
+<li><p><a href="#id9"><span class="problematic" id="id10">SciPy_</span></a> &gt;= 1.3.3</p></li>
+<li><p><a href="#id11"><span class="problematic" id="id12">SymPy_</span></a> &gt;= 1.5.1</p></li>
+<li><p>PyWin32 &gt;= 219 (Windows Only)</p></li>
+</ul>
+<p>PyDy has optional dependencies for extended code generation on:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://cython.org/">Cython</a> &gt;= 0.29.14</p></li>
+<li><p><a class="reference external" href="http://deeplearning.net/software/theano/">Theano</a> &gt;= 1.0.4</p></li>
+</ul>
+<p>and animated visualizations with <code class="docutils literal notranslate"><span class="pre">Scene.display_jupyter()</span></code> on:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jupyter-notebook.readthedocs.io">Jupyter Notebook</a> &gt;= 6.0.0 or <cite>Jupyter Lab</cite> &gt;= 1.0.0</p></li>
+<li><p><a href="#id13"><span class="problematic" id="id14">ipywidgets_</span></a> &gt;= 6.0.0</p></li>
+<li><p><a href="#id15"><span class="problematic" id="id16">pythreejs_</span></a> &gt;= 2.1.1</p></li>
+</ul>
+<p>or interactive animated visualizations with <code class="docutils literal notranslate"><span class="pre">Scene.display_ipython()</span></code> on:</p>
+<ul class="simple">
+<li><p>4.0.0 &lt;= <a class="reference external" href="https://jupyter-notebook.readthedocs.io">Jupyter Notebook</a> &lt; 5.0.0</p></li>
+<li><p>4.0.0 &lt;= <a href="#id17"><span class="problematic" id="id18">ipywidgets_</span></a> &lt; 5.0.0</p></li>
+</ul>
+<p>The examples may require these dependencies:</p>
+<ul class="simple">
+<li><p><a href="#id19"><span class="problematic" id="id20">matplotlib_</span></a> &gt;= 3.1.2</p></li>
+<li><p><a class="reference external" href="https://pypi.python.org/pypi/version_information">version_information</a></p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#other-installation-options">Other installation options</a></li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">PyDy’s Documentation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="usage.html"
+                          title="next chapter">Usage</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/install.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="PyDy’s Documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

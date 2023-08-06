@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>DynamicsVisualizer.Scene &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="DynamicsVisualizer.ParamEditor" href="param_editor.html" />
+    <link rel="prev" title="DynamicVisualizer.Parser" href="parser.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="param_editor.html" title="DynamicsVisualizer.ParamEditor"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="parser.html" title="DynamicVisualizer.Parser"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../javascript_api.html" accesskey="U">JavaScript Classes Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">DynamicsVisualizer.Scene</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="dynamicsvisualizer-scene">
+<h1>DynamicsVisualizer.Scene<a class="headerlink" href="#dynamicsvisualizer-scene" title="Permalink to this headline">¶</a></h1>
+<section id="create">
+<h2>create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>This method creates the scene
+from the self.model
+and renders it onto the canvas.</p>
+</section>
+<section id="createrenderer">
+<h2>_createRenderer<a class="headerlink" href="#createrenderer" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<dl class="simple">
+<dt>Creates a webGL Renderer</dt><dd><p>with a default background color.</p>
+</dd>
+</dl>
+</section>
+<section id="adddefaultlightsandcameras">
+<h2>_addDefaultLightsandCameras<a class="headerlink" href="#adddefaultlightsandcameras" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>This method adds a default light
+and a Perspective camera to the
+initial visualization</p>
+</section>
+<section id="addaxes">
+<h2>_addAxes<a class="headerlink" href="#addaxes" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>Adds a default system of axes
+to the initial visualization.</p>
+</section>
+<section id="addtrackballcontrols">
+<h2>_addTrackBallControls<a class="headerlink" href="#addtrackballcontrols" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>Adds Mouse controls
+to the initial visualization
+using Three’s TrackballControls library.</p>
+</section>
+<section id="resetcontrols">
+<h2>_resetControls<a class="headerlink" href="#resetcontrols" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>Resets the scene camera to
+the initial values(zoom, displacement etc.)</p>
+</section>
+<section id="addobjects">
+<h2>addObjects<a class="headerlink" href="#addobjects" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>Adds the geometries
+loaded from the JSON file
+onto the scene. The file is
+saved as an object in self.model
+and then rendered to canvas with this
+function.</p>
+</section>
+<section id="addcameras">
+<h2>addCameras<a class="headerlink" href="#addcameras" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>Adds the cameras
+loaded from the JSON file
+onto the scene. The cameras
+can be switched during animation
+from the <cite>switch cameras</cite> UI button.</p>
+</section>
+<section id="addlights">
+<h2>addLights<a class="headerlink" href="#addlights" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>Adds the Lights
+loaded from the JSON file
+onto the scene.</p>
+</section>
+<section id="addindividualobject">
+<h2>_addIndividualObject<a class="headerlink" href="#addindividualobject" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: JS object, { object }</p>
+<p>Adds a single geometry object
+which is taken as an argument
+to this function.</p>
+</section>
+<section id="addindividualcamera">
+<h2>_addIndividualCamera<a class="headerlink" href="#addindividualcamera" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: JS object, { object }</p>
+<p>Adds a single camera object
+which is taken as an argument
+to this function.</p>
+</section>
+<section id="addindividuallight">
+<h2>_addIndividualLight<a class="headerlink" href="#addindividuallight" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: JS object, { object }</p>
+<p>Adds a single light object
+which is taken as an argument
+to this function.</p>
+</section>
+<section id="runanimation">
+<h2>runAnimation<a class="headerlink" href="#runanimation" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>This function iterates over the
+the simulation data to render them
+on the canvas.</p>
+</section>
+<section id="setanimationtime">
+<h2>setAnimationTime<a class="headerlink" href="#setanimationtime" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: time, (float)</p>
+<p>Takes a time value as the argument
+and renders the simulation data
+corresponding to that time value.</p>
+</section>
+<section id="stopanimation">
+<h2>stopAnimation<a class="headerlink" href="#stopanimation" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>Stops the animation, and
+sets the current time value to initial.</p>
+</section>
+<section id="removeall">
+<h2>_removeAll<a class="headerlink" href="#removeall" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: None</p>
+<p>Removes all the geometry elements
+added to the scene from the loaded scene
+JSON file. Keeps the default elements, i.e.
+default axis, camera and light.</p>
+</section>
+<section id="blink">
+<h2>_blink<a class="headerlink" href="#blink" title="Permalink to this headline">¶</a></h2>
+<p><em>args</em>: id, (int)
+Blinks the geometry element.
+takes the element simulation_id as the
+argument and blinks it until some event is
+triggered(UI button press)</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">DynamicsVisualizer.Scene</a><ul>
+<li><a class="reference internal" href="#create">create</a></li>
+<li><a class="reference internal" href="#createrenderer">_createRenderer</a></li>
+<li><a class="reference internal" href="#adddefaultlightsandcameras">_addDefaultLightsandCameras</a></li>
+<li><a class="reference internal" href="#addaxes">_addAxes</a></li>
+<li><a class="reference internal" href="#addtrackballcontrols">_addTrackBallControls</a></li>
+<li><a class="reference internal" href="#resetcontrols">_resetControls</a></li>
+<li><a class="reference internal" href="#addobjects">addObjects</a></li>
+<li><a class="reference internal" href="#addcameras">addCameras</a></li>
+<li><a class="reference internal" href="#addlights">addLights</a></li>
+<li><a class="reference internal" href="#addindividualobject">_addIndividualObject</a></li>
+<li><a class="reference internal" href="#addindividualcamera">_addIndividualCamera</a></li>
+<li><a class="reference internal" href="#addindividuallight">_addIndividualLight</a></li>
+<li><a class="reference internal" href="#runanimation">runAnimation</a></li>
+<li><a class="reference internal" href="#setanimationtime">setAnimationTime</a></li>
+<li><a class="reference internal" href="#stopanimation">stopAnimation</a></li>
+<li><a class="reference internal" href="#removeall">_removeAll</a></li>
+<li><a class="reference internal" href="#blink">_blink</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="parser.html"
+                          title="previous chapter">DynamicVisualizer.Parser</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="param_editor.html"
+                          title="next chapter">DynamicsVisualizer.ParamEditor</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/viz/jsmodules/scene.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="param_editor.html" title="DynamicsVisualizer.ParamEditor"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="parser.html" title="DynamicVisualizer.Parser"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../javascript_api.html" >JavaScript Classes Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">DynamicsVisualizer.Scene</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

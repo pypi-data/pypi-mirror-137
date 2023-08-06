@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pydy.models &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.models</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pydy.models</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;This module contains some sample symbolic models used for testing and</span>
+<span class="sd">examples.&quot;&quot;&quot;</span>
+
+<span class="c1"># external libraries</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">sympy.physics.mechanics</span> <span class="k">as</span> <span class="nn">me</span>
+
+<span class="c1"># local</span>
+<span class="kn">from</span> <span class="nn">.system</span> <span class="kn">import</span> <span class="n">System</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">sympy_newer_than</span>
+
+
+<div class="viewcode-block" id="multi_mass_spring_damper"><a class="viewcode-back" href="../../models.html#pydy.models.multi_mass_spring_damper">[docs]</a><span class="k">def</span> <span class="nf">multi_mass_spring_damper</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">apply_gravity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                             <span class="n">apply_external_forces</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a system containing the symbolic equations of motion and</span>
+<span class="sd">    associated variables for a simple mutli-degree of freedom point mass,</span>
+<span class="sd">    spring, damper system with optional gravitational and external</span>
+<span class="sd">    specified forces. For example, a two mass system under the influence of</span>
+<span class="sd">    gravity and external forces looks like:</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        ----------------</span>
+<span class="sd">         |     |     |   | g</span>
+<span class="sd">         \    | |    |   V</span>
+<span class="sd">      k0 /    --- c0 |</span>
+<span class="sd">         |     |     | x0, v0</span>
+<span class="sd">        ---------    V</span>
+<span class="sd">        |  m0   | -----</span>
+<span class="sd">        ---------    |</span>
+<span class="sd">         | |   |     |</span>
+<span class="sd">         \ v  | |    |</span>
+<span class="sd">      k1 / f0 --- c1 |</span>
+<span class="sd">         |     |     | x1, v1</span>
+<span class="sd">        ---------    V</span>
+<span class="sd">        |  m1   | -----</span>
+<span class="sd">        ---------</span>
+<span class="sd">           | f1</span>
+<span class="sd">           V</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n : integer</span>
+<span class="sd">        The number of masses in the serial chain.</span>
+<span class="sd">    apply_gravity : boolean</span>
+<span class="sd">        If true, gravity will be applied to each mass.</span>
+<span class="sd">    apply_external_forces : boolean</span>
+<span class="sd">        If true, a time varying external force will be applied to each mass.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    system : pydy.system.System</span>
+<span class="sd">        A system constructed from the KanesMethod object.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">stiffness</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;k:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">damping</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;c:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+    <span class="n">acceleration_due_to_gravity</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+
+    <span class="n">coordinates</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;x:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">speeds</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;v:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">specifieds</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;f:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+    <span class="n">ceiling</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+    <span class="n">origin</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">)</span>
+    <span class="n">origin</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">ceiling</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">origin</span><span class="p">]</span>
+    <span class="n">kinematic_equations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">particles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">forces</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+
+        <span class="n">center</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;center</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+                                      <span class="n">coordinates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">ceiling</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">center</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">ceiling</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">ceiling</span><span class="p">)</span> <span class="o">+</span>
+                       <span class="n">speeds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">ceiling</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+
+        <span class="n">block</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Particle</span><span class="p">(</span><span class="s1">&#39;block</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">center</span><span class="p">,</span> <span class="n">mass</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="n">kinematic_equations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">speeds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">coordinates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">())</span>
+
+        <span class="n">total_force</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">stiffness</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">coordinates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span>
+                       <span class="n">damping</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">speeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">total_force</span> <span class="o">+=</span> <span class="p">(</span><span class="n">stiffness</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">coordinates</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span>
+                            <span class="n">damping</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">speeds</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>  <span class="c1"># no force from below on last mass</span>
+            <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="n">apply_gravity</span><span class="p">:</span>
+            <span class="n">total_force</span> <span class="o">+=</span> <span class="n">mass</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">acceleration_due_to_gravity</span>
+
+        <span class="k">if</span> <span class="n">apply_external_forces</span><span class="p">:</span>
+            <span class="n">total_force</span> <span class="o">+=</span> <span class="n">specifieds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">forces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">center</span><span class="p">,</span> <span class="n">total_force</span> <span class="o">*</span> <span class="n">ceiling</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+
+        <span class="n">particles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+
+    <span class="n">kane</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">KanesMethod</span><span class="p">(</span><span class="n">ceiling</span><span class="p">,</span> <span class="n">q_ind</span><span class="o">=</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">u_ind</span><span class="o">=</span><span class="n">speeds</span><span class="p">,</span>
+                          <span class="n">kd_eqs</span><span class="o">=</span><span class="n">kinematic_equations</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sympy_newer_than</span><span class="p">(</span><span class="s1">&#39;1.0&#39;</span><span class="p">):</span>
+        <span class="n">kane</span><span class="o">.</span><span class="n">kanes_equations</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">forces</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">kane</span><span class="o">.</span><span class="n">kanes_equations</span><span class="p">(</span><span class="n">forces</span><span class="p">,</span> <span class="n">particles</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">System</span><span class="p">(</span><span class="n">kane</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="n_link_pendulum_on_cart"><a class="viewcode-back" href="../../models.html#pydy.models.n_link_pendulum_on_cart">[docs]</a><span class="k">def</span> <span class="nf">n_link_pendulum_on_cart</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cart_force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">joint_torques</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the system containing the symbolic first order equations of</span>
+<span class="sd">    motion for a 2D n-link pendulum on a sliding cart under the influence of</span>
+<span class="sd">    gravity.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">          |</span>
+<span class="sd">          v   y    o</span>
+<span class="sd">          g   ^   /</span>
+<span class="sd">              |  /</span>
+<span class="sd">          ----|-/--  theta0</span>
+<span class="sd">          |   |/  |</span>
+<span class="sd">      F-&gt; |   o --|---&gt; x</span>
+<span class="sd">          |       |</span>
+<span class="sd">          ---------</span>
+<span class="sd">           o     o</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n : integer</span>
+<span class="sd">        The number of links in the pendulum.</span>
+<span class="sd">    cart_force : boolean, default=True</span>
+<span class="sd">        If true an external specified lateral force is applied to the cart.</span>
+<span class="sd">    joint_torques : boolean, default=False</span>
+<span class="sd">        If true joint torques will be added as specified inputs at each</span>
+<span class="sd">        joint.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    system : pydy.system.System</span>
+<span class="sd">        The system containing the symbolics.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The degrees of freedom of the system are n + 1, i.e. one for each</span>
+<span class="sd">    pendulum link and one for the lateral motion of the cart.</span>
+
+<span class="sd">    M x&#39; = F, where x = [u0, ..., un+1, q0, ..., qn+1]</span>
+
+<span class="sd">    The joint angles are all defined relative to the ground where the x axis</span>
+<span class="sd">    defines the ground line and the y axis points up. The joint torques are</span>
+<span class="sd">    applied between each adjacent link and the between the cart and the</span>
+<span class="sd">    lower link where a positive torque corresponds to positive angle.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The number of links must be a positive integer.&#39;</span><span class="p">)</span>
+
+    <span class="n">q</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;u:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">joint_torques</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;T1:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;l:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">g</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;g t&#39;</span><span class="p">)</span>
+
+    <span class="n">I</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)</span>
+    <span class="n">O</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+    <span class="n">O</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">P0</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="s1">&#39;P0&#39;</span><span class="p">)</span>
+    <span class="n">P0</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">P0</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">Pa0</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Particle</span><span class="p">(</span><span class="s1">&#39;Pa0&#39;</span><span class="p">,</span> <span class="n">P0</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">I</span><span class="p">]</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">P0</span><span class="p">]</span>
+    <span class="n">particles</span> <span class="o">=</span> <span class="p">[</span><span class="n">Pa0</span><span class="p">]</span>
+    <span class="n">forces</span> <span class="o">=</span> <span class="p">[(</span><span class="n">P0</span><span class="p">,</span> <span class="o">-</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">y</span><span class="p">)]</span>
+    <span class="n">kindiffs</span> <span class="o">=</span> <span class="p">[</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+    <span class="k">if</span> <span class="n">cart_force</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">joint_torques</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">specified</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">specified</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">Bi</span> <span class="o">=</span> <span class="n">I</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">I</span><span class="o">.</span><span class="n">z</span><span class="p">])</span>
+        <span class="n">Bi</span><span class="o">.</span><span class="n">set_ang_vel</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Bi</span><span class="p">)</span>
+
+        <span class="n">Pi</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">Bi</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">Pi</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">I</span><span class="p">,</span> <span class="n">Bi</span><span class="p">)</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pi</span><span class="p">)</span>
+
+        <span class="n">Pai</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Particle</span><span class="p">(</span><span class="s1">&#39;Pa&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">Pi</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">particles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pai</span><span class="p">)</span>
+
+        <span class="n">forces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">Pi</span><span class="p">,</span> <span class="o">-</span><span class="n">m</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">joint_torques</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="n">specified</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">forces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">I</span><span class="p">,</span> <span class="o">-</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">forces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">Bi</span><span class="p">,</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">forces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">Bi</span><span class="p">,</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
+
+        <span class="n">kindiffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">cart_force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+        <span class="n">forces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">P0</span><span class="p">,</span> <span class="n">F</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">specified</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+
+    <span class="n">kane</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">KanesMethod</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">q_ind</span><span class="o">=</span><span class="n">q</span><span class="p">,</span> <span class="n">u_ind</span><span class="o">=</span><span class="n">u</span><span class="p">,</span> <span class="n">kd_eqs</span><span class="o">=</span><span class="n">kindiffs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sympy_newer_than</span><span class="p">(</span><span class="s1">&#39;1.0&#39;</span><span class="p">):</span>
+        <span class="n">kane</span><span class="o">.</span><span class="n">kanes_equations</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">forces</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">kane</span><span class="o">.</span><span class="n">kanes_equations</span><span class="p">(</span><span class="n">forces</span><span class="p">,</span> <span class="n">particles</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">System</span><span class="p">(</span><span class="n">kane</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.models</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

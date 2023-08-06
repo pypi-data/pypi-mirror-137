@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>models &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="system" href="system.html" />
+    <link rel="prev" title="codegen" href="codegen.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="system.html" title="system"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="codegen.html" title="codegen"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">models</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="models">
+<h1>models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-pydy.models" title="pydy.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pydy.models</span></code></a> file provides canned symbolic models of classical
+dynamic systems that are mostly for testing and example purposes. There are
+currently two models:</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pydy.models.multi_mass_spring_damper" title="pydy.models.multi_mass_spring_damper"><code class="xref py py-func docutils literal notranslate"><span class="pre">multi_mass_spring_damper()</span></code></a></dt><dd><p>A one dimensional series of masses connected by linear dampers and springs
+that can optionally be under the influence of gravity and an arbitrary
+force.</p>
+</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">n_link_pendulum_on_a_cart()</span></code></dt><dd><p>This is an extension to the classic two dimensional inverted pendulum on a
+cart to multiple links. You can optionally apply an arbitrary lateral
+force to the cart and/or apply arbitrary torques between each link.</p>
+</dd>
+</dl>
+</section>
+<section id="example-use">
+<h2>Example Use<a class="headerlink" href="#example-use" title="Permalink to this headline">¶</a></h2>
+<p>A simple one degree of freedom mass spring damper system can be created with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pydy.models</span> <span class="kn">import</span> <span class="n">multi_mass_spring_damper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">multi_mass_spring_damper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">constants_symbols</span>
+<span class="go">{m0, c0, k0}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">coordinates</span>
+<span class="go">[x0(t)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">speeds</span>
+<span class="go">[v0(t)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+<span class="go">Matrix([</span>
+<span class="go">[                    v0(t)],</span>
+<span class="go">[(-c0*v0(t) - k0*x0(t))/m0]])</span>
+</pre></div>
+</div>
+<p>A two degree of freedom mass spring damper system under the influence of
+gravity and two external forces can be created with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">multi_mass_spring_damper</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">constants_symbols</span>
+<span class="go">{c1, m1, k0, c0, k1, m0, g}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">coordinates</span>
+<span class="go">[x0(t), x1(t)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">speeds</span>
+<span class="go">[v0(t), v1(t)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">specifieds_symbols</span>
+<span class="go">{f0(t), f1(t)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">simplify</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sm</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">rhs</span><span class="p">())</span>
+<span class="go">Matrix([</span>
+<span class="go">[                                                                                                              v0(t)],</span>
+<span class="go">[                                                                                                              v1(t)],</span>
+<span class="go">[                                                     (-c0*v0(t) + c1*v1(t) + g*m0 - k0*x0(t) + k1*x1(t) + f0(t))/m0],</span>
+<span class="go">[-(m1*(-c0*v0(t) + g*m0 + g*m1 - k0*x0(t) + f0(t) + f1(t)) + (m0 + m1)*(c1*v1(t) - g*m1 + k1*x1(t) - f1(t)))/(m0*m1)]])</span>
+</pre></div>
+</div>
+</section>
+<section id="module-pydy.models">
+<span id="api"></span><h2>API<a class="headerlink" href="#module-pydy.models" title="Permalink to this headline">¶</a></h2>
+<p>This module contains some sample symbolic models used for testing and
+examples.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pydy.models.multi_mass_spring_damper">
+<span class="sig-prename descclassname"><span class="pre">pydy.models.</span></span><span class="sig-name descname"><span class="pre">multi_mass_spring_damper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_external_forces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/models.html#multi_mass_spring_damper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.models.multi_mass_spring_damper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a system containing the symbolic equations of motion and
+associated variables for a simple mutli-degree of freedom point mass,
+spring, damper system with optional gravitational and external
+specified forces. For example, a two mass system under the influence of
+gravity and external forces looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="o">----------------</span>
+   <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>   <span class="o">|</span> <span class="n">g</span>
+   \    <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>   <span class="n">V</span>
+<span class="n">k0</span> <span class="o">/</span>    <span class="o">---</span> <span class="n">c0</span> <span class="o">|</span>
+   <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span>
+  <span class="o">---------</span>    <span class="n">V</span>
+  <span class="o">|</span>  <span class="n">m0</span>   <span class="o">|</span> <span class="o">-----</span>
+  <span class="o">---------</span>    <span class="o">|</span>
+   <span class="o">|</span> <span class="o">|</span>   <span class="o">|</span>     <span class="o">|</span>
+   \ <span class="n">v</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>
+<span class="n">k1</span> <span class="o">/</span> <span class="n">f0</span> <span class="o">---</span> <span class="n">c1</span> <span class="o">|</span>
+   <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span> <span class="n">x1</span><span class="p">,</span> <span class="n">v1</span>
+  <span class="o">---------</span>    <span class="n">V</span>
+  <span class="o">|</span>  <span class="n">m1</span>   <span class="o">|</span> <span class="o">-----</span>
+  <span class="o">---------</span>
+     <span class="o">|</span> <span class="n">f1</span>
+     <span class="n">V</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n</strong><span class="classifier">integer</span></dt><dd><p>The number of masses in the serial chain.</p>
+</dd>
+<dt><strong>apply_gravity</strong><span class="classifier">boolean</span></dt><dd><p>If true, gravity will be applied to each mass.</p>
+</dd>
+<dt><strong>apply_external_forces</strong><span class="classifier">boolean</span></dt><dd><p>If true, a time varying external force will be applied to each mass.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>system</strong><span class="classifier">pydy.system.System</span></dt><dd><p>A system constructed from the KanesMethod object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pydy.models.n_link_pendulum_on_cart">
+<span class="sig-prename descclassname"><span class="pre">pydy.models.</span></span><span class="sig-name descname"><span class="pre">n_link_pendulum_on_cart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cart_force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">joint_torques</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/models.html#n_link_pendulum_on_cart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.models.n_link_pendulum_on_cart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the system containing the symbolic first order equations of
+motion for a 2D n-link pendulum on a sliding cart under the influence of
+gravity.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="o">|</span>
+    <span class="n">v</span>   <span class="n">y</span>    <span class="n">o</span>
+    <span class="n">g</span>   <span class="o">^</span>   <span class="o">/</span>
+        <span class="o">|</span>  <span class="o">/</span>
+    <span class="o">----|-/--</span>  <span class="n">theta0</span>
+    <span class="o">|</span>   <span class="o">|/</span>  <span class="o">|</span>
+<span class="n">F</span><span class="o">-&gt;</span> <span class="o">|</span>   <span class="n">o</span> <span class="o">--|---&gt;</span> <span class="n">x</span>
+    <span class="o">|</span>       <span class="o">|</span>
+    <span class="o">---------</span>
+     <span class="n">o</span>     <span class="n">o</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n</strong><span class="classifier">integer</span></dt><dd><p>The number of links in the pendulum.</p>
+</dd>
+<dt><strong>cart_force</strong><span class="classifier">boolean, default=True</span></dt><dd><p>If true an external specified lateral force is applied to the cart.</p>
+</dd>
+<dt><strong>joint_torques</strong><span class="classifier">boolean, default=False</span></dt><dd><p>If true joint torques will be added as specified inputs at each
+joint.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>system</strong><span class="classifier">pydy.system.System</span></dt><dd><p>The system containing the symbolics.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The degrees of freedom of the system are n + 1, i.e. one for each
+pendulum link and one for the lateral motion of the cart.</p>
+<p>M x’ = F, where x = [u0, …, un+1, q0, …, qn+1]</p>
+<p>The joint angles are all defined relative to the ground where the x axis
+defines the ground line and the y axis points up. The joint torques are
+applied between each adjacent link and the between the cart and the
+lower link where a positive torque corresponds to positive angle.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">models</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#example-use">Example Use</a></li>
+<li><a class="reference internal" href="#module-pydy.models">API</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="codegen.html"
+                          title="previous chapter">codegen</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="system.html"
+                          title="next chapter">system</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/models.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="system.html" title="system"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="codegen.html" title="codegen"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">models</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

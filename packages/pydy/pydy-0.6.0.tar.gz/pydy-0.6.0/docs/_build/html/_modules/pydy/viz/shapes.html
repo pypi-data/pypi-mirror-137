@@ -1,0 +1,1019 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pydy.viz.shapes &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.viz.shapes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pydy.viz.shapes</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pythreejs</span> <span class="k">as</span> <span class="nn">p3js</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">p3js</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+           <span class="s1">&#39;Box&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Circle&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Cone&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Cube&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Cylinder&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Icosahedron&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Octahedron&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Plane&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Sphere&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Tetrahedron&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Torus&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;TorusKnot&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Tube&#39;</span>
+           <span class="p">]</span>
+
+
+<span class="c1"># This is a list of ColorKeywords from THREE.js</span>
+<span class="n">THREE_COLORKEYWORDS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aliceblue&#39;</span><span class="p">,</span> <span class="s1">&#39;antiquewhite&#39;</span><span class="p">,</span> <span class="s1">&#39;aqua&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;aquamarine&#39;</span><span class="p">,</span> <span class="s1">&#39;azure&#39;</span><span class="p">,</span> <span class="s1">&#39;beige&#39;</span><span class="p">,</span> <span class="s1">&#39;bisque&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;blanchedalmond&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;blueviolet&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;burlywood&#39;</span><span class="p">,</span> <span class="s1">&#39;cadetblue&#39;</span><span class="p">,</span> <span class="s1">&#39;chartreuse&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;coral&#39;</span><span class="p">,</span> <span class="s1">&#39;cornflowerblue&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;cornsilk&#39;</span><span class="p">,</span> <span class="s1">&#39;crimson&#39;</span><span class="p">,</span> <span class="s1">&#39;cyan&#39;</span><span class="p">,</span> <span class="s1">&#39;darkblue&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;darkcyan&#39;</span><span class="p">,</span> <span class="s1">&#39;darkgoldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;darkgray&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;darkgrey&#39;</span><span class="p">,</span> <span class="s1">&#39;darkkhaki&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;darkmagenta&#39;</span><span class="p">,</span> <span class="s1">&#39;darkolivegreen&#39;</span><span class="p">,</span> <span class="s1">&#39;darkorange&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;darkorchid&#39;</span><span class="p">,</span> <span class="s1">&#39;darkred&#39;</span><span class="p">,</span> <span class="s1">&#39;darksalmon&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;darkseagreen&#39;</span><span class="p">,</span> <span class="s1">&#39;darkslateblue&#39;</span><span class="p">,</span> <span class="s1">&#39;darkslategray&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;darkslategrey&#39;</span><span class="p">,</span> <span class="s1">&#39;darkturquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;darkviolet&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;deeppink&#39;</span><span class="p">,</span> <span class="s1">&#39;deepskyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;dimgray&#39;</span><span class="p">,</span> <span class="s1">&#39;dimgrey&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;dodgerblue&#39;</span><span class="p">,</span> <span class="s1">&#39;firebrick&#39;</span><span class="p">,</span> <span class="s1">&#39;floralwhite&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;forestgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;fuchsia&#39;</span><span class="p">,</span> <span class="s1">&#39;gainsboro&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;ghostwhite&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;goldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;greenyellow&#39;</span><span class="p">,</span> <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="s1">&#39;honeydew&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;hotpink&#39;</span><span class="p">,</span> <span class="s1">&#39;indianred&#39;</span><span class="p">,</span> <span class="s1">&#39;indigo&#39;</span><span class="p">,</span> <span class="s1">&#39;ivory&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;khaki&#39;</span><span class="p">,</span> <span class="s1">&#39;lavender&#39;</span><span class="p">,</span> <span class="s1">&#39;lavenderblush&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="s1">&#39;lemonchiffon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightblue&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;lightcoral&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcyan&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;lightgoldenrodyellow&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgray&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgrey&#39;</span><span class="p">,</span> <span class="s1">&#39;lightpink&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;lightsalmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightseagreen&#39;</span><span class="p">,</span> <span class="s1">&#39;lightskyblue&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;lightslategray&#39;</span><span class="p">,</span> <span class="s1">&#39;lightslategrey&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;lightsteelblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightyellow&#39;</span><span class="p">,</span> <span class="s1">&#39;lime&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;limegreen&#39;</span><span class="p">,</span> <span class="s1">&#39;linen&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;maroon&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;mediumaquamarine&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumblue&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;mediumorchid&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumpurple&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumseagreen&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;mediumslateblue&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumspringgreen&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;mediumturquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumvioletred&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;midnightblue&#39;</span><span class="p">,</span> <span class="s1">&#39;mintcream&#39;</span><span class="p">,</span> <span class="s1">&#39;mistyrose&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;moccasin&#39;</span><span class="p">,</span> <span class="s1">&#39;navajowhite&#39;</span><span class="p">,</span> <span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="s1">&#39;oldlace&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;olive&#39;</span><span class="p">,</span> <span class="s1">&#39;olivedrab&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;orangered&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;orchid&#39;</span><span class="p">,</span> <span class="s1">&#39;palegoldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;palegreen&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;paleturquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;palevioletred&#39;</span><span class="p">,</span> <span class="s1">&#39;papayawhip&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;peachpuff&#39;</span><span class="p">,</span> <span class="s1">&#39;peru&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;plum&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;powderblue&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;rosybrown&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;royalblue&#39;</span><span class="p">,</span> <span class="s1">&#39;saddlebrown&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;sandybrown&#39;</span><span class="p">,</span> <span class="s1">&#39;seagreen&#39;</span><span class="p">,</span> <span class="s1">&#39;seashell&#39;</span><span class="p">,</span> <span class="s1">&#39;sienna&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;silver&#39;</span><span class="p">,</span> <span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;slateblue&#39;</span><span class="p">,</span> <span class="s1">&#39;slategray&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;slategrey&#39;</span><span class="p">,</span> <span class="s1">&#39;snow&#39;</span><span class="p">,</span> <span class="s1">&#39;springgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;steelblue&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;tan&#39;</span><span class="p">,</span> <span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="s1">&#39;thistle&#39;</span><span class="p">,</span> <span class="s1">&#39;tomato&#39;</span><span class="p">,</span> <span class="s1">&#39;turquoise&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;violet&#39;</span><span class="p">,</span> <span class="s1">&#39;wheat&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;whitesmoke&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;yellowgreen&#39;</span><span class="p">]</span>
+
+<span class="n">MATERIALS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="s2">&quot;checkerboard&quot;</span><span class="p">,</span> <span class="s2">&quot;metal&quot;</span><span class="p">,</span> <span class="s2">&quot;dirt&quot;</span><span class="p">,</span> <span class="s2">&quot;foil&quot;</span><span class="p">,</span> <span class="s2">&quot;water&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;grass&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Shape"><a class="viewcode-back" href="../../../viz/pymodules/shapes.html#pydy.viz.shapes.Shape">[docs]</a><span class="k">class</span> <span class="nc">Shape</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a shape. This is primarily used as a superclass for more</span>
+<span class="sd">    specific shapes like Cube, Cylinder, Sphere etc.</span>
+
+<span class="sd">    Shapes must be associated with a reference frame and a point using the</span>
+<span class="sd">    VisualizationFrame class.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+
+<span class="sd">    name : str, optional</span>
+<span class="sd">        A name assigned to the shape.</span>
+<span class="sd">    color : str, optional</span>
+<span class="sd">        A color string from list of colors in THREE_COLORKEYWORDS</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Shape</span>
+<span class="sd">    &gt;&gt;&gt; s = Shape()</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a = Shape(name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_material_attributes</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;unnamed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="n">material</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                       <span class="s1">&#39;color:&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
+                       <span class="s1">&#39;material:&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">material</span><span class="p">]</span> <span class="o">+</span>
+                      <span class="nb">sorted</span><span class="p">([</span><span class="n">attr</span> <span class="o">+</span> <span class="s1">&#39;:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span> <span class="k">for</span>
+                              <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">attributes</span><span class="p">))</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">attributes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the name attribute of the shape.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the name attribute of the shape.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;name&#39; should be a valid str object.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">new_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the color attribute of the shape.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color</span>
+
+    <span class="nd">@color</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_color</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the color attributes of the shape. This should be a valid</span>
+<span class="sd">        three.js color keyword string.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">new_color</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">THREE_COLORKEYWORDS</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;color&#39; should be a valid Three.js colors string:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">THREE_COLORKEYWORDS</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_color</span> <span class="o">=</span> <span class="n">new_color</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">material</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the material attribute of the shape.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_material</span>
+
+    <span class="nd">@material</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_material</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the material attribute of the shape, i.e. its shine,</span>
+<span class="sd">        brightness, opacity etc.. The material should be a valid material</span>
+<span class="sd">        from the listed MATERIALS. If a shape is attributed as &quot;red&quot; color,</span>
+<span class="sd">        and &quot;water&quot; material, ideally it should have opacity and brightness</span>
+<span class="sd">        properties like that of a red fluid.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">new_material</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MATERIALS</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;material&#39; is not valid. Choose from:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MATERIALS</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_material</span> <span class="o">=</span> <span class="n">new_material</span>
+
+<div class="viewcode-block" id="Shape.generate_dict"><a class="viewcode-back" href="../../../viz/pymodules/shapes.html#pydy.viz.shapes.Shape.generate_dict">[docs]</a>    <span class="k">def</span> <span class="nf">generate_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constant_map</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a dictionary containing all the data associated with the</span>
+<span class="sd">        Shape.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        constant_map : dictionary</span>
+<span class="sd">            If any of the shape&#39;s geometry are defined as SymPy expressions,</span>
+<span class="sd">            then this dictionary should map all SymPy Symbol&#39;s found in the</span>
+<span class="sd">            expressions to floats.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;material&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">material</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span><span class="p">:</span>
+            <span class="n">atr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geom</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">geom</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">atr</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">constant_map</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="c1"># not a SymPy expression</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">geom</span><span class="p">]</span> <span class="o">=</span> <span class="n">atr</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="c1"># can&#39;t convert expression to float</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is an expression, you &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">atr</span><span class="p">)</span> <span class="o">+</span>
+                                <span class="s1">&#39;must provide a mapping to numerical values.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data_dict</span></div>
+
+    <span class="k">def</span> <span class="nf">_p3js_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constant_map</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a PyThreeJS mesh object that corresponds to this shape.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">p3js</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;pythreejs is not installed.&#39;</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_dict</span><span class="p">(</span><span class="n">constant_map</span><span class="o">=</span><span class="n">constant_map</span><span class="p">)</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3js_attribute_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">attrs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">attrs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">geom_attr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">BufferGeometry&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p3js_geometry_type</span><span class="p">)</span>
+            <span class="n">Geometry</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p3js</span><span class="p">,</span> <span class="n">geom_attr</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">geom_attr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">Geometry&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p3js_geometry_type</span><span class="p">)</span>
+            <span class="n">Geometry</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p3js</span><span class="p">,</span> <span class="n">geom_attr</span><span class="p">)</span>
+
+        <span class="n">geometry</span> <span class="o">=</span> <span class="n">Geometry</span><span class="p">(</span><span class="o">**</span><span class="n">attrs</span><span class="p">)</span>
+
+        <span class="c1"># NOTE : For some reason traitlets doesn&#39;t think &#39;grey&#39; is a valid HTML</span>
+        <span class="c1"># color. This workaround should be removed, but deprecation will likely</span>
+        <span class="c1"># be needed.</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;grey&#39;</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span>
+
+        <span class="n">material</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">MeshStandardMaterial</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+                                             <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_p3js_material_attributes</span><span class="p">)</span>
+
+        <span class="n">mesh</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">Mesh</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">,</span>
+                         <span class="n">material</span><span class="o">=</span><span class="n">material</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh</span> <span class="o">=</span> <span class="n">mesh</span>
+
+        <span class="k">return</span> <span class="n">mesh</span></div>
+
+
+<div class="viewcode-block" id="Box"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Box">[docs]</a><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a box of a given size.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    width : float or SymPy expression</span>
+<span class="sd">        Width of the box along the X axis.</span>
+<span class="sd">    height : float or SymPy expression</span>
+<span class="sd">        Height of the box along the Y axis.</span>
+<span class="sd">    depth : float or SymPy expression</span>
+<span class="sd">        Depth of the box along the Z axis.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Box</span>
+<span class="sd">    &gt;&gt;&gt; s = Box(10.0, 5.0, 1.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt;s.width</span>
+<span class="sd">    5.0</span>
+<span class="sd">    &gt;&gt;&gt;s.height</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &gt;&gt;&gt;s.depth</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Box&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;width&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="s1">&#39;depth&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Box.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Box.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Box</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span></div></div>
+
+
+<div class="viewcode-block" id="Cube"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Cube">[docs]</a><span class="k">class</span> <span class="nc">Cube</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a cube of a given size.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    length : float or SymPy expression</span>
+<span class="sd">        The length of the cube.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Cube</span>
+<span class="sd">    &gt;&gt;&gt; s = Cube(10.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt;s.length</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.length = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.length</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; a = Cube(&#39;my-shape2&#39;, &#39;red&#39;, length=10)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.length</span>
+<span class="sd">    10.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Box&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;length&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;length&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="s1">&#39;length&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Cube.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Cube.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Cube</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span></div></div>
+
+
+<div class="viewcode-block" id="Cylinder"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Cylinder">[docs]</a><span class="k">class</span> <span class="nc">Cylinder</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a cylinder with given length and radius.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    length : float or SymPy expression</span>
+<span class="sd">        Length of the cylinder along its Y axis.</span>
+<span class="sd">    radius : float or SymPy expression</span>
+<span class="sd">        Radius of the cylinder (of the circular cross section normal to the Y</span>
+<span class="sd">        axis).</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Cylinder</span>
+<span class="sd">    &gt;&gt;&gt; s = Cylinder(10.0, 5.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.length</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    5.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.length = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.length</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 6.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    6.0</span>
+<span class="sd">    &gt;&gt;&gt; a = Cylinder(10.0, 5.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.length</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    5.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Cylinder&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;radiusTop&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;radiusBottom&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;radialSegments&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                           <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;length&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Cylinder.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Cylinder.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Cylinder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span></div></div>
+
+
+<div class="viewcode-block" id="Cone"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Cone">[docs]</a><span class="k">class</span> <span class="nc">Cone</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a cone with given length and base radius.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    length : float or SymPy expression</span>
+<span class="sd">        The length of the cone.</span>
+<span class="sd">    radius : float or SymPy expression</span>
+<span class="sd">        The base radius of the cone.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Cone</span>
+<span class="sd">    &gt;&gt;&gt; s = Cone(10.0, 5.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.length</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    5.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.length = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.length</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 6.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    6.0</span>
+<span class="sd">    &gt;&gt;&gt; a = Cone(10.0, 5.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.length</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    5.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Cylinder&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;radiusTop&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                           <span class="s1">&#39;radiusBottom&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;length&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Cone.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Cone.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Cone</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span></div></div>
+
+
+<div class="viewcode-block" id="Sphere"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Sphere">[docs]</a><span class="k">class</span> <span class="nc">Sphere</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a sphere with a given radius.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    radius : float or SymPy expression</span>
+<span class="sd">        The radius of the sphere.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Sphere</span>
+<span class="sd">    &gt;&gt;&gt; s = Sphere(10.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt;s.radius</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; a = Sphere(10.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    10.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Sphere&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;widthSegments&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                           <span class="s1">&#39;heightSegments&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Sphere.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Sphere.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Sphere</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span></div></div>
+
+
+<div class="viewcode-block" id="Circle"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Circle">[docs]</a><span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">Sphere</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a circle with a given radius.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    radius : float or SymPy Expression</span>
+<span class="sd">        The radius of the circle.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Circle</span>
+<span class="sd">    &gt;&gt;&gt; s = Circle(10.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt;s.radius</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; a = Circle(10.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    10.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Circle&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;segments&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Plane"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Plane">[docs]</a><span class="k">class</span> <span class="nc">Plane</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a plane with a given length and width.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    length : float or SymPy expression</span>
+<span class="sd">        Length of the plane along the Y axis.</span>
+<span class="sd">    width : float or SymPy expression</span>
+<span class="sd">        Width of the plane along the X axis.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Plane</span>
+<span class="sd">    &gt;&gt;&gt; s = Plane(10.0, 5.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.length</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.width</span>
+<span class="sd">    5.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.length = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.length</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.width = 6.0</span>
+<span class="sd">    &gt;&gt;&gt; s.width</span>
+<span class="sd">    6.0</span>
+<span class="sd">    &gt;&gt;&gt; a = Plane(10.0, 5.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.length</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; a.width</span>
+<span class="sd">    5.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Plane&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;width&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;length&#39;</span><span class="p">}</span>
+    <span class="n">_p3js_material_attributes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;side&#39;</span><span class="p">:</span> <span class="s1">&#39;DoubleSide&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Plane.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Plane.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Plane</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span></div></div>
+
+
+<div class="viewcode-block" id="Tetrahedron"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Tetrahedron">[docs]</a><span class="k">class</span> <span class="nc">Tetrahedron</span><span class="p">(</span><span class="n">Sphere</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a Tetrahedron inscribed in a given radius circle.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    radius : float or SymPy expression</span>
+<span class="sd">        The radius of the circum-scribing sphere of around the tetrahedron.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Tetrahedron</span>
+<span class="sd">    &gt;&gt;&gt; s = Tetrahedron(10.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt;s.radius</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; a = Tetrahedron(10.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    10.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Tetrahedron&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Octahedron"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Octahedron">[docs]</a><span class="k">class</span> <span class="nc">Octahedron</span><span class="p">(</span><span class="n">Sphere</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiaties an Octahedron inscribed in a circle of the given</span>
+<span class="sd">    radius.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    radius : float or SymPy expression.</span>
+<span class="sd">        The radius of the circum-scribing sphere around the octahedron.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Octahedron</span>
+<span class="sd">    &gt;&gt;&gt; s = Octahedron(10.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt;s.radius</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; a = Octahedron(10.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    10.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Octahedron&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Icosahedron"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Icosahedron">[docs]</a><span class="k">class</span> <span class="nc">Icosahedron</span><span class="p">(</span><span class="n">Sphere</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates an icosahedron inscribed in a sphere of the given</span>
+<span class="sd">    radius.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    radius : float or a SymPy expression</span>
+<span class="sd">        Radius of the circum-scribing sphere for Icosahedron</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Icosahedron</span>
+<span class="sd">    &gt;&gt;&gt; s = Icosahedron(10)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt;s.radius</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt;#These can be changed later too ..</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    12</span>
+<span class="sd">    &gt;&gt;&gt; a = Icosahedron(10.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    10.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Icosahedron&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Torus"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Torus">[docs]</a><span class="k">class</span> <span class="nc">Torus</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a torus with a given radius and section radius.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    radius : float or SymPy expression</span>
+<span class="sd">        The radius of the torus.</span>
+<span class="sd">    tube_radius : float or SymPy expression</span>
+<span class="sd">        The radius of the torus tube.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Torus</span>
+<span class="sd">    &gt;&gt;&gt; s = Torus(10.0, 5.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.tube_radius</span>
+<span class="sd">    5.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.tube_radius = 6.0</span>
+<span class="sd">    &gt;&gt;&gt; s.tube_radius</span>
+<span class="sd">    6.0</span>
+<span class="sd">    &gt;&gt;&gt; a = Torus(10.0, 5.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; a.tube_radius</span>
+<span class="sd">    5.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;Torus&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;tube&#39;</span><span class="p">:</span> <span class="s1">&#39;tube_radius&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Torus.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Torus.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">tube_radius</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Torus</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">,</span> <span class="s1">&#39;tube_radius&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tube_radius</span> <span class="o">=</span> <span class="n">tube_radius</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span>
+
+    <span class="nd">@radius</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">radius</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_radius</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">=</span> <span class="n">new_radius</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tube_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tube_radius</span>
+
+    <span class="nd">@tube_radius</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">tube_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_tube_radius</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tube_radius</span> <span class="o">=</span> <span class="n">new_tube_radius</span></div>
+
+
+<div class="viewcode-block" id="TorusKnot"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.TorusKnot">[docs]</a><span class="k">class</span> <span class="nc">TorusKnot</span><span class="p">(</span><span class="n">Torus</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a torus knot with given radius and section radius.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    radius : float or SymPy expression</span>
+<span class="sd">        The radius of the torus knot.</span>
+<span class="sd">    tube_radius : float or SymPy expression</span>
+<span class="sd">        The radius of the torus knot tube.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import TorusKnot</span>
+<span class="sd">    &gt;&gt;&gt; s = TorusKnot(10.0, 5.0)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; s.tube_radius</span>
+<span class="sd">    5.0</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; s.tube_radius = 6.0</span>
+<span class="sd">    &gt;&gt;&gt; s.tube_radius</span>
+<span class="sd">    6.0</span>
+<span class="sd">    &gt;&gt;&gt; a = TorusKnot(10.0, 5.0, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    10.0</span>
+<span class="sd">    &gt;&gt;&gt; a.tube_radius</span>
+<span class="sd">    5.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_p3js_geometry_type</span> <span class="o">=</span> <span class="s1">&#39;TorusKnot&#39;</span>
+    <span class="n">_p3js_attribute_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="s1">&#39;radius&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;tube&#39;</span><span class="p">:</span> <span class="s1">&#39;tube_radius&#39;</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Tube"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Tube">[docs]</a><span class="k">class</span> <span class="nc">Tube</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instantiates a tube that sweeps along a path.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    radius : float or SymPy expression</span>
+<span class="sd">        The radius of the tube.</span>
+<span class="sd">    points : array_like, shape(n, 3)</span>
+<span class="sd">        An array of n (x, y, z) coordinates representing points that the</span>
+<span class="sd">        tube&#39;s center line should follow.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    &gt;&gt;&gt; from pydy.viz.shapes import Tube</span>
+<span class="sd">    &gt;&gt;&gt; points = [[1.0, 2.0, 1.0], [2.0, 1.0, 1.0], [2.0, 3.0, 4.0]]</span>
+<span class="sd">    &gt;&gt;&gt; s = Tube(10.0, points)</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;unnamed&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;grey&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.points</span>
+<span class="sd">    [[1.0, 2.0, 1.0], [2.0, 1.0, 1.0], [2.0, 3.0, 4.0]]</span>
+<span class="sd">    &gt;&gt;&gt; s.name = &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.name</span>
+<span class="sd">    &#39;my-shape1&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color = &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.color</span>
+<span class="sd">    &#39;blue&#39;</span>
+<span class="sd">    &gt;&gt;&gt; s.radius = 14.0</span>
+<span class="sd">    &gt;&gt;&gt; s.radius</span>
+<span class="sd">    14.0</span>
+<span class="sd">    &gt;&gt;&gt; s.points = [[2.0, 1.0, 4.0], [1.0, 2.0, 4.0],</span>
+<span class="sd">    ...             [2.0, 3.0, 1.0], [1.0, 1.0, 3.0]]</span>
+<span class="sd">    &gt;&gt;&gt; s.points</span>
+<span class="sd">    [[2.0, 1.0, 4.0], [1.0, 2.0, 4.0], [2.0, 3.0, 1.0], [1.0, 1.0, 3.0]]</span>
+<span class="sd">    &gt;&gt;&gt; a = Tube(12.0, points, name=&#39;my-shape2&#39;, color=&#39;red&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; a.name</span>
+<span class="sd">    &#39;my-shape2&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.color</span>
+<span class="sd">    &#39;red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; a.radius</span>
+<span class="sd">    12.0</span>
+<span class="sd">    &gt;&gt;&gt; a.points</span>
+<span class="sd">    [[1.0, 2.0, 1.0], [2.0, 1.0, 1.0], [2.0, 3.0, 4.0]]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Tube.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.shapes.Tube.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Tube</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry_attrs</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">points</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="nd">@points</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_points</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">new_points</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.viz.shapes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

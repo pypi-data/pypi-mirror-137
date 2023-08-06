@@ -1,0 +1,1066 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Exercises from Chapter 3 in Kane and Levinson 1985 &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Linear Mass-Spring-Damper with Gravity" href="mass-spring-damper.html" />
+    <link rel="prev" title="Exercises from Chapter 2 in Kane and Levinson 1985" href="kane-levinson-1985-chapter-02.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mass-spring-damper.html" title="Linear Mass-Spring-Damper with Gravity"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="kane-levinson-1985-chapter-02.html" title="Exercises from Chapter 2 in Kane and Levinson 1985"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercises from Chapter 3 in Kane and Levinson 1985</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="exercises-from-chapter-3-in-kane-and-levinson-1985">
+<h1>Exercises from Chapter 3 in Kane and Levinson 1985<a class="headerlink" href="#exercises-from-chapter-3-in-kane-and-levinson-1985" title="Permalink to this headline">¶</a></h1>
+<section id="exercise-5-1">
+<h2>Exercise 5.1<a class="headerlink" href="#exercise-5-1" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/64190c037f6a66956cfca17264a50104/ex5-1.py"><code class="xref download docutils literal notranslate"><span class="pre">ex5-1.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/0938566425cf79de8d820592f619ad05/ex5-1.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex5-1.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">integrate</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">acos</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">simplify</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dot</span><span class="p">,</span> <span class="n">ReferenceFrame</span>
+<span class="kn">import</span> <span class="nn">scipy.integrate</span>
+
+
+<span class="k">def</span> <span class="nf">eval_v</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+   <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">N</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">integrate_v</span><span class="p">(</span><span class="n">integrand</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">bounds</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;Return the integral for a Vector integrand.&quot;&quot;&quot;</span>
+   <span class="c1"># integration problems if option meijerg=True is not used</span>
+   <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="n">integrate</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">integrand</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+                                 <span class="n">bounds</span><span class="p">,</span>
+                                 <span class="n">meijerg</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">rf</span><span class="p">)</span>
+
+<span class="n">m</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m R&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nonnegative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">theta</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;theta r x y z&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Regarding Fig. P5.1 as showing two views of a body B formed by matter
+distributed uniformly (a) over a surface having no planar portions and (b)
+throughout a solid, determine (by integration) the coordinates x*, y*, z* of
+the mass center of B.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+
+<span class="c1"># part a</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a) mass center of surface area&quot;</span><span class="p">)</span>
+<span class="n">SA</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">R</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">rho_a</span> <span class="o">=</span> <span class="n">m</span> <span class="o">/</span> <span class="n">SA</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">theta</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span>  <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">y</span>
+<span class="n">y_</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">z_</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">J</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="n">z_</span><span class="p">])</span><span class="o">.</span><span class="n">jacobian</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">])</span>
+<span class="n">dJ</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">J</span><span class="o">.</span><span class="n">det</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dJ = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dJ</span><span class="p">))</span>
+
+<span class="c1"># calculate center of mass for the cut cylinder</span>
+<span class="c1"># ranges from x = [1, 3], y = [-1, 1], z = [-1, 1] in Fig. P5.1</span>
+<span class="n">mass_cc_a</span> <span class="o">=</span> <span class="n">rho_a</span> <span class="o">*</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">R</span>
+<span class="n">cm_cc_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">integrate_v</span><span class="p">(</span><span class="n">integrate_v</span><span class="p">((</span><span class="n">rho_a</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">dJ</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">R</span><span class="p">),</span>
+                                   <span class="n">A</span><span class="p">,</span> <span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">acos</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">),</span>
+                                   <span class="mi">2</span><span class="o">*</span><span class="n">pi</span> <span class="o">-</span> <span class="n">acos</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">))),</span>
+                                   <span class="n">A</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">mass_cc_a</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cm = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_cc_a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>a) mass center of surface area
+dJ = r
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>cm = ((-Integral(x*acos(1 - x), (x, 0, 2)) + 2*pi)/pi + 1)*A.x - R/2*A.y
+</pre></div>
+</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mass_cyl_a</span> <span class="o">=</span> <span class="n">rho_a</span> <span class="o">*</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">R</span>
+<span class="n">cm_cyl_a</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span><span class="o">/</span><span class="n">S</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">cm_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">mass_cyl_a</span><span class="o">*</span><span class="n">cm_cyl_a</span> <span class="o">+</span> <span class="n">mass_cc_a</span><span class="o">*</span><span class="n">cm_cc_a</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;center of mass = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_a</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+<span class="c1"># part b</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b) mass center of volume&quot;</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">rho_b</span> <span class="o">=</span> <span class="n">m</span> <span class="o">/</span> <span class="n">V</span>
+<span class="n">mass_cc_b</span> <span class="o">=</span> <span class="n">rho_b</span> <span class="o">*</span> <span class="n">pi</span><span class="o">*</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># calculate center of mass for the cut cylinder</span>
+<span class="c1"># ranges from x = [1, 3], y = [-1, 1], z = [-1, 1] in Fig. P5.1</span>
+<span class="c1"># compute the value using scipy due to issues with sympy</span>
+<span class="n">R_</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">def</span> <span class="nf">pos</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+   <span class="k">if</span> <span class="n">coord</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">x</span>
+   <span class="k">elif</span> <span class="n">coord</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">y</span>
+   <span class="k">elif</span> <span class="n">coord</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">z</span>
+   <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span>
+<span class="c1"># y bounds</span>
+<span class="k">def</span> <span class="nf">ybu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+   <span class="k">return</span> <span class="n">R_</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ybl</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+   <span class="k">return</span> <span class="o">-</span><span class="n">R_</span>
+<span class="c1"># z bounds</span>
+<span class="k">def</span> <span class="nf">zbu</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">R_</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+<span class="k">def</span> <span class="nf">zbl</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+   <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">zbu</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">cm_cc_b</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+   <span class="n">p_i</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">pos</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+   <span class="n">cm_cc_b</span> <span class="o">+=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">tplquad</span><span class="p">(</span><span class="n">p_i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ybl</span><span class="p">,</span> <span class="n">ybu</span><span class="p">,</span> <span class="n">zbl</span><span class="p">,</span> <span class="n">zbu</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span>
+<span class="n">cm_cc_b</span> <span class="o">*=</span> <span class="p">(</span><span class="n">rho_b</span> <span class="o">/</span> <span class="n">mass_cc_b</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">R_</span><span class="p">)</span>
+<span class="n">cm_cc_b</span> <span class="o">+=</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span>
+
+<span class="c1">#integrand = rho_b * (x*A.x + y*A.y + z*A.z)</span>
+<span class="c1">#cm_cc_b = (integrate_v(integrate_v(integrate_v(integrand,</span>
+<span class="c1">#                                               A, (z,</span>
+<span class="c1">#                                                   -sqrt(R**2 - y**2),</span>
+<span class="c1">#                                                   sqrt(R**2 - y**2))),</span>
+<span class="c1">#                                   A, (y, -R, R*(1 - x))),</span>
+<span class="c1">#                       A, (x, 0, 2)) / mass_cc_b +</span>
+<span class="c1">#           A.x)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cm = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_cc_b</span><span class="p">))</span>
+
+<span class="n">mass_cyl_b</span> <span class="o">=</span> <span class="n">rho_b</span> <span class="o">*</span> <span class="n">pi</span><span class="o">*</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">cm_cyl_b</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span><span class="o">/</span><span class="n">S</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">cm_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">mass_cyl_b</span><span class="o">*</span><span class="n">cm_cyl_b</span> <span class="o">+</span> <span class="n">mass_cc_b</span><span class="o">*</span><span class="n">cm_cc_b</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;center of mass = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eval_v</span><span class="p">(</span><span class="n">cm_b</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">A</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>center of mass = (m/4 + m*((-Integral(x*acos(1 - x), (x, 0, 2)) + 2*pi)/pi + 1)/2)/m*A.x - 1/4*A.y
+b) mass center of volume
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>cm = (1.96349540850478/pi + 1)*A.x - 0.785398163387119/pi*A.y
+center of mass = 1.06250000000178*A.x - 0.124999999998356*A.y
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5-4">
+<h2>Exercise 5.4<a class="headerlink" href="#exercise-5-4" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/cee3d3a481b0d6d3cca77774a20cdb5c/ex5-4.py"><code class="xref download docutils literal notranslate"><span class="pre">ex5-4.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/4138ad5ba402df6aa660a9e590c9dd98/ex5-4.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex5-4.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dot</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">integrate</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a b R&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nonnegative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">theta</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;theta x y z&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ab_val</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">}</span>
+
+<span class="c1"># R is the radius of the circle, theta is the half angle.</span>
+<span class="n">centroid_sector</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
+
+<span class="c1"># common R, theta values</span>
+<span class="n">theta_pi_4</span> <span class="o">=</span> <span class="p">{</span><span class="n">theta</span><span class="p">:</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">R</span><span class="p">:</span> <span class="n">a</span><span class="p">}</span>
+<span class="n">R_theta_val</span> <span class="o">=</span> <span class="p">{</span><span class="n">theta</span><span class="p">:</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span><span class="o">/</span><span class="n">a</span><span class="p">),</span> <span class="n">R</span><span class="p">:</span> <span class="n">a</span><span class="p">}</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">eval_vec</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">vs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">ab_val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">vs</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="c1"># For each part A, B, C, D, define an origin for that part such that the</span>
+<span class="c1"># centers of mass of each part of the component have positive N.x, N.y,</span>
+<span class="c1"># and N.z values.</span>
+<span class="c1">## FIND CENTER OF MASS OF A</span>
+<span class="n">vol_A_1</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b</span> <span class="o">/</span> <span class="mi">4</span>
+<span class="n">vol_A_2</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">vol_A</span> <span class="o">=</span> <span class="n">vol_A_1</span> <span class="o">+</span> <span class="n">vol_A_2</span>
+<span class="n">pA_O</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;A_O&#39;</span><span class="p">)</span>
+<span class="n">pAs_1</span> <span class="o">=</span> <span class="n">pA_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span>
+      <span class="s1">&#39;A*_1&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span>
+               <span class="n">centroid_sector</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">theta_pi_4</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">)))</span>
+<span class="n">pAs_2</span> <span class="o">=</span> <span class="n">pA_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span>
+      <span class="s1">&#39;A*_2&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span>
+               <span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">integrate</span><span class="p">((</span><span class="n">theta</span><span class="o">*</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">z</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">R_theta_val</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span> <span class="o">/</span> <span class="n">vol_A_2</span> <span class="o">+</span>
+               <span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">integrate</span><span class="p">((</span><span class="n">theta</span><span class="o">*</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span>
+                                 <span class="n">centroid_sector</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">R_theta_val</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span> <span class="o">/</span> <span class="n">vol_A_2</span> <span class="o">+</span>
+               <span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">integrate</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span> <span class="o">*</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">/</span><span class="n">pi</span> <span class="o">*</span>
+                                 <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span> <span class="o">/</span> <span class="n">vol_A_2</span><span class="p">))</span>
+<span class="n">pAs</span> <span class="o">=</span> <span class="n">pA_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;A*&#39;</span><span class="p">,</span> <span class="p">((</span><span class="n">pAs_1</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pA_O</span><span class="p">)</span> <span class="o">*</span> <span class="n">vol_A_1</span> <span class="o">+</span>
+                           <span class="n">pAs_2</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pA_O</span><span class="p">)</span> <span class="o">*</span> <span class="n">vol_A_2</span><span class="p">)</span> <span class="o">/</span>
+                           <span class="n">vol_A</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A* = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pAs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pA_O</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A* = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eval_vec</span><span class="p">(</span><span class="n">pAs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pA_O</span><span class="p">))))</span>
+
+<span class="c1">## FIND CENTER OF MASS OF B</span>
+<span class="n">vol_B_1</span> <span class="o">=</span> <span class="n">pi</span><span class="o">*</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">vol_B_2</span> <span class="o">=</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">vol_B</span>  <span class="o">=</span> <span class="n">vol_B_1</span> <span class="o">+</span> <span class="n">vol_B_2</span>
+<span class="n">pB_O</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;B_O&#39;</span><span class="p">)</span>
+<span class="n">pBs_1</span> <span class="o">=</span> <span class="n">pB_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span>
+      <span class="s1">&#39;B*_1&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span>
+               <span class="p">(</span><span class="o">-</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">/</span><span class="n">theta</span> <span class="o">*</span>
+                                 <span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">theta_pi_4</span><span class="p">)))</span>
+<span class="n">pBs_2</span> <span class="o">=</span> <span class="n">pB_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B*_2&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span>
+                              <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">a</span><span class="o">/</span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)))</span>
+<span class="n">pBs</span> <span class="o">=</span> <span class="n">pB_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B*&#39;</span><span class="p">,</span> <span class="p">((</span><span class="n">pBs_1</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pB_O</span><span class="p">)</span> <span class="o">*</span> <span class="n">vol_B_1</span> <span class="o">+</span>
+                           <span class="n">pBs_2</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pB_O</span><span class="p">)</span> <span class="o">*</span> <span class="n">vol_B_2</span><span class="p">)</span> <span class="o">/</span>
+                           <span class="n">vol_B</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">B* = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pBs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pB_O</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;B* = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eval_vec</span><span class="p">(</span><span class="n">pBs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pB_O</span><span class="p">))))</span>
+
+<span class="c1">## FIND CENTER OF MASS OF C</span>
+<span class="n">vol_C_1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b</span>
+<span class="n">vol_C_2</span> <span class="o">=</span> <span class="n">a</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">vol_C_3</span> <span class="o">=</span> <span class="n">a</span><span class="o">**</span><span class="mi">3</span>
+<span class="n">vol_C_4</span> <span class="o">=</span> <span class="o">-</span><span class="n">pi</span><span class="o">*</span><span class="n">a</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">vol_C</span> <span class="o">=</span> <span class="n">vol_C_1</span> <span class="o">+</span> <span class="n">vol_C_2</span> <span class="o">+</span> <span class="n">vol_C_3</span> <span class="o">+</span> <span class="n">vol_C_4</span>
+<span class="n">pC_O</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;C_O&#39;</span><span class="p">)</span>
+<span class="n">pCs_1</span> <span class="o">=</span> <span class="n">pC_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*_1&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
+<span class="n">pCs_2</span> <span class="o">=</span> <span class="n">pC_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*_2&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span>
+                              <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">a</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)))</span>
+<span class="n">pCs_3</span> <span class="o">=</span> <span class="n">pC_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*_3&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span> <span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)))</span>
+<span class="n">pCs_4</span> <span class="o">=</span> <span class="n">pC_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span>
+      <span class="s1">&#39;C*_4&#39;</span><span class="p">,</span> <span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span> <span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span>
+               <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">centroid_sector</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                        <span class="n">theta_pi_4</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">))))</span>
+<span class="n">pCs</span> <span class="o">=</span> <span class="n">pC_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*&#39;</span><span class="p">,</span> <span class="p">((</span><span class="n">pCs_1</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pC_O</span><span class="p">)</span><span class="o">*</span><span class="n">vol_C_1</span> <span class="o">+</span>
+                           <span class="n">pCs_2</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pC_O</span><span class="p">)</span><span class="o">*</span><span class="n">vol_C_2</span> <span class="o">+</span>
+                           <span class="n">pCs_3</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pC_O</span><span class="p">)</span><span class="o">*</span><span class="n">vol_C_3</span> <span class="o">+</span>
+                           <span class="n">pCs_4</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pC_O</span><span class="p">)</span><span class="o">*</span><span class="n">vol_C_4</span><span class="p">)</span> <span class="o">/</span>
+                           <span class="n">vol_C</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">C* = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pCs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pC_O</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;C* = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eval_vec</span><span class="p">(</span><span class="n">pCs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pC_O</span><span class="p">))))</span>
+
+<span class="c1">## FIND CENTER OF MASS OF D</span>
+<span class="n">vol_D</span> <span class="o">=</span> <span class="n">pi</span><span class="o">*</span><span class="n">a</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">pD_O</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;D_O&#39;</span><span class="p">)</span>
+<span class="n">pDs</span> <span class="o">=</span> <span class="n">pD_O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;D*&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span> <span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span>
+                           <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">centroid_sector</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                                    <span class="n">theta_pi_4</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">D* = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pDs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pD_O</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;D* = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eval_vec</span><span class="p">(</span><span class="n">pDs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pD_O</span><span class="p">))))</span>
+
+<span class="c1">## FIND CENTER OF MASS OF ASSEMBLY</span>
+<span class="n">pO</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="n">pA_O</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="n">pO</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">pB_O</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="n">pO</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">pC_O</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="n">pO</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">pD_O</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="n">pO</span><span class="p">,</span> <span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+
+<span class="n">density_A</span> <span class="o">=</span> <span class="mi">7800</span>
+<span class="n">density_B</span> <span class="o">=</span> <span class="mf">17.00</span>
+<span class="n">density_C</span> <span class="o">=</span> <span class="mi">2700</span>
+<span class="n">density_D</span> <span class="o">=</span> <span class="mi">8400</span>
+<span class="n">mass_A</span> <span class="o">=</span> <span class="n">vol_A</span> <span class="o">*</span> <span class="n">density_A</span>
+<span class="n">mass_B</span> <span class="o">=</span> <span class="n">vol_B</span> <span class="o">*</span> <span class="n">density_B</span>
+<span class="n">mass_C</span> <span class="o">=</span> <span class="n">vol_C</span> <span class="o">*</span> <span class="n">density_C</span>
+<span class="n">mass_D</span> <span class="o">=</span> <span class="n">vol_D</span> <span class="o">*</span> <span class="n">density_D</span>
+
+<span class="n">pms</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;m*&#39;</span><span class="p">,</span> <span class="p">((</span><span class="n">pAs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)</span><span class="o">*</span><span class="n">mass_A</span> <span class="o">+</span> <span class="n">pBs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)</span><span class="o">*</span><span class="n">mass_B</span> <span class="o">+</span>
+                           <span class="n">pCs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)</span><span class="o">*</span><span class="n">mass_C</span> <span class="o">+</span> <span class="n">pDs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)</span><span class="o">*</span><span class="n">mass_D</span><span class="p">)</span> <span class="o">/</span>
+                        <span class="p">(</span><span class="n">mass_A</span> <span class="o">+</span> <span class="n">mass_B</span> <span class="o">+</span> <span class="n">mass_C</span> <span class="o">+</span> <span class="n">mass_D</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">m* = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eval_vec</span><span class="p">(</span><span class="n">pms</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>A* = (2*a**4/(3*pi) + a**3*b/3)/(pi*a**3/8 + pi*a**2*b/4)*N.x + (8*a**4*(-1/4 + pi/8)/(3*pi) + a**3*b/3)/(pi*a**3/8 + pi*a**2*b/4)*N.y + (pi*a**3*(a/3 + b)/8 + pi*a**2*b**2/8)/(pi*a**3/8 + pi*a**2*b/4)*N.z
+A* = 0.138920600924924*N.x + 0.115727308022108*N.y + 0.233333333333333*N.z
+
+B* = pi*a**2*(-2*a/pi + a)/(2*(a**2/2 + pi*a**2/2))*N.x + (a**3/3 + pi*a**3/4)/(a**2/2 + pi*a**2/2)*N.y + (a**3/3 + pi*a**2*(2*a/pi + a)/2)/(a**2/2 + pi*a**2/2)*N.z
+B* = 0.0826922936952985*N.x + 0.162072650350261*N.y + 0.420726503502612*N.z
+
+C* = (5*a**4/6 + 2*a**3*b)/(-pi*a**3/4 + 3*a**3/2 + 2*a**2*b)*N.x + (-pi*a**4/8 + 3*a**4/4 + a**3*b)/(-pi*a**3/4 + 3*a**3/2 + 2*a**2*b)*N.y + (a**3*(a/3 + b)/2 + a**3*(a/2 + b) - pi*a**3*(-4*a/(3*pi) + a + b)/4 + a**2*b**2)/(-pi*a**3/4 + 3*a**3/2 + 2*a**2*b)*N.z
+C* = 0.313121426700209*N.x + 0.15*N.y + 0.213202943487976*N.z
+
+D* = 4*a/(3*pi)*N.x + a/2*N.y + (-4*a/(3*pi) + a)*N.z
+D* = 0.127323954473516*N.x + 0.15*N.y + 0.172676045526484*N.z
+
+m* = 0.430639672235866*N.x + 0.136505537542152*N.y - 0.302591520505184*N.z
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5-8">
+<h2>Exercise 5.8<a class="headerlink" href="#exercise-5-8" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/3ec0bf47b90f5d2dadc0fc1b8f0cc54c/ex5-8.py"><code class="xref download docutils literal notranslate"><span class="pre">ex5-8.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/373e56d333ecbe7b51321fe938ec25ad/ex5-8.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex5-8.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">cross</span><span class="p">,</span> <span class="n">dot</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">integrate</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">integrate</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span>
+
+
+<span class="k">def</span> <span class="nf">calc_inertia_vec</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">n_a</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">iv</span><span class="p">):</span>
+    <span class="n">integrand</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">cross</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">cross</span><span class="p">(</span><span class="n">n_a</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="n">integrate</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">integrand</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">iv</span><span class="p">))</span> <span class="o">*</span> <span class="n">n</span>
+               <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">N</span><span class="p">)</span>
+
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a b L l m h&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nonnegative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">h_theta_val</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="p">:</span><span class="n">b</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="n">L</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="n">L</span><span class="p">}</span>
+
+<span class="n">density</span> <span class="o">=</span> <span class="n">m</span><span class="o">/</span><span class="n">L</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="n">pO</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="n">pP</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="n">h</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+
+<span class="n">I_1</span> <span class="o">=</span> <span class="n">calc_inertia_vec</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">pP</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">h_theta_val</span><span class="p">),</span>
+                       <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">))</span>
+<span class="n">I_2</span> <span class="o">=</span> <span class="n">calc_inertia_vec</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">pP</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">h_theta_val</span><span class="p">),</span>
+                       <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I_1 = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I_2 = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I_1 = a**2*m*N.x + a*b*m/(2*pi)*N.z
+I_2 = m*(3*a**2 + 2*b**2)/6*N.y
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5-12">
+<h2>Exercise 5.12<a class="headerlink" href="#exercise-5-12" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/379d6176ee1c5849bad5a471298b60c7/ex5-12.py"><code class="xref download docutils literal notranslate"><span class="pre">ex5-12.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/0fb4558fc71dc7b0381e11c1691116dd/ex5-12.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex5-12.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># n_a = 3/5*n_1 - 4/5*n_3. Substituting n_i for e_i results in</span>
+<span class="c1"># n_a = 4/5*e_1 + 3/5*n_2.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span><span class="mi">4</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">Iij</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([[</span><span class="mi">169</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="o">-</span><span class="mi">96</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mi">144</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">72</span><span class="p">],</span>
+                 <span class="p">[</span><span class="o">-</span><span class="mi">96</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">325</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Moment of inertia of B with respect to a line that is parallel to&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;line PQ and passes through point O.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> kg m**2&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">((</span><span class="n">a</span> <span class="o">*</span> <span class="n">Iij</span> <span class="o">*</span> <span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Moment of inertia of B with respect to a line that is parallel to
+line PQ and passes through point O.
+340.0 kg m**2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-6-6">
+<h2>Exercise 6.6<a class="headerlink" href="#exercise-6-6" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/b818d9f474fec94979d04370965a5876/ex6-6.py"><code class="xref download docutils literal notranslate"><span class="pre">ex6-6.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/3f43102cd307bcc882318a991c1f293d/ex6-6.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex6-6.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">inertia_of_point_mass</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dot</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">S</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+<span class="n">m_val</span> <span class="o">=</span> <span class="mi">12</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="n">pO</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="n">pBs</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B*&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+
+<span class="n">I_B_O</span> <span class="o">=</span> <span class="n">inertia</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">260</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="n">m_val</span><span class="p">,</span> <span class="mi">325</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="n">m_val</span><span class="p">,</span> <span class="mi">169</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="n">m_val</span><span class="p">,</span>
+                <span class="mi">72</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="n">m_val</span><span class="p">,</span> <span class="mi">96</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="n">m_val</span><span class="p">,</span> <span class="o">-</span><span class="mi">144</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="n">m_val</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I_B_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_B_O</span><span class="p">))</span>
+
+<span class="n">I_Bs_O</span> <span class="o">=</span> <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pBs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_B*_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_Bs_O</span><span class="p">))</span>
+
+<span class="n">I_B_Bs</span> <span class="o">=</span> <span class="n">I_B_O</span> <span class="o">-</span> <span class="n">I_Bs_O</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_B_rel_B* = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_B_Bs</span><span class="p">))</span>
+
+<span class="n">pQ</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">I_Bs_Q</span> <span class="o">=</span> <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pBs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pQ</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_B*_rel_Q = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_Bs_Q</span><span class="p">))</span>
+
+<span class="n">I_B_Q</span> <span class="o">=</span> <span class="n">I_B_Bs</span> <span class="o">+</span> <span class="n">I_Bs_Q</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_B_rel_Q = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_B_Q</span><span class="p">))</span>
+
+<span class="c1"># n_a is a vector parallel to line PQ</span>
+<span class="n">n_a</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">S</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span>
+<span class="n">I_a_a_B_Q</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">n_a</span><span class="p">,</span> <span class="n">I_B_Q</span><span class="p">),</span> <span class="n">n_a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">n_a = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_a_a_B_Q = </span><span class="si">{0}</span><span class="s2"> = </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_a_a_B_Q</span><span class="p">,</span> <span class="n">I_a_a_B_Q</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">m_val</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I_B_rel_O = 65*m/3*(N.x|N.x) + 6*m*(N.x|N.y) - 12*m*(N.x|N.z) + 6*m*(N.y|N.x) + 325*m/12*(N.y|N.y) + 8*m*(N.y|N.z) - 12*m*(N.z|N.x) + 8*m*(N.z|N.y) + 169*m/12*(N.z|N.z)
+
+I_B*_rel_O = 20*m*(N.x|N.x) + 25*m*(N.y|N.y) + 13*m*(N.z|N.z) + 6*m*(N.x|N.y) - 12*m*(N.x|N.z) + 6*m*(N.y|N.x) + 8*m*(N.y|N.z) - 12*m*(N.z|N.x) + 8*m*(N.z|N.y)
+
+I_B_rel_B* = 5*m/3*(N.x|N.x) + 25*m/12*(N.y|N.y) + 13*m/12*(N.z|N.z)
+
+I_B*_rel_Q = 4*m*(N.x|N.x) + 9*m*(N.y|N.y) + 13*m*(N.z|N.z) + 6*m*(N.x|N.y) + 6*m*(N.y|N.x)
+
+I_B_rel_Q = 17*m/3*(N.x|N.x) + 133*m/12*(N.y|N.y) + 169*m/12*(N.z|N.z) + 6*m*(N.x|N.y) + 6*m*(N.y|N.x)
+
+n_a = 3/5*N.x - 4/5*N.z
+
+I_a_a_B_Q = 829*m/75 = 3316/25
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-6-7">
+<h2>Exercise 6.7<a class="headerlink" href="#exercise-6-7" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/26ff7bb9fd69e05b69f0e2db18665cc3/ex6-7.py"><code class="xref download docutils literal notranslate"><span class="pre">ex6-7.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/10efb72c3c3f55cc200c271cd72931df/ex6-7.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex6-7.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">inertia_of_point_mass</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dot</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">solve</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">diff</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">Matrix</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">simplify</span>
+
+<span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k_a</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;b m k_a&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nonnegative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="n">N2</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;N2&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">theta</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">])</span>
+<span class="n">pO</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="n">pP1s</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P1*&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+<span class="n">pP2s</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P2*&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
+<span class="n">pP3s</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P3*&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">((</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span>
+                                 <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span>
+                                 <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
+
+<span class="n">I_1s_O</span> <span class="o">=</span> <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pP1s</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">I_2s_O</span> <span class="o">=</span> <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pP2s</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">I_3s_O</span> <span class="o">=</span> <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pP3s</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_1s_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_1s_O</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_2s_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_2s_O</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_3s_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_3s_O</span><span class="p">))</span>
+
+
+<span class="n">I_1_1s</span> <span class="o">=</span> <span class="n">inertia</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">I_2_2s</span> <span class="o">=</span> <span class="n">inertia</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">I_3_3s_N2</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">I_3_3s_N</span> <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">12</span> <span class="o">*</span> <span class="n">simplify</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">dcm</span><span class="p">(</span><span class="n">N2</span><span class="p">)</span> <span class="o">*</span> <span class="n">I_3_3s_N2</span> <span class="o">*</span> <span class="n">N2</span><span class="o">.</span><span class="n">dcm</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+<span class="n">I_3_3s</span> <span class="o">=</span> <span class="n">inertia</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">I_3_3s_N</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">I_3_3s_N</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">I_3_3s_N</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                 <span class="n">I_3_3s_N</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">I_3_3s_N</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">I_3_3s_N</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="n">I_1_O</span> <span class="o">=</span> <span class="n">I_1_1s</span> <span class="o">+</span> <span class="n">I_1s_O</span>
+<span class="n">I_2_O</span> <span class="o">=</span> <span class="n">I_2_2s</span> <span class="o">+</span> <span class="n">I_2s_O</span>
+<span class="n">I_3_O</span> <span class="o">=</span> <span class="n">I_3_3s</span> <span class="o">+</span> <span class="n">I_3s_O</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_1_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_1_O</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_2_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_2_O</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_3_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_3_O</span><span class="p">))</span>
+
+<span class="c1"># assembly inertia tensor is the sum of the inertia tensor of each component</span>
+<span class="n">I_B_O</span> <span class="o">=</span> <span class="n">I_1_O</span> <span class="o">+</span> <span class="n">I_2_O</span> <span class="o">+</span> <span class="n">I_3_O</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_B_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_B_O</span><span class="p">))</span>
+
+<span class="c1"># n_a is parallel to line L</span>
+<span class="n">n_a</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">n_a = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_a</span><span class="p">))</span>
+
+<span class="c1"># calculate moment of inertia of for point O of assembly about line L</span>
+<span class="n">I_a_a_B_O</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">n_a</span><span class="p">,</span> <span class="n">dot</span><span class="p">(</span><span class="n">I_B_O</span><span class="p">,</span> <span class="n">n_a</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_a_a_B_rel_O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_a_a_B_O</span><span class="p">))</span>
+
+<span class="c1"># use the second value since k_a is non-negative</span>
+<span class="n">k_a_val</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">I_a_a_B_O</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="n">k_a</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">k_a</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">k_a = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_a_val</span><span class="p">))</span>
+
+<span class="n">dk_a_dtheta</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">k_a_val</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">dk_a/dtheta = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dk_a_dtheta</span><span class="p">))</span>
+
+<span class="c1"># solve for theta = 0 using a simplified expression or</span>
+<span class="c1"># else no solution will be found</span>
+<span class="n">soln</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="mi">12</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">theta</span><span class="p">)</span>
+<span class="c1"># ignore complex values of theta</span>
+<span class="n">theta_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">soln</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">is_real</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">th</span> <span class="ow">in</span> <span class="n">theta_vals</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k_a(</span><span class="si">{0}</span><span class="s2">) = </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">((</span><span class="n">th</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">pi</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">(),</span>
+                                  <span class="n">k_a_val</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">th</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+I_1s_rel_O = b**2*m/4*(N.x|N.x) + b**2*m/4*(N.y|N.y) + b**2*m/2*(N.z|N.z) - b**2*m/4*(N.x|N.y) - b**2*m/4*(N.y|N.x)
+
+I_2s_rel_O = b**2*m/2*(N.x|N.x) + 5*b**2*m/4*(N.y|N.y) + 5*b**2*m/4*(N.z|N.z) - b**2*m/2*(N.x|N.y) - b**2*m/2*(N.x|N.z) - b**2*m/2*(N.y|N.x) - b**2*m/4*(N.y|N.z) - b**2*m/2*(N.z|N.x) - b**2*m/4*(N.z|N.y)
+
+I_3s_rel_O = m*(b**2*(2 - cos(theta))**2/4 + b**2/4)*(N.x|N.x) + m*(b**2*(sin(theta) + 2)**2/4 + b**2/4)*(N.y|N.y) + m*(b**2*(2 - cos(theta))**2/4 + b**2*(sin(theta) + 2)**2/4)*(N.z|N.z) - b**2*m*(2 - cos(theta))*(sin(theta) + 2)/4*(N.x|N.y) - b**2*m*(sin(theta) + 2)/4*(N.x|N.z) - b**2*m*(2 - cos(theta))*(sin(theta) + 2)/4*(N.y|N.x) - b**2*m*(2 - cos(theta))/4*(N.y|N.z) - b**2*m*(sin(theta) + 2)/4*(N.z|N.x) - b**2*m*(2 - cos(theta))/4*(N.z|N.y)
+
+I_1_rel_O = b**2*m/3*(N.x|N.x) + b**2*m/3*(N.y|N.y) + 2*b**2*m/3*(N.z|N.z) - b**2*m/4*(N.x|N.y) - b**2*m/4*(N.y|N.x)
+
+I_2_rel_O = 2*b**2*m/3*(N.x|N.x) + 4*b**2*m/3*(N.y|N.y) + 4*b**2*m/3*(N.z|N.z) - b**2*m/2*(N.x|N.y) - b**2*m/2*(N.x|N.z) - b**2*m/2*(N.y|N.x) - b**2*m/4*(N.y|N.z) - b**2*m/2*(N.z|N.x) - b**2*m/4*(N.z|N.y)
+
+I_3_rel_O = (b**2*m*(cos(theta)**2 + 1)/12 + m*(b**2*(2 - cos(theta))**2/4 + b**2/4))*(N.x|N.x) + (-b**2*m*(2 - cos(theta))*(sin(theta) + 2)/4 + b**2*m*sin(2*theta)/24)*(N.x|N.y) + (-b**2*m*(2 - cos(theta))*(sin(theta) + 2)/4 + b**2*m*sin(2*theta)/24)*(N.y|N.x) + (b**2*m*(sin(theta)**2 + 1)/12 + m*(b**2*(sin(theta) + 2)**2/4 + b**2/4))*(N.y|N.y) + (b**2*m/12 + m*(b**2*(2 - cos(theta))**2/4 + b**2*(sin(theta) + 2)**2/4))*(N.z|N.z) - b**2*m*(sin(theta) + 2)/4*(N.x|N.z) - b**2*m*(2 - cos(theta))/4*(N.y|N.z) - b**2*m*(sin(theta) + 2)/4*(N.z|N.x) - b**2*m*(2 - cos(theta))/4*(N.z|N.y)
+
+I_B_rel_O = (b**2*m*(cos(theta)**2 + 1)/12 + b**2*m + m*(b**2*(2 - cos(theta))**2/4 + b**2/4))*(N.x|N.x) + (b**2*m*(sin(theta)**2 + 1)/12 + 5*b**2*m/3 + m*(b**2*(sin(theta) + 2)**2/4 + b**2/4))*(N.y|N.y) + (25*b**2*m/12 + m*(b**2*(2 - cos(theta))**2/4 + b**2*(sin(theta) + 2)**2/4))*(N.z|N.z) + (-b**2*m*(2 - cos(theta))*(sin(theta) + 2)/4 + b**2*m*sin(2*theta)/24 - 3*b**2*m/4)*(N.x|N.y) + (-b**2*m*(2 - cos(theta))*(sin(theta) + 2)/4 + b**2*m*sin(2*theta)/24 - 3*b**2*m/4)*(N.y|N.x) + (-b**2*m*(sin(theta) + 2)/4 - b**2*m/2)*(N.x|N.z) + (-b**2*m*(2 - cos(theta))/4 - b**2*m/4)*(N.y|N.z) + (-b**2*m*(sin(theta) + 2)/4 - b**2*m/2)*(N.z|N.x) + (-b**2*m*(2 - cos(theta))/4 - b**2*m/4)*(N.z|N.y)
+
+n_a = sqrt(2)/2*N.x + sqrt(2)/2*N.z
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+I_a_a_B_rel_O = b**2*m*(-4*sin(theta)**2 + 6*sin(theta) - 24*cos(theta) + 60)/24
+
+k_a = b*sqrt(3*sin(theta) - 12*cos(theta) + cos(2*theta) + 29)/6
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+dk_a/dtheta = b*(6*sin(theta) - sin(2*theta) + 3*cos(theta)/2)/(6*sqrt(3*sin(theta) - 12*cos(theta) + cos(2*theta) + 29))
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>k_a(169.335342108210) = 1.08371034822267*b
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>k_a(-20.0025512645583) = 0.696492652799896*b
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-6-10">
+<h2>Exercise 6.10<a class="headerlink" href="#exercise-6-10" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/a21e961c2a8fce32986505bd883be8bd/ex6-10.py"><code class="xref download docutils literal notranslate"><span class="pre">ex6-10.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/ffbdbbbe8668d7fc44f695075944188f/ex6-10.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex6-10.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Matrix</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">acos</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">symbols</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">inertia_of_point_mass</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dot</span>
+
+
+<span class="k">def</span> <span class="nf">inertia_matrix</span><span class="p">(</span><span class="n">dyadic</span><span class="p">,</span> <span class="n">rf</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;Return the inertia matrix of a given dyadic for a specified</span>
+<span class="sd">   reference frame.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="k">return</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">dot</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">dyadic</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">rf</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rf</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">angle_between_vectors</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;Return the minimum angle between two vectors. The angle returned for</span>
+<span class="sd">   vectors a and -a is 0.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="n">angle</span> <span class="o">=</span> <span class="p">(</span><span class="n">acos</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()))</span> <span class="o">*</span>
+            <span class="mi">180</span> <span class="o">/</span> <span class="n">pi</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+   <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="mi">180</span> <span class="o">-</span> <span class="n">angle</span><span class="p">)</span>
+
+
+<span class="n">m</span><span class="p">,</span> <span class="n">m_R</span><span class="p">,</span> <span class="n">m_C</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m m_R m_C rho r&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nonnegative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="n">pA</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">pPs</span> <span class="o">=</span> <span class="n">pA</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P*&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">m_R</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">m_C</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">m_R</span> <span class="o">-</span> <span class="n">m_C</span>
+
+<span class="n">I_Cs_A</span> <span class="o">=</span> <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pPs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pA</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">I_C_Cs</span> <span class="o">=</span> <span class="n">inertia</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">m_R</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">12</span> <span class="o">-</span> <span class="n">m_C</span><span class="o">*</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span>
+                  <span class="n">m_R</span><span class="o">*</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">12</span> <span class="o">-</span> <span class="n">m_C</span><span class="o">*</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span>
+                  <span class="n">m_R</span><span class="o">*</span><span class="p">((</span><span class="mi">4</span><span class="o">*</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span> <span class="o">-</span> <span class="n">m_C</span><span class="o">*</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">I_C_A</span> <span class="o">=</span> <span class="n">I_C_Cs</span> <span class="o">+</span> <span class="n">I_Cs_A</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_C_rel_A = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_C_A</span><span class="p">))</span>
+
+<span class="c1"># Eigenvectors of I_C_A are the parallel to the principal axis for point A</span>
+<span class="c1"># of Body C.</span>
+<span class="n">evecs_m</span> <span class="o">=</span> <span class="p">[</span><span class="n">triple</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+          <span class="k">for</span> <span class="n">triple</span> <span class="ow">in</span> <span class="n">inertia_matrix</span><span class="p">(</span><span class="n">I_C_A</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">eigenvects</span><span class="p">()]</span>
+
+<span class="c1"># Convert eigenvectors from Matrix type to Vector type.</span>
+<span class="n">evecs</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">evecs_m</span><span class="p">]</span>
+
+<span class="c1"># N.x is parallel to line AB</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Vectors parallel to the principal axis for point A of Body C and the&quot;</span> <span class="o">+</span>
+      <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">corresponding angle between the principal axis and line AB (degrees):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">evecs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="se">\t</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">angle_between_vectors</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+I_C_rel_A = (-pi*r**4*rho/4 + 32*r**4*rho + 4*r**2*(-pi*r**2*rho + 24*r**2*rho))*(N.x|N.x) + (-pi*r**4*rho/4 + 72*r**4*rho + 9*r**2*(-pi*r**2*rho + 24*r**2*rho))*(N.y|N.y) + (-pi*r**4*rho/2 + 104*r**4*rho + 13*r**2*(-pi*r**2*rho + 24*r**2*rho))*(N.z|N.z) + 6*r**2*(-pi*r**2*rho + 24*r**2*rho)*(N.x|N.y) + 6*r**2*(-pi*r**2*rho + 24*r**2*rho)*(N.y|N.x)
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+Vectors parallel to the principal axis for point A of Body C and the
+corresponding angle between the principal axis and line AB (degrees):
+N.z	90.0000000000000
+- 1.73073714765796*N.x + N.y	30.0188275011498
+0.57778848819025*N.x + N.y	59.9811724988502
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-6-13">
+<h2>Exercise 6.13<a class="headerlink" href="#exercise-6-13" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/c6b2f95f6248919ea0fdee25c90f47b0/ex6-13.py"><code class="xref download docutils literal notranslate"><span class="pre">ex6-13.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/d761dca976ca23d5400347b0d4b6597c/ex6-13.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex6-13.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">S</span><span class="p">,</span> <span class="n">Matrix</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">acos</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">symbols</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">inertia_of_point_mass</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dot</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">inertia_matrix</span><span class="p">(</span><span class="n">dyadic</span><span class="p">,</span> <span class="n">rf</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;Return the inertia matrix of a given dyadic for a specified</span>
+<span class="sd">   reference frame.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="k">return</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">dot</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">dyadic</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">rf</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rf</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">convert_eigenvectors_matrix_vector</span><span class="p">(</span><span class="n">eigenvectors</span><span class="p">,</span> <span class="n">rf</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;Return a list of Vectors converted from a list of Matrices.</span>
+<span class="sd">   rf is the implicit ReferenceFrame for the Matrix representation of the</span>
+<span class="sd">   eigenvectors.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="k">return</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">eigenvectors</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">angle_between_vectors</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;Return the minimum angle between two vectors. The angle returned for</span>
+<span class="sd">   vectors a and -a is 0.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="n">angle</span> <span class="o">=</span> <span class="p">(</span><span class="n">acos</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()))</span> <span class="o">*</span>
+            <span class="mi">180</span> <span class="o">/</span> <span class="n">pi</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+   <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="mi">180</span> <span class="o">-</span> <span class="n">angle</span><span class="p">)</span>
+
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nonnegative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">m_val</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="n">pO</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="n">pP</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">pQ</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">pR</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">pO</span><span class="p">,</span> <span class="n">pP</span><span class="p">,</span> <span class="n">pQ</span><span class="p">,</span> <span class="n">pR</span><span class="p">]</span>
+
+<span class="c1"># center of mass of assembly</span>
+<span class="n">pCs</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*&#39;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">)</span> <span class="o">/</span> <span class="n">S</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pCs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">))</span>
+
+<span class="n">I_C_Cs</span> <span class="o">=</span> <span class="p">(</span><span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pCs</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span> <span class="o">+</span>
+         <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pCs</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span> <span class="o">+</span>
+         <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pCs</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span> <span class="o">+</span>
+         <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pCs</span><span class="p">),</span> <span class="n">N</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I_C_Cs = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_C_Cs</span><span class="p">))</span>
+
+<span class="c1"># calculate the principal moments of inertia and the principal axes</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">inertia_matrix</span><span class="p">(</span><span class="n">I_C_Cs</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="c1"># use numpy to find eigenvalues/eigenvectors since sympy failed</span>
+<span class="c1"># note that the eigenvlaues/eigenvectors are the</span>
+<span class="c1"># prinicpal moments of inertia/principal axes</span>
+<span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">m_val</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+<span class="n">eigvecs</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">eigvecs_np</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+
+<span class="c1"># get the minimum moment of inertia and its associated principal axis</span>
+<span class="n">e</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span><span class="p">))</span>
+
+<span class="c1"># I = m * k**2, where I is the moment of inertia,</span>
+<span class="c1"># m is the mass of the body, k is the radius of gyration</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">e</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">m_val</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">radius of gyration, k = </span><span class="si">{0}</span><span class="s2"> m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+
+<span class="c1"># calculate the angle between the associated principal axis and the line OP</span>
+<span class="c1"># line OP is parallel to N.y</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">angle_between_vectors</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">angle between associated principal axis and line OP = </span><span class="si">{0}</span><span class="s2">°&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>1/2*N.x - 3/4*N.y - N.z
+I_C_Cs = 75*m/4*(N.x|N.x) + 15*m*(N.y|N.y) + 39*m/4*(N.z|N.z) - 3*m/2*(N.x|N.y) - 2*m*(N.x|N.z) - 3*m/2*(N.y|N.x) + 3*m*(N.y|N.z) - 2*m*(N.z|N.x) + 3*m*(N.z|N.y)
+
+radius of gyration, k = 1.43554075942754 m
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+angle between associated principal axis and line OP = 67.6396101383384°
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-6-14">
+<h2>Exercise 6.14<a class="headerlink" href="#exercise-6-14" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/6137ae6392e93fd66f6b36d3cc983e81/ex6-14.py"><code class="xref download docutils literal notranslate"><span class="pre">ex6-14.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/ca2c7bd92ad5a8bca3f57123f63173d8/ex6-14.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex6-14.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">S</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">integrate</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">symbols</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">cross</span><span class="p">,</span> <span class="n">dot</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">inertia_of_point_mass</span>
+
+
+<span class="k">def</span> <span class="nf">inertia_matrix</span><span class="p">(</span><span class="n">dyadic</span><span class="p">,</span> <span class="n">rf</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;Return the inertia matrix of a given dyadic for a specified</span>
+<span class="sd">   reference frame.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="k">return</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">dot</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">dyadic</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">rf</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rf</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">integrate_v</span><span class="p">(</span><span class="n">integrand</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">bounds</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;Return the integral for a Vector integrand.&quot;&quot;&quot;</span>
+   <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="n">integrate</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">integrand</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">bounds</span><span class="p">))</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">rf</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">index_min</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+   <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">)</span>
+
+
+<span class="n">m</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m a b c&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nonnegative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y r&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">k</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;k n&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+
+<span class="c1"># calculate right triangle density</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">m</span> <span class="o">/</span> <span class="n">V</span>
+
+<span class="c1"># Kane 1985 lists scalars of inertia I_11, I_12, I_22 for a right triangular</span>
+<span class="c1"># plate, but not I_3x.</span>
+<span class="n">pO</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="n">pCs</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">c</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">pP</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">pP</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pCs</span><span class="p">)</span>
+
+<span class="n">I_3</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">integrate_v</span><span class="p">(</span><span class="n">integrate_v</span><span class="p">(</span><span class="n">cross</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">cross</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">)),</span>
+                                 <span class="n">N</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="o">/</span><span class="n">c</span><span class="p">))),</span>
+                     <span class="n">N</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I_3 = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_3</span><span class="p">))</span>
+
+<span class="c1"># inertia for a right triangle given ReferenceFrame, height b, base c, mass</span>
+<span class="n">inertia_rt</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">rf</span><span class="p">,</span> <span class="n">b_</span><span class="p">,</span> <span class="n">c_</span><span class="p">,</span> <span class="n">m_</span><span class="p">:</span> <span class="n">inertia</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span>
+               <span class="n">m_</span><span class="o">*</span><span class="n">c_</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">18</span><span class="p">,</span>
+               <span class="n">m_</span><span class="o">*</span><span class="n">b_</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">18</span><span class="p">,</span>
+               <span class="n">dot</span><span class="p">(</span><span class="n">I_3</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span>
+               <span class="n">m_</span><span class="o">*</span><span class="n">b_</span><span class="o">*</span><span class="n">c_</span><span class="o">/</span><span class="mi">36</span><span class="p">,</span>
+               <span class="n">dot</span><span class="p">(</span><span class="n">I_3</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
+               <span class="n">dot</span><span class="p">(</span><span class="n">I_3</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">m</span><span class="p">:</span><span class="n">m_</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">b_</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span><span class="n">c_</span><span class="p">})</span>
+
+<span class="n">theta</span> <span class="o">=</span> <span class="p">(</span><span class="mi">30</span> <span class="o">+</span> <span class="mi">90</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
+<span class="n">N2</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;N2&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">theta</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+
+<span class="c1"># calculate the mass center of the assembly</span>
+<span class="c1"># Point O is located at the right angle corner of triangle 1.</span>
+<span class="n">pCs_1</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*_1&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">S</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+<span class="n">pCs_2</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*_2&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">S</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">N2</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">N2</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+<span class="n">pBs</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B*&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">pCs_1</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)</span> <span class="o">+</span>
+                                       <span class="n">pCs_2</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">B* = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pBs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">N</span><span class="p">)))</span>
+
+<span class="c1"># central inertia of each triangle</span>
+<span class="n">I1_C_Cs</span> <span class="o">=</span> <span class="n">inertia_rt</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+<span class="n">I2_C_Cs</span> <span class="o">=</span> <span class="n">inertia_rt</span><span class="p">(</span><span class="n">N2</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+
+<span class="c1"># inertia of mass center of each triangle about Point B*</span>
+<span class="n">I1_Cs_Bs</span> <span class="o">=</span> <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pCs_1</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pBs</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">I2_Cs_Bs</span> <span class="o">=</span> <span class="n">inertia_of_point_mass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pCs_2</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pBs</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="n">I_B_Bs</span> <span class="o">=</span> <span class="n">I1_C_Cs</span> <span class="o">+</span> <span class="n">I1_Cs_Bs</span> <span class="o">+</span> <span class="n">I2_C_Cs</span> <span class="o">+</span> <span class="n">I2_Cs_Bs</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I_B_Bs = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_B_Bs</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">N</span><span class="p">)))</span>
+
+<span class="c1"># central principal moments of inertia</span>
+<span class="n">evals</span> <span class="o">=</span> <span class="n">inertia_matrix</span><span class="p">(</span><span class="n">I_B_Bs</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">eigenvals</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">eigenvalues:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">evals</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">use a/b = r&quot;</span><span class="p">)</span>
+<span class="n">evals_sub_a</span> <span class="o">=</span> <span class="p">[</span><span class="n">simplify</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">r</span><span class="o">*</span><span class="n">b</span><span class="p">))</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">evals</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">evals_sub_a</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">r_val</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">S</span><span class="p">(</span><span class="mi">2</span><span class="p">)]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">for r = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r_val</span><span class="p">))</span>
+    <span class="n">evals_sub_r</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">r_val</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">evals_sub_a</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;eigenvalues:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">evals_sub_r</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> = </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">n</span><span class="p">()))</span>
+
+    <span class="c1"># substitute dummy values for m, b so that min will actually work</span>
+    <span class="n">min_index</span> <span class="o">=</span> <span class="n">index_min</span><span class="p">([</span><span class="n">e</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">m</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span> <span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">evals_sub_r</span><span class="p">])</span>
+    <span class="n">min_e</span> <span class="o">=</span> <span class="n">evals_sub_r</span><span class="p">[</span><span class="n">min_index</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;min: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">min_e</span><span class="p">))</span>
+
+    <span class="n">k_val</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">min_e</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k_val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">n_val</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">k_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Results in text: n = 1/3, sqrt(35 - sqrt(241))/24&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I_3 = m*(b**2 + c**2)/18*N.z
+
+B* = b/3*N.x + a/12*N.y + sqrt(3)*a/12*N.z
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+I_B_Bs = (a**2*m/9 + b**2*m/18 + 2*m*(a**2/12 - b**2/36))*(N.x|N.x) + (a**2*m/24 + 5*b**2*m/72 + m*(a**2 + b**2)/24)*(N.y|N.y) + (a**2*m/8 + b**2*m/24 + 5*m*(a**2 + b**2)/72)*(N.z|N.z) + a*b*m/72*(N.x|N.y) + sqrt(3)*a*b*m/72*(N.x|N.z) + a*b*m/72*(N.y|N.x) + (sqrt(3)*a**2*m/36 + sqrt(3)*m*(a**2 + b**2)/72 - sqrt(3)*(-a**2*m/18 + b**2*m/18)/4)*(N.y|N.z) + sqrt(3)*a*b*m/72*(N.z|N.x) + (sqrt(3)*a**2*m/36 + sqrt(3)*m*(a**2 + b**2)/72 - sqrt(3)*(-a**2*m/18 + b**2*m/18)/4)*(N.z|N.y)
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+eigenvalues:
+a**2*m/36 + b**2*m/9
+19*a**2*m/72 + b**2*m/18 - m*sqrt(a**4 - 4*a**2*b**2 + 16*b**4)/72
+19*a**2*m/72 + b**2*m/18 + m*sqrt(a**4 - 4*a**2*b**2 + 16*b**4)/72
+
+use a/b = r
+b**2*m*(r**2 + 4)/36
+b**2*m*(19*r**2 - sqrt(r**4 - 4*r**2 + 16) + 4)/72
+b**2*m*(19*r**2 + sqrt(r**4 - 4*r**2 + 16) + 4)/72
+
+for r = 2
+eigenvalues:
+2*b**2*m/9 = 0.222222222222222*b**2*m
+19*b**2*m/18 = 1.05555555555556*b**2*m
+7*b**2*m/6 = 1.16666666666667*b**2*m
+min: 2*b**2*m/9
+k = b/3
+n = 1/3
+
+for r = 1/2
+eigenvalues:
+17*b**2*m/144 = 0.118055555555556*b**2*m
+b**2*m*(35/4 - sqrt(241)/4)/72 = 0.0676243934157638*b**2*m
+b**2*m*(sqrt(241)/4 + 35/4)/72 = 0.175431162139792*b**2*m
+min: b**2*m*(35/4 - sqrt(241)/4)/72
+k = b*sqrt(35 - sqrt(241))/24
+n = sqrt(35 - sqrt(241))/24
+
+Results in text: n = 1/3, sqrt(35 - sqrt(241))/24
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Exercises from Chapter 3 in Kane and Levinson 1985</a><ul>
+<li><a class="reference internal" href="#exercise-5-1">Exercise 5.1</a></li>
+<li><a class="reference internal" href="#exercise-5-4">Exercise 5.4</a></li>
+<li><a class="reference internal" href="#exercise-5-8">Exercise 5.8</a></li>
+<li><a class="reference internal" href="#exercise-5-12">Exercise 5.12</a></li>
+<li><a class="reference internal" href="#exercise-6-6">Exercise 6.6</a></li>
+<li><a class="reference internal" href="#exercise-6-7">Exercise 6.7</a></li>
+<li><a class="reference internal" href="#exercise-6-10">Exercise 6.10</a></li>
+<li><a class="reference internal" href="#exercise-6-13">Exercise 6.13</a></li>
+<li><a class="reference internal" href="#exercise-6-14">Exercise 6.14</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="kane-levinson-1985-chapter-02.html"
+                          title="previous chapter">Exercises from Chapter 2 in Kane and Levinson 1985</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="mass-spring-damper.html"
+                          title="next chapter">Linear Mass-Spring-Damper with Gravity</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/examples/kane-levinson-1985-chapter-03.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mass-spring-damper.html" title="Linear Mass-Spring-Damper with Gravity"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="kane-levinson-1985-chapter-02.html" title="Exercises from Chapter 2 in Kane and Levinson 1985"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercises from Chapter 3 in Kane and Levinson 1985</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

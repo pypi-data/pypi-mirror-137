@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pydy.codegen.matrix_generator &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.codegen.matrix_generator</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pydy.codegen.matrix_generator</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">sympy.physics.mechanics</span> <span class="k">as</span> <span class="nn">me</span>
+<span class="kn">from</span> <span class="nn">sympy.printing.codeprinter</span> <span class="kn">import</span> <span class="n">CodePrinter</span>
+
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">wrap_and_indent</span><span class="p">,</span> <span class="n">find_dynamicsymbols</span>
+
+
+<div class="viewcode-block" id="MatrixGenerator"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.matrix_generator.MatrixGenerator">[docs]</a><span class="k">class</span> <span class="nc">MatrixGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This abstract base class generates source files that simultaneously</span>
+<span class="sd">    numerically evaluate any number of SymPy matrices.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_idx_start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">_idx_delim</span> <span class="o">=</span> <span class="s2">&quot;[]&quot;</span>
+    <span class="n">_base_printer</span> <span class="o">=</span> <span class="n">CodePrinter</span>
+    <span class="c1"># TODO : I opened an issue with SymPy to deal with the type declaration,</span>
+    <span class="c1"># https://github.com/sympy/sympy/issues/10446.</span>
+    <span class="n">_type_declar</span> <span class="o">=</span> <span class="s1">&#39;double &#39;</span>  <span class="c1"># prepended to variable introductions</span>
+    <span class="n">_line_contin</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_comment_char</span> <span class="o">=</span> <span class="s1">&#39;#&#39;</span>
+
+<div class="viewcode-block" id="MatrixGenerator.__init__"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.matrix_generator.MatrixGenerator.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">,</span> <span class="n">matrices</span><span class="p">,</span> <span class="n">cse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        arguments : sequence of sequences of SymPy Symbol or Function</span>
+<span class="sd">            Each of the sequences will be converted to input arrays in the</span>
+<span class="sd">            generated function. All of the symbols/functions contained in</span>
+<span class="sd">            ``matrices`` need to be in the sequences, but the sequences can</span>
+<span class="sd">            also contain extra symbols/functions that are not contained in the</span>
+<span class="sd">            matrices.</span>
+<span class="sd">        matrices : sequence of SymPy.Matrix</span>
+<span class="sd">            A sequence of the matrices that should be evaluated in the</span>
+<span class="sd">            function. The expressions should contain only sympy.Symbol or</span>
+<span class="sd">            sympy.Function that are functions of me.dynamicsymbols._t.</span>
+<span class="sd">        cse : boolean</span>
+<span class="sd">            Find and replace common sub-expressions in ``matrices`` if True.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">required_args</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="n">matrices</span><span class="p">:</span>
+            <span class="c1"># TODO : SymPy 0.7.4 does not have Matrix.free_symbols so we</span>
+            <span class="c1"># manually compute them instead of calling:</span>
+            <span class="c1"># required_args |= matrix.free_symbols</span>
+            <span class="n">required_args</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">()</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">free_symbols</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">matrix</span><span class="p">])</span>
+            <span class="n">required_args</span> <span class="o">|=</span> <span class="n">find_dynamicsymbols</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+
+        <span class="n">required_args</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="o">.</span><span class="n">_t</span><span class="p">)</span>
+
+        <span class="n">all_arguments</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">arguments</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">required_arg</span> <span class="ow">in</span> <span class="n">required_args</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">required_arg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_arguments</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is missing from the argument sequences.&quot;</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">required_arg</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">matrices</span> <span class="o">=</span> <span class="n">matrices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arguments</span> <span class="o">=</span> <span class="n">arguments</span>
+
+        <span class="k">if</span> <span class="n">cse</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_cse</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_cse</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_code_blocks</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_generate_cse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;pydy_&#39;</span><span class="p">):</span>
+
+        <span class="c1"># This makes a big long list of every expression in all of the</span>
+        <span class="c1"># matrices.</span>
+        <span class="n">exprs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrices</span><span class="p">:</span>
+            <span class="n">exprs</span> <span class="o">+=</span> <span class="n">matrix</span><span class="p">[:]</span>
+
+        <span class="c1"># Compute the common subexpresions.</span>
+        <span class="n">gen</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">numbered_symbols</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subexprs</span><span class="p">,</span> <span class="n">simplified_exprs</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">cse</span><span class="p">(</span><span class="n">exprs</span><span class="p">,</span> <span class="n">symbols</span><span class="o">=</span><span class="n">gen</span><span class="p">)</span>
+
+        <span class="c1"># Turn the expressions back into matrices of the same type.</span>
+        <span class="n">simplified_matrices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrices</span><span class="p">:</span>
+            <span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="n">num_rows</span> <span class="o">*</span> <span class="n">num_cols</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">matrix</span><span class="p">)(</span><span class="n">simplified_exprs</span><span class="p">[</span><span class="n">idx</span><span class="p">:</span><span class="n">idx</span> <span class="o">+</span> <span class="n">length</span><span class="p">])</span>
+            <span class="n">simplified_matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">))</span>
+            <span class="n">idx</span> <span class="o">+=</span> <span class="n">length</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">simplified_matrices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">simplified_matrices</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_ignore_cse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subexprs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simplified_matrices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrices</span>
+
+    <span class="k">def</span> <span class="nf">_generate_pydy_printer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a subclass of a sympy.printing.Printer to print appropriate</span>
+<span class="sd">        array index calls for all of the symbols in the equations of motion.&quot;&quot;&quot;</span>
+
+        <span class="n">array_index_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arg_set</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arg_set</span><span class="p">):</span>
+                <span class="n">array_index_map</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;input_</span><span class="si">{}{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idx_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idx_delim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">j</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idx_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idx_delim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">class</span> <span class="nc">PyDyCodePrinter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_printer</span><span class="p">):</span>
+
+            <span class="k">def</span> <span class="nf">_print_Function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">array_index_map</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="n">array_index_map</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PyDyCodePrinter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_print_Function</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">_print_Symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">array_index_map</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="n">array_index_map</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PyDyCodePrinter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_print_Symbol</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">PyDyCodePrinter</span>
+
+<div class="viewcode-block" id="MatrixGenerator.comma_lists"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.matrix_generator.MatrixGenerator.comma_lists">[docs]</a>    <span class="k">def</span> <span class="nf">comma_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a string output for each of the sequences of SymPy</span>
+<span class="sd">        arguments.&quot;&quot;&quot;</span>
+
+        <span class="n">comma_lists</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arg_set</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">):</span>
+            <span class="n">comma_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">arg_set</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">comma_lists</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_generate_code_blocks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Writes the blocks of code for the source file.&quot;&quot;&quot;</span>
+
+        <span class="n">printer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_pydy_printer</span><span class="p">()()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_blocks</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Creates a string of comma separated inputs.</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">):</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">input_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_type_declar</span><span class="p">,</span>
+                                             <span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idx_start</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_blocks</span><span class="p">[</span><span class="s1">&#39;input_args&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+        <span class="c1"># Creates a string of comma separated outputs.</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">output_arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrices</span><span class="p">):</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">output_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_type_declar</span><span class="p">,</span>
+                                              <span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idx_start</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_blocks</span><span class="p">[</span><span class="s1">&#39;output_args&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">input_arg</span><span class="p">,</span> <span class="n">explan</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">,</span>
+                                                    <span class="bp">self</span><span class="o">.</span><span class="n">comma_lists</span><span class="p">())):</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> input_</span><span class="si">{}</span><span class="s1"> : [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_comment_char</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">_idx_start</span><span class="p">,</span> <span class="n">explan</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_blocks</span><span class="p">[</span><span class="s1">&#39;docstring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wrap_and_indent</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                                                        <span class="n">comment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_comment_char</span><span class="p">)</span>
+
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">expr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subexprs</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">var</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_blocks</span><span class="p">[</span><span class="s1">&#39;subexprs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wrap_and_indent</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span>
+                                                       <span class="n">continuation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_line_contin</span><span class="p">)</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">output</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simplified_matrices</span><span class="p">):</span>
+            <span class="n">nr</span><span class="p">,</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">lhs</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;output_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idx_start</span><span class="p">),</span> <span class="n">nr</span><span class="p">,</span> <span class="n">nc</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">code_str</span> <span class="o">=</span> <span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">lhs</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="c1"># The above fails in SymPy 0.7.4.1 because Matrix printing</span>
+                <span class="c1"># isn&#39;t supported.</span>
+                <span class="n">code_lines</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+                    <span class="n">assignment</span> <span class="o">=</span> <span class="s1">&#39;output_</span><span class="si">{}</span><span class="s1">[</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                    <span class="n">code_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">assignment</span><span class="p">))</span>
+                <span class="n">code_str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code_lines</span><span class="p">)</span>
+            <span class="n">outputs</span> <span class="o">+=</span> <span class="n">wrap_and_indent</span><span class="p">(</span><span class="n">code_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span>
+                                       <span class="n">continuation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_line_contin</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simplified_matrices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">outputs</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span>  <span class="c1"># space between each output</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_blocks</span><span class="p">[</span><span class="s1">&#39;outputs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outputs</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.codegen.matrix_generator</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

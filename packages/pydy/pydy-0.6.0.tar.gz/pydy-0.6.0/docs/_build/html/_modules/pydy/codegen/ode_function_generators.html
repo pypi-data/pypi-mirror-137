@@ -1,0 +1,1009 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pydy.codegen.ode_function_generators &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.codegen.ode_function_generators</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pydy.codegen.ode_function_generators</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.linalg</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">sympy.physics.mechanics</span> <span class="k">as</span> <span class="nn">me</span>
+<span class="kn">from</span> <span class="nn">sympy.core.function</span> <span class="kn">import</span> <span class="n">UndefinedFunction</span><span class="p">,</span> <span class="n">Derivative</span>
+<span class="n">Cython</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">external</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s1">&#39;Cython&#39;</span><span class="p">)</span>
+<span class="n">theano</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">external</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s1">&#39;theano&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">theano</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">sympy.printing.theanocode</span> <span class="kn">import</span> <span class="n">theano_function</span>
+
+<span class="kn">from</span> <span class="nn">.c_code</span> <span class="kn">import</span> <span class="n">_CLUsolveGenerator</span>
+<span class="kn">from</span> <span class="nn">.cython_code</span> <span class="kn">import</span> <span class="n">CythonMatrixGenerator</span>
+
+
+<div class="viewcode-block" id="ODEFunctionGenerator"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.ODEFunctionGenerator">[docs]</a><span class="k">class</span> <span class="nc">ODEFunctionGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is an abstract base class for all of the generators. A subclass</span>
+<span class="sd">    is expected to implement the methods necessary to evaluate the arrays</span>
+<span class="sd">    needed to compute xdot for the three different system specification</span>
+<span class="sd">    types.&quot;&quot;&quot;</span>
+
+    <span class="n">_rhs_doc_template</span> <span class="o">=</span> \
+<span class="sd">&quot;&quot;&quot;\</span>
+<span class="sd">Returns the derivatives of the states, i.e. numerically evaluates the right</span>
+<span class="sd">hand side of the first order differential equation.</span>
+
+<span class="sd">x&#39; = f(x, t,{specified_call_sig} p)</span>
+
+<span class="sd">Parameters</span>
+<span class="sd">==========</span>
+<span class="sd">x : ndarray, shape({num_states},)</span>
+<span class="sd">    The state vector is ordered as such:</span>
+<span class="sd">{state_list}</span>
+<span class="sd">t : float</span>
+<span class="sd">    The current time.{specifieds_explanation}{constants_explanation}</span>
+
+<span class="sd">Returns</span>
+<span class="sd">=======</span>
+<span class="sd">dx : ndarray, shape({num_states},)</span>
+<span class="sd">    The derivative of the state vector.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="n">_constants_doc_templates</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">_constants_doc_templates</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> \
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">p : dictionary len({num_constants}) or ndarray shape({num_constants},)</span>
+<span class="sd">    Either a dictionary that maps the constants symbols to their numerical</span>
+<span class="sd">    values or an array with the constants in the following order:</span>
+<span class="sd">{constant_list}\</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="n">_constants_doc_templates</span><span class="p">[</span><span class="s1">&#39;array&#39;</span><span class="p">]</span> <span class="o">=</span> \
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">p : ndarray shape({num_constants},)</span>
+<span class="sd">    A ndarray of floats that give the numerical values of the constants in</span>
+<span class="sd">    this order:</span>
+<span class="sd">{constant_list}\</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="n">_constants_doc_templates</span><span class="p">[</span><span class="s1">&#39;dictionary&#39;</span><span class="p">]</span> <span class="o">=</span> \
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">p : dictionary len({num_constants})</span>
+<span class="sd">    A dictionary that maps the constants symbols to their numerical values</span>
+<span class="sd">    with at least these keys:</span>
+<span class="sd">{constant_list}\</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="n">_specifieds_doc_templates</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">_specifieds_doc_templates</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> \
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">r : dictionary; ndarray, shape({num_specified},); function</span>
+
+<span class="sd">    There are three options for this argument. (1) is more flexible but</span>
+<span class="sd">    (2) and (3) are much more efficient.</span>
+
+<span class="sd">    (1) A dictionary that maps the specified functions of time to floats,</span>
+<span class="sd">    ndarrays, or functions that produce ndarrays. The keys can be a single</span>
+<span class="sd">    specified symbolic function of time or a tuple of symbols. The total</span>
+<span class="sd">    number of symbols must be equal to {num_specified}. If the value is a</span>
+<span class="sd">    function it must be of the form g(x, t), where x is the current state</span>
+<span class="sd">    vector ndarray and t is the current time float and it must return an</span>
+<span class="sd">    ndarray of the correct shape. For example::</span>
+
+<span class="sd">      r = {{a: 1.0,</span>
+<span class="sd">           (d, b) : np.array([1.0, 2.0]),</span>
+<span class="sd">           (e, f) : lambda x, t: np.array(x[0], x[1]),</span>
+<span class="sd">           c: lambda x, t: np.array(x[2])}}</span>
+
+<span class="sd">    (2) A ndarray with the specified values in the correct order and of the</span>
+<span class="sd">    correct shape.</span>
+
+<span class="sd">    (3) A function that must be of the form g(x, t), where x is the current</span>
+<span class="sd">    state vector and t is the current time and it must return an ndarray of</span>
+<span class="sd">    the correct shape.</span>
+
+<span class="sd">    The specified inputs are, in order:</span>
+<span class="sd">{specified_list}\</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="n">_specifieds_doc_templates</span><span class="p">[</span><span class="s1">&#39;array&#39;</span><span class="p">]</span> <span class="o">=</span> \
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">r : ndarray, shape({num_specified},)</span>
+
+<span class="sd">    A ndarray with the specified values in the correct order and of the</span>
+<span class="sd">    correct shape.</span>
+
+<span class="sd">    The specified inputs are, in order:</span>
+<span class="sd">{specified_list}\</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="n">_specifieds_doc_templates</span><span class="p">[</span><span class="s1">&#39;function&#39;</span><span class="p">]</span> <span class="o">=</span> \
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">r : function</span>
+
+<span class="sd">    A function that must be of the form g(x, t), where x is the current</span>
+<span class="sd">    state vector and t is the current time and it must return an ndarray of</span>
+<span class="sd">    shape({num_specified},).</span>
+
+<span class="sd">    The specified inputs are, in order:</span>
+<span class="sd">{specified_list}\</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="n">_specifieds_doc_templates</span><span class="p">[</span><span class="s1">&#39;dictionary&#39;</span><span class="p">]</span> <span class="o">=</span> \
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">r : dictionary</span>
+
+<span class="sd">    A dictionary that maps the specified functions of time to floats,</span>
+<span class="sd">    ndarrays, or functions that produce ndarrays. The keys can be a single</span>
+<span class="sd">    specified symbolic function of time or a tuple of symbols. The total</span>
+<span class="sd">    number of symbols must be equal to {num_specified}. If the value is a</span>
+<span class="sd">    function it must be of the form g(x, t), where x is the current state</span>
+<span class="sd">    vector ndarray and t is the current time float and it must return an</span>
+<span class="sd">    ndarray of the correct shape. For example::</span>
+
+<span class="sd">      r = {{a: 1.0,</span>
+<span class="sd">           (d, b) : np.array([1.0, 2.0]),</span>
+<span class="sd">           (e, f) : lambda x, t: np.array(x[0], x[1]),</span>
+<span class="sd">           c: lambda x, t: np.array(x[2])}}</span>
+
+<span class="sd">    The specified inputs are, in order:</span>
+<span class="sd">{specified_list}\</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_deduce_system_type</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Based on the combination of arguments this returns which ODE</span>
+<span class="sd">        description has been provided.</span>
+
+<span class="sd">        full rhs</span>
+<span class="sd">            x&#39; = f(x, t, r, p)</span>
+<span class="sd">        full mass matrix</span>
+<span class="sd">            M(x, p) * x&#39; = f(x, t, r, p)</span>
+<span class="sd">        min mass matrix</span>
+<span class="sd">            M(q, p) * u&#39; = f(q, u, t, r, p)</span>
+<span class="sd">            q&#39; = g(q, u, t)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;coordinate_derivatives&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">system_type</span> <span class="o">=</span> <span class="s1">&#39;min mass matrix&#39;</span>
+        <span class="k">elif</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;mass_matrix&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">system_type</span> <span class="o">=</span> <span class="s1">&#39;full mass matrix&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">system_type</span> <span class="o">=</span> <span class="s1">&#39;full rhs&#39;</span>
+
+        <span class="k">return</span> <span class="n">system_type</span>
+
+<div class="viewcode-block" id="ODEFunctionGenerator.__init__"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.ODEFunctionGenerator.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">right_hand_side</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="n">speeds</span><span class="p">,</span> <span class="n">constants</span><span class="o">=</span><span class="p">(),</span>
+                 <span class="n">mass_matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coordinate_derivatives</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">specifieds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">linear_sys_solver</span><span class="o">=</span><span class="s1">&#39;numpy&#39;</span><span class="p">,</span>
+                 <span class="n">constants_arg_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">specifieds_arg_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generates a numerical function which can evaluate the right hand</span>
+<span class="sd">        side of the first order ordinary differential equations from a</span>
+<span class="sd">        system described by one of the following three symbolic forms:</span>
+
+<span class="sd">            [1] x&#39; = F(x, t, r, p)</span>
+
+<span class="sd">            [2] M(x, p) x&#39; = F(x, t, r, p)</span>
+
+<span class="sd">            [3] M(q, p) u&#39; = F(q, u, t, r, p)</span>
+<span class="sd">                q&#39; = G(q, u, t, r, p)</span>
+
+<span class="sd">        where</span>
+
+<span class="sd">            x : states, i.e. [q, u]</span>
+<span class="sd">            t : time</span>
+<span class="sd">            r : specified (exogenous) inputs</span>
+<span class="sd">            p : constants</span>
+<span class="sd">            q : generalized coordinates</span>
+<span class="sd">            u : generalized speeds</span>
+<span class="sd">            M : mass matrix (full or minimum)</span>
+<span class="sd">            F : right hand side (full or minimum)</span>
+<span class="sd">            G : right hand side of the kinematical differential equations</span>
+
+<span class="sd">        The generated function is of the form F(x, t, p) or F(x, t, r, p)</span>
+<span class="sd">        depending on whether the system has specified inputs or not.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        right_hand_side : SymPy Matrix, shape(n, 1)</span>
+<span class="sd">            A column vector containing the symbolic expressions for the</span>
+<span class="sd">            right hand side of the ordinary differential equations. If the</span>
+<span class="sd">            right hand side has been solved for symbolically then only F is</span>
+<span class="sd">            required, see form [1]; if not then the mass matrix must also be</span>
+<span class="sd">            supplied, see forms [2, 3].</span>
+<span class="sd">        coordinates : sequence of SymPy Functions</span>
+<span class="sd">            The generalized coordinates. These must be ordered in the same</span>
+<span class="sd">            order as the rows in M, F, and/or G and be functions of time.</span>
+<span class="sd">        speeds : sequence of SymPy Functions</span>
+<span class="sd">            The generalized speeds. These must be ordered in the same order</span>
+<span class="sd">            as the rows in M, F, and/or G and be functions of time.</span>
+<span class="sd">        constants : sequence of SymPy Symbols, optional</span>
+<span class="sd">            All of the constants present in the equations of motion. The</span>
+<span class="sd">            order does not matter.</span>
+<span class="sd">        mass_matrix : sympy.Matrix, shape(n, n), optional</span>
+<span class="sd">            This can be either the &quot;full&quot; mass matrix as in [2] or the</span>
+<span class="sd">            &quot;minimal&quot; mass matrix as in [3]. The rows and columns must be</span>
+<span class="sd">            ordered to match the order of the coordinates and speeds. In the</span>
+<span class="sd">            case of the full mass matrix, the speeds should always be</span>
+<span class="sd">            ordered before the speeds, i.e. x = [q, u].</span>
+<span class="sd">        coordinate_derivatives : sympy.Matrix, shape(m, 1), optional</span>
+<span class="sd">            If the &quot;minimal&quot; mass matrix, form [3], is supplied, then this</span>
+<span class="sd">            column vector represents the right hand side of the kinematical</span>
+<span class="sd">            differential equations.</span>
+<span class="sd">        specifieds : sequence of SymPy Functions</span>
+<span class="sd">            The specified exogenous inputs to the system. These should be</span>
+<span class="sd">            functions of time and the order does not matter.</span>
+<span class="sd">        linear_sys_solver : string or function</span>
+<span class="sd">            Specify either `numpy` or `scipy` to use the linear solvers</span>
+<span class="sd">            provided in each package or supply a function that solves a</span>
+<span class="sd">            linear system Ax=b with the call signature x = solve(A, b). For</span>
+<span class="sd">            example, if you need to use custom kwargs for the SciPy solver,</span>
+<span class="sd">            pass in a lambda function that wraps the solver and sets them.</span>
+<span class="sd">        constants_arg_type : string</span>
+<span class="sd">            The generated function accepts two different types of arguments</span>
+<span class="sd">            for the numerical values of the constants: either a ndarray of</span>
+<span class="sd">            the constants values in the correct order or a dictionary</span>
+<span class="sd">            mapping the constants symbols to the numerical values. If None,</span>
+<span class="sd">            this is determined inside of the generated function and can</span>
+<span class="sd">            cause a significant slow down for performance critical code. If</span>
+<span class="sd">            you know apriori what arg types you need to support choose</span>
+<span class="sd">            either ``array`` or ``dictionary``. Note that ``array`` is</span>
+<span class="sd">            faster than ``dictionary``.</span>
+<span class="sd">        specifieds_arg_type : string</span>
+<span class="sd">            The generated function accepts three different types of</span>
+<span class="sd">            arguments for the numerical values of the specifieds: either a</span>
+<span class="sd">            ndarray of the specifieds values in the correct order, a</span>
+<span class="sd">            function that generates the correctly ordered ndarray, or a</span>
+<span class="sd">            dictionary mapping the specifieds symbols or tuples of thereof</span>
+<span class="sd">            to floats, ndarrays, or functions. If None, this is determined</span>
+<span class="sd">            inside of the generated function and can cause a significant</span>
+<span class="sd">            slow down for performance critical code. If you know apriori</span>
+<span class="sd">            what arg types you want to support choose either ``array``,</span>
+<span class="sd">            ``function``, or ``dictionary``. The speed of each, from fast to</span>
+<span class="sd">            slow, are ``array``, ``function``, ``dictionary``, None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span> <span class="o">=</span> <span class="n">right_hand_side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span> <span class="o">=</span> <span class="n">coordinates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speeds</span> <span class="o">=</span> <span class="n">speeds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="n">constants</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span> <span class="o">=</span> <span class="n">mass_matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_derivatives</span> <span class="o">=</span> <span class="n">coordinate_derivatives</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="o">=</span> <span class="n">specifieds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear_sys_solver</span> <span class="o">=</span> <span class="n">linear_sys_solver</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constants_arg_type</span> <span class="o">=</span> <span class="n">constants_arg_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">specifieds_arg_type</span> <span class="o">=</span> <span class="n">specifieds_arg_type</span>
+
+        <span class="c1"># As the order of the constants and specifieds arguments if not</span>
+        <span class="c1"># important, allow Sets to be used as input. However, the order must be</span>
+        <span class="c1"># maintained and converted to a Sequence.</span>
+        <span class="k">if</span> <span class="n">constants</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constants</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">constants</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">specifieds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">specifieds</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">specifieds</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deduce_system_type</span><span class="p">(</span>
+            <span class="n">mass_matrix</span><span class="o">=</span><span class="n">mass_matrix</span><span class="p">,</span>
+            <span class="n">coordinate_derivatives</span><span class="o">=</span><span class="n">coordinate_derivatives</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_speeds</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">speeds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_speeds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_constants</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">constants</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_specifieds</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">specifieds_arg_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_specifieds</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">specifieds</span><span class="p">)</span>
+
+        <span class="c1"># These are pre-allocated storage for the numerical values used in</span>
+        <span class="c1"># some of the rhs() evaluations.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_constants_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_constants</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_specifieds</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_system_consitency</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">linear_sys_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linear_sys_solver</span>
+
+    <span class="nd">@linear_sys_solver</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">linear_sys_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_solve_linear_system</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_linear_sys_solver</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">elif</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;numpy&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_solve_linear_system</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_linear_sys_solver</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">elif</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;scipy&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_solve_linear_system</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_linear_sys_solver</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">elif</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;sympy&#39;</span><span class="p">:</span>
+            <span class="c1"># dummy function</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_solve_linear_system</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_linear_sys_solver</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is not a valid solver.&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear_sys_solver</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_check_system_consitency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;min mass matrix&#39;</span><span class="p">:</span>
+
+            <span class="n">nr</span><span class="p">,</span> <span class="n">nc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_speeds</span> <span class="o">==</span> <span class="n">nr</span> <span class="o">==</span> <span class="n">nc</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_speeds</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_derivatives</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;full mass matrix&#39;</span><span class="p">:</span>
+
+            <span class="n">nr</span><span class="p">,</span> <span class="n">nc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_states</span> <span class="o">==</span> <span class="n">nr</span> <span class="o">==</span> <span class="n">nc</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_states</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_derivatives</span> <span class="ow">is</span> <span class="kc">None</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;full rhs&#39;</span><span class="p">:</span>
+
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_states</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_derivatives</span> <span class="ow">is</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ODEFunctionGenerator.list_syms"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.ODEFunctionGenerator.list_syms">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">list_syms</span><span class="p">(</span><span class="n">indent</span><span class="p">,</span> <span class="n">syms</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a string representation of a valid rst list of the</span>
+<span class="sd">        symbols in the sequence syms and indents the list given the integer</span>
+<span class="sd">        number of indentations.&quot;&quot;&quot;</span>
+        <span class="n">indentation</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">indent</span>
+        <span class="n">lst</span> <span class="o">=</span> <span class="s1">&#39;- &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">indentation</span> <span class="o">+</span> <span class="s1">&#39;- &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">syms</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">indentation</span> <span class="o">+</span> <span class="n">lst</span></div>
+
+    <span class="k">def</span> <span class="nf">_convert_constants_dict_to_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns an array of numerical values from the constants</span>
+<span class="sd">        dictionary in the correct order.&quot;&quot;&quot;</span>
+
+        <span class="c1"># NOTE : It&#39;s unfortunate that this has to be run at every rhs eval,</span>
+        <span class="c1"># because subsequent calls to rhs() doesn&#39;t require different</span>
+        <span class="c1"># constants. I suppose you can sub out all the constants in the EoMs</span>
+        <span class="c1"># before passing them into the generator. That would beg for the</span>
+        <span class="c1"># capability to support self.constants=None to skip all of this</span>
+        <span class="c1"># stuff in the rhs eval.</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_constants_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constants_values</span>
+
+    <span class="k">def</span> <span class="nf">_parse_constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns an ndarray containing the numerical values of the</span>
+<span class="sd">        constants in the correct order. If the constants are already an</span>
+<span class="sd">        array, that array is returned.&quot;&quot;&quot;</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># NOTE : This emits &quot;VisibleDeprecationWarning: using a non-integer</span>
+            <span class="c1"># number instead of an integer will result in an error in the</span>
+            <span class="c1"># future&quot; along with the IndexError in NumPy 1.11. Not sure why it</span>
+            <span class="c1"># gives the warning, it already gives and error with trying to</span>
+            <span class="c1"># index with a SymPy symbol.</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_constants_dict_to_array</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="c1"># p is an array so just return the args</span>
+            <span class="k">return</span> <span class="n">args</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">args</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">p</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="nf">_convert_specifieds_dict_to_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># TODO : Not sure if this is the best check here.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">UndefinedFunction</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">Derivative</span><span class="p">)):</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="p">,)</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">symmy</span><span class="p">)</span> <span class="k">for</span> <span class="n">symmy</span> <span class="ow">in</span> <span class="n">k</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_values</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>  <span class="c1"># not callable</span>
+                <span class="c1"># If not callable, then it should be a float, ndarray,</span>
+                <span class="c1"># or indexable.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_values</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_values</span>
+
+    <span class="k">def</span> <span class="nf">_parse_specifieds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="c1"># NOTE : This function sets self._specifieds_values, so here we</span>
+            <span class="c1"># return nothing.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_convert_specifieds_dict_to_array</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># More efficient.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_values</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>  <span class="c1"># not callable.</span>
+                <span class="c1"># If not callable, then it should be a float or ndarray.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_values</span> <span class="o">=</span> <span class="n">r</span>
+
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_values</span><span class="p">,</span> <span class="n">p</span>
+
+    <span class="k">def</span> <span class="nf">_parse_all_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns args formatted for the post 0.3.0 generators using all of</span>
+<span class="sd">        the parsers. This is the slowest method and is used by default if no</span>
+<span class="sd">        information is provided by the user on which type of args will be</span>
+<span class="sd">        passed in.&quot;&quot;&quot;</span>
+
+        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constants</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_specifieds</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">args</span>
+
+    <span class="k">def</span> <span class="nf">_generate_rhs_docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">template_values</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;num_states&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_states</span><span class="p">,</span>
+                           <span class="s1">&#39;state_list&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_syms</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span>
+                                                        <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">speeds</span><span class="p">),</span>
+                           <span class="s1">&#39;specified_call_sig&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;constants_explanation&#39;</span><span class="p">:</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">_constants_doc_templates</span><span class="p">[</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">constants_arg_type</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+                                       <span class="s1">&#39;num_constants&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_constants</span><span class="p">,</span>
+                                       <span class="s1">&#39;constant_list&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_syms</span><span class="p">(</span>
+                                           <span class="mi">8</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">)}),</span>
+                           <span class="s1">&#39;specifieds_explanation&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">template_values</span><span class="p">[</span><span class="s1">&#39;specified_call_sig&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39; r,&#39;</span>
+            <span class="n">specified_template_values</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;num_specified&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_specifieds</span><span class="p">,</span>
+                <span class="s1">&#39;specified_list&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_syms</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span><span class="p">)}</span>
+            <span class="n">template_values</span><span class="p">[</span><span class="s1">&#39;specifieds_explanation&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_doc_templates</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">specifieds_arg_type</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="o">**</span><span class="n">specified_template_values</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rhs_doc_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">template_values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_rhs_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a function in the form expected by scipy.integrate.odeint</span>
+<span class="sd">        that computes the derivatives of the states.&quot;&quot;&quot;</span>
+
+        <span class="n">p_arg_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants_arg_type</span>
+        <span class="n">r_arg_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds_arg_type</span>
+
+        <span class="k">if</span> <span class="n">p_arg_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">r_arg_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">rhs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+                <span class="c1"># args: x, t, p</span>
+                <span class="c1"># or</span>
+                <span class="c1"># args: x, t, r, p</span>
+
+                <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_all_args</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+                <span class="n">q</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span><span class="p">]</span>
+                <span class="n">u</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span><span class="p">:]</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">:</span>
+                    <span class="n">xdot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">xdot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">([],)))</span>
+                <span class="k">return</span> <span class="n">xdot</span>
+
+            <span class="n">rhs</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_rhs_docstring</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">rhs</span>
+
+        <span class="k">if</span> <span class="n">p_arg_type</span> <span class="o">==</span> <span class="s1">&#39;dictionary&#39;</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">li</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_constants_dict_to_array</span><span class="p">(</span><span class="n">li</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">li</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constants</span><span class="p">(</span><span class="o">*</span><span class="n">li</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">r_arg_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">li</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_specifieds</span><span class="p">(</span><span class="o">*</span><span class="n">li</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">r_arg_type</span> <span class="o">==</span> <span class="s1">&#39;array&#39;</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">li</span> <span class="p">:</span> <span class="p">(</span><span class="n">li</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">r_arg_type</span> <span class="o">==</span> <span class="s1">&#39;dictionary&#39;</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">li</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_specifieds_dict_to_array</span><span class="p">(</span><span class="o">*</span><span class="n">li</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="n">r_arg_type</span> <span class="o">==</span> <span class="s1">&#39;function&#39;</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">li</span><span class="p">:</span> <span class="n">li</span><span class="p">[</span><span class="mi">2</span><span class="p">](</span><span class="o">*</span><span class="n">li</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+
+        <span class="k">def</span> <span class="nf">rhs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+            <span class="c1"># args: x, t, p</span>
+            <span class="c1"># or</span>
+            <span class="c1"># args: x, t, r, p</span>
+
+            <span class="n">q</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span><span class="p">]</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span><span class="p">:]</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="n">p</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="p">[])</span>
+
+        <span class="n">rhs</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_rhs_docstring</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">rhs</span>
+
+    <span class="k">def</span> <span class="nf">_create_base_rhs_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the self._base_rhs function. This function accepts arguments</span>
+<span class="sd">        in this form: (q, u, p) or (q, u, r, p).&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;full rhs&#39;</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span>
+
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;full mass matrix&#39;</span> <span class="ow">and</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">linear_sys_solver</span><span class="o">==</span><span class="s1">&#39;sympy&#39;</span><span class="p">):</span>
+
+            <span class="k">def</span> <span class="nf">base_rhs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+                <span class="n">M</span><span class="p">,</span> <span class="n">xdot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">xdot</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span> <span class="o">=</span> <span class="n">base_rhs</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;full mass matrix&#39;</span><span class="p">:</span>
+
+            <span class="k">def</span> <span class="nf">base_rhs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+
+                <span class="n">M</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solve_linear_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span> <span class="o">=</span> <span class="n">base_rhs</span>
+
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;min mass matrix&#39;</span> <span class="ow">and</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">linear_sys_solver</span><span class="o">==</span><span class="s1">&#39;sympy&#39;</span><span class="p">):</span>
+
+            <span class="n">xdot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_states</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">base_rhs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+                <span class="n">M</span><span class="p">,</span> <span class="n">udot</span><span class="p">,</span> <span class="n">qdot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="n">xdot</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span><span class="p">]</span> <span class="o">=</span> <span class="n">qdot</span>
+                <span class="n">xdot</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span><span class="p">:]</span> <span class="o">=</span> <span class="n">udot</span>
+                <span class="k">return</span> <span class="n">xdot</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span> <span class="o">=</span> <span class="n">base_rhs</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;min mass matrix&#39;</span><span class="p">:</span>
+
+            <span class="n">xdot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_states</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">base_rhs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+                <span class="n">M</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">qdot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_speeds</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">udot</span> <span class="o">=</span> <span class="n">F</span> <span class="o">/</span> <span class="n">M</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">udot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solve_linear_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
+                <span class="n">xdot</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span><span class="p">]</span> <span class="o">=</span> <span class="n">qdot</span>
+                <span class="n">xdot</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span><span class="p">:]</span> <span class="o">=</span> <span class="n">udot</span>
+                <span class="k">return</span> <span class="n">xdot</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_base_rhs</span> <span class="o">=</span> <span class="n">base_rhs</span>
+
+<div class="viewcode-block" id="ODEFunctionGenerator.define_inputs"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.ODEFunctionGenerator.define_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">define_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets self.inputs to the list of sequences [q, u, p] or [q, u, r,</span>
+<span class="sd">        p].&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">speeds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ODEFunctionGenerator.generate"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.ODEFunctionGenerator.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a function that evaluates the right hand side of the</span>
+<span class="sd">        first order ordinary differential equations in one of two forms:</span>
+
+<span class="sd">            x&#39; = f(x, t, p)</span>
+
+<span class="sd">            or</span>
+
+<span class="sd">            x&#39; = f(x, t, r, p)</span>
+
+<span class="sd">        See the docstring of the generated function for more details.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;full rhs&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_full_rhs_function</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;full mass matrix&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_full_mass_matrix_function</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_type</span> <span class="o">==</span> <span class="s1">&#39;min mass matrix&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_min_mass_matrix_function</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_base_rhs_function</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_rhs_function</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="CythonODEFunctionGenerator"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.CythonODEFunctionGenerator">[docs]</a><span class="k">class</span> <span class="nc">CythonODEFunctionGenerator</span><span class="p">(</span><span class="n">ODEFunctionGenerator</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CythonODEFunctionGenerator.__init__"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.CythonODEFunctionGenerator.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tmp_dir&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="s1">&#39;prefix&#39;</span><span class="p">:</span> <span class="s1">&#39;pydy_codegen&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;cse&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                         <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                         <span class="p">}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">Cython</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;Cython must be installed to use this class.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">CythonODEFunctionGenerator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="fm">__init__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">ODEFunctionGenerator</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__doc__</span>
+
+    <span class="k">def</span> <span class="nf">_cythonize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">CythonMatrixGenerator</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span>
+                                  <span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;prefix&#39;</span><span class="p">],</span>
+                                  <span class="n">cse</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;cse&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">tmp_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;tmp_dir&#39;</span><span class="p">],</span>
+                         <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_cythonize_symbolic_lusolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;cse&#39;</span><span class="p">]:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;cse has to be True if using the sympy linear system solver&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">CythonMatrixGenerator</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span>
+                                  <span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;prefix&#39;</span><span class="p">],</span>
+                                  <span class="n">cse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># patch in the special generator</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">c_matrix_generator</span> <span class="o">=</span> <span class="n">_CLUsolveGenerator</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">tmp_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;tmp_dir&#39;</span><span class="p">],</span>
+                         <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_set_eval_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_empties</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span>
+                                                    <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_empties</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">generate_full_rhs_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_inputs</span><span class="p">()</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_empties</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_states</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_eval_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cythonize</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">generate_full_mass_matrix_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_inputs</span><span class="p">()</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="p">]</span>
+
+        <span class="n">mass_matrix_result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_states</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">rhs_result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_states</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_empties</span> <span class="o">=</span> <span class="p">(</span><span class="n">mass_matrix_result</span><span class="p">,</span> <span class="n">rhs_result</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear_sys_solver</span> <span class="o">==</span> <span class="s1">&#39;sympy&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_eval_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cythonize_symbolic_lusolve</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span>
+                                                                  <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_eval_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cythonize</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">generate_min_mass_matrix_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_inputs</span><span class="p">()</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="p">,</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_derivatives</span><span class="p">]</span>
+
+        <span class="n">mass_matrix_result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_speeds</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">rhs_result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_speeds</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">kin_diffs_result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_coordinates</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_empties</span> <span class="o">=</span> <span class="p">(</span><span class="n">mass_matrix_result</span><span class="p">,</span> <span class="n">rhs_result</span><span class="p">,</span> <span class="n">kin_diffs_result</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear_sys_solver</span> <span class="o">==</span> <span class="s1">&#39;sympy&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_eval_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cythonize_symbolic_lusolve</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span>
+                                                                  <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_eval_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cythonize</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="LambdifyODEFunctionGenerator"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.LambdifyODEFunctionGenerator">[docs]</a><span class="k">class</span> <span class="nc">LambdifyODEFunctionGenerator</span><span class="p">(</span><span class="n">ODEFunctionGenerator</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_lambdify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+        <span class="c1"># TODO : We could forgo this substitution for generation speed</span>
+        <span class="c1"># purposes and have lots of args for lambdify (like it used to be</span>
+        <span class="c1"># done) but there may be some limitations on number of args.</span>
+        <span class="n">subs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">vec_inputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">def_vecs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">def_vecs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">syms</span><span class="p">,</span> <span class="n">vec_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">,</span> <span class="n">def_vecs</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">DeferredVector</span><span class="p">(</span><span class="n">vec_name</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sym</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">syms</span><span class="p">):</span>
+                <span class="n">subs</span><span class="p">[</span><span class="n">sym</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">vec_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">me</span><span class="o">.</span><span class="n">msubs</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">subs</span><span class="p">)</span> <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># msubs doesn&#39;t exist in SymPy &lt; 0.7.6.</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">subs</span><span class="p">)</span> <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]</span>
+
+        <span class="n">modules</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;ImmutableMatrix&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">},</span> <span class="s1">&#39;numpy&#39;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">sm</span><span class="o">.</span><span class="n">lambdify</span><span class="p">(</span><span class="n">vec_inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">modules</span><span class="o">=</span><span class="n">modules</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">generate_full_rhs_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_inputs</span><span class="p">()</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="p">]</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lambdify</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">generate_full_mass_matrix_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_inputs</span><span class="p">()</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="p">]</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lambdify</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span>
+                                                      <span class="n">f</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">)])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span>
+                                                         <span class="ow">in</span> <span class="n">f</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">generate_min_mass_matrix_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_inputs</span><span class="p">()</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="p">,</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_derivatives</span><span class="p">]</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lambdify</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span>
+                                                      <span class="n">f</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">)])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span>
+                                                         <span class="ow">in</span> <span class="n">f</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">)])</span></div>
+
+
+<div class="viewcode-block" id="TheanoODEFunctionGenerator"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.TheanoODEFunctionGenerator">[docs]</a><span class="k">class</span> <span class="nc">TheanoODEFunctionGenerator</span><span class="p">(</span><span class="n">ODEFunctionGenerator</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TheanoODEFunctionGenerator.__init__"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.TheanoODEFunctionGenerator.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">theano</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;Theano must be installed to use this class.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">TheanoODEFunctionGenerator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="fm">__init__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">ODEFunctionGenerator</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__doc__</span>
+
+<div class="viewcode-block" id="TheanoODEFunctionGenerator.define_inputs"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.TheanoODEFunctionGenerator.define_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">define_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Theano&#39;s input requires a flatted sequence instead of sequence of</span>
+        <span class="c1"># sequences.</span>
+        <span class="n">specifieds</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">specifieds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">speeds</span><span class="p">,</span>
+                            <span class="n">specifieds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_theanoize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_inputs</span><span class="p">()</span>
+
+        <span class="n">old_check_input</span> <span class="o">=</span> <span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">check_input</span>
+        <span class="n">old_allow_gc</span> <span class="o">=</span> <span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">allow_gc</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># This affects compilation and removes the input check at each step.</span>
+            <span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">check_input</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="c1"># Disable Theano garbage collection to lower the number of allocations.</span>
+            <span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">allow_gc</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="n">f_imp</span> <span class="o">=</span> <span class="n">theano_function</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span>
+                                    <span class="n">on_unused_input</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span>
+                                    <span class="n">mode</span><span class="o">=</span><span class="n">theano</span><span class="o">.</span><span class="n">Mode</span><span class="p">(</span><span class="n">linker</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">))</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">check_input</span> <span class="o">=</span> <span class="n">old_check_input</span>
+            <span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">allow_gc</span> <span class="o">=</span> <span class="n">old_allow_gc</span>
+
+        <span class="c1"># While denoting an input as trusted lowers Theano overhead:</span>
+        <span class="c1">#     f.trust_input = True</span>
+        <span class="c1"># we can bypass additional overhead with the following function:</span>
+        <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)):</span>
+                <span class="n">f_imp</span><span class="o">.</span><span class="n">input_storage</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">storage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">f_imp</span><span class="o">.</span><span class="n">fn</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">f_imp</span><span class="o">.</span><span class="n">output_storage</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">))]</span>
+
+        <span class="k">return</span> <span class="n">f</span>
+
+    <span class="k">def</span> <span class="nf">generate_full_rhs_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="p">]</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theanoize</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">eval_arrays</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="n">eval_arrays</span>
+
+    <span class="k">def</span> <span class="nf">generate_full_mass_matrix_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="p">]</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theanoize</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">eval_arrays</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">)])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="n">eval_arrays</span>
+
+    <span class="k">def</span> <span class="nf">generate_min_mass_matrix_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mass_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_hand_side</span><span class="p">,</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_derivatives</span><span class="p">]</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theanoize</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">eval_arrays</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">)])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">eval_arrays</span> <span class="o">=</span> <span class="n">eval_arrays</span></div>
+
+
+<div class="viewcode-block" id="generate_ode_function"><a class="viewcode-back" href="../../../codegen.html#pydy.codegen.ode_function_generators.generate_ode_function">[docs]</a><span class="k">def</span> <span class="nf">generate_ode_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is a function wrapper to the above classes. The docstring is</span>
+<span class="sd">    automatically generated below.&quot;&quot;&quot;</span>
+
+    <span class="n">generators</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lambdify&#39;</span><span class="p">:</span> <span class="n">LambdifyODEFunctionGenerator</span><span class="p">,</span>
+                  <span class="s1">&#39;cython&#39;</span><span class="p">:</span> <span class="n">CythonODEFunctionGenerator</span><span class="p">,</span>
+                  <span class="s1">&#39;theano&#39;</span><span class="p">:</span> <span class="n">TheanoODEFunctionGenerator</span><span class="p">}</span>
+
+    <span class="n">generator</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;generator&#39;</span><span class="p">,</span> <span class="s1">&#39;lambdify&#39;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># See if user passed in a custom class.</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="c1"># See if user passed in a string.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">Generator</span> <span class="o">=</span> <span class="n">generators</span><span class="p">[</span><span class="n">generator</span><span class="p">]</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is not a valid generator.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">generator</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span></div>
+
+
+<span class="n">_docstr</span> <span class="o">=</span> <span class="n">ODEFunctionGenerator</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__doc__</span>
+<span class="n">_extra_parameters_doc</span> <span class="o">=</span> \
+<span class="sd">&quot;&quot;&quot;\</span>
+<span class="sd">        generator : string or and ODEFunctionGenerator, optional</span>
+<span class="sd">            The method used for generating the numeric right hand side. The</span>
+<span class="sd">            string options are {&#39;lambdify&#39;|&#39;theano&#39;|&#39;cython&#39;} with</span>
+<span class="sd">            &#39;lambdify&#39; being the default. You can also pass in a custom</span>
+<span class="sd">            subclass of ODEFunctionGenerator.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        =======</span>
+<span class="sd">        rhs : function</span>
+<span class="sd">            A function which evaluates the derivaties of the states. See the</span>
+<span class="sd">            function&#39;s docstring for more details after generation.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">generate_ode_function</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;&#39;</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">_docstr</span> <span class="o">+</span> <span class="n">_extra_parameters_doc</span><span class="p">)</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.codegen.ode_function_generators</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>VisualizationFrame &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Cameras" href="cameras.html" />
+    <link rel="prev" title="Shapes" href="shapes.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="cameras.html" title="Cameras"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="shapes.html" title="Shapes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../python_api.html" accesskey="U">Python Modules Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">VisualizationFrame</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="visualizationframe">
+<h1>VisualizationFrame<a class="headerlink" href="#visualizationframe" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.viz.</span></span><span class="sig-name descname"><span class="pre">VisualizationFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/visualization_frame.html#VisualizationFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.VisualizationFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>A VisualizationFrame represents an object that you want to visualize.
+It allows you to easily associate a reference frame and a point
+with a shape.</p>
+<p>A VisualizationFrame can be attached to only one Shape Object.
+It can be nested, i.e we can add/remove multiple visualization frames to
+one visualization frame. On adding the parent frame to the
+Scene object, all the children of the parent visualization frame
+are also added, and hence can be visualized and animated.</p>
+<p>A VisualizationFrame needs to have a ReferenceFrame, and a Point
+for it to form transformation matrices for visualization and
+animations.</p>
+<p>The ReferenceFrame and Point are required to be provided during
+initialization. They can be supplied in the form of any one of these:</p>
+<p>1)reference_frame, point argument.
+2)a RigidBody argument
+3)reference_frame, particle argument.</p>
+<p>In addition to these arguments, A shape argument is also required.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame.evaluate_transformation_matrix">
+<span class="sig-name descname"><span class="pre">evaluate_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dynamic_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/visualization_frame.html#VisualizationFrame.evaluate_transformation_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.VisualizationFrame.evaluate_transformation_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the numerical transformation matrices for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dynamic_values</strong><span class="classifier">array_like, shape(m,) or shape(n, m)</span></dt><dd><p>The m state values for each n time step.</p>
+</dd>
+<dt><strong>constant_values</strong><span class="classifier">array_like, shape(p,)</span></dt><dd><p>The p constant parameter values of the system.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>transform_matrix</strong><span class="classifier">numpy.array, shape(n, 16)</span></dt><dd><p>A 4 x 4 transformation matrix for each time step.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame.generate_numeric_transform_function">
+<span class="sig-name descname"><span class="pre">generate_numeric_transform_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dynamic_variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_variables</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/visualization_frame.html#VisualizationFrame.generate_numeric_transform_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.VisualizationFrame.generate_numeric_transform_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a function which can compute the numerical values of the
+transformation matrix given the numerical dynamic variables (i.e.
+functions of time or states) and the numerical system constants.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dynamic_variables</strong><span class="classifier">list of sympy.Functions(time)</span></dt><dd><p>All of the dynamic symbols used in defining the orientation and
+position of this visualization frame.</p>
+</dd>
+<dt><strong>constant_variables</strong><span class="classifier">list of sympy.Symbols</span></dt><dd><p>All of the constants used in defining the orientation and
+position of this visualization frame.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>numeric_transform</strong><span class="classifier">list of functions</span></dt><dd><p>A list of functions which return the numerical transformation
+for each element in the transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame.generate_scene_dict">
+<span class="sig-name descname"><span class="pre">generate_scene_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constant_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/visualization_frame.html#VisualizationFrame.generate_scene_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.VisualizationFrame.generate_scene_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method generates information for a static
+visualization in the initial conditions, in the form
+of dictionary. This contains shape information
+from <cite>Shape.generate_dict()</cite> followed by an
+init_orientation Key.</p>
+<p>Before calling this method, all the transformation matrix
+generation methods should be called, or it will give an error.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>constant_map</strong><span class="classifier">dictionary</span></dt><dd><p>Constant map is required when Shape contains sympy expressions.This
+dictionary maps sympy expressions/symbols to numerical values(floats)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>A dictionary built with a call to <cite>Shape.generate_dict</cite>.</dt><dd></dd>
+<dt>Additional keys included in the dict are following:</dt><dd></dd>
+</dl>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>init_orientation: Specifies the initial orientation</dt><dd><p>of the <cite>VisualizationFrame</cite>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>reference_frame_name: Name(str) of the reference_frame</dt><dd><p>attached to this VisualizationFrame.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>simulation_id: an arbitrary integer to map scene description</dt><dd><p>with the simulation data.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame.generate_simulation_dict">
+<span class="sig-name descname"><span class="pre">generate_simulation_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/visualization_frame.html#VisualizationFrame.generate_simulation_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.VisualizationFrame.generate_simulation_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the simulation information for this visualization
+frame. It maps the simulation data information to the
+scene information via a unique id.</p>
+<p>Before calling this method, all the transformation matrix
+generation methods should be called, or it will give an error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>A dictionary containing list of 4x4 matrices mapped to</dt><dd></dd>
+<dt>the unique id as the key.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame.generate_transformation_matrix">
+<span class="sig-name descname"><span class="pre">generate_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/visualization_frame.html#VisualizationFrame.generate_transformation_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.VisualizationFrame.generate_transformation_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a symbolic transformation matrix, with respect to the
+provided reference frame and point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>reference_frame</strong><span class="classifier">ReferenceFrame</span></dt><dd><p>A reference_frame with respect to which transformation matrix is
+generated.</p>
+</dd>
+<dt><strong>point</strong><span class="classifier">Point</span></dt><dd><p>A point with respect to which transformation matrix is
+generated.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>A 4 x 4 SymPy matrix, containing symbolic expressions describing the</dt><dd></dd>
+<dt>transformation as a function of time.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#pydy.viz.VisualizationFrame.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the VisualizationFrame.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame.origin">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origin</span></span><a class="headerlink" href="#pydy.viz.VisualizationFrame.origin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Origin of the VisualizationFrame,
+with respect to which all translational transformations
+take place.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame.reference_frame">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reference_frame</span></span><a class="headerlink" href="#pydy.viz.VisualizationFrame.reference_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>reference_frame of the VisualizationFrame,
+with respect to which all rotational/orientational
+transformations take place.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.viz.VisualizationFrame.shape">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#pydy.viz.VisualizationFrame.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>shape in the VisualizationFrame.
+A shape attached to the visualization frame.
+NOTE: Only one shape can be attached to a visualization frame.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="shapes.html"
+                          title="previous chapter">Shapes</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="cameras.html"
+                          title="next chapter">Cameras</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/viz/pymodules/visualization_frame.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="cameras.html" title="Cameras"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="shapes.html" title="Shapes"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../python_api.html" >Python Modules Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">VisualizationFrame</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

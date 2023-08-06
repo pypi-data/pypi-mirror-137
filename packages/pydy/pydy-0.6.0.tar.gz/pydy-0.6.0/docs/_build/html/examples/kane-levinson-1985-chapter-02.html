@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Exercises from Chapter 2 in Kane and Levinson 1985 &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exercises from Chapter 3 in Kane and Levinson 1985" href="kane-levinson-1985-chapter-03.html" />
+    <link rel="prev" title="Carvallo-Whipple Bicycle Model" href="carvallo-whipple.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="kane-levinson-1985-chapter-03.html" title="Exercises from Chapter 3 in Kane and Levinson 1985"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="carvallo-whipple.html" title="Carvallo-Whipple Bicycle Model"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercises from Chapter 2 in Kane and Levinson 1985</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="exercises-from-chapter-2-in-kane-and-levinson-1985">
+<h1>Exercises from Chapter 2 in Kane and Levinson 1985<a class="headerlink" href="#exercises-from-chapter-2-in-kane-and-levinson-1985" title="Permalink to this headline">¶</a></h1>
+<section id="exercise-2-7">
+<h2>Exercise 2.7<a class="headerlink" href="#exercise-2-7" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/94f3ad6f4e10f7266f115045e934766e/ex2-7.py"><code class="xref download docutils literal notranslate"><span class="pre">ex2-7.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/3232cfffcf528e93a4b9be5246a1506a/ex2-7.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex2-7.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">dynamicsymbols</span><span class="p">,</span> <span class="n">mprint</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">solve</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">Eq</span>
+
+<span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">q4</span><span class="p">,</span> <span class="n">q5</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q1 q2 q3 q4 q5&#39;</span><span class="p">)</span>
+<span class="n">q1d</span><span class="p">,</span> <span class="n">q2d</span><span class="p">,</span> <span class="n">q3d</span><span class="p">,</span> <span class="n">q4d</span><span class="p">,</span> <span class="n">q5d</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q1 q2 q3 q4 q5&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ux</span><span class="p">,</span> <span class="n">uy</span><span class="p">,</span> <span class="n">uz</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;ux uy uz&#39;</span><span class="p">)</span>
+<span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="n">u3</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;u1 u2 u3&#39;</span><span class="p">)</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">B_prime</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B_prime&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q1</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">])</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">B_prime</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">,</span> <span class="n">B_prime</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q3</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">z</span><span class="p">])</span>
+
+<span class="c1"># Angular velocity based on coordinate time derivatives</span>
+<span class="n">w_C_in_A_qd</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">ang_vel_in</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># First definition of Angular velocity</span>
+<span class="n">w_C_in_A_uxuyuz</span> <span class="o">=</span> <span class="n">ux</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">uy</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">uz</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using w_C_A as&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w_C_in_A_uxuyuz</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Using w_C_A as
+ux(t)*A.x + uy(t)*A.y + uz(t)*A.z
+</pre></div>
+</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kinematic_eqs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">w_C_in_A_qd</span> <span class="o">-</span> <span class="n">w_C_in_A_uxuyuz</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">uv</span> <span class="k">for</span> <span class="n">uv</span> <span class="ow">in</span> <span class="n">A</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The kinematic equations are:&quot;</span><span class="p">)</span>
+<span class="n">soln</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">kinematic_eqs</span><span class="p">,</span> <span class="p">[</span><span class="n">q1d</span><span class="p">,</span> <span class="n">q2d</span><span class="p">,</span> <span class="n">q3d</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">qd</span> <span class="ow">in</span> <span class="p">[</span><span class="n">q1d</span><span class="p">,</span> <span class="n">q2d</span><span class="p">,</span> <span class="n">q3d</span><span class="p">]:</span>
+    <span class="n">mprint</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">qd</span><span class="p">,</span> <span class="n">soln</span><span class="p">[</span><span class="n">qd</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>The kinematic equations are:
+Eq(q1&#39;, -ux*sin(q1)*sin(q2)/(sin(q1)**2*cos(q2) + cos(q1)**2*cos(q2)) + uy*sin(q2)*cos(q1)/(sin(q1)**2*cos(q2) + cos(q1)**2*cos(q2)) + uz*sin(q1)**2*cos(q2)/(sin(q1)**2*cos(q2) + cos(q1)**2*cos(q2)) + uz*cos(q1)**2*cos(q2)/(sin(q1)**2*cos(q2) + cos(q1)**2*cos(q2)))
+Eq(q2&#39;, -ux*cos(q1)/(sin(q1)**2 + cos(q1)**2) - uy*sin(q1)/(sin(q1)**2 + cos(q1)**2))
+Eq(q3&#39;, ux*sin(q1)/(sin(q1)**2*cos(q2) + cos(q1)**2*cos(q2)) - uy*cos(q1)/(sin(q1)**2*cos(q2) + cos(q1)**2*cos(q2)))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Second definition of Angular velocity</span>
+<span class="n">w_C_in_A_u1u2u3</span> <span class="o">=</span> <span class="n">u1</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">u2</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">u3</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">z</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using w_C_A as&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w_C_in_A_u1u2u3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Using w_C_A as
+u1(t)*B.x + u2(t)*B.y + u3(t)*B.z
+</pre></div>
+</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kinematic_eqs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">w_C_in_A_qd</span> <span class="o">-</span> <span class="n">w_C_in_A_u1u2u3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">uv</span> <span class="k">for</span> <span class="n">uv</span> <span class="ow">in</span> <span class="n">A</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The kinematic equations are:&quot;</span><span class="p">)</span>
+<span class="n">soln</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">kinematic_eqs</span><span class="p">,</span> <span class="p">[</span><span class="n">q1d</span><span class="p">,</span> <span class="n">q2d</span><span class="p">,</span> <span class="n">q3d</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">qd</span> <span class="ow">in</span> <span class="p">[</span><span class="n">q1d</span><span class="p">,</span> <span class="n">q2d</span><span class="p">,</span> <span class="n">q3d</span><span class="p">]:</span>
+    <span class="n">mprint</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">qd</span><span class="p">,</span> <span class="n">soln</span><span class="p">[</span><span class="n">qd</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>The kinematic equations are:
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Eq(q1&#39;, u2*sin(q2)**2/cos(q2) + u2*cos(q2))
+Eq(q2&#39;, -u1)
+Eq(q3&#39;, -u2*sin(q2)/cos(q2) + u3)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3-10">
+<h2>Exercise 3.10<a class="headerlink" href="#exercise-3-10" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/144f6f5622a7be3c002e3871300a6103/ex3-10.py"><code class="xref download docutils literal notranslate"><span class="pre">ex3-10.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/185e9cbb5ce156484ff3389e183898bc/ex3-10.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex3-10.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">cancel</span><span class="p">,</span> <span class="n">collect</span><span class="p">,</span> <span class="n">expand_trig</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">trigsimp</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dot</span><span class="p">,</span> <span class="n">dynamicsymbols</span><span class="p">,</span> <span class="n">msprint</span>
+
+<span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">q4</span><span class="p">,</span> <span class="n">q5</span><span class="p">,</span> <span class="n">q6</span><span class="p">,</span> <span class="n">q7</span> <span class="o">=</span> <span class="n">q</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q1:8&#39;</span><span class="p">)</span>
+<span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="n">u3</span><span class="p">,</span> <span class="n">u4</span><span class="p">,</span> <span class="n">u5</span><span class="p">,</span> <span class="n">u6</span><span class="p">,</span> <span class="n">u7</span> <span class="o">=</span> <span class="n">u</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q1:8&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;r θ b&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># define reference frames</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span> <span class="c1"># fixed race rf, let R.z point upwards</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q7</span><span class="p">,</span> <span class="n">R</span><span class="o">.</span><span class="n">z</span><span class="p">])</span> <span class="c1"># rf that rotates with S* about R.z</span>
+<span class="c1"># B.x, B.z are parallel with face of cone, B.y is perpendicular</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="n">theta</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+<span class="n">S</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="n">S</span><span class="o">.</span><span class="n">set_ang_vel</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">u1</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">u2</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">u3</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">set_ang_vel</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">u4</span><span class="o">*</span><span class="n">B</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">u5</span><span class="o">*</span><span class="n">B</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">u6</span><span class="o">*</span><span class="n">B</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+
+<span class="c1"># define points</span>
+<span class="n">pO</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="n">pS_star</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;S*&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">pS_hat</span> <span class="o">=</span> <span class="n">pS_star</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;S^&#39;</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">B</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="c1"># S^ touches the cone</span>
+<span class="n">pS1</span> <span class="o">=</span> <span class="n">pS_star</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;S1&#39;</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="c1"># S1 touches horizontal wall of the race</span>
+<span class="n">pS2</span> <span class="o">=</span> <span class="n">pS_star</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;S2&#39;</span><span class="p">,</span> <span class="n">r</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="c1"># S2 touches vertical wall of the race</span>
+
+<span class="n">pO</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">pS_star</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">pO</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="n">pS1</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">pS_star</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+<span class="n">pS2</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">pS_star</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+
+<span class="c1"># Since S is rolling against R, v_S1_R = 0, v_S2_R = 0.</span>
+<span class="n">vc</span> <span class="o">=</span> <span class="p">[</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">R</span><span class="p">),</span> <span class="n">basis</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pS1</span><span class="p">,</span> <span class="n">pS2</span><span class="p">]</span> <span class="k">for</span> <span class="n">basis</span> <span class="ow">in</span> <span class="n">R</span><span class="p">]</span>
+
+<span class="n">pO</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">pS_star</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">pO</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="n">pS_hat</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">pS_star</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+
+<span class="c1"># Since S is rolling against C, v_S^_C = 0.</span>
+<span class="c1"># Cone has only angular velocity in R.z direction.</span>
+<span class="n">vc</span> <span class="o">+=</span> <span class="p">[</span><span class="n">dot</span><span class="p">(</span><span class="n">pS_hat</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">C</span><span class="p">),</span> <span class="n">basis</span><span class="p">)</span> <span class="k">for</span> <span class="n">basis</span> <span class="ow">in</span> <span class="n">A</span><span class="p">]</span>
+<span class="n">vc</span> <span class="o">+=</span> <span class="p">[</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">ang_vel_in</span><span class="p">(</span><span class="n">R</span><span class="p">),</span> <span class="n">basis</span><span class="p">)</span> <span class="k">for</span> <span class="n">basis</span> <span class="ow">in</span> <span class="p">[</span><span class="n">R</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">R</span><span class="o">.</span><span class="n">y</span><span class="p">]]</span>
+<span class="n">vc_map</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">vc</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+
+<span class="c1"># Pure rolling between S and C, dot(ω_C_S, B.y) = 0.</span>
+<span class="n">b_val</span> <span class="o">=</span> <span class="n">solve</span><span class="p">([</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">ang_vel_in</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="n">B</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">vc_map</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()],</span> <span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msprint</span><span class="p">(</span><span class="n">collect</span><span class="p">(</span><span class="n">cancel</span><span class="p">(</span><span class="n">expand_trig</span><span class="p">(</span><span class="n">b_val</span><span class="p">)),</span> <span class="n">r</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>b = r*(sin(θ) + 1)/(-sin(θ) + cos(θ))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b_expected</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">trigsimp</span><span class="p">(</span><span class="n">b_val</span> <span class="o">-</span> <span class="n">b_expected</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+<section id="exercise-3-15">
+<h2>Exercise 3.15<a class="headerlink" href="#exercise-3-15" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/250292902a0b7e4fd155bc9b6bb066cf/ex3-15.py"><code class="xref download docutils literal notranslate"><span class="pre">ex3-15.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/9a38e462f24c4e5c412ba8c1e4da9c99/ex3-15.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex3-15.ipynb</span></code></a>.</p>
+</div>
+<p>A robot arm, composed of Rigid Bodies ‘A’, ‘B’, ‘C’, operates in Reference
+Frame E. ‘A*’, ‘B*’, ‘C*’ are Points marking the centers of mass for the Rigid
+Bodies ‘A’, ‘B’, ‘C’.</p>
+<p>Rigid Body ‘D’ also is lies in Reference Frame ‘E’. The center of mass of ‘D’
+is marked as Point ‘D*’. ‘D’ is fixed relative to ‘C’.</p>
+<p>Each Reference Frame has a set of mutually perpendicular vectors x, y, z.  ‘A’
+is rotated by ‘q0’ relative to ‘E’ about an axis parallel to A.x. ‘B’ is
+rotated by ‘q1’ relative to ‘A’ about an axis parallel to A.y. Point ‘P’ is
+fixed in both ‘A’ and ‘B’. A.x is parallel to E.x. A.y is parallel to B.y.</p>
+<p>Point ‘O’ is a point fixed in both ‘E’ and ‘A’. ‘A*’ is separated from ‘O’ by
+‘LA’ * A.z. ‘P’ is separated from ‘O’ by ‘LP’ * A.z. ‘B*’ is separated from ‘P’
+by ‘LB’ * B.z. ‘C*’ is separated from ‘B*’ by ‘q2’ * B.z. ‘D*’ is separated
+from ‘C*’ by <code class="docutils literal notranslate"><span class="pre">p1*B.x</span> <span class="pre">+</span> <span class="pre">p2*B.y</span> <span class="pre">+</span> <span class="pre">p3*B.z</span></code>.</p>
+<p>We define:’q0d’ = ‘u1’, ‘q1d’ = ‘u2’, ‘q2d’ = ‘u3’.  ‘LA’, ‘LB’, ‘LP’, ‘p1’,
+‘p2’, ‘p3’ are constants.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dynamicsymbols</span><span class="p">,</span> <span class="n">msprint</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">solve</span><span class="p">,</span> <span class="n">symbols</span>
+
+<span class="c1"># Define generalized coordinates, speeds, and constants:</span>
+<span class="n">q0</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q0 q1 q2&#39;</span><span class="p">)</span>
+<span class="n">q0d</span><span class="p">,</span> <span class="n">q1d</span><span class="p">,</span> <span class="n">q2d</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q0 q1 q2&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="n">u3</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;u1 u2 u3&#39;</span><span class="p">)</span>
+<span class="n">LA</span><span class="p">,</span> <span class="n">LB</span><span class="p">,</span> <span class="n">LP</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;LA LB LP&#39;</span><span class="p">)</span>
+<span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;p1 p2 p3&#39;</span><span class="p">)</span>
+
+<span class="n">E</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">)</span>
+<span class="c1"># A.x of Rigid Body A is fixed in Reference Frame E and is rotated by q0.</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">E</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q0</span><span class="p">,</span> <span class="n">E</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+<span class="c1"># B.y of Rigid Body B is fixed in Reference Frame A and is rotated by q1.</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q1</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">y</span><span class="p">])</span>
+<span class="c1"># Reference Frame C has no rotation relative to Reference Frame B.</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+<span class="c1"># Reference Frame D has no rotation relative to Reference Frame C.</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+
+<span class="n">pO</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="c1"># The vector from Point O to Point A*, the center of mass of A, is LA * A.z.</span>
+<span class="n">pAs</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;A*&#39;</span><span class="p">,</span> <span class="n">LA</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="c1"># The vector from Point O to Point P, which lies on the axis where</span>
+<span class="c1"># B rotates about A, is LP * A.z.</span>
+<span class="n">pP</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="n">LP</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="c1"># The vector from Point P to Point B*, the center of mass of B, is LB * B.z.</span>
+<span class="n">pBs</span> <span class="o">=</span> <span class="n">pP</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B*&#39;</span><span class="p">,</span> <span class="n">LB</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="c1"># The vector from Point B* to Point C*, the center of mass of C, is q2 * B.z.</span>
+<span class="n">pCs</span> <span class="o">=</span> <span class="n">pBs</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*&#39;</span><span class="p">,</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="c1"># The vector from Point C* to Point D*, the center of mass of D,</span>
+<span class="c1"># is p1 * B.x + p2 * B.y + p3 * B.z.</span>
+<span class="n">pDs</span> <span class="o">=</span> <span class="n">pCs</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;D*&#39;</span><span class="p">,</span> <span class="n">p1</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">p3</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+
+<span class="c1"># Define generalized speeds as:</span>
+<span class="c1"># u1 = q0d</span>
+<span class="c1"># u2 = q1d</span>
+<span class="c1"># u3 = q2d</span>
+<span class="n">A</span><span class="o">.</span><span class="n">set_ang_vel</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">u1</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="c1"># A.x = E.x</span>
+<span class="n">B</span><span class="o">.</span><span class="n">set_ang_vel</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">u2</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="c1"># B.y = A.y</span>
+<span class="n">pCs</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u3</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+
+<span class="n">pO</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Point O is fixed in Reference Frame E</span>
+<span class="n">pAs</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">pO</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span> <span class="c1"># Point A* is fixed in Reference Frame A</span>
+<span class="n">pP</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">pO</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span> <span class="c1"># Point P is fixed in Reference Frame A</span>
+<span class="n">pBs</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">pP</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="c1"># Point B* is fixed in Reference Frame B</span>
+<span class="n">pCs</span><span class="o">.</span><span class="n">v1pt_theory</span><span class="p">(</span><span class="n">pBs</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="c1"># Point C* is moving in Reference Frame B</span>
+<span class="n">pDs</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">pCs</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">B</span><span class="p">))</span> <span class="c1"># Point D* is fixed relative to Point C* in B</span>
+<span class="n">pDs</span><span class="o">.</span><span class="n">v1pt_theory</span><span class="p">(</span><span class="n">pBs</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="c1"># Point D* is moving in Reference Frame B</span>
+
+<span class="c1"># Write generalized speeds as kinematic equations:</span>
+<span class="n">kinematic_eqs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">kinematic_eqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u1</span> <span class="o">-</span> <span class="n">q0d</span><span class="p">)</span>
+<span class="n">kinematic_eqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u2</span> <span class="o">-</span> <span class="n">q1d</span><span class="p">)</span>
+<span class="n">kinematic_eqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u3</span> <span class="o">-</span> <span class="n">q2d</span><span class="p">)</span>
+<span class="n">soln</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">kinematic_eqs</span><span class="p">,</span> <span class="p">[</span><span class="n">q0d</span><span class="p">,</span> <span class="n">q1d</span><span class="p">,</span> <span class="n">q2d</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;kinematic equations:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qd</span> <span class="ow">in</span> <span class="p">[</span><span class="n">q0d</span><span class="p">,</span> <span class="n">q1d</span><span class="p">,</span> <span class="n">q2d</span><span class="p">]:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> = </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msprint</span><span class="p">(</span><span class="n">qd</span><span class="p">),</span> <span class="n">msprint</span><span class="p">(</span><span class="n">soln</span><span class="p">[</span><span class="n">qd</span><span class="p">])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>kinematic equations:
+q0&#39; = u1
+q1&#39; = u2
+q2&#39; = u3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ang_vels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">angular velocities:&quot;</span><span class="p">]</span>
+<span class="n">ang_accs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">angular accelerations:&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">rf</span> <span class="ow">in</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">]:</span>
+   <span class="n">ang_v</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="s1">&#39;ang_vel_in&#39;</span><span class="p">)(</span><span class="n">E</span><span class="p">)</span>
+   <span class="n">ang_a</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="s1">&#39;ang_acc_in&#39;</span><span class="p">)(</span><span class="n">E</span><span class="p">)</span>
+   <span class="n">express_rf</span> <span class="o">=</span> <span class="n">B</span>
+   <span class="k">if</span> <span class="n">rf</span> <span class="o">==</span> <span class="n">A</span><span class="p">:</span>
+      <span class="n">express_rf</span> <span class="o">=</span> <span class="n">A</span>
+   <span class="n">ang_vels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;ang vel </span><span class="si">{0}</span><span class="s2"> wrt </span><span class="si">{1}</span><span class="s2"> = </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">rf</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">ang_v</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">express_rf</span><span class="p">)))</span>
+   <span class="n">ang_accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;ang acc </span><span class="si">{0}</span><span class="s2"> wrt </span><span class="si">{1}</span><span class="s2"> = </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">rf</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">ang_a</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">express_rf</span><span class="p">)))</span>
+
+<span class="n">vels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">velocities:&quot;</span><span class="p">]</span>
+<span class="n">accs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">accelerations:&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pAs</span><span class="p">,</span> <span class="n">pBs</span><span class="p">,</span> <span class="n">pCs</span><span class="p">,</span> <span class="n">pDs</span><span class="p">]:</span>
+   <span class="n">v</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="s1">&#39;vel&#39;</span><span class="p">)(</span><span class="n">E</span><span class="p">)</span>
+   <span class="n">a</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="s1">&#39;acc&#39;</span><span class="p">)(</span><span class="n">E</span><span class="p">)</span>
+   <span class="n">express_rf</span> <span class="o">=</span> <span class="n">B</span>
+   <span class="k">if</span> <span class="n">point</span> <span class="o">==</span> <span class="n">pAs</span><span class="p">:</span>
+      <span class="n">express_rf</span> <span class="o">=</span> <span class="n">A</span>
+   <span class="n">vels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;vel </span><span class="si">{0}</span><span class="s2"> wrt </span><span class="si">{1}</span><span class="s2"> = </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">point</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">express_rf</span><span class="p">)))</span>
+   <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;acc </span><span class="si">{0}</span><span class="s2"> wrt </span><span class="si">{1}</span><span class="s2"> = </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">point</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">express_rf</span><span class="p">)))</span>
+
+<span class="k">for</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">ang_vels</span> <span class="o">+</span> <span class="n">ang_accs</span> <span class="o">+</span> <span class="n">vels</span> <span class="o">+</span> <span class="n">accs</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+angular velocities:
+ang vel A wrt E = u1(t)*A.x
+ang vel B wrt E = u1(t)*cos(q1(t))*B.x + u2(t)*B.y + u1(t)*sin(q1(t))*B.z
+ang vel C wrt E = u1(t)*cos(q1(t))*B.x + u2(t)*B.y + u1(t)*sin(q1(t))*B.z
+ang vel D wrt E = u1(t)*cos(q1(t))*B.x + u2(t)*B.y + u1(t)*sin(q1(t))*B.z
+
+angular accelerations:
+ang acc A wrt E = Derivative(u1(t), t)*A.x
+ang acc B wrt E = (-u1(t)*u2(t)*sin(q1(t)) + cos(q1(t))*Derivative(u1(t), t))*B.x + Derivative(u2(t), t)*B.y + (u1(t)*u2(t)*cos(q1(t)) + sin(q1(t))*Derivative(u1(t), t))*B.z
+ang acc C wrt E = (-u1(t)*u2(t)*sin(q1(t)) + cos(q1(t))*Derivative(u1(t), t))*B.x + Derivative(u2(t), t)*B.y + (u1(t)*u2(t)*cos(q1(t)) + sin(q1(t))*Derivative(u1(t), t))*B.z
+ang acc D wrt E = (-u1(t)*u2(t)*sin(q1(t)) + cos(q1(t))*Derivative(u1(t), t))*B.x + Derivative(u2(t), t)*B.y + (u1(t)*u2(t)*cos(q1(t)) + sin(q1(t))*Derivative(u1(t), t))*B.z
+
+velocities:
+vel A* wrt E = - LA*u1(t)*A.y
+vel B* wrt E = LB*u2(t)*B.x + (-LB*u1(t)*cos(q1(t)) - LP*u1(t))*B.y
+vel C* wrt E = (LB*u2(t) + q2(t)*u2(t))*B.x + (-LB*u1(t)*cos(q1(t)) - LP*u1(t) - q2(t)*u1(t)*cos(q1(t)))*B.y + u3(t)*B.z
+vel D* wrt E = (LB*u2(t) - p2*u1(t)*sin(q1(t)) + (p3 + q2(t))*u2(t))*B.x + (-LB*u1(t)*cos(q1(t)) - LP*u1(t) + p1*u1(t)*sin(q1(t)) - (p3 + q2(t))*u1(t)*cos(q1(t)))*B.y + (-p1*u2(t) + p2*u1(t)*cos(q1(t)) + u3(t))*B.z
+
+accelerations:
+acc A* wrt E = - LA*Derivative(u1(t), t)*A.y - LA*u1(t)**2*A.z
+acc B* wrt E = (LB*u1(t)**2*sin(q1(t))*cos(q1(t)) + LB*Derivative(u2(t), t) + LP*u1(t)**2*sin(q1(t)))*B.x + (LB*u1(t)*u2(t)*sin(q1(t)) + LB*u1(t)*sin(q1(t))*Derivative(q1(t), t) - LB*cos(q1(t))*Derivative(u1(t), t) - LP*Derivative(u1(t), t))*B.y + (-LB*u1(t)**2*cos(q1(t))**2 - LB*u2(t)**2 - LP*u1(t)**2*cos(q1(t)))*B.z
+acc C* wrt E = (LB*Derivative(u2(t), t) + LP*u1(t)**2*sin(q1(t)) - (-LB*u1(t)*cos(q1(t)) - q2(t)*u1(t)*cos(q1(t)))*u1(t)*sin(q1(t)) + q2(t)*Derivative(u2(t), t) + u2(t)*u3(t) + u2(t)*Derivative(q2(t), t))*B.x + (LB*u1(t)*sin(q1(t))*Derivative(q1(t), t) - LB*cos(q1(t))*Derivative(u1(t), t) - LP*Derivative(u1(t), t) + (LB*u2(t) + q2(t)*u2(t))*u1(t)*sin(q1(t)) + q2(t)*u1(t)*sin(q1(t))*Derivative(q1(t), t) - q2(t)*cos(q1(t))*Derivative(u1(t), t) - u1(t)*u3(t)*cos(q1(t)) - u1(t)*cos(q1(t))*Derivative(q2(t), t))*B.y + (-LP*u1(t)**2*cos(q1(t)) - (LB*u2(t) + q2(t)*u2(t))*u2(t) + (-LB*u1(t)*cos(q1(t)) - q2(t)*u1(t)*cos(q1(t)))*u1(t)*cos(q1(t)) + Derivative(u3(t), t))*B.z
+acc D* wrt E = (LB*Derivative(u2(t), t) + LP*u1(t)**2*sin(q1(t)) - p2*u1(t)*cos(q1(t))*Derivative(q1(t), t) - p2*sin(q1(t))*Derivative(u1(t), t) + (p3 + q2(t))*Derivative(u2(t), t) + (-p1*u2(t) + p2*u1(t)*cos(q1(t)) + u3(t))*u2(t) - (-LB*u1(t)*cos(q1(t)) + p1*u1(t)*sin(q1(t)) - (p3 + q2(t))*u1(t)*cos(q1(t)))*u1(t)*sin(q1(t)) + u2(t)*Derivative(q2(t), t))*B.x + (LB*u1(t)*sin(q1(t))*Derivative(q1(t), t) - LB*cos(q1(t))*Derivative(u1(t), t) - LP*Derivative(u1(t), t) + p1*u1(t)*cos(q1(t))*Derivative(q1(t), t) + p1*sin(q1(t))*Derivative(u1(t), t) - (-p3 - q2(t))*u1(t)*sin(q1(t))*Derivative(q1(t), t) + (-p3 - q2(t))*cos(q1(t))*Derivative(u1(t), t) + (LB*u2(t) - p2*u1(t)*sin(q1(t)) + (p3 + q2(t))*u2(t))*u1(t)*sin(q1(t)) - (-p1*u2(t) + p2*u1(t)*cos(q1(t)) + u3(t))*u1(t)*cos(q1(t)) - u1(t)*cos(q1(t))*Derivative(q2(t), t))*B.y + (-LP*u1(t)**2*cos(q1(t)) - p1*Derivative(u2(t), t) - p2*u1(t)*sin(q1(t))*Derivative(q1(t), t) + p2*cos(q1(t))*Derivative(u1(t), t) - (LB*u2(t) - p2*u1(t)*sin(q1(t)) + (p3 + q2(t))*u2(t))*u2(t) + (-LB*u1(t)*cos(q1(t)) + p1*u1(t)*sin(q1(t)) - (p3 + q2(t))*u1(t)*cos(q1(t)))*u1(t)*cos(q1(t)) + Derivative(u3(t), t))*B.z
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4-1">
+<h2>Exercise 4.1<a class="headerlink" href="#exercise-4-1" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/7c74483ef3ada45bd19425d8d0cfff86/ex4-1.py"><code class="xref download docutils literal notranslate"><span class="pre">ex4-1.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/afa2e520d539f46d57d5b623dcf1f6c0/ex4-1.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex4-1.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dot</span><span class="p">,</span> <span class="n">msprint</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
+<span class="kn">from</span> <span class="nn">sympy.simplify.simplify</span> <span class="kn">import</span> <span class="n">trigsimp</span>
+
+<span class="n">theta</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;theta:3&#39;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x:3&#39;</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;SPACE&#39;</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="s1">&#39;xyz&#39;</span><span class="p">)</span>
+
+<span class="n">O</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">O</span><span class="p">)</span>
+
+<span class="c1"># From problem, point P is on L (span(B.x)) when:</span>
+<span class="n">constraint_eqs</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="n">q</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                  <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">:</span> <span class="n">q</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                  <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">:</span> <span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">])}</span>
+
+<span class="c1"># If point P is on line L then r^{P/O} will have no components in the B.y or</span>
+<span class="c1"># B.z directions since point O is also on line L and B.x is parallel to L.</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">O</span><span class="p">),</span> <span class="n">B</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">constraint_eqs</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">O</span><span class="p">),</span> <span class="n">B</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">constraint_eqs</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+<section id="exercise-4-18">
+<h2>Exercise 4.18<a class="headerlink" href="#exercise-4-18" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/ed7193186305c565ce28a59a74c08e8d/ex4-18.py"><code class="xref download docutils literal notranslate"><span class="pre">ex4-18.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/bc6f4d9b9b059e5990163342fb6d49fe/ex4-18.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">ex4-18.ipynb</span></code></a>.</p>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dynamicsymbols</span><span class="p">,</span> <span class="n">msprint</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">solve</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">pi</span>
+
+<span class="c1"># Define generalized coordinates, speeds, and constants:</span>
+<span class="n">qi</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q0 q1 q2 q3 q4 q5&#39;</span><span class="p">)</span>
+<span class="n">qid</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q0 q1 q2 q3 q4 q5&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ui</span> <span class="o">=</span> <span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;u0 u1 u2 u3 u4 u5&#39;</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">A_1</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s2">&quot;A&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">qi</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">])</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">A_1</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">qi</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">A_1</span><span class="o">.</span><span class="n">x</span><span class="p">])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">qi</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">B</span><span class="o">.</span><span class="n">z</span><span class="p">])</span>
+
+<span class="n">pO</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+<span class="n">pCs</span> <span class="o">=</span> <span class="n">pO</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C*&#39;</span><span class="p">,</span> <span class="n">qi</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">qi</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">R</span> <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">pO</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Point O is fixed in Reference Frame A</span>
+<span class="n">pCs</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">pO</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="c1"># Point C* is fixed in Reference Frame B</span>
+
+<span class="c1"># Set ui = qid</span>
+<span class="n">kinematic_eqs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">qd</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">qid</span><span class="p">):</span>
+   <span class="n">kinematic_eqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span> <span class="o">-</span> <span class="n">qd</span><span class="p">)</span>
+<span class="n">soln</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">kinematic_eqs</span><span class="p">,</span> <span class="n">qid</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;kinematic equations:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qd</span> <span class="ow">in</span> <span class="n">qid</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> = </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msprint</span><span class="p">(</span><span class="n">qd</span><span class="p">),</span> <span class="n">msprint</span><span class="p">(</span><span class="n">soln</span><span class="p">[</span><span class="n">qd</span><span class="p">])))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">position of C* from O = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msprint</span><span class="p">(</span><span class="n">pCs</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">pO</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">velocity of C* wrt A = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msprint</span><span class="p">(</span><span class="n">pCs</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">B</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>kinematic equations:
+q0&#39; = u0
+q1&#39; = u1
+q2&#39; = u2
+q3&#39; = u3
+q4&#39; = u4
+q5&#39; = u5
+
+position of C* from O = q4*A.x + q5*A.y + R*B.y
+
+velocity of C* wrt A = (-R*sin(q2)*q1&#39; + q4*sin(q1)*q1&#39; - q5*cos(q1)*q1&#39;)*B.x + ((q4*sin(q1)*q2&#39; - q5*cos(q1)*q2&#39;)*cos(q2) + q4*sin(q2)*cos(q1)*q1&#39; + q5*sin(q1)*sin(q2)*q1&#39;)*B.y + (-R*q2&#39; + (q4*sin(q1)*q2&#39; - q5*cos(q1)*q2&#39;)*sin(q2) - q4*cos(q1)*cos(q2)*q1&#39; - q5*sin(q1)*cos(q2)*q1&#39;)*B.z
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Exercises from Chapter 2 in Kane and Levinson 1985</a><ul>
+<li><a class="reference internal" href="#exercise-2-7">Exercise 2.7</a></li>
+<li><a class="reference internal" href="#exercise-3-10">Exercise 3.10</a></li>
+<li><a class="reference internal" href="#exercise-3-15">Exercise 3.15</a></li>
+<li><a class="reference internal" href="#exercise-4-1">Exercise 4.1</a></li>
+<li><a class="reference internal" href="#exercise-4-18">Exercise 4.18</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="carvallo-whipple.html"
+                          title="previous chapter">Carvallo-Whipple Bicycle Model</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="kane-levinson-1985-chapter-03.html"
+                          title="next chapter">Exercises from Chapter 3 in Kane and Levinson 1985</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/examples/kane-levinson-1985-chapter-02.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="kane-levinson-1985-chapter-03.html" title="Exercises from Chapter 3 in Kane and Levinson 1985"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="carvallo-whipple.html" title="Carvallo-Whipple Bicycle Model"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercises from Chapter 2 in Kane and Levinson 1985</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

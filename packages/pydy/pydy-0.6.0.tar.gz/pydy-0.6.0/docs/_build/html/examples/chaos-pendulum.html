@@ -1,0 +1,670 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Chaos Pendulum &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Modeling of a Variable-Mass Nonholonomic Gyrostatic Rocket Car Using Extended Kane’s Equations" href="rocket-car.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rocket-car.html" title="Modeling of a Variable-Mass Nonholonomic Gyrostatic Rocket Car Using Extended Kane’s Equations"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Chaos Pendulum</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="chaos-pendulum">
+<h1>Chaos Pendulum<a class="headerlink" href="#chaos-pendulum" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/d20c955070c14af3542082596ec9c481/chaos-pendulum.py"><code class="xref download docutils literal notranslate"><span class="pre">chaos-pendulum.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/f398e64ab0c721107739f3ece05e65c6/chaos-pendulum.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">chaos-pendulum.ipynb</span></code></a>.</p>
+</div>
+<p>This example gives a simple demostration of chaotic behavior in a simple
+two body system. The system is made up of a slender rod that is
+connected to the ceiling at one end with a revolute joint that rotates
+about the <span class="math notranslate nohighlight">\(\hat{\mathbf{n}}_y\)</span> unit vector. At the other end of
+the rod a flat plate is attached via a second revolute joint allowing
+the plate to rotate about the rod’s axis with aligns with the
+<span class="math notranslate nohighlight">\(\hat{\mathbf{a}_z}\)</span> unit vector.</p>
+<img alt="../_images/chaos-pendulum.svg" src="../_images/chaos-pendulum.svg" /><section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">sympy.physics.mechanics</span> <span class="k">as</span> <span class="nn">me</span>
+<span class="kn">from</span> <span class="nn">pydy.system</span> <span class="kn">import</span> <span class="n">System</span>
+<span class="kn">from</span> <span class="nn">pydy.viz</span> <span class="kn">import</span> <span class="n">Cylinder</span><span class="p">,</span> <span class="n">Plane</span><span class="p">,</span> <span class="n">VisualizationFrame</span><span class="p">,</span> <span class="n">Scene</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">me</span><span class="o">.</span><span class="n">init_vprinting</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="s1">&#39;mathjax&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+<section id="define-variables">
+<h2>Define Variables<a class="headerlink" href="#define-variables" title="Permalink to this headline">¶</a></h2>
+<p>First define the system constants:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(m_A\)</span>: Mass of the slender rod.</p></li>
+<li><p><span class="math notranslate nohighlight">\(m_B\)</span>: Mass of the plate.</p></li>
+<li><p><span class="math notranslate nohighlight">\(l_B\)</span>: Distance from <span class="math notranslate nohighlight">\(N_o\)</span> to <span class="math notranslate nohighlight">\(B_o\)</span> along the
+slender rod’s axis.</p></li>
+<li><p><span class="math notranslate nohighlight">\(w\)</span>: The width of the plate.</p></li>
+<li><p><span class="math notranslate nohighlight">\(h\)</span>: The height of the plate.</p></li>
+<li><p><span class="math notranslate nohighlight">\(g\)</span>: The acceleratoin due to gravity.</p></li>
+</ul>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mA</span><span class="p">,</span> <span class="n">mB</span><span class="p">,</span> <span class="n">lB</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m_A, m_B, L_B, w, h, g&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>There are two time varying generalized coordinates:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta(t)\)</span>: The angle of the slender rod with respect to the
+ceiling.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\phi(t)\)</span>: The angle of the plate with respect to the slender
+rod.</p></li>
+</ul>
+<p>The two generalized speeds will then be defined as:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\omega(t)=\dot{\theta}\)</span>: The angular rate of the slender rod
+with respect to the ceiling.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha(t)=\dot{\phi}\)</span>: The angluer rate of the plate with
+respect to the slender rod.</p></li>
+</ul>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">theta</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;theta, phi&#39;</span><span class="p">)</span>
+<span class="n">omega</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;omega, alpha&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>The kinematical differential equations are defined in this fashion for
+the <code class="docutils literal notranslate"><span class="pre">KanesMethod</span></code> class:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 = \omega - \dot{\theta}\\
+0 = \alpha - \dot{\phi}\end{split}\]</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kin_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">omega</span> <span class="o">-</span> <span class="n">theta</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">alpha</span> <span class="o">-</span> <span class="n">phi</span><span class="o">.</span><span class="n">diff</span><span class="p">())</span>
+<span class="n">kin_diff</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left( \omega - \dot{\theta}, \  \alpha - \dot{\phi}\right)\]</div>
+</div>
+</div>
+</section>
+<section id="define-orientations">
+<h2>Define Orientations<a class="headerlink" href="#define-orientations" title="Permalink to this headline">¶</a></h2>
+<p>There are three reference frames. These are defined as such:</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>The frames are oriented with respect to each other by simple revolute
+rotations. The following lines set the orientations:</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">orient</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+<span class="n">B</span><span class="o">.</span><span class="n">orient</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+<section id="define-positions">
+<h2>Define Positions<a class="headerlink" href="#define-positions" title="Permalink to this headline">¶</a></h2>
+<p>Three points are necessary to define the problem:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N_o\)</span>: The fixed point which the slender rod rotates about.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A_o\)</span>: The center of mass of the slender rod.</p></li>
+<li><p><span class="math notranslate nohighlight">\(B_o\)</span>: The center of mass of the plate.</p></li>
+</ul>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">No</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="s1">&#39;No&#39;</span><span class="p">)</span>
+<span class="n">Ao</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="s1">&#39;Ao&#39;</span><span class="p">)</span>
+<span class="n">Bo</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="s1">&#39;Bo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>The two centers of mass positions can be set relative to the fixed
+point, <span class="math notranslate nohighlight">\(N_o\)</span>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lA</span> <span class="o">=</span> <span class="p">(</span><span class="n">lB</span> <span class="o">-</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">Ao</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="n">No</span><span class="p">,</span> <span class="n">lA</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">Bo</span><span class="o">.</span><span class="n">set_pos</span><span class="p">(</span><span class="n">No</span><span class="p">,</span> <span class="n">lB</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+<section id="specify-the-velocities">
+<h2>Specify the Velocities<a class="headerlink" href="#specify-the-velocities" title="Permalink to this headline">¶</a></h2>
+<p>The generalized speeds should be used in the definition of the linear
+and angular velocities when using Kane’s method. For simple rotations
+and the defined kinematical differential equations the angular rates
+are:</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">set_ang_vel</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">B</span><span class="o">.</span><span class="n">set_ang_vel</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Once the angular velocities are specified the linear velocities can be
+computed using the two point velocity thereom, starting with the origin
+point having a velocity of zero.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">No</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Ao</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">No</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left(\frac{L_{B}}{2} - \frac{h}{4}\right) \omega\mathbf{\hat{a}_x}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bo</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">No</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle L_{B} \omega\mathbf{\hat{a}_x}\]</div>
+</div>
+</div>
+</section>
+<section id="inertia">
+<h2>Inertia<a class="headerlink" href="#inertia" title="Permalink to this headline">¶</a></h2>
+<p>The central inertia of the symmetric slender rod with respect to its
+reference frame is a function of its length and its mass.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IAxx</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">mA</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lA</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">IAyy</span> <span class="o">=</span> <span class="n">IAxx</span>
+<span class="n">IAzz</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">IA</span> <span class="o">=</span> <span class="p">(</span><span class="n">me</span><span class="o">.</span><span class="n">inertia</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">IAxx</span><span class="p">,</span> <span class="n">IAyy</span><span class="p">,</span> <span class="n">IAzz</span><span class="p">),</span> <span class="n">Ao</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>This gives the inertia tensor:</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IA</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle \left[\begin{matrix}\frac{m_{A} \left(L_{B} - \frac{h}{2}\right)^{2}}{12} &amp; 0 &amp; 0\\0 &amp; \frac{m_{A} \left(L_{B} - \frac{h}{2}\right)^{2}}{12} &amp; 0\\0 &amp; 0 &amp; 0\end{matrix}\right]\end{split}\]</div>
+</div>
+</div>
+<p>The central inerita of the symmetric plate with respect to its reference
+frame is a function of its width and height.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IBxx</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span> <span class="o">*</span> <span class="n">mB</span> <span class="o">*</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">IByy</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span> <span class="o">*</span> <span class="n">mB</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">IBzz</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span> <span class="o">*</span> <span class="n">mB</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">IB</span> <span class="o">=</span> <span class="p">(</span><span class="n">me</span><span class="o">.</span><span class="n">inertia</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">IBxx</span><span class="p">,</span> <span class="n">IByy</span><span class="p">,</span> <span class="n">IBzz</span><span class="p">),</span> <span class="n">Bo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IB</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle \left[\begin{matrix}\frac{h^{2} m_{B}}{12} &amp; 0 &amp; 0\\0 &amp; \frac{m_{B} \left(h^{2} + w^{2}\right)}{12} &amp; 0\\0 &amp; 0 &amp; \frac{m_{B} w^{2}}{12}\end{matrix}\right]\end{split}\]</div>
+</div>
+</div>
+<p>All of the information to define the two rigid bodies are now available.
+This information is used to create an object for the rod and the plate.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rod</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">RigidBody</span><span class="p">(</span><span class="s1">&#39;rod&#39;</span><span class="p">,</span> <span class="n">Ao</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">mA</span><span class="p">,</span> <span class="n">IA</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plate</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">RigidBody</span><span class="p">(</span><span class="s1">&#39;plate&#39;</span><span class="p">,</span> <span class="n">Bo</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">mB</span><span class="p">,</span> <span class="n">IB</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+<section id="loads">
+<h2>Loads<a class="headerlink" href="#loads" title="Permalink to this headline">¶</a></h2>
+<p>The only loads in this problem is the force due to gravity that acts on
+the center of mass of each body. These forces are specified with a tuple
+containing the point of application and the force vector.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rod_gravity</span> <span class="o">=</span> <span class="p">(</span><span class="n">Ao</span><span class="p">,</span> <span class="n">mA</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">plate_gravity</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bo</span><span class="p">,</span> <span class="n">mB</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+<section id="equations-of-motion">
+<h2>Equations of motion<a class="headerlink" href="#equations-of-motion" title="Permalink to this headline">¶</a></h2>
+<p>Now that the kinematics, kinetics, and inertia have all been defined the
+<code class="docutils literal notranslate"><span class="pre">KanesMethod</span></code> class can be used to generate the equations of motion of
+the system. In this case the independent generalized speeds, independent
+generalized speeds, the kinematical differential equations, and the
+inertial reference frame are used to initialize the class.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kane</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">KanesMethod</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">q_ind</span><span class="o">=</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">),</span> <span class="n">u_ind</span><span class="o">=</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="n">kd_eqs</span><span class="o">=</span><span class="n">kin_diff</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>The equations of motion are then generated by passing in all of the
+loads and bodies to the <code class="docutils literal notranslate"><span class="pre">kanes_equations</span></code> method. This produces
+<span class="math notranslate nohighlight">\(f_r\)</span> and <span class="math notranslate nohighlight">\(f_r^*\)</span>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bodies</span> <span class="o">=</span> <span class="p">(</span><span class="n">rod</span><span class="p">,</span> <span class="n">plate</span><span class="p">)</span>
+<span class="n">loads</span> <span class="o">=</span> <span class="p">(</span><span class="n">rod_gravity</span><span class="p">,</span> <span class="n">plate_gravity</span><span class="p">)</span>
+
+<span class="n">fr</span><span class="p">,</span> <span class="n">frstar</span> <span class="o">=</span> <span class="n">kane</span><span class="o">.</span><span class="n">kanes_equations</span><span class="p">(</span><span class="n">bodies</span><span class="p">,</span> <span class="n">loads</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sm</span><span class="o">.</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle \left[\begin{matrix}g \left(- \frac{L_{B} m_{A}}{2} - L_{B} m_{B} + \frac{h m_{A}}{4}\right) \sin{\left(\theta \right)}\\0\end{matrix}\right]\end{split}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sm</span><span class="o">.</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">frstar</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle \left[\begin{matrix}\frac{m_{B} w^{2} \alpha \omega \sin{\left(2 \phi \right)}}{12} - \left(\frac{L_{B}^{2} m_{A}}{3} + L_{B}^{2} m_{B} - \frac{L_{B} h m_{A}}{3} + \frac{h^{2} m_{A}}{12} + \frac{h^{2} m_{B}}{12} + \frac{m_{B} w^{2} \cos^{2}{\left(\phi \right)}}{12}\right) \dot{\omega}\\- \frac{m_{B} w^{2} \left(\omega^{2} \sin{\left(2 \phi \right)} + 2 \dot{\alpha}\right)}{24}\end{matrix}\right]\end{split}\]</div>
+</div>
+</div>
+</section>
+<section id="simulation">
+<h2>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h2>
+<p>The equations of motion can now be simulated numerically. Values for the
+constants, initial conditions, and time are provided to the <code class="docutils literal notranslate"><span class="pre">System</span></code>
+class along with the symbolic <code class="docutils literal notranslate"><span class="pre">KanesMethod</span></code> object.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span> <span class="o">=</span> <span class="n">System</span><span class="p">(</span><span class="n">kane</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="p">{</span><span class="n">lB</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="c1"># meters</span>
+                 <span class="n">h</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="c1"># meters</span>
+                 <span class="n">w</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="c1"># meters</span>
+                 <span class="n">mA</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="c1"># kilograms</span>
+                 <span class="n">mB</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="c1"># kilograms</span>
+                 <span class="n">g</span><span class="p">:</span> <span class="mf">9.81</span><span class="p">}</span> <span class="c1"># meters per second squared</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">initial_conditions</span> <span class="o">=</span> <span class="p">{</span><span class="n">theta</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span>
+                          <span class="n">phi</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
+                          <span class="n">omega</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                          <span class="n">alpha</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>The trajectories of the states are found with the <code class="docutils literal notranslate"><span class="pre">integrate</span></code> method.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>The angles can be plotted to see how they change with respect to time
+given the initial conditions.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">sm</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;inline&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">coordinates</span><span class="p">])</span>
+
+<span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/chaos-pendulum_30_0.png" src="../_images/chaos-pendulum_30_0.png" />
+</div>
+</div>
+</section>
+<section id="chaotic-behavior">
+<h2>Chaotic Behavior<a class="headerlink" href="#chaotic-behavior" title="Permalink to this headline">¶</a></h2>
+<p>Now change the intial condition of the plat angle just slighty to see if
+the behvior of the system is similar.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">[</span><span class="n">phi</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/chaos-pendulum_31_0.png" src="../_images/chaos-pendulum_31_0.png" />
+</div>
+</div>
+<p>Seems all good, very similar behavior. But now set the rod angle to
+<span class="math notranslate nohighlight">\(90^\circ\)</span> and try the same slight change in plate angle.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">[</span><span class="n">theta</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">[</span><span class="n">phi</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/chaos-pendulum_32_0.png" src="../_images/chaos-pendulum_32_0.png" />
+</div>
+</div>
+<p>First note that the plate behaves wildly. What happens when the initial
+plate angle is altered slightly.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">[</span><span class="n">phi</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/chaos-pendulum_33_0.png" src="../_images/chaos-pendulum_33_0.png" />
+</div>
+</div>
+<p>The behavior does not look similar to the previous simulation. This is
+an example of chaotic behavior. The plate angle can not be reliably
+predicted because slight changes in the initial conditions cause the
+behavior of the system to vary widely.</p>
+</section>
+<section id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
+<p>Finally, the system can be animated by attached a cylinder and a plane
+shape to the rigid bodies. To properly align the coordinate axes of the
+shapes with the bodies, simple rotations are used.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rod_shape</span> <span class="o">=</span> <span class="n">Cylinder</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lA</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;rod&#39;</span><span class="p">)</span>
+<span class="n">plate_shape</span> <span class="o">=</span> <span class="n">Plane</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;plate&#39;</span><span class="p">)</span>
+
+<span class="n">v1</span> <span class="o">=</span> <span class="n">VisualizationFrame</span><span class="p">(</span><span class="s1">&#39;rod&#39;</span><span class="p">,</span>
+                        <span class="n">A</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;rod&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">x</span><span class="p">)),</span>
+                        <span class="n">Ao</span><span class="p">,</span>
+                        <span class="n">rod_shape</span><span class="p">)</span>
+
+<span class="n">v2</span> <span class="o">=</span> <span class="n">VisualizationFrame</span><span class="p">(</span><span class="s1">&#39;plate&#39;</span><span class="p">,</span>
+                        <span class="n">B</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;plate&#39;</span><span class="p">,</span> <span class="s1">&#39;Body&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;XZX&#39;</span><span class="p">),</span>
+                        <span class="n">Bo</span><span class="p">,</span>
+                        <span class="n">plate_shape</span><span class="p">)</span>
+
+<span class="n">scene</span> <span class="o">=</span> <span class="n">Scene</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">No</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="n">sys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>The following method opens up a simple gui that shows a 3D animatoin of
+the system.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scene</span><span class="o">.</span><span class="n">display_jupyter</span><span class="p">(</span><span class="n">axes_arrow_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "42c1b495db9846e59d0aca9858e6c9dd"}
+</script></div>
+</div>
+</section>
+</section>
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"8cfee61a62634d048a845ace3d37171c": {"model_name": "CylinderBufferGeometryModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "CylinderBufferGeometryModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "height": 0.15000000000000002, "heightSegments": 1, "name": "", "openEnded": false, "radialSegments": 100, "radiusBottom": 0.005, "radiusTop": 0.005, "thetaLength": 6.283185307179586, "thetaStart": 0.0, "type": "CylinderBufferGeometry"}}, "2a16179f69354d9b9613c695aa680070": {"model_name": "MeshStandardMaterialModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "MeshStandardMaterialModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "alphaMap": null, "alphaTest": 0.0, "aoMap": null, "aoMapIntensity": 1.0, "blendDst": "OneMinusSrcAlphaFactor", "blendDstAlpha": 0.0, "blendEquation": "AddEquation", "blendEquationAlpha": 0.0, "blendSrc": "SrcAlphaFactor", "blendSrcAlpha": 0.0, "blending": "NormalBlending", "bumpMap": null, "bumpScale": 1.0, "clipIntersection": false, "clipShadows": false, "clippingPlanes": [], "color": "red", "colorWrite": true, "defines": {"STANDARD": ""}, "depthFunc": "LessEqualDepth", "depthTest": true, "depthWrite": true, "displacementBias": 0.0, "displacementMap": null, "displacementScale": 1.0, "dithering": false, "emissive": "#000000", "emissiveIntensity": 1.0, "emissiveMap": null, "envMap": null, "envMapIntensity": 1.0, "flatShading": false, "fog": true, "lightMap": null, "lightMapIntensity": 1.0, "lights": true, "map": null, "metalness": 0.5, "metalnessMap": null, "morphNormals": false, "morphTargets": false, "name": "", "normalMap": null, "normalScale": [1.0, 1.0], "opacity": 1.0, "overdraw": 0.0, "polygonOffset": false, "polygonOffsetFactor": 0.0, "polygonOffsetUnits": 0.0, "precision": null, "premultipliedAlpha": false, "refractionRatio": 0.98, "roughness": 0.5, "roughnessMap": null, "shadowSide": null, "side": "FrontSide", "skinning": false, "transparent": false, "type": "MeshStandardMaterial", "vertexColors": "NoColors", "visible": true, "wireframe": false, "wireframeLinecap": "round", "wireframeLinejoin": "round", "wireframeLinewidth": 1.0}}, "e683031238fa405cbaaff8d12492791f": {"model_name": "MeshModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "MeshModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "castShadow": false, "children": [], "drawMode": "TrianglesDrawMode", "frustumCulled": true, "geometry": "IPY_MODEL_8cfee61a62634d048a845ace3d37171c", "material": "IPY_MODEL_2a16179f69354d9b9613c695aa680070", "matrix": [6.123233995736766e-17, 0.0, -1.0, 0.0, 1.0, 0.0, 6.123233995736766e-17, 0.0, 0.0, -1.0, 0.0, 0.0, 0.07500000000000001, 0.0, 4.592425496802575e-18, 1.0], "matrixAutoUpdate": false, "matrixWorld": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixWorldNeedsUpdate": false, "modelViewMatrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "morphTargetInfluences": [], "name": "rod", "normalMatrix": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0], "position": [0.0, 0.0, 0.0], "quaternion": [0.0, 0.0, 0.0, 1.0], "receiveShadow": false, "renderOrder": 0, "rotation": [0.0, 0.0, 0.0, "XYZ"], "scale": [1.0, 1.0, 1.0], "type": "Mesh", "up": [0.0, 1.0, 0.0], "visible": true}}, "fd25f3ec8b3f4b95b6aed349024dfba9": {"model_name": "VectorKeyframeTrackModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "VectorKeyframeTrackModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "interpolation": "InterpolateLinear", "name": "scene/rod.matrix", "times": {"shape": [300], "dtype": "float32"}, "values": {"shape": [300, 16], "dtype": "float32"}}, "buffers": [{"data": "AAAAAG79CD1u/Yg9JnzNPW79CD7KPCs+JnxNPoG7bz5u/Yg+HB2aPso8qz54XLw+JnzNPtOb3j6Bu+8+mG0AP279CD9FjRE/HB0aP/OsIj/KPCs/ocwzP3hcPD9P7EQ/JnxNP/0LVj/Tm14/qitnP4G7bz9YS3g/mG2AP4O1hD9u/Yg/WkWNP0WNkT8x1ZU/HB2aPwhlnj/zrKI/3/SmP8o8qz+2hK8/ocyzP4wUuD94XLw/Y6TAP0/sxD86NMk/JnzNPxHE0T/9C9Y/6FPaP9Ob3j+/4+I/qivnP5Zz6z+Bu+8/bQP0P1hL+D9Ek/w/mG0AQI2RAkCDtQRAedkGQG79CEBkIQtAWkUNQFBpD0BFjRFAO7ETQDHVFUAn+RdAHB0aQBJBHEAIZR5A/YggQPOsIkDp0CRA3/QmQNQYKUDKPCtAwGAtQLaEL0CrqDFAocwzQJfwNUCMFDhAgjg6QHhcPEBugD5AY6RAQFnIQkBP7ERARBBHQDo0SUAwWEtAJnxNQBugT0ARxFFAB+hTQP0LVkDyL1hA6FNaQN53XEDTm15Ayb9gQL/jYkC1B2VAqitnQKBPaUCWc2tAjJdtQIG7b0B333FAbQN0QGIndkBYS3hATm96QESTfEA5t35AmG2AQJJ/gUCNkYJAiKODQIO1hEB+x4VAedmGQHTrh0Bu/YhAaQ+KQGQhi0BfM4xAWkWNQFVXjkBQaY9ASnuQQEWNkUBAn5JAO7GTQDbDlEAx1ZVALOeWQCf5l0AhC5lAHB2aQBcvm0ASQZxADVOdQAhlnkADd59A/YigQPiaoUDzrKJA7r6jQOnQpEDk4qVA3/SmQNkGqEDUGKlAzyqqQMo8q0DFTqxAwGCtQLtyrkC2hK9AsJawQKuosUCmurJAocyzQJzetECX8LVAkgK3QIwUuECHJrlAgji6QH1Ku0B4XLxAc269QG6AvkBokr9AY6TAQF62wUBZyMJAVNrDQE/sxEBK/sVARBDHQD8iyEA6NMlANUbKQDBYy0ArasxAJnzNQCGOzkAboM9AFrLQQBHE0UAM1tJAB+jTQAL61ED9C9ZA9x3XQPIv2EDtQdlA6FPaQONl20Ded9xA2YndQNOb3kDOrd9Ayb/gQMTR4UC/4+JAuvXjQLUH5UCwGeZAqivnQKU96ECgT+lAm2HqQJZz60CRhexAjJftQIap7kCBu+9AfM3wQHff8UBy8fJAbQP0QGgV9UBiJ/ZAXTn3QFhL+EBTXflATm/6QEmB+0BEk/xAP6X9QDm3/kA0yf9AmG0AQZX2AEGSfwFBkAgCQY2RAkGLGgNBiKMDQYYsBEGDtQRBgD4FQX7HBUF7UAZBedkGQXZiB0F06wdBcXQIQW79CEFshglBaQ8KQWeYCkFkIQtBYqoLQV8zDEFcvAxBWkUNQVfODUFVVw5BUuAOQVBpD0FN8g9BSnsQQUgEEUFFjRFBQxYSQUCfEkE+KBNBO7ETQTk6FEE2wxRBM0wVQTHVFUEuXhZBLOcWQSlwF0En+RdBJIIYQSELGUEflBlBHB0aQRqmGkEXLxtBFbgbQRJBHEEPyhxBDVMdQQrcHUEIZR5BBe4eQQN3H0EAACBB", "encoding": "base64", "path": ["times", "buffer"]}, {"data": "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", "encoding": "base64", "path": ["values", "buffer"]}]}, "b362e7c2ef48419c80270e1749bdc5b9": {"model_name": "PlaneBufferGeometryModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "PlaneBufferGeometryModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "height": 0.2, "heightSegments": 1, "name": "", "type": "PlaneBufferGeometry", "width": 0.1, "widthSegments": 1}}, "ca9dabc0e5d54c228c5f61f242a6b63f": {"model_name": "MeshStandardMaterialModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "MeshStandardMaterialModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "alphaMap": null, "alphaTest": 0.0, "aoMap": null, "aoMapIntensity": 1.0, "blendDst": "OneMinusSrcAlphaFactor", "blendDstAlpha": 0.0, "blendEquation": "AddEquation", "blendEquationAlpha": 0.0, "blendSrc": "SrcAlphaFactor", "blendSrcAlpha": 0.0, "blending": "NormalBlending", "bumpMap": null, "bumpScale": 1.0, "clipIntersection": false, "clipShadows": false, "clippingPlanes": [], "color": "blue", "colorWrite": true, "defines": {"STANDARD": ""}, "depthFunc": "LessEqualDepth", "depthTest": true, "depthWrite": true, "displacementBias": 0.0, "displacementMap": null, "displacementScale": 1.0, "dithering": false, "emissive": "#000000", "emissiveIntensity": 1.0, "emissiveMap": null, "envMap": null, "envMapIntensity": 1.0, "flatShading": false, "fog": true, "lightMap": null, "lightMapIntensity": 1.0, "lights": true, "map": null, "metalness": 0.5, "metalnessMap": null, "morphNormals": false, "morphTargets": false, "name": "", "normalMap": null, "normalScale": [1.0, 1.0], "opacity": 1.0, "overdraw": 0.0, "polygonOffset": false, "polygonOffsetFactor": 0.0, "polygonOffsetUnits": 0.0, "precision": null, "premultipliedAlpha": false, "refractionRatio": 0.98, "roughness": 0.5, "roughnessMap": null, "shadowSide": null, "side": "DoubleSide", "skinning": false, "transparent": false, "type": "MeshStandardMaterial", "vertexColors": "NoColors", "visible": true, "wireframe": false, "wireframeLinecap": "round", "wireframeLinejoin": "round", "wireframeLinewidth": 1.0}}, "99dfad9a526942ef8d90c20d47806cd1": {"model_name": "MeshModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "MeshModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "castShadow": false, "children": [], "drawMode": "TrianglesDrawMode", "frustumCulled": true, "geometry": "IPY_MODEL_b362e7c2ef48419c80270e1749bdc5b9", "material": "IPY_MODEL_ca9dabc0e5d54c228c5f61f242a6b63f", "matrix": [1.0, 0.0, 6.123233995736766e-17, 0.0, -6.122301397540666e-17, -0.01745240643728351, 0.9998476951563913, 0.0, 1.0686516840418957e-18, -0.9998476951563913, -0.01745240643728351, 0.0, 0.2, 0.0, 1.2246467991473533e-17, 1.0], "matrixAutoUpdate": false, "matrixWorld": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixWorldNeedsUpdate": false, "modelViewMatrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "morphTargetInfluences": [], "name": "plate", "normalMatrix": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0], "position": [0.0, 0.0, 0.0], "quaternion": [0.0, 0.0, 0.0, 1.0], "receiveShadow": false, "renderOrder": 0, "rotation": [0.0, 0.0, 0.0, "XYZ"], "scale": [1.0, 1.0, 1.0], "type": "Mesh", "up": [0.0, 1.0, 0.0], "visible": true}}, "7a99b816a41c4b8e98b2af2411043063": {"model_name": "VectorKeyframeTrackModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "VectorKeyframeTrackModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "interpolation": "InterpolateLinear", "name": "scene/plate.matrix", "times": {"shape": [300], "dtype": "float32"}, "values": {"shape": [300, 16], "dtype": "float32"}}, "buffers": [{"data": "AAAAAG79CD1u/Yg9JnzNPW79CD7KPCs+JnxNPoG7bz5u/Yg+HB2aPso8qz54XLw+JnzNPtOb3j6Bu+8+mG0AP279CD9FjRE/HB0aP/OsIj/KPCs/ocwzP3hcPD9P7EQ/JnxNP/0LVj/Tm14/qitnP4G7bz9YS3g/mG2AP4O1hD9u/Yg/WkWNP0WNkT8x1ZU/HB2aPwhlnj/zrKI/3/SmP8o8qz+2hK8/ocyzP4wUuD94XLw/Y6TAP0/sxD86NMk/JnzNPxHE0T/9C9Y/6FPaP9Ob3j+/4+I/qivnP5Zz6z+Bu+8/bQP0P1hL+D9Ek/w/mG0AQI2RAkCDtQRAedkGQG79CEBkIQtAWkUNQFBpD0BFjRFAO7ETQDHVFUAn+RdAHB0aQBJBHEAIZR5A/YggQPOsIkDp0CRA3/QmQNQYKUDKPCtAwGAtQLaEL0CrqDFAocwzQJfwNUCMFDhAgjg6QHhcPEBugD5AY6RAQFnIQkBP7ERARBBHQDo0SUAwWEtAJnxNQBugT0ARxFFAB+hTQP0LVkDyL1hA6FNaQN53XEDTm15Ayb9gQL/jYkC1B2VAqitnQKBPaUCWc2tAjJdtQIG7b0B333FAbQN0QGIndkBYS3hATm96QESTfEA5t35AmG2AQJJ/gUCNkYJAiKODQIO1hEB+x4VAedmGQHTrh0Bu/YhAaQ+KQGQhi0BfM4xAWkWNQFVXjkBQaY9ASnuQQEWNkUBAn5JAO7GTQDbDlEAx1ZVALOeWQCf5l0AhC5lAHB2aQBcvm0ASQZxADVOdQAhlnkADd59A/YigQPiaoUDzrKJA7r6jQOnQpEDk4qVA3/SmQNkGqEDUGKlAzyqqQMo8q0DFTqxAwGCtQLtyrkC2hK9AsJawQKuosUCmurJAocyzQJzetECX8LVAkgK3QIwUuECHJrlAgji6QH1Ku0B4XLxAc269QG6AvkBokr9AY6TAQF62wUBZyMJAVNrDQE/sxEBK/sVARBDHQD8iyEA6NMlANUbKQDBYy0ArasxAJnzNQCGOzkAboM9AFrLQQBHE0UAM1tJAB+jTQAL61ED9C9ZA9x3XQPIv2EDtQdlA6FPaQONl20Ded9xA2YndQNOb3kDOrd9Ayb/gQMTR4UC/4+JAuvXjQLUH5UCwGeZAqivnQKU96ECgT+lAm2HqQJZz60CRhexAjJftQIap7kCBu+9AfM3wQHff8UBy8fJAbQP0QGgV9UBiJ/ZAXTn3QFhL+EBTXflATm/6QEmB+0BEk/xAP6X9QDm3/kA0yf9AmG0AQZX2AEGSfwFBkAgCQY2RAkGLGgNBiKMDQYYsBEGDtQRBgD4FQX7HBUF7UAZBedkGQXZiB0F06wdBcXQIQW79CEFshglBaQ8KQWeYCkFkIQtBYqoLQV8zDEFcvAxBWkUNQVfODUFVVw5BUuAOQVBpD0FN8g9BSnsQQUgEEUFFjRFBQxYSQUCfEkE+KBNBO7ETQTk6FEE2wxRBM0wVQTHVFUEuXhZBLOcWQSlwF0En+RdBJIIYQSELGUEflBlBHB0aQRqmGkEXLxtBFbgbQRJBHEEPyhxBDVMdQQrcHUEIZR5BBe4eQQN3H0EAACBB", "encoding": "base64", "path": ["times", "buffer"]}, {"data": "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", "encoding": "base64", "path": ["values", "buffer"]}]}, "7841dd8a5a3046acb2508cce95e2b8d7": {"model_name": "PerspectiveCameraModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "PerspectiveCameraModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "aspect": 1.3333333333333333, "castShadow": false, "children": [], "far": 2000.0, "focus": 10.0, "fov": 50.0, "frustumCulled": true, "matrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixAutoUpdate": true, "matrixWorld": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixWorldInverse": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixWorldNeedsUpdate": false, "modelViewMatrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "name": "", "near": 0.1, "normalMatrix": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0], "position": [1.0, 1.0, 1.0], "projectionMatrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "quaternion": [0.0, 0.0, 0.0, 1.0], "receiveShadow": false, "renderOrder": 0, "rotation": [0.0, 0.0, 0.0, "XYZ"], "scale": [1.0, 1.0, 1.0], "type": "PerspectiveCamera", "up": [0.0, 1.0, 0.0], "visible": true, "zoom": 1.0}}, "170e8b6ff6084efab3ee5617032e9b4a": {"model_name": "DirectionalLightModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "DirectionalLightModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "castShadow": false, "children": [], "color": "#ffffff", "frustumCulled": true, "intensity": 1.0, "matrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixAutoUpdate": true, "matrixWorld": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixWorldNeedsUpdate": false, "modelViewMatrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "name": "", "normalMatrix": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0], "position": [0.0, 0.0, 0.0], "quaternion": [0.0, 0.0, 0.0, 1.0], "receiveShadow": false, "renderOrder": 0, "rotation": [0.0, 0.0, 0.0, "XYZ"], "scale": [1.0, 1.0, 1.0], "shadow": "uninitialized", "target": "uninitialized", "type": "DirectionalLight", "up": [0.0, 1.0, 0.0], "visible": true}}, "8f9d45f3a99b4abcb74b0f1b9dd423e3": {"model_name": "AmbientLightModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "AmbientLightModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "castShadow": false, "children": [], "color": "#ffffff", "frustumCulled": true, "intensity": 1.0, "matrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixAutoUpdate": true, "matrixWorld": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixWorldNeedsUpdate": false, "modelViewMatrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "name": "", "normalMatrix": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0], "position": [0.0, 0.0, 0.0], "quaternion": [0.0, 0.0, 0.0, 1.0], "receiveShadow": false, "renderOrder": 0, "rotation": [0.0, 0.0, 0.0, "XYZ"], "scale": [1.0, 1.0, 1.0], "type": "AmbientLight", "up": [0.0, 1.0, 0.0], "visible": true}}, "37c78d033269423b801125d8a52d83af": {"model_name": "AxesHelperModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "AxesHelperModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "castShadow": false, "children": [], "frustumCulled": true, "matrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixAutoUpdate": true, "matrixWorld": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixWorldNeedsUpdate": false, "modelViewMatrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "name": "", "normalMatrix": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0], "position": [0.0, 0.0, 0.0], "quaternion": [0.0, 0.0, 0.0, 1.0], "receiveShadow": false, "renderOrder": 0, "rotation": [0.0, 0.0, 0.0, "XYZ"], "scale": [1.0, 1.0, 1.0], "size": 1.0, "type": "AxesHelper", "up": [0.0, 1.0, 0.0], "visible": true}}, "2345d835d8ab4308842736ae6effb414": {"model_name": "SceneModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "SceneModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "autoUpdate": true, "background": "#ffffff", "castShadow": false, "children": ["IPY_MODEL_e683031238fa405cbaaff8d12492791f", "IPY_MODEL_99dfad9a526942ef8d90c20d47806cd1", "IPY_MODEL_7841dd8a5a3046acb2508cce95e2b8d7", "IPY_MODEL_170e8b6ff6084efab3ee5617032e9b4a", "IPY_MODEL_8f9d45f3a99b4abcb74b0f1b9dd423e3", "IPY_MODEL_37c78d033269423b801125d8a52d83af"], "fog": null, "frustumCulled": true, "matrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixAutoUpdate": true, "matrixWorld": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "matrixWorldNeedsUpdate": false, "modelViewMatrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0], "name": "", "normalMatrix": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0], "overrideMaterial": null, "position": [0.0, 0.0, 0.0], "quaternion": [0.0, 0.0, 0.0, 1.0], "receiveShadow": false, "renderOrder": 0, "rotation": [0.0, 0.0, 0.0, "XYZ"], "scale": [1.0, 1.0, 1.0], "type": "Scene", "up": [0.0, 1.0, 0.0], "visible": true}}, "050ce8d9c5574b65881463fdd6d7d57b": {"model_name": "OrbitControlsModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "OrbitControlsModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "autoRotate": false, "autoRotateSpeed": 2.0, "controlling": "IPY_MODEL_7841dd8a5a3046acb2508cce95e2b8d7", "dampingFactor": 0.25, "enableDamping": false, "enableKeys": true, "enablePan": true, "enableRotate": true, "enableZoom": true, "enabled": true, "keyPanSpeed": 7.0, "maxAzimuthAngle": "inf", "maxDistance": "inf", "maxPolarAngle": 3.141592653589793, "maxZoom": "inf", "minAzimuthAngle": "-inf", "minDistance": 0.0, "minPolarAngle": 0.0, "minZoom": 0.0, "panSpeed": 1.0, "rotateSpeed": 1.0, "screenSpacePanning": true, "target": [0.0, 0.0, 0.0], "zoomSpeed": 1.0}}, "14bdcc1e64674ea0b658fb9ca26c6622": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "3d0ec6dd87ea427baf85e457d552f9c4": {"model_name": "WebGLShadowMapModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "WebGLShadowMapModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "enabled": false, "type": "PCFShadowMap"}}, "92a5441d17d149219139171fae17add4": {"model_name": "RendererModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_alpha": false, "_antialias": false, "_dom_classes": [], "_height": 600, "_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "RendererModel", "_pause_autorender": false, "_view_count": null, "_view_module": "jupyter-threejs", "_view_module_version": "^2.1.0", "_view_name": "RendererView", "_webgl_version": 2, "_width": 800, "autoClear": true, "autoClearColor": true, "autoClearDepth": true, "autoClearStencil": true, "background": "black", "background_opacity": 1.0, "camera": "IPY_MODEL_7841dd8a5a3046acb2508cce95e2b8d7", "clearColor": "#000000", "clearOpacity": 1.0, "clippingPlanes": [], "controls": ["IPY_MODEL_050ce8d9c5574b65881463fdd6d7d57b"], "gammaFactor": 2.0, "gammaInput": false, "gammaOutput": false, "layout": "IPY_MODEL_14bdcc1e64674ea0b658fb9ca26c6622", "localClippingEnabled": false, "maxMorphNormals": 4, "maxMorphTargets": 8, "physicallyCorrectLights": false, "scene": "IPY_MODEL_2345d835d8ab4308842736ae6effb414", "shadowMap": "IPY_MODEL_3d0ec6dd87ea427baf85e457d552f9c4", "sortObject": true, "toneMapping": "LinearToneMapping", "toneMappingExposure": 1.0, "toneMappingWhitePoint": 1.0}}, "e0b2d0c2b3a141aa9c203f16bd462a1b": {"model_name": "AnimationClipModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "AnimationClipModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "duration": 10.0, "name": null, "tracks": ["IPY_MODEL_fd25f3ec8b3f4b95b6aed349024dfba9", "IPY_MODEL_7a99b816a41c4b8e98b2af2411043063"]}}, "400c23e4473e40fbafbdd271367ae119": {"model_name": "AnimationMixerModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "AnimationMixerModel", "_view_count": null, "_view_module": null, "_view_module_version": "", "_view_name": null, "rootObject": "IPY_MODEL_2345d835d8ab4308842736ae6effb414", "time": 0.0, "timeScale": 1.0}}, "bc19d9b3d0f947ec8ba34d3ea53901e1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "cbcaf6188bef4d0f9c8af8b834f36737": {"model_name": "AnimationActionModel", "model_module": "jupyter-threejs", "model_module_version": "^2.1.0", "state": {"_dom_classes": [], "_model_module": "jupyter-threejs", "_model_module_version": "^2.1.0", "_model_name": "AnimationActionModel", "_view_count": null, "_view_module": "jupyter-threejs", "_view_module_version": "^2.1.0", "_view_name": "AnimationActionView", "clampWhenFinished": false, "clip": "IPY_MODEL_e0b2d0c2b3a141aa9c203f16bd462a1b", "enabled": true, "layout": "IPY_MODEL_bc19d9b3d0f947ec8ba34d3ea53901e1", "localRoot": "IPY_MODEL_2345d835d8ab4308842736ae6effb414", "loop": "LoopRepeat", "mixer": "IPY_MODEL_400c23e4473e40fbafbdd271367ae119", "paused": false, "repititions": "inf", "time": 0.0, "timeScale": 1.0, "weigth": 1.0, "zeroSlopeAtEnd": true, "zeroSlopeAtStart": true}}, "3e7ebb6a89be426ab7140fc2715c5313": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "42c1b495db9846e59d0aca9858e6c9dd": {"model_name": "VBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "VBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "VBoxView", "box_style": "", "children": ["IPY_MODEL_cbcaf6188bef4d0f9c8af8b834f36737", "IPY_MODEL_92a5441d17d149219139171fae17add4"], "layout": "IPY_MODEL_3e7ebb6a89be426ab7140fc2715c5313"}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Chaos Pendulum</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#define-variables">Define Variables</a></li>
+<li><a class="reference internal" href="#define-orientations">Define Orientations</a></li>
+<li><a class="reference internal" href="#define-positions">Define Positions</a></li>
+<li><a class="reference internal" href="#specify-the-velocities">Specify the Velocities</a></li>
+<li><a class="reference internal" href="#inertia">Inertia</a></li>
+<li><a class="reference internal" href="#loads">Loads</a></li>
+<li><a class="reference internal" href="#equations-of-motion">Equations of motion</a></li>
+<li><a class="reference internal" href="#simulation">Simulation</a></li>
+<li><a class="reference internal" href="#chaotic-behavior">Chaotic Behavior</a></li>
+<li><a class="reference internal" href="#visualization">Visualization</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="rocket-car.html"
+                          title="previous chapter">Modeling of a Variable-Mass Nonholonomic Gyrostatic Rocket Car Using Extended Kane’s Equations</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/examples/chaos-pendulum.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rocket-car.html" title="Modeling of a Variable-Mass Nonholonomic Gyrostatic Rocket Car Using Extended Kane’s Equations"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Chaos Pendulum</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

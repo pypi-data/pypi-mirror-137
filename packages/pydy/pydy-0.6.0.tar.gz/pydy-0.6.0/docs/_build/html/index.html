@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>PyDy’s Documentation &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="install.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PyDy’s Documentation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pydy-s-documentation">
+<h1>PyDy’s Documentation<a class="headerlink" href="#pydy-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://pypi.python.org/pypi/pydy"><img alt="Latest Released Version" src="https://img.shields.io/pypi/v/pydy.svg" /></a> <a class="reference external" href="https://anaconda.org/conda-forge/pydy"><img alt="anaconda" src="https://anaconda.org/conda-forge/pydy/badges/version.svg" /></a> <a class="reference external" href="https://pydy.readthedocs.io/en/stable/?badge=stable"><img alt="Documentation Status" src="https://readthedocs.org/projects/pydy/badge/?version=stable" /></a> <a class="reference external" href="https://travis-ci.org/pydy/pydy"><img alt="travis-build" src="https://travis-ci.org/pydy/pydy.png?branch=master" /></a> <a class="reference external" href="https://ci.appveyor.com/project/moorepants/pydy/branch/master"><img alt="appveyor" src="https://ci.appveyor.com/api/projects/status/orj87gyb0c1wqc6j/branch/master?svg=true" /></a> <a class="reference external" href="https://gitter.im/pydy/pydy?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img alt="gitter" src="https://badges.gitter.im/Join%20Chat.svg" /></a></p>
+<p><a class="reference external" href="http://pydy.org">PyDy</a>, short for Python Dynamics, is a tool kit written in the Python
+programming language that utilizes an array of scientific programs to enable
+the study of multibody dynamics. The goal is to have a modular framework that
+can provide the user with their desired workflow, including:</p>
+<ul class="simple">
+<li><p>Model specification</p></li>
+<li><p>Equation of motion generation</p></li>
+<li><p>Simulation</p></li>
+<li><p>Visualization</p></li>
+<li><p>Benchmarking</p></li>
+<li><p>Publication</p></li>
+</ul>
+<p>We started by building the <a class="reference external" href="http://sympy.org">SymPy</a> <a class="reference external" href="http://docs.sympy.org/latest/modules/physics/mechanics/index.html">mechanics package</a> which provides an API
+for building models and generating the symbolic equations of motion for complex
+multibody systems. More recently we developed two packages, <cite>pydy.codegen</cite> and
+<cite>pydy.viz</cite>, for simulation and visualization of the models, respectively.  This
+Python package contains these two packages and other tools for working with
+mathematical models generated from SymPy mechanics. The remaining tools
+currently used in the PyDy workflow are popular scientific Python packages such
+as <a class="reference external" href="http://numpy.scipy.org">NumPy</a>, <a class="reference external" href="http://www.scipy.org/scipylib/index.html">SciPy</a>, <a class="reference external" href="http://ipython.org">IPython</a>, <a class="reference external" href="http://jupyter.org">Jupyter</a>, <a class="reference external" href="https://ipywidgets.readthedocs.io">ipywidgets</a>, <a class="reference external" href="https://pythreejs.readthedocs.io">pythreejs</a>, and <a class="reference external" href="http://matplotlib.org">matplotlib</a>
+which provide additional code for numerical analyses, simulation, and
+visualization.</p>
+<p>If you make use of PyDy in your work or research, please cite us in your
+publications or on the web. This citation can be used:</p>
+<blockquote>
+<div><p>Gilbert Gede, Dale L Peterson, Angadh S Nanjangud, Jason K Moore, and Mont
+Hubbard, “Constrained Multibody Dynamics With Python: From Symbolic Equation
+Generation to Publication”, ASME 2013 International Design Engineering
+Technical Conferences and Computers and Information in Engineering
+Conference, 2013, <a class="reference external" href="http://dx.doi.org/10.1115/DETC2013-13470">10.1115/DETC2013-13470</a>.</p>
+</div></blockquote>
+<p>If you have any question about installation, usage, etc, feel free send a
+message to our public <a class="reference external" href="http://groups.google.com/group/pydy">mailing list</a> or visit our <a class="reference external" href="https://gitter.im/pydy/pydy">Gitter chatroom</a>.</p>
+<p>If you think there’s a bug or you would like to request a feature, please open
+an <a class="reference external" href="https://github.com/pydy/pydy/issues">issue</a> on Github.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#other-installation-options">Other installation options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#dependencies">Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#beginner">Beginner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#advanced">Advanced</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="codegen.html">codegen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="codegen.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codegen.html#on-windows">On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codegen.html#example-use">Example Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codegen.html#module-pydy.codegen.c_code">API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#example-use">Example Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#module-pydy.models">API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system.html">system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz/viz.html">viz</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="viz/viz.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viz/viz.html#pydy-visualizer">PyDy Visualizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viz/viz.html#api">API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="viz/api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="viz/python_api.html">Python Modules Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viz/javascript_api.html">JavaScript Classes Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#tba">0.6.0 (TBA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#january-9-2019">0.5.0 (January 9, 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#may-30-2017">0.4.0 (May 30, 2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#january-6-2016">0.3.1 (January 6, 2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#january-19-2015">0.3.0 (January 19, 2015)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#june-19-2014">0.2.1 (June 19, 2014)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id71">0.2.0 (June 19, 2014)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><figure class="align-default" id="id1">
+<a class="reference external image-reference" href="examples/mass-spring-damper.html"><img alt="_images/mass_spring_damper.svg" src="_images/mass_spring_damper.svg" width="200px" /></a>
+<figcaption>
+<p><span class="caption-text">Linear mass-spring-damper system with gravity.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</td>
+<td><figure class="align-default" id="id2">
+<a class="reference external image-reference" href="examples/multidof-holonomic.html"><img alt="_images/multidof-holonomic.png" src="_images/multidof-holonomic.png" style="width: 200px;" /></a>
+<figcaption>
+<p><span class="caption-text">A double compound and simple pendulum.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</td>
+</tr>
+<tr class="row-even"><td><figure class="align-default" id="id3">
+<a class="reference external image-reference" href="examples/three-link-conical-pendulum.html"><img alt="_images/three-link-conical-pendulum.gif" src="_images/three-link-conical-pendulum.gif" style="width: 200px;" /></a>
+<figcaption>
+<p><span class="caption-text">Three link conical compound pendulum.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</td>
+<td><figure class="align-default" id="id4">
+<a class="reference external image-reference" href="examples/carvallo-whipple.html"><img alt="_images/bicycle-geometry.png" src="_images/bicycle-geometry.png" style="width: 200px;" /></a>
+<figcaption>
+<p><span class="caption-text">Carvallo-Whipple bicycle model.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</td>
+</tr>
+<tr class="row-odd"><td><figure class="align-default" id="id5">
+<a class="reference external image-reference" href="examples/astrobee.html"><img alt="_images/astrobee.png" src="_images/astrobee.png" style="width: 200px;" /></a>
+<figcaption>
+<p><span class="caption-text">Astrobee free-flying ISS robot.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</td>
+<td><figure class="align-default" id="id6">
+<a class="reference external image-reference" href="examples/chaos-pendulum.html"><img alt="_images/chaos-pendulum.svg" src="_images/chaos-pendulum.svg" width="200px" /></a>
+<figcaption>
+<p><span class="caption-text">3D perpendicular axis double pendulum that exhibits chaos.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</td>
+</tr>
+<tr class="row-even"><td><figure class="align-default" id="id7">
+<a class="reference external image-reference" href="examples/kane-levinson-1985-chapter-02.html"><img alt="_images/kane-levinson-1985.png" src="_images/kane-levinson-1985.png" style="width: 200px;" /></a>
+<figcaption>
+<p><span class="caption-text">Exercises from Chapter 2 of Kane &amp; Levinson 1985.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</td>
+<td><figure class="align-default" id="id8">
+<a class="reference external image-reference" href="examples/kane-levinson-1985-chapter-03.html"><img alt="_images/kane-levinson-1985.png" src="_images/kane-levinson-1985.png" style="width: 200px;" /></a>
+<figcaption>
+<p><span class="caption-text">Exercises from Chapter 3 of Kane &amp; Levinson 1985.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</td>
+</tr>
+<tr class="row-odd"><td><figure class="align-default" id="id9">
+<a class="reference external image-reference" href="examples/rocket-car.html"><img alt="_images/rocket-car.png" src="_images/rocket-car.png" style="width: 200px;" /></a>
+<figcaption>
+<p><span class="caption-text">Nonholonomic Rocket Car.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">PyDy’s Documentation</a><ul>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="install.html"
+                          title="next chapter">Installation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PyDy’s Documentation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

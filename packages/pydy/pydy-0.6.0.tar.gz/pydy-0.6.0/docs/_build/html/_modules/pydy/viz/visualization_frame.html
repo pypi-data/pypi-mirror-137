@@ -1,0 +1,559 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pydy.viz.visualization_frame &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.viz.visualization_frame</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pydy.viz.visualization_frame</h1><div class="highlight"><pre>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;VisualizationFrame&#39;</span><span class="p">]</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Dummy</span><span class="p">,</span> <span class="n">lambdify</span>
+<span class="kn">from</span> <span class="nn">sympy.matrices.expressions</span> <span class="kn">import</span> <span class="n">Identity</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">ReferenceFrame</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pythreejs</span> <span class="k">as</span> <span class="nn">p3js</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">p3js</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="kn">from</span> <span class="nn">.shapes</span> <span class="kn">import</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">sympy_equal_to_or_newer_than</span>
+
+
+<div class="viewcode-block" id="VisualizationFrame"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.VisualizationFrame">[docs]</a><span class="k">class</span> <span class="nc">VisualizationFrame</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A VisualizationFrame represents an object that you want to visualize.</span>
+<span class="sd">    It allows you to easily associate a reference frame and a point</span>
+<span class="sd">    with a shape.</span>
+
+<span class="sd">    A VisualizationFrame can be attached to only one Shape Object.</span>
+<span class="sd">    It can be nested, i.e we can add/remove multiple visualization frames to</span>
+<span class="sd">    one visualization frame. On adding the parent frame to the</span>
+<span class="sd">    Scene object, all the children of the parent visualization frame</span>
+<span class="sd">    are also added, and hence can be visualized and animated.</span>
+
+<span class="sd">    A VisualizationFrame needs to have a ReferenceFrame, and a Point</span>
+<span class="sd">    for it to form transformation matrices for visualization and</span>
+<span class="sd">    animations.</span>
+
+<span class="sd">    The ReferenceFrame and Point are required to be provided during</span>
+<span class="sd">    initialization. They can be supplied in the form of any one of these:</span>
+
+<span class="sd">    1)reference_frame, point argument.</span>
+<span class="sd">    2)a RigidBody argument</span>
+<span class="sd">    3)reference_frame, particle argument.</span>
+
+<span class="sd">    In addition to these arguments, A shape argument is also required.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="VisualizationFrame.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.VisualizationFrame.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To initialize a visualization frame a ReferenceFrame,</span>
+<span class="sd">        Point, and Shape are required. These ReferenceFrame</span>
+<span class="sd">        and Point can be passed provided in three ways:</span>
+
+<span class="sd">        1) RigidBody: the RigidBody&#39;s frame and mass center are used.</span>
+<span class="sd">        2) ReferenceFrame and a Particle: The Particle&#39;s Point is used.</span>
+<span class="sd">        3) ReferenceFrame and a Point</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">            Name assigned to VisualizationFrame, default is unnamed</span>
+<span class="sd">        reference_frame : ReferenceFrame</span>
+<span class="sd">            A reference_frame with respect to which all orientations of the</span>
+<span class="sd">            shape takes place, during visualizations/animations.</span>
+<span class="sd">        origin : Point</span>
+<span class="sd">            A point with respect to which all the translations of the shape</span>
+<span class="sd">            takes place, during visualizations/animations.</span>
+<span class="sd">        rigidbody : RigidBody</span>
+<span class="sd">            A rigidbody whose reference frame and mass center are to be</span>
+<span class="sd">            assigned as reference_frame and origin of the</span>
+<span class="sd">            VisualizationFrame.</span>
+<span class="sd">        particle : Particle</span>
+<span class="sd">            A particle whose point is assigned as origin of the</span>
+<span class="sd">            VisualizationFrame.</span>
+<span class="sd">        shape : Shape</span>
+<span class="sd">            A shape to be attached to the VisualizationFrame</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        ========</span>
+<span class="sd">        &gt;&gt;&gt; from pydy.viz import VisualizationFrame, Sphere</span>
+<span class="sd">        &gt;&gt;&gt; from sympy.physics.mechanics import \</span>
+<span class="sd">                               ReferenceFrame, Point, RigidBody, \</span>
+<span class="sd">                                Particle, inertia</span>
+<span class="sd">        &gt;&gt;&gt; from sympy import symbols</span>
+<span class="sd">        &gt;&gt;&gt; I = ReferenceFrame(&#39;I&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; O = Point(&#39;O&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; shape = Sphere(5)</span>
+<span class="sd">        &gt;&gt;&gt; #initializing with reference frame, point</span>
+<span class="sd">        &gt;&gt;&gt; frame1 = VisualizationFrame(&#39;frame1&#39;, I, O, shape)</span>
+<span class="sd">        &gt;&gt;&gt; Ixx, Iyy, Izz, mass = symbols(&#39;Ixx Iyy Izz mass&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; i = inertia(I, Ixx, Iyy, Izz)</span>
+<span class="sd">        &gt;&gt;&gt; rbody = RigidBody(&#39;rbody&#39;, O, I, mass, (inertia, O))</span>
+<span class="sd">        &gt;&gt;&gt; # Initializing with a rigidbody ..</span>
+<span class="sd">        &gt;&gt;&gt; frame2 = VisualizationFrame(&#39;frame2&#39;, rbody, shape)</span>
+<span class="sd">        &gt;&gt;&gt; Pa = Particle(&#39;Pa&#39;, O, mass)</span>
+<span class="sd">        &gt;&gt;&gt; #initializing with Particle, reference_frame ...</span>
+<span class="sd">        &gt;&gt;&gt; frame3 = VisualizationFrame(&#39;frame3&#39;, I, Pa, shape)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#Last arg should be a Shape ..</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">Shape</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Please provide a valid shape object as the last &quot;</span>
+                            <span class="s2">&quot; positional argument.&quot;</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># If first arg is not str, name the visualization frame &#39;unnamed&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;unnamed&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sympy_equal_to_or_newer_than</span><span class="p">(</span><span class="s1">&#39;1.0&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">frame</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_frame</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">masscenter</span>
+
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1">#It is not a rigidbody, hence this arg should be a</span>
+            <span class="c1">#reference frame</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">dcm</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">_dcm_dict</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;&#39;&#39; A ReferenceFrame is to be supplied</span>
+<span class="s1">                                   before a Particle/Point. &#39;&#39;&#39;</span><span class="p">)</span>
+
+            <span class="c1">#Now next arg can either be a Particle or point</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">point</span>
+
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+
+    <span class="c1">#setting attributes ..</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;VisualizationFrame &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;VisualizationFrame&#39;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Name of the VisualizationFrame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the name of the VisualizationFrame.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;Name should be a str object&#39;&#39;&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">new_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Origin of the VisualizationFrame,</span>
+<span class="sd">        with respect to which all translational transformations</span>
+<span class="sd">        take place.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_origin</span>
+
+    <span class="nd">@origin</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_origin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the origin of the VisualizationFrame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_origin</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;origin should be a valid Point Object&#39;&#39;&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_origin</span> <span class="o">=</span> <span class="n">new_origin</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">reference_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        reference_frame of the VisualizationFrame,</span>
+<span class="sd">        with respect to which all rotational/orientational</span>
+<span class="sd">        transformations take place.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reference_frame</span>
+
+    <span class="nd">@reference_frame</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">reference_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_reference_frame</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_reference_frame</span><span class="p">,</span> <span class="n">ReferenceFrame</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;reference_frame should be a valid</span>
+<span class="s1">                                ReferenceFrame object.&#39;&#39;&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reference_frame</span> <span class="o">=</span> <span class="n">new_reference_frame</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        shape in the VisualizationFrame.</span>
+<span class="sd">        A shape attached to the visualization frame.</span>
+<span class="sd">        NOTE: Only one shape can be attached to a visualization frame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span>
+
+    <span class="nd">@shape</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_shape</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the shape for VisualizationFrame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_shape</span><span class="p">,</span> <span class="n">Shape</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;shape should be a valid Shape object.&#39;&#39;&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">new_shape</span>
+
+<div class="viewcode-block" id="VisualizationFrame.generate_transformation_matrix"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.VisualizationFrame.generate_transformation_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">generate_transformation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_frame</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generates a symbolic transformation matrix, with respect to the</span>
+<span class="sd">        provided reference frame and point.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        reference_frame : ReferenceFrame</span>
+<span class="sd">            A reference_frame with respect to which transformation matrix is</span>
+<span class="sd">            generated.</span>
+<span class="sd">        point : Point</span>
+<span class="sd">            A point with respect to which transformation matrix is</span>
+<span class="sd">            generated.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        =======</span>
+<span class="sd">        A 4 x 4 SymPy matrix, containing symbolic expressions describing the</span>
+<span class="sd">        transformation as a function of time.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span><span class="o">.</span><span class="n">dcm</span><span class="p">(</span><span class="n">reference_frame</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span> <span class="o">=</span> <span class="n">Identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">as_mutable</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">rotation_matrix</span>
+
+        <span class="n">point_vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_vector</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(</span><span class="n">reference_frame</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># In earlier versions of sympy, &#39;Vector&#39; object has no attribute</span>
+            <span class="c1"># &#39;to_matrix&#39;.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_vector</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">reference_frame</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_vector</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">reference_frame</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_vector</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">reference_frame</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span></div>
+
+<div class="viewcode-block" id="VisualizationFrame.generate_numeric_transform_function"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.VisualizationFrame.generate_numeric_transform_function">[docs]</a>    <span class="k">def</span> <span class="nf">generate_numeric_transform_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dynamic_variables</span><span class="p">,</span>
+                                            <span class="n">constant_variables</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a function which can compute the numerical values of the</span>
+<span class="sd">        transformation matrix given the numerical dynamic variables (i.e.</span>
+<span class="sd">        functions of time or states) and the numerical system constants.</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        dynamic_variables : list of sympy.Functions(time)</span>
+<span class="sd">            All of the dynamic symbols used in defining the orientation and</span>
+<span class="sd">            position of this visualization frame.</span>
+<span class="sd">        constant_variables : list of sympy.Symbols</span>
+<span class="sd">            All of the constants used in defining the orientation and</span>
+<span class="sd">            position of this visualization frame.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        =======</span>
+<span class="sd">        numeric_transform : list of functions</span>
+<span class="sd">            A list of functions which return the numerical transformation</span>
+<span class="sd">            for each element in the transformation matrix.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dummy_symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">Dummy</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dynamic_variables</span><span class="p">]</span>
+        <span class="n">dummy_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">dynamic_variables</span><span class="p">,</span> <span class="n">dummy_symbols</span><span class="p">))</span>
+        <span class="n">transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">dummy_dict</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dummy_symbols</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">constant_variables</span><span class="p">)</span>
+
+        <span class="c1"># Create a numeric transformation for each element in the transformation</span>
+        <span class="c1"># matrix. We cannot lambdify the transformation matrix as calling</span>
+        <span class="c1"># lambdify of a constant expression returns a scalar, even if the</span>
+        <span class="c1"># lambdify function arguments are sequences:</span>
+        <span class="c1"># https://github.com/sympy/sympy/issues/5642</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_numeric_transform</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">transform</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">Dummy</span><span class="p">):</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span><span class="n">dummy_symbols</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">modules</span><span class="o">=</span><span class="s1">&#39;numpy&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span><span class="n">constant_variables</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">modules</span><span class="o">=</span><span class="s1">&#39;numpy&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_numeric_transform</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numeric_transform</span></div>
+
+<div class="viewcode-block" id="VisualizationFrame.evaluate_transformation_matrix"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.VisualizationFrame.evaluate_transformation_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_transformation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dynamic_values</span><span class="p">,</span> <span class="n">constant_values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the numerical transformation matrices for each time step.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dynamic_values : array_like, shape(m,) or shape(n, m)</span>
+<span class="sd">            The m state values for each n time step.</span>
+<span class="sd">        constant_values : array_like, shape(p,)</span>
+<span class="sd">            The p constant parameter values of the system.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        transform_matrix : numpy.array, shape(n, 16)</span>
+<span class="sd">            A 4 x 4 transformation matrix for each time step.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#If states is instance of numpy array, well and good.</span>
+        <span class="c1">#else convert it to one:</span>
+
+        <span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dynamic_values</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constant_values</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">):</span>
+            <span class="n">constant_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">constant_values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">constant_values</span><span class="p">:</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">states</span><span class="p">,</span> <span class="n">constant_values</span><span class="p">))</span>
+
+        <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_numeric_transform</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">new</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                    <span class="c1"># dynamic values are not necessary so pass only constant</span>
+                    <span class="c1"># values into transform function</span>
+                    <span class="n">new</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="o">*</span><span class="n">constant_values</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visualization_matrix</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualization_matrix</span></div>
+
+<div class="viewcode-block" id="VisualizationFrame.generate_scene_dict"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.VisualizationFrame.generate_scene_dict">[docs]</a>    <span class="k">def</span> <span class="nf">generate_scene_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constant_map</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method generates information for a static</span>
+<span class="sd">        visualization in the initial conditions, in the form</span>
+<span class="sd">        of dictionary. This contains shape information</span>
+<span class="sd">        from `Shape.generate_dict()` followed by an</span>
+<span class="sd">        init_orientation Key.</span>
+
+<span class="sd">        Before calling this method, all the transformation matrix</span>
+<span class="sd">        generation methods should be called, or it will give an error.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        constant_map : dictionary</span>
+<span class="sd">            Constant map is required when Shape contains sympy expressions.This</span>
+<span class="sd">            dictionary maps sympy expressions/symbols to numerical values(floats)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        =======</span>
+<span class="sd">        A dictionary built with a call to `Shape.generate_dict`.</span>
+<span class="sd">        Additional keys included in the dict are following:</span>
+
+<span class="sd">        1. init_orientation: Specifies the initial orientation</span>
+<span class="sd">           of the `VisualizationFrame`.</span>
+<span class="sd">        2. reference_frame_name: Name(str) of the reference_frame</span>
+<span class="sd">           attached to this VisualizationFrame.</span>
+<span class="sd">        3. simulation_id: an arbitrary integer to map scene description</span>
+<span class="sd">           with the simulation data.</span>
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scene_dict</span> <span class="o">=</span> <span class="p">{</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="p">{}</span> <span class="p">}</span>
+        <span class="n">scene_dict</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">generate_dict</span><span class="p">(</span><span class="n">constant_map</span><span class="o">=</span><span class="n">constant_map</span><span class="p">)</span>
+        <span class="n">scene_dict</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">scene_dict</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)][</span><span class="s2">&quot;reference_frame_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span><span class="p">)</span>
+        <span class="n">scene_dict</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)][</span><span class="s2">&quot;simulation_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">scene_dict</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)][</span><span class="s2">&quot;init_orientation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualization_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot generate visualization data &quot;</span> <span class="o">+</span> \
+                                <span class="s2">&quot;because numerical transformation &quot;</span> <span class="o">+</span> \
+                               <span class="s2">&quot;has not been performed, &quot;</span> <span class="o">+</span> \
+                                <span class="s2">&quot;Please call the numerical &quot;</span> <span class="o">+</span> \
+                               <span class="s2">&quot;transformation methods, &quot;</span> <span class="o">+</span> \
+                               <span class="s2">&quot;before generating visualization dict&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">scene_dict</span></div>
+
+<div class="viewcode-block" id="VisualizationFrame.generate_simulation_dict"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.VisualizationFrame.generate_simulation_dict">[docs]</a>    <span class="k">def</span> <span class="nf">generate_simulation_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the simulation information for this visualization</span>
+<span class="sd">        frame. It maps the simulation data information to the</span>
+<span class="sd">        scene information via a unique id.</span>
+
+<span class="sd">        Before calling this method, all the transformation matrix</span>
+<span class="sd">        generation methods should be called, or it will give an error.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        =======</span>
+
+<span class="sd">        A dictionary containing list of 4x4 matrices mapped to</span>
+<span class="sd">        the unique id as the key.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">simulation_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">simulation_dict</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualization_matrix</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot generate visualization data &quot;</span>
+                               <span class="s2">&quot;because numerical transformation &quot;</span>
+                               <span class="s2">&quot;has not been performed, &quot;</span>
+                               <span class="s2">&quot;Please call the numerical &quot;</span>
+                               <span class="s2">&quot;transformation methods, &quot;</span>
+                               <span class="s2">&quot;before generating visualization dict&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">simulation_dict</span></div>
+
+    <span class="k">def</span> <span class="nf">_create_keyframetrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">dynamic_values</span><span class="p">,</span> <span class="n">constant_values</span><span class="p">,</span>
+                              <span class="n">constant_map</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets attributes with a Mesh and KeyframeTrack for animating this</span>
+<span class="sd">        visualization frame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        times : ndarray, shape(n,)</span>
+<span class="sd">            Array of monotonically increasing or decreasing values of time.</span>
+<span class="sd">        dynamics_values : ndarray, shape(n, m)</span>
+<span class="sd">            Array of state values for each time.</span>
+<span class="sd">        constant_values : array_like, shape(p,)</span>
+<span class="sd">            Array of values for the constants.</span>
+<span class="sd">        constant_map : dictionary</span>
+<span class="sd">            A key value pair mapping from SymPy symbols to floating point</span>
+<span class="sd">            values.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        =======</span>
+<span class="sd">        track : VectorKeyframeTrack</span>
+<span class="sd">            PyThreeJS animation track.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO : Passing in constant_values and constant_map is redundant,</span>
+        <span class="c1"># right?</span>
+        <span class="k">if</span> <span class="n">p3js</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;pythreejs must be installed.&#39;</span><span class="p">)</span>
+
+        <span class="c1"># NOTE : WebGL doesn&#39;t like 64bit so convert to 32 bit.</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">_p3js_mesh</span><span class="p">(</span><span class="n">constant_map</span><span class="o">=</span><span class="n">constant_map</span><span class="p">)</span>
+
+        <span class="c1"># NOTE : This is required to set the transform matrix directly.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh</span><span class="o">.</span><span class="n">matrixAutoUpdate</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">matrices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_transformation_matrix</span><span class="p">(</span><span class="n">dynamic_values</span><span class="p">,</span>
+                                                       <span class="n">constant_values</span><span class="p">)</span>
+
+        <span class="c1"># Set initial configuration.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">matrices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># TODO : If the user does not name their shapes, then there will be</span>
+        <span class="c1"># KeyFrameTracks with duplicate names. Need a better fix for this, but</span>
+        <span class="c1"># I at least warn the user if they didn&#39;t change the name at all.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mesh</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;unnamed&#39;</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;The shape provided to this visualization frame must have a &quot;</span>
+                   <span class="s2">&quot;unique name other thane &#39;unnamed&#39;. Make sure all shapes in &quot;</span>
+                   <span class="s2">&quot;the scene have unique names.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;scene/</span><span class="si">{}</span><span class="s2">.matrix&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mesh</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">track</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">VectorKeyframeTrack</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span>
+                                         <span class="n">values</span><span class="o">=</span><span class="n">matrices</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_track</span> <span class="o">=</span> <span class="n">track</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.viz.visualization_frame</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

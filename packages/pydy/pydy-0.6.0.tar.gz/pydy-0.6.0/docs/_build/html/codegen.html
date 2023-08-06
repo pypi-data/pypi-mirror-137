@@ -1,0 +1,1000 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>codegen &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="models" href="models.html" />
+    <link rel="prev" title="Tutorials" href="tutorials.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="models"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorials.html" title="Tutorials"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">codegen</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="codegen">
+<h1>codegen<a class="headerlink" href="#codegen" title="Permalink to this headline">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">pydy.codegen</span></code> package contains various tools to generate numerical
+code from symbolic descriptions of the equations of motion of systems. It
+allows you to generate code using a variety of backends depending on your
+needs. The generated code can also be auto-wrapped for immediate use in a
+Python session or script. Each component of the code generators and wrappers
+are accessible so that you can use just the raw code or the wrapper versions.</p>
+<p>We currently support three backends:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">lambdify</span></code></dt><dd><p>This generates NumPy-aware Python code which is defined in a Python
+<code class="docutils literal notranslate"><span class="pre">lambda</span></code> function, using the <code class="docutils literal notranslate"><span class="pre">sympy.utilities.lambdify</span></code> module and is
+the default generator.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Theano</span></code></dt><dd><p>This generates Theano trees that are compiled into low level code, using the
+<code class="docutils literal notranslate"><span class="pre">sympy.printers.theano_code</span></code> module.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Cython</span></code></dt><dd><p>This generates C code that can be called from Python, using SymPy’s C code
+printer utilities and Cython.</p>
+</dd>
+</dl>
+</section>
+<section id="on-windows">
+<h2>On Windows<a class="headerlink" href="#on-windows" title="Permalink to this headline">¶</a></h2>
+<p>For the Cython backend to work on Windows you must install a suitable compiler.
+See this <a class="reference external" href="https://github.com/cython/cython/wiki/CythonExtensionsOnWindows">Cython wiki page</a> for
+instructions on getting a compiler installed. The easiest solution is to use
+the Microsoft Visual C++ Compiler for Python.</p>
+</section>
+<section id="example-use">
+<h2>Example Use<a class="headerlink" href="#example-use" title="Permalink to this headline">¶</a></h2>
+<p>The simplest entry point to the code generation tools is through the
+<a class="reference internal" href="system.html#pydy.system.System" title="pydy.system.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> class.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pydy.models</span> <span class="kn">import</span> <span class="n">multi_mass_spring_damper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">multi_mass_spring_damper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="go">&lt;class &#39;pydy.system.System&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">generate_ode_function</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span> <span class="c1"># rhs is a function:</span>
+<span class="go">Returns the derivatives of the states, i.e. numerically evaluates the right</span>
+<span class="go">hand side of the first order differential equation.</span>
+
+<span class="go">x&#39; = f(x, t, p)</span>
+
+<span class="go">Parameters</span>
+<span class="go">==========</span>
+<span class="go">x : ndarray, shape(2,)</span>
+<span class="go">    The state vector is ordered as such:</span>
+<span class="go">        - x0(t)</span>
+<span class="go">        - v0(t)</span>
+<span class="go">t : float</span>
+<span class="go">    The current time.</span>
+<span class="go">p : dictionary len(3) or ndarray shape(3,)</span>
+<span class="go">    Either a dictionary that maps the constants symbols to their numerical</span>
+<span class="go">    values or an array with the constants in the following order:</span>
+<span class="go">        - m0</span>
+<span class="go">        - c0</span>
+<span class="go">        - k0</span>
+
+<span class="go">Returns</span>
+<span class="go">=======</span>
+<span class="go">dx : ndarray, shape(2,)</span>
+<span class="go">    The derivative of the state vector.</span>
+
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]))</span>
+<span class="go">array([ 2., -7.])</span>
+</pre></div>
+</div>
+<p>You can also use the functional interface to the code generation/wrapper
+classes:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pydy.models</span> <span class="kn">import</span> <span class="n">multi_mass_spring_damper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pydy.codegen.ode_function_generators</span> <span class="kn">import</span> <span class="n">generate_ode_function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">multi_mass_spring_damper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sym_rhs</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">coordinates</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">speeds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">constants_symbols</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span> <span class="o">=</span> <span class="n">generate_ode_function</span><span class="p">(</span><span class="n">sym_rhs</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span><span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]))</span>
+<span class="go">array([ 2., -7.])</span>
+</pre></div>
+</div>
+<p>Other backends can be used by passing in the <code class="docutils literal notranslate"><span class="pre">generator</span></code> keyword argument,
+e.g.:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span> <span class="o">=</span> <span class="n">generate_ode_function</span><span class="p">(</span><span class="n">sym_rhs</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">generator</span><span class="o">=</span><span class="s1">&#39;cython&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span><span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]))</span>
+<span class="go">array([ 2., -7.])</span>
+</pre></div>
+</div>
+<p>The backends are implemented as subclasses of
+<a class="reference internal" href="#pydy.codegen.ode_function_generators.ODEFunctionGenerator" title="pydy.codegen.ode_function_generators.ODEFunctionGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">ODEFunctionGenerator</span></code></a>. You can
+make use of the <code class="docutils literal notranslate"><span class="pre">ODEFunctionGenerator</span></code> classes directly:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pydy.codegen.ode_function_generators</span> <span class="kn">import</span> <span class="n">LambdifyODEFunctionGenerator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">LambdifyODEFunctionGenerator</span><span class="p">(</span><span class="n">sym_rhs</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span><span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]))</span>
+<span class="go">array([ 2., -7.])</span>
+</pre></div>
+</div>
+<p>Furthermore, for direct control over evaluating matrices you can use the
+<code class="docutils literal notranslate"><span class="pre">lamdify</span></code> and <code class="docutils literal notranslate"><span class="pre">theano_functions</span></code> in SymPy or utilize the
+<a class="reference internal" href="#pydy.codegen.cython_code.CythonMatrixGenerator" title="pydy.codegen.cython_code.CythonMatrixGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">CythonMatrixGenerator</span></code></a> class
+in PyDy. For example, this shows you how to generate C and Cython code to
+evaluate matrices:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pydy.codegen.cython_code</span> <span class="kn">import</span> <span class="n">CythonMatrixGenerator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">multi_mass_spring_damper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">coordinates</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">speeds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">constants_symbols</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sym_rhs</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">CythonMatrixGenerator</span><span class="p">([</span><span class="n">q</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">],</span> <span class="p">[</span><span class="n">sym_rhs</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">setup_py</span><span class="p">,</span> <span class="n">cython_src</span><span class="p">,</span> <span class="n">c_header</span><span class="p">,</span> <span class="n">c_src</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">doprint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">setup_py</span><span class="p">)</span>
+<span class="go">#!/usr/bin/env python</span>
+
+<span class="go">from distutils.core import setup</span>
+<span class="go">from distutils.extension import Extension</span>
+
+<span class="go">from Cython.Build import cythonize</span>
+<span class="go">import numpy</span>
+
+<span class="go">extension = Extension(name=&quot;pydy_codegen&quot;,</span>
+<span class="go">                      sources=[&quot;pydy_codegen.pyx&quot;,</span>
+<span class="go">                               &quot;pydy_codegen_c.c&quot;],</span>
+<span class="go">                      include_dirs=[numpy.get_include()])</span>
+
+<span class="go">setup(name=&quot;pydy_codegen&quot;,</span>
+<span class="go">      ext_modules=cythonize([extension]))</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cython_src</span><span class="p">)</span>
+<span class="go">import numpy as np</span>
+<span class="go">cimport numpy as np</span>
+<span class="go">cimport cython</span>
+
+<span class="go">cdef extern from &quot;pydy_codegen_c.h&quot;:</span>
+<span class="go">    void evaluate(</span>
+<span class="go">                  double* input_0,</span>
+<span class="go">                  double* input_1,</span>
+<span class="go">                  double* input_2,</span>
+<span class="go">                  double* output_0</span>
+<span class="go">                 )</span>
+
+<span class="go">@cython.boundscheck(False)</span>
+<span class="go">@cython.wraparound(False)</span>
+<span class="go">def eval(</span>
+<span class="go">         np.ndarray[np.double_t, ndim=1, mode=&#39;c&#39;] input_0,</span>
+<span class="go">         np.ndarray[np.double_t, ndim=1, mode=&#39;c&#39;] input_1,</span>
+<span class="go">         np.ndarray[np.double_t, ndim=1, mode=&#39;c&#39;] input_2,</span>
+<span class="go">         np.ndarray[np.double_t, ndim=1, mode=&#39;c&#39;] output_0</span>
+<span class="go">        ):</span>
+
+<span class="go">    evaluate(</span>
+<span class="go">             &lt;double*&gt; input_0.data,</span>
+<span class="go">             &lt;double*&gt; input_1.data,</span>
+<span class="go">             &lt;double*&gt; input_2.data,</span>
+<span class="go">             &lt;double*&gt; output_0.data</span>
+<span class="go">            )</span>
+
+<span class="go">    return (</span>
+<span class="go">            output_0</span>
+<span class="go">           )</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">c_src</span><span class="p">)</span>
+<span class="go">#include &lt;math.h&gt;</span>
+<span class="go">#include &quot;pydy_codegen_c.h&quot;</span>
+
+<span class="go">void evaluate(</span>
+<span class="go">              double input_0[1],</span>
+<span class="go">              double input_1[1],</span>
+<span class="go">              double input_2[3],</span>
+<span class="go">              double output_0[2]</span>
+<span class="go">             )</span>
+<span class="go">{</span>
+
+<span class="go">    double pydy_0 = input_1[0];</span>
+
+<span class="go">    output_0[0] = pydy_0;</span>
+<span class="go">    output_0[1] = (-input_2[1]*pydy_0 - input_2[2]*input_0[0])/input_2[0];</span>
+
+<span class="go">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">c_header</span><span class="p">)</span>
+<span class="go">void evaluate(</span>
+<span class="go">              double input_0[1],</span>
+<span class="go">              double input_1[1],</span>
+<span class="go">              double input_2[3],</span>
+<span class="go">              double output_0[2]</span>
+<span class="go">             );</span>
+<span class="go">/*</span>
+
+<span class="go">input_0[1] : [x0(t)]</span>
+<span class="go">input_1[1] : [v0(t)]</span>
+<span class="go">input_2[3] : [m0, c0, k0]</span>
+
+<span class="go">*/</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span><span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]),</span> <span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">]),</span> <span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]),</span> <span class="n">res</span><span class="p">)</span>
+<span class="go">array([ 2., -7.])</span>
+</pre></div>
+</div>
+<p>We also support generating Octave/Matlab code as shown below:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pydy.codegen.octave_code</span> <span class="kn">import</span> <span class="n">OctaveMatrixGenerator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">multi_mass_spring_damper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">coordinates</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">speeds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">constants_symbols</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sym_rhs</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">OctaveMatrixGenerator</span><span class="p">([</span><span class="n">q</span> <span class="o">+</span> <span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">],</span> <span class="p">[</span><span class="n">sym_rhs</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m_src</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">doprint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m_src</span><span class="p">)</span>
+<span class="go">function [output_1] = eval_mats(input_1, input_2)</span>
+<span class="go">% function [output_1] = eval_mats(input_1, input_2)</span>
+<span class="go">%</span>
+<span class="go">% input_1 : [x0(t), v0(t)]</span>
+<span class="go">% input_2 : [k0, m0, c0]</span>
+
+<span class="go">    pydy_0 = input_1(2);</span>
+
+<span class="go">    output_1 = [pydy_0; (-input_2(3).*pydy_0 - ...</span>
+<span class="go">    input_2(1).*input_1(1))./input_2(2)];</span>
+
+<span class="go">end</span>
+</pre></div>
+</div>
+</section>
+<section id="module-pydy.codegen.c_code">
+<span id="api"></span><h2>API<a class="headerlink" href="#module-pydy.codegen.c_code" title="Permalink to this headline">¶</a></h2>
+<p>This module contains source code dedicated to generating C code from
+matrices generated from sympy.physics.mechanics.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydy.codegen.c_code.CMatrixGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.codegen.c_code.</span></span><span class="sig-name descname"><span class="pre">CMatrixGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/c_code.html#CMatrixGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.c_code.CMatrixGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class generates C source files that simultaneously numerically
+evaluate any number of SymPy matrices.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.c_code.CMatrixGenerator.doprint">
+<span class="sig-name descname"><span class="pre">doprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/c_code.html#CMatrixGenerator.doprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.c_code.CMatrixGenerator.doprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string each for the header and the source files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>prefix</strong><span class="classifier">string, optional</span></dt><dd><p>A prefix for the name of the header file. This will cause an
+include statement to to be added to the source.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.c_code.CMatrixGenerator.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/c_code.html#CMatrixGenerator.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.c_code.CMatrixGenerator.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a header and source file to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>prefix</strong><span class="classifier">string</span></dt><dd><p>Two files will be generated: <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;.c</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;.h</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pydy.codegen.cython_code"></span><dl class="py class">
+<dt class="sig sig-object py" id="pydy.codegen.cython_code.CythonMatrixGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.codegen.cython_code.</span></span><span class="sig-name descname"><span class="pre">CythonMatrixGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pydy_codegen'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/cython_code.html#CythonMatrixGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.cython_code.CythonMatrixGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class generates the Cython code for evaluating a sequence of
+matrices. It can compile the code and return a Python function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.cython_code.CythonMatrixGenerator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pydy_codegen'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/cython_code.html#CythonMatrixGenerator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.cython_code.CythonMatrixGenerator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>arguments</strong><span class="classifier">sequences of sequences of SymPy Symbol or Function.</span></dt><dd><p>Each of the sequences will be converted to input arrays in the
+Cython function. All of the symbols/functions contained in
+<code class="docutils literal notranslate"><span class="pre">matrices</span></code> need to be in the sequences, but the sequences can
+also contain extra symbols/functions that are not contained in
+the matrices.</p>
+</dd>
+<dt><strong>matrices</strong><span class="classifier">sequence of SymPy.Matrix</span></dt><dd><p>A sequence of the matrices that should be evaluated in the
+function. The expressions should contain only sympy.Symbol or
+sympy.Function that are functions of me.dynamicsymbols._t.</p>
+</dd>
+<dt><strong>prefix</strong><span class="classifier">string, optional</span></dt><dd><p>The desired prefix for the generated files.</p>
+</dd>
+<dt><strong>cse</strong><span class="classifier">boolean</span></dt><dd><p>Find and replace common sub-expressions in <code class="docutils literal notranslate"><span class="pre">matrices</span></code> if True.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.cython_code.CythonMatrixGenerator.compile">
+<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmp_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/cython_code.html#CythonMatrixGenerator.compile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.cython_code.CythonMatrixGenerator.compile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a function which evaluates the matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tmp_dir</strong><span class="classifier">string</span></dt><dd><p>The path to an existing or non-existing directory where all of
+the generated files will be stored.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">boolean</span></dt><dd><p>If true the output of the completed compilation steps will be
+printed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.cython_code.CythonMatrixGenerator.doprint">
+<span class="sig-name descname"><span class="pre">doprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/cython_code.html#CythonMatrixGenerator.doprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.cython_code.CythonMatrixGenerator.doprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the text of the four source files needed to compile
+Cython wrapper that evaluates the provided SymPy matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>setup_py</strong><span class="classifier">string</span></dt><dd><p>The text of the setup.py file used to compile the Cython
+extension.</p>
+</dd>
+<dt><strong>cython_source</strong><span class="classifier">string</span></dt><dd><p>The text of the Cython pyx file which includes the wrapper
+function <code class="docutils literal notranslate"><span class="pre">eval</span></code>.</p>
+</dd>
+<dt><strong>c_header</strong><span class="classifier">string</span></dt><dd><p>The text of the C header file that exposes the evaluate
+function.</p>
+</dd>
+<dt><strong>c_source</strong><span class="classifier">string</span></dt><dd><p>The text of the C source file containing the function that
+evaluates the matrices.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.cython_code.CythonMatrixGenerator.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/cython_code.html#CythonMatrixGenerator.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.cython_code.CythonMatrixGenerator.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the four source files needed to compile the Cython
+function to the current working directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">string</span></dt><dd><p>The absolute or relative path to an existing directory to place
+the files instead of the cwd.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pydy.codegen.matrix_generator"></span><dl class="py class">
+<dt class="sig sig-object py" id="pydy.codegen.matrix_generator.MatrixGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.codegen.matrix_generator.</span></span><span class="sig-name descname"><span class="pre">MatrixGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/matrix_generator.html#MatrixGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.matrix_generator.MatrixGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This abstract base class generates source files that simultaneously
+numerically evaluate any number of SymPy matrices.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.matrix_generator.MatrixGenerator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/matrix_generator.html#MatrixGenerator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.matrix_generator.MatrixGenerator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>arguments</strong><span class="classifier">sequence of sequences of SymPy Symbol or Function</span></dt><dd><p>Each of the sequences will be converted to input arrays in the
+generated function. All of the symbols/functions contained in
+<code class="docutils literal notranslate"><span class="pre">matrices</span></code> need to be in the sequences, but the sequences can
+also contain extra symbols/functions that are not contained in the
+matrices.</p>
+</dd>
+<dt><strong>matrices</strong><span class="classifier">sequence of SymPy.Matrix</span></dt><dd><p>A sequence of the matrices that should be evaluated in the
+function. The expressions should contain only sympy.Symbol or
+sympy.Function that are functions of me.dynamicsymbols._t.</p>
+</dd>
+<dt><strong>cse</strong><span class="classifier">boolean</span></dt><dd><p>Find and replace common sub-expressions in <code class="docutils literal notranslate"><span class="pre">matrices</span></code> if True.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.matrix_generator.MatrixGenerator.comma_lists">
+<span class="sig-name descname"><span class="pre">comma_lists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/matrix_generator.html#MatrixGenerator.comma_lists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.matrix_generator.MatrixGenerator.comma_lists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string output for each of the sequences of SymPy
+arguments.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pydy.codegen.octave_code"></span><dl class="py class">
+<dt class="sig sig-object py" id="pydy.codegen.octave_code.OctaveMatrixGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.codegen.octave_code.</span></span><span class="sig-name descname"><span class="pre">OctaveMatrixGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/octave_code.html#OctaveMatrixGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.octave_code.OctaveMatrixGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class generates Octave/Matlab source files that simultaneously
+numerically evaluate any number of SymPy matrices.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.octave_code.OctaveMatrixGenerator.doprint">
+<span class="sig-name descname"><span class="pre">doprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eval_mats'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/octave_code.html#OctaveMatrixGenerator.doprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.octave_code.OctaveMatrixGenerator.doprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string that implements the function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>prefix</strong><span class="classifier">string, optional</span></dt><dd><p>The name of the Octave/Matlab function.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.octave_code.OctaveMatrixGenerator.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eval_mats'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/octave_code.html#OctaveMatrixGenerator.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.octave_code.OctaveMatrixGenerator.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the &lt;prefix&gt;.m file to disc at the give path location.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pydy.codegen.ode_function_generators"></span><dl class="py class">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.CythonODEFunctionGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.codegen.ode_function_generators.</span></span><span class="sig-name descname"><span class="pre">CythonODEFunctionGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#CythonODEFunctionGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.CythonODEFunctionGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.CythonODEFunctionGenerator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#CythonODEFunctionGenerator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.CythonODEFunctionGenerator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a numerical function which can evaluate the right hand
+side of the first order ordinary differential equations from a
+system described by one of the following three symbolic forms:</p>
+<blockquote>
+<div><p>[1] x’ = F(x, t, r, p)</p>
+<p>[2] M(x, p) x’ = F(x, t, r, p)</p>
+<dl class="simple">
+<dt>[3] M(q, p) u’ = F(q, u, t, r, p)</dt><dd><p>q’ = G(q, u, t, r, p)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>where</p>
+<blockquote>
+<div><p>x : states, i.e. [q, u]
+t : time
+r : specified (exogenous) inputs
+p : constants
+q : generalized coordinates
+u : generalized speeds
+M : mass matrix (full or minimum)
+F : right hand side (full or minimum)
+G : right hand side of the kinematical differential equations</p>
+</div></blockquote>
+<p>The generated function is of the form F(x, t, p) or F(x, t, r, p)
+depending on whether the system has specified inputs or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>right_hand_side</strong><span class="classifier">SymPy Matrix, shape(n, 1)</span></dt><dd><p>A column vector containing the symbolic expressions for the
+right hand side of the ordinary differential equations. If the
+right hand side has been solved for symbolically then only F is
+required, see form [1]; if not then the mass matrix must also be
+supplied, see forms [2, 3].</p>
+</dd>
+<dt><strong>coordinates</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The generalized coordinates. These must be ordered in the same
+order as the rows in M, F, and/or G and be functions of time.</p>
+</dd>
+<dt><strong>speeds</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The generalized speeds. These must be ordered in the same order
+as the rows in M, F, and/or G and be functions of time.</p>
+</dd>
+<dt><strong>constants</strong><span class="classifier">sequence of SymPy Symbols, optional</span></dt><dd><p>All of the constants present in the equations of motion. The
+order does not matter.</p>
+</dd>
+<dt><strong>mass_matrix</strong><span class="classifier">sympy.Matrix, shape(n, n), optional</span></dt><dd><p>This can be either the “full” mass matrix as in [2] or the
+“minimal” mass matrix as in [3]. The rows and columns must be
+ordered to match the order of the coordinates and speeds. In the
+case of the full mass matrix, the speeds should always be
+ordered before the speeds, i.e. x = [q, u].</p>
+</dd>
+<dt><strong>coordinate_derivatives</strong><span class="classifier">sympy.Matrix, shape(m, 1), optional</span></dt><dd><p>If the “minimal” mass matrix, form [3], is supplied, then this
+column vector represents the right hand side of the kinematical
+differential equations.</p>
+</dd>
+<dt><strong>specifieds</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The specified exogenous inputs to the system. These should be
+functions of time and the order does not matter.</p>
+</dd>
+<dt><strong>linear_sys_solver</strong><span class="classifier">string or function</span></dt><dd><p>Specify either <cite>numpy</cite> or <cite>scipy</cite> to use the linear solvers
+provided in each package or supply a function that solves a
+linear system Ax=b with the call signature x = solve(A, b). For
+example, if you need to use custom kwargs for the SciPy solver,
+pass in a lambda function that wraps the solver and sets them.</p>
+</dd>
+<dt><strong>constants_arg_type</strong><span class="classifier">string</span></dt><dd><p>The generated function accepts two different types of arguments
+for the numerical values of the constants: either a ndarray of
+the constants values in the correct order or a dictionary
+mapping the constants symbols to the numerical values. If None,
+this is determined inside of the generated function and can
+cause a significant slow down for performance critical code. If
+you know apriori what arg types you need to support choose
+either <code class="docutils literal notranslate"><span class="pre">array</span></code> or <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">array</span></code> is
+faster than <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>.</p>
+</dd>
+<dt><strong>specifieds_arg_type</strong><span class="classifier">string</span></dt><dd><p>The generated function accepts three different types of
+arguments for the numerical values of the specifieds: either a
+ndarray of the specifieds values in the correct order, a
+function that generates the correctly ordered ndarray, or a
+dictionary mapping the specifieds symbols or tuples of thereof
+to floats, ndarrays, or functions. If None, this is determined
+inside of the generated function and can cause a significant
+slow down for performance critical code. If you know apriori
+what arg types you want to support choose either <code class="docutils literal notranslate"><span class="pre">array</span></code>,
+<code class="docutils literal notranslate"><span class="pre">function</span></code>, or <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. The speed of each, from fast to
+slow, are <code class="docutils literal notranslate"><span class="pre">array</span></code>, <code class="docutils literal notranslate"><span class="pre">function</span></code>, <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>, None.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.LambdifyODEFunctionGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.codegen.ode_function_generators.</span></span><span class="sig-name descname"><span class="pre">LambdifyODEFunctionGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">right_hand_side</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinate_derivatives</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specifieds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_sys_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'numpy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants_arg_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specifieds_arg_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#LambdifyODEFunctionGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.LambdifyODEFunctionGenerator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.ODEFunctionGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.codegen.ode_function_generators.</span></span><span class="sig-name descname"><span class="pre">ODEFunctionGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">right_hand_side</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinate_derivatives</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specifieds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_sys_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'numpy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants_arg_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specifieds_arg_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#ODEFunctionGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.ODEFunctionGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is an abstract base class for all of the generators. A subclass
+is expected to implement the methods necessary to evaluate the arrays
+needed to compute xdot for the three different system specification
+types.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.ODEFunctionGenerator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">right_hand_side</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinate_derivatives</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specifieds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_sys_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'numpy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants_arg_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specifieds_arg_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#ODEFunctionGenerator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.ODEFunctionGenerator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a numerical function which can evaluate the right hand
+side of the first order ordinary differential equations from a
+system described by one of the following three symbolic forms:</p>
+<blockquote>
+<div><p>[1] x’ = F(x, t, r, p)</p>
+<p>[2] M(x, p) x’ = F(x, t, r, p)</p>
+<dl class="simple">
+<dt>[3] M(q, p) u’ = F(q, u, t, r, p)</dt><dd><p>q’ = G(q, u, t, r, p)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>where</p>
+<blockquote>
+<div><p>x : states, i.e. [q, u]
+t : time
+r : specified (exogenous) inputs
+p : constants
+q : generalized coordinates
+u : generalized speeds
+M : mass matrix (full or minimum)
+F : right hand side (full or minimum)
+G : right hand side of the kinematical differential equations</p>
+</div></blockquote>
+<p>The generated function is of the form F(x, t, p) or F(x, t, r, p)
+depending on whether the system has specified inputs or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>right_hand_side</strong><span class="classifier">SymPy Matrix, shape(n, 1)</span></dt><dd><p>A column vector containing the symbolic expressions for the
+right hand side of the ordinary differential equations. If the
+right hand side has been solved for symbolically then only F is
+required, see form [1]; if not then the mass matrix must also be
+supplied, see forms [2, 3].</p>
+</dd>
+<dt><strong>coordinates</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The generalized coordinates. These must be ordered in the same
+order as the rows in M, F, and/or G and be functions of time.</p>
+</dd>
+<dt><strong>speeds</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The generalized speeds. These must be ordered in the same order
+as the rows in M, F, and/or G and be functions of time.</p>
+</dd>
+<dt><strong>constants</strong><span class="classifier">sequence of SymPy Symbols, optional</span></dt><dd><p>All of the constants present in the equations of motion. The
+order does not matter.</p>
+</dd>
+<dt><strong>mass_matrix</strong><span class="classifier">sympy.Matrix, shape(n, n), optional</span></dt><dd><p>This can be either the “full” mass matrix as in [2] or the
+“minimal” mass matrix as in [3]. The rows and columns must be
+ordered to match the order of the coordinates and speeds. In the
+case of the full mass matrix, the speeds should always be
+ordered before the speeds, i.e. x = [q, u].</p>
+</dd>
+<dt><strong>coordinate_derivatives</strong><span class="classifier">sympy.Matrix, shape(m, 1), optional</span></dt><dd><p>If the “minimal” mass matrix, form [3], is supplied, then this
+column vector represents the right hand side of the kinematical
+differential equations.</p>
+</dd>
+<dt><strong>specifieds</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The specified exogenous inputs to the system. These should be
+functions of time and the order does not matter.</p>
+</dd>
+<dt><strong>linear_sys_solver</strong><span class="classifier">string or function</span></dt><dd><p>Specify either <cite>numpy</cite> or <cite>scipy</cite> to use the linear solvers
+provided in each package or supply a function that solves a
+linear system Ax=b with the call signature x = solve(A, b). For
+example, if you need to use custom kwargs for the SciPy solver,
+pass in a lambda function that wraps the solver and sets them.</p>
+</dd>
+<dt><strong>constants_arg_type</strong><span class="classifier">string</span></dt><dd><p>The generated function accepts two different types of arguments
+for the numerical values of the constants: either a ndarray of
+the constants values in the correct order or a dictionary
+mapping the constants symbols to the numerical values. If None,
+this is determined inside of the generated function and can
+cause a significant slow down for performance critical code. If
+you know apriori what arg types you need to support choose
+either <code class="docutils literal notranslate"><span class="pre">array</span></code> or <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">array</span></code> is
+faster than <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>.</p>
+</dd>
+<dt><strong>specifieds_arg_type</strong><span class="classifier">string</span></dt><dd><p>The generated function accepts three different types of
+arguments for the numerical values of the specifieds: either a
+ndarray of the specifieds values in the correct order, a
+function that generates the correctly ordered ndarray, or a
+dictionary mapping the specifieds symbols or tuples of thereof
+to floats, ndarrays, or functions. If None, this is determined
+inside of the generated function and can cause a significant
+slow down for performance critical code. If you know apriori
+what arg types you want to support choose either <code class="docutils literal notranslate"><span class="pre">array</span></code>,
+<code class="docutils literal notranslate"><span class="pre">function</span></code>, or <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. The speed of each, from fast to
+slow, are <code class="docutils literal notranslate"><span class="pre">array</span></code>, <code class="docutils literal notranslate"><span class="pre">function</span></code>, <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>, None.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.ODEFunctionGenerator.define_inputs">
+<span class="sig-name descname"><span class="pre">define_inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#ODEFunctionGenerator.define_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.ODEFunctionGenerator.define_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets self.inputs to the list of sequences [q, u, p] or [q, u, r,
+p].</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.ODEFunctionGenerator.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#ODEFunctionGenerator.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.ODEFunctionGenerator.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a function that evaluates the right hand side of the
+first order ordinary differential equations in one of two forms:</p>
+<blockquote>
+<div><p>x’ = f(x, t, p)</p>
+<p>or</p>
+<p>x’ = f(x, t, r, p)</p>
+</div></blockquote>
+<p>See the docstring of the generated function for more details.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.ODEFunctionGenerator.list_syms">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_syms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#ODEFunctionGenerator.list_syms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.ODEFunctionGenerator.list_syms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representation of a valid rst list of the
+symbols in the sequence syms and indents the list given the integer
+number of indentations.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.TheanoODEFunctionGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.codegen.ode_function_generators.</span></span><span class="sig-name descname"><span class="pre">TheanoODEFunctionGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#TheanoODEFunctionGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.TheanoODEFunctionGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.TheanoODEFunctionGenerator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#TheanoODEFunctionGenerator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.TheanoODEFunctionGenerator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a numerical function which can evaluate the right hand
+side of the first order ordinary differential equations from a
+system described by one of the following three symbolic forms:</p>
+<blockquote>
+<div><p>[1] x’ = F(x, t, r, p)</p>
+<p>[2] M(x, p) x’ = F(x, t, r, p)</p>
+<dl class="simple">
+<dt>[3] M(q, p) u’ = F(q, u, t, r, p)</dt><dd><p>q’ = G(q, u, t, r, p)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>where</p>
+<blockquote>
+<div><p>x : states, i.e. [q, u]
+t : time
+r : specified (exogenous) inputs
+p : constants
+q : generalized coordinates
+u : generalized speeds
+M : mass matrix (full or minimum)
+F : right hand side (full or minimum)
+G : right hand side of the kinematical differential equations</p>
+</div></blockquote>
+<p>The generated function is of the form F(x, t, p) or F(x, t, r, p)
+depending on whether the system has specified inputs or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>right_hand_side</strong><span class="classifier">SymPy Matrix, shape(n, 1)</span></dt><dd><p>A column vector containing the symbolic expressions for the
+right hand side of the ordinary differential equations. If the
+right hand side has been solved for symbolically then only F is
+required, see form [1]; if not then the mass matrix must also be
+supplied, see forms [2, 3].</p>
+</dd>
+<dt><strong>coordinates</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The generalized coordinates. These must be ordered in the same
+order as the rows in M, F, and/or G and be functions of time.</p>
+</dd>
+<dt><strong>speeds</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The generalized speeds. These must be ordered in the same order
+as the rows in M, F, and/or G and be functions of time.</p>
+</dd>
+<dt><strong>constants</strong><span class="classifier">sequence of SymPy Symbols, optional</span></dt><dd><p>All of the constants present in the equations of motion. The
+order does not matter.</p>
+</dd>
+<dt><strong>mass_matrix</strong><span class="classifier">sympy.Matrix, shape(n, n), optional</span></dt><dd><p>This can be either the “full” mass matrix as in [2] or the
+“minimal” mass matrix as in [3]. The rows and columns must be
+ordered to match the order of the coordinates and speeds. In the
+case of the full mass matrix, the speeds should always be
+ordered before the speeds, i.e. x = [q, u].</p>
+</dd>
+<dt><strong>coordinate_derivatives</strong><span class="classifier">sympy.Matrix, shape(m, 1), optional</span></dt><dd><p>If the “minimal” mass matrix, form [3], is supplied, then this
+column vector represents the right hand side of the kinematical
+differential equations.</p>
+</dd>
+<dt><strong>specifieds</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The specified exogenous inputs to the system. These should be
+functions of time and the order does not matter.</p>
+</dd>
+<dt><strong>linear_sys_solver</strong><span class="classifier">string or function</span></dt><dd><p>Specify either <cite>numpy</cite> or <cite>scipy</cite> to use the linear solvers
+provided in each package or supply a function that solves a
+linear system Ax=b with the call signature x = solve(A, b). For
+example, if you need to use custom kwargs for the SciPy solver,
+pass in a lambda function that wraps the solver and sets them.</p>
+</dd>
+<dt><strong>constants_arg_type</strong><span class="classifier">string</span></dt><dd><p>The generated function accepts two different types of arguments
+for the numerical values of the constants: either a ndarray of
+the constants values in the correct order or a dictionary
+mapping the constants symbols to the numerical values. If None,
+this is determined inside of the generated function and can
+cause a significant slow down for performance critical code. If
+you know apriori what arg types you need to support choose
+either <code class="docutils literal notranslate"><span class="pre">array</span></code> or <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">array</span></code> is
+faster than <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>.</p>
+</dd>
+<dt><strong>specifieds_arg_type</strong><span class="classifier">string</span></dt><dd><p>The generated function accepts three different types of
+arguments for the numerical values of the specifieds: either a
+ndarray of the specifieds values in the correct order, a
+function that generates the correctly ordered ndarray, or a
+dictionary mapping the specifieds symbols or tuples of thereof
+to floats, ndarrays, or functions. If None, this is determined
+inside of the generated function and can cause a significant
+slow down for performance critical code. If you know apriori
+what arg types you want to support choose either <code class="docutils literal notranslate"><span class="pre">array</span></code>,
+<code class="docutils literal notranslate"><span class="pre">function</span></code>, or <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. The speed of each, from fast to
+slow, are <code class="docutils literal notranslate"><span class="pre">array</span></code>, <code class="docutils literal notranslate"><span class="pre">function</span></code>, <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>, None.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.TheanoODEFunctionGenerator.define_inputs">
+<span class="sig-name descname"><span class="pre">define_inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#TheanoODEFunctionGenerator.define_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.TheanoODEFunctionGenerator.define_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets self.inputs to the list of sequences [q, u, p] or [q, u, r,
+p].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pydy.codegen.ode_function_generators.generate_ode_function">
+<span class="sig-prename descclassname"><span class="pre">pydy.codegen.ode_function_generators.</span></span><span class="sig-name descname"><span class="pre">generate_ode_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/codegen/ode_function_generators.html#generate_ode_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.codegen.ode_function_generators.generate_ode_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a numerical function which can evaluate the right hand
+side of the first order ordinary differential equations from a
+system described by one of the following three symbolic forms:</p>
+<blockquote>
+<div><p>[1] x’ = F(x, t, r, p)</p>
+<p>[2] M(x, p) x’ = F(x, t, r, p)</p>
+<dl class="simple">
+<dt>[3] M(q, p) u’ = F(q, u, t, r, p)</dt><dd><p>q’ = G(q, u, t, r, p)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>where</p>
+<blockquote>
+<div><p>x : states, i.e. [q, u]
+t : time
+r : specified (exogenous) inputs
+p : constants
+q : generalized coordinates
+u : generalized speeds
+M : mass matrix (full or minimum)
+F : right hand side (full or minimum)
+G : right hand side of the kinematical differential equations</p>
+</div></blockquote>
+<p>The generated function is of the form F(x, t, p) or F(x, t, r, p)
+depending on whether the system has specified inputs or not.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>right_hand_side</strong><span class="classifier">SymPy Matrix, shape(n, 1)</span></dt><dd><p>A column vector containing the symbolic expressions for the
+right hand side of the ordinary differential equations. If the
+right hand side has been solved for symbolically then only F is
+required, see form [1]; if not then the mass matrix must also be
+supplied, see forms [2, 3].</p>
+</dd>
+<dt><strong>coordinates</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The generalized coordinates. These must be ordered in the same
+order as the rows in M, F, and/or G and be functions of time.</p>
+</dd>
+<dt><strong>speeds</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The generalized speeds. These must be ordered in the same order
+as the rows in M, F, and/or G and be functions of time.</p>
+</dd>
+<dt><strong>constants</strong><span class="classifier">sequence of SymPy Symbols, optional</span></dt><dd><p>All of the constants present in the equations of motion. The
+order does not matter.</p>
+</dd>
+<dt><strong>mass_matrix</strong><span class="classifier">sympy.Matrix, shape(n, n), optional</span></dt><dd><p>This can be either the “full” mass matrix as in [2] or the
+“minimal” mass matrix as in [3]. The rows and columns must be
+ordered to match the order of the coordinates and speeds. In the
+case of the full mass matrix, the speeds should always be
+ordered before the speeds, i.e. x = [q, u].</p>
+</dd>
+<dt><strong>coordinate_derivatives</strong><span class="classifier">sympy.Matrix, shape(m, 1), optional</span></dt><dd><p>If the “minimal” mass matrix, form [3], is supplied, then this
+column vector represents the right hand side of the kinematical
+differential equations.</p>
+</dd>
+<dt><strong>specifieds</strong><span class="classifier">sequence of SymPy Functions</span></dt><dd><p>The specified exogenous inputs to the system. These should be
+functions of time and the order does not matter.</p>
+</dd>
+<dt><strong>linear_sys_solver</strong><span class="classifier">string or function</span></dt><dd><p>Specify either <cite>numpy</cite> or <cite>scipy</cite> to use the linear solvers
+provided in each package or supply a function that solves a
+linear system Ax=b with the call signature x = solve(A, b). For
+example, if you need to use custom kwargs for the SciPy solver,
+pass in a lambda function that wraps the solver and sets them.</p>
+</dd>
+<dt><strong>constants_arg_type</strong><span class="classifier">string</span></dt><dd><p>The generated function accepts two different types of arguments
+for the numerical values of the constants: either a ndarray of
+the constants values in the correct order or a dictionary
+mapping the constants symbols to the numerical values. If None,
+this is determined inside of the generated function and can
+cause a significant slow down for performance critical code. If
+you know apriori what arg types you need to support choose
+either <code class="docutils literal notranslate"><span class="pre">array</span></code> or <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">array</span></code> is
+faster than <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>.</p>
+</dd>
+<dt><strong>specifieds_arg_type</strong><span class="classifier">string</span></dt><dd><p>The generated function accepts three different types of
+arguments for the numerical values of the specifieds: either a
+ndarray of the specifieds values in the correct order, a
+function that generates the correctly ordered ndarray, or a
+dictionary mapping the specifieds symbols or tuples of thereof
+to floats, ndarrays, or functions. If None, this is determined
+inside of the generated function and can cause a significant
+slow down for performance critical code. If you know apriori
+what arg types you want to support choose either <code class="docutils literal notranslate"><span class="pre">array</span></code>,
+<code class="docutils literal notranslate"><span class="pre">function</span></code>, or <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. The speed of each, from fast to
+slow, are <code class="docutils literal notranslate"><span class="pre">array</span></code>, <code class="docutils literal notranslate"><span class="pre">function</span></code>, <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>, None.</p>
+<blockquote>
+<div><p>generator : string or and ODEFunctionGenerator, optional</p>
+</div></blockquote>
+<p>The method used for generating the numeric right hand side. The
+string options are {‘lambdify’|’theano’|’cython’} with
+‘lambdify’ being the default. You can also pass in a custom
+subclass of ODEFunctionGenerator.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>rhs</strong><span class="classifier">function</span></dt><dd><p>A function which evaluates the derivaties of the states. See the
+function’s docstring for more details after generation.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">codegen</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#on-windows">On Windows</a></li>
+<li><a class="reference internal" href="#example-use">Example Use</a></li>
+<li><a class="reference internal" href="#module-pydy.codegen.c_code">API</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="tutorials.html"
+                          title="previous chapter">Tutorials</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="models.html"
+                          title="next chapter">models</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/codegen.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="models"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorials.html" title="Tutorials"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">codegen</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

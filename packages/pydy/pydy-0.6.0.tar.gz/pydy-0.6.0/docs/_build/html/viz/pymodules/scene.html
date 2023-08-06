@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Scene &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="JavaScript Classes Reference" href="../javascript_api.html" />
+    <link rel="prev" title="Lights" href="lights.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../javascript_api.html" title="JavaScript Classes Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lights.html" title="Lights"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../python_api.html" accesskey="U">Python Modules Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scene</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="scene">
+<h1>Scene<a class="headerlink" href="#scene" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.viz.scene.</span></span><span class="sig-name descname"><span class="pre">Scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">visualization_frames</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/scene.html#Scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.scene.Scene" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Scene class generates all of the data required for animating a
+set of visualization frames.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.clear_trajectories">
+<span class="sig-name descname"><span class="pre">clear_trajectories</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/scene.html#Scene.clear_trajectories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.scene.Scene.clear_trajectories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the ‘system’, ‘times’, ‘constants’, ‘states_symbols’, and
+‘states_trajectories’ to None.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.create_static_html">
+<span class="sig-name descname"><span class="pre">create_static_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/scene.html#Scene.create_static_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.scene.Scene.create_static_html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a directory named <code class="docutils literal notranslate"><span class="pre">pydy-visualization</span></code> in the current
+working directory which contains all of the HTML, CSS, Javascript,
+and json files required to run the vizualization application. To run
+the application, navigate into the <code class="docutils literal notranslate"><span class="pre">pydy-visualization</span></code> directory
+and start a webserver from that directory, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m SimpleHTTPServer
+</pre></div>
+</div>
+<p>Now, in a WebGL compliant browser, navigate to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">8000</span>
+</pre></div>
+</div>
+<p>to view and interact with the visualization.</p>
+<p>This method can also be used to output files for embedding the
+visualizations in static webpages. Simply copy the contents of
+static directory in the relevant directory for embedding in a static
+website.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>overwrite</strong><span class="classifier">boolean, optional, default=False</span></dt><dd><p>If True, the directory named <code class="docutils literal notranslate"><span class="pre">pydy-visualization</span></code> in the
+current working directory will be overwritten.</p>
+</dd>
+<dt><strong>silent</strong><span class="classifier">boolean, optional, default=False</span></dt><dd><p>If True, no messages will be displayed to STDOUT.</p>
+</dd>
+<dt><strong>prefix</strong><span class="classifier">string, optional</span></dt><dd><p>An optional prefix for the json data files.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.display">
+<span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/scene.html#Scene.display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.scene.Scene.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays the scene in the default web browser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.display_ipython">
+<span class="sig-name descname"><span class="pre">display_ipython</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/scene.html#Scene.display_ipython"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.scene.Scene.display_ipython" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays the scene using an IPython widget inside an IPython
+notebook cell.</p>
+<p class="rubric">Notes</p>
+<p>IPython widgets are only supported by IPython versions &gt;= 3.0.0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.display_jupyter">
+<span class="sig-name descname"><span class="pre">display_jupyter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(800,</span> <span class="pre">600)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes_arrow_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/scene.html#Scene.display_jupyter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.scene.Scene.display_jupyter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a PyThreeJS Renderer and AnimationAction for displaying and
+animating the scene inside a Jupyter notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>window_size</strong><span class="classifier">2-tuple of integers</span></dt><dd><p>2-tuple containing the width and height of the renderer window in
+pixels.</p>
+</dd>
+<dt><strong>axes_arrow_length</strong><span class="classifier">float</span></dt><dd><p>If a positive value is supplied a red (x), green (y), and blue (z)
+arrows of the supplied length will be displayed as arrows for the
+global axes.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vbox</strong><span class="classifier">widgets.VBox</span></dt><dd><p>A vertical box containing the action (pythreejs.AnimationAction)
+and renderer (pythreejs.Renderer).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.generate_visualization_json_system">
+<span class="sig-name descname"><span class="pre">generate_visualization_json_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/scene.html#Scene.generate_visualization_json_system"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.scene.Scene.generate_visualization_json_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the visualization JSON files for the provided system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>system</strong><span class="classifier">pydy.system.System</span></dt><dd><p>A fully developed PyDy system that is prepared for the
+<code class="docutils literal notranslate"><span class="pre">.integrate()</span></code> method.</p>
+</dd>
+<dt><strong>fps</strong><span class="classifier">int, optional, default=30</span></dt><dd><p>Frames per second at which animation should be displayed. Please
+not that this should not exceed the hardware limit of the
+display device to be used. Default is 30fps.</p>
+</dd>
+<dt><strong>outfile_prefix</strong><span class="classifier">str, optional, default=None</span></dt><dd><p>A prefix for the JSON files. The files will be named as
+<cite>outfile_prefix_scene_desc.json</cite> and
+<cite>outfile_prefix_simulation_data.json</cite>. If not specified a
+timestamp shall be used as the prefix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The optional keyword arguments are the same as those in the
+<code class="docutils literal notranslate"><span class="pre">generate_visualization_json</span></code> method.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#pydy.viz.scene.Scene.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.origin">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origin</span></span><a class="headerlink" href="#pydy.viz.scene.Scene.origin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the origin point of the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.reference_frame">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reference_frame</span></span><a class="headerlink" href="#pydy.viz.scene.Scene.reference_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the base reference frame of the scene.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.scene.Scene.remove_static_html">
+<span class="sig-name descname"><span class="pre">remove_static_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/scene.html#Scene.remove_static_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.scene.Scene.remove_static_html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the <code class="docutils literal notranslate"><span class="pre">static</span></code> directory from the current working
+directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>force</strong><span class="classifier">boolean, optional, default=False</span></dt><dd><p>If true, no warning is issued before the removal of the
+directory.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="lights.html"
+                          title="previous chapter">Lights</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../javascript_api.html"
+                          title="next chapter">JavaScript Classes Reference</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/viz/pymodules/scene.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../javascript_api.html" title="JavaScript Classes Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lights.html" title="Lights"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../python_api.html" >Python Modules Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scene</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

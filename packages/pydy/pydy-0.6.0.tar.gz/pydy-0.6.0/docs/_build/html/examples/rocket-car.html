@@ -1,0 +1,1582 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Modeling of a Variable-Mass Nonholonomic Gyrostatic Rocket Car Using Extended Kane’s Equations &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Chaos Pendulum" href="chaos-pendulum.html" />
+    <link rel="prev" title="Three Link Conical Pendulum" href="three-link-conical-pendulum.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="chaos-pendulum.html" title="Chaos Pendulum"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="three-link-conical-pendulum.html" title="Three Link Conical Pendulum"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Modeling of a Variable-Mass Nonholonomic Gyrostatic Rocket Car Using Extended Kane’s Equations</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="modeling-of-a-variable-mass-nonholonomic-gyrostatic-rocket-car-using-extended-kanes-equations">
+<h1>Modeling of a Variable-Mass Nonholonomic Gyrostatic Rocket Car Using Extended Kane’s Equations<a class="headerlink" href="#modeling-of-a-variable-mass-nonholonomic-gyrostatic-rocket-car-using-extended-kanes-equations" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can download this example as a Python script:
+<a class="reference download internal" download="" href="../_downloads/422d6c4546f8cd35d88a697e1ec8e46e/rocket-car.py"><code class="xref download docutils literal notranslate"><span class="pre">rocket-car.py</span></code></a> or Jupyter notebook:
+<a class="reference download internal" download="" href="../_downloads/3894d69d48dce5a8452b571c6ccf0115/rocket-car.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">rocket-car.ipynb</span></code></a>.</p>
+</div>
+<p>This is an implementation of the nonholonomic rocket-engine-powered jet racing car example from <a class="reference internal" href="#ge1982" id="id1"><span>[Ge1982]</span></a>. This example provides insight into analytically modeling variable-mass systems using Kane’s method and the extended Kane’s equations for variable-mass systems. It also demonstrates the efficacy of Kane’s method in the modeling of complex dynamical systems.</p>
+<a class="reference internal image-reference" href="../_images/rocket-car.svg"><img alt="../_images/rocket-car.svg" src="../_images/rocket-car.svg" width="600" /></a>
+<p>An idealized model of a jet racing car that is propelled by a rocket
+engine at point P is considered. The rocket engine is treated as a
+variable-mass particle at P.</p>
+<p>Here, <span class="math notranslate nohighlight">\(\{a_x: g_3, a_y: g_1, a_z: g_2\}\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">sympy.physics.mechanics</span> <span class="k">as</span> <span class="nn">me</span>
+<span class="kn">from</span> <span class="nn">pydy.system</span> <span class="kn">import</span> <span class="n">System</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sympy.simplify.fu</span> <span class="kn">import</span> <span class="n">TR2</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+<span class="n">me</span><span class="o">.</span><span class="n">init_vprinting</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span><span class="p">,</span> <span class="n">display</span>
+<span class="k">def</span> <span class="nf">print_answer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_res</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">xri</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_res</span><span class="p">):</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">xri</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;inline&#39;</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<section id="reference-frames-generalized-coordinates-and-generalized-speeds">
+<h2>Reference Frames, Generalized Coordinates, and Generalized Speeds<a class="headerlink" href="#reference-frames-generalized-coordinates-and-generalized-speeds" title="Permalink to this headline">¶</a></h2>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">ReferenceFrame</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+
+<span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">q4</span><span class="p">,</span> <span class="n">q5</span><span class="p">,</span> <span class="n">q6</span><span class="p">,</span> <span class="n">q7</span><span class="p">,</span> <span class="n">q8</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;q1:9&#39;</span><span class="p">)</span>
+
+<span class="n">A2</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;A_2&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q3</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">])</span>
+<span class="n">A1</span> <span class="o">=</span> <span class="n">A2</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;A_1&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q4</span><span class="p">,</span> <span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">])</span>
+
+<span class="n">B1</span> <span class="o">=</span> <span class="n">A1</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B_1&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q5</span><span class="p">,</span> <span class="n">A1</span><span class="o">.</span><span class="n">y</span><span class="p">])</span>
+<span class="n">B2</span> <span class="o">=</span> <span class="n">A1</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B_2&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q6</span><span class="p">,</span> <span class="n">A1</span><span class="o">.</span><span class="n">y</span><span class="p">])</span>
+<span class="n">B3</span> <span class="o">=</span> <span class="n">A2</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B_3&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q7</span><span class="p">,</span> <span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">])</span>
+<span class="n">B4</span> <span class="o">=</span> <span class="n">A2</span><span class="o">.</span><span class="n">orientnew</span><span class="p">(</span><span class="s1">&#39;B_4&#39;</span><span class="p">,</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">q8</span><span class="p">,</span> <span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">])</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="o">.</span><span class="n">_t</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">O</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span> <span class="c1"># fixed point in the inertial reference frame</span>
+<span class="n">O</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="p">,</span> <span class="n">l</span> <span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;L, l , a, b, r_1, r_2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Q</span> <span class="o">=</span> <span class="n">O</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="n">q1</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">P</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="n">L</span> <span class="o">*</span> <span class="o">-</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">l</span> <span class="o">*</span> <span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Q</span><span class="o">.</span><span class="n">set_vel</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">Q</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">O</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+<span class="n">Q</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{q}_{1}\mathbf{\hat{n}_x} + \dot{q}_{2}\mathbf{\hat{n}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">P</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">A2</span><span class="p">)</span>
+<span class="n">P</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{q}_{1}\mathbf{\hat{n}_x} + \dot{q}_{2}\mathbf{\hat{n}_y} -  L \dot{q}_{3}\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">A2</span><span class="p">)</span>
+<span class="c1"># C.vel(N)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{q}_{1}\mathbf{\hat{n}_x} + \dot{q}_{2}\mathbf{\hat{n}_y} + (- L \dot{q}_{3} + l \dot{q}_{3})\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A1</span><span class="o">.</span><span class="n">ang_vel_in</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{q}_{4}\mathbf{\hat{a_1}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">u1</span><span class="p">,</span> <span class="n">u2</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;u_1:3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">z1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="n">A1</span><span class="o">.</span><span class="n">ang_vel_in</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
+<span class="n">z2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">u2</span><span class="p">,</span> <span class="n">Q</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">solve</span><span class="p">([</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">],</span> <span class="n">A1</span><span class="o">.</span><span class="n">ang_vel_in</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">Q</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">)))</span>
+<span class="n">u</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left\{ \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{2} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{1} : u_{2}, \  \dot{q}_{4} : u_{1}\right\}\]</div>
+</div>
+</div>
+</section>
+<section id="formulation-of-the-constraint-equations">
+<h2>Formulation of the Constraint Equations<a class="headerlink" href="#formulation-of-the-constraint-equations" title="Permalink to this headline">¶</a></h2>
+<section id="nonholonomic-constraints-b-1">
+<h3>Nonholonomic Constraints: <span class="math notranslate nohighlight">\(B_1\)</span><a class="headerlink" href="#nonholonomic-constraints-b-1" title="Permalink to this headline">¶</a></h3>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B1_center</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B_1_center&#39;</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">A1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">B1_center</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle a\mathbf{\hat{a_1}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B1_center</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">A1</span><span class="p">)</span>
+<span class="n">B1_center</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle (- a \left(\dot{q}_{3} + \dot{q}_{4}\right) + \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{2} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{1})\mathbf{\hat{a_1}_x} + (- \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{1} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{2})\mathbf{\hat{a_1}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B1_ground</span> <span class="o">=</span> <span class="n">B1_center</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B_1_ground&#39;</span><span class="p">,</span> <span class="n">r1</span> <span class="o">*</span> <span class="o">-</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">B1_ground</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">B1_center</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  r_{1}\mathbf{\hat{a_1}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B1_ground</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">B1_center</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B1</span><span class="p">)</span>
+<span class="n">B1_ground</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{q}_{1}\mathbf{\hat{n}_x} + \dot{q}_{2}\mathbf{\hat{n}_y} + (- a \left(\dot{q}_{3} + \dot{q}_{4}\right) - r_{1} \dot{q}_{5})\mathbf{\hat{a_1}_x}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B1_cons</span> <span class="o">=</span> <span class="p">[</span><span class="n">me</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B1_ground</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">(),</span> <span class="n">uv</span><span class="p">)</span> <span class="k">for</span> <span class="n">uv</span> <span class="ow">in</span> <span class="n">A1</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B1_cons</span><span class="p">)):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">B1_cons</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - a \left(\dot{q}_{3} + \dot{q}_{4}\right) - r_{1} \dot{q}_{5} + \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{2} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{1}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{1} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{2}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">B1_cons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">eq1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - a \left(u_{1} + \dot{q}_{3}\right) - r_{1} \dot{q}_{5} + u_{2} = 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">B1_cons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">eq2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{1} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{2} = 0\]</div>
+</div>
+</div>
+</section>
+<section id="nonholonomic-constraints-b-2">
+<h3>Nonholonomic Constraints: <span class="math notranslate nohighlight">\(B_2\)</span><a class="headerlink" href="#nonholonomic-constraints-b-2" title="Permalink to this headline">¶</a></h3>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B2_center</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B_1_center&#39;</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="o">-</span><span class="n">A1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">B2_center</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  a\mathbf{\hat{a_1}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B2_center</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">A1</span><span class="p">)</span>
+<span class="n">B2_center</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle (a \left(\dot{q}_{3} + \dot{q}_{4}\right) + \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{2} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{1})\mathbf{\hat{a_1}_x} + (- \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{1} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{2})\mathbf{\hat{a_1}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B2_ground</span> <span class="o">=</span> <span class="n">B2_center</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B_2_ground&#39;</span><span class="p">,</span> <span class="n">r1</span> <span class="o">*</span> <span class="o">-</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">B2_ground</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">B2_center</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  r_{1}\mathbf{\hat{a_1}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B2_ground</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">B2_center</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B2</span><span class="p">)</span>
+<span class="n">B2_ground</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{q}_{1}\mathbf{\hat{n}_x} + \dot{q}_{2}\mathbf{\hat{n}_y} + (a \left(\dot{q}_{3} + \dot{q}_{4}\right) - r_{1} \dot{q}_{6})\mathbf{\hat{a_1}_x}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B2_cons</span> <span class="o">=</span> <span class="p">[</span><span class="n">me</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B2_ground</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">(),</span> <span class="n">uv</span><span class="p">)</span> <span class="k">for</span> <span class="n">uv</span> <span class="ow">in</span> <span class="n">A1</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B2_cons</span><span class="p">)):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">B2_cons</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle a \left(\dot{q}_{3} + \dot{q}_{4}\right) - r_{1} \dot{q}_{6} + \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{2} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{1}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{1} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{2}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq3</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">B2_cons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">eq3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle a \left(u_{1} + \dot{q}_{3}\right) - r_{1} \dot{q}_{6} + u_{2} = 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq4</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">B2_cons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">eq4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \sin{\left(q_{3} + q_{4} \right)} \dot{q}_{1} + \cos{\left(q_{3} + q_{4} \right)} \dot{q}_{2} = 0\]</div>
+</div>
+</div>
+</section>
+<section id="nonholonomic-constraints-b-3">
+<h3>Nonholonomic Constraints: <span class="math notranslate nohighlight">\(B_3\)</span><a class="headerlink" href="#nonholonomic-constraints-b-3" title="Permalink to this headline">¶</a></h3>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B3_center</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B_3_center&#39;</span><span class="p">,</span> <span class="n">b</span> <span class="o">*</span> <span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">B3_center</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle b\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B3_center</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">A2</span><span class="p">)</span>
+<span class="n">B3_center</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle (- b \dot{q}_{3} + \sin{\left(q_{3} \right)} \dot{q}_{2} + \cos{\left(q_{3} \right)} \dot{q}_{1})\mathbf{\hat{a_2}_x} + (- L \dot{q}_{3} - \sin{\left(q_{3} \right)} \dot{q}_{1} + \cos{\left(q_{3} \right)} \dot{q}_{2})\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B3_ground</span> <span class="o">=</span> <span class="n">B3_center</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B_3_ground&#39;</span><span class="p">,</span> <span class="n">r2</span> <span class="o">*</span> <span class="o">-</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">B3_ground</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">B3_center</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  r_{2}\mathbf{\hat{a_2}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B3_ground</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">B3_center</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B3</span><span class="p">)</span>
+<span class="n">B3_ground</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{q}_{1}\mathbf{\hat{n}_x} + \dot{q}_{2}\mathbf{\hat{n}_y} + (- b \dot{q}_{3} - r_{2} \dot{q}_{7})\mathbf{\hat{a_2}_x} -  L \dot{q}_{3}\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B3_cons</span> <span class="o">=</span> <span class="p">[</span><span class="n">me</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B3_ground</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">(),</span> <span class="n">uv</span><span class="p">)</span> <span class="k">for</span> <span class="n">uv</span> <span class="ow">in</span> <span class="n">A2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B3_cons</span><span class="p">)):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">B3_cons</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - b \dot{q}_{3} - r_{2} \dot{q}_{7} + \sin{\left(q_{3} \right)} \dot{q}_{2} + \cos{\left(q_{3} \right)} \dot{q}_{1}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - L \dot{q}_{3} - \sin{\left(q_{3} \right)} \dot{q}_{1} + \cos{\left(q_{3} \right)} \dot{q}_{2}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq5</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">B3_cons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">eq5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - b \dot{q}_{3} - r_{2} \dot{q}_{7} + \sin{\left(q_{3} \right)} \dot{q}_{2} + \cos{\left(q_{3} \right)} \dot{q}_{1} = 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq6</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">B3_cons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">eq6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - L \dot{q}_{3} - \sin{\left(q_{3} \right)} \dot{q}_{1} + \cos{\left(q_{3} \right)} \dot{q}_{2} = 0\]</div>
+</div>
+</div>
+</section>
+<section id="nonholonomic-constraints-b-4">
+<h3>Nonholonomic Constraints: <span class="math notranslate nohighlight">\(B_4\)</span><a class="headerlink" href="#nonholonomic-constraints-b-4" title="Permalink to this headline">¶</a></h3>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B4_center</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B_4_center&#39;</span><span class="p">,</span> <span class="n">b</span> <span class="o">*</span> <span class="o">-</span><span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">B4_center</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  b\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B4_center</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">A2</span><span class="p">)</span>
+<span class="n">B4_center</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle (b \dot{q}_{3} + \sin{\left(q_{3} \right)} \dot{q}_{2} + \cos{\left(q_{3} \right)} \dot{q}_{1})\mathbf{\hat{a_2}_x} + (- L \dot{q}_{3} - \sin{\left(q_{3} \right)} \dot{q}_{1} + \cos{\left(q_{3} \right)} \dot{q}_{2})\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B4_ground</span> <span class="o">=</span> <span class="n">B4_center</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;B_4_ground&#39;</span><span class="p">,</span> <span class="n">r2</span> <span class="o">*</span> <span class="o">-</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">B4_ground</span><span class="o">.</span><span class="n">pos_from</span><span class="p">(</span><span class="n">B4_center</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  r_{2}\mathbf{\hat{a_2}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B4_ground</span><span class="o">.</span><span class="n">v2pt_theory</span><span class="p">(</span><span class="n">B4_center</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B4</span><span class="p">)</span>
+<span class="n">B4_ground</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{q}_{1}\mathbf{\hat{n}_x} + \dot{q}_{2}\mathbf{\hat{n}_y} + (b \dot{q}_{3} - r_{2} \dot{q}_{8})\mathbf{\hat{a_2}_x} -  L \dot{q}_{3}\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B4_cons</span> <span class="o">=</span> <span class="p">[</span><span class="n">me</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B4_ground</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">(),</span> <span class="n">uv</span><span class="p">)</span> <span class="k">for</span> <span class="n">uv</span> <span class="ow">in</span> <span class="n">A2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B4_cons</span><span class="p">)):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">B4_cons</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle b \dot{q}_{3} - r_{2} \dot{q}_{8} + \sin{\left(q_{3} \right)} \dot{q}_{2} + \cos{\left(q_{3} \right)} \dot{q}_{1}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - L \dot{q}_{3} - \sin{\left(q_{3} \right)} \dot{q}_{1} + \cos{\left(q_{3} \right)} \dot{q}_{2}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq7</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">B4_cons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">eq7</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle b \dot{q}_{3} - r_{2} \dot{q}_{8} + \sin{\left(q_{3} \right)} \dot{q}_{2} + \cos{\left(q_{3} \right)} \dot{q}_{1} = 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq8</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">B4_cons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">eq8</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - L \dot{q}_{3} - \sin{\left(q_{3} \right)} \dot{q}_{1} + \cos{\left(q_{3} \right)} \dot{q}_{2} = 0\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\text{LHS} \Longleftrightarrow \text{RHS}\ \text{in}\ z_1, z_2 \rightarrow \text{Equations}\ 9, 10\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq9</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">ang_vel_in</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">u1</span><span class="p">)</span>
+<span class="n">eq9</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{q}_{4} = u_{1}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eq10</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">u2</span><span class="p">)</span>
+<span class="n">eq10</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left(- \sin{\left(q_{3} \right)} \sin{\left(q_{4} \right)} + \cos{\left(q_{3} \right)} \cos{\left(q_{4} \right)}\right) \dot{q}_{1} + \left(\sin{\left(q_{3} \right)} \cos{\left(q_{4} \right)} + \sin{\left(q_{4} \right)} \cos{\left(q_{3} \right)}\right) \dot{q}_{2} = u_{2}\]</div>
+</div>
+</div>
+</section>
+</section>
+<section id="solving-the-system-of-linear-equations">
+<h2>Solving the System of Linear Equations<a class="headerlink" href="#solving-the-system-of-linear-equations" title="Permalink to this headline">¶</a></h2>
+<p>The system of equations is linear in <span class="math notranslate nohighlight">\(\dot{q}_1, \dot{q}_2,...\)</span></p>
+<p>Note: <code class="docutils literal notranslate"><span class="pre">eq4</span></code> <span class="math notranslate nohighlight">\(\equiv\)</span> <code class="docutils literal notranslate"><span class="pre">eq2</span></code>; <code class="docutils literal notranslate"><span class="pre">eq8</span></code> <span class="math notranslate nohighlight">\(\equiv\)</span> <code class="docutils literal notranslate"><span class="pre">eq6</span></code></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">solution</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">linsolve</span><span class="p">([</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">eq5</span><span class="p">,</span> <span class="n">eq6</span><span class="p">,</span> <span class="n">eq7</span><span class="p">,</span> <span class="n">eq9</span><span class="p">,</span> <span class="n">eq10</span><span class="p">],</span> <span class="n">q1</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q2</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q3</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span>  <span class="n">q4</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sollist_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">q1</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q2</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q3</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span>  <span class="n">q4</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">()]</span>
+<span class="n">sollist_keys</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left[ \dot{q}_{1}, \  \dot{q}_{2}, \  \dot{q}_{3}, \  \dot{q}_{4}, \  \dot{q}_{5}, \  \dot{q}_{6}, \  \dot{q}_{7}, \  \dot{q}_{8}\right]\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sollist_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sollist_values_simple</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sollist_values</span><span class="p">)):</span>
+    <span class="n">sollist_values_simple</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">TR2</span><span class="p">(</span><span class="n">sollist_values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">simplify</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">soldict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sollist_keys</span><span class="p">,</span> <span class="n">sollist_values_simple</span><span class="p">))</span>
+<span class="n">print_answer</span><span class="p">(</span><span class="n">sollist_keys</span><span class="p">,</span> <span class="n">sollist_values_simple</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\frac{d}{d t} \operatorname{q_{1}}{\left(t \right)} = \operatorname{u_{2}}{\left(t \right)} \cos{\left(\operatorname{q_{3}}{\left(t \right)} + \operatorname{q_{4}}{\left(t \right)} \right)}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\frac{d}{d t} \operatorname{q_{2}}{\left(t \right)} = \operatorname{u_{2}}{\left(t \right)} \sin{\left(\operatorname{q_{3}}{\left(t \right)} + \operatorname{q_{4}}{\left(t \right)} \right)}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\frac{d}{d t} \operatorname{q_{3}}{\left(t \right)} = \operatorname{u_{2}}{\left(t \right)} \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)} / L\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\frac{d}{d t} \operatorname{q_{4}}{\left(t \right)} = \operatorname{u_{1}}{\left(t \right)}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\frac{d}{d t} \operatorname{q_{5}}{\left(t \right)} = - \left(L a \operatorname{u_{1}}{\left(t \right)} - L \operatorname{u_{2}}{\left(t \right)} + a \operatorname{u_{2}}{\left(t \right)} \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)}\right) / L r_{1}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\frac{d}{d t} \operatorname{q_{6}}{\left(t \right)} = \left(L a \operatorname{u_{1}}{\left(t \right)} + L \operatorname{u_{2}}{\left(t \right)} + a \operatorname{u_{2}}{\left(t \right)} \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)}\right) / L r_{1}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\frac{d}{d t} \operatorname{q_{7}}{\left(t \right)} = - \left(- L \cos{\left(\operatorname{q_{4}}{\left(t \right)} \right)} + b \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)}\right) \operatorname{u_{2}}{\left(t \right)} / L r_{2}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\frac{d}{d t} \operatorname{q_{8}}{\left(t \right)} = \left(L \cos{\left(\operatorname{q_{4}}{\left(t \right)} \right)} + b \sin{\left(\operatorname{q_{4}}{\left(t \right)} \right)}\right) \operatorname{u_{2}}{\left(t \right)} / L r_{2}\]</div>
+</div>
+</div>
+</section>
+<section id="reformulated-velocity-and-angular-velocity-expressions">
+<h2>Reformulated Velocity and Angular Velocity Expressions<a class="headerlink" href="#reformulated-velocity-and-angular-velocity-expressions" title="Permalink to this headline">¶</a></h2>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_v_Q</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">N_v_Q</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle u_{2}\mathbf{\hat{a_1}_x}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_v_P</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">N_v_P</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle u_{2} \cos{\left(q_{4} \right)}\mathbf{\hat{a_2}_x}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_v_C</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">vel</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">N_v_C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle u_{2} \cos{\left(q_{4} \right)}\mathbf{\hat{a_2}_x} + \frac{l u_{2} \sin{\left(q_{4} \right)}}{L}\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_w_A1</span> <span class="o">=</span> <span class="n">A1</span><span class="o">.</span><span class="n">ang_vel_in</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">N_w_A1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle (u_{1} + \frac{u_{2} \sin{\left(q_{4} \right)}}{L})\mathbf{\hat{a_1}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_w_A2</span> <span class="o">=</span> <span class="n">A2</span><span class="o">.</span><span class="n">ang_vel_in</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">express</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">N_w_A2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{u_{2} \sin{\left(q_{4} \right)}}{L}\mathbf{\hat{a_2}_z}\]</div>
+</div>
+</div>
+</section>
+<section id="partial-velocities-and-partial-angular-velocities">
+<h2>Partial Velocities and Partial Angular Velocities<a class="headerlink" href="#partial-velocities-and-partial-angular-velocities" title="Permalink to this headline">¶</a></h2>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V_1_Q</span> <span class="o">=</span> <span class="n">N_v_Q</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">V_1_Q</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V_2_Q</span> <span class="o">=</span> <span class="n">N_v_Q</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">V_2_Q</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \mathbf{\hat{a_1}_x}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V_1_C</span> <span class="o">=</span> <span class="n">N_v_C</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">V_1_C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V_2_C</span> <span class="o">=</span> <span class="n">N_v_C</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">V_2_C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \cos{\left(q_{4} \right)}\mathbf{\hat{a_2}_x} + \frac{l \sin{\left(q_{4} \right)}}{L}\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V_1_P</span> <span class="o">=</span> <span class="n">N_v_P</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">V_1_P</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V_2_P</span> <span class="o">=</span> <span class="n">N_v_P</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">V_2_P</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \cos{\left(q_{4} \right)}\mathbf{\hat{a_2}_x}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w_1_A1</span> <span class="o">=</span> <span class="n">N_w_A1</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">w_1_A1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \mathbf{\hat{a_1}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w_2_A1</span> <span class="o">=</span> <span class="n">N_w_A1</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">w_2_A1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{\sin{\left(q_{4} \right)}}{L}\mathbf{\hat{a_1}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w_1_A2</span> <span class="o">=</span> <span class="n">N_w_A2</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">w_1_A2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w_2_A2</span> <span class="o">=</span> <span class="n">N_w_A2</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">w_2_A2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{\sin{\left(q_{4} \right)}}{L}\mathbf{\hat{a_2}_z}\]</div>
+</div>
+</div>
+</section>
+<section id="accelerations-and-angular-accelerations">
+<h2>Accelerations and Angular Accelerations<a class="headerlink" href="#accelerations-and-angular-accelerations" title="Permalink to this headline">¶</a></h2>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a_1__P</span><span class="p">,</span> <span class="n">a_2__P</span><span class="p">,</span> <span class="n">a_3__P</span><span class="p">,</span> <span class="n">a_1__C</span><span class="p">,</span> <span class="n">a_2__C</span><span class="p">,</span> <span class="n">a_3__C</span><span class="p">,</span> <span class="n">a__Q</span><span class="p">,</span> <span class="n">alpha__A1</span><span class="p">,</span> <span class="n">alpha__A2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a_1__P, a_2__P, a_3__P, a_1__C, a_2__C, a_3__C, a__Q, alpha__A1, alpha__A2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_a_P</span> <span class="o">=</span> <span class="n">N_v_P</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span>
+<span class="n">N_a_P</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle (- u_{1} u_{2} \sin{\left(q_{4} \right)} + \cos{\left(q_{4} \right)} \dot{u}_{2})\mathbf{\hat{a_2}_x} + \frac{u_{2}^{2} \sin{\left(q_{4} \right)} \cos{\left(q_{4} \right)}}{L}\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_a_C</span> <span class="o">=</span> <span class="n">N_v_C</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span>
+<span class="n">N_a_C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle (- u_{1} u_{2} \sin{\left(q_{4} \right)} + \cos{\left(q_{4} \right)} \dot{u}_{2} - \frac{l u_{2}^{2} \sin^{2}{\left(q_{4} \right)}}{L^{2}})\mathbf{\hat{a_2}_x} + (\frac{l u_{1} u_{2} \cos{\left(q_{4} \right)}}{L} + \frac{l \sin{\left(q_{4} \right)} \dot{u}_{2}}{L} + \frac{u_{2}^{2} \sin{\left(q_{4} \right)} \cos{\left(q_{4} \right)}}{L})\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_a_Q</span> <span class="o">=</span> <span class="n">N_v_Q</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span>
+<span class="n">N_a_Q</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \dot{u}_{2}\mathbf{\hat{a_1}_x} + \left(u_{1} + \frac{u_{2} \sin{\left(q_{4} \right)}}{L}\right) u_{2}\mathbf{\hat{a_1}_y}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_aa_A1</span> <span class="o">=</span> <span class="n">N_w_A1</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span>
+<span class="n">N_aa_A1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle (\dot{u}_{1} + \frac{u_{1} u_{2} \cos{\left(q_{4} \right)}}{L} + \frac{\sin{\left(q_{4} \right)} \dot{u}_{2}}{L})\mathbf{\hat{a_1}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_aa_A2</span> <span class="o">=</span> <span class="n">N_w_A2</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span>
+<span class="n">N_aa_A2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle (\frac{u_{1} u_{2} \cos{\left(q_{4} \right)}}{L} + \frac{\sin{\left(q_{4} \right)} \dot{u}_{2}}{L})\mathbf{\hat{a_2}_z}\]</div>
+</div>
+</div>
+</section>
+<section id="forces-and-torques">
+<h2>Forces and Torques<a class="headerlink" href="#forces-and-torques" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\((F_r^*)_G = (F_r^*)_{GR} + (F_r^*)_{GI}\)</span></p>
+<p>where,</p>
+<p><span class="math notranslate nohighlight">\((F_r^*)_{GR} = {V_r}^G \cdot {F_G}^* + \omega_r^A \cdot {T_G}^*\)</span></p>
+<p><span class="math notranslate nohighlight">\(F_G^* = -m_G {a^G}^*\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_G^* \overset{\Delta}{=} -[\alpha_A \cdot I_G + \omega_r^A \times (I_G \cdot \omega_r^A)]\)</span></p>
+<p><span class="math notranslate nohighlight">\(({F_r}^*)_{GI} = -J\{\omega_r^A [\ddot{q_k} g_1 + \dot{q_k} (\omega_3^A g_2 - \omega_2^A g_3)] + C_{kr} (\dot{\omega_1^A} + \ddot{q_k}) \}\)</span></p>
+<p><a class="reference internal" href="#kane1978" id="id2"><span>[Kane1978]</span></a></p>
+<p>Naming Convention:</p>
+<p><span class="math notranslate nohighlight">\(({F_r}^*)_{G_n R}\)</span> (rigid)</p>
+<p><span class="math notranslate nohighlight">\(({F_r}^*)_{G_n I}\)</span> (internal)</p>
+</section>
+<section id="masses-and-moments-of-inertia">
+<h2>Masses and Moments of Inertia<a class="headerlink" href="#masses-and-moments-of-inertia" title="Permalink to this headline">¶</a></h2>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M1</span><span class="p">,</span> <span class="n">M2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;M_1, M_2&#39;</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I1x</span><span class="p">,</span> <span class="n">I1y</span><span class="p">,</span> <span class="n">I1z</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;I_</span><span class="si">{1_x}</span><span class="s1">, I_</span><span class="si">{1_y}</span><span class="s1">, I_</span><span class="si">{1_z}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">I2x</span><span class="p">,</span> <span class="n">I2y</span><span class="p">,</span> <span class="n">I2z</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;I_</span><span class="si">{2_x}</span><span class="s1">, I_</span><span class="si">{2_y}</span><span class="s1">, I_</span><span class="si">{2_z}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">J1</span><span class="p">,</span> <span class="n">J2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;J_1, J_2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I1</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">inertia</span><span class="p">(</span><span class="n">A1</span><span class="p">,</span> <span class="n">I1x</span><span class="p">,</span> <span class="n">I1y</span><span class="p">,</span> <span class="n">I1z</span><span class="p">)</span>
+<span class="n">I1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle I_{1_x}\mathbf{\hat{a_1}_x}\otimes \mathbf{\hat{a_1}_x} + I_{1_y}\mathbf{\hat{a_1}_y}\otimes \mathbf{\hat{a_1}_y} + I_{1_z}\mathbf{\hat{a_1}_z}\otimes \mathbf{\hat{a_1}_z}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I2</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">inertia</span><span class="p">(</span><span class="n">A2</span><span class="p">,</span> <span class="n">I2x</span><span class="p">,</span> <span class="n">I2y</span><span class="p">,</span> <span class="n">I2z</span><span class="p">)</span>
+<span class="n">I2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle I_{2_x}\mathbf{\hat{a_2}_x}\otimes \mathbf{\hat{a_2}_x} + I_{2_y}\mathbf{\hat{a_2}_y}\otimes \mathbf{\hat{a_2}_y} + I_{2_z}\mathbf{\hat{a_2}_z}\otimes \mathbf{\hat{a_2}_z}\]</div>
+</div>
+</div>
+</section>
+<section id="gyrostat-g-1">
+<h2>Gyrostat <span class="math notranslate nohighlight">\(G_1\)</span><a class="headerlink" href="#gyrostat-g-1" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(\rightarrow {F_G}^* = -m_G {a^G}^*\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_G1</span> <span class="o">=</span> <span class="o">-</span><span class="n">M1</span> <span class="o">*</span> <span class="n">N_a_Q</span>
+<span class="n">Fstar_G1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  M_{1} \dot{u}_{2}\mathbf{\hat{a_1}_x} -  M_{1} \left(u_{1} + \frac{u_{2} \sin{\left(q_{4} \right)}}{L}\right) u_{2}\mathbf{\hat{a_1}_y}\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow {T_G}^* \overset{\Delta}{=} -[\alpha_A \cdot I_G + {\omega_r}^A \times (I_G \cdot {\omega_r}^A)]\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tstar_G1</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">N_aa_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">I1</span><span class="p">)</span> <span class="o">+</span> <span class="n">me</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">N_w_A1</span><span class="p">,</span> <span class="n">I1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">N_w_A1</span><span class="p">)))</span>
+<span class="n">Tstar_G1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  I_{1_z} \left(\dot{u}_{1} + \frac{u_{1} u_{2} \cos{\left(q_{4} \right)}}{L} + \frac{\sin{\left(q_{4} \right)} \dot{u}_{2}}{L}\right)\mathbf{\hat{a_1}_z}\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow ({F_r}^*)_{GR} = {V_r}^G \cdot {F_G}^* + {\omega_r}^A \cdot {T_G}^*\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_1_G1_R</span> <span class="o">=</span> <span class="n">V_1_Q</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Fstar_G1</span><span class="p">)</span> <span class="o">+</span> <span class="n">w_1_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Tstar_G1</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span>
+<span class="n">Fstar_1_G1_R</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">):</span> <span class="n">alpha__A1</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - I_{1_z} \alpha^{A1}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_2_G1_R</span> <span class="o">=</span> <span class="n">V_2_Q</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Fstar_G1</span><span class="p">)</span> <span class="o">+</span> <span class="n">w_2_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Tstar_G1</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span>
+<span class="n">Fstar_2_G1_R</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">):</span> <span class="n">alpha__A1</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \frac{I_{1_z} \alpha^{A1} \sin{\left(q_{4} \right)}}{L} - M_{1} \dot{u}_{2}\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow (F_r^*)_{GI} = -J\{\omega_r^A \cdot [\ddot{q_k} g_1 + \dot{q_k} (\omega_3^A g_2 - \omega_2^A g_3)] + C_{kr} (\dot{\omega}_1^A + \ddot{q_k}) \} \qquad (r=1,...,n-m)\)</span></p>
+<p>Here,
+<span class="math notranslate nohighlight">\(\{\omega_1^A: \omega_2^A,\ \omega_2^A: \omega_3^A,\ \omega_3^A: \omega_1^A\}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\rightarrow \dot{q_k} = \sum_{s = 1}^{n - m} C_{ks} u_s + D_k\)</span>
+(Generalized Speeds)</p>
+<p><span class="math notranslate nohighlight">\(\omega_i^A \overset{\Delta}{=} \omega^A \cdot \hat{g}_i \quad (i = 1, 2, 3)\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># C_kr</span>
+<span class="n">C51</span><span class="p">,</span> <span class="n">C61</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;C_51, C_61&#39;</span><span class="p">)</span>
+<span class="n">C_51</span> <span class="o">=</span> <span class="n">soldict</span><span class="p">[</span><span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">()]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u1</span><span class="p">)</span>
+<span class="n">C_61</span> <span class="o">=</span> <span class="n">soldict</span><span class="p">[</span><span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">()]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u1</span><span class="p">)</span>
+<span class="n">Fstar_1_G1_I</span> <span class="o">=</span> <span class="o">-</span><span class="n">J1</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">*</span> <span class="n">A1</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">C_51</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">+</span> <span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()))</span> \
+               <span class="o">-</span><span class="n">J1</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">*</span> <span class="n">A1</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">C_61</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">+</span> <span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()))</span>   <span class="c1"># B1 \ B2</span>
+
+<span class="n">Fstar_1_G1_I</span><span class="p">,</span> <span class="n">C_51</span><span class="p">,</span> <span class="n">C_61</span><span class="p">,</span> <span class="n">Fstar_1_G1_I</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="o">-</span><span class="n">C_51</span><span class="p">:</span> <span class="o">-</span><span class="n">C51</span><span class="p">,</span> <span class="o">-</span><span class="n">C_61</span><span class="p">:</span> <span class="o">-</span><span class="n">C61</span><span class="p">})</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left( \frac{J_{1} a \ddot{q}_{5}}{r_{1}} - \frac{J_{1} a \ddot{q}_{6}}{r_{1}}, \  - \frac{a}{r_{1}}, \  \frac{a}{r_{1}}, \  - J_{1} \left(C_{51} \ddot{q}_{5} + C_{61} \ddot{q}_{6}\right)\right)\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># C_kr</span>
+<span class="n">C52</span><span class="p">,</span> <span class="n">C62</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;C_52, C_62&#39;</span><span class="p">)</span>
+<span class="n">C_52</span> <span class="o">=</span> <span class="n">soldict</span><span class="p">[</span><span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">()]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u2</span><span class="p">)</span>
+<span class="n">C_62</span> <span class="o">=</span> <span class="n">soldict</span><span class="p">[</span><span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">()]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u2</span><span class="p">)</span>
+<span class="n">Fstar_2_G1_I</span> <span class="o">=</span> <span class="o">-</span><span class="n">J1</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">*</span> <span class="n">A1</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">C_52</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">+</span> <span class="n">q5</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()))</span> \
+               <span class="o">-</span><span class="n">J1</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">*</span> <span class="n">A1</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">A1</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">C_62</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">+</span> <span class="n">q6</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()))</span>   <span class="c1"># B1 \ B2</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">Fstar_2_G1_I</span><span class="p">),</span>
+<span class="n">display</span><span class="p">(</span><span class="n">C_52</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">C_62</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Fstar_2_G1_I</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="o">-</span><span class="n">C_52</span><span class="p">:</span> <span class="o">-</span><span class="n">C52</span><span class="p">,</span> <span class="o">-</span><span class="n">C_62</span><span class="p">:</span> <span class="o">-</span><span class="n">C62</span><span class="p">})</span><span class="o">.</span><span class="n">simplify</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{J_{1} \left(- L + a \sin{\left(q_{4} \right)}\right) \ddot{q}_{5}}{L r_{1}} - \frac{J_{1} \left(L + a \sin{\left(q_{4} \right)}\right) \ddot{q}_{6}}{L r_{1}}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \frac{- L + a \sin{\left(q_{4} \right)}}{L r_{1}}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{L + a \sin{\left(q_{4} \right)}}{L r_{1}}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - J_{1} \left(C_{52} \ddot{q}_{5} + C_{62} \ddot{q}_{6}\right)\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow (F_r^*)_G = (F_r^*)_{GR} + (F_r^*)_{GI}\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_1_G1</span> <span class="o">=</span> <span class="n">Fstar_1_G1_R</span> <span class="o">+</span> <span class="n">Fstar_1_G1_I</span>
+<span class="n">Fstar_1_G1</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">):</span> <span class="n">alpha__A1</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="o">-</span><span class="n">C_51</span><span class="p">:</span> <span class="o">-</span><span class="n">C51</span><span class="p">,</span> <span class="o">-</span><span class="n">C_61</span><span class="p">:</span> <span class="o">-</span><span class="n">C61</span><span class="p">})</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - C_{51} J_{1} \ddot{q}_{5} - C_{61} J_{1} \ddot{q}_{6} - I_{1_z} \alpha^{A1}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_2_G1</span> <span class="o">=</span> <span class="n">Fstar_2_G1_R</span> <span class="o">+</span> <span class="n">Fstar_2_G1_I</span>
+<span class="n">Fstar_2_G1</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_w_A1</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="o">.</span><span class="n">z</span><span class="p">):</span> <span class="n">alpha__A1</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="o">-</span><span class="n">C_52</span><span class="p">:</span> <span class="o">-</span><span class="n">C52</span><span class="p">,</span> <span class="o">-</span><span class="n">C_62</span><span class="p">:</span> <span class="o">-</span><span class="n">C62</span><span class="p">})</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - C_{52} J_{1} \ddot{q}_{5} - C_{62} J_{1} \ddot{q}_{6} - \frac{I_{1_z} \alpha^{A1} \sin{\left(q_{4} \right)}}{L} - M_{1} \dot{u}_{2}\]</div>
+</div>
+</div>
+</section>
+<section id="gyrostat-g-2">
+<h2>Gyrostat <span class="math notranslate nohighlight">\(G_2\)</span><a class="headerlink" href="#gyrostat-g-2" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(\rightarrow {F_G}^* = -m_G {a^G}^*\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_G2</span> <span class="o">=</span> <span class="o">-</span><span class="n">M2</span> <span class="o">*</span> <span class="n">N_a_C</span>
+<span class="n">Fstar_G2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  M_{2} \left(- u_{1} u_{2} \sin{\left(q_{4} \right)} + \cos{\left(q_{4} \right)} \dot{u}_{2} - \frac{l u_{2}^{2} \sin^{2}{\left(q_{4} \right)}}{L^{2}}\right)\mathbf{\hat{a_2}_x} -  M_{2} \left(\frac{l u_{1} u_{2} \cos{\left(q_{4} \right)}}{L} + \frac{l \sin{\left(q_{4} \right)} \dot{u}_{2}}{L} + \frac{u_{2}^{2} \sin{\left(q_{4} \right)} \cos{\left(q_{4} \right)}}{L}\right)\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow {T_G}^* \overset{\Delta}{=} -[\alpha_A \cdot I_G + {\omega_r}^A \times (I_G \cdot {\omega_r}^A)]\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tstar_G2</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">N_aa_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span> <span class="o">+</span> <span class="n">me</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">N_w_A2</span><span class="p">,</span> <span class="n">I2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">N_w_A2</span><span class="p">)))</span>
+<span class="n">Tstar_G2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  I_{2_z} \left(\frac{u_{1} u_{2} \cos{\left(q_{4} \right)}}{L} + \frac{\sin{\left(q_{4} \right)} \dot{u}_{2}}{L}\right)\mathbf{\hat{a_2}_z}\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow ({F_r}^*)_{GR} = {V_r}^G \cdot {F_G}^* + {\omega_r}^A \cdot {T_G}^*\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_1_G2_R</span> <span class="o">=</span> <span class="n">V_1_C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Fstar_G2</span><span class="p">)</span> <span class="o">+</span> <span class="n">w_1_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Tstar_G2</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span>
+<span class="n">Fstar_1_G2_R</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">):</span> <span class="n">alpha__A2</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_2_G2_R</span> <span class="o">=</span> <span class="n">V_2_C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Fstar_G2</span><span class="p">)</span> <span class="o">+</span> <span class="n">w_2_A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Tstar_G2</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span>
+<span class="n">Fstar_2_G2_R</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">):</span> <span class="n">alpha__A2</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \frac{I_{2_z} \alpha^{A2} \sin{\left(q_{4} \right)}}{L} - M_{2} \left(- u_{1} u_{2} \sin{\left(q_{4} \right)} + \cos{\left(q_{4} \right)} \dot{u}_{2} - \frac{l u_{2}^{2} \sin^{2}{\left(q_{4} \right)}}{L^{2}}\right) \cos{\left(q_{4} \right)} - \frac{M_{2} l \left(\frac{l u_{1} u_{2} \cos{\left(q_{4} \right)}}{L} + \frac{l \sin{\left(q_{4} \right)} \dot{u}_{2}}{L} + \frac{u_{2}^{2} \sin{\left(q_{4} \right)} \cos{\left(q_{4} \right)}}{L}\right) \sin{\left(q_{4} \right)}}{L}\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow (F_r^*)_{GI} = -J\{\omega_r^A \cdot [\ddot{q_k} g_1 + \dot{q_k} (\omega_3^A g_2 - \omega_2^A g_3)] + C_{kr} (\dot{\omega}_1^A + \ddot{q_k}) \} \qquad (r=1,...,n-m)\)</span></p>
+<p>Here,
+<span class="math notranslate nohighlight">\(\{\omega_1^A: \omega_2^A,\ \omega_2^A: \omega_3^A,\ \omega_3^A: \omega_1^A\}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\rightarrow \dot{q_k} = \sum_{s = 1}^{n - m} C_{ks} u_s + D_k\)</span>
+(Generalized Speeds)</p>
+<p><span class="math notranslate nohighlight">\(\omega_i^A \overset{\Delta}{=} \omega^A \cdot \hat{g}_i \quad (i = 1, 2, 3)\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># C_kr</span>
+<span class="n">C71</span><span class="p">,</span> <span class="n">C81</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;C_71, C_81&#39;</span><span class="p">)</span>
+<span class="n">C_71</span> <span class="o">=</span> <span class="n">soldict</span><span class="p">[</span><span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">()]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u1</span><span class="p">)</span>
+<span class="n">C_81</span> <span class="o">=</span> <span class="n">soldict</span><span class="p">[</span><span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">()]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u1</span><span class="p">)</span>
+<span class="n">Fstar_1_G2_I</span> <span class="o">=</span> <span class="o">-</span><span class="n">J2</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">*</span> <span class="n">A2</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">C_71</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">+</span> <span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()))</span> \
+               <span class="o">-</span><span class="n">J2</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">*</span> <span class="n">A2</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">C_81</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">+</span> <span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()))</span>   <span class="c1"># B1 \ B2</span>
+
+<span class="n">Fstar_1_G2_I</span><span class="p">,</span> <span class="n">C_71</span><span class="p">,</span> <span class="n">C_81</span><span class="p">,</span> <span class="c1"># Fstar_1_G2_I.subs({-C_71: -C71, -C_81: -C81}).simplify()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left( 0, \  0, \  0\right)\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># C_kr</span>
+<span class="n">C72</span><span class="p">,</span> <span class="n">C82</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;C_72, C_82&#39;</span><span class="p">)</span>
+<span class="n">C_72</span> <span class="o">=</span> <span class="n">soldict</span><span class="p">[</span><span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">()]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u2</span><span class="p">)</span>
+<span class="n">C_82</span> <span class="o">=</span> <span class="n">soldict</span><span class="p">[</span><span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">()]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u2</span><span class="p">)</span>
+<span class="n">Fstar_2_G2_I</span> <span class="o">=</span> <span class="o">-</span><span class="n">J2</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">*</span> <span class="n">A2</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">C_72</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">+</span> <span class="n">q7</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()))</span> \
+               <span class="o">-</span><span class="n">J2</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">*</span> <span class="n">A2</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">C_82</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">+</span> <span class="n">q8</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()))</span>   <span class="c1"># B1 \ B2</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">Fstar_2_G2_I</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">C_72</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">C_82</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Fstar_2_G2_I</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="o">-</span><span class="n">C_72</span><span class="p">:</span> <span class="o">-</span><span class="n">C72</span><span class="p">,</span> <span class="o">-</span><span class="n">C_82</span><span class="p">:</span> <span class="o">-</span><span class="n">C82</span><span class="p">})</span><span class="o">.</span><span class="n">simplify</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{J_{2} \left(- L \cos{\left(q_{4} \right)} + b \sin{\left(q_{4} \right)}\right) \ddot{q}_{7}}{L r_{2}} - \frac{J_{2} \left(L \cos{\left(q_{4} \right)} + b \sin{\left(q_{4} \right)}\right) \ddot{q}_{8}}{L r_{2}}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \frac{- L \cos{\left(q_{4} \right)} + b \sin{\left(q_{4} \right)}}{L r_{2}}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{L \cos{\left(q_{4} \right)} + b \sin{\left(q_{4} \right)}}{L r_{2}}\]</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - J_{2} \left(C_{72} \ddot{q}_{7} + C_{82} \ddot{q}_{8}\right)\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow (F_r^*)_G = (F_r^*)_{GR} + (F_r^*)_{GI}\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_1_G2</span> <span class="o">=</span> <span class="n">Fstar_1_G2_R</span> <span class="o">+</span> <span class="n">Fstar_1_G2_I</span>
+<span class="c1"># Fstar_1_G2.subs({N_w_A2.dt(N).subs(soldict).dot(A2.z): alpha__A2}) # .subs({-C_71: -C71, -C_81: -C81}).simplify()</span>
+<span class="n">Fstar_1_G2</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Here, <span class="math notranslate nohighlight">\(\{a_1^C: a_2^C,\ a_2^C: a_3^C,\ a_3^C: a_1^C\}\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_2_G2</span> <span class="o">=</span> <span class="n">Fstar_2_G2_R</span> <span class="o">+</span> <span class="n">Fstar_2_G2_I</span>
+<span class="n">Fstar_2_G2</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_w_A2</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">z</span><span class="p">):</span> <span class="n">alpha__A2</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_v_C</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">):</span> <span class="n">a_3__C</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_v_C</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">):</span> <span class="n">a_1__C</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="o">-</span><span class="n">C_72</span><span class="p">:</span> <span class="o">-</span><span class="n">C72</span><span class="p">,</span> <span class="o">-</span><span class="n">C_82</span><span class="p">:</span> <span class="o">-</span><span class="n">C82</span><span class="p">})</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - C_{72} J_{2} \ddot{q}_{7} - C_{82} J_{2} \ddot{q}_{8} - \frac{I_{2_z} \alpha^{A2} \sin{\left(q_{4} \right)}}{L} - M_{2} a^{C}_{3} \cos{\left(q_{4} \right)} - \frac{M_{2} a^{C}_{1} l \sin{\left(q_{4} \right)}}{L}\]</div>
+</div>
+</div>
+</section>
+<section id="variable-mass-particle-p">
+<h2>Variable-Mass Particle, <span class="math notranslate nohighlight">\(P\)</span><a class="headerlink" href="#variable-mass-particle-p" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(\rightarrow {F_G}^* = -m_G {a^G}^*\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_P</span> <span class="o">=</span> <span class="o">-</span><span class="n">m</span> <span class="o">*</span> <span class="n">N_a_P</span>
+<span class="n">Fstar_P</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  \left(- u_{1} u_{2} \sin{\left(q_{4} \right)} + \cos{\left(q_{4} \right)} \dot{u}_{2}\right) m\mathbf{\hat{a_2}_x} -  \frac{m u_{2}^{2} \sin{\left(q_{4} \right)} \cos{\left(q_{4} \right)}}{L}\mathbf{\hat{a_2}_y}\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow ({F_r}^*)_{GR} = {V_r}^G \cdot {F_G}^*\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_1_P_R</span> <span class="o">=</span> <span class="n">V_1_P</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Fstar_P</span><span class="p">)</span>
+<span class="n">Fstar_1_P_R</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_2_P_R</span> <span class="o">=</span> <span class="n">V_2_P</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Fstar_P</span><span class="p">)</span>
+<span class="n">Fstar_2_P_R</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \left(- u_{1} u_{2} \sin{\left(q_{4} \right)} + \cos{\left(q_{4} \right)} \dot{u}_{2}\right) m \cos{\left(q_{4} \right)}\]</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rightarrow (F_r^*)_G = (F_r^*)_{GR}\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_1_P</span> <span class="o">=</span> <span class="n">Fstar_1_P_R</span>
+<span class="n">Fstar_1_P</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<p>Here, <span class="math notranslate nohighlight">\(\{a_1^P: a_2^P,\ a_2^P: a_3^P,\ a_3^P: a_1^P\}\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_2_P</span> <span class="o">=</span> <span class="n">Fstar_2_P_R</span>
+<span class="n">Fstar_2_P</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_v_P</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span><span class="p">):</span> <span class="n">a_3__P</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">N_v_P</span><span class="o">.</span><span class="n">dt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="o">.</span><span class="n">y</span><span class="p">):</span> <span class="n">a_1__P</span><span class="p">})</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - a^{P}_{3} m \cos{\left(q_{4} \right)}\]</div>
+</div>
+</div>
+</section>
+<section id="generalized-inertia-forces">
+<h2>Generalized Inertia Forces<a class="headerlink" href="#generalized-inertia-forces" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(\rightarrow F_r^* = (F_r^*)_{G_1} + (F_r^*)_{G_2} + (F_r^*)_{P} \quad (r = 1, 2)\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_1</span> <span class="o">=</span> <span class="n">Fstar_1_G1</span> <span class="o">+</span> <span class="n">Fstar_1_G2</span> <span class="o">+</span> <span class="n">Fstar_1_P</span>
+<span class="n">Fstar_1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{- I_{1_z} r_{1} \left(L \dot{u}_{1} + u_{1} u_{2} \cos{\left(q_{4} \right)} + \sin{\left(q_{4} \right)} \dot{u}_{2}\right) + J_{1} L a \left(\frac{- a \dot{u}_{1} + \dot{u}_{2} - \frac{a u_{2} \cos{\left(q_{4} \right)} \dot{q}_{4}}{L} - \frac{a \sin{\left(q_{4} \right)} \dot{u}_{2}}{L}}{r_{1}} - \frac{a \dot{u}_{1} + \dot{u}_{2} + \frac{a u_{2} \cos{\left(q_{4} \right)} \dot{q}_{4}}{L} + \frac{a \sin{\left(q_{4} \right)} \dot{u}_{2}}{L}}{r_{1}}\right)}{L r_{1}}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fstar_2</span> <span class="o">=</span> <span class="n">Fstar_2_G1</span> <span class="o">+</span> <span class="n">Fstar_2_G2</span> <span class="o">+</span> <span class="n">Fstar_2_P</span>
+<span class="n">Fstar_2</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{- J_{1} L r_{2} \left(\frac{\left(L - a \sin{\left(q_{4} \right)}\right) \left(- a \dot{u}_{1} + \dot{u}_{2} - \frac{a u_{2} \cos{\left(q_{4} \right)} \dot{q}_{4}}{L} - \frac{a \sin{\left(q_{4} \right)} \dot{u}_{2}}{L}\right)}{r_{1}} + \frac{\left(L + a \sin{\left(q_{4} \right)}\right) \left(a \dot{u}_{1} + \dot{u}_{2} + \frac{a u_{2} \cos{\left(q_{4} \right)} \dot{q}_{4}}{L} + \frac{a \sin{\left(q_{4} \right)} \dot{u}_{2}}{L}\right)}{r_{1}}\right) - J_{2} L r_{1} \left(\left(L \cos{\left(q_{4} \right)} - b \sin{\left(q_{4} \right)}\right) \left(\frac{\left(- \sin{\left(q_{4} \right)} \dot{q}_{4} - \frac{b \cos{\left(q_{4} \right)} \dot{q}_{4}}{L}\right) u_{2}}{r_{2}} + \frac{\left(\cos{\left(q_{4} \right)} - \frac{b \sin{\left(q_{4} \right)}}{L}\right) \dot{u}_{2}}{r_{2}}\right) + \left(L \cos{\left(q_{4} \right)} + b \sin{\left(q_{4} \right)}\right) \left(\frac{\left(- \sin{\left(q_{4} \right)} \dot{q}_{4} + \frac{b \cos{\left(q_{4} \right)} \dot{q}_{4}}{L}\right) u_{2}}{r_{2}} + \frac{\left(\cos{\left(q_{4} \right)} + \frac{b \sin{\left(q_{4} \right)}}{L}\right) \dot{u}_{2}}{r_{2}}\right)\right) + \frac{L^{2} r_{1} r_{2} \left(- 2 M_{1} \dot{u}_{2} + \left(u_{1} u_{2} \sin{\left(2 q_{4} \right)} - \cos{\left(2 q_{4} \right)} \dot{u}_{2} - \dot{u}_{2}\right) m\right)}{2} + \frac{r_{1} r_{2} \left(- 2 I_{1_z} L \sin{\left(q_{4} \right)} \dot{u}_{1} - I_{1_z} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + I_{1_z} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - I_{1_z} \dot{u}_{2} - I_{2_z} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + I_{2_z} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - I_{2_z} \dot{u}_{2} + L^{2} M_{2} u_{1} u_{2} \sin{\left(2 q_{4} \right)} - L^{2} M_{2} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - L^{2} M_{2} \dot{u}_{2} - M_{2} l^{2} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + M_{2} l^{2} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - M_{2} l^{2} \dot{u}_{2}\right)}{2}}{L^{2} r_{1} r_{2}}\]</div>
+</div>
+</div>
+<p>Velocity of material ejected at <span class="math notranslate nohighlight">\(P\)</span> relative to
+<span class="math notranslate nohighlight">\(A_2 \rightarrow -C(t)g_3^{'}\)</span></p>
+<p><span class="math notranslate nohighlight">\(C(t) \rightarrow\)</span> positive</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">dynamicsymbols</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="n">C_t</span> <span class="o">=</span> <span class="o">-</span><span class="n">C</span><span class="o">*</span><span class="n">A2</span><span class="o">.</span><span class="n">x</span>
+<span class="n">C_t</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle -  C\mathbf{\hat{a_2}_x}\]</div>
+</div>
+</div>
+</section>
+<section id="generalized-thrust">
+<h2>Generalized Thrust<a class="headerlink" href="#generalized-thrust" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(\rightarrow F_r^{\prime} \triangleq \sum_{i=1}^{N} \mathbf{V}_{r}^{P i} \cdot \mathbf{C}^{P i} \dot{m}_{i} \quad (r=1, \ldots, k)\)</span></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fprime_1</span> <span class="o">=</span> <span class="n">V_1_P</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C_t</span><span class="p">)</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+<span class="n">Fprime_1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fprime_2</span> <span class="o">=</span> <span class="n">V_2_P</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C_t</span><span class="p">)</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+<span class="n">Fprime_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - C \cos{\left(q_{4} \right)} \dot{m}\]</div>
+</div>
+</div>
+</section>
+<section id="extended-kanes-equations-for-variable-mass-systems">
+<h2>Extended Kane’s Equations for Variable-Mass Systems<a class="headerlink" href="#extended-kanes-equations-for-variable-mass-systems" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(\rightarrow F_r + F_r^* + F_r^{\prime} = 0 \quad (r = 1,..., k)\)</span></p>
+<p>Here, <span class="math notranslate nohighlight">\(F_r = 0 \rightarrow\)</span> no forces contributing to generalized
+active forces</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kane_1</span> <span class="o">=</span> <span class="n">Fstar_1</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span> <span class="o">+</span> <span class="n">Fprime_1</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">kane_1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{- I_{1_z} r_{1} \left(L \dot{u}_{1} + u_{1} u_{2} \cos{\left(q_{4} \right)} + \sin{\left(q_{4} \right)} \dot{u}_{2}\right) + J_{1} L a \left(\frac{- a \dot{u}_{1} + \dot{u}_{2} - \frac{a u_{2} \cos{\left(q_{4} \right)} \dot{q}_{4}}{L} - \frac{a \sin{\left(q_{4} \right)} \dot{u}_{2}}{L}}{r_{1}} - \frac{a \dot{u}_{1} + \dot{u}_{2} + \frac{a u_{2} \cos{\left(q_{4} \right)} \dot{q}_{4}}{L} + \frac{a \sin{\left(q_{4} \right)} \dot{u}_{2}}{L}}{r_{1}}\right)}{L r_{1}}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kane_2</span> <span class="o">=</span> <span class="n">Fstar_2</span> <span class="o">+</span> <span class="n">Fprime_2</span>
+<span class="n">kane_2</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{- J_{1} L r_{2} \left(\frac{\left(L - a \sin{\left(q_{4} \right)}\right) \left(- a \dot{u}_{1} + \dot{u}_{2} - \frac{a u_{2} \cos{\left(q_{4} \right)} \dot{q}_{4}}{L} - \frac{a \sin{\left(q_{4} \right)} \dot{u}_{2}}{L}\right)}{r_{1}} + \frac{\left(L + a \sin{\left(q_{4} \right)}\right) \left(a \dot{u}_{1} + \dot{u}_{2} + \frac{a u_{2} \cos{\left(q_{4} \right)} \dot{q}_{4}}{L} + \frac{a \sin{\left(q_{4} \right)} \dot{u}_{2}}{L}\right)}{r_{1}}\right) - J_{2} L r_{1} \left(\left(L \cos{\left(q_{4} \right)} - b \sin{\left(q_{4} \right)}\right) \left(\frac{\left(- \sin{\left(q_{4} \right)} \dot{q}_{4} - \frac{b \cos{\left(q_{4} \right)} \dot{q}_{4}}{L}\right) u_{2}}{r_{2}} + \frac{\left(\cos{\left(q_{4} \right)} - \frac{b \sin{\left(q_{4} \right)}}{L}\right) \dot{u}_{2}}{r_{2}}\right) + \left(L \cos{\left(q_{4} \right)} + b \sin{\left(q_{4} \right)}\right) \left(\frac{\left(- \sin{\left(q_{4} \right)} \dot{q}_{4} + \frac{b \cos{\left(q_{4} \right)} \dot{q}_{4}}{L}\right) u_{2}}{r_{2}} + \frac{\left(\cos{\left(q_{4} \right)} + \frac{b \sin{\left(q_{4} \right)}}{L}\right) \dot{u}_{2}}{r_{2}}\right)\right) + \frac{L^{2} r_{1} r_{2} \left(- 2 M_{1} \dot{u}_{2} + \left(u_{1} u_{2} \sin{\left(2 q_{4} \right)} - \cos{\left(2 q_{4} \right)} \dot{u}_{2} - \dot{u}_{2}\right) m - 2 C \cos{\left(q_{4} \right)} \dot{m}\right)}{2} + \frac{r_{1} r_{2} \left(- 2 I_{1_z} L \sin{\left(q_{4} \right)} \dot{u}_{1} - I_{1_z} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + I_{1_z} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - I_{1_z} \dot{u}_{2} - I_{2_z} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + I_{2_z} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - I_{2_z} \dot{u}_{2} + L^{2} M_{2} u_{1} u_{2} \sin{\left(2 q_{4} \right)} - L^{2} M_{2} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - L^{2} M_{2} \dot{u}_{2} - M_{2} l^{2} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + M_{2} l^{2} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - M_{2} l^{2} \dot{u}_{2}\right)}{2}}{L^{2} r_{1} r_{2}}\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kane_1_eq</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">kane_1</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">kane_1_eq</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \frac{\left(I_{1_z} r_{1}^{2} + 2 J_{1} a^{2}\right) \left(L \dot{u}_{1} + u_{1} u_{2} \cos{\left(q_{4} \right)} + \sin{\left(q_{4} \right)} \dot{u}_{2}\right)}{L r_{1}^{2}} = 0\]</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kane_2_eq</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">kane_2</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">soldict</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">kane_2_eq</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{J_{1} r_{2}^{2} \left(- 2 L^{2} \dot{u}_{2} - 2 L a^{2} \sin{\left(q_{4} \right)} \dot{u}_{1} - a^{2} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + a^{2} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - a^{2} \dot{u}_{2}\right) - J_{2} r_{1}^{2} \left(- L^{2} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + L^{2} \cos{\left(2 q_{4} \right)} \dot{u}_{2} + L^{2} \dot{u}_{2} + b^{2} u_{1} u_{2} \sin{\left(2 q_{4} \right)} - b^{2} \cos{\left(2 q_{4} \right)} \dot{u}_{2} + b^{2} \dot{u}_{2}\right) + \frac{r_{1}^{2} r_{2}^{2} \left(- 2 I_{1_z} L \sin{\left(q_{4} \right)} \dot{u}_{1} - I_{1_z} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + I_{1_z} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - I_{1_z} \dot{u}_{2} - I_{2_z} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + I_{2_z} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - I_{2_z} \dot{u}_{2} + L^{2} M_{2} u_{1} u_{2} \sin{\left(2 q_{4} \right)} - L^{2} M_{2} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - L^{2} M_{2} \dot{u}_{2} - L^{2} \left(2 M_{1} \dot{u}_{2} + \left(- u_{1} u_{2} \sin{\left(2 q_{4} \right)} + \cos{\left(2 q_{4} \right)} \dot{u}_{2} + \dot{u}_{2}\right) m + 2 C \cos{\left(q_{4} \right)} \dot{m}\right) - M_{2} l^{2} u_{1} u_{2} \sin{\left(2 q_{4} \right)} + M_{2} l^{2} \cos{\left(2 q_{4} \right)} \dot{u}_{2} - M_{2} l^{2} \dot{u}_{2}\right)}{2}}{L^{2} r_{1}^{2} r_{2}^{2}} = 0\]</div>
+</div>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="citation">
+<dt class="label" id="ge1982"><span class="brackets"><a class="fn-backref" href="#id1">Ge1982</a></span></dt>
+<dd><p>Ge, Z., and Cheng, Y. (June 1, 1982). “Extended Kane’s Equations for Nonholonomic Variable Mass System.” ASME. J. Appl. Mech. June 1982; 49(2): 429–431. <a class="reference external" href="https://doi.org/10.1115/1.3162105">https://doi.org/10.1115/1.3162105</a></p>
+</dd>
+<dt class="label" id="kane1978"><span class="brackets"><a class="fn-backref" href="#id2">Kane1978</a></span></dt>
+<dd><p>Kane, T.R., 1978. Nonholonomic multibody systems containing gyrostats. In Dynamics of Multibody Systems (pp. 97-107). Springer, Berlin, Heidelberg.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Modeling of a Variable-Mass Nonholonomic Gyrostatic Rocket Car Using Extended Kane’s Equations</a><ul>
+<li><a class="reference internal" href="#reference-frames-generalized-coordinates-and-generalized-speeds">Reference Frames, Generalized Coordinates, and Generalized Speeds</a></li>
+<li><a class="reference internal" href="#formulation-of-the-constraint-equations">Formulation of the Constraint Equations</a><ul>
+<li><a class="reference internal" href="#nonholonomic-constraints-b-1">Nonholonomic Constraints: <span class="math notranslate nohighlight">\(B_1\)</span></a></li>
+<li><a class="reference internal" href="#nonholonomic-constraints-b-2">Nonholonomic Constraints: <span class="math notranslate nohighlight">\(B_2\)</span></a></li>
+<li><a class="reference internal" href="#nonholonomic-constraints-b-3">Nonholonomic Constraints: <span class="math notranslate nohighlight">\(B_3\)</span></a></li>
+<li><a class="reference internal" href="#nonholonomic-constraints-b-4">Nonholonomic Constraints: <span class="math notranslate nohighlight">\(B_4\)</span></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#solving-the-system-of-linear-equations">Solving the System of Linear Equations</a></li>
+<li><a class="reference internal" href="#reformulated-velocity-and-angular-velocity-expressions">Reformulated Velocity and Angular Velocity Expressions</a></li>
+<li><a class="reference internal" href="#partial-velocities-and-partial-angular-velocities">Partial Velocities and Partial Angular Velocities</a></li>
+<li><a class="reference internal" href="#accelerations-and-angular-accelerations">Accelerations and Angular Accelerations</a></li>
+<li><a class="reference internal" href="#forces-and-torques">Forces and Torques</a></li>
+<li><a class="reference internal" href="#masses-and-moments-of-inertia">Masses and Moments of Inertia</a></li>
+<li><a class="reference internal" href="#gyrostat-g-1">Gyrostat <span class="math notranslate nohighlight">\(G_1\)</span></a></li>
+<li><a class="reference internal" href="#gyrostat-g-2">Gyrostat <span class="math notranslate nohighlight">\(G_2\)</span></a></li>
+<li><a class="reference internal" href="#variable-mass-particle-p">Variable-Mass Particle, <span class="math notranslate nohighlight">\(P\)</span></a></li>
+<li><a class="reference internal" href="#generalized-inertia-forces">Generalized Inertia Forces</a></li>
+<li><a class="reference internal" href="#generalized-thrust">Generalized Thrust</a></li>
+<li><a class="reference internal" href="#extended-kanes-equations-for-variable-mass-systems">Extended Kane’s Equations for Variable-Mass Systems</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="three-link-conical-pendulum.html"
+                          title="previous chapter">Three Link Conical Pendulum</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="chaos-pendulum.html"
+                          title="next chapter">Chaos Pendulum</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/examples/rocket-car.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="chaos-pendulum.html" title="Chaos Pendulum"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="three-link-conical-pendulum.html" title="Three Link Conical Pendulum"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Modeling of a Variable-Mass Nonholonomic Gyrostatic Rocket Car Using Extended Kane’s Equations</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,689 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pydy.system &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.system</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pydy.system</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The System class manages the simulation (integration) of a system whose</span>
+<span class="sd">equations are given by KanesMethod.</span>
+
+<span class="sd">Many of the attributes are also properties, and can be directly modified.</span>
+
+<span class="sd">Here is the procedure for using this class.</span>
+
+<span class="sd">    1. specify your options either via the constructor or via the</span>
+<span class="sd">       attributes.</span>
+<span class="sd">    2. optionally, call ``generate_ode_function()`` if you want to customize</span>
+<span class="sd">       how the ODE function is generated.</span>
+<span class="sd">    3. call ``integrate()`` to simulate your system.</span>
+
+<span class="sd">The simplest usage of this class is as follows. First, we need a</span>
+<span class="sd">KanesMethod object on which we have already invoked ``kanes_equations()``::</span>
+
+<span class="sd">    km = KanesMethod(...)</span>
+<span class="sd">    km.kanes_equations(force_list, body_list)</span>
+<span class="sd">    times = np.linspace(0, 5, 100)</span>
+<span class="sd">    sys = System(km, times=times)</span>
+<span class="sd">    sys.integrate()</span>
+
+<span class="sd">In this case, we use defaults for the numerical values of the constants,</span>
+<span class="sd">specified quantities, initial conditions, etc. You probably won&#39;t like</span>
+<span class="sd">these defaults. You can also specify such values via constructor keyword</span>
+<span class="sd">arguments or via the attributes::</span>
+
+<span class="sd">    sys = System(km,</span>
+<span class="sd">                 initial_conditions={dynamicsymbol(&#39;q1&#39;): 0.5},</span>
+<span class="sd">                 times=times)</span>
+<span class="sd">    sys.constants = {symbol(&#39;m&#39;): 5.0}</span>
+<span class="sd">    sys.integrate()</span>
+
+<span class="sd">To double-check the constants, specifieds, states and times in your problem,</span>
+<span class="sd">look at these properties::</span>
+
+<span class="sd">    sys.constants_symbols</span>
+<span class="sd">    sys.specifieds_symbols</span>
+<span class="sd">    sys.states</span>
+<span class="sd">    sys.times</span>
+
+<span class="sd">In this case, the System generates the numerical ode function for you</span>
+<span class="sd">behind the scenes. If you want to customize how this function is generated,</span>
+<span class="sd">you must call ``generate_ode_function`` on your own::</span>
+
+<span class="sd">    sys = System(KM)</span>
+<span class="sd">    sys.generate_ode_function(generator=&#39;cython&#39;)</span>
+<span class="sd">    sys.integrate()</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">repeat</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">dynamicsymbols</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics.functions</span> <span class="kn">import</span> <span class="n">find_dynamicsymbols</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+
+<span class="kn">from</span> <span class="nn">.codegen.ode_function_generators</span> <span class="kn">import</span> <span class="n">generate_ode_function</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">PyDyFutureWarning</span>
+
+<span class="n">SYMPY_VERSION</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">__version__</span>
+
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;once&#39;</span><span class="p">,</span> <span class="n">PyDyFutureWarning</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="System"><a class="viewcode-back" href="../../system.html#pydy.system.System">[docs]</a><span class="k">class</span> <span class="nc">System</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;See the class&#39;s attributes for a description of the arguments to</span>
+<span class="sd">    this constructor.</span>
+
+<span class="sd">    The parameters to this constructor are all attributes of the System.</span>
+<span class="sd">    Actually, they are properties. With the exception of ``eom_method``,</span>
+<span class="sd">    these attributes can be modified directly at any future point.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    eom_method : sympy.physics.mechanics.KanesMethod</span>
+<span class="sd">        You must have called ``KanesMethod.kanes_equations()`` *before*</span>
+<span class="sd">        constructing this ``System``.</span>
+<span class="sd">    constants : dict, optional (default: all 1.0)</span>
+<span class="sd">        This dictionary maps SymPy Symbol objects to floats.</span>
+<span class="sd">    specifieds : dict, optional (default: all 0)</span>
+<span class="sd">        This dictionary maps SymPy Functions of time objects, or tuples of</span>
+<span class="sd">        them, to floats, NumPy arrays, or functions of the state and time.</span>
+<span class="sd">    ode_solver : function, optional (default: scipy.integrate.odeint)</span>
+<span class="sd">        This function computes the derivatives of the states.</span>
+<span class="sd">    initial_conditions : dict, optional (default: all zero)</span>
+<span class="sd">        This dictionary maps SymPy Functions of time objects to floats.</span>
+<span class="sd">    times : array_like, shape(n,), optional</span>
+<span class="sd">        An array_like object, which contains time values over which</span>
+<span class="sd">        equations are integrated. It has to be supplied before</span>
+<span class="sd">        System.integrate() can be called.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="System.__init__"><a class="viewcode-back" href="../../system.html#pydy.system.System.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eom_method</span><span class="p">,</span> <span class="n">constants</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">specifieds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ode_solver</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">initial_conditions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eom_method</span> <span class="o">=</span> <span class="n">eom_method</span>
+
+        <span class="c1"># TODO : What if user adds symbols after constructing a System?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_constants_symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Kane_constant_symbols</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Kane_undefined_dynamicsymbols</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">constants</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="n">constants</span>
+
+        <span class="k">if</span> <span class="n">specifieds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span> <span class="o">=</span> <span class="n">specifieds</span>
+
+        <span class="k">if</span> <span class="n">ode_solver</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ode_solver</span> <span class="o">=</span> <span class="n">odeint</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ode_solver</span> <span class="o">=</span> <span class="n">ode_solver</span>
+
+        <span class="k">if</span> <span class="n">initial_conditions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span> <span class="o">=</span> <span class="n">initial_conditions</span>
+
+        <span class="k">if</span> <span class="n">times</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">times</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evaluate_ode_function</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a list of the symbolic functions of time representing the</span>
+<span class="sd">        system&#39;s generalized coordinates.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">q</span><span class="p">[:]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">speeds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a list of the symbolic functions of time representing the</span>
+<span class="sd">        system&#39;s generalized speeds.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">u</span><span class="p">[:]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">states</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a list of the symbolic functions of time representing the</span>
+<span class="sd">        system&#39;s states, i.e. generalized coordinates plus the generalized</span>
+<span class="sd">        speeds. These are in the same order as used in integration (as</span>
+<span class="sd">        passed into evaluate_ode_function) and match the order of the mass</span>
+<span class="sd">        matrix and forcing vector.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">speeds</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">eom_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This is a sympy.physics.mechanics.KanesMethod. The method used to</span>
+<span class="sd">        generate the equations of motion. Read-only.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eom_method</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">constants</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A dict that provides the numerical values for the constants in the</span>
+<span class="sd">        problem (all non-dynamics symbols). Keys are the symbols for the</span>
+<span class="sd">        constants, and values are floats. Constants that are not specified in</span>
+<span class="sd">        this dict are given a default value of 1.0.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constants</span>
+
+    <span class="nd">@constants</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constants</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_constants</span><span class="p">(</span><span class="n">constants</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_constants</span> <span class="o">=</span> <span class="n">constants</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">constants_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A set of the symbolic constants (not functions of time) in the</span>
+<span class="sd">        system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constants_symbols</span>
+
+    <span class="k">def</span> <span class="nf">_check_constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constants</span><span class="p">):</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants_symbols</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Symbol </span><span class="si">{}</span><span class="s2"> is not a constant.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_constants_padded_with_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constants_symbols</span><span class="p">,</span>
+                     <span class="n">repeat</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constants_symbols</span><span class="p">))))</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">specifieds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A dict that provides numerical values for the specified quantities</span>
+<span class="sd">        in the problem (all dynamicsymbols that are not defined by the</span>
+<span class="sd">        equations of motion). There are two possible formats. (1) is more</span>
+<span class="sd">        flexible, but (2) is more efficient (by a factor of 3).</span>
+
+<span class="sd">        (1) Keys are the symbols for the specified quantities, or a tuple of</span>
+<span class="sd">        symbols, and values are the floats, arrays of floats, or functions that</span>
+<span class="sd">        generate the values. If a dictionary value is a function, it must have</span>
+<span class="sd">        the same signature as ``f(x, t)``, the ode right-hand-side function</span>
+<span class="sd">        (see the documentation for the ``ode_solver`` attribute). You needn&#39;t</span>
+<span class="sd">        provide values for all specified symbols. Those for which you do not</span>
+<span class="sd">        give a value will default to 0.0.</span>
+
+<span class="sd">        (2) There are two keys: &#39;symbols&#39; and &#39;values&#39;. The value for &#39;symbols&#39;</span>
+<span class="sd">        is an iterable of *all* the specified quantities in the order that you</span>
+<span class="sd">        have provided them in &#39;values&#39;. Values is an ndarray, whose length is</span>
+<span class="sd">        `len(sys.specifieds_symbols)`, or a function of x and t that returns an</span>
+<span class="sd">        ndarray (also of length `len(sys.specifieds_symbols)`). NOTE: You must</span>
+<span class="sd">        provide values for all specified symbols. In this case, we do *not*</span>
+<span class="sd">        provide default values.</span>
+
+<span class="sd">        NOTE: If you switch formats with the same instance of System, you</span>
+<span class="sd">        *must* call `generate_ode_function()` before calling `integrate()`</span>
+<span class="sd">        again.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Here are examples for (1). Keys can be individual symbols, or a tuple</span>
+<span class="sd">        of symbols. Length of a value must match the length of the</span>
+<span class="sd">        corresponding key. Values can be functions that return iterables::</span>
+
+<span class="sd">            sys = System(km)</span>
+<span class="sd">            sys.specifieds = {(a, b, c): np.ones(3), d: lambda x, t: -3 * x[0]}</span>
+<span class="sd">            sys.specifieds = {(a, b, c): lambda x, t: np.ones(3)}</span>
+
+<span class="sd">         Here are examples for (2):</span>
+
+<span class="sd">            sys.specifieds = {&#39;symbols&#39;: (a, b, c, d),</span>
+<span class="sd">                              &#39;values&#39;: np.ones(4)}</span>
+<span class="sd">            sys.specifieds = {&#39;symbols&#39;: (a, b, c, d),</span>
+<span class="sd">                              &#39;values&#39;: lambda x, t: np.ones(4)}</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds</span>
+
+    <span class="nd">@specifieds</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">specifieds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specifieds</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_specifieds</span><span class="p">(</span><span class="n">specifieds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds</span> <span class="o">=</span> <span class="n">specifieds</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">specifieds_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A set of the dynamicsymbols you must specify.&quot;&quot;&quot;</span>
+        <span class="c1"># TODO : Eventually use a method in the KanesMethod class.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_symbols</span>
+
+    <span class="k">def</span> <span class="nf">_assert_is_specified_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">all_symbols</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">symbol</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_symbols</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Symbol </span><span class="si">{}</span><span class="s2"> is not a &#39;specified&#39; symbol.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">symbol</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_assert_symbol_appears_multiple_times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">symbols_so_far</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols_so_far</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Symbol </span><span class="si">{}</span><span class="s2"> appears more than once.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">symbol</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_specifieds_are_in_format_2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specifieds</span><span class="p">):</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="n">specifieds</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;symbols&#39;</span> <span class="ow">in</span> <span class="n">keys</span> <span class="ow">and</span> <span class="s1">&#39;values&#39;</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_check_specifieds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specifieds</span><span class="p">):</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds_symbols</span>
+
+        <span class="n">symbols_so_far</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_are_in_format_2</span><span class="p">(</span><span class="n">specifieds</span><span class="p">):</span>
+
+            <span class="c1"># The symbols must be specifieds.</span>
+            <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">specifieds</span><span class="p">[</span><span class="s1">&#39;symbols&#39;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_assert_is_specified_symbol</span><span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
+
+            <span class="c1"># Each specified symbol can appear only once.</span>
+            <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">specifieds</span><span class="p">[</span><span class="s1">&#39;symbols&#39;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_assert_symbol_appears_multiple_times</span><span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="n">symbols_so_far</span><span class="p">)</span>
+                <span class="n">symbols_so_far</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span>
+
+            <span class="c1"># Must have provided all specifieds.</span>
+            <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds_symbols</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sym</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">specifieds</span><span class="p">[</span><span class="s1">&#39;symbols&#39;</span><span class="p">]:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;Specified symbol </span><span class="si">{}</span><span class="s2"> is not provided.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sym</span><span class="p">))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">specifieds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+                <span class="c1"># The symbols must be specifieds.</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">ki</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_is_specified_symbol</span><span class="p">(</span><span class="n">ki</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_assert_is_specified_symbol</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
+
+                <span class="c1"># Each specified symbol can appear only once.</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">ki</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_symbol_appears_multiple_times</span><span class="p">(</span>
+                            <span class="n">ki</span><span class="p">,</span> <span class="n">symbols_so_far</span><span class="p">)</span>
+                        <span class="n">symbols_so_far</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ki</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_assert_symbol_appears_multiple_times</span><span class="p">(</span>
+                        <span class="n">k</span><span class="p">,</span> <span class="n">symbols_so_far</span><span class="p">)</span>
+                    <span class="n">symbols_so_far</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_symbol_is_in_specifieds_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">specifieds_dict</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">specifieds_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">symbol</span> <span class="o">==</span> <span class="n">k</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">k</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_specifieds_padded_with_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">specifieds_symbols</span><span class="p">,</span>
+                     <span class="n">repeat</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">specifieds_symbols</span><span class="p">))))</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;An array-like object, containing time values over which the</span>
+<span class="sd">        equations of motion are integrated, numerically.</span>
+
+<span class="sd">        The object should be in a format which the integration module to be</span>
+<span class="sd">        used can accept.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span>
+
+    <span class="nd">@times</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_times</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">new_times</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_times</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Times supplied should be in an array_like format.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Times supplied must have positive values.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Times supplied should be in an ascending order.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ode_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A function that performs forward integration. It must have the</span>
+<span class="sd">        same signature as scipy.integrate.odeint, which is::</span>
+
+<span class="sd">            x_history = ode_solver(f, x0, t, args=(args,))</span>
+
+<span class="sd">        where f is a function f(x, t, args), x0 are the initial conditions,</span>
+<span class="sd">        x_history is the state time history, x is the state, t is the time,</span>
+<span class="sd">        and args is a keyword argument takes arguments that are then passed</span>
+<span class="sd">        to f. The default solver is odeint.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ode_solver</span>
+
+    <span class="nd">@ode_solver</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">ode_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ode_solver</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ode_solver</span><span class="p">,</span> <span class="s1">&#39;__call__&#39;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;``ode_solver`` (</span><span class="si">{}</span><span class="s2">) is not a function.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ode_solver</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ode_solver</span> <span class="o">=</span> <span class="n">ode_solver</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initial conditions for all states (coordinates and speeds). Keys</span>
+<span class="sd">        are the symbols for the coordinates and speeds, and values are</span>
+<span class="sd">        floats. Coordinates or speeds that are not specified in this dict</span>
+<span class="sd">        are given a default value of 0.0.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions</span>
+
+    <span class="nd">@initial_conditions</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_conditions</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_initial_conditions</span><span class="p">(</span><span class="n">initial_conditions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions</span> <span class="o">=</span> <span class="n">initial_conditions</span>
+
+    <span class="k">def</span> <span class="nf">_check_initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_conditions</span><span class="p">):</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">initial_conditions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Symbol </span><span class="si">{}</span><span class="s2"> is not a state.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_initial_conditions_padded_with_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">,</span>
+                     <span class="n">repeat</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">))))</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">evaluate_ode_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A function generated by ``generate_ode_function`` that computes</span>
+<span class="sd">        the state derivatives:</span>
+
+<span class="sd">            x&#39; = evaluate_ode_function(x, t, args=(...))</span>
+
+<span class="sd">        This function is used by the ``ode_solver``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evaluate_ode_function</span>
+
+    <span class="k">def</span> <span class="nf">_args_for_gen_ode_func</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a tuple of arguments in the form required by</span>
+<span class="sd">        ``pydy.codegen.ode_function_generators.generate_ode_function``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">forcing_full</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">speeds</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">constants_symbols</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">args</span>
+
+    <span class="k">def</span> <span class="nf">_kwargs_for_gen_ode_func</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a dictionary of arguments in the form required by</span>
+<span class="sd">        ``pydy.codegen.ode_function_generators.generage_ode_function``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_are_in_format_2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span><span class="p">):</span>
+            <span class="n">specifieds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span><span class="p">[</span><span class="s1">&#39;symbols&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">specifieds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds_symbols</span>
+
+        <span class="c1"># generate_ode_func does not accept an empty tuple for the</span>
+        <span class="c1"># specifieds, so set it to None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">specifieds</span><span class="p">:</span>
+            <span class="n">specifieds</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mass_matrix&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">mass_matrix_full</span><span class="p">,</span>
+                  <span class="s1">&#39;specifieds&#39;</span><span class="p">:</span> <span class="n">specifieds</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">kwargs</span>
+
+<div class="viewcode-block" id="System.generate_ode_function"><a class="viewcode-back" href="../../system.html#pydy.system.System.generate_ode_function">[docs]</a>    <span class="k">def</span> <span class="nf">generate_ode_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calls ``pydy.codegen.ode_function_generators.generate_ode_function``</span>
+<span class="sd">        with the appropriate arguments, and sets the ``evaluate_ode_function``</span>
+<span class="sd">        attribute to the resulting function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs</span>
+<span class="sd">            All other kwargs are passed onto</span>
+<span class="sd">            ``pydy.codegen.ode_function_generators.generate_ode_function()``.</span>
+<span class="sd">            Don&#39;t specify the ``specifieds`` keyword argument though; the</span>
+<span class="sd">            ``System`` class takes care of those.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        evaluate_ode_function : function</span>
+<span class="sd">            A function which evaluates the derivaties of the states.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="s1">&#39;specified&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;specified&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;User supplied &#39;specified&#39; kwarg was disregarded.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;specifieds&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;specifieds&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;User supplied &#39;specifieds&#39; kwarg was disregarded.&quot;</span><span class="p">)</span>
+
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs_for_gen_ode_func</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evaluate_ode_function</span> <span class="o">=</span> <span class="n">generate_ode_function</span><span class="p">(</span>
+            <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_args_for_gen_ode_func</span><span class="p">(),</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_ode_function</span></div>
+
+<div class="viewcode-block" id="System.integrate"><a class="viewcode-back" href="../../system.html#pydy.system.System.integrate">[docs]</a>    <span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">solver_kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Integrates the equations ``evaluate_ode_function()`` using</span>
+<span class="sd">        ``ode_solver``.</span>
+
+<span class="sd">        It is necessary to have first generated an ode function. If you have</span>
+<span class="sd">        not done so, we do so automatically by invoking</span>
+<span class="sd">        ``generate_ode_function()``. However, if you want to customize how this</span>
+<span class="sd">        function is generated (e.g., change the generator to cython), you can</span>
+<span class="sd">        call ``generate_ode_function()`` on your own (before calling</span>
+<span class="sd">        ``integrate()``).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **solver_kwargs</span>
+<span class="sd">            Optional arguments that are passed on to the ``ode_solver``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        x_history : np.array, shape(num_integrator_time_steps, 2)</span>
+<span class="sd">            The trajectory of states (coordinates and speeds) through the</span>
+<span class="sd">            requested time interval. num_integrator_time_steps is either</span>
+<span class="sd">            len(times) if len(times) &gt; 2, or is determined by the</span>
+<span class="sd">            ``ode_solver``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Users might have changed these properties by directly accessing the</span>
+        <span class="c1"># dict, without using the setter. Before we integrate, make sure they</span>
+        <span class="c1"># did not muck up these dicts.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_constants</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_specifieds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_times</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_ode_function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_ode_function</span><span class="p">()</span>
+
+        <span class="n">init_conds_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions_padded_with_defaults</span><span class="p">()</span>
+        <span class="n">initial_conditions_in_proper_order</span> <span class="o">=</span> \
+            <span class="p">[</span><span class="n">init_conds_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_are_in_format_2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span><span class="p">):</span>
+            <span class="n">specified_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specifieds</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">specified_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specifieds_padded_with_defaults</span><span class="p">()</span>
+
+        <span class="c1"># If there are no specifieds then specified_value will be an empty</span>
+        <span class="c1"># dict.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">specified_value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">specified_value</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_constants_padded_with_defaults</span><span class="p">(),)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">specified_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constants_padded_with_defaults</span><span class="p">())</span>
+
+        <span class="n">x_history</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ode_solver</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_ode_function</span><span class="p">,</span>
+            <span class="n">initial_conditions_in_proper_order</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span>
+            <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">solver_kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x_history</span></div>
+
+    <span class="k">def</span> <span class="nf">_Kane_inlist_insyms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO temporary.&quot;&quot;&quot;</span>
+
+        <span class="n">uaux</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">_uaux</span><span class="p">[:]</span>
+        <span class="n">uauxdot</span> <span class="o">=</span> <span class="p">[</span><span class="n">sm</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">dynamicsymbols</span><span class="o">.</span><span class="n">_t</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">uaux</span><span class="p">]</span>
+
+        <span class="c1"># Checking for dynamic symbols outside the dynamic differential</span>
+        <span class="c1"># equations; throws error if there is.</span>
+
+        <span class="c1"># TODO : KanesMethod should provide public attributes for qdot,</span>
+        <span class="c1"># udot, uaux, and uauxdot.</span>
+        <span class="c1"># NOTE : There have been breaking changes in SymPy, e.g.</span>
+        <span class="c1"># https://github.com/pydy/pydy/issues/395, so all of these need to be</span>
+        <span class="c1"># converted to lists before summing.</span>
+        <span class="n">insyms</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">q</span><span class="p">[:])</span> <span class="o">+</span>
+                     <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">_qdot</span><span class="p">[:])</span> <span class="o">+</span>
+                     <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">u</span><span class="p">[:])</span> <span class="o">+</span>
+                     <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">_udot</span><span class="p">[:])</span> <span class="o">+</span>
+                     <span class="nb">list</span><span class="p">(</span><span class="n">uaux</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">uauxdot</span><span class="p">))</span>
+
+        <span class="n">inlist</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">forcing_full</span><span class="p">[:]</span> <span class="o">+</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">eom_method</span><span class="o">.</span><span class="n">mass_matrix_full</span><span class="p">[:])</span>
+
+        <span class="k">return</span> <span class="n">inlist</span><span class="p">,</span> <span class="n">insyms</span>
+
+    <span class="k">def</span> <span class="nf">_Kane_undefined_dynamicsymbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Similar to ``_find_dynamicsymbols()``, except that it checks all</span>
+<span class="sd">        syms used in the system. Code is copied from ``linearize()``.</span>
+
+<span class="sd">        TODO temporarily here until KanesMethod and Lagranges method have an</span>
+<span class="sd">        interface for obtaining these quantities.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">from_eoms</span><span class="p">,</span> <span class="n">from_sym_lists</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Kane_inlist_insyms</span><span class="p">()</span>
+        <span class="n">functions_of_time</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">from_eoms</span><span class="p">:</span>
+            <span class="n">functions_of_time</span> <span class="o">=</span> <span class="n">functions_of_time</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
+                <span class="n">find_dynamicsymbols</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">functions_of_time</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">from_sym_lists</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_Kane_constant_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Similar to ``_find_othersymbols()``, except it checks all syms used in</span>
+<span class="sd">        the system.</span>
+
+<span class="sd">        Remove the time symbol.</span>
+
+<span class="sd">        TODO temporary.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">from_eoms</span><span class="p">,</span> <span class="n">from_sym_lists</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Kane_inlist_insyms</span><span class="p">()</span>
+        <span class="n">unique_symbols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">from_eoms</span><span class="p">:</span>
+            <span class="n">unique_symbols</span> <span class="o">=</span> <span class="n">unique_symbols</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="n">unique_symbols</span>
+        <span class="n">constants</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dynamicsymbols</span><span class="o">.</span><span class="n">_t</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">constants</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.system</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

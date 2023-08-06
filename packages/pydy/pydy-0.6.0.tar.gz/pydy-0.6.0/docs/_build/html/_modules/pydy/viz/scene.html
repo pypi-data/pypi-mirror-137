@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pydy.viz.scene &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.viz.scene</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pydy.viz.scene</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># standard library</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">distutils</span>
+<span class="kn">import</span> <span class="nn">distutils.dir_util</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="c1"># external</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">parse_version</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">latex</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.mechanics</span> <span class="kn">import</span> <span class="n">ReferenceFrame</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">dynamicsymbols</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pythreejs</span> <span class="k">as</span> <span class="nn">p3js</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">p3js</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># local</span>
+<span class="kn">from</span> <span class="nn">.camera</span> <span class="kn">import</span> <span class="n">PerspectiveCamera</span>
+<span class="kn">from</span> <span class="nn">.server</span> <span class="kn">import</span> <span class="n">Server</span>
+<span class="kn">from</span> <span class="nn">.light</span> <span class="kn">import</span> <span class="n">PointLight</span>
+<span class="kn">from</span> <span class="nn">..system</span> <span class="kn">import</span> <span class="n">System</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">PyDyImportWarning</span>
+
+<span class="n">raw_input</span> <span class="o">=</span> <span class="nb">input</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Scene&#39;</span><span class="p">]</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;once&#39;</span><span class="p">,</span> <span class="n">PyDyImportWarning</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">IPython</span>
+    <span class="k">if</span> <span class="n">parse_version</span><span class="p">(</span><span class="n">IPython</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">parse_version</span><span class="p">(</span><span class="s1">&#39;3.0&#39;</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;PyDy only supports IPython &gt;= 3.0.0. You have &#39;</span>
+               <span class="s1">&#39;IPython </span><span class="si">{}</span><span class="s1"> installed. IPython related functionalities will &#39;</span>
+               <span class="s1">&#39;not be available&#39;</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">IPython</span><span class="o">.</span><span class="n">__version__</span><span class="p">),</span> <span class="n">PyDyImportWarning</span><span class="p">)</span>
+        <span class="n">ipython_less_than_3</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ipython_less_than_3</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># If IPython &gt;= 4.0 use ipywidgets if installed to avoid the</span>
+        <span class="c1"># deprecation warning.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">IPython.html</span> <span class="kn">import</span> <span class="n">widgets</span>
+        <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Javascript</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">IPython</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="Scene"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.scene.Scene">[docs]</a><span class="k">class</span> <span class="nc">Scene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The Scene class generates all of the data required for animating a</span>
+<span class="sd">    set of visualization frames.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">pydy_directory</span> <span class="o">=</span> <span class="s2">&quot;pydy-resources&quot;</span>
+
+<div class="viewcode-block" id="Scene.__init__"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.scene.Scene.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_frame</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="o">*</span><span class="n">visualization_frames</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a Scene instance.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        reference_frame : sympy.physics.mechanics.ReferenceFrame</span>
+<span class="sd">            The base reference frame for the scene. The motion of all of the</span>
+<span class="sd">            visualization frames, cameras, and lights will be generated with</span>
+<span class="sd">            respect to this reference frame.</span>
+<span class="sd">        origin : sympy.physics.mechanics.Point</span>
+<span class="sd">            The base point for the scene. The motion of all of the</span>
+<span class="sd">            visualization frames, cameras, and lights will be generated with</span>
+<span class="sd">            respect to this point.</span>
+<span class="sd">        visualization_frames : VisualizationFrame</span>
+<span class="sd">            One or more visualization frames which are to be displayed in</span>
+<span class="sd">            the scene.</span>
+<span class="sd">        name : string, optional, default=&#39;unnamed&#39;</span>
+<span class="sd">            Name of Scene object.</span>
+<span class="sd">        cameras : list of Camera instances, optional</span>
+<span class="sd">            The cameras with which to display the object. The first camera</span>
+<span class="sd">            is used to display the scene initially. The default is a single</span>
+<span class="sd">            PerspectiveCamera tied to the base reference frame and</span>
+<span class="sd">            positioned away from the origin along the reference frame&#39;s z</span>
+<span class="sd">            axis.</span>
+<span class="sd">        lights : list of Light instances, optional</span>
+<span class="sd">            The lights used in the scene. The default is a single Light tied</span>
+<span class="sd">            to the base reference frame and positioned away from the origin</span>
+<span class="sd">            along the reference frame&#39;s z axis at the same point as the</span>
+<span class="sd">            default camera.</span>
+<span class="sd">        system : System, optional, default=None</span>
+<span class="sd">            A PyDy system class which is initiated such that the</span>
+<span class="sd">            ``integrate()`` method will produce valid state trajectories.</span>
+<span class="sd">        times : array_like, shape(n,), optional, default=None</span>
+<span class="sd">            Monotoncially increaing float values of time that correspond to</span>
+<span class="sd">            the state trajectories.</span>
+<span class="sd">        constants : dictionary, optional, default=None</span>
+<span class="sd">            A dictionary that maps SymPy symbols to floats. This should</span>
+<span class="sd">            contain at least all necessary symbols to evaluate the</span>
+<span class="sd">            transformation matrices of the visualization frame, cameras, and</span>
+<span class="sd">            lights and to evaluate the Shapes&#39; parameters.</span>
+<span class="sd">        states_symbols : sequence of functions, len(m), optional, default=None</span>
+<span class="sd">            An ordered sequence of the SymPy functions that represent the</span>
+<span class="sd">            states. The order must match the order of the</span>
+<span class="sd">            ``states_trajectories``.</span>
+<span class="sd">        states_trajectories : array_like, shape(n, m), optional, default=None</span>
+<span class="sd">            A two dimensional array with numerical values for each state at</span>
+<span class="sd">            each point in time during the animation.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        =====</span>
+<span class="sd">        The user is allowed to supply either system or times, constants,</span>
+<span class="sd">        states_symbols, and states_trajectories. Providing a System allows for</span>
+<span class="sd">        interactively changing the simulation parameters via the Scene GUI</span>
+<span class="sd">        in the IPython notebook.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span> <span class="o">=</span> <span class="n">reference_frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">origin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualization_frames</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">visualization_frames</span><span class="p">)</span>
+
+        <span class="n">vec</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span><span class="o">.</span><span class="n">z</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_camera_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;p_camera&#39;</span><span class="p">,</span> <span class="n">vec</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_light_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">locatenew</span><span class="p">(</span><span class="s1">&#39;p_light&#39;</span><span class="p">,</span> <span class="n">vec</span><span class="p">)</span>
+
+        <span class="n">default_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;unnamed&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;cameras&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">PerspectiveCamera</span><span class="p">(</span><span class="s1">&#39;DefaultCamera&#39;</span><span class="p">,</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span><span class="p">,</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">_default_camera_point</span><span class="p">)],</span>
+                          <span class="s1">&#39;lights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">PointLight</span><span class="p">(</span><span class="s1">&#39;DefaultLight&#39;</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">_default_light_point</span><span class="p">)],</span>
+                          <span class="s1">&#39;system&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="s1">&#39;times&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="s1">&#39;constants&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="s1">&#39;states_symbols&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="s1">&#39;states_trajectories&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="s1">&#39;frames_per_second&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+        <span class="n">default_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">default_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the name of the scene.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the name of the scene.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;name&#39; should be a valid string.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">new_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the origin point of the scene.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_origin</span>
+
+    <span class="nd">@origin</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_origin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the origin point of the scene.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_origin</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;origin&#39; should be a valid Point object.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_origin</span> <span class="o">=</span> <span class="n">new_origin</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">reference_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the base reference frame of the scene.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reference_frame</span>
+
+    <span class="nd">@reference_frame</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">reference_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_reference_frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the base reference frame for the scene.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_reference_frame</span><span class="p">,</span> <span class="n">ReferenceFrame</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;reference_frame&#39; should be a valid &quot;</span>
+                            <span class="s2">&quot;ReferenceFrame object.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reference_frame</span> <span class="o">=</span> <span class="n">new_reference_frame</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">system</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_system</span>
+
+    <span class="nd">@system</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">system</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_system</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">new_system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_system</span><span class="p">,</span> <span class="n">System</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> should be a valid pydy.System object&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_system</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">new_system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;The </span><span class="si">{}</span><span class="s1"> attribute has already been set, so the system &#39;</span>
+                   <span class="s1">&#39;cannot be set. Use the clear_trajectories method to &#39;</span>
+                   <span class="s1">&#39;set all relevant attributes to None.&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;constants&#39;</span><span class="p">,</span> <span class="s1">&#39;states_symbols&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;states_trajectories&#39;</span><span class="p">]:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attr</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_system</span> <span class="o">=</span> <span class="n">new_system</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">times</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span>
+
+    <span class="nd">@times</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_times</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">new_times</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;The system attribute has already been set, so the &#39;</span>
+                       <span class="s1">&#39;times cannot be set. Set Scene.system = None to &#39;</span>
+                       <span class="s1">&#39;allow a time array to be added.&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">new_times</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">states_trajectories</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">len_traj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states_trajectories</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_times</span><span class="p">)</span> <span class="o">!=</span> <span class="n">len_traj</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;The times array length, </span><span class="si">{}</span><span class="s1">, does not match the &#39;</span>
+                           <span class="s1">&#39;length of the state trajectories array, </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">new_times</span><span class="p">),</span> <span class="n">len_traj</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="n">new_times</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">new_times</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">new_times</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">states_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">states</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_states_symbols</span>
+
+    <span class="nd">@states_symbols</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">states_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_states_symbols</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">new_states_symbols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;The system attribute has already been set, so the &#39;</span>
+                       <span class="s1">&#39;coordinates cannot be set. Set Scene.system = None &#39;</span>
+                       <span class="s1">&#39;to allow a coordinates array to be added.&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">new_states_symbols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">states_trajectories</span>
+                <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">len_traj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states_trajectories</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_states_symbols</span><span class="p">)</span> <span class="o">!=</span> <span class="n">len_traj</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;The number of states, </span><span class="si">{}</span><span class="s1">, does not match the &#39;</span>
+                           <span class="s1">&#39;number of states present in the state &#39;</span>
+                           <span class="s1">&#39;trajectories array, </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">new_states_symbols</span><span class="p">),</span> <span class="n">len_traj</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_states_symbols</span> <span class="o">=</span> <span class="n">new_states_symbols</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">states_trajectories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># TODO : This calculation needs to be cached in some way.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_states_trajectories</span>
+
+    <span class="nd">@states_trajectories</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">states_trajectories</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_states_trajectories</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">new_states_trajectories</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;The system attribute has already been set, so the &#39;</span>
+                       <span class="s1">&#39;states_trajectories cannot be set. Set Scene.system &#39;</span>
+                       <span class="s1">&#39;= None to allow a states_trajectories array to be &#39;</span>
+                       <span class="s1">&#39;added.&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">new_states_trajectories</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)</span> <span class="o">!=</span> <span class="n">new_states_trajectories</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;The number of time instances do not match the &quot;</span>
+                           <span class="s2">&quot;number in the times array.&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">new_states_trajectories</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">states_symbols</span>
+                <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">new_states_trajectories</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states_symbols</span><span class="p">):</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;The number of states in the trajectory do not &quot;</span>
+                           <span class="s2">&quot;match the number of states symbols.&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_states_trajectories</span> <span class="o">=</span> <span class="n">new_states_trajectories</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">constants</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">constants</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constants</span>
+
+    <span class="nd">@constants</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_constants</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">new_constants</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;The system attribute has already been set, so the &#39;</span>
+                       <span class="s1">&#39;constants cannot be set. Set Scene.system = None to &#39;</span>
+                       <span class="s1">&#39;allow a constants array to be added.&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_constants</span> <span class="o">=</span> <span class="n">new_constants</span>
+
+<div class="viewcode-block" id="Scene.clear_trajectories"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.scene.Scene.clear_trajectories">[docs]</a>    <span class="k">def</span> <span class="nf">clear_trajectories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the &#39;system&#39;, &#39;times&#39;, &#39;constants&#39;, &#39;states_symbols&#39;, and</span>
+<span class="sd">        &#39;states_trajectories&#39; to None.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;constants&#39;</span><span class="p">,</span> <span class="s1">&#39;states_symbols&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;states_trajectories&#39;</span><span class="p">]:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_generate_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates two JSON files and copies all the necessary static files</span>
+<span class="sd">        in the specified directory. One of the JSON files contains the scene</span>
+<span class="sd">        information and other one contains the simulation data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        directory : string, optional, default=None</span>
+<span class="sd">            The directory in which the json files are placed. If None, this</span>
+<span class="sd">            will be the current working directory.</span>
+<span class="sd">        prefix : string</span>
+<span class="sd">            A custom prefix for the two json files. If None, a time stamp is</span>
+<span class="sd">            used.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">_%H-%M-%S&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_json_file</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;_scene_desc.json&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_json_file</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;_simulation_data.json&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants</span>
+            <span class="n">num_time_steps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states_trajectories</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">constants</span>
+            <span class="n">num_time_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
+        <span class="c1"># TODO : This assumes that all constants have unique strings and</span>
+        <span class="c1"># that they are valid strings for the JSON file which can possibly</span>
+        <span class="c1"># fail.</span>
+        <span class="n">constant_map_for_json</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_simulation_dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_scene_dict</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;simulationData&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_json_file</span>
+
+        <span class="n">times</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">times</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">times</span>
+
+        <span class="k">if</span> <span class="n">times</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;timeDelta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">frames_per_second</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;startTime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Assume that times is evenly spaced and monotonic.</span>
+            <span class="c1"># TODO: Interpolate if times are not evenly spaced.</span>
+            <span class="n">total_time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;timeDelta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total_time</span> <span class="o">/</span> <span class="p">(</span><span class="n">num_time_steps</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;startTime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;fps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frames_per_second</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;speedup&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames_per_second</span> <span class="o">*</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;timeDelta&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;timeSteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_time_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;constant_map&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constant_map_for_json</span>
+
+        <span class="n">scene_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene_json_file</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">scene_file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">scene_data_outfile</span><span class="p">:</span>
+            <span class="n">scene_data_outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">,</span>
+                                                <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                                                <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">)))</span>
+
+        <span class="n">sim_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_json_file</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sim_file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">simulation_data_outfile</span><span class="p">:</span>
+            <span class="n">simulation_data_outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_info</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">_generate_scene_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generates a dictionary containing all of the information needed</span>
+<span class="sd">        to build the scene.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;PyDy&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;newtonian_frame&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span><span class="p">)</span>
+        <span class="c1"># TODO : This should be accomodated in scene instead of width/height</span>
+        <span class="c1"># of scene.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;workspaceSize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;objects&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;cameras&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;lights&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualization_frames</span><span class="p">:</span>
+            <span class="n">constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constants</span>
+            <span class="n">object_info</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">generate_scene_dict</span><span class="p">(</span><span class="n">constant_map</span><span class="o">=</span><span class="n">constants</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;objects&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">object_info</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">camera</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">:</span>
+            <span class="n">object_info</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">generate_scene_dict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;cameras&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">object_info</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">light</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lights</span><span class="p">:</span>
+            <span class="n">object_info</span> <span class="o">=</span> <span class="n">light</span><span class="o">.</span><span class="n">generate_scene_dict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scene_info</span><span class="p">[</span><span class="s2">&quot;lights&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">object_info</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_generate_meshes_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates KeyFrameTrack for each visualization frame.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_meshes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tracks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">traj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states_trajectories</span>
+
+        <span class="k">for</span> <span class="n">vizframe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualization_frames</span><span class="p">:</span>
+            <span class="n">vizframe</span><span class="o">.</span><span class="n">generate_transformation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span><span class="p">,</span>
+                                                    <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span>
+            <span class="n">vizframe</span><span class="o">.</span><span class="n">generate_numeric_transform_function</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states_symbols</span><span class="p">,</span>
+                                                         <span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">vizframe</span><span class="o">.</span><span class="n">_create_keyframetrack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span>
+                                           <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+                                           <span class="n">constant_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vizframe</span><span class="o">.</span><span class="n">_track</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_meshes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vizframe</span><span class="o">.</span><span class="n">_mesh</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Scene.display_jupyter"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.scene.Scene.display_jupyter">[docs]</a>    <span class="k">def</span> <span class="nf">display_jupyter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span> <span class="n">axes_arrow_length</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a PyThreeJS Renderer and AnimationAction for displaying and</span>
+<span class="sd">        animating the scene inside a Jupyter notebook.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        window_size : 2-tuple of integers</span>
+<span class="sd">            2-tuple containing the width and height of the renderer window in</span>
+<span class="sd">            pixels.</span>
+<span class="sd">        axes_arrow_length : float</span>
+<span class="sd">            If a positive value is supplied a red (x), green (y), and blue (z)</span>
+<span class="sd">            arrows of the supplied length will be displayed as arrows for the</span>
+<span class="sd">            global axes.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        =======</span>
+<span class="sd">        vbox : widgets.VBox</span>
+<span class="sd">            A vertical box containing the action (pythreejs.AnimationAction)</span>
+<span class="sd">            and renderer (pythreejs.Renderer).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">p3js</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;pythreejs needs to be installed.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_meshes_tracks</span><span class="p">()</span>
+
+        <span class="n">view_width</span> <span class="o">=</span> <span class="n">window_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">view_height</span> <span class="o">=</span> <span class="n">window_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">camera</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">PerspectiveCamera</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                        <span class="n">aspect</span><span class="o">=</span><span class="n">view_width</span><span class="o">/</span><span class="n">view_height</span><span class="p">)</span>
+        <span class="n">key_light</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">DirectionalLight</span><span class="p">()</span>
+        <span class="n">ambient_light</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">AmbientLight</span><span class="p">()</span>
+
+        <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meshes</span> <span class="o">+</span> <span class="p">[</span><span class="n">camera</span><span class="p">,</span> <span class="n">key_light</span><span class="p">,</span> <span class="n">ambient_light</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">axes_arrow_length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">children</span> <span class="o">+=</span> <span class="p">[</span><span class="n">p3js</span><span class="o">.</span><span class="n">AxesHelper</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">axes_arrow_length</span><span class="p">))]</span>
+
+        <span class="n">scene</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">Scene</span><span class="p">(</span><span class="n">children</span><span class="o">=</span><span class="n">children</span><span class="p">)</span>
+
+        <span class="n">controller</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">OrbitControls</span><span class="p">(</span><span class="n">controlling</span><span class="o">=</span><span class="n">camera</span><span class="p">)</span>
+        <span class="n">renderer</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">Renderer</span><span class="p">(</span><span class="n">camera</span><span class="o">=</span><span class="n">camera</span><span class="p">,</span> <span class="n">scene</span><span class="o">=</span><span class="n">scene</span><span class="p">,</span>
+                                 <span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="n">controller</span><span class="p">],</span>
+                                 <span class="n">width</span><span class="o">=</span><span class="n">view_width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">view_height</span><span class="p">)</span>
+
+        <span class="n">clip</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">AnimationClip</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_tracks</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">p3js</span><span class="o">.</span><span class="n">AnimationAction</span><span class="p">(</span><span class="n">p3js</span><span class="o">.</span><span class="n">AnimationMixer</span><span class="p">(</span><span class="n">scene</span><span class="p">),</span> <span class="n">clip</span><span class="p">,</span> <span class="n">scene</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">action</span><span class="p">,</span> <span class="n">renderer</span><span class="p">])</span></div>
+
+    <span class="k">def</span> <span class="nf">_generate_simulation_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a dictionary containing all of the simulation</span>
+<span class="sd">        information. It consists of all the simulation data along with</span>
+<span class="sd">        references to the objects, for allowing motion to the objects in the</span>
+<span class="sd">        PyDy visualizer.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        =====</span>
+
+<span class="sd">        This method must be called before ``generate_scene_dict``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_info</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">traj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states_trajectories</span>
+
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">visualization_frames</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lights</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span>
+                <span class="n">frame</span><span class="o">.</span><span class="n">generate_transformation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_frame</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span>
+                <span class="n">frame</span><span class="o">.</span><span class="n">generate_numeric_transform_function</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states_symbols</span><span class="p">,</span>
+                                                          <span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">frame</span><span class="o">.</span><span class="n">evaluate_transformation_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_info</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">generate_simulation_dict</span><span class="p">())</span>
+
+<div class="viewcode-block" id="Scene.generate_visualization_json_system"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.scene.Scene.generate_visualization_json_system">[docs]</a>    <span class="k">def</span> <span class="nf">generate_visualization_json_system</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates the visualization JSON files for the provided system.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        system : pydy.system.System</span>
+<span class="sd">            A fully developed PyDy system that is prepared for the</span>
+<span class="sd">            ``.integrate()`` method.</span>
+<span class="sd">        fps : int, optional, default=30</span>
+<span class="sd">            Frames per second at which animation should be displayed. Please</span>
+<span class="sd">            not that this should not exceed the hardware limit of the</span>
+<span class="sd">            display device to be used. Default is 30fps.</span>
+<span class="sd">        outfile_prefix : str, optional, default=None</span>
+<span class="sd">            A prefix for the JSON files. The files will be named as</span>
+<span class="sd">            `outfile_prefix_scene_desc.json` and</span>
+<span class="sd">            `outfile_prefix_simulation_data.json`. If not specified a</span>
+<span class="sd">            timestamp shall be used as the prefix.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        =====</span>
+<span class="sd">        The optional keyword arguments are the same as those in the</span>
+<span class="sd">        ``generate_visualization_json`` method.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="o">=</span> <span class="n">system</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">&#39;fps&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frames_per_second</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">&#39;outfile_prefix&#39;</span><span class="p">:</span>
+                <span class="n">prefix</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_json</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.create_static_html"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.scene.Scene.create_static_html">[docs]</a>    <span class="k">def</span> <span class="nf">create_static_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a directory named ``pydy-visualization`` in the current</span>
+<span class="sd">        working directory which contains all of the HTML, CSS, Javascript,</span>
+<span class="sd">        and json files required to run the vizualization application. To run</span>
+<span class="sd">        the application, navigate into the ``pydy-visualization`` directory</span>
+<span class="sd">        and start a webserver from that directory, e.g.::</span>
+
+<span class="sd">            $ python -m SimpleHTTPServer</span>
+
+<span class="sd">        Now, in a WebGL compliant browser, navigate to::</span>
+
+<span class="sd">            http://127.0.0.1:8000</span>
+
+<span class="sd">        to view and interact with the visualization.</span>
+
+<span class="sd">        This method can also be used to output files for embedding the</span>
+<span class="sd">        visualizations in static webpages. Simply copy the contents of</span>
+<span class="sd">        static directory in the relevant directory for embedding in a static</span>
+<span class="sd">        website.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        overwrite : boolean, optional, default=False</span>
+<span class="sd">            If True, the directory named ``pydy-visualization`` in the</span>
+<span class="sd">            current working directory will be overwritten.</span>
+<span class="sd">        silent : boolean, optional, default=False</span>
+<span class="sd">            If True, no messages will be displayed to STDOUT.</span>
+<span class="sd">        prefix : string, optional</span>
+<span class="sd">            An optional prefix for the json data files.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">pydy_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pydy_directory</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pydy_dir</span><span class="p">)</span> <span class="ow">and</span> <span class="n">overwrite</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;The &#39;</span><span class="si">{}</span><span class="s2">&#39; directory already exists. Would &quot;</span>
+                   <span class="s2">&quot;you like to overwrite the contents? [y|n]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">raw_input</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pydy_directory</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">ans</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+                <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Aborted!&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+
+        <span class="c1"># Copy all of the HTML/CSS/JS files from the source tree into the</span>
+        <span class="c1"># local directory.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Copying static data.&quot;</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;static&#39;</span><span class="p">)</span>
+        <span class="n">distutils</span><span class="o">.</span><span class="n">dir_util</span><span class="o">.</span><span class="n">copy_tree</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">pydy_dir</span><span class="p">)</span>
+
+        <span class="c1"># Add the two json files to the directory.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Copying Simulation data.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_json</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="n">pydy_dir</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;To view the visualzation, run `python -m &quot;</span>
+                   <span class="s2">&quot;SimpleHTTPServer` from the `</span><span class="si">{}</span><span class="s2">` directory.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pydy_directory</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Scene.remove_static_html"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.scene.Scene.remove_static_html">[docs]</a>    <span class="k">def</span> <span class="nf">remove_static_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes the ``static`` directory from the current working</span>
+<span class="sd">        directory.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        force : boolean, optional, default=False</span>
+<span class="sd">            If true, no warning is issued before the removal of the</span>
+<span class="sd">            directory.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">pydy_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pydy_directory</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pydy_dir</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All Done!&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Are you sure you would like to delete the &#39;</span><span class="si">{}</span><span class="s2">&#39; &quot;</span>
+                   <span class="s2">&quot;directory? [y|n]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">raw_input</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pydy_directory</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">ans</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+                <span class="n">force</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+            <span class="n">distutils</span><span class="o">.</span><span class="n">dir_util</span><span class="o">.</span><span class="n">remove_tree</span><span class="p">(</span><span class="n">pydy_dir</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All Done!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Aborted!&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.display"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.scene.Scene.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Displays the scene in the default web browser.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_static_html</span><span class="p">(</span><span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">resource_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pydy_directory</span><span class="p">)</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">scene_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_scene_json_file</span><span class="p">,</span>
+                        <span class="n">directory</span><span class="o">=</span><span class="n">resource_dir</span><span class="p">)</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">run_server</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_rerun_button_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">btn</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Callback for the &quot;Rerun Simulation&quot; button. When executed the</span>
+<span class="sd">        parameter values are collected from the text input widgets and used</span>
+<span class="sd">        in a new simulation of the model.&quot;&quot;&quot;</span>
+
+        <span class="n">btn</span><span class="o">.</span><span class="n">_dom_classes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;btn-info&#39;</span><span class="p">,</span> <span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;disabled&#39;</span><span class="p">]</span>
+
+        <span class="n">btn</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Rerunning Simulation...&#39;</span>
+
+        <span class="n">original_scene_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene_json_file</span>
+        <span class="n">original_sim_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_json_file</span>
+        <span class="n">original_constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">original_initial_conditions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">initial_conditions</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">w</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span>
+                                     <span class="bp">self</span><span class="o">.</span><span class="n">_constants_text_widgets</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">initial_conditions</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">w</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions_text_widgets</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="n">pydy_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pydy_directory</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_json</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="n">pydy_dir</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulation rerun failed, using previous simulation data.&#39;</span><span class="p">)</span>
+            <span class="c1"># If the simulation fails for any reason we revert everything</span>
+            <span class="c1"># back to the previous state, including filling the text widgets</span>
+            <span class="c1"># with the previous values of the constants. The _scene_info and</span>
+            <span class="c1"># _simulation_data dicts may be in a bad state, but that should</span>
+            <span class="c1"># be ok, because generate_visualiation_json will have to be run</span>
+            <span class="c1"># again for anything new to happen.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scene_json_file</span> <span class="o">=</span> <span class="n">original_scene_file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_json_file</span> <span class="o">=</span> <span class="n">original_sim_file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="n">original_constants</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">initial_conditions</span> <span class="o">=</span> <span class="n">original_initial_conditions</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fill_constants_widgets</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fill_initial_conditions_widgets</span><span class="p">()</span>
+
+        <span class="n">js_tmp</span> <span class="o">=</span> <span class="s1">&#39;jQuery(&quot;#json-input&quot;).val(&quot;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&quot;);&#39;</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="n">js_tmp</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pydy_directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene_json_file</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="n">js</span><span class="p">))</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="s1">&#39;jQuery(&quot;#simulation-load&quot;).click()&#39;</span><span class="p">))</span>
+
+        <span class="n">btn</span><span class="o">.</span><span class="n">_dom_classes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;btn-info&#39;</span><span class="p">,</span> <span class="s1">&#39;enabled&#39;</span><span class="p">]</span>
+
+        <span class="n">btn</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rerun_button_desc</span>
+
+    <span class="k">def</span> <span class="nf">_fill_constants_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fills up the constants widget with the current constants symbols</span>
+<span class="sd">        and values.&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">sym</span><span class="p">,</span> <span class="n">init_val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_system</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+            <span class="n">desc</span> <span class="o">=</span> <span class="n">latex</span><span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+
+            <span class="n">text_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatText</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">init_val</span><span class="p">,</span>
+                                            <span class="n">description</span><span class="o">=</span><span class="n">desc</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_constants_text_widgets</span><span class="p">[</span><span class="n">sym</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_widget</span>
+
+    <span class="k">def</span> <span class="nf">_fill_initial_conditions_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_system</span><span class="o">.</span><span class="n">coordinates</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_system</span><span class="o">.</span><span class="n">speeds</span><span class="p">:</span>
+
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_system</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">[</span><span class="n">sym</span><span class="p">]</span>
+
+            <span class="c1"># TODO : There should be a better way to do this. It would be nice</span>
+            <span class="c1"># to format the float in a away that always prints compactly and</span>
+            <span class="c1"># gives enough information even if the number is a very small or</span>
+            <span class="c1"># very large value.</span>
+            <span class="n">desc</span> <span class="o">=</span> <span class="n">latex</span><span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+            <span class="n">desc</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\left (</span><span class="si">{}</span><span class="s1"> \right )&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dynamicsymbols</span><span class="o">.</span><span class="n">_t</span><span class="p">),</span>
+                                <span class="s1">&#39;(</span><span class="si">{:1.2f}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_system</span><span class="o">.</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+            <span class="n">text_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatText</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">val</span><span class="p">,</span>
+                                            <span class="n">description</span><span class="o">=</span><span class="n">desc</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions_text_widgets</span><span class="p">[</span><span class="n">sym</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_widget</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_rerun_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct a button for controlling rerunning the simulations.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rerun_button</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rerun_button</span><span class="o">.</span><span class="n">_dom_classes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;btn-info&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rerun_button_desc</span> <span class="o">=</span> <span class="s2">&quot;Rerun Simulation&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rerun_button</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rerun_button_desc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rerun_button</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rerun_button_callback</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Scene.display_ipython"><a class="viewcode-back" href="../../../viz/viz.html#pydy.viz.scene.Scene.display_ipython">[docs]</a>    <span class="k">def</span> <span class="nf">display_ipython</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Displays the scene using an IPython widget inside an IPython</span>
+<span class="sd">        notebook cell.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        =====</span>
+<span class="sd">        IPython widgets are only supported by IPython versions &gt;= 3.0.0.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">IPython</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;IPython is not installed but is required. &#39;</span> <span class="o">+</span>
+                              <span class="s1">&#39;Please install IPython &gt;= 3.0 and try again&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ipython_less_than_3</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;You have IPython </span><span class="si">{}</span><span class="s1"> installed but PyDy only supports &#39;</span>
+                   <span class="s1">&#39;IPython &gt;= 3.0. Please update IPython and try again.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">IPython</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_static_html</span><span class="p">(</span><span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Only create the constants input boxes and the rerun simulation</span>
+        <span class="c1"># button if the scene was generated with a System.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_system</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions_container</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Box</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions_container</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="s2">&quot;10px&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions_text_widgets</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fill_initial_conditions_widgets</span><span class="p">()</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;h4 style=&quot;margin-left: 5ex;&quot;&gt;Initial Conditions&lt;/h4&gt;&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions_container</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">((</span><span class="n">title</span><span class="p">,</span> <span class="p">)</span> <span class="o">+</span>
+                 <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions_text_widgets</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_constants_container</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Box</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_constants_container</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="s2">&quot;20px&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_constants_text_widgets</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fill_constants_widgets</span><span class="p">()</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;h4 style=&quot;margin-left: 5ex;&quot;&gt;Constants&lt;/h4&gt;&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_constants_container</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">((</span><span class="n">title</span><span class="p">,</span> <span class="p">)</span> <span class="o">+</span>
+                 <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constants_text_widgets</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_rerun_button</span><span class="p">()</span>
+
+            <span class="n">parameter_input_container</span> <span class="o">=</span> \
+                <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">(</span><span class="n">children</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initial_conditions_container</span><span class="p">,</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">_constants_container</span><span class="p">))</span>
+
+            <span class="n">display</span><span class="p">(</span><span class="n">parameter_input_container</span><span class="p">)</span>
+            <span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rerun_button</span><span class="p">)</span>
+
+        <span class="n">ipython_static_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pydy_directory</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+        <span class="n">ip_html_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ipython_static_url</span><span class="p">,</span> <span class="s2">&quot;index_ipython.html&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ip_html_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">html_file</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="n">html_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">html</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">static_url</span><span class="o">=</span><span class="n">ipython_static_url</span><span class="p">,</span>
+                           <span class="n">load_url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ipython_static_url</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">_scene_json_file</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_html_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">html</span><span class="p">)</span>
+        <span class="c1"># NOTE : This overrides the width of the simulation canvas so that it</span>
+        <span class="c1"># stays within the borders of the IPython notebook.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_html_widget</span><span class="o">.</span><span class="n">_css</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;canvas&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="s2">&quot;100%&quot;</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">,</span> <span class="s2">&quot;padding-right&quot;</span><span class="p">,</span> <span class="s2">&quot;10px&quot;</span><span class="p">)]</span>
+
+        <span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_html_widget</span><span class="p">)</span></div></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pydy.viz.scene</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

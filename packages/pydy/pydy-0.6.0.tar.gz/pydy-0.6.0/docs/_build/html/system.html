@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>system &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="viz" href="viz/viz.html" />
+    <link rel="prev" title="models" href="models.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="viz/viz.html" title="viz"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="models"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">system</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-pydy.system">
+<span id="system"></span><h1>system<a class="headerlink" href="#module-pydy.system" title="Permalink to this headline">¶</a></h1>
+<p>The System class manages the simulation (integration) of a system whose
+equations are given by KanesMethod.</p>
+<p>Many of the attributes are also properties, and can be directly modified.</p>
+<p>Here is the procedure for using this class.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>specify your options either via the constructor or via the
+attributes.</p></li>
+<li><p>optionally, call <code class="docutils literal notranslate"><span class="pre">generate_ode_function()</span></code> if you want to customize
+how the ODE function is generated.</p></li>
+<li><p>call <code class="docutils literal notranslate"><span class="pre">integrate()</span></code> to simulate your system.</p></li>
+</ol>
+</div></blockquote>
+<p>The simplest usage of this class is as follows. First, we need a
+KanesMethod object on which we have already invoked <code class="docutils literal notranslate"><span class="pre">kanes_equations()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">km</span> <span class="o">=</span> <span class="n">KanesMethod</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">km</span><span class="o">.</span><span class="n">kanes_equations</span><span class="p">(</span><span class="n">force_list</span><span class="p">,</span> <span class="n">body_list</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">sys</span> <span class="o">=</span> <span class="n">System</span><span class="p">(</span><span class="n">km</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this case, we use defaults for the numerical values of the constants,
+specified quantities, initial conditions, etc. You probably won’t like
+these defaults. You can also specify such values via constructor keyword
+arguments or via the attributes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span> <span class="o">=</span> <span class="n">System</span><span class="p">(</span><span class="n">km</span><span class="p">,</span>
+             <span class="n">initial_conditions</span><span class="o">=</span><span class="p">{</span><span class="n">dynamicsymbol</span><span class="p">(</span><span class="s1">&#39;q1&#39;</span><span class="p">):</span> <span class="mf">0.5</span><span class="p">},</span>
+             <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="p">{</span><span class="n">symbol</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">):</span> <span class="mf">5.0</span><span class="p">}</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To double-check the constants, specifieds, states and times in your problem,
+look at these properties:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">constants_symbols</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">specifieds_symbols</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">states</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">times</span>
+</pre></div>
+</div>
+<p>In this case, the System generates the numerical ode function for you
+behind the scenes. If you want to customize how this function is generated,
+you must call <code class="docutils literal notranslate"><span class="pre">generate_ode_function</span></code> on your own:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span> <span class="o">=</span> <span class="n">System</span><span class="p">(</span><span class="n">KM</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">generate_ode_function</span><span class="p">(</span><span class="n">generator</span><span class="o">=</span><span class="s1">&#39;cython&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydy.system.System">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.system.</span></span><span class="sig-name descname"><span class="pre">System</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eom_method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specifieds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ode_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_conditions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/system.html#System"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.system.System" title="Permalink to this definition">¶</a></dt>
+<dd><p>See the class’s attributes for a description of the arguments to
+this constructor.</p>
+<p>The parameters to this constructor are all attributes of the System.
+Actually, they are properties. With the exception of <code class="docutils literal notranslate"><span class="pre">eom_method</span></code>,
+these attributes can be modified directly at any future point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>eom_method</strong><span class="classifier">sympy.physics.mechanics.KanesMethod</span></dt><dd><p>You must have called <code class="docutils literal notranslate"><span class="pre">KanesMethod.kanes_equations()</span></code> <em>before</em>
+constructing this <code class="docutils literal notranslate"><span class="pre">System</span></code>.</p>
+</dd>
+<dt><strong>constants</strong><span class="classifier">dict, optional (default: all 1.0)</span></dt><dd><p>This dictionary maps SymPy Symbol objects to floats.</p>
+</dd>
+<dt><strong>specifieds</strong><span class="classifier">dict, optional (default: all 0)</span></dt><dd><p>This dictionary maps SymPy Functions of time objects, or tuples of
+them, to floats, NumPy arrays, or functions of the state and time.</p>
+</dd>
+<dt><strong>ode_solver</strong><span class="classifier">function, optional (default: scipy.integrate.odeint)</span></dt><dd><p>This function computes the derivatives of the states.</p>
+</dd>
+<dt><strong>initial_conditions</strong><span class="classifier">dict, optional (default: all zero)</span></dt><dd><p>This dictionary maps SymPy Functions of time objects to floats.</p>
+</dd>
+<dt><strong>times</strong><span class="classifier">array_like, shape(n,), optional</span></dt><dd><p>An array_like object, which contains time values over which
+equations are integrated. It has to be supplied before
+System.integrate() can be called.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.system.System.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eom_method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specifieds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ode_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_conditions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/system.html#System.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.system.System.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.constants">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">constants</span></span><a class="headerlink" href="#pydy.system.System.constants" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dict that provides the numerical values for the constants in the
+problem (all non-dynamics symbols). Keys are the symbols for the
+constants, and values are floats. Constants that are not specified in
+this dict are given a default value of 1.0.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.constants_symbols">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">constants_symbols</span></span><a class="headerlink" href="#pydy.system.System.constants_symbols" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of the symbolic constants (not functions of time) in the
+system.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.coordinates">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinates</span></span><a class="headerlink" href="#pydy.system.System.coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of the symbolic functions of time representing the
+system’s generalized coordinates.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.eom_method">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eom_method</span></span><a class="headerlink" href="#pydy.system.System.eom_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a sympy.physics.mechanics.KanesMethod. The method used to
+generate the equations of motion. Read-only.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.evaluate_ode_function">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate_ode_function</span></span><a class="headerlink" href="#pydy.system.System.evaluate_ode_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function generated by <code class="docutils literal notranslate"><span class="pre">generate_ode_function</span></code> that computes
+the state derivatives:</p>
+<blockquote>
+<div><p>x’ = evaluate_ode_function(x, t, args=(…))</p>
+</div></blockquote>
+<p>This function is used by the <code class="docutils literal notranslate"><span class="pre">ode_solver</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.system.System.generate_ode_function">
+<span class="sig-name descname"><span class="pre">generate_ode_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/system.html#System.generate_ode_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.system.System.generate_ode_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <code class="docutils literal notranslate"><span class="pre">pydy.codegen.ode_function_generators.generate_ode_function</span></code>
+with the appropriate arguments, and sets the <code class="docutils literal notranslate"><span class="pre">evaluate_ode_function</span></code>
+attribute to the resulting function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kwargs</strong></dt><dd><p>All other kwargs are passed onto
+<code class="docutils literal notranslate"><span class="pre">pydy.codegen.ode_function_generators.generate_ode_function()</span></code>.
+Don’t specify the <code class="docutils literal notranslate"><span class="pre">specifieds</span></code> keyword argument though; the
+<code class="docutils literal notranslate"><span class="pre">System</span></code> class takes care of those.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>evaluate_ode_function</strong><span class="classifier">function</span></dt><dd><p>A function which evaluates the derivaties of the states.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.initial_conditions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initial_conditions</span></span><a class="headerlink" href="#pydy.system.System.initial_conditions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initial conditions for all states (coordinates and speeds). Keys
+are the symbols for the coordinates and speeds, and values are
+floats. Coordinates or speeds that are not specified in this dict
+are given a default value of 0.0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.system.System.integrate">
+<span class="sig-name descname"><span class="pre">integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">solver_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pydy/system.html#System.integrate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.system.System.integrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integrates the equations <code class="docutils literal notranslate"><span class="pre">evaluate_ode_function()</span></code> using
+<code class="docutils literal notranslate"><span class="pre">ode_solver</span></code>.</p>
+<p>It is necessary to have first generated an ode function. If you have
+not done so, we do so automatically by invoking
+<code class="docutils literal notranslate"><span class="pre">generate_ode_function()</span></code>. However, if you want to customize how this
+function is generated (e.g., change the generator to cython), you can
+call <code class="docutils literal notranslate"><span class="pre">generate_ode_function()</span></code> on your own (before calling
+<code class="docutils literal notranslate"><span class="pre">integrate()</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**solver_kwargs</strong></dt><dd><p>Optional arguments that are passed on to the <code class="docutils literal notranslate"><span class="pre">ode_solver</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>x_history</strong><span class="classifier">np.array, shape(num_integrator_time_steps, 2)</span></dt><dd><p>The trajectory of states (coordinates and speeds) through the
+requested time interval. num_integrator_time_steps is either
+len(times) if len(times) &gt; 2, or is determined by the
+<code class="docutils literal notranslate"><span class="pre">ode_solver</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.ode_solver">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ode_solver</span></span><a class="headerlink" href="#pydy.system.System.ode_solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that performs forward integration. It must have the
+same signature as scipy.integrate.odeint, which is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_history</span> <span class="o">=</span> <span class="n">ode_solver</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">args</span><span class="p">,))</span>
+</pre></div>
+</div>
+<p>where f is a function f(x, t, args), x0 are the initial conditions,
+x_history is the state time history, x is the state, t is the time,
+and args is a keyword argument takes arguments that are then passed
+to f. The default solver is odeint.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.specifieds">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">specifieds</span></span><a class="headerlink" href="#pydy.system.System.specifieds" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dict that provides numerical values for the specified quantities
+in the problem (all dynamicsymbols that are not defined by the
+equations of motion). There are two possible formats. (1) is more
+flexible, but (2) is more efficient (by a factor of 3).</p>
+<p>(1) Keys are the symbols for the specified quantities, or a tuple of
+symbols, and values are the floats, arrays of floats, or functions that
+generate the values. If a dictionary value is a function, it must have
+the same signature as <code class="docutils literal notranslate"><span class="pre">f(x,</span> <span class="pre">t)</span></code>, the ode right-hand-side function
+(see the documentation for the <code class="docutils literal notranslate"><span class="pre">ode_solver</span></code> attribute). You needn’t
+provide values for all specified symbols. Those for which you do not
+give a value will default to 0.0.</p>
+<p>(2) There are two keys: ‘symbols’ and ‘values’. The value for ‘symbols’
+is an iterable of <em>all</em> the specified quantities in the order that you
+have provided them in ‘values’. Values is an ndarray, whose length is
+<cite>len(sys.specifieds_symbols)</cite>, or a function of x and t that returns an
+ndarray (also of length <cite>len(sys.specifieds_symbols)</cite>). NOTE: You must
+provide values for all specified symbols. In this case, we do <em>not</em>
+provide default values.</p>
+<p>NOTE: If you switch formats with the same instance of System, you
+<em>must</em> call <cite>generate_ode_function()</cite> before calling <cite>integrate()</cite>
+again.</p>
+<p class="rubric">Examples</p>
+<p>Here are examples for (1). Keys can be individual symbols, or a tuple
+of symbols. Length of a value must match the length of the
+corresponding key. Values can be functions that return iterables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">sys</span> <span class="o">=</span> <span class="n">System</span><span class="p">(</span><span class="n">km</span><span class="p">)</span>
+   <span class="n">sys</span><span class="o">.</span><span class="n">specifieds</span> <span class="o">=</span> <span class="p">{(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">d</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+   <span class="n">sys</span><span class="o">.</span><span class="n">specifieds</span> <span class="o">=</span> <span class="p">{(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)}</span>
+
+<span class="n">Here</span> <span class="n">are</span> <span class="n">examples</span> <span class="k">for</span> <span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+
+   <span class="n">sys</span><span class="o">.</span><span class="n">specifieds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;symbols&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span>
+                     <span class="s1">&#39;values&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">)}</span>
+   <span class="n">sys</span><span class="o">.</span><span class="n">specifieds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;symbols&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span>
+                     <span class="s1">&#39;values&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.specifieds_symbols">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">specifieds_symbols</span></span><a class="headerlink" href="#pydy.system.System.specifieds_symbols" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of the dynamicsymbols you must specify.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.speeds">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">speeds</span></span><a class="headerlink" href="#pydy.system.System.speeds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of the symbolic functions of time representing the
+system’s generalized speeds.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.states">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#pydy.system.System.states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of the symbolic functions of time representing the
+system’s states, i.e. generalized coordinates plus the generalized
+speeds. These are in the same order as used in integration (as
+passed into evaluate_ode_function) and match the order of the mass
+matrix and forcing vector.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.system.System.times">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">times</span></span><a class="headerlink" href="#pydy.system.System.times" title="Permalink to this definition">¶</a></dt>
+<dd><p>An array-like object, containing time values over which the
+equations of motion are integrated, numerically.</p>
+<p>The object should be in a format which the integration module to be
+used can accept.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="models.html"
+                          title="previous chapter">models</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="viz/viz.html"
+                          title="next chapter">viz</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/system.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="viz/viz.html" title="viz"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="models"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">system</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

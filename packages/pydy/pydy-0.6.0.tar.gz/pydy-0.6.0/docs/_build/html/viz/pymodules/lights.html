@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Lights &#8212; PyDy Distribution 0.6.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Scene" href="scene.html" />
+    <link rel="prev" title="Cameras" href="cameras.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="scene.html" title="Scene"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cameras.html" title="Cameras"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../python_api.html" accesskey="U">Python Modules Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Lights</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="lights">
+<h1>Lights<a class="headerlink" href="#lights" title="Permalink to this headline">¶</a></h1>
+<section id="pointlight">
+<h2>PointLight<a class="headerlink" href="#pointlight" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pydy.viz.light.PointLight">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pydy.viz.light.</span></span><span class="sig-name descname"><span class="pre">PointLight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/light.html#PointLight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.light.PointLight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a PointLight for the visualization
+The PointLight is inherited from VisualizationFrame,</p>
+<p>It can also be attached to dynamics objects, hence we can
+get a moving Light. All the transformation matrix generation
+methods are applicable to a PointLight.
+Like VisualizationFrame,
+It can also be initialized using:
+1)Rigidbody
+2)ReferenceFrame, Point
+3)ReferenceFrame, Particle
+Either one of these must be supplied during initialization</p>
+<p>Unlike VisualizationFrame, It doesnt require a Shape argument.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pydy.viz.light.PointLight.color">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">color</span></span><a class="headerlink" href="#pydy.viz.light.PointLight.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Color of Light.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.light.PointLight.color_in_rgb">
+<span class="sig-name descname"><span class="pre">color_in_rgb</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/light.html#PointLight.color_in_rgb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.light.PointLight.color_in_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the rgb value of the
+defined light color.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.light.PointLight.generate_scene_dict">
+<span class="sig-name descname"><span class="pre">generate_scene_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/light.html#PointLight.generate_scene_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.light.PointLight.generate_scene_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method generates information for a static
+visualization in the initial conditions, in the form
+of dictionary. This contains light parameters followed
+by an init_orientation Key.</p>
+<p>Before calling this method, all the transformation matrix
+generation methods should be called, or it will give an error.
+Returns
+=======
+A dict with following Keys:</p>
+<ol class="arabic simple">
+<li><p>name: name for the camera</p></li>
+<li><p>color: Color of the light</p></li>
+<li><p>init_orientation: Initial orientation
+of the light object</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pydy.viz.light.PointLight.generate_simulation_dict">
+<span class="sig-name descname"><span class="pre">generate_simulation_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pydy/viz/light.html#PointLight.generate_simulation_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pydy.viz.light.PointLight.generate_simulation_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the simulation information for this Light object.
+It maps the simulation data information to the
+scene information via a unique id.</p>
+<p>Before calling this method, all the transformation matrix
+generation methods should be called, or it will give an error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>A dictionary containing list of 4x4 matrices mapped to</dt><dd></dd>
+<dt>the unique id as the key.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Lights</a><ul>
+<li><a class="reference internal" href="#pointlight">PointLight</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="cameras.html"
+                          title="previous chapter">Cameras</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scene.html"
+                          title="next chapter">Scene</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/viz/pymodules/lights.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="scene.html" title="Scene"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cameras.html" title="Cameras"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyDy Distribution 0.6.0.dev0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../python_api.html" >Python Modules Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Lights</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009-2022, PyDy Authors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>
