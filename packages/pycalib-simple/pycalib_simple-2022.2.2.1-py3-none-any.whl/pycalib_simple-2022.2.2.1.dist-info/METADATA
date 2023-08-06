@@ -1,0 +1,101 @@
+Metadata-Version: 2.1
+Name: pycalib-simple
+Version: 2022.2.2.1
+Summary: PyCalib: Simple Camera Calibration in Python for Beginners
+Home-page: https://github.com/nbhr/pycalib
+Author: Shohei Nobuhara
+Author-email: nob@ieee.org
+Maintainer: Shohei Nobuhara
+Maintainer-email: nob@ieee.org
+License: Apache Software License
+Download-URL: https://github.com/nbhr/pycalib
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Image Processing
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Classifier: Framework :: Matplotlib
+Classifier: Framework :: Jupyter
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: matplotlib (>=3.5.1)
+Requires-Dist: numpy (>=1.22.0)
+Requires-Dist: opencv-contrib-python (>=4.5.5.62)
+Requires-Dist: scikit-image (>=0.19.1)
+Requires-Dist: scipy (>=1.7.3)
+
+# Simple Camera Calibration in Python for Beginners
+
+This is a collection of algorithms related to multiple-view camera calibration in computer vision.  Please note that the goal of this package is to provide *minimal* examples to demostrate the concept for beginners (i.e., students).  For large-scale, realtime, accurate, robust, production-quality implementations, or for implementations for your specific situation, please consult your advisor.
+
+
+## Disclaimer
+
+This is research software and may contain bugs or other issues -- please use it at your own risk. If you experience major problems with it, you may contact us, but please note that we do not have the resources to deal with all issues.
+
+## How to use
+
+You can simply install the package by `pip`.
+```
+$ python3 -m pip install -U pycalib-simple
+```
+
+The pip installation, however, does not include examples in `./ipynb`.  To run examples, download the repository explicitly.  For example,
+1. **Local:** You can clone/download this repository to your local PC, and open `./ipynb/*.ipynb` files by your local Jupyter.
+2. **Colaboratory:** You can open each Jupyter notebook directly in Google Colaboratory by clicking the ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg) buttons below.
+   * *Warning:* Most of them do not run properly as-is, since colab does not clone images used in the Jupyter notebooks. Please upload required files manually. (or run `!pip install` and `!git clone` at the beginning of each notebook.)
+
+## Single camera
+
+1. [Intrinsic parameters from chessboard images](./ipynb/incalib.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/incalib.ipynb)
+2. [Extrinsic parameters w.r.t. a chassboard](./ipynb/excalib_chess.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/excalib_chess.ipynb)
+3. [Intrinsic / Extrinsic parameters from 2D-3D correspondences](./ipynb/calib2d3d.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/calib2d3d.ipynb)
+4. [Distortion](./ipynb/distortion.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/distortion.ipynb)
+
+## Multiple cameras
+
+1. [Multi-view triangulation](./ipynb/ncam_triangulate.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/ncam_triangulate.ipynb)
+2. [Sphere center detection for 2D-2D correspondences](./ipynb/sphere.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/sphere.ipynb)
+3. [2-view extrinsic calibration from 2D-2D correspondences](./ipynb/excalib_2d.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/excalib_2d.ipynb)
+4. [N-view registration](./ipynb/ncam_registration.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/ncam_registration.ipynb)
+5. [N-view bundle adjustment](./ipynb/ncam_ba.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/ncam_ba.ipynb)
+
+
+## 3D-3D
+
+1. [Absolute orientation between corresponding 3D points](./ipynb/absolute_orientation.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nbhr/pycalib/blob/master/ipynb/absolute_orientation.ipynb)
+
+
+## If you need to write your own calibration ...
+
+In general, prepare some synthetic dataset, i.e., a toy example, first so that your code can return the exact solution up to the machine epsillon.  Then you can try with real data or synthetic data with noise to mimic it.
+
+1. **Linear calibration:** Use `numpy`.
+2. **Non-linear (including bundule adjustment):** Try `scipy.optimize.least_squares` first.
+   * Implement your objective function as simple as possible. You do not need to consider the computational efficiency at all.
+   * If it is unacceptably slow, try the followings in this order.
+     1. Ask yourself again before trying to make it faster.  Is it really unacceptable?  If your calibration can finish in an hour and you do not do it so often, it might be OK for example. *"Premature optimization is the root of all evil."* (D. Knuth).
+     2. Make sure that the optimization runs successfully anyway.  In what follows, double-check that the optimization results do not change.
+     3. Vectorize the computation with `numpy`, i.e., no for-loops in the objective function.
+        * or use [`numba`](https://numba.pydata.org/) (e.g. `@numba.jit`)
+     4. If the system is sparse, use `jac_sparsity` option. It makes the optimization much faster even without analitical Jacobian.
+     5. Implement the analytical Jacobian. You may want to use [maxima](http://wxmaxima-developers.github.io/wxmaxima/) to automate the calculation.
+     6. Reimplement in C++ with [ceres-solver](http://ceres-solver.org/) if the computation speed is really important.
+
+
+# Contact
+
+Please note that this is research software and may contain bugs or other issues -- please use it at your own risk. If you experience major problems with it, you may [contact us](https://github.com/nbhr/pycalib/issues), but please note that we do not have the resources to deal with all issues.
+
+
+
