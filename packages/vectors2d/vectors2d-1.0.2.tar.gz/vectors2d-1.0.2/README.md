@@ -1,0 +1,29 @@
+# Vectors2D
+It's a small module called to facilitate work with vectors in Python. Adds class Vector2D and operations with vectors in 2 dimensions.
+All functions take Vector2D. They also take tuples or lists of int or float with len == 2.
+Vectors can be added, subbed, multiplied by other vector or by int/float and more. You can find all the functions of the module below.
+
+---
+## Installing
+Simply run `pip install vectors2d` from your command line.
+
+
+## Class:
+` Vector2D ` : takes ints, floats, tuple, list when creating. If not given, creates zero vector (0;0). If given only one number, assigns it to "x" coordinate. Also can take other Vector2D object.
+### Class methods:
+1. `is_zero()` : check if vector is a zero vector.
+2. `is_parallel_to(vector)` : check if the vector is parallel to the given vector. Takes Vector2D, list ot tuple.
+3. `is_perpendicular_to(vector)` : check if the vector is perpendicular to the given vector. Takes Vector2D, list ot tuple.
+4. `is_codirectional_to(vector)` : check if vector is co-directional to the given vector. Takes Vector2D, list ot tuple.
+
+
+## Global functions:
+1. `absolute_vector(vector)` : calculates an absolute value of given vector. Takes Vector2D object, list or tuple. Returns float;
+2. `sum_vectors(*vectors)` : returns the sum of all the given vectors. Takes Vector2D objects, lists and tuples in any combination. Returns Vector2D;
+3. `sub_vectors(*vectors)` : returns the subtraction of all the given vectors. Takes Vector2D objects, lists and tuples in any combination. Returns Vector2D;
+4. `mult_vector(vector, multiplier)` : returns the multiplication of the given vector by the given number (can be int or float). "vector" takes Vector2D object, list and tuple as vector; "multiplier" takes int and float as multiplier. Returns Vector2D;
+5. `scalar_mult_vectors(vectors*)` : calculates a scalar multiplication of the given vectors. Takes Vector2D objects, lists and tuples in any combination. Returns float;
+6. `get_angle(vector1, vector2)` : returns the angle between the two given vectors in radians. Takes Vector2D objects, lists and tuples in any combination. Returns float;
+7. `vector_from_dots(dot1, dot2)` : calculates a vector from the two given dots. Returns Vector2D.
+
+*For more information, see GitHub documentation: https://github.com/MitryP/vectors*
