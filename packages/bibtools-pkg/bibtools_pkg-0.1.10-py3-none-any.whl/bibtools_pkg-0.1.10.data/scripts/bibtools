@@ -1,0 +1,66 @@
+#!python
+from bibtools.pubmed import PubMed
+from bibtools.scihub import SciHub
+from bibtools.json2bibtex import json2bibtex
+from bibtools.utils import argparse
+from urllib.parse import urlencode
+from pybasics import write_file
+import sys
+import re
+import os
+
+
+data, storage, formatter, bibtex, cite = argparse(sys.argv)
+
+citations = []
+
+for reference in data:
+
+    print('Reference:', reference)
+
+    if formatter:
+        reference = formatter(reference)
+
+    print('Reference:', reference)
+
+    pub = PubMed(storage)
+
+    pub.search(request=reference)
+
+    for _id in pub.results['idlist']:
+
+        print('PMID:', _id)
+
+        pub.fetch(_id)
+
+        if not os.path.exists(pub.fname + '.pdf'):
+
+            try:
+                pub.download(_id)
+
+            except:
+                print('PubMed.download(): except')
+
+        if not os.path.exists(pub.fname + '.pdf'):
+
+            try:
+                sci = SciHub()
+
+                sci.download(request=pub.doi, fname=pub.fname + '.pdf')
+
+            except:
+                print('SciHub.download(): except')
+
+        pub.bibtex = json2bibtex(pub.json)
+
+        if bibtex:
+            write_file(pub.fname + '.bib', pub.bibtex)
+
+        if cite:
+            header = pub.bibtex.split('@article{')[1].split(',')[0]
+            cite = pub.RawArticleTitle.strip('.') + '~\cite{' + header +'}' + '.'
+            citations.append(cite)
+
+
+if cite:
+    print('\n\n'.join(citations))
