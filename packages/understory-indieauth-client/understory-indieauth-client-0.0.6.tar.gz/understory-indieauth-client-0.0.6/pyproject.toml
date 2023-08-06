@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "understory-indieauth-client"
+version = "0.0.6"
+description = "An IndieAuth client for the Understory framework."
+authors = ["Angelo Gladding <self@angelogladding.com>"]
+license = "CC0-1.0"
+readme = "README.md"
+packages = [{include = "understory"}]
+
+[tool.poetry.plugins."web.apps"]
+indieauth_client = "understory.apps.indieauth_client:app"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+understory = "^0"
+indieauth = "^0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.9b0"
+isort = "^5.9.3"
+flake8 = "^3.9.2"
+flake8-docstrings = "^1.6.0"
+pep8-naming = "^0.12.1"
+radon = "^5.1.0"
+understory = {path = "../understory"}
+indieauth = {path = "../indieauth-python"}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
