@@ -1,0 +1,52 @@
+===================
+My Notebook
+===================
+
+{% set headers = (
+    '',
+    '========================================',
+    '----------------------------------------',
+    '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    )
+%}
+
+
+{% for node in nodes -%}
+
+{% if not node.is_leaf %}
+{{ node.name | replace('_', ' ') | title }}
+{{ headers[node.depth] }}
+
+{% if node.children | selectattr("is_leaf") | list | count -%}
+.. list-table::
+   :header-rows: 1
+
+{% for row in node.children | selectattr("is_leaf") | groupby("group") | to_table -%}
+{% if loop.first %}
+{% for col in row -%}
+{% if loop.first %}
+   * - {{ col | capitalize }}
+{% else %}
+     - {{ col | capitalize }}
+{% endif %}
+{%- endfor %}
+{% else %}
+{% for col in row -%}
+{% if loop.first %}
+{% if col %}
+{{ "   * - :doc:`%s <%s>`"|format(col.title, col.target) }}
+{% else %}
+   * -
+{% endif %}
+{% elif not col %}
+     -
+{% else %}
+{{ "     - :doc:`%s <%s>`"|format(col.title, col.target) }}
+{% endif %}
+{%- endfor %}
+{% endif %}
+{%- endfor %}
+{% endif %}
+{% endif %}
+
+{%- endfor %}
