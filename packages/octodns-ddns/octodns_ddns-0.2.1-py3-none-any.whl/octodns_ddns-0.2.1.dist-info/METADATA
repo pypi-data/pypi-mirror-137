@@ -1,0 +1,90 @@
+Metadata-Version: 2.1
+Name: octodns-ddns
+Version: 0.2.1
+Summary: octoDNS DDNS
+Home-page: https://github.com/octodns/octodns-ddns
+Author: Ross McFarland
+Author-email: rwmcfa1@gmail.com
+License: MIT
+Platform: UNKNOWN
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: octodns (>=0.9.14)
+Requires-Dist: requests (>=2.27.0)
+Provides-Extra: dev
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: pytest-network ; extra == 'dev'
+Requires-Dist: build (>=0.7.0) ; extra == 'dev'
+Requires-Dist: pycodestyle (>=2.6.0) ; extra == 'dev'
+Requires-Dist: pyflakes (>=2.2.0) ; extra == 'dev'
+Requires-Dist: readme-renderer[md] (>=26.0) ; extra == 'dev'
+Requires-Dist: twine (>=3.4.2) ; extra == 'dev'
+
+## octoDNS DDNS
+
+A simple Dynamic DNS source for [octoDNS](https://github.com/octodns/octodns/).
+
+Supports both IPv4 and IPv6 addresses. Generally useful when you have a zone
+with staticly configured records but would also like to include a dynamic
+record, e.g. for your office or home on a non-fixed IP address.
+
+By default it uses http://api.ident.me/ to find the public address of the
+machine running the sync.
+
+### Example config
+
+The following config will combine the records in `./config/example.com.yaml`
+and the dynamically looked up address at `dynamic.example.com.` creating both
+IPv4 and IPv6 addresses.
+
+```yaml
+providers:
+
+  config:
+    class: octodns.provider.yaml.YamlProvider
+    directory: ./config
+
+  dynamic:
+    class: octodns_ddns.DdnsSource
+
+  route53:
+    class: octodns.provider.route53.Route53Provider
+    access_key_id: env/AWS_ACCESS_KEY_ID
+    secret_access_key: env/AWS_SECRET_ACCESS_KEY
+
+zones:
+
+  example.com.:
+    sources:
+      - config
+      - dynamic  # will add dynamic.example.com.
+    targets:
+      - route53
+
+```
+
+You can configure it to only do `A` or `AAAA` by adding a `types` param to the
+provider config.
+
+```yaml
+  dynamic:
+    class: octodns_ddns.DdnsSource
+    types:
+      - A
+```
+
+### Configuring lookup urls
+
+If you would like to use an alternate provider for looking up your address you
+can configure `urls` with `a` and/or `aaaa` with urls that return the address
+as the content of the response.
+
+```yaml
+  dynamic:
+    class: octodns_ddns.DdnsSource
+    urls:
+      A: https://v4.ident.me/
+      AAAA: https://v6.ident.me/
+```
+
+
