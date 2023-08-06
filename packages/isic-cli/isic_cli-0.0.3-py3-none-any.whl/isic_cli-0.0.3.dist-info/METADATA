@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: isic-cli
+Version: 0.0.3
+Summary: UNKNOWN
+Home-page: https://github.com/ImageMarkup/isic-cli
+Author: Kitware, Inc.
+Author-email: kitware@kitware.com
+License: Apache 2.0
+Project-URL: Bug Reports, https://github.com/ImageMarkup/isic-cli/issues
+Project-URL: Source, https://github.com/ImageMarkup/isic-cli
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: girder-cli-oauth-client
+Requires-Dist: isic-metadata
+Requires-Dist: joblib
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: requests
+Requires-Dist: retryable-requests
+Requires-Dist: rich
+Requires-Dist: typer
+Provides-Extra: dev
+Requires-Dist: ipython ; extra == 'dev'
+Requires-Dist: tox ; extra == 'dev'
+
+# isic-cli
+[![PyPI](https://img.shields.io/pypi/v/isic-cli)](https://pypi.org/project/isic-cli/)
+
+
