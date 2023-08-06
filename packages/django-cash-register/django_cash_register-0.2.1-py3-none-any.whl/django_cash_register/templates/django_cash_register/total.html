@@ -1,0 +1,29 @@
+<div class="total">
+    <div class="total-container">
+        <div class="total-sell">
+            <a href="" class="sell">
+                <button class="total-sell-btn">Sell</button>
+            </a>
+        </div>
+        <div class="subtotal">
+            <div class="subtotal-text">
+                <p>Total</p>
+            </div>
+            <div class="subtotal-items">
+                <p>
+                    {% if products %}{{ products.count }}{% else %}0{% endif %}
+                    {% if products|length == 0 or products|length > 1 %}items{% else %}item{% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="total-amount">
+            <span class="total-amount-inner">
+                {% if total_price %}
+                    {% if currency.1 %}{{ total_price }}{{ currency.0 }}{% else %}{{ currency.0 }}{{ total_price }}{% endif %}
+                {% else %}
+                    {% if currency.1 %}0.0{{ currency.0 }}{% else %}{{ currency.0 }}0.0{% endif %}
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
