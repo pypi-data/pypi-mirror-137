@@ -1,0 +1,108 @@
+Metadata-Version: 2.1
+Name: ts-t1-validator
+Version: 0.1.0
+Summary: Validation logic for TerminalOne models used for api request models
+License: Apache License, Version 2.0
+Platform: UNKNOWN
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# testv
+Python library for pre-validation of models used for terminalOne API based on jsonschema validation and combination of rules. 
+Implemented validators and rules include different type, length and business logic validations.
+
+### Prerequirement. Install Python 3
+
+**MacOS (using `brew`)**
+
+```
+brew install python3
+```
+
+Installation
+============
+
+Installation is simple with pip in a virtual environment:
+
+``` {.bash}
+$ pip install ts-t1-validator
+```
+
+Execution
+============================
+### General usage
+
+To use some specific validator for particular terminalOne object call approariate validator and provide dictionary of the object you'd like to validate and t1 service if needed:
+``` {.python}
+>>> from ts_t1_validator import T1Service, CampaignPostValidator
+
+>>> t1_service = T1Service({"token": token, "host": host})
+>>> validator = CampaignPostValidator(dto=campaign.__dict__, t1_service=t1_service)
+>>> errors_list = validator.validate()
+```
+The result of the validation method will be a list of errors. If there are no errors, your model is valid.
+T1Service is used for validations that are performed with the help of T1 api, so it requires valid oauth access token and host that is used in api code from which this validators were called.
+
+### Custom validator
+To create custom validator use inheritance from `AbstractValidator` and init pack of validation rules (`self.rules`) from `ts_t1_validator.validators.rules`:
+``` {.python}
+import os
+from typing import Dict
+
+from ts_t1_validator import AbstractValidator, T1Service
+from ts_t1_validator.validators.rules.t1_advertiser import T1AdvertiserRule
+
+
+class CustomValidator(AbstractValidator):
+    def __init__(self, dto: Dict, t1_service: T1Service):
+        self.rules = list()
+        self.errors = list()
+        self.json_schema = os.path.dirname(os.path.abspath(__file__)) + "/path_to_file/file.json"
+        self.dto = dto
+        self.t1_service = t1_service
+
+        # init object parameters
+        advertiser_id = dto.get('param_name')
+
+        self.rules.append(T1AdvertiserRule(
+            advertiser_id=advertiser_id,
+            t1_service=self.t1_service))
+```
+
+`AbstractValidator.validate()` uses jsonschema validation for json from `self.json_schema` that can be created according to [JSONSchema](https://json-schema.org/learn/getting-started-step-by-step.html#starting) standard.
+Or you can use the following example with general jsonschema validations:
+
+```json
+{
+  "title": "exampleJsonSchema",
+  "description": "description about this schema",
+  "properties": {
+    "advertiser_id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "campaign_name": {
+      "type": "string",
+      "maxLength": 256,
+      "minLength": 2,
+      "example": "Campaign 1"
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "some_enum": {
+      "type": "string",
+      "enum": [
+        "val1",
+        "val2"
+      ]
+    }
+  },
+  "required": ["advertiser_id",
+    "campaign_name",
+    "status"
+  ]
+}
+```
+
