@@ -1,0 +1,15 @@
+{% if toggle_url %}
+    <span
+        class="fs-3 float-end bi bi-bookmark{% if is_bookmarked %}-fill{% endif %}"
+        hx-put="{{toggle_url}}"
+        hx-target="closest section"
+        hx-swap="outerHTML"
+        {% if is_bookmarked %}
+            _="on click trigger closeModal"
+        {% endif %}
+    >
+    </span><!-- if object is presently saved, if toggled for unsaving, close the modal -->
+{% else %}
+    <span class="fs-3 float-end bi bi-bookmark">
+    </span>
+{% endif %}
