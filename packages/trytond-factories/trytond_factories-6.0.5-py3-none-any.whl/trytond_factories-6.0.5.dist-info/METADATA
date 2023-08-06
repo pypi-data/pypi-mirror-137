@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: trytond-factories
+Version: 6.0.5
+Summary: A collection of opinionated factories for common Tryton modules
+Home-page: https://github.com/calidae/trytond-factories
+Author: Calidae
+Author-email: dev@calidae.com
+License: GPLv3+
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Tryton
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Software Development :: Testing :: Unit
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: factory-trytond
+Requires-Dist: trytond (~=6.0.0)
+Provides-Extra: tests
+Requires-Dist: pytest-trytond ; extra == 'tests'
+Requires-Dist: trytond-account-invoice (~=6.0.0) ; extra == 'tests'
+
+# Trytond-factories
+
+Trytond-factories is a [factory_trytond](https://github.com/calidae/factory-trytond) extension which uses [factory_boy](https://factoryboy.readthedocs.io/en/latest/introduction.html) that allows to create [Tryton ERP](https://www.tryton.org/) models with factories.
+
+You can inherit ERP's core model factories to do some testing or to populate databases with some sample data.
+
+## How does it work?
+
+Import this module and you will be able to create objects such as Company, Party, etc.
+
+Here's an example with Tryton's model **Company**:
+```python
+import trytond_factories
+
+company = trytond_factories.Company.create(party__name='Example Company')
+
+print(company)
+>>> Pool().get('company.company')(1)
+```
+
+
