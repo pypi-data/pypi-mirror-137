@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: NPytdl
+Version: 4.1.0
+Summary: a new youtube_dl
+Home-page: https://github.com/rexwu1104/Pytdl
+Author: bloodnight
+Author-email: rexwu9204@gmail.com
+License: UNKNOWN
+Description: # Pytdl (NPytdl)
+        
+        ***
+        
+        We have nine methods for `Pytdl` class
+        
+        | method | return |
+        | :-----: | :-----: |
+        | `resultList(query : str)` | json |
+        | `spotifyResultList(query : str)` | json |
+        | `playList(list_id : str)` | json |
+        | `spotifyPlayList(list_id : str)` | json |
+        | `resultsList(querys : List[str])` | json |
+        | `spotifyResultsList(querys : List[str])` | json |
+        | `next(id : str)` | json |
+        | `spotifyTrack(id : str)` | json |
+        | `info(url : str)` | YoutubeVideos \| YoutubeVideo \| SpotifyMusics \| SpotifyMusic |
+        
+        ```py
+        from NPytdl import Pytdl
+        ydl = Pytdl()
+        
+        song = ydl.info("https://youtu.be/RGtSdbjxVKU")
+        
+        import asyncio
+        asyncio.run(song.create())
+        
+        song.download(f"./test/{song.title}")
+        ```
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
