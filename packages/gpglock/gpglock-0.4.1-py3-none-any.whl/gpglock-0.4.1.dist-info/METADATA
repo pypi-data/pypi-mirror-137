@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: gpglock
+Version: 0.4.1
+Summary: A GPG based file lock
+Author: Ming Feng
+Author-email: mingfengdev@outlook.com
+License: MIT
+Keywords: gpglock,gpg,encryption
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Intended Audience :: Developers
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: python-gnupg (==0.4.8)
+
+## Introduction
+A GPG based file lock.
+
+## Usage
+
+### Install
+
+`pip install gpglock`
+
+### Setup
+
+1. `gpginit target_dir`
+2. Add files which need to be locked into the `.gpglock` in `target_dir`
+
+### Lock/Unlock
+- `gpglock target_dir`
+- `gpgunlock target_dir`
+
+If `target_dir` is not provided, the current working directory will be used. 
+
+
