@@ -1,0 +1,50 @@
+Metadata-Version: 1.0
+Name: ParallelThreading
+Version: 0.6
+Summary: Parallel Process Threading
+Home-page: https://github.com/user/Python-Alex
+Author: Python Alex
+Author-email: obfuscate@riseup.net
+License: MIT
+Description: This program mimics the process of Intel and ARM CPU Instruction Processing
+        
+        [ FETCH ] [ DECODE ] [ EXECUTE ]
+        
+        Fetching all the instructions that are currently being executed in the pipeline
+        
+        Decoding all the Function Processes, Objectifying it, Preparing it
+        
+        Executing the Function Processes in Window Cycles [ Explained in Documenation ]
+        
+        
+        ** Installation Guide **
+        
+        > python setup.py build_ext
+        
+        > Locate ParallelThreading/build/lib.win-[ARCH]-[PYTHON_VERSION]/Pipeline.pyd
+        
+        > Include this in your project you plan to implement this with, This should normally be globally defined somewhere!
+        
+        To import the package:
+        > import Pipeline
+        
+        
+        ** Notices **
+        This has ONLY been tested on python 3.9.6 WINDOWS. There are no methods or packages that require a operating system or distribution of linux.
+        As far as I am concerned, this project works on all platforms. I have not researched whether embedded distributions that support python interpretors support the threading library. every thing else is built-in
+        
+        This is not built to make threading obselete, or to enhance performance.
+        This is a project to create parallel instructions based on a series of step functions that give a final output, whether it be 1 function, or 500
+        
+        This is built to execute millions of functions over time in a parallel processing manor, storing the values in a registry for reading while storing, or after the program has finished
+        
+        Performance is based on how long the function takes to execute, 1 Cycle is completed after the iteration completes all current function executing stages.
+        
+        100 Cycles may take 1 second, depending on how long the function hangs.
+        100 Cycles may take 100 seconds, given its a instruction to scan the port of a network host with a timeout of 1
+        
+        WARNING : Functions with Long Iterating Loops will cause the pipeline to wait until that function call to return its blocking state.
+        WARNING : Functions with Infinite Loops will cause the pipeline to freeze, allowing no other functions to continue executing stages.
+        
+Keywords: parallel,nonblocking,closeasync,threading,processing,cpu,python,processes
+Platform: UNKNOWN
