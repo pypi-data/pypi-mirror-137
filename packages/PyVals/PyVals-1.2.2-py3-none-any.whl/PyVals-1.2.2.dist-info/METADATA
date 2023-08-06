@@ -1,0 +1,77 @@
+Metadata-Version: 2.1
+Name: PyVals
+Version: 1.2.2
+Summary: Easily import and export values into python
+Home-page: UNKNOWN
+Author: Xyndra
+Author-email: xyndra@deutschergamingserver.de
+License: MIT License
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Typing :: Typed
+Description-Content-Type: text/markdown
+License-File: LICENCE.txt
+
+PyVals
+=======
+**WARNING: THIS IS EXTREMELY HACKABLE, DO NOT USE IT FOR CLIENT INTERACTIONS!**<br /><br />
+Standard file extension:  `*.val`
+## Possible Types(currently):
+- Integers 
+- Float
+- Strings (with backslash chars)
+- Arrays
+- Math (Syntax: + - * / % ^)
+- Variable = Variable
+## Notes
+- Allowed variable characters are a-z, A-Z and _
+- You may not use custom Classes, Functions or Modules
+## Todo
+- Pycharm Extension <br />
+- Implement other languages <br />
+- Bridge the other languages(Although this is a Wish Dream)
+## Example
+### values.val:
+```
+a = 2
+b = 'Hello World'
+c = a
+d = %math(2+2*2^2)
+e = [1, '2', c]
+```
+### main.py:
+```python
+import pyvals
+
+pyvals.register(globals()) # Always use this before running a pyvals command
+pyvals.vals_from(open("values.val").read()) # you can use any string here
+
+# Yes, these variables did automatically generate
+print(a)
+print(b)
+print(c)
+print(d)
+# output:
+# 2
+# Hello World
+# 2
+# 10
+
+a = 3
+z = 4
+
+pyvals.register(globals())
+print(save())
+# output:
+# a = 3
+# b = 'Hello World'
+# c = 2.0
+# d = 10
+# e = [1, '2', 2.0]
+# z = 4
+```
+
+
