@@ -1,0 +1,33 @@
+[tool.black]
+line-length=79
+skip-magic-trailing-comma=true
+
+[tool.poetry]
+name = "hikari-clusters"
+version = "v0.2.1"
+description = "An advanced yet easy-to-use clustering tool for Hikari."
+authors = ["Circuit"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/TrigonDev/hikari-clusters"
+repository = "https://github.com/TrigonDev/hikari-clusters"
+documentation = "https://github.com/TrigonDev/hikari-clusters/wiki"
+keywords = ["hikari", "discord", "clustering", "bot", "ipc"]
+
+[tool.poetry.dependencies]
+python = ">=3.8.0,<3.11"
+hikari = "^2.0.0.dev105"
+websockets = "^10.1"
+pytest-cov = "^3.0.0"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1"
+isort = "^5.9.3"
+mypy = "^0.931"
+flake8 = "^4.0.1"
+pytest = "^7.0.0"
+nox = "^2022.1.7"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
