@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: eval-hj3415
+Version: 0.5.0
+Summary: Evaluating and scoring financial data
+Home-page: https://pypi.org/project/eval-hj3415/
+Author: hyungjin kim
+Author-email: hj3415@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://pypi.org/project/eval-hj3415/
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+eval-hj3415
+==========
+
+eval-hj3415 evaluate naver financial data.
+
+
+Quick start
+------------
+
+from eval_hj3415 import eval
+
+for all eval dictionary..
+   eval.Eval(<<code:str>>).get_all()
+or..
+   eval.Score(<<code:str>>).eval_dict
+
+for get score..
+   s = eval.Score(<<code:str>>)
+   s.red()
+   s.mil()
+   s.blue()
+
