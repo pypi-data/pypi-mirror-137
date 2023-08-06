@@ -1,0 +1,22 @@
+ubii-message-formats>=0.2.6.dev9
+codestare-async-utils>=0.1.dev11
+pyyaml
+aiohttp
+
+[:python_version < "3.8"]
+backports.cached_property
+typing_extensions
+
+[cli]
+
+[cli:python_version < "3.8"]
+importlib_metadata
+
+[docs]
+sphinx
+releases
+
+[test]
+pytest
+pytest-asyncio
+ubii-processing-module-ocr>=0.1.dev11
