@@ -1,0 +1,96 @@
+Metadata-Version: 2.1
+Name: gym-dmc
+Version: 0.2.5
+Summary: gym-dmc is a gym wrapper around DeepMind Control Suite domains.
+Home-page: https://github.com/geyang/gym-dmc
+Author: Ge Yang<ge.ike.yang@gmail.com>
+Author-email: ge.ike.yang@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+License-File: LICENSE
+Requires-Dist: gym (>=0.21.0)
+Requires-Dist: dm-control
+Requires-Dist: numpy
+
+``gym-dmc``, OpenAI Gym Plugin for DeepMind Control Suite
+=========================================================
+
+Link to other OpenAI Gym Plugins:
+
+-  ``gym-sawyer``
+-  ``gym-toy-nav``
+
+Update Log
+----------
+
+-  **2022-01-13**: Add space_dtype for overriding the dtype for the
+   state and action spaces. Default to None, need to set to
+   ``float/np.float32`` for pytorch_SAC implementation.
+-  **2022-01-11**: Added a ``env._get_obs()`` method to allow one to
+   obtain the observation after resetting the environment. **Version:
+   ``v0.2.1``**
+
+How To Use
+----------
+
+Usage pattern:
+
+.. code-block:: python
+
+   import gym
+
+   env = gym.make("dmc:Pendulum-swingup-v1")
+
+For the full list of environments, you can print:
+
+.. code-block:: python
+
+   from dm_control.suite import ALL_TASKS
+
+   print(*ALL_TASKS, sep="\n")
+
+   # Out[2]: ('acrobot', 'swingup')
+   #         ('acrobot', 'swingup_sparse')
+   ...
+
+We register all of these environments using the following pattern:
+
+   acrobot task “swingup_sparse” becomes
+   ``dmc:Acrobot-swingup_sparse-v1``
+
+You can see the usage pattern in
+`https://github.com/geyang/gym_dmc/blob/master/specs/test_gym_dmc.py <https://github.com/geyang/gym_dmc/blob/master/specs/test_gym_dmc.py>`__:
+
+.. code-block:: python
+
+   env = gym.make('dmc:Walker-walk-v1', frame_skip=4, space_dtype=np.float32)
+   assert env.action_space.dtype is np.float32
+   assert env.observation_space.dtype is np.float32
+
+   env = gym.make('dmc:Walker-walk-v1', frame_skip=4)
+   assert env._max_episode_steps == 250
+   assert env.reset().shape == (24,)
+
+   env = gym.make('dmc:Walker-walk-v1', from_pixels=True, frame_skip=4)
+   assert env._max_episode_steps == 250
+
+   env = gym.make('dmc:Cartpole-balance-v1', from_pixels=True, frame_skip=8)
+   assert env._max_episode_steps == 125
+   assert env.reset().shape == (3, 84, 84)
+
+   env = gym.make('dmc:Cartpole-balance-v1', from_pixels=True, frame_skip=8, channels_first=False)
+   assert env._max_episode_steps == 125
+   assert env.reset().shape == (84, 84, 3)
+
+   env = gym.make('dmc:Cartpole-balance-v1', from_pixels=True, frame_skip=8, channels_first=False, gray_scale=True)
+   assert env._max_episode_steps == 125
+   assert env.reset().shape == (84, 84, 1)
+
+**Note, the ``max_episode_steps`` is calculated based on the
+``frame_skip``.** All DeepMind control domains terminate after 1000
+simulation steps. So for ``frame_skip=4``, the ``max_episode_steps``
+should be 250.
+
+Built with :heart: by Ge Yang
+
+
