@@ -1,0 +1,13 @@
+query getChartIntraday($symbol: String!, $chartType: String, $rangeCount: Int) {
+    intraday(symbol: $symbol, chartType: $chartType, rangeCount: $rangeCount) {
+        date
+        price
+        volume
+        marketStatus
+        open
+        close
+        high
+        low
+        __typename
+    }
+}

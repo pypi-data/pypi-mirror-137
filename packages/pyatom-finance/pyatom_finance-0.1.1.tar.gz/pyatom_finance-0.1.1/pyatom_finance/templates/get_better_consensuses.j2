@@ -1,0 +1,36 @@
+query getBetterConsensuses($symbol: String!) {
+    symbol(symbol: $symbol) {
+        id
+        currentFY
+        currentFQ
+        sectorType
+        betterConsensuses {
+            id
+            fq
+            fy
+            isActual
+            dateHeld
+            datePeriodEnds
+            ...HistoricalData
+            __typename
+        }
+        recommendationConsensuses {
+            NumberOfStrongBuy
+            NumberOfBuy
+            NumberOfHold
+            NumberOfSell
+            NumberOfStrongSell
+            __typename
+        }
+        __typename
+    }
+}
+
+fragment HistoricalData on BetterConsensus {
+    REV
+    EBIT
+    Atom__EBITDA
+    EPS
+    TBVPS  BVPS
+    __typename
+}

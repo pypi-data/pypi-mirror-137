@@ -1,0 +1,11 @@
+query getMarketCap($symbol: String!) {
+    symbol(symbol: $symbol) {
+        id
+        metric {
+            id
+            atomMarketCap
+            __typename
+        }
+        __typename
+    }
+}

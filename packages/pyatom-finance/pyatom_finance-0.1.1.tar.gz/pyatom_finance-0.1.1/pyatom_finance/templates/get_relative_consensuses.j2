@@ -1,0 +1,78 @@
+query getRelativeConsensuses($symbol: String!, $start: Int!, $end: Int!) {
+    symbol(symbol: $symbol) {
+        id
+        currentFY
+        currentFQ
+        relativeConsensuses(startInclusive: $start, endExclusive: $end) {
+            id
+            fq
+            fy
+            isActual
+            dateHeld
+            datePeriodEnds
+            ...AllData
+            __typename
+        }
+        next4Quarters {
+            id
+            fq
+            fy
+            isActual
+            dateHeld
+            datePeriodEnds
+            ...AllData
+            __typename
+        }
+        __typename
+    }
+}
+
+fragment AllData on BetterConsensus {
+    REV
+    EBIT
+    Atom__EBITDA
+    EPS
+    TBVPS
+    BVPS
+    NAVPS
+    v1_NAV
+    SAL
+    GROSSINC
+    v1_DPS
+    FCFPS
+    NPROFITREP
+    CFPS
+    LLP
+    NIE
+    NET
+    CPS
+    NPA
+    ROA
+    RWA
+    BPS
+    NDT
+    v1_EPS
+    EBT
+    FFO
+    NAV
+    OPREXP
+    INTEXP
+    GRM
+    v1_ROA
+    GENADMEXP
+    CPX
+    EBITDAREP
+    v1_ROE
+    PRE
+    TOTDEBT
+    ROE
+    GPS
+    DPS
+    NII
+    TIER1
+    EBI
+    NETINVINC
+    EBITDA
+    Atom__NPROFIT
+    __typename
+}

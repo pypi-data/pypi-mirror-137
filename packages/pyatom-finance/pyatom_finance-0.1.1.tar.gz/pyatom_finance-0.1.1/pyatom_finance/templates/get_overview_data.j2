@@ -1,0 +1,166 @@
+query getOverviewData($symbol: String!) {
+    symbol(symbol: $symbol) {
+        description
+        sector
+        industry
+        industryCode
+        marketCap
+        netDebt
+        ev
+        beta
+        borrowCost
+        nextEarningsDate
+        dividendPerShare
+        averageVolume
+        revenue
+        ebitda
+        ebit
+        eps
+        symbol
+        id
+        name
+        trRIC
+        trSearchAllCategory
+        metric {
+            id
+            atomMarketCap
+            price
+            __typename
+        }
+        ratiosData {
+            exchangeRate
+            reportingCurrency
+            sharesCount
+            __typename
+        }
+        currentFY
+        currentFQ
+        annualGuidance(startInclusive: 0, endExclusive: 2) {
+            id
+            period
+            periodYear
+            currency
+            adjEpsMax
+            adjEpsMin
+            gaapEpsMax
+            gaapEpsMin
+            adjEpsPriorMax
+            adjEpsPriorMin
+            gaapEpsPriorMax
+            gaapEpsPriorMin
+            adjRevenueMax
+            adjRevenueMin
+            gaapRevenueMax
+            gaapRevenueMin
+            adjRevenuePriorMax
+            adjRevenuePriorMin
+            gaapRevenuePriorMax
+            gaapRevenuePriorMin
+            __typename
+        }
+        sectorType
+        relativeConsensuses(startInclusive: 1, endExclusive: 2) {
+            id
+            fq
+            fy
+            isActual
+            dateHeld
+            datePeriodEnds
+            ...AllData
+            __typename
+        }
+        currentFY
+        currentFQ
+        ltmConsensuses(withFy0: true) {
+            id
+            fq
+            fy
+            isActual
+            dateHeld
+            datePeriodEnds
+            ...AllData
+            __typename
+        }
+        recommendationConsensuses {
+            NumberOfStrongBuy
+            NumberOfBuy
+            NumberOfHold
+            NumberOfSell
+            NumberOfStrongSell
+            __typename
+        }
+        topSector {
+            code
+            mnemonic
+            title
+            __typename
+        }
+        wiims {
+            id
+            benzingaId
+            created
+            updated
+            newsHeadline {
+                headlineText
+                revised
+                __typename
+            }
+            symbols {
+                symbol
+                __typename
+            }
+            __typename
+        }
+        __typename
+    }
+}
+
+fragment AllData on BetterConsensus {
+    REV
+    EBIT
+    Atom__EBITDA
+    EPS
+    TBVPS
+    BVPS
+    NAVPS
+    v1_NAV
+    SAL
+    GROSSINC
+    v1_DPS
+    FCFPS
+    NPROFITREP
+    CFPS
+    LLP
+    NIE
+    NET
+    CPS
+    NPA
+    ROA
+    RWA
+    BPS
+    NDT
+    v1_EPS
+    EBT
+    FFO
+    NAV
+    OPREXP
+    INTEXP
+    GRM
+    v1_ROA
+    GENADMEXP
+    CPX
+    EBITDAREP
+    v1_ROE
+    PRE
+    TOTDEBT
+    ROE
+    GPS
+    DPS
+    NII
+    TIER1
+    EBI
+    NETINVINC
+    EBITDA
+    Atom__NPROFIT
+    __typename
+}

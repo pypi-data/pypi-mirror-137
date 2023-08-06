@@ -1,0 +1,44 @@
+query getPeriodGuidance($symbol: String!, $start: Int!, $end: Int!) {
+    symbol(symbol: $symbol) {
+        id
+        currentFY
+        currentFQ
+        annualGuidance(startInclusive: $start, endExclusive: $end) {
+            id
+            period
+            periodYear
+            currency
+            ...GuidanceData
+            __typename
+        }
+        quarterlyGuidance {
+            id
+            period
+            periodYear
+            currency
+            ...GuidanceData
+            __typename
+        }
+        __typename
+    }
+}
+
+fragment GuidanceData on Guidance {
+    adjEpsMax
+    adjEpsMin
+    gaapEpsMax
+    gaapEpsMin
+    adjEpsPriorMax
+    adjEpsPriorMin
+    gaapEpsPriorMax
+    gaapEpsPriorMin
+    adjRevenueMax
+    adjRevenueMin
+    gaapRevenueMax
+    gaapRevenueMin
+    adjRevenuePriorMax
+    adjRevenuePriorMin
+    gaapRevenuePriorMax
+    gaapRevenuePriorMin
+    __typename
+}
