@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: cm-cluster-on-demand-aws
+Version: 9.1.11
+Summary: Bright Cluster on Demand Utility AWS
+Home-page: https://www.brightcomputing.com/
+Author: Cloudteam
+Author-email: cloudteam@brightcomputing.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: System :: Clustering
+Classifier: Topic :: System :: Installation/Setup
+Classifier: Topic :: System :: Monitoring
+Classifier: Topic :: System :: Systems Administration
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+With Cluster on Demand for AWS you can spin up a cluster running Bright Cluster
+Manager inside of AWS.
+
+# Installation
+
+```
+pip install cm-cluster-on-demand-aws
+```
+
+# Usage
+
+To get started, execute the following command:
+
+```
+cm-cod-aws --help
+```
+
+Example, To start a Bright Cluster with 5 nodes and 1 headnode in AWS:
+
+```
+cm-cod-aws cluster create --on-error 'cleanup' --aws-region 'us-east-1' --wlm 'slurm' --nodes '5' --aws-access-key-id '...' --aws-secret-key '...' --cluster-password '...'  --license-product-key '...' --name mycluster
+```
+
+Don't forget to fill in the '...' blanks, and change the other parameters to
+the values that match your use-case and organization. To obtain a Bright
+product key, please contact sales@brightcomputing.com. All documentation for
+setting up and running a Bright cluster using Cluster On Demand on AWS can be
+found in the
+[Cloudbursting Manual](https://www.brightcomputing.com/documentation).
+
+If you have an account in Bright Computing's Customer Portal, you can also
+create a AWS/Azure cluster from there.
+
+
