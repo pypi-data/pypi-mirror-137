@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: pdtoolbox
+Version: 0.0.1
+Summary: Initial setup and installation of package
+Home-page: https://github.com/pedrostanton/toolbox
+Author: Pete Davies
+Author-email: pedrostanton@gmail.com
+License: MIT
+Project-URL: Bug Tracker, https://github.com/pedrostanton/toolbox/issues
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cbpro
+Requires-Dist: pika
+
+# tradingtools
+Basic trading tools used repeatedly in algo trading applications. Setting as a package enables imports to be performed.
+
+`pip install git+https://github.com/pedrostanton/toolbox.git`
+
+## functions
+| Function                  | Description                                                                                  |
+|---------------------------|----------------------------------------------------------------------------------------------|
+| min_increments            | function to get and return the number of decimal places a product quotes at or base min size |
+|get_min_increments         | function to get and return all the minimum increasements for all products on an exchange     |
+|exchange_connections       | function to get and return authorised client logins for trading exchanges|
+
+## classes
+| Class    | Description                                                                 |
+|----------|-----------------------------------------------------------------------------|
+| Consumer | class to connect to rabbit mq and start consuming from an exchange or queue |
+
+
+
+
+
