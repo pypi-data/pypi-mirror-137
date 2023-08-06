@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "coveo-systools"
+version = "2.0.4"
+description = "Filesystem, language and OS related tools."
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/coveooss/coveo-python-oss/tree/main/coveo-systools"
+authors = ["Jonathan Piché <tools@coveo.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+
+coveo-functools = { version = "^2.0.0" }
+typing_extensions = "*"
+
+
+[tool.poetry.dev-dependencies]
+black = { version = "21.6b0", allow-prereleases = true }
+coveo-functools = { path = "../coveo-functools/", develop = true }
+coveo-testing = { path = "../coveo-testing/", develop = true }
+mypy = "0.812"
+
+
+[tool.stew.ci]
+pytest = true
+offline-build = true
+black = true
+
+
+[tool.black]
+line-length = 100
+
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
