@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "insanic"
+version = "0.1.4.4"
+description = "Django like web framework based on Sanic and TortoiseORM"
+authors = ["Dmitry Ovchinnikov <mail@dimka.online>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+sanic = "^21.12.0"
+cryptography = "^36.0.1"
+asyncmy = "^0.2.3"
+tortoise-orm = "^0.18.0"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.15.0"
+pytest = "^6.2.5"
+pylint = "^2.11.1"
+mypy = "^0.910"
+pydocstyle = "^6.1.1"
+docformatter = "^1.4"
+pytest-asyncio = "^0.16.0"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
