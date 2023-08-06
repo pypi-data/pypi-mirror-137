@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "py-pdf-term"
+version = "0.17.0"
+description = "A fully-configurable terminology extraction module written in Python"
+authors = ["Yuya Suwa"]
+license = "MIT License"
+readme = "README.md"
+homepage = "https://github.com/kumachan-mis/py-pdf-term"
+repository = "https://github.com/kumachan-mis/py-pdf-term"
+keywords = ["terminology extraction", "technical term", "pdf"]
+
+[tool.poetry.dependencies]
+python = ">=3.7,<4.0"
+"pdfminer.six" = "^20211012"
+spacy = "^3.2.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+flake8 = "^4.0.1"
+flake8-quotes = "^3.3.1"
+ghp-import = "^2.0.1"
+isort = "^5.10.1"
+pep8-naming = "^0.12.1"
+pre-commit = "^2.17.0"
+pytest = "^7.0.0"
+pytest-cov = "^3.0.0"
+Sphinx = "^4.3.2"
+
+[tool.poetry.dev-dependencies.en_core_web_sm]
+url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0.tar.gz"
+
+[tool.poetry.dev-dependencies.ja_core_news_sm]
+url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.2.0/ja_core_news_sm-3.2.0.tar.gz"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
