@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: co2mpas-dice
+Version: 5.1.22
+Summary: UNKNOWN
+Home-page: https://github.com/JRCSTU/DICE
+Author: Vincenzo Arcidiacono
+Author-email: vinci1it2000@gmail.com
+License: EUPL 1.1+
+Download-URL: https://github.com/JRCSTU/DICE/tarball/v5.1.22
+Platform: any
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: cryptography
+Requires-Dist: lmfit
+Requires-Dist: numpy
+Requires-Dist: pyyaml
+Requires-Dist: schedula
+Provides-Extra: co2mpas
+Requires-Dist: scipy ; extra == 'co2mpas'
+Provides-Extra: server
+Requires-Dist: click ; extra == 'server'
+Requires-Dist: click-log ; extra == 'server'
+Requires-Dist: docutils ; extra == 'server'
+Requires-Dist: flask ; extra == 'server'
+Requires-Dist: gunicorn ; extra == 'server'
+Requires-Dist: jinja2 ; extra == 'server'
+Requires-Dist: jsonschema ; extra == 'server'
+Requires-Dist: mysql-connector-python ; extra == 'server'
+Requires-Dist: pandas ; extra == 'server'
+Requires-Dist: tabulate ; extra == 'server'
+Requires-Dist: werkzeug ; extra == 'server'
+
+UNKNOWN
+
