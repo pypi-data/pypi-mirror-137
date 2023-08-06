@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: r3c0n
+Version: 1.1.4
+Summary: A tool for performing reconnaissance on web targets in Python.
+Home-page: https://github.com/markgacoka/r3c0n
+Author: Gacoka Mbui
+Author-email: <markgacoka@gmail.com>
+License: MIT
+Download-URL: https://github.com/markgacoka/r3c0n/releases
+Keywords: cybersecurity,reconnaissance,scanning,automation
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Security
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# r3c0n
+A tool for performing reconnaissance on web targets in Python.
+
+### Description
+
+### Installation
+```
+pip install r3c0n
+```
+
+### Run tests
+```
+python tests/test_cleanup.py 
+```
+
+### Usage
+```python
+from r3c0n.engines import anubis
+
+domain = 'coda.io'
+subdomains = anubis.Anubis(domain).subdomains()
+print(subdomains)
+
+> ['www.coda.io', 'dev.coda.io', 'blog.coda.io', 'cdn.coda.io', 'staging.coda.io', 'help.coda.io', 'data.coda.io', 'go.coda.io', 'community.coda.io', 'status.coda.io', 'auth.coda.io', 'bounce.coda.io']
+```
+
+
