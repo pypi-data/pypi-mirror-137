@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>MetroidBeta</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Rotation</Name>
+            </Element>
+            <Element Type="Vector" ID="0x3">
+                <Name>Scale</Name>
+            </Element>
+            <Element Type="Struct" ID="0x4" Archetype="PatternedAITypedef"/>
+            <Element Type="Struct" ID="0x5" Archetype="ActorParameters"/>
+            <Element Type="Struct" ID="0x6" Archetype="DamageVulnerability">
+                <Name>DamageVulnerability 1</Name>
+            </Element>
+            <Element Type="Struct" ID="0x7" Archetype="DamageVulnerability">
+                <Name>DamageVulnerability 2</Name>
+            </Element>
+            <Element Type="Float" ID="0x8">
+                <Name>Unknown 1</Name>
+            </Element>
+            <Element Type="Float" ID="0x9">
+                <Name>Unknown 2</Name>
+            </Element>
+            <Element Type="Float" ID="0xA">
+                <Name>Unknown 3</Name>
+            </Element>
+            <Element Type="Float" ID="0xB">
+                <Name>Unknown 4</Name>
+            </Element>
+            <Element Type="Float" ID="0xC">
+                <Name>Unknown 5</Name>
+            </Element>
+            <Element Type="Float" ID="0xD">
+                <Name>Unknown 6</Name>
+            </Element>
+            <Element Type="Float" ID="0xE">
+                <Name>Unknown 7</Name>
+            </Element>
+            <Element Type="Float" ID="0xF">
+                <Name>Unknown 8</Name>
+            </Element>
+            <Element Type="Float" ID="0x10">
+                <Name>Unknown 9</Name>
+            </Element>
+            <Element Type="Asset" ID="0x11">
+                <Name>Particle 1</Name>
+                <TypeFilter>
+                    <Element>PART</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x12">
+                <Name>SWHC</Name>
+                <TypeFilter>
+                    <Element>SWHC</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x13">
+                <Name>Particle 2</Name>
+                <TypeFilter>
+                    <Element>PART</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x14">
+                <Name>Particle 3</Name>
+                <TypeFilter>
+                    <Element>PART</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x15">
+                <Name>Particle 4</Name>
+                <TypeFilter>
+                    <Element>PART</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Bool" ID="0x16">
+                <Name>Unknown 10</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+        <RotationProperty>0x02</RotationProperty>
+        <ScaleProperty>0x03</ScaleProperty>
+        <ActiveProperty>0x04:0x1A</ActiveProperty>
+        <LightParametersProperty>0x05:0x00</LightParametersProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="AnimParams" Source="Property" Location="0x04:0x19"/>
+        <Element Type="Model" Source="Property" Location="0x05:0x02"/>
+        <Element Type="Model" Source="Property" Location="0x05:0x04"/>
+    </Assets>
+</ScriptObject>

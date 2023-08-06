@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>ScriptBeam</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Rotation</Name>
+            </Element>
+            <Element Type="Bool" ID="0x3">
+                <Name>Unknown 1</Name>
+            </Element>
+            <Element Type="Asset" ID="0x4">
+                <Name>WPSC</Name>
+                <TypeFilter>
+                    <Element>WPSC</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Struct" ID="0x5" Archetype="ScriptBeamStruct"/>
+            <Element Type="Struct" ID="0x6" Archetype="DamageInfo"/>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+        <RotationProperty>0x02</RotationProperty>
+    </EditorProperties>
+    <ScaleType>ScaleDisabled</ScaleType>
+</ScriptObject>

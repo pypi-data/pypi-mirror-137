@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>Beetle</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Int" ID="0x1">
+                <Name>Unknown 1</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x3">
+                <Name>Rotation</Name>
+            </Element>
+            <Element Type="Vector" ID="0x4">
+                <Name>Scale</Name>
+            </Element>
+            <Element Type="Struct" ID="0x5" Archetype="PatternedAITypedef"/>
+            <Element Type="Struct" ID="0x6" Archetype="ActorParameters"/>
+            <Element Type="Struct" ID="0x7" Archetype="DamageInfo"/>
+            <Element Type="Vector" ID="0x8">
+                <Name>Orbit Offset</Name>
+                <Description>This is clamped to the beetle's bounding box.</Description>
+            </Element>
+            <Element Type="Float" ID="0x9">
+                <Name>Unknown 3</Name>
+            </Element>
+            <Element Type="Struct" ID="0xA" Archetype="DamageVulnerability">
+                <Name>Abdomen Vulnerability</Name>
+            </Element>
+            <Element Type="Struct" ID="0xB" Archetype="DamageVulnerability">
+                <Name>Armor Vulnerability</Name>
+            </Element>
+            <Element Type="Asset" ID="0xC">
+                <Name>Abdomen Model</Name>
+                <TypeFilter>
+                    <Element>CMDL</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Int" ID="0xD">
+                <Name>Unknown 4</Name>
+            </Element>
+            <Element Type="Float" ID="0xE">
+                <Name>Unknown 5</Name>
+            </Element>
+            <Element Type="Float" ID="0xF">
+                <Name>Unknown 6</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x02</PositionProperty>
+        <RotationProperty>0x03</RotationProperty>
+        <ScaleProperty>0x04</ScaleProperty>
+        <ActiveProperty>0x05:0x1A</ActiveProperty>
+        <LightParametersProperty>0x06:0x00</LightParametersProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="AnimParams" Source="Property" Location="0x05:0x19"/>
+        <Element Type="Model" Source="Property" Location="0x06:0x02"/>
+        <Element Type="Model" Source="Property" Location="0x06:0x04"/>
+        <Element Type="Model" Source="Property" Location="0x0C"/>
+    </Assets>
+    <Attachments>
+        <Element AttachProperty="0x0C" LocatorName="Hive_LCTR" AttachType="Attach"/>
+    </Attachments>
+</ScriptObject>

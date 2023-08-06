@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>SpacePirate</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Rotation</Name>
+            </Element>
+            <Element Type="Vector" ID="0x3">
+                <Name>Scale</Name>
+            </Element>
+            <Element Type="Struct" ID="0x4" Archetype="PatternedAITypedef"/>
+            <Element Type="Struct" ID="0x5" Archetype="ActorParameters"/>
+            <Element Type="Float" ID="0x6">
+                <Name>AggressionCheck</Name>
+            </Element>
+            <Element Type="Float" ID="0x7">
+                <Name>CoverCheck</Name>
+            </Element>
+            <Element Type="Float" ID="0x8">
+                <Name>SearchRadius</Name>
+            </Element>
+            <Element Type="Float" ID="0x9">
+                <Name>FallbackCheck</Name>
+            </Element>
+            <Element Type="Float" ID="0xA">
+                <Name>FallbackRadius</Name>
+            </Element>
+            <Element Type="Float" ID="0xB">
+                <Name>HearingRadius</Name>
+            </Element>
+            <Element Type="Flags" ID="0xC">
+                <Name>Flags</Name>
+                <Flags>
+                    <Element Name="PendingAmbush" Mask="0x1"/>
+                    <Element Name="CeilingAmbush" Mask="0x2"/>
+                    <Element Name="NonAggressive" Mask="0x4"/>
+                    <Element Name="Melee" Mask="0x8"/>
+                    <Element Name="NoShuffleCloseCheck" Mask="0x10"/>
+                    <Element Name="OnlyAttackInRange" Mask="0x20"/>
+                    <Element Name="Unknown" Mask="0x40"/>
+                    <Element Name="NoKnockbackImpulseReset" Mask="0x80"/>
+                    <Element Name="NoMeleeAttack" Mask="0x200"/>
+                    <Element Name="BreakAttack" Mask="0x400"/>
+                    <Element Name="Seated" Mask="0x1000"/>
+                    <Element Name="ShadowPirate" Mask="0x2000"/>
+                    <Element Name="AlertBeforeCloak" Mask="0x4000"/>
+                    <Element Name="NoBreakDamage" Mask="0x8000"/>
+                    <Element Name="FloatingCorpse" Mask="0x10000"/>
+                    <Element Name="RagdollNoAiCollision" Mask="0x20000"/>
+                    <Element Name="Trooper" Mask="0x40000"/>
+                </Flags>
+            </Element>
+            <Element Type="Bool" ID="0xD">
+                <Name>Unknown 8</Name>
+            </Element>
+            <Element Type="Asset" ID="0xE">
+                <Name>Projectile</Name>
+                <TypeFilter>
+                    <Element>WPSC</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Struct" ID="0xF" Archetype="DamageInfo">
+                <Name>ProjectileDamage</Name>
+            </Element>
+            <Element Type="Sound" ID="0x10">
+                <Name>Sound_Projectile</Name>
+            </Element>
+            <Element Type="Struct" ID="0x11" Archetype="DamageInfo">
+                <Name>BladeDamage</Name>
+            </Element>
+            <Element Type="Float" ID="0x12">
+                <Name>KneelAttackChance</Name>
+            </Element>
+            <Element Type="Asset" ID="0x13">
+                <Name>KneelAttackShot</Name>
+                <TypeFilter>
+                    <Element>WPSC</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Struct" ID="0x14" Archetype="DamageInfo">
+                <Name>KneelAttackDamage</Name>
+            </Element>
+            <Element Type="Float" ID="0x15">
+                <Name>DodgeCheck</Name>
+            </Element>
+            <Element Type="Sound" ID="0x16">
+                <Name>Sound_Impact</Name>
+            </Element>
+            <Element Type="Float" ID="0x17">
+                <Name>AverageNextShotTime</Name>
+            </Element>
+            <Element Type="Float" ID="0x18">
+                <Name>NextShotTimeVariation</Name>
+            </Element>
+            <Element Type="Sound" ID="0x19">
+                <Name>Sound_Alert</Name>
+            </Element>
+            <Element Type="Float" ID="0x1A">
+                <Name>GunTrackDelay</Name>
+            </Element>
+            <Element Type="Int" ID="0x1B">
+                <Name>FirstBurstCount</Name>
+            </Element>
+            <Element Type="Float" ID="0x1C">
+                <Name>CloakOpacity</Name>
+            </Element>
+            <Element Type="Float" ID="0x1D">
+                <Name>MaxCloakOpacity</Name>
+            </Element>
+            <Element Type="Float" ID="0x1E">
+                <Name>DodgeDelayTimeMin</Name>
+            </Element>
+            <Element Type="Float" ID="0x1F">
+                <Name>DodgeDelayTimeMax</Name>
+            </Element>
+            <Element Type="Sound" ID="0x20">
+                <Name>Sound_Hurled</Name>
+            </Element>
+            <Element Type="Sound" ID="0x21">
+                <Name>Sound_Death</Name>
+            </Element>
+            <Element Type="Float" ID="0x22">
+                <Name>Unknown 19</Name>
+            </Element>
+            <Element Type="Float" ID="0x23">
+                <Name>AvoidDistance</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+        <RotationProperty>0x02</RotationProperty>
+        <ScaleProperty>0x03</ScaleProperty>
+        <ActiveProperty>0x04:0x1A</ActiveProperty>
+        <LightParametersProperty>0x05:0x00</LightParametersProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="AnimParams" Source="Property" Location="0x04:0x19"/>
+        <Element Type="Model" Source="Property" Location="0x05:0x02"/>
+        <Element Type="Model" Source="Property" Location="0x05:0x04"/>
+    </Assets>
+</ScriptObject>

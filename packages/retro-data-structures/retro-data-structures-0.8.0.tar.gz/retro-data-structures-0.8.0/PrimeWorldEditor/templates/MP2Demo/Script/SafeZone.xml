@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="EchoesDemo">
+    <Modules>
+        <Element>ScriptSafeZone.rel</Element>
+    </Modules>
+    <Properties Type="Struct">
+        <Name>SafeZone</Name>
+        <SubProperties>
+            <Element Type="Struct" ID="0x255A4580" Archetype="EditorProperties"/>
+            <Element Type="Struct" ID="0x77A27411" Archetype="TriggerInfo"/>
+            <Element Type="Bool" ID="0x8D33465F">
+                <DefaultValue>false</DefaultValue>
+            </Element>
+            <Element Type="Bool" ID="0x1C453986">
+                <DefaultValue>false</DefaultValue>
+            </Element>
+            <Element Type="Float" ID="0xEAD3E22E">
+                <DefaultValue>0.15000001</DefaultValue>
+            </Element>
+            <Element Type="Float" ID="0xB5CDF196">
+                <DefaultValue>0.15000001</DefaultValue>
+            </Element>
+            <Element Type="Float" ID="0x32DC67F6">
+                <DefaultValue>0.0</DefaultValue>
+            </Element>
+            <Element Type="Float" ID="0xDE169DB0">
+                <DefaultValue>0.0</DefaultValue>
+            </Element>
+            <Element Type="Asset" ID="0x9BE4BBD8">
+                <TypeFilter>
+                    <Element>PART</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Bool" ID="0x822118B4">
+                <DefaultValue>true</DefaultValue>
+            </Element>
+            <Element Type="Int" ID="0x414379EA">
+                <DefaultValue>300</DefaultValue>
+            </Element>
+            <Element Type="Bool" ID="0x62BAC460">
+                <DefaultValue>false</DefaultValue>
+            </Element>
+            <Element Type="Struct" ID="0xB4A293C7" Archetype="SafeZoneStruct"/>
+            <Element Type="Struct" ID="0xDAE8C14E" Archetype="SafeZoneStruct">
+                <SubProperties>
+                    <Element Type="Color" ID="0x47B4E863">
+                        <DefaultValue>
+                            <R>1.0</R>
+                            <G>1.0</G>
+                            <B>0.0</B>
+                        </DefaultValue>
+                    </Element>
+                </SubProperties>
+            </Element>
+            <Element Type="Struct" ID="0x78A13CA0" Archetype="DamageInfo">
+                <SubProperties>
+                    <Element Type="Choice" ID="0x119FBD31">
+                        <DefaultValue>18</DefaultValue>
+                    </Element>
+                </SubProperties>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x255A4580:0x494E414D</NameProperty>
+        <PositionProperty>0x255A4580:0x5846524D:0x00</PositionProperty>
+        <RotationProperty>0x255A4580:0x5846524D:0x01</RotationProperty>
+        <ScaleProperty>0x255A4580:0x5846524D:0x02</ScaleProperty>
+        <ActiveProperty>0x255A4580:0x41435456</ActiveProperty>
+    </EditorProperties>
+    <ScaleType>ScaleVolume</ScaleType>
+    <VolumeShape>EllipsoidShape</VolumeShape>
+</ScriptObject>

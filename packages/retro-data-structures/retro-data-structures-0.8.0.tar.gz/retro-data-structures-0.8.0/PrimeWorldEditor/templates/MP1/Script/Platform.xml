@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>Platform</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Rotation</Name>
+            </Element>
+            <Element Type="Vector" ID="0x3">
+                <Name>Scale</Name>
+            </Element>
+            <Element Type="Vector" ID="0x4">
+                <Name>Unknown 1</Name>
+            </Element>
+            <Element Type="Vector" ID="0x5">
+                <Name>Scan Offset</Name>
+            </Element>
+            <Element Type="Asset" ID="0x6">
+                <Name>Model</Name>
+                <TypeFilter>
+                    <Element>CMDL</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="AnimationSet" ID="0x7">
+                <Name>AnimationParameters</Name>
+            </Element>
+            <Element Type="Struct" ID="0x8" Archetype="ActorParameters"/>
+            <Element Type="Float" ID="0x9">
+                <Name>Unknown 2</Name>
+            </Element>
+            <Element Type="Bool" ID="0xA">
+                <Name>Active</Name>
+            </Element>
+            <Element Type="Asset" ID="0xB">
+                <Name>DCLN</Name>
+                <TypeFilter>
+                    <Element>DCLN</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Struct" ID="0xC" Archetype="HealthInfo"/>
+            <Element Type="Struct" ID="0xD" Archetype="DamageVulnerability"/>
+            <Element Type="Bool" ID="0xE">
+                <Name>Unknown 3</Name>
+            </Element>
+            <Element Type="Float" ID="0xF">
+                <Name>Unknown 4</Name>
+            </Element>
+            <Element Type="Bool" ID="0x10">
+                <Name>Unknown 5</Name>
+            </Element>
+            <Element Type="Int" ID="0x11">
+                <Name>Unknown 6</Name>
+            </Element>
+            <Element Type="Int" ID="0x12">
+                <Name>Unknown 7</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+        <RotationProperty>0x02</RotationProperty>
+        <ScaleProperty>0x03</ScaleProperty>
+        <ActiveProperty>0x0A</ActiveProperty>
+        <LightParametersProperty>0x08:0x00</LightParametersProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="AnimParams" Source="Property" Location="0x07"/>
+        <Element Type="Model" Source="Property" Location="0x06"/>
+        <Element Type="Model" Source="Property" Location="0x08:0x02"/>
+        <Element Type="Model" Source="Property" Location="0x08:0x04"/>
+        <Element Type="Collision" Source="Property" Location="0x0B"/>
+    </Assets>
+</ScriptObject>

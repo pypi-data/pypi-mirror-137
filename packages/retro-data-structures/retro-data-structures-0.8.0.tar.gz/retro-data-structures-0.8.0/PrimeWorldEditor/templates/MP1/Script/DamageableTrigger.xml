@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>DamageableTrigger</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Scale</Name>
+            </Element>
+            <Element Type="Struct" ID="0x3" Archetype="HealthInfo"/>
+            <Element Type="Struct" ID="0x4" Archetype="DamageVulnerability"/>
+            <Element Type="Choice" ID="0x5">
+                <Name>Render Side</Name>
+                <Values>
+                    <Element Name="None" ID="0x0"/>
+                    <Element Name="North" ID="0x1"/>
+                    <Element Name="South" ID="0x2"/>
+                    <Element Name="West" ID="0x4"/>
+                    <Element Name="East" ID="0x8"/>
+                    <Element Name="Top" ID="0x10"/>
+                    <Element Name="Bottom" ID="0x20"/>
+                </Values>
+            </Element>
+            <Element Type="Asset" ID="0x6">
+                <Name>Texture 1</Name>
+                <TypeFilter>
+                    <Element>TXTR</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x7">
+                <Name>Texture 2</Name>
+                <TypeFilter>
+                    <Element>TXTR</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x8">
+                <Name>Texture 3</Name>
+                <TypeFilter>
+                    <Element>TXTR</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Bool" ID="0x9">
+                <Name>Enable Lock-On</Name>
+            </Element>
+            <Element Type="Bool" ID="0xA">
+                <Name>Active</Name>
+            </Element>
+            <Element Type="Struct" ID="0xB" Archetype="VisorParameters"/>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+        <ScaleProperty>0x02</ScaleProperty>
+        <ActiveProperty>0x0A</ActiveProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="Billboard" Source="File" Location="script/common/DamageableTrigger.TXTR"/>
+    </Assets>
+    <RotationType>RotationDisabled</RotationType>
+    <ScaleType>ScaleVolume</ScaleType>
+    <VolumeShape>BoxShape</VolumeShape>
+</ScriptObject>

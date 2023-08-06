@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>Waypoint</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Rotation</Name>
+            </Element>
+            <Element Type="Bool" ID="0x3">
+                <Name>Active</Name>
+            </Element>
+            <Element Type="Float" ID="0x4">
+                <Name>Unknown 2</Name>
+            </Element>
+            <Element Type="Float" ID="0x5">
+                <Name>Delay</Name>
+            </Element>
+            <Element Type="Int" ID="0x6">
+                <Name>Unknown 4</Name>
+            </Element>
+            <Element Type="Int" ID="0x7">
+                <Name>Unknown 5</Name>
+            </Element>
+            <Element Type="Int" ID="0x8">
+                <Name>Unknown 6</Name>
+            </Element>
+            <Element Type="Int" ID="0x9">
+                <Name>Unknown 7</Name>
+            </Element>
+            <Element Type="Int" ID="0xA">
+                <Name>Unknown 8</Name>
+            </Element>
+            <Element Type="Int" ID="0xB">
+                <Name>Unknown 9</Name>
+            </Element>
+            <Element Type="Int" ID="0xC">
+                <Name>Unknown 10</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+        <RotationProperty>0x02</RotationProperty>
+        <ActiveProperty>0x03</ActiveProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="Model" Source="File" Location="script/common/Waypoint.CMDL"/>
+    </Assets>
+    <PreviewScale>0.5</PreviewScale>
+</ScriptObject>

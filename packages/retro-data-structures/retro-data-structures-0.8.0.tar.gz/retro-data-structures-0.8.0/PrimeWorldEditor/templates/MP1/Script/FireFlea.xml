@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>FireFlea</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Rotation</Name>
+            </Element>
+            <Element Type="Vector" ID="0x3">
+                <Name>Scale</Name>
+            </Element>
+            <Element Type="Struct" ID="0x4" Archetype="PatternedAITypedef"/>
+            <Element Type="Struct" ID="0x5" Archetype="ActorParameters"/>
+            <Element Type="Bool" ID="0x6">
+                <Name>Unknown 1</Name>
+            </Element>
+            <Element Type="Bool" ID="0x7">
+                <Name>Unknown 2</Name>
+            </Element>
+            <Element Type="Float" ID="0x8">
+                <Name>Unknown 3</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+        <RotationProperty>0x02</RotationProperty>
+        <ScaleProperty>0x03</ScaleProperty>
+        <ActiveProperty>0x04:0x1A</ActiveProperty>
+        <LightParametersProperty>0x05:0x00</LightParametersProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="AnimParams" Source="Property" Location="0x04:0x19"/>
+        <Element Type="Model" Source="Property" Location="0x05:0x02"/>
+        <Element Type="Model" Source="Property" Location="0x05:0x04"/>
+    </Assets>
+</ScriptObject>

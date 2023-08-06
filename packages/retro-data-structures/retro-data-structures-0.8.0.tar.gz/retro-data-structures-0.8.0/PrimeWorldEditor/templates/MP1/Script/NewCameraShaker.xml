@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>NewCameraShaker</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Bool" ID="0x2">
+                <Name>Unknown 1</Name>
+            </Element>
+            <Element Type="Struct" ID="0x3" Archetype="IntBool"/>
+            <Element Type="Struct" ID="0x4" Archetype="GuessStruct"/>
+            <Element Type="Struct" ID="0x5" Archetype="NewCameraShakerStruct">
+                <Name>NewCameraShakerStruct 1</Name>
+            </Element>
+            <Element Type="Struct" ID="0x6" Archetype="NewCameraShakerStruct">
+                <Name>NewCameraShakerStruct 2</Name>
+            </Element>
+            <Element Type="Struct" ID="0x7" Archetype="NewCameraShakerStruct">
+                <Name>NewCameraShakerStruct 3</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="Billboard" Source="File" Location="script/mp1/NewCameraShaker.TXTR"/>
+    </Assets>
+    <RotationType>RotationDisabled</RotationType>
+    <ScaleType>ScaleDisabled</ScaleType>
+</ScriptObject>

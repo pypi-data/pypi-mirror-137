@@ -1,0 +1,48 @@
+{
+    "subdirectories": ["externals/LibCommon"],
+    "dependencies": [
+        {
+            "name": "zlib",
+            "url": "https://github.com/madler/zlib",
+            "type": "git",
+            "head": "master",
+            "ref": "cacf7f1d4e3d44d871b605da3b647f07d718623f"
+        },
+        {
+            "name": "assimp",
+            "url": "https://github.com/assimp/assimp",
+            "type": "git",
+            "head": "master",
+            "ref": "83237de02ffb97305317d24564c44ce4794af3db",
+            "dependson": [
+                "zlib"
+            ],
+            "cmake_defines": {
+                "ASSIMP_BUILD_ZLIB": "OFF",
+                "ASSIMP_BUILD_MINIZIP": "ON",
+                "ASSIMP_BUILD_ASSIMP_TOOLS": "OFF"
+            }
+        },
+        {
+            "name": "nod",
+            "url": "https://github.com/AxioDL/nod",
+            "type": "git",
+            "head": "master",
+            "ref": "02c188497af89e188edcc82387f787057739e530"
+        },
+        {
+            "name": "lzokay",
+            "url": "https://github.com/jackoalan/lzokay",
+            "type": "git",
+            "head": "master",
+            "ref": "546a9695271e8a8b4711383f828172754fd825f2"
+        },
+        {
+            "name": "tinyxml2",
+            "url": "https://github.com/leethomason/tinyxml2",
+            "type": "git",
+            "head": "master",
+            "ref": "c483646db00a6a9ac3a8e93f7c490aecb589979d"
+        }
+    ]
+}

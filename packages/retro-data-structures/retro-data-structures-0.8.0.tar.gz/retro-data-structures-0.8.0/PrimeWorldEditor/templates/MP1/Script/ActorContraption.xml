@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>ActorContraption</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Rotation</Name>
+            </Element>
+            <Element Type="Vector" ID="0x3">
+                <Name>Scale</Name>
+            </Element>
+            <Element Type="Vector" ID="0x4">
+                <Name>Collision Extent</Name>
+            </Element>
+            <Element Type="Vector" ID="0x5">
+                <Name>Collision/Scan Offset</Name>
+            </Element>
+            <Element Type="Float" ID="0x6">
+                <Name>Mass</Name>
+            </Element>
+            <Element Type="Float" ID="0x7">
+                <Name>Z Momentum</Name>
+            </Element>
+            <Element Type="Struct" ID="0x8" Archetype="HealthInfo"/>
+            <Element Type="Struct" ID="0x9" Archetype="DamageVulnerability"/>
+            <Element Type="AnimationSet" ID="0xA">
+                <Name>AnimationParameters</Name>
+            </Element>
+            <Element Type="Struct" ID="0xB" Archetype="ActorParameters"/>
+            <Element Type="Asset" ID="0xC">
+                <Name>Flame Particle</Name>
+                <TypeFilter>
+                    <Element>PART</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Struct" ID="0xD" Archetype="DamageInfo"/>
+            <Element Type="Bool" ID="0xE">
+                <Name>Active</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+        <RotationProperty>0x02</RotationProperty>
+        <ScaleProperty>0x03</ScaleProperty>
+        <ActiveProperty>0x0E</ActiveProperty>
+        <LightParametersProperty>0x0B:0x00</LightParametersProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="AnimParams" Source="Property" Location="0x0A"/>
+        <Element Type="Model" Source="Property" Location="0x0B:0x02"/>
+        <Element Type="Model" Source="Property" Location="0x0B:0x04"/>
+    </Assets>
+</ScriptObject>

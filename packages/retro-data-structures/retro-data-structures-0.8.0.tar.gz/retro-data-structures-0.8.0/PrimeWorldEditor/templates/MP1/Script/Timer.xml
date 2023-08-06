@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>Timer</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Float" ID="0x1">
+                <Name>Start Time</Name>
+            </Element>
+            <Element Type="Float" ID="0x2">
+                <Name>Max Random Delay</Name>
+                <Description>A random value between 0 and this number will be added to the timer's start time.</Description>
+            </Element>
+            <Element Type="Bool" ID="0x3">
+                <Name>Loop</Name>
+                <Description>When the timer reaches 0, it will reset back to its start time and start ticking again.</Description>
+            </Element>
+            <Element Type="Bool" ID="0x4">
+                <Name>Auto-Start</Name>
+                <Description>The timer will start ticking immediately on load, without waiting for a script message to start it.</Description>
+            </Element>
+            <Element Type="Bool" ID="0x5">
+                <Name>Active</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <ActiveProperty>0x05</ActiveProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="Billboard" Source="File" Location="script/common/Timer.TXTR"/>
+    </Assets>
+    <RotationType>RotationDisabled</RotationType>
+</ScriptObject>

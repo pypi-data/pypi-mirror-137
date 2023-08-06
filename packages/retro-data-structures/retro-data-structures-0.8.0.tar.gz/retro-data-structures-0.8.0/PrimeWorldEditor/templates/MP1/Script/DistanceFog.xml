@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>DistanceFog</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Int" ID="0x1">
+                <Name>Mode</Name>
+            </Element>
+            <Element Type="Color" ID="0x2">
+                <Name>Color</Name>
+            </Element>
+            <Element Type="Struct" ID="0x3" Archetype="Vector2f">
+                <Name>Range</Name>
+            </Element>
+            <Element Type="Float" ID="0x4">
+                <Name>Color Delta</Name>
+            </Element>
+            <Element Type="Struct" ID="0x5" Archetype="Vector2f">
+                <Name>Range Delta</Name>
+            </Element>
+            <Element Type="Bool" ID="0x6">
+                <Name>Explicit</Name>
+            </Element>
+            <Element Type="Bool" ID="0x7">
+                <Name>Active</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <ActiveProperty>0x07</ActiveProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="Billboard" Source="File" Location="script/common/DistanceFog.TXTR"/>
+    </Assets>
+    <RotationType>RotationDisabled</RotationType>
+    <ScaleType>ScaleDisabled</ScaleType>
+</ScriptObject>

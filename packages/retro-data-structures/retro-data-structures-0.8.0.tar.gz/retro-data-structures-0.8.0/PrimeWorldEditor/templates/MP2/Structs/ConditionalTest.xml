@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PropertyTemplate ArchiveVer="4" Game="Echoes">
+    <PropertyArchetype Type="Struct">
+        <Name>ConditionalTest</Name>
+        <SubProperties>
+            <Element Type="Choice" ID="0xDE3E40A3">
+                <DefaultValue>1</DefaultValue>
+                <Values>
+                    <Element Name="Unknown" ID="0x0"/>
+                    <Element Name="And" ID="0x1"/>
+                    <Element Name="Or" ID="0x2"/>
+                </Values>
+            </Element>
+            <Element Type="Choice" ID="0xD3AF8D72" Archetype="PlayerItem"/>
+            <Element Type="Choice" ID="0x3BDEA98">
+                <Values>
+                    <Element Name="Amount" ID="0x0"/>
+                    <Element Name="Capacity" ID="0x1"/>
+                </Values>
+            </Element>
+            <Element Type="Choice" ID="0x70729364">
+                <Values>
+                    <Element Name="Equal To" ID="0x0"/>
+                    <Element Name="Not Equal To" ID="0x1"/>
+                    <Element Name="Greater Than" ID="0x2"/>
+                    <Element Name="Less Than" ID="0x3"/>
+                    <Element Name="Greater Than or Equal To" ID="0x4"/>
+                    <Element Name="Less Than or Equal To" ID="0x5"/>
+                    <Element Name="Unknown" ID="0x6"/>
+                </Values>
+            </Element>
+            <Element Type="Int" ID="0x8DB9398A">
+                <DefaultValue>0</DefaultValue>
+            </Element>
+        </SubProperties>
+    </PropertyArchetype>
+</PropertyTemplate>

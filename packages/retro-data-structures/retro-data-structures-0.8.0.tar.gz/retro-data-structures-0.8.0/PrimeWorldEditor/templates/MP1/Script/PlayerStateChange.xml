@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>PlayerStateChange</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Bool" ID="0x1">
+                <Name>Active</Name>
+            </Element>
+            <Element Type="Choice" ID="0x2" Archetype="PlayerItem"/>
+            <Element Type="Int" ID="0x3">
+                <Name>Amount</Name>
+            </Element>
+            <Element Type="Int" ID="0x4">
+                <Name>Capacity</Name>
+            </Element>
+            <Element Type="Int" ID="0x5">
+                <Name>Unknown 4</Name>
+            </Element>
+            <Element Type="Int" ID="0x6">
+                <Name>Unknown 5</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <ActiveProperty>0x01</ActiveProperty>
+    </EditorProperties>
+    <RotationType>RotationDisabled</RotationType>
+    <ScaleType>ScaleDisabled</ScaleType>
+</ScriptObject>

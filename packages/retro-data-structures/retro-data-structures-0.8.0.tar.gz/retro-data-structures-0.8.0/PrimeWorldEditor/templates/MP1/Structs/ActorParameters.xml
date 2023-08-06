@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PropertyTemplate ArchiveVer="4" Game="Prime">
+    <PropertyArchetype Type="Struct">
+        <Name>ActorParameters</Name>
+        <SubProperties>
+            <Element Type="Struct" ID="0x0" Archetype="LightParameters"/>
+            <Element Type="Struct" ID="0x1" Archetype="ScannableParameters"/>
+            <Element Type="Asset" ID="0x2">
+                <Name>X-Ray Visor Model</Name>
+                <TypeFilter>
+                    <Element>CMDL</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x3">
+                <Name>X-Ray Visor Skin</Name>
+                <TypeFilter>
+                    <Element>CSKR</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x4">
+                <Name>Thermal Visor Model</Name>
+                <TypeFilter>
+                    <Element>CMDL</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x5">
+                <Name>Thermal Visor Skin</Name>
+                <TypeFilter>
+                    <Element>CSKR</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Bool" ID="0x6">
+                <Name>Unknown 1</Name>
+            </Element>
+            <Element Type="Float" ID="0x7">
+                <Name>Unknown 2</Name>
+            </Element>
+            <Element Type="Float" ID="0x8">
+                <Name>Unknown 3</Name>
+            </Element>
+            <Element Type="Struct" ID="0x9" Archetype="VisorParameters"/>
+            <Element Type="Bool" ID="0xA">
+                <Name>Enable Thermal Heat</Name>
+            </Element>
+            <Element Type="Bool" ID="0xB">
+                <Name>Unknown 4</Name>
+            </Element>
+            <Element Type="Bool" ID="0xC">
+                <Name>Unknown 5</Name>
+            </Element>
+            <Element Type="Float" ID="0xD">
+                <Name>Unknown 6</Name>
+            </Element>
+        </SubProperties>
+    </PropertyArchetype>
+</PropertyTemplate>

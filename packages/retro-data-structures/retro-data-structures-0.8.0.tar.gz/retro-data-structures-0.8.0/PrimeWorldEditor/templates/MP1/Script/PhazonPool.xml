@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScriptObject ArchiveVer="4" Game="Prime">
+    <Properties Type="Struct">
+        <Name>PhazonPool</Name>
+        <SubProperties>
+            <Element Type="String" ID="0x0">
+                <Name>Name</Name>
+            </Element>
+            <Element Type="Vector" ID="0x1">
+                <Name>Position</Name>
+            </Element>
+            <Element Type="Vector" ID="0x2">
+                <Name>Rotation</Name>
+            </Element>
+            <Element Type="Vector" ID="0x3">
+                <Name>Scale</Name>
+            </Element>
+            <Element Type="Bool" ID="0x4">
+                <Name>Unknown 1</Name>
+            </Element>
+            <Element Type="Asset" ID="0x5">
+                <Name>Model 1</Name>
+                <TypeFilter>
+                    <Element>CMDL</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x6">
+                <Name>Model 2</Name>
+                <TypeFilter>
+                    <Element>CMDL</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x7">
+                <Name>Particle 1</Name>
+                <TypeFilter>
+                    <Element>PART</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Asset" ID="0x8">
+                <Name>Particle 2</Name>
+                <TypeFilter>
+                    <Element>PART</Element>
+                </TypeFilter>
+            </Element>
+            <Element Type="Int" ID="0x9">
+                <Name>Unknown 2</Name>
+            </Element>
+            <Element Type="Struct" ID="0xA" Archetype="DamageInfo"/>
+            <Element Type="Vector" ID="0xB">
+                <Name>Force</Name>
+            </Element>
+            <Element Type="Int" ID="0xC">
+                <Name>Trigger Flags</Name>
+            </Element>
+            <Element Type="Float" ID="0xD">
+                <Name>Pool Starting Value</Name>
+            </Element>
+            <Element Type="Float" ID="0xE">
+                <Name>Phazon Beam Drain Per Second</Name>
+            </Element>
+            <Element Type="Float" ID="0xF">
+                <Name>Time Until Regeneration</Name>
+            </Element>
+            <Element Type="Bool" ID="0x10">
+                <Name>Automatic Drain/Don't Regenerate</Name>
+            </Element>
+            <Element Type="Float" ID="0x11">
+                <Name>Time Until Automatic Drain</Name>
+            </Element>
+        </SubProperties>
+    </Properties>
+    <EditorProperties>
+        <NameProperty>0x00</NameProperty>
+        <PositionProperty>0x01</PositionProperty>
+        <RotationProperty>0x02</RotationProperty>
+        <ScaleProperty>0x03</ScaleProperty>
+    </EditorProperties>
+    <Assets>
+        <Element Type="Model" Source="Property" Location="0x05"/>
+        <Element Type="Model" Source="Property" Location="0x06"/>
+    </Assets>
+</ScriptObject>

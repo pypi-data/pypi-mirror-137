@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PropertyTemplate ArchiveVer="4" Game="DKCReturns">
+    <PropertyArchetype Type="Struct">
+        <Name>CameraPosition</Name>
+        <SubProperties>
+            <Element Type="Enum" ID="0xB7CD4710">
+                <DefaultValue>0x59BFFB56</DefaultValue>
+                <Values>
+                    <Element Name="Unknown 1" ID="0x93F79C1A"/>
+                    <Element Name="Unknown 2" ID="0x59BFFB56"/>
+                    <Element Name="Unknown 3" ID="0x10AB9150"/>
+                    <Element Name="Unknown 4" ID="0x13B150BB"/>
+                    <Element Name="Unknown 5" ID="0xACB5235F"/>
+                    <Element Name="Unknown 6" ID="0x4309158B"/>
+                </Values>
+            </Element>
+            <Element Type="Flags" ID="0xB1B6CF33">
+                <CookPreference>Always</CookPreference>
+                <DefaultValue>2</DefaultValue>
+            </Element>
+            <Element Type="Struct" ID="0xE8AB9BC8" Archetype="PathPosition"/>
+            <Element Type="Struct" ID="0x9EC1DF0C" Archetype="SpindlePosition"/>
+            <Element Type="Struct" ID="0xBBB2D1E6" Archetype="SurfacePosition"/>
+            <Element Type="Struct" ID="0x7D194AF" Archetype="OffsetPosition"/>
+            <Element Type="Struct" ID="0xEBBF81D7" Archetype="UnknownStruct73"/>
+        </SubProperties>
+    </PropertyArchetype>
+</PropertyTemplate>
