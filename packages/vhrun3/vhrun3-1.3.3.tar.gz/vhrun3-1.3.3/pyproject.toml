@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "vhrun3"
+version = "1.3.3"
+description = ""
+authors = ["tigerjlx"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+httprunner = "^3.1.6"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.scripts]
+vhrun3 = "vhrun3.cli:main"
+vhrun = "vhrun3.cli:main_hrun_alias"
+vhmake = "vhrun3.cli:main_make_alias"
+vhar2case = "vhrun3.cli:main_har2case_alias"
+vlocusts = "vhrun3.ext.locust:main_locusts"
