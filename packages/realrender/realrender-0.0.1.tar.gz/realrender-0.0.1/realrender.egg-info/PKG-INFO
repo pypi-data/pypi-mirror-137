@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: realrender
+Version: 0.0.1
+Summary: RealRender: mesh3d render that most reliable.
+Home-page: https://github.com/jinfagang/realrender
+Author: Lucas Jin
+Author-email: 11@qq.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+# RealRender
+
+RealRender, aks RR, is a new library for 3D rendering visualization. Previously visualizer lib are **really confusing**, like OpenDR, pyrender, pytorch3d etc, I still don't know why pytorch3d CPU so slow. And some lib claims they implement in OpenGL like opendr, but their **speed are not likely used OpenGL**, just too slow to render.
+
+So I decided pave my own way. RealRender is a 3D render lib that focus on **Speed**, however, there still need more test on various platforms and hardware, currently, RealRender used a new render lib that runs **fastest on my mac**. Other platform still need to test.
+
+## Install
+
+You can using:
+
+```
+pip install realrender
+```
+
+Or install from source:
+
+```
+python setup.py build develop
+```
+
+## Result
+
+Here are some results that renders face mesh and human mesh. **it's so simple to use realrender**.
+
+
+
