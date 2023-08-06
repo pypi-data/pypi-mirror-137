@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "rich-elm"
+version = "0.2.0"
+description = "Elm-style architecture for TUI apps, powered by Rich"
+authors = ["Aatif Syed <aatifsyedyp@gmail.com>"]
+repository = "https://github.com/aatifsyed/rich-elm"
+include = ["py.typed"]
+readme = "README.md"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+rich = "^11.0.0"
+textual = "^0.1.14"
+fuzzywuzzy = "^0.18.0"
+lorem-text = "^2.1"
+python-Levenshtein = "^0.12.2"
+prompt-toolkit = "^3.0.24"
+returns = "^0.18.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6"
+mypy = "^0.931"
+black = "^21.12b0"
+more-itertools = "^8.12.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
