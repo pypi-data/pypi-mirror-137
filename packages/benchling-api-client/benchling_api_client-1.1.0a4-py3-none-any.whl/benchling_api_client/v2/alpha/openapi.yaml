@@ -1,0 +1,3547 @@
+paths:
+  /aa-sequences:back-translate:
+    post:
+      description: Create back-translated DNA sequences from AA sequences.
+      operationId: backTranslate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackTranslate'
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncTaskLink'
+          description: 'This endpoint launches a [long-running task](#/Tasks/getTask)
+            and returns the Task ID of the launched task.
+
+            When successful, the task has an empty response.
+
+            '
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+      summary: Create back-translated DNA sequences from AA sequences.
+      tags:
+      - AA Sequences
+  /codon-usage-tables:
+    get:
+      description: 'List tables with codon usage data for organisms that can be specified
+        for other Benchling operations.
+
+        '
+      operationId: listCodonUsageTables
+      parameters:
+      - description: 'Number of results to return. Defaults to 50, maximum of 100.
+
+          '
+        in: query
+        name: pageSize
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 0
+          type: integer
+      - description: Token for pagination
+        in: query
+        name: nextToken
+        schema:
+          type: string
+      - in: query
+        name: sort
+        schema:
+          default: name:asc
+          description: 'Method by which to order search results. Valid sort is name
+            (entity name, alphabetical). Optionally add :asc or :desc to specify ascending
+            or descending order.
+
+            '
+          enum:
+          - name
+          - name:asc
+          - name:desc
+          type: string
+      - description: Name of a codon usage table (tables are named for the organisms
+          that they represent). Restricts results to those with the specified name.
+        in: query
+        name: name
+        schema:
+          example: Arabidopsis.thaliana
+          type: string
+      - description: Name substring of a codon usage table (tables are named for the
+          organisms that they represent). Restricts results to those with names that
+          include the provided substring.
+        in: query
+        name: nameIncludes
+        schema:
+          example: thaliana
+          type: string
+      - description: 'Comma-separated list of ids. Matches all of the provided IDs,
+          or returns a 400 error that includes a list of which IDs are invalid.
+
+          '
+        in: query
+        name: ids
+        schema:
+          example: codtab_VfVOART1,codtab_RFhDGaaC
+          type: string
+      - description: 'Comma-separated list of names. Restricts results to those that
+          match any of the specified names.
+
+          '
+        in: query
+        name: names.anyOf
+        schema:
+          example: Arabidopsis.thaliana,Anopheles.stephensi
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodonUsageTablesPaginatedList'
+          description: OK
+          headers:
+            Result-Count:
+              description: The total number of items that match the given query
+              schema:
+                type: integer
+            x-rate-limit-limit:
+              description: The number of allowed requests in the current rate-limit
+                period
+              schema:
+                type: integer
+            x-rate-limit-remaining:
+              description: The number of requests remaining in the current rate-limit
+                period
+              schema:
+                type: integer
+            x-rate-limit-reset:
+              description: The number of seconds remaining in the current rate-limit
+                period
+              schema:
+                type: integer
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+      summary: List codon usage tables for organisms
+      tags:
+      - Codon Usage Tables
+  /custom-entities:
+    put:
+      description: Create or update a custom entity
+      operationId: upsertCustomEntity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomEntityUpsert'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomEntity'
+          description: Updated
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomEntity'
+          description: Created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+      summary: Create or update a custom entity
+      tags:
+      - Custom Entities
+  /dna-sequences:optimize-codons:
+    post:
+      description: Create codon-optimized DNA sequences.
+      operationId: optimizeCodons
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OptimizeCodons'
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncTaskLink'
+          description: 'This endpoint launches a [long-running task](#/Tasks/getTask)
+            and returns the Task ID of the launched task.
+
+            When successful, the task has an empty response.
+
+            '
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+      summary: Create codon-optimized DNA sequences.
+      tags:
+      - DNA Sequences
+  /entries:
+    post:
+      description: 'Create a notebook entry with optional attachments. Attachments
+        will be placed into the entry body in the order they are specified.
+
+        '
+      operationId: createEntryWithAttachments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntryCreateAttachments'
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncTaskLink'
+          description: Accepted
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+      summary: Create a notebook entry
+      tags:
+      - Entries
+  /entry-templates/{entry_template_id}:
+    get:
+      description: Get a notebook template entry by ID
+      operationId: getTemplateEntry
+      parameters:
+      - description: ID of the entry template
+        in: path
+        name: entry_template_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntryTemplate'
+          description: 'Returns a single entry template. Entry templates are templates
+            that users can base new notebook entries off of.
+
+            '
+      summary: Get a notebook template entry by ID
+      tags:
+      - Entries
+  /enzymes:
+    get:
+      description: 'List enzymes that can be specified for other Benchling operations.
+
+        '
+      operationId: listEnzymes
+      parameters:
+      - description: 'Number of results to return. Defaults to 50, maximum of 100.
+
+          '
+        in: query
+        name: pageSize
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 0
+          type: integer
+      - description: Token for pagination
+        in: query
+        name: nextToken
+        schema:
+          type: string
+      - in: query
+        name: sort
+        schema:
+          default: name:asc
+          description: 'Method by which to order search results. Valid sort is name
+            (entity name, alphabetical). Optionally add :asc or :desc to specify ascending
+            or descending order.
+
+            '
+          enum:
+          - name
+          - name:asc
+          - name:desc
+          type: string
+      - description: Name of an enzyme. Restricts results to those with the specified
+          name.
+        in: query
+        name: name
+        schema:
+          type: string
+      - description: Name substring of an enzyme. Restricts results to those with
+          names that include the provided substring.
+        in: query
+        name: nameIncludes
+        schema:
+          type: string
+      - description: 'Comma-separated list of ids. Matches all of the provided IDs,
+          or returns a 400 error that includes a list of which IDs are invalid.
+
+          '
+        in: query
+        name: ids
+        schema:
+          example: enz_VfVOART1,enz_RFhDGaaC
+          type: string
+      - description: 'Comma-separated list of names. Restricts results to those that
+          match any of the specified names.
+
+          '
+        in: query
+        name: names.anyOf
+        schema:
+          example: AarI,BcnI
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnzymesPaginatedList'
+          description: OK
+          headers:
+            Result-Count:
+              description: The total number of items that match the given query
+              schema:
+                type: integer
+            x-rate-limit-limit:
+              description: The number of allowed requests in the current rate-limit
+                period
+              schema:
+                type: integer
+            x-rate-limit-remaining:
+              description: The number of requests remaining in the current rate-limit
+                period
+              schema:
+                type: integer
+            x-rate-limit-reset:
+              description: The number of seconds remaining in the current rate-limit
+                period
+              schema:
+                type: integer
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+      summary: List enzymes
+      tags:
+      - Enzymes
+  /general-access-policies:
+    get:
+      description: Returns a list of general (project/registry) access policies.
+      operationId: listGeneralAccessPolicies
+      parameters:
+      - in: query
+        name: nextToken
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 0
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPoliciesPaginatedList'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+      summary: List general access policies
+      tags:
+      - Access Policies
+  /general-access-policies/{policy_id}:
+    get:
+      description: Returns a general (project/registry) policy by ID.
+      operationId: getGeneralAccessPolicy
+      parameters:
+      - description: ID of policy to get
+        in: path
+        name: policy_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPolicy'
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not Found
+      summary: Get a general access policy by ID
+      tags:
+      - Access Policies
+  /molecules: {}
+  /molecules/{molecule_id}: {}
+  /molecules:archive: {}
+  /molecules:bulk-create: {}
+  /molecules:bulk-update: {}
+  /molecules:unarchive: {}
+  /projects/{projectId}/collaborations:
+    get:
+      description: 'Returns information about collaborations on the specified project.
+
+        '
+      operationId: listProjectCollaborations
+      parameters:
+      - description: ID of project for which to retrieve collaborations.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 0
+          type: integer
+      - description: Token for pagination
+        in: query
+        name: nextToken
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollaborationsPaginatedList'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not Found
+      summary: List project collaborations
+      tags:
+      - Projects
+  /registries/{registry_id}:bulk-upsert:
+    post:
+      description: 'Currently supported object types: custom entities.
+
+
+        This operation performs the following actions:
+
+        1. Any existing objects are looked up in Benchling by the provided entity
+        registry ID.
+
+        2. Then, all objects are either created or updated accordingly, temporarily
+        skipping any schema field links between objects.
+
+        3. Schema field links between objects are populated according to the provided
+        identifier. In the `value` field of the [Field](#/components/schemas/FieldWithResolution)
+        resource, the entity registry ID may be provided instead of the API ID if
+        desired. You may link to objects being created in the same operation.
+
+        4. Entities are registered, using the provided name and entity registry ID.
+
+
+        If any action fails, the whole operation is canceled and no objects are created
+        or updated.
+
+        '
+      operationId: registryBulkUpsertObjects
+      parameters:
+      - description: ID for the registry
+        in: path
+        name: registry_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistryBulkUpsertObjectsRequest'
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncTaskLink'
+          description: 'This endpoint launches a [long-running task](#/Tasks/getTask)
+            and returns the Task ID of the launched task.
+
+            When successful, the task returns the resources of the objects that were
+            upserted.
+
+            '
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+      summary: Bulk upsert objects into the registry
+      tags:
+      - Registry
+  /schema-access-policies:
+    get:
+      description: Returns a list of schema access policies.
+      operationId: listSchemaAccessPolicies
+      parameters:
+      - in: query
+        name: nextToken
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 0
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPoliciesPaginatedList'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+      summary: List schema access policies
+      tags:
+      - Access Policies
+  /schema-access-policies/{policy_id}:
+    get:
+      description: Returns a schema access policy by ID.
+      operationId: getSchemaAccessPolicy
+      parameters:
+      - description: ID of policy to get
+        in: path
+        name: policy_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPolicy'
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not Found
+      summary: Get a schema access policy by ID
+      tags:
+      - Access Policies
+  /stage-entries/{stage_entry_id}:
+    get:
+      description: Get a stage entry by ID
+      operationId: getStageEntry
+      parameters:
+      - description: ID of the stage entry
+        in: path
+        name: stage_entry_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StageEntry'
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not Found
+      summary: Get a stage entry by ID
+      tags:
+      - Legacy Workflows
+  /stage-entries/{stage_entry_id}/external-files/{external_file_id}:
+    get:
+      description: 'Retrieves the metadata for an external file. Use the ''downloadURL''
+        to download the actual file. (Expand the schema view for details)
+
+        '
+      operationId: getExternalFileMetadata
+      parameters:
+      - description: ID of the legacy workflow stage entry the file was uploaded to
+        in: path
+        name: stage_entry_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the external file
+        in: path
+        name: external_file_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntryExternalFileById'
+          description: OK
+      summary: 'Retrieves the metadata for an external file. Use the ''downloadURL''
+        to download the actual file.
+
+        '
+      tags:
+      - Legacy Workflows
+  /worklists/{worklist_id}/collaborations:
+    get:
+      description: 'Returns information about collaborations on the specified Worklists.
+
+        '
+      operationId: listWorklistCollaborations
+      parameters:
+      - description: ID of worklist for which to retrieve collaborations.
+        in: path
+        name: worklist_id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 0
+          type: integer
+      - description: Token for pagination
+        in: query
+        name: nextToken
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollaborationsPaginatedList'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not Found
+      summary: List worklist collaborations
+      tags:
+      - Worklists
+components:
+  schemas:
+    AaAnnotation:
+      properties:
+        color:
+          type: string
+        end:
+          type: integer
+        id:
+          example: prtnann_o7zMPG0P
+          type: string
+        name:
+          type: string
+        start:
+          type: integer
+        type:
+          example: Site
+          maxLength: 255
+          type: string
+      type: object
+    AaSequence:
+      properties:
+        aliases:
+          description: Array of aliases
+          items:
+            type: string
+          type: array
+        aminoAcids:
+          description: Amino acids of the AA sequence.
+          example: IKTATARRELAETSWTGDRLWGFSDNWAPALRRPSPSALGK
+          type: string
+        annotations:
+          description: Array of annotation objects on the AA sequence.
+          items:
+            $ref: '#/components/schemas/AaAnnotation'
+          type: array
+        apiURL:
+          description: The canonical url of the AA Sequence in the API.
+          example: https://benchling.com/api/v2/aa-sequences/prtn_7nMBOMm0
+          format: uri
+          readOnly: true
+          type: string
+        archiveRecord:
+          allOf:
+          - $ref: '#/components/schemas/ArchiveRecord'
+          nullable: true
+        createdAt:
+          description: DateTime the AA sequence was created.
+          format: date-time
+          readOnly: true
+          type: string
+        creator:
+          $ref: '#/components/schemas/UserSummary'
+        customFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomFields'
+          description: Custom fields set on the AA sequence.
+        entityRegistryId:
+          description: Registry ID of the AA sequence if registered.
+          nullable: true
+          type: string
+        fields:
+          $ref: '#/components/schemas/Fields'
+        folderId:
+          description: ID of the folder that contains the AA sequence.
+          nullable: true
+          type: string
+        id:
+          description: ID of the AA sequence.
+          example: prtn_ObbdtGhC
+          type: string
+        length:
+          description: Number of amino acids in the AA sequence.
+          type: integer
+        modifiedAt:
+          description: DateTime the AA sequence was last modified.
+          format: date-time
+          readOnly: true
+          type: string
+        name:
+          description: Name of the AA sequence.
+          type: string
+        registrationOrigin:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationOrigin'
+          nullable: true
+          readOnly: true
+        registryId:
+          description: Registry the AA sequence is registered in.
+          nullable: true
+          type: string
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/SchemaSummary'
+          nullable: true
+        webURL:
+          description: URL of the protein.
+          example: https://benchling.com/benchling/f/lib_55UxcIps-registry/prtn_7nMBOMm0-kedchain11/edit"
+          format: uri
+          readOnly: true
+          type: string
+      type: object
+    AaSequenceBaseRequest:
+      properties:
+        aliases:
+          description: Aliases to add to the AA sequence
+          items:
+            type: string
+          type: array
+        aminoAcids:
+          description: 'Amino acids for the AA sequence.
+
+            '
+          type: string
+        annotations:
+          description: 'Annotations to create on the AA sequence.
+
+            '
+          items:
+            $ref: '#/components/schemas/AaAnnotation'
+          type: array
+        authorIds:
+          description: IDs of users to set as the AA sequence's authors.
+          items:
+            type: string
+          type: array
+        customFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomFields'
+          description: 'Custom fields to add to the AA sequence. Every field should
+            have its name as a key, mapping to an object with information about the
+            value of the field.
+
+            '
+        fields:
+          allOf:
+          - $ref: '#/components/schemas/Fields'
+          description: 'Fields to set on the AA sequence. Must correspond with the
+            schema''s field definitions. Every field should have its name as a key,
+            mapping to an object with information about the value of the field.
+
+            '
+        folderId:
+          description: 'ID of the folder containing the AA sequence.
+
+            '
+          type: string
+        name:
+          description: 'Name of the AA sequence.
+
+            '
+          type: string
+        schemaId:
+          description: 'ID of the AA sequence''s schema.
+
+            '
+          type: string
+      type: object
+    AccessPoliciesPaginatedList:
+      additionalProperties: false
+      properties:
+        nextToken:
+          type: string
+        policies:
+          items:
+            $ref: '#/components/schemas/AccessPolicy'
+          type: array
+      type: object
+    AccessPolicy:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        statements:
+          items:
+            $ref: '#/components/schemas/PolicyStatement'
+          type: array
+      type: object
+    AppCollaborator:
+      allOf:
+      - properties:
+          type:
+            enum:
+            - APP
+            type: string
+      - $ref: '#/components/schemas/AppSummary'
+    AppSummary:
+      properties:
+        handle:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    ArchiveRecord:
+      properties:
+        reason:
+          example: Made in error
+          type: string
+      type: object
+    AssayRunNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          assayRunId:
+            example: 588aca02-1a20-4b94-a40f-b3f3a0081749
+            nullable: true
+            type: string
+          assayRunSchemaId:
+            example: assaysch_msh1Ly6g
+            type: string
+          type:
+            enum:
+            - assay_run
+            type: string
+        type: object
+    AsyncTask:
+      properties:
+        errors:
+          description: 'Present only when status is FAILED for a bulk task. Contains
+            information about the individual errors in the bulk task.
+
+            '
+          type: object
+        message:
+          description: Present only when status is FAILED. Contains information about
+            the error.
+          type: string
+        response:
+          description: Present only when status is SUCCEEDED. response can be empty
+            if there is no data to be returned.
+          type: object
+        status:
+          description: The current state of the task.
+          enum:
+          - RUNNING
+          - SUCCEEDED
+          - FAILED
+          type: string
+      required:
+      - status
+      type: object
+    AsyncTaskLink:
+      properties:
+        taskId:
+          format: uuid
+          type: string
+      type: object
+    BackTranslate:
+      additionalProperties: false
+      properties:
+        aaSequenceIds:
+          description: IDs of AA sequences to back-translate.
+          items:
+            type: string
+          type: array
+        avoidedCutsiteEnzymeIds:
+          description: 'List of enzyme IDs whose recognition sites will be avoided
+            when creating the back-translated sequence.
+
+            '
+          items:
+            type: string
+          type: array
+        codonUsageTableId:
+          description: ID of the codon usage table representing the target organism.
+          type: string
+        folderId:
+          description: 'ID of the folder in which the back-translated sequences will
+            be saved.
+
+            '
+          type: string
+        gcContent:
+          default: ANY
+          description: 'The amount of GC content in the back-translated sequence.
+            If not specified, the back-translation will default to ANY (0-1). LOW
+            is defined as below 0.33, MEDIUM as 0.33-0.66, and HIGH as above 0.66.
+
+            '
+          enum:
+          - ANY
+          - LOW
+          - MEDIUM
+          - HIGH
+          type: string
+        hairpinParameters:
+          additionalProperties: false
+          description: 'These parameters are applied in the AvoidHairpins specification
+            in DNAChisel. If hairpinParameters is not specified, hairpins will not
+            be avoided.
+
+            '
+          properties:
+            stem:
+              default: 20
+              type: integer
+            window:
+              default: 200
+              type: integer
+          type: object
+        reducedPatterns:
+          description: 'List of patterns to avoid when creating the back-translated
+            sequence, on the coding strand only.
+
+            '
+          items:
+            $ref: '#/components/schemas/ReducedPattern'
+          type: array
+        schemaId:
+          description: ID of the resulting DNA sequences' schemas
+          type: string
+        shouldDepleteUridine:
+          default: false
+          description: 'If not specified, the back-translation will default to false,
+            and mRNA uridine depletion will not be performed.
+
+            '
+          type: boolean
+      required:
+      - aaSequenceIds
+      - folderId
+      type: object
+    BadRequestError:
+      properties:
+        error:
+          allOf:
+          - $ref: '#/components/schemas/BaseError'
+          - properties:
+              type:
+                enum:
+                - invalid_request_error
+                type: string
+      type: object
+    BaseError:
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+        userMessage:
+          type: string
+      type: object
+    BaseNotePart:
+      properties:
+        indentation:
+          default: 0
+          description: 'All notes have an indentation level - the default is 0 for
+            no indent. For lists, indentation gives notes hierarchy - a bulleted list
+            with children is modeled as one note part with indentation 1 followed
+            by note parts with indentation 2, for example.
+
+            '
+          minimum: 0
+          type: integer
+        type:
+          description: 'The type of the note.  Type determines what other fields are
+            present.
+
+            '
+          type: string
+      type: object
+    BoxCreationTableNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          boxSchemaId:
+            example: boxsch_MAbGlEtf
+            type: string
+          type:
+            enum:
+            - box_creation_table
+            type: string
+        type: object
+    BoxCreationTableNotePartApiIdentified:
+      allOf:
+      - $ref: '#/components/schemas/BoxCreationTableNotePart'
+      - $ref: '#/components/schemas/StructuredTableApiIdentifiers'
+    CheckboxNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          checked:
+            description: 'Indicates whether the checkbox is checked or not.
+
+              '
+            type: boolean
+          links:
+            description: 'Array of links referenced in text via an @-mention, hyperlink,
+              or the drag-n-dropped preview attached to the note.
+
+              '
+            items:
+              $ref: '#/components/schemas/EntryLink'
+            type: array
+          text:
+            description: The textual contents of the note.
+            type: string
+          type:
+            enum:
+            - list_checkbox
+            type: string
+        type: object
+      description: One "line" of a checklist
+    CodonUsageTable:
+      additionalProperties: false
+      properties:
+        id:
+          example: codtab_VfVOART1
+          type: string
+        name:
+          type: string
+      type: object
+    CodonUsageTablesPaginatedList:
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - properties:
+          codonUsageTables:
+            items:
+              $ref: '#/components/schemas/CodonUsageTable'
+            type: array
+      type: object
+    Collaboration:
+      allOf:
+      - properties:
+          accessPolicy:
+            $ref: '#/components/schemas/AccessPolicy'
+          collaborator:
+            discriminator:
+              mapping:
+                APP: api/v2-beta/openapi.yaml#/components/schemas/AppCollaborator
+                ORGANIZATION_MEMBER: '#/components/schemas/OrgMembershipCollaborator'
+                TEAM_MEMBER: '#/components/schemas/TeamMembershipCollaborator'
+                USER: '#/components/schemas/UserCollaborator'
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/OrgMembershipCollaborator'
+            - $ref: '#/components/schemas/TeamMembershipCollaborator'
+            - $ref: '#/components/schemas/UserCollaborator'
+            - $ref: '#/components/schemas/AppCollaborator'
+      type: object
+    CollaborationsPaginatedList:
+      additionalProperties: false
+      properties:
+        collaborations:
+          items:
+            $ref: '#/components/schemas/Collaboration'
+          type: array
+        nextToken:
+          type: string
+      type: object
+    CreateEntityIntoRegistry:
+      properties:
+        entityRegistryId:
+          description: 'Entity registry ID to set for the registered entity. Cannot
+            specify both entityRegistryId and namingStrategy at the same time.
+
+            '
+          type: string
+        folderId:
+          description: ID of the folder containing the entity. Can be left empty when
+            registryId is present.
+          type: string
+        namingStrategy:
+          $ref: '#/components/schemas/NamingStrategy'
+        registryId:
+          description: 'Registry ID into which entity should be registered. this is
+            the ID of the registry which was configured for a particular organization
+
+            To get available registryIds, use the [/registries endpoint](#/Registry/listRegistries)
+
+
+            Required in order for entities to be created directly in the registry.
+
+            '
+          type: string
+      type: object
+    CreationOrigin:
+      properties:
+        application:
+          nullable: true
+          readOnly: true
+          type: string
+        originId:
+          nullable: true
+          readOnly: true
+          type: string
+        originModalUuid:
+          format: uuid
+          nullable: true
+          readOnly: true
+          type: string
+        originType:
+          nullable: true
+          readOnly: true
+          type: string
+      type: object
+    CustomEntity:
+      properties:
+        aliases:
+          items:
+            example: sBN000
+            type: string
+          type: array
+        apiURL:
+          description: The canonical url of the Custom Entity in the API.
+          example: https://benchling.com/api/v2/custom-entities/bfi_xCUXNVyG
+          format: uri
+          readOnly: true
+          type: string
+        archiveRecord:
+          allOf:
+          - $ref: '#/components/schemas/ArchiveRecord'
+          nullable: true
+        authors:
+          items:
+            $ref: '#/components/schemas/UserSummary'
+          type: array
+        createdAt:
+          example: '2017-04-18T05:54:56.247545+00:00'
+          format: date-time
+          readOnly: true
+          type: string
+        creator:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          - readOnly: true
+        customFields:
+          $ref: '#/components/schemas/CustomFields'
+        entityRegistryId:
+          example: sBN000
+          nullable: true
+          type: string
+        fields:
+          $ref: '#/components/schemas/Fields'
+        folderId:
+          example: lib_R8KcsjhW
+          nullable: true
+          type: string
+        id:
+          example: bfi_xCUXNVyG
+          type: string
+        modifiedAt:
+          example: '2017-04-18T05:55:48.685345+00:00'
+          format: date-time
+          readOnly: true
+          type: string
+        name:
+          example: sBN000
+          type: string
+        registrationOrigin:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationOrigin'
+          nullable: true
+          readOnly: true
+        registryId:
+          example: src_NetYd96a
+          nullable: true
+          type: string
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/SchemaSummary'
+          example:
+            id: ts_EM122lfJ
+            name: Strain
+          nullable: true
+        webURL:
+          example: https://benchling.com/benchling/f/R8KcsjhW-academic-registry/bfi-xCUXNVyG-sbn000/edit
+          readOnly: true
+          type: string
+      type: object
+    CustomEntityBaseRequest:
+      properties:
+        aliases:
+          description: Aliases to add to the custom entity
+          items:
+            type: string
+          type: array
+        authorIds:
+          description: IDs of users to set as the custom entity's authors.
+          items:
+            type: string
+          type: array
+        customFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomFields'
+          description: 'Custom fields to add to the custom entity. Every field should
+            have its name as a key, mapping to an object with information about the
+            value of the field.
+
+            '
+        fields:
+          allOf:
+          - $ref: '#/components/schemas/Fields'
+          description: 'Schema fields to set on the custom entity. Must correspond
+            with the schema''s field definitions. Every field should have its name
+            as a key, mapping to an object with information about the value of the
+            field.
+
+            '
+        folderId:
+          description: ID of the folder that the entity is moved into
+          type: string
+        name:
+          type: string
+        schemaId:
+          type: string
+      type: object
+    CustomEntityRequestRegistryFields:
+      properties:
+        entityRegistryId:
+          type: string
+      type: object
+    CustomEntityUpsert:
+      allOf:
+      - $ref: '#/components/schemas/CustomEntityBaseRequest'
+      - $ref: '#/components/schemas/CustomEntityRequestRegistryFields'
+      - required:
+        - registryId
+        - entityRegistryId
+        - name
+        - schemaId
+      properties:
+        registryId:
+          example: src_NetYd96a
+          type: string
+    CustomField:
+      properties:
+        value:
+          type: string
+      type: object
+    CustomFields:
+      additionalProperties:
+        $ref: '#/components/schemas/CustomField'
+      example:
+        Legacy ID:
+          value: STR100
+      type: object
+    DnaAnnotation:
+      properties:
+        color:
+          example: '#F58A5E'
+          type: string
+        end:
+          type: integer
+        name:
+          type: string
+        notes:
+          example: Cong et al Science. 2013 Jan 3.
+          maxLength: 10000
+          type: string
+        start:
+          type: integer
+        strand:
+          maximum: 1
+          minimum: -1
+          type: integer
+        type:
+          type: string
+      type: object
+    DnaOligo:
+      allOf:
+      - $ref: '#/components/schemas/Oligo'
+      - properties:
+          apiURL:
+            example: https://benchling.com/api/v2/dna-oligos/seq_bhuDUw9D
+            type: string
+          bases:
+            example: ACTTTTT
+            type: string
+    DnaOligoHelm:
+      allOf:
+      - $ref: '#/components/schemas/DnaOligo'
+      - properties:
+          helm:
+            description: Representation of the oligo in HELM syntax, including any
+              chemical modifications
+            example: RNA1{r(A)p.r(C)[Ssp].r(T)p.r(T)p.r(T)p.r(T)p.r(T)p}$$$$V2.0
+            type: string
+    DnaSequence:
+      properties:
+        aliases:
+          items:
+            type: string
+          type: array
+        annotations:
+          items:
+            $ref: '#/components/schemas/DnaAnnotation'
+          type: array
+        apiURL:
+          description: The canonical url of the DNA Sequence in the API.
+          example: https://benchling.com/api/v2/dna-sequences/seq_asQya4lk
+          format: uri
+          readOnly: true
+          type: string
+        archiveRecord:
+          allOf:
+          - $ref: '#/components/schemas/ArchiveRecord'
+          nullable: true
+        bases:
+          type: string
+        createdAt:
+          format: date-time
+          readOnly: true
+          type: string
+        creator:
+          $ref: '#/components/schemas/UserSummary'
+        customFields:
+          $ref: '#/components/schemas/CustomFields'
+        entityRegistryId:
+          nullable: true
+          type: string
+        fields:
+          $ref: '#/components/schemas/Fields'
+        folderId:
+          nullable: true
+          type: string
+        id:
+          type: string
+        isCircular:
+          type: boolean
+        length:
+          type: integer
+        modifiedAt:
+          format: date-time
+          readOnly: true
+          type: string
+        name:
+          type: string
+        primers:
+          items:
+            $ref: '#/components/schemas/Primer'
+          type: array
+        registrationOrigin:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationOrigin'
+          nullable: true
+          readOnly: true
+        registryId:
+          nullable: true
+          type: string
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/SchemaSummary'
+          nullable: true
+        translations:
+          items:
+            $ref: '#/components/schemas/Translation'
+          type: array
+        webURL:
+          readOnly: true
+          type: string
+      type: object
+    DnaSequenceBaseRequest:
+      properties:
+        aliases:
+          description: Aliases to add to the DNA sequence
+          items:
+            type: string
+          type: array
+        annotations:
+          description: 'Annotations to create on the DNA sequence.
+
+            '
+          items:
+            $ref: '#/components/schemas/DnaAnnotation'
+          type: array
+        authorIds:
+          description: IDs of users to set as the DNA sequence's authors.
+          items:
+            type: string
+          type: array
+        bases:
+          description: 'Base pairs for the DNA sequence.
+
+            '
+          type: string
+        customFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomFields'
+          description: 'Custom fields to add to the DNA sequence. Every field should
+            have its name as a key, mapping to an object with information about the
+            value of the field.
+
+            '
+        fields:
+          allOf:
+          - $ref: '#/components/schemas/Fields'
+          description: 'Fields to set on the DNA sequence. Must correspond with the
+            schema''s field definitions. Every field should have its name as a key,
+            mapping to an object with information about the value of the field.
+
+            '
+        folderId:
+          description: 'ID of the folder containing the DNA sequence.
+
+            '
+          type: string
+        isCircular:
+          description: 'Whether the DNA sequence is circular or linear.
+
+            '
+          type: boolean
+        name:
+          description: 'Name of the DNA sequence.
+
+            '
+          type: string
+        primers:
+          items:
+            $ref: '#/components/schemas/Primer'
+          type: array
+        schemaId:
+          description: 'ID of the DNA sequence''s schema.
+
+            '
+          type: string
+        translations:
+          description: 'Translations to create on the DNA sequence.
+
+            '
+          items:
+            $ref: '#/components/schemas/Translation'
+          type: array
+      type: object
+    DropdownFieldDefinition:
+      allOf:
+      - $ref: '#/components/schemas/FieldDefinition'
+      - properties:
+          dropdownId:
+            nullable: true
+            type: string
+          type:
+            enum:
+            - dropdown
+            type: string
+        type: object
+    EntryAttachments:
+      additionalProperties: false
+      properties:
+        attachments:
+          description: 'An array of IDs representing Blob objects in Benchling to
+            be attached to the entry.
+
+            '
+          items:
+            type: string
+          type: array
+      type: object
+    EntryCreate:
+      additionalProperties: false
+      properties:
+        authorIds:
+          description: 'IDs of users to set as the entry''s authors. Defaults to the
+            creator.
+
+            '
+          type: string
+        customFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomFields'
+          description: Custom fields to add to the entry
+        entryTemplateId:
+          description: ID of the template to clone the entry from
+          type: string
+        fields:
+          allOf:
+          - $ref: '#/components/schemas/Fields'
+          description: 'Fields to set on the entry. Must correspond with the schema''s
+            field definitions.
+
+            '
+        folderId:
+          description: ID of the folder that will contain the entry
+          type: string
+        name:
+          description: Name of the entry
+          type: string
+        schemaId:
+          description: ID of the entry's schema
+          type: string
+      required:
+      - name
+      - folderId
+      type: object
+    EntryCreateAttachments:
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/EntryCreate'
+      - $ref: '#/components/schemas/EntryAttachments'
+      - $ref: '#/components/schemas/EntryCreateInitialTablesArray'
+      type: object
+    EntryCreateInitialTablesArray:
+      properties:
+        initialTables:
+          items:
+            $ref: '#/components/schemas/InitialTable'
+          type: array
+      type: object
+    EntryExternalFile:
+      description: 'The ExternalFile resource stores metadata about the file. The
+        actual original file can be downloaded by using the ''downloadURL'' property.
+
+        '
+      properties:
+        downloadURL:
+          description: 'A short-lived URL that can be used to download the original
+            file.
+
+            '
+          type: string
+        expiresAt:
+          description: UNIX timestamp when downloadURL expires.
+          type: integer
+        id:
+          description: ID of the external file
+          type: string
+        size:
+          description: Size, in bytes, of the external file
+          type: integer
+      type: object
+    EntryExternalFileById:
+      properties:
+        externalFile:
+          $ref: '#/components/schemas/EntryExternalFile'
+      type: object
+    EntryLink:
+      description: 'Links are contained within notes to reference resources that live
+        outside of the entry. A link can target an external resource via an http(s)://
+        hyperlink or a Benchling resource via @-mentions and drag-n-drop.
+
+        '
+      properties:
+        id:
+          description: 'For linked Benchling resources, this will be the ID of that
+            resource (e.g., ''seq_RhYGVnHF''). Omitted for "link" types.
+
+            '
+          type: string
+        type:
+          description: 'The type of resource being linked. For hyperlinks: ''link''.
+            For linked Benchling resources, one of: ''user'', ''request'', ''entry'',
+            ''stage_entry'', ''protocol'', ''workflow'', ''custom_entity'', ''aa_sequence'',
+            ''dna_sequence'', ''batch'', ''box'', ''container'', ''location'', ''plate''.
+
+            '
+          enum:
+          - link
+          - user
+          - request
+          - entry
+          - stage_entry
+          - protocol
+          - workflow
+          - custom_entity
+          - aa_sequence
+          - dna_sequence
+          - batch
+          - box
+          - container
+          - location
+          - plate
+          type: string
+        webURL:
+          description: 'Canonical URL of the linked Benchling resource (if you have
+            at least READ authorization for that resource), or the explicit URL provided
+            as hyperlink for "link" types. Note: locations do not currently have a
+            URL.
+
+            '
+          nullable: true
+          type: string
+      type: object
+    EntrySchema:
+      description: Entry schema
+      properties:
+        id:
+          description: ID of the entry schema
+          type: string
+        modifiedAt:
+          description: DateTime the Entry Schema was last modified
+          example: '2017-04-18T05:55:48.685345+00:00'
+          format: date-time
+          type: string
+        name:
+          description: Name of the entry schema
+          type: string
+      type: object
+    EntryTable:
+      description: 'Actual tabular data with rows and columns of text on the note.
+
+        '
+      properties:
+        columnLabels:
+          description: 'Array of strings, with one item per column. Defaults to null,
+            if the user is using the default, but is set if the user has given a custom
+            name to the column.
+
+            '
+          items:
+            nullable: true
+            type: string
+          type: array
+        name:
+          description: 'Name of the table - defaults to e.g. Table1 but can be renamed.
+
+            '
+          type: string
+        rows:
+          description: Array of row objects.
+          items:
+            $ref: '#/components/schemas/EntryTableRow'
+          type: array
+      type: object
+    EntryTableCell:
+      properties:
+        link:
+          allOf:
+          - $ref: '#/components/schemas/EntryLink'
+          description: 'A Link Resource if this cell contained a hyperlink. Otherwise,
+            link will be omitted from the cell object. (Note: storage and user types
+            are not yet supported.)
+
+            '
+        text:
+          description: 'The textual content of the cell. If the cell was originally
+            a formula, this will be the evaluated version of the formula.
+
+            '
+          type: string
+      type: object
+    EntryTableRow:
+      description: Each has property 'cells' that is an array of cell objects
+      properties:
+        cells:
+          items:
+            $ref: '#/components/schemas/EntryTableCell'
+          type: array
+      type: object
+    EntryTemplate:
+      additionalProperties: false
+      description: 'Entry templates are templates that users can base new notebook
+        entries off of.
+
+        '
+      properties:
+        apiURL:
+          description: The canonical url of the Entry Template in the API.
+          example: https://benchling.com/api/v2/entry-templates/tmpl_tv7m7B78
+          format: uri
+          readOnly: true
+          type: string
+        createdAt:
+          description: DateTime the template was created at
+          format: date-time
+          readOnly: true
+          type: string
+        creator:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          description: UserSummary Resource of the user who created the template
+          readOnly: true
+        customFields:
+          $ref: '#/components/schemas/CustomFields'
+        days:
+          description: 'Array of day objects. Each day object has a day index (integer)
+            and notes field (array of notes, expand further for details on note types).
+
+            '
+          items:
+            $ref: '#/components/schemas/EntryTemplateDay'
+          type: array
+        fields:
+          $ref: '#/components/schemas/Fields'
+        id:
+          description: ID of the entry template
+          type: string
+        modifiedAt:
+          description: DateTime the template was last modified
+          type: string
+        name:
+          description: Title of the template
+          type: string
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/EntrySchema'
+          description: Entry schema if set
+          nullable: true
+          title: SchemaProperty
+          type: object
+        templateCollectionId:
+          description: ID of the collection that contains the template
+          type: string
+        webURL:
+          description: URL of the template
+          type: string
+      type: object
+    EntryTemplateDay:
+      properties:
+        day:
+          description: 1 indexed day signifier.
+          minimum: 1
+          type: integer
+        notes:
+          items:
+            description: 'Notes are the main building blocks of entries. Each note
+              corresponds roughly to a paragraph.
+
+              '
+            oneOf:
+            - $ref: '#/components/schemas/SimpleNotePart'
+            - $ref: '#/components/schemas/TableNotePart'
+            - $ref: '#/components/schemas/CheckboxNotePart'
+            - $ref: '#/components/schemas/ExternalFileNotePart'
+            - $ref: '#/components/schemas/AssayRunNotePart'
+            - $ref: '#/components/schemas/LookupTableNotePartApiIdentified'
+            - $ref: '#/components/schemas/ResultsTableNotePartApiIdentified'
+            - $ref: '#/components/schemas/RegistrationTableNotePartApiIdentified'
+            - $ref: '#/components/schemas/PlateCreationTableNotePartApiIdentified'
+            - $ref: '#/components/schemas/BoxCreationTableNotePartApiIdentified'
+            - $ref: '#/components/schemas/MixturePrepTableNotePartApiIdentified'
+            type: object
+          type: array
+      type: object
+    Enzyme:
+      additionalProperties: false
+      properties:
+        cutsites:
+          items:
+            type: integer
+          maxItems: 2
+          minItems: 1
+          type: array
+        id:
+          example: enz_6ZVdX98t
+          type: string
+        isoschizomers:
+          items:
+            type: string
+          type: array
+        name:
+          type: string
+        offsets:
+          items:
+            type: integer
+          maxItems: 2
+          minItems: 1
+          type: array
+        restrictionSite:
+          type: string
+      type: object
+    EnzymesPaginatedList:
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - properties:
+          enzymes:
+            items:
+              $ref: '#/components/schemas/Enzyme'
+            type: array
+      type: object
+    ExternalFileNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          externalFileId:
+            description: 'The ID of the external file. Use the ''Get an external file''
+              endpoint to retrieve metadata about it.
+
+              '
+            type: string
+          links:
+            description: 'Array of links referenced in the caption via an @-mention,
+              hyperlink, or the drag-n-dropped preview attached to the note.
+
+              '
+            items:
+              $ref: '#/components/schemas/EntryLink'
+            type: array
+          text:
+            description: The caption of the file attachment.
+            type: string
+          type:
+            enum:
+            - external_file
+            type: string
+        type: object
+      description: An attached user-uploaded file
+    Field:
+      properties:
+        displayValue:
+          nullable: true
+          readOnly: true
+          type: string
+        isMulti:
+          readOnly: true
+          type: boolean
+        textValue:
+          example: Amp
+          nullable: true
+          readOnly: true
+          type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/FieldType'
+          readOnly: true
+        value:
+          description: 'For single link fields, use the id of the item you want to
+            link (eg. "seq_jdf8BV24").
+
+            For multi-link fields, use an array of ids of the items you want to link
+            (eg. ["seq_jdf8BV24"])
+
+            '
+          nullable: true
+          oneOf:
+          - type: string
+          - type: boolean
+          - type: number
+          - type: object
+          - items:
+              type: string
+            type: array
+      required:
+      - value
+      type: object
+    FieldDefinition:
+      properties:
+        archiveRecord:
+          allOf:
+          - $ref: '#/components/schemas/ArchiveRecord'
+          nullable: true
+        id:
+          example: tsf_HXUnClU9
+          type: string
+        isMulti:
+          type: boolean
+        isRequired:
+          type: boolean
+        name:
+          example: Resistance Gene
+          type: string
+        type:
+          $ref: '#/components/schemas/FieldType'
+      type: object
+    FieldType:
+      enum:
+      - dna_sequence_link
+      - aa_sequence_link
+      - custom_entity_link
+      - entity_link
+      - mixture_link
+      - dropdown
+      - part_link
+      - translation_link
+      - blob_link
+      - text
+      - long_text
+      - batch_link
+      - storage_link
+      - entry_link
+      - assay_request_link
+      - assay_result_link
+      - assay_run_link
+      - boolean
+      - float
+      - integer
+      - datetime
+      - date
+      - json
+      type: string
+    FieldValueWithResolution:
+      oneOf:
+      - type: string
+      - type: boolean
+      - type: number
+      - items:
+          type: string
+        type: array
+      - additionalProperties: false
+        description: Look up an entity by its entity registry ID
+        properties:
+          entityRegistryId:
+            type: string
+        required:
+        - entityRegistryId
+        type: object
+    FieldWithResolution:
+      allOf:
+      - $ref: '#/components/schemas/Field'
+      - properties:
+          value:
+            allOf:
+            - $ref: '#/components/schemas/FieldValueWithResolution'
+            nullable: true
+        type: object
+    Fields:
+      additionalProperties:
+        $ref: '#/components/schemas/Field'
+      type: object
+    FieldsWithResolution:
+      additionalProperties:
+        $ref: '#/components/schemas/FieldWithResolution'
+      type: object
+    FloatFieldDefinition:
+      allOf:
+      - $ref: '#/components/schemas/FieldDefinition'
+      - properties:
+          decimalPrecision:
+            nullable: true
+            type: number
+          legalTextDropdownId:
+            nullable: true
+            type: string
+          numericMax:
+            nullable: true
+            type: number
+          numericMin:
+            nullable: true
+            type: number
+          type:
+            enum:
+            - float
+            type: string
+        type: object
+    Folder:
+      properties:
+        archiveRecord:
+          allOf:
+          - $ref: '#/components/schemas/ArchiveRecord'
+          nullable: true
+          readOnly: true
+        id:
+          readOnly: true
+          type: string
+        name:
+          type: string
+        parentFolderId:
+          description: ID of the parent folder, if it exists
+          nullable: true
+          type: string
+        projectId:
+          description: ID of the containing project
+          readOnly: true
+          type: string
+    InitialTable:
+      additionalProperties: false
+      properties:
+        csvData:
+          description: blobId of data
+          type: string
+        templateTableID:
+          description: Template table API id
+          type: string
+      type: object
+    IntegerFieldDefinition:
+      allOf:
+      - $ref: '#/components/schemas/FieldDefinition'
+      - properties:
+          numericMax:
+            nullable: true
+            type: number
+          numericMin:
+            nullable: true
+            type: number
+          type:
+            enum:
+            - integer
+            type: string
+        type: object
+    LookupTableNotePartApiIdentified:
+      allOf:
+      - $ref: '#/components/schemas/StructuredTableApiIdentifiers'
+      - properties:
+          type:
+            enum:
+            - lookup_table
+            type: string
+        type: object
+    MixturePrepTableNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          mixtureSchemaId:
+            example: ts_eGNPfqCX
+            type: string
+          type:
+            enum:
+            - mixture_prep_table
+            type: string
+        type: object
+    MixturePrepTableNotePartApiIdentified:
+      allOf:
+      - $ref: '#/components/schemas/MixturePrepTableNotePart'
+      - $ref: '#/components/schemas/StructuredTableApiIdentifiers'
+    Molecule:
+      additionalProperties: false
+      properties:
+        aliases:
+          description: Array of aliases.
+          items:
+            type: string
+          type: array
+        apiURL:
+          description: The canonical url of the Molecule in the API.
+          format: uri
+          readOnly: true
+          type: string
+        archiveRecord:
+          allOf:
+          - $ref: '#/components/schemas/ArchiveRecord'
+          nullable: true
+        canonicalizedSmiles:
+          description: The canonicalized molecular structure in SMILES format.
+          example: Nc1nc(=O)n([H:1])cc1C1CC1
+          type: string
+        createdAt:
+          description: DateTime the Molecule was created.
+          format: date-time
+          readOnly: true
+          type: string
+        creator:
+          $ref: '#/components/schemas/UserSummary'
+        customFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomFields'
+          description: Custom fields set on the Molecule.
+        entityRegistryId:
+          description: Registry ID of the Molecule if registered.
+          nullable: true
+          type: string
+        fields:
+          $ref: '#/components/schemas/Fields'
+        folderId:
+          description: ID of the folder that contains the Molecule.
+          type: string
+        id:
+          description: ID of the Molecule.
+          example: mol_bhuDUw9D
+          type: string
+        modifiedAt:
+          description: DateTime the Molecule was last modified.
+          format: date-time
+          readOnly: true
+          type: string
+        name:
+          description: Name of the Molecule.
+          type: string
+        registrationOrigin:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationOrigin'
+          nullable: true
+          readOnly: true
+        registryId:
+          description: Registry the Molecule is registered in.
+          nullable: true
+          type: string
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/SchemaSummary'
+          nullable: true
+        webURL:
+          description: URL of the Molecule.
+          example: https://benchling.com/benchling/f/lib_R8KcsjhW-molecules/mol_xCUXNVyG-molecule1/edit
+          format: uri
+          readOnly: true
+          type: string
+      type: object
+    MoleculeBaseRequest:
+      additionalProperties: false
+      properties:
+        aliases:
+          description: Aliases to add to the Molecule.
+          items:
+            type: string
+          type: array
+        authorIds:
+          description: IDs of users to set as the Molecule's authors.
+          items:
+            type: string
+          type: array
+        chemicalStructure:
+          allOf:
+          - $ref: '#/components/schemas/MoleculeStructure'
+          description: 'Chemical structure of the Molecule.
+
+            '
+        customFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomFields'
+          description: 'Custom fields to add to the Molecule. Every field should have
+            its name as a key, mapping to an object with information about the value
+            of the field.
+
+            '
+        fields:
+          allOf:
+          - $ref: '#/components/schemas/Fields'
+          description: 'Fields to set on the Molecule. Must correspond with the schema''s
+            field definitions. Every field should have its name as a key, mapping
+            to an object with information about the value of the field.
+
+            '
+        folderId:
+          description: 'ID of the folder containing the Molecule.
+
+            '
+          type: string
+        name:
+          description: 'Name of the Molecule.
+
+            '
+          type: string
+        schemaId:
+          description: 'ID of the Molecule''s schema.
+
+            '
+          type: string
+      type: object
+    MoleculeBulkUpdate:
+      additionalProperties: false
+      allOf:
+      - properties:
+          id:
+            type: string
+        type: object
+      - $ref: '#/components/schemas/MoleculeUpdate'
+    MoleculeCreate:
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/MoleculeBaseRequest'
+      - $ref: '#/components/schemas/CreateEntityIntoRegistry'
+    MoleculeStructure:
+      additionalProperties: false
+      properties:
+        structureFormat:
+          enum:
+          - smiles
+          - molfile
+        value:
+          description: Molecular structure in SMILES or molfile format.
+          example: Nc1nc(=O)n([H:1])cc1C1CC1
+          type: string
+      type: object
+    MoleculeUpdate:
+      additionalProperties: false
+      allOf:
+      - properties:
+          entityRegistryId:
+            type: string
+        type: object
+      - $ref: '#/components/schemas/MoleculeBaseRequest'
+    NamingStrategy:
+      description: 'Specifies the behavior for automatically generated names when
+        registering an entity.
+
+        - NEW_IDS: Generate new registry IDs
+
+        - IDS_FROM_NAMES: Generate registry IDs based on entity names
+
+        - DELETE_NAMES: Generate new registry IDs and replace name with registry ID
+
+        - SET_FROM_NAME_PARTS: Generate new registry IDs, rename according to name
+        template, and keep old name as alias
+
+        - REPLACE_NAMES_FROM_PARTS: Generate new registry IDs, and replace name according
+        to name template
+
+        - KEEP_NAMES: Keep existing entity names as registry IDs
+
+        - REPLACE_ID_AND_NAME_FROM_PARTS: Generate registry IDs and names according
+        to name template
+
+        '
+      enum:
+      - NEW_IDS
+      - IDS_FROM_NAMES
+      - DELETE_NAMES
+      - SET_FROM_NAME_PARTS
+      - REPLACE_NAMES_FROM_PARTS
+      - KEEP_NAMES
+      - REPLACE_ID_AND_NAME_FROM_PARTS
+      type: string
+    NotFoundError:
+      properties:
+        error:
+          allOf:
+          - $ref: '#/components/schemas/BaseError'
+          - properties:
+              invalidId:
+                type: string
+              type:
+                enum:
+                - invalid_request_error
+                type: string
+      type: object
+    Oligo:
+      discriminator:
+        mapping:
+          DNA: DnaOligo
+          RNA: RnaOligo
+        propertyName: nucleotideType
+      properties:
+        aliases:
+          description: Array of aliases
+          items:
+            type: string
+          type: array
+        apiURL:
+          description: The canonical url of the Oligo in the API.
+          format: uri
+          readOnly: true
+          type: string
+        archiveRecord:
+          allOf:
+          - $ref: '#/components/schemas/ArchiveRecord'
+          nullable: true
+        bases:
+          description: Base pairs of the Oligo.
+          example: ACTTTTT
+          type: string
+        createdAt:
+          description: DateTime the Oligo was created.
+          format: date-time
+          readOnly: true
+          type: string
+        creator:
+          $ref: '#/components/schemas/UserSummary'
+        customFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomFields'
+          description: Custom fields set on the Oligo.
+        entityRegistryId:
+          description: Registry ID of the Oligo if registered.
+          nullable: true
+          type: string
+        fields:
+          $ref: '#/components/schemas/Fields'
+        folderId:
+          description: ID of the folder that contains the Oligo.
+          nullable: true
+          type: string
+        id:
+          description: ID of the Oligo.
+          example: seq_bhuDUw9D
+          type: string
+        length:
+          description: Number of bases in the Oligo.
+          type: integer
+        modifiedAt:
+          description: DateTime the Oligo was last modified.
+          format: date-time
+          readOnly: true
+          type: string
+        name:
+          description: Name of the Oligo.
+          type: string
+        nucleotideType:
+          description: Nucleotide type of the Oligo.
+          enum:
+          - DNA
+          - RNA
+          type: string
+        registrationOrigin:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationOrigin'
+          nullable: true
+          readOnly: true
+        registryId:
+          description: Registry the Oligo is registered in.
+          nullable: true
+          type: string
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/SchemaSummary'
+          nullable: true
+        webURL:
+          description: URL of the Oligo.
+          example: https://benchling.com/benchling/f/lib_hBHqKbzE-oligos/seq_bhuDUw9D-test-oligo-abc/edit
+          format: uri
+          readOnly: true
+          type: string
+      type: object
+    OligoBaseRequest:
+      properties:
+        aliases:
+          description: Aliases to add to the Oligo
+          items:
+            type: string
+          type: array
+        authorIds:
+          description: IDs of users to set as the Oligo's authors.
+          items:
+            type: string
+          type: array
+        bases:
+          description: 'Base pairs of the oligo.
+
+            '
+          type: string
+        customFields:
+          allOf:
+          - $ref: '#/components/schemas/CustomFields'
+          description: 'Custom fields to add to the Oligo. Every field should have
+            its name as a key, mapping to an object with information about the value
+            of the field.
+
+            '
+        fields:
+          allOf:
+          - $ref: '#/components/schemas/Fields'
+          description: 'Fields to set on the Oligo. Must correspond with the schema''s
+            field definitions. Every field should have its name as a key, mapping
+            to an object with information about the value of the field.
+
+            '
+        folderId:
+          description: 'ID of the folder containing the Oligo.
+
+            '
+          type: string
+        name:
+          description: 'Name of the Oligo.
+
+            '
+          type: string
+        schemaId:
+          description: 'ID of the oligo''s schema.
+
+            '
+          type: string
+      type: object
+    OligoCreate:
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/OligoBaseRequest'
+      - $ref: '#/components/schemas/CreateEntityIntoRegistry'
+      - required:
+        - bases
+        - name
+    OligoCreateHelm:
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/OligoCreate'
+      - properties:
+          helm:
+            description: Representation of the oligo in HELM syntax, including any
+              chemical modifications
+            example: RNA1{r(A)p.r([impr2G])p.r(G)[Ssp].r(A)p.r(T)p.r(T)p}$$$$V2.0
+            type: string
+      - required:
+        - folderId
+        - name
+    OligoUpdate:
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/OligoBaseRequest'
+    OptimizeCodons:
+      additionalProperties: false
+      properties:
+        avoidedCutsiteEnzymeIds:
+          description: 'List of enzyme IDs whose recognition sites will be avoided
+            when creating the optimized sequence.
+
+            '
+          items:
+            type: string
+          type: array
+        codonUsageTableId:
+          description: ID of the codon usage table representing the target organism.
+          type: string
+        dnaSequenceIds:
+          description: IDs of DNA sequences to codon-optimize.
+          items:
+            type: string
+          type: array
+        folderId:
+          description: 'ID of the folder in which the optimized sequences will be
+            saved.
+
+            '
+          type: string
+        gcContent:
+          default: ANY
+          description: 'The amount of GC content in the optimized sequence. If not
+            specified, the optimization will default to ANY (0-1). LOW is defined
+            as below 0.33, MEDIUM as 0.33-0.66, and HIGH as above 0.66.
+
+            '
+          enum:
+          - ANY
+          - LOW
+          - MEDIUM
+          - HIGH
+          type: string
+        hairpinParameters:
+          additionalProperties: false
+          description: 'These parameters are applied in the AvoidHairpins specification
+            in DNAChisel. If hairpinParameters is not specified, hairpins will not
+            be avoided.
+
+            '
+          properties:
+            stem:
+              default: 20
+              type: integer
+            window:
+              default: 200
+              type: integer
+          type: object
+        reducedPatterns:
+          description: 'List of patterns to avoid when creating the optimized sequence,
+            on the coding strand only.
+
+            '
+          items:
+            $ref: '#/components/schemas/ReducedPattern'
+          type: array
+        schemaId:
+          description: ID of the optimized DNA sequences' schemas
+          type: string
+        shouldDepleteUridine:
+          default: false
+          description: 'If not specified, the optimization will default to false,
+            and mRNA uridine depletion will not be performed.
+
+            '
+          type: boolean
+      required:
+      - dnaSequenceIds
+      - folderId
+      type: object
+    OrgMembershipCollaborator:
+      properties:
+        organization:
+          $ref: '#/components/schemas/OrganizationSummary'
+        role:
+          enum:
+          - ADMIN
+          - MEMBER
+          type: string
+        type:
+          enum:
+          - ORGANIZATION_MEMBERSHIP
+          type: string
+    OrganizationSummary:
+      properties:
+        handle:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    Pagination:
+      properties:
+        nextToken:
+          type: string
+    PartySummary:
+      properties:
+        handle:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    PlateCreationTableNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          plateSchemaId:
+            example: pltsch_LRIuH0yJ
+            type: string
+          type:
+            enum:
+            - plate_creation_table
+            type: string
+        type: object
+    PlateCreationTableNotePartApiIdentified:
+      allOf:
+      - $ref: '#/components/schemas/PlateCreationTableNotePart'
+      - $ref: '#/components/schemas/StructuredTableApiIdentifiers'
+    PolicyStatement:
+      properties:
+        access:
+          type: string
+        description:
+          type: string
+    Primer:
+      properties:
+        bases:
+          type: string
+        bindPosition:
+          type: integer
+        color:
+          readOnly: true
+          type: string
+        end:
+          type: integer
+        name:
+          readOnly: true
+          type: string
+        oligoId:
+          type: string
+        overhangLength:
+          type: integer
+        start:
+          type: integer
+        strand:
+          type: integer
+      type: object
+    ReducedPattern:
+      additionalProperties: false
+      description: 'Patterns must consist of ATGC bases only, and are case-insensitive
+        ("gat" will reduce usage of "GAT"). If avoidReverseComplement is true, then
+        the pattern''s reverse complement will also be avoided.
+
+        '
+      properties:
+        avoidReverseComplement:
+          default: false
+          type: boolean
+        pattern:
+          type: string
+      type: object
+    RegistrationOrigin:
+      properties:
+        originEntryId:
+          nullable: true
+          readOnly: true
+          type: string
+        registeredAt:
+          format: date-time
+          readOnly: true
+          type: string
+      type: object
+    RegistrationTableNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          entitySchemaId:
+            example: ts_hMbJPSA8
+            type: string
+          type:
+            enum:
+            - registration_table
+            type: string
+        type: object
+    RegistrationTableNotePartApiIdentified:
+      allOf:
+      - $ref: '#/components/schemas/RegistrationTableNotePart'
+      - $ref: '#/components/schemas/StructuredTableApiIdentifiers'
+    RegistryBulkUpsertAaSequence:
+      allOf:
+      - $ref: '#/components/schemas/RegistryBulkUpsertObjectBaseRequest'
+      - $ref: '#/components/schemas/AaSequenceBaseRequest'
+    RegistryBulkUpsertCustomEntity:
+      allOf:
+      - $ref: '#/components/schemas/RegistryBulkUpsertObjectBaseRequest'
+      - $ref: '#/components/schemas/CustomEntityBaseRequest'
+    RegistryBulkUpsertDnaSequence:
+      allOf:
+      - $ref: '#/components/schemas/RegistryBulkUpsertObjectBaseRequest'
+      - $ref: '#/components/schemas/DnaSequenceBaseRequest'
+    RegistryBulkUpsertObjectBaseRequest:
+      properties:
+        entityRegistryId:
+          type: string
+        fields:
+          $ref: '#/components/schemas/FieldsWithResolution'
+        name:
+          type: string
+        schemaId:
+          type: string
+      required:
+      - entityRegistryId
+      - name
+      - schemaId
+      type: object
+    RegistryBulkUpsertObjectsRequest:
+      additionalProperties: false
+      properties:
+        aaSequences:
+          items:
+            $ref: '#/components/schemas/RegistryBulkUpsertAaSequence'
+          type: array
+        customEntities:
+          items:
+            $ref: '#/components/schemas/RegistryBulkUpsertCustomEntity'
+          type: array
+        dnaOligos:
+          items:
+            $ref: '#/components/schemas/RegistryBulkUpsertOligo'
+          type: array
+        dnaSequences:
+          items:
+            $ref: '#/components/schemas/RegistryBulkUpsertDnaSequence'
+          type: array
+        rnaOligos:
+          items:
+            $ref: '#/components/schemas/RegistryBulkUpsertOligo'
+          type: array
+      type: object
+    RegistryBulkUpsertOligo:
+      allOf:
+      - $ref: '#/components/schemas/RegistryBulkUpsertObjectBaseRequest'
+      - $ref: '#/components/schemas/OligoBaseRequest'
+    ResultsTableNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          assayResultSchemaId:
+            example: assaysch_msh1Ly6g
+            type: string
+          type:
+            enum:
+            - results_table
+            type: string
+        type: object
+    ResultsTableNotePartApiIdentified:
+      allOf:
+      - $ref: '#/components/schemas/ResultsTableNotePart'
+      - $ref: '#/components/schemas/StructuredTableApiIdentifiers'
+    RnaOligo:
+      allOf:
+      - $ref: '#/components/schemas/Oligo'
+      - properties:
+          apiURL:
+            example: https://benchling.com/api/v2/rna-oligos/seq_bhuDUw9D
+            type: string
+          bases:
+            example: ACUUUUU
+            type: string
+          nucleotideType:
+            example: RNA
+            type: string
+    RnaOligoHelm:
+      allOf:
+      - $ref: '#/components/schemas/RnaOligo'
+      - properties:
+          helm:
+            description: Representation of the oligo in HELM syntax, including any
+              chemical modifications
+            example: RNA1{r(A)p.r(C)[Ssp].r(U)p.r(U)p.r(U)p.r(U)p.r(U)p}$$$$V2.0
+            type: string
+    Schema:
+      properties:
+        archiveRecord:
+          allOf:
+          - $ref: '#/components/schemas/ArchiveRecord'
+          nullable: true
+        fieldDefinitions:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/SimpleFieldDefinition'
+            - $ref: '#/components/schemas/IntegerFieldDefinition'
+            - $ref: '#/components/schemas/FloatFieldDefinition'
+            - $ref: '#/components/schemas/DropdownFieldDefinition'
+            - $ref: '#/components/schemas/SchemaLinkFieldDefinition'
+          type: array
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+      type: object
+    SchemaLinkFieldDefinition:
+      allOf:
+      - $ref: '#/components/schemas/FieldDefinition'
+      - properties:
+          schemaId:
+            nullable: true
+            type: string
+          type:
+            enum:
+            - entity_link
+            - entry_link
+            - part_link
+            - translation_link
+            - batch_link
+            - storage_link
+            - assay_request_link
+            - assay_result_link
+            - assay_run_link
+            type: string
+        type: object
+    SchemaSummary:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    SimpleFieldDefinition:
+      allOf:
+      - $ref: '#/components/schemas/FieldDefinition'
+      - properties:
+          type:
+            enum:
+            - dna_sequence_link
+            - aa_sequence_link
+            - custom_entity_link
+            - mixture_link
+            - blob_link
+            - text
+            - long_text
+            - boolean
+            - datetime
+            - date
+            - json
+            type: string
+        type: object
+    SimpleNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          links:
+            description: 'Array of links referenced in text via an @-mention, hyperlink,
+              or the drag-n-dropped preview attached to the note.
+
+              '
+            items:
+              $ref: '#/components/schemas/EntryLink'
+            type: array
+          text:
+            description: The textual contents of the note.
+            type: string
+          type:
+            enum:
+            - text
+            - code
+            - list_bullet
+            - list_number
+            type: string
+        type: object
+      description: 'Simple note parts include the following types: - ''text'': plain
+        text - ''code'': preformatted code block - ''list_bullet'': one "line" of
+        a bulleted list - ''list_number'': one "line" of a numbered list
+
+        '
+    StageEntry:
+      additionalProperties: false
+      description: A notebook entry used for execution of one or more stage runs in
+        a legacy workflow.
+      properties:
+        apiURL:
+          description: The canonical url of the Entry in the API.
+          example: https://benchling.com/api/v2-alpha/stage-entries/stgentr_1HEcejZq
+          format: uri
+          readOnly: true
+          type: string
+        authors:
+          description: 'Array of UserSummary Resources of the authors of the stage
+            entry. This defaults to the creator but can be manually changed.
+
+            '
+          items:
+            $ref: '#/components/schemas/UserSummary'
+          type: array
+        createdAt:
+          description: DateTime the stage entry was created at
+          format: date-time
+          readOnly: true
+          type: string
+        creator:
+          allOf:
+          - $ref: '#/components/schemas/UserSummary'
+          description: UserSummary Resource of the user who created the stage entry
+          readOnly: true
+        customFields:
+          $ref: '#/components/schemas/CustomFields'
+        displayId:
+          description: User-friendly ID of the stage entry
+          type: string
+        fields:
+          $ref: '#/components/schemas/Fields'
+        folderId:
+          description: ID of the folder that contains the stage entry
+          type: string
+        id:
+          description: ID of the stage entry
+          type: string
+        modifiedAt:
+          description: DateTime the stage entry was last modified
+          type: string
+        name:
+          description: Title of the stage entry
+          type: string
+        reviewRecord:
+          description: Review record if set
+          nullable: true
+          type: object
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/EntrySchema'
+          description: Entry schema if set
+          nullable: true
+          title: SchemaProperty
+          type: object
+        webURL:
+          description: URL of the stage entry
+          type: string
+        workflowId:
+          description: ID of the parent workflow
+          example: wfw_7COQmok7
+          type: string
+        workflowStageId:
+          description: ID of the associated workflow stage
+          example: wfwstg_EZuryAiW
+          type: string
+      type: object
+    StructuredTableApiIdentifiers:
+      properties:
+        apiId:
+          type: string
+        columns:
+          items:
+            $ref: '#/components/schemas/StructuredTableColumnInfo'
+          type: array
+      type: object
+    StructuredTableColumnInfo:
+      properties:
+        columnProvenanceUUID:
+          type: string
+        isReadOnly:
+          type: boolean
+        name:
+          type: string
+      type: object
+    TableNotePart:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotePart'
+      - properties:
+          links:
+            description: 'Array of links referenced in the caption via an @-mention,
+              hyperlink, or the drag-n-dropped preview attached to the note.
+
+              '
+            items:
+              $ref: '#/components/schemas/EntryLink'
+            type: array
+          table:
+            allOf:
+            - $ref: '#/components/schemas/EntryTable'
+            type: object
+          text:
+            description: The caption of the table.
+            type: string
+          type:
+            enum:
+            - table
+            type: string
+        type: object
+      description: A table with rows and columns of text
+    TeamMembershipCollaborator:
+      properties:
+        role:
+          enum:
+          - ADMIN
+          - MEMBER
+          type: string
+        team:
+          $ref: '#/components/schemas/TeamSummary'
+        type:
+          enum:
+          - TEAM_MEMBERSHIP
+          type: string
+    TeamSummary:
+      allOf:
+      - $ref: '#/components/schemas/PartySummary'
+      - example:
+          handle: elion_team
+          id: team_5cjIguqc
+          name: Elion's Team
+    Translation:
+      properties:
+        aminoAcids:
+          readOnly: true
+          type: string
+        end:
+          type: integer
+        regions:
+          items:
+            properties:
+              end:
+                type: integer
+              start:
+                type: integer
+            type: object
+          type: array
+        start:
+          type: integer
+        strand:
+          type: integer
+      type: object
+    UserCollaborator:
+      allOf:
+      - properties:
+          type:
+            enum:
+            - USER
+            type: string
+      - $ref: '#/components/schemas/UserSummary'
+      type: object
+    UserSummary:
+      allOf:
+      - $ref: '#/components/schemas/PartySummary'
+      - example:
+          handle: lpasteur
+          id: ent_a0SApq3z
+          name: Louis Pasteur
+    WorkflowFlowchartEdgeConfig:
+      properties:
+        fromNodeConfigId:
+          description: The ID of the source workflow flowchart node config of this
+            edge
+          example: wffcnc_giVNQcTL
+          readOnly: true
+          type: string
+        id:
+          description: The ID of the workflow flowchart edge config
+          example: wffcec_giVNQcTL
+          readOnly: true
+          type: string
+        toNodeConfigId:
+          description: The ID of the destination workflow flowchart node config of
+            this edge
+          example: wffcnc_giVNQcAF
+          readOnly: true
+          type: string
+      type: object
+    WorkflowFlowchartNodeConfig:
+      properties:
+        id:
+          description: The ID of the workflow flowchart node config
+          example: wffcnc_giVNQcTL
+          readOnly: true
+          type: string
+        taskSchema:
+          $ref: '#/components/schemas/WorkflowTaskSchemaSummary'
+      type: object
+    WorkflowOutput:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowOutputSummary'
+      - properties:
+          creationOrigin:
+            $ref: '#/components/schemas/CreationOrigin'
+          fields:
+            $ref: '#/components/schemas/Fields'
+          task:
+            $ref: '#/components/schemas/WorkflowTaskSummary'
+          webURL:
+            description: URL of the workflow output
+            format: uri
+            readOnly: true
+            type: string
+          workflowTaskGroup:
+            $ref: '#/components/schemas/WorkflowTaskGroupSummary'
+    WorkflowOutputAlpha:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowOutput'
+      - properties: {}
+      title: WorkflowOutput
+    WorkflowOutputArchiveReason:
+      description: 'The reason for archiving the provided workflow outputs. Accepted
+        reasons may differ based on tenant configuration.
+
+        '
+      enum:
+      - Made in error
+      - Retired
+      - Other
+      type: string
+    WorkflowOutputBulkCreate:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowOutputCreate'
+    WorkflowOutputBulkUpdate:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowOutputWriteBase'
+      - properties:
+          workflowOutputId:
+            description: The ID of the workflow output
+            example: wfout_5cJLQKVF
+            type: string
+    WorkflowOutputCreate:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowOutputWriteBase'
+      - properties:
+          workflowTaskId:
+            description: The ID of the workflow task this output belogns to
+            example: wftask_OnnsW08k
+            type: string
+        required:
+        - workflowTaskId
+    WorkflowOutputSchema:
+      properties:
+        archiveRecord:
+          allOf:
+          - $ref: '#/components/schemas/ArchiveRecord'
+          nullable: true
+        fieldDefinitions:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/SimpleFieldDefinition'
+            - $ref: '#/components/schemas/IntegerFieldDefinition'
+            - $ref: '#/components/schemas/FloatFieldDefinition'
+            - $ref: '#/components/schemas/DropdownFieldDefinition'
+            - $ref: '#/components/schemas/SchemaLinkFieldDefinition'
+          type: array
+        name:
+          type: string
+        prefix:
+          type: string
+        type:
+          type: string
+      type: object
+    WorkflowOutputSummary:
+      properties:
+        displayId:
+          description: User-friendly ID of the workflow task group
+          type: string
+        id:
+          description: The ID of the workflow output
+          example: wfout_5cJLQKVF
+          readOnly: true
+          type: string
+    WorkflowOutputWriteBase:
+      properties:
+        fields:
+          $ref: '#/components/schemas/Fields'
+    WorkflowTask:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowTaskSummary'
+      - properties:
+          assignee:
+            allOf:
+            - $ref: '#/components/schemas/UserSummary'
+            nullable: true
+          clonedFrom:
+            allOf:
+            - $ref: '#/components/schemas/WorkflowTaskSummary'
+            nullable: true
+          creationOrigin:
+            $ref: '#/components/schemas/CreationOrigin'
+          creator:
+            $ref: '#/components/schemas/UserSummary'
+          executionOrigin:
+            allOf:
+            - $ref: '#/components/schemas/WorkflowTaskExecutionOrigin'
+            nullable: true
+          executionType:
+            description: The method by which the task of the workflow is executed
+            enum:
+            - DIRECT
+            - ENTRY
+            type: string
+          fields:
+            $ref: '#/components/schemas/Fields'
+          outputs:
+            items:
+              $ref: '#/components/schemas/WorkflowOutputSummary'
+            type: array
+          scheduledOn:
+            description: The date on which the task is scheduled to be executed
+            example: '2020-08-01'
+            format: date
+            nullable: true
+            type: string
+          status:
+            $ref: '#/components/schemas/WorkflowTaskStatus'
+          webURL:
+            description: URL of the workflow task
+            format: uri
+            readOnly: true
+            type: string
+          workflowTaskGroup:
+            $ref: '#/components/schemas/WorkflowTaskGroupSummary'
+    WorkflowTaskAlpha:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowTask'
+      - properties:
+          executionType:
+            description: The method by which the task of the workflow is executed
+            enum:
+            - DIRECT
+            - ENTRY
+            - FLOWCHART
+            type: string
+      title: WorkflowTask
+    WorkflowTaskArchiveReason:
+      description: 'The reason for archiving the provided workflow tasks. Accepted
+        reasons may differ based on tenant configuration.
+
+        '
+      enum:
+      - Made in error
+      - Retired
+      - Other
+      type: string
+    WorkflowTaskBulkCreate:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowTaskCreate'
+    WorkflowTaskBulkUpdate:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowTaskUpdate'
+      - properties:
+          workflowTaskId:
+            description: The workflow task ID
+            example: wftask_OnnsW08k
+            type: string
+      type: object
+    WorkflowTaskCreate:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowTaskWriteBase'
+      - properties:
+          workflowTaskGroupId:
+            description: The workflow ID
+            example: prs_giVNQcTL
+            type: string
+        required:
+        - workflowTaskGroupId
+    WorkflowTaskExecutionOrigin:
+      description: The context into which a task was executed
+      properties:
+        entryId:
+          example: etr_30ad79
+          nullable: true
+          type: string
+        originModalUuid:
+          example: e8805895-0654-4613-ac04-39ee7462202e
+          format: uuid
+          nullable: true
+          type: string
+        type:
+          enum:
+          - API
+          - ENTRY
+          - MODAL
+          type: string
+      type: object
+    WorkflowTaskGroup:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowTaskGroupSummary'
+      - properties:
+          creationOrigin:
+            $ref: '#/components/schemas/CreationOrigin'
+          creator:
+            $ref: '#/components/schemas/UserSummary'
+          executionType:
+            description: The method by which the workflow is executed
+            enum:
+            - DIRECT
+            - ENTRY
+            type: string
+          folder:
+            $ref: '#/components/schemas/Folder'
+          outputs:
+            description: The outputs of the workflow task group
+            items:
+              $ref: '#/components/schemas/WorkflowOutputSummary'
+            type: array
+          responsibleTeam:
+            allOf:
+            - $ref: '#/components/schemas/TeamSummary'
+            nullable: true
+          tasks:
+            description: The input tasks to the workflow task group
+            items:
+              $ref: '#/components/schemas/WorkflowTaskSummary'
+            type: array
+          watchers:
+            description: The users watching the workflow task group
+            items:
+              $ref: '#/components/schemas/UserSummary'
+            type: array
+          webURL:
+            description: URL of the workflow task group
+            format: uri
+            readOnly: true
+            type: string
+          workflowTaskSchema:
+            $ref: '#/components/schemas/WorkflowTaskSchemaSummary'
+    WorkflowTaskGroupAlpha:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowTaskGroup'
+      - properties:
+          executionType:
+            description: The method by which the workflow is executed
+            enum:
+            - DIRECT
+            - ENTRY
+            - FLOWCHART
+            type: string
+      title: WorkflowTaskGroup
+    WorkflowTaskGroupArchiveReason:
+      description: 'The reason for archiving the provided workflow task groups. Accepted
+        reasons may differ based on tenant configuration.
+
+        '
+      enum:
+      - Made in error
+      - Retired
+      - Other
+      type: string
+    WorkflowTaskGroupSummary:
+      properties:
+        displayId:
+          description: User-friendly ID of the workflow task group
+          type: string
+        id:
+          description: The ID of the workflow task group
+          example: prs_giVNQcTL
+          readOnly: true
+          type: string
+        name:
+          description: The name of the workflow task group
+          type: string
+    WorkflowTaskGroupWriteBase:
+      properties:
+        folderId:
+          description: ID of the folder that contains the workflow task group
+          type: string
+        name:
+          description: The name of the workflow task group
+          type: string
+        watcherIds:
+          description: IDs of the users watching the workflow task group
+          items:
+            example: ent_a0SApq3z
+            type: string
+          type: array
+    WorkflowTaskSchema:
+      allOf:
+      - $ref: '#/components/schemas/Schema'
+      - properties:
+          canSetAssigneeOnTaskCreation:
+            description: Whether or not tasks of this schema can be created with a
+              non-null assignee.
+            type: boolean
+          defaultCreationFolderId:
+            description: ID of the default folder for creating workflow task groups
+            nullable: true
+            type: string
+          defaultEntryExecutionFolderId:
+            description: ID of the default folder for workflow task execution entries
+            nullable: true
+            type: string
+          defaultResponsibleTeam:
+            allOf:
+            - $ref: '#/components/schemas/TeamSummary'
+            nullable: true
+          entryTemplateId:
+            description: The ID of the template of the entries tasks of this schema
+              will be executed into.
+            example: tmpl_27b8fb
+            nullable: true
+            type: string
+          executionType:
+            description: The method by which instances of this schema are executed
+            enum:
+            - DIRECT
+            - ENTRY
+            type: string
+          prefix:
+            description: The prefix for the displayId of tasks of this schema.
+            type: string
+          statusLifecycle:
+            $ref: '#/components/schemas/WorkflowTaskStatusLifecycle'
+          taskGroupPrefix:
+            description: The prefix for the displayId of task groups containing tasks
+              of this schema
+            type: string
+          workflowOutputSchema:
+            allOf:
+            - $ref: '#/components/schemas/WorkflowOutputSchema'
+            nullable: true
+    WorkflowTaskSchemaAlpha:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowTaskSchema'
+      - properties:
+          executionType:
+            description: The method by which instances of this schema are executed
+            enum:
+            - DIRECT
+            - ENTRY
+            - FLOWCHART
+            type: string
+      title: WorkflowTaskSchema
+    WorkflowTaskSchemaSummary:
+      properties:
+        id:
+          description: The ID of the workflow task schema
+          type: string
+        name:
+          description: The name of the workflow task schema
+          type: string
+    WorkflowTaskStatus:
+      properties:
+        displayName:
+          description: The status label
+          example: Pending
+          readOnly: true
+          type: string
+        id:
+          description: The ID of the workflow task status
+          example: wfts_wQzUCsW0
+          readOnly: true
+          type: string
+        statusType:
+          description: The status type
+          enum:
+          - PENDING
+          - IN_PROGRESS
+          - FAILED
+          - CANCELLED
+          - INVALID
+          - COMPLETED
+          example: PENDING
+          readOnly: true
+          type: string
+      type: object
+    WorkflowTaskStatusLifecycle:
+      properties:
+        id:
+          example: prstswf_123kjlkj
+          type: string
+        initialStatus:
+          $ref: '#/components/schemas/WorkflowTaskStatus'
+        name:
+          example: Direct Completion
+          type: string
+        statuses:
+          example:
+          - displayName: Pending
+            id: prsts_wQzUCsW0
+            statusType: PENDING
+          - displayName: In Progress
+            id: prsts_fc0781
+            statusType: IN_PROGRESS
+          items:
+            $ref: '#/components/schemas/WorkflowTaskStatus'
+          type: array
+        transitions:
+          items:
+            $ref: '#/components/schemas/WorkflowTaskStatusLifecycleTransition'
+          type: array
+      type: object
+    WorkflowTaskStatusLifecycleTransition:
+      example:
+        from:
+          displayName: Pending
+          id: prsts_wQzUCsW0
+          statusType: PENDING
+        to:
+          displayName: In Progress
+          id: prsts_fc0781
+          statusType: IN_PROGRESS
+      properties:
+        from:
+          $ref: '#/components/schemas/WorkflowTaskStatus'
+        to:
+          $ref: '#/components/schemas/WorkflowTaskStatus'
+      type: object
+    WorkflowTaskSummary:
+      properties:
+        displayId:
+          description: User-friendly ID of the workflow task
+          type: string
+        id:
+          description: The ID of the workflow task
+          example: wftask_OnnsW08k
+          readOnly: true
+          type: string
+    WorkflowTaskUpdate:
+      allOf:
+      - properties:
+          statusId:
+            example: wfts_VFvwv7JV
+            type: string
+      - $ref: '#/components/schemas/WorkflowTaskWriteBase'
+      type: object
+    WorkflowTaskWriteBase:
+      properties:
+        assigneeId:
+          description: The id of the user assigned to the task
+          example: ent_0YuSQS51
+          type: string
+        fields:
+          $ref: '#/components/schemas/Fields'
+        scheduledOn:
+          description: The date on which the task is scheduled to be executed
+          example: '2020-08-01'
+          format: date
+          type: string
+externalDocs:
+  description: Additional API Documentation
+  url: https://docs.benchling.com/v2-alpha
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Benchling API
+  version: 2.0.0
+openapi: 3.0.1
+servers:
+- url: /api/v2-alpha
+tags:
+- description: 'AA Sequences are the working units of cells that make everything run
+    (they help make structures, catalyze reactions and allow for signaling - a kind
+    of internal cell communication). On Benchling, these are comprised of a string
+    of amino acids and collections of other attributes, such as annotations.
+
+    '
+  name: AA Sequences
+- description: View access policies.
+  name: Access Policies
+- description: Benchling curates codon usage data for a variety of organisms to support
+    operations such as Codon Optimization and Back Translation.
+  name: Codon Usage Tables
+- description: 'Benchling supports custom entities for biological entities that are
+    neither sequences or proteins. Custom entities must have an entity schema set
+    and can have both schema fields and custom fields.
+
+    '
+  name: Custom Entities
+- description: 'DNA sequences are the bread and butter of the Benchling Molecular
+    Biology suite. On Benchling, these are comprised of a string of nucleotides and
+    collections of other attributes, such as annotations and primers.
+
+    '
+  name: DNA Sequences
+- description: Entries are rich text documents that allow you to capture all of your
+    experimental data in one place.
+  name: Entries
+- description: Restriction enzymes are curated by Benchling for operations such as
+    Digests and Codon Optimization.
+  name: Enzymes
+- description: Legacy workflows allow orchestrating complex experiments.
+  name: Legacy Workflows
+- description: Manage project objects.
+  name: Projects
+- description: 'Manage registry objects.
+
+
+    See our documentation on [how to register entities](https://docs.benchling.com/docs/registering-entities).
+
+    '
+  name: Registry
+- description: Worklists are a convenient way to organize items for bulk actions,
+    and are complementary to folders and projects
+  name: Worklists
