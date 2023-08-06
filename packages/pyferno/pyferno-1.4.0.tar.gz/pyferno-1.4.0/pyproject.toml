@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "pyferno"
+version = "1.4.0"
+description = "PyFerno - the async/promise library for running Python 3 async tasks"
+authors = ["Sven Varkel <sven@prototypely.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/svenvarkel/pyferno"
+homepage = "https://pypi.org/project/pyferno/"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+tqdm = "^4.62.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
