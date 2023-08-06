@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: znipy
+Version: 0.1.0
+Summary: Easy imports from Jupyter Notebooks
+Home-page: https://github.com/zincware/ZnIPy
+Download-URL: https://github.com/zincware/ZnIPy/archive/beta.tar.gz
+Author: zincwarecode
+Author-email: zincwarecode@gmail.com
+License: UNKNOWN
+Keywords: IPython,Jupyter,ZnTrack
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+[![Coverage Status](https://coveralls.io/repos/github/zincware/ZnIPy/badge.svg?branch=main)](https://coveralls.io/github/zincware/ZnIPy?branch=main)
+
+# ZnIPy - Easy imports from Jupyter Notebooks
+
+See [Importing Jupyter Notebooks as Modules](https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Importing%20Notebooks.html) for more information.
+
+```python
+from znipy import NotebookLoader
+
+module = NotebookLoader("JupyterNotebook.ipnyb").load_module()
+
+hello_world = module.HelloWorld()
+```
+
+
