@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: gcode-documentation-parser
+Version: 0.0.3
+Summary: A utility that parses the documentation pages from Marlin, RepRap, and Klipper, to generate an index of commands usage
+Home-page: https://costas-basdekis.github.io/gcode-documentation-parser
+License: MIT
+Keywords: gcode,marlin,reprap,klipper
+Author: Costas Basdekis
+Author-email: code@basdekis.io
+Requires-Python: >=3.8,<4.0
+Classifier: Development Status :: 1 - Planning
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Documentation
+Requires-Dist: beautifulsoup4 (>=4,<4.10.0)
+Requires-Dist: wikitextparser (>=0.45.2,<0.46.0)
+Project-URL: Documentation, https://costas-basdekis.github.io/gcode-documentation-parser
+Project-URL: Repository, https://costas-basdekis.github.io/gcode-documentation-parser
+Description-Content-Type: text/markdown
+
+gcode-documentation-parser
+==
+
+See a [demo] usage of the output
+
+A utility that parses the documentation pages from Marlin, RepRap, and Klipper,
+to generate an index of commands usage.
+
+Normally, the output would be used by something like [gcode-documentation], to
+allow users to search and understand how a GCode command should be used.
+
+This was originally created in [Octoprint] plugin [MarlinGcodeDocumentation],
+and needs the parsed documentation data to function.
+
+[demo]:https://costas-basdekis.github.io/gcode-documentation
+[gcode-documentation]:https://github.com/costas-basdekis/gcode-documentation
+[Octoprint]:https://octoprint.org/
+[MarlinGcodeDocumentation]:https://plugins.octoprint.org/plugins/marlingcodedocumentation/
+
+![](docs/marlin-gcode-documentation.png)
+
