@@ -1,0 +1,146 @@
+Metadata-Version: 2.1
+Name: dffml
+Version: 0.4.0.post2
+Summary: Data Flow Facilitator for Machine Learning
+Home-page: https://github.com/intel/dffml
+Author: John Andersen
+Author-email: john.s.andersen@intel.com
+Maintainer: John Andersen
+Maintainer-email: john.s.andersen@intel.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: all
+Requires-Dist: dffml-config-yaml ; extra == 'all'
+Requires-Dist: dffml-config-image ; extra == 'all'
+Requires-Dist: dffml-model-scratch ; extra == 'all'
+Requires-Dist: dffml-model-scikit ; extra == 'all'
+Requires-Dist: dffml-model-tensorflow ; extra == 'all'
+Requires-Dist: dffml-model-tensorflow-hub ; extra == 'all'
+Requires-Dist: dffml-model-vowpalWabbit ; extra == 'all'
+Requires-Dist: dffml-model-xgboost ; extra == 'all'
+Requires-Dist: dffml-model-pytorch ; extra == 'all'
+Requires-Dist: dffml-model-spacy ; extra == 'all'
+Requires-Dist: dffml-model-daal4py ; extra == 'all'
+Requires-Dist: dffml-feature-git ; extra == 'all'
+Requires-Dist: dffml-feature-auth ; extra == 'all'
+Requires-Dist: dffml-operations-binsec ; extra == 'all'
+Requires-Dist: dffml-operations-deploy ; extra == 'all'
+Requires-Dist: dffml-operations-image ; extra == 'all'
+Requires-Dist: dffml-operations-nlp ; extra == 'all'
+Requires-Dist: dffml-service-http ; extra == 'all'
+Requires-Dist: dffml-source-mysql ; extra == 'all'
+Provides-Extra: configloaders
+Requires-Dist: dffml-config-yaml ; extra == 'configloaders'
+Requires-Dist: dffml-config-image ; extra == 'configloaders'
+Provides-Extra: dev
+Requires-Dist: coverage ; extra == 'dev'
+Requires-Dist: codecov ; extra == 'dev'
+Requires-Dist: sphinx (>=2.4.4) ; extra == 'dev'
+Requires-Dist: sphinx-tabs (>=1.3.0) ; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme ; extra == 'dev'
+Requires-Dist: recommonmark ; extra == 'dev'
+Requires-Dist: black (==19.10b0) ; extra == 'dev'
+Requires-Dist: jsbeautifier ; extra == 'dev'
+Requires-Dist: twine ; extra == 'dev'
+Requires-Dist: httptest (>=0.0.15) ; extra == 'dev'
+Requires-Dist: Pillow (>=7.1.2) ; extra == 'dev'
+Provides-Extra: models
+Requires-Dist: dffml-model-scratch ; extra == 'models'
+Requires-Dist: dffml-model-scikit ; extra == 'models'
+Requires-Dist: dffml-model-tensorflow ; extra == 'models'
+Requires-Dist: dffml-model-tensorflow-hub ; extra == 'models'
+Requires-Dist: dffml-model-vowpalWabbit ; extra == 'models'
+Requires-Dist: dffml-model-xgboost ; extra == 'models'
+Requires-Dist: dffml-model-pytorch ; extra == 'models'
+Requires-Dist: dffml-model-spacy ; extra == 'models'
+Requires-Dist: dffml-model-daal4py ; extra == 'models'
+Provides-Extra: operations
+Requires-Dist: dffml-operations-binsec ; extra == 'operations'
+Requires-Dist: dffml-operations-deploy ; extra == 'operations'
+Requires-Dist: dffml-operations-image ; extra == 'operations'
+Requires-Dist: dffml-operations-nlp ; extra == 'operations'
+Requires-Dist: dffml-feature-git ; extra == 'operations'
+Requires-Dist: dffml-feature-auth ; extra == 'operations'
+Provides-Extra: services
+Requires-Dist: dffml-service-http ; extra == 'services'
+Provides-Extra: sources
+Requires-Dist: dffml-source-mysql ; extra == 'sources'
+
+![Logo](https://raw.githubusercontent.com/intel/dffml/master/docs/images/logo-lightmode.svg)
+
+[![Actions Status](https://github.com/intel/dffml/workflows/Tests/badge.svg?branch=master&event=push)](https://github.com/intel/dffml/actions)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/intel/dffml)
+[![codecov](https://codecov.io/gh/intel/dffml/branch/master/graph/badge.svg)](https://codecov.io/gh/intel/dffml)
+[![CII](https://bestpractices.coreinfrastructure.org/projects/2594/badge)](https://bestpractices.coreinfrastructure.org/projects/2594)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/dffml/community)
+[![PyPI version](https://img.shields.io/pypi/v/dffml.svg)](https://pypi.org/project/dffml)
+
+## Mission Statement
+
+DFFML aims to be the easiest and most convenient way to use Machine Learning.
+
+- Its a machine learning distribution. Providing you access to a set of popular
+  machine learning libraries guaranteed to work together.
+
+- Its a AI/ML Python library, command line application, and HTTP service.
+
+- You give it your data and tell it what kind of model you want to train. It
+  creates a model for you.
+
+- If you want finer grained control over the model, you can easily do so by
+  implementing your own model plugin.
+
+- We make it easy to use and deploy your models.
+
+- We provide a directed graph concurrent execution environment with managed
+  locking which we call DataFlows.
+
+- DataFlows make it easy to generate datasets or modify existing datasets for
+  rapid iteration on feature engineering.
+
+## Documentation
+
+Documentation for the latest release is hosted at https://intel.github.io/dffml/
+
+Documentation for the master branch is hosted at
+https://intel.github.io/dffml/master/index.html
+
+## Contributing
+
+The [contributing page](https://intel.github.io/dffml/master/contributing/index.html)
+will guide you through getting setup and contributing to DFFML.
+
+## Help
+
+- Ask a question via an [issue](https://github.com/intel/dffml/issues/new?assignees=&labels=question&template=question.md&title=question%3A+)
+- Send an email to dffml-users@lists.01.org
+  - You can subscribe to the users mailing list here
+    https://lists.01.org/postorius/lists/dffml-users.lists.01.org/
+- Ask a question on the [Gitter chat](https://gitter.im/dffml/community)
+
+## License
+
+DFFML is distributed under the [MIT License](LICENSE).
+
+## Legal
+
+> This software is subject to the U.S. Export Administration Regulations and
+> other U.S. law, and may not be exported or re-exported to certain countries
+> (Cuba, Iran, Crimea Region of Ukraine, North Korea, Sudan, and Syria) or to
+> persons or entities prohibited from receiving U.S. exports (including
+> Denied Parties, Specially Designated Nationals, and entities on the Bureau
+> of Export Administration Entity List or involved with missile technology or
+> nuclear, chemical or biological weapons).
+
+
