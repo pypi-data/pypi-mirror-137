@@ -1,0 +1,16 @@
+
+image: python:3.8
+
+pipelines:
+  default:
+    - step:
+        script:
+          #- pip3 install -U setuptools
+        
+          #- python3 setup.py sdist
+          
+          - python setup.py install
+          - python3 setup.py sdist
+          - pip install twine
+          - twine upload dist/* -u $USERNAME -p $PASSWORD
+          
