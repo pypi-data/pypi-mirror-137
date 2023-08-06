@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "aws_sqs_consumer"
+version = "0.0.14"
+description = "AWS SQS Consumer"
+authors = ["Hexmos Technology <nobody@flyweightgroup.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://aws-sqs-consumer-python.readthedocs.io/"
+repository = "https://github.com/HexmosTech/aws_sqs_consumer_python"
+documentation = "https://aws-sqs-consumer-python.readthedocs.io/"
+keywords = ["sqs", "aws", "sqs-consumer"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+boto3 = "^1.16.0"
+botocore = "^1.20.0"
+single-source = "^0.2.0"
+
+[tool.poetry.dev-dependencies]
+moto = "^2.3.0"
+flake8 = "^4.0.1"
+Sphinx = "^4.3.2"
+myst-parser = "^0.16.1"
+sphinx-rtd-theme = "^1.0.0"
+sphinx-copybutton = "^0.4.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
