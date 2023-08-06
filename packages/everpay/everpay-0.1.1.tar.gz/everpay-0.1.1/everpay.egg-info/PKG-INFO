@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: everpay
+Version: 0.1.1
+Summary: Python wrappers for everpay.io api
+Home-page: https://github.com/everFinance/everpay.py
+Author: xiaojay
+Author-email: xiaojay@gmail.com
+License: MIT
+Download-URL: https://github.com/everFinance/everpay.py/archive/refs/tags/v0.1.1.tar.gz
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 2
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# everpay.py
+
+Python wrappers for everpay.io [api](https://docs.everpay.io/).
+
+Install with
+
+```
+pip install everpay
+```
+
+## Examples
+
+- query
+
+```python
+import everpay
+api_server = 'https://api-dev.everpay.io'
+e = everpay.Everpay(api_server)
+e.get_info()
+e.get_balance('0x61EbF673c200646236B2c53465bcA0699455d5FA', 'ethereum', '42', 'eth')
+```
+
+- transfer
+
+```python
+import everpay
+api_server = 'https://api-dev.everpay.io'
+fee_recipient = '0x6451eB7f668de69Fb4C943Db72bCF2A73DeeC6B1'
+address = ''
+private_key = ''
+receiver = ''
+account = everpay.Account(api_server, address, private_key, None, fee_recipient)
+account.transfer(receiver, int(0.001 * 10**18), 'ethereum', '42', 'eth')
+```
+
+## todo
+- [] deposit/withdraw
+
+
