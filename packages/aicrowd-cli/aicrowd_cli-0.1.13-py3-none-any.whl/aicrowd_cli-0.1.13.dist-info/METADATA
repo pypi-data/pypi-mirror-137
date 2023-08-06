@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: aicrowd-cli
+Version: 0.1.13
+Summary: A CLI app to interact with AIcrowd
+Home-page: https://gitlab.aicrowd.com/aicrowd/aicrowd-cli
+Author: Yoogottam Khandelwal
+Author-email: yoogottamk@outlook.com
+License: MIT
+Download-URL: https://gitlab.aicrowd.com/aicrowd/aicrowd-cli/-/archive/v0.1.13/aicrowd-cli-v0.1.13.tar.gz
+Keywords: AIcrowd,CLI
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: click (<8,>=7.1.2)
+Requires-Dist: GitPython (==3.1.18)
+Requires-Dist: requests (<3,>=2.25.1)
+Requires-Dist: requests-toolbelt (<1,>=0.9.1)
+Requires-Dist: rich (<11,>=10.0.0)
+Requires-Dist: toml (<1,>=0.10.2)
+Requires-Dist: tqdm (<5,>=4.56.0)
+Requires-Dist: pyzmq (==22.1.0)
+Requires-Dist: python-slugify (<6,>=5.0.0)
+
+# AIcrowd CLI
+
+`aicrowd-cli` is a simple CLI tool for interacting with the AIcrowd platform. It is written in python, using [click](https://click.palletsprojects.com/en/7.x/).
+
+Download datasets, make submissions and much more with a single command!
+
+[![pipeline status](https://gitlab.aicrowd.com/aicrowd/aicrowd-cli/badges/master/pipeline.svg)](https://gitlab.aicrowd.com/aicrowd/aicrowd-cli/-/commits/master)
+[![coverage report](https://gitlab.aicrowd.com/aicrowd/aicrowd-cli/badges/master/coverage.svg)](https://gitlab.aicrowd.com/aicrowd/aicrowd-cli/-/commits/master)
+
+[Documentation](https://docs.aicrowd.com/aicrowd-cli/)
+
+## Supported versions
+python3.6 and above are supported on all platforms.
+
+## Reporting issues
+Kindly raise an issue [here](https://gitlab.aicrowd.com/aicrowd/aicrowd-cli/-/issues/new).
+
+
