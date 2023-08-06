@@ -1,0 +1,65 @@
+kind: ManifestVariable
+id: grafana.access_type
+title: Grafana access type
+input: kind::SelectInput
+options:
+  - id: kubernetes
+    title: Inside the cluster
+  - id: generic
+    title: Outside the cluster
+
+---
+
+kind: ManifestVariable
+id: grafana.url
+title: Grafana' Base URL
+info: "Include http:// or https:// as well as port numbers.
+Include any part of the path that non-standard"
+validators:
+  - kind: FormatPredicate
+    check_against: domain
+
+---
+
+kind: ManifestVariable
+id: grafana.service_namespace
+title: Server Workload Namespace
+info: Kubernetes namespace
+input:
+  kind: SelectInput
+  options:
+    kind: ResourcesSupplier
+    selector: "expr::Namespace:*"
+    many: true
+    output: options_format
+    serializer: "native"
+
+---
+
+kind: ManifestVariable
+id: grafana.service_name
+title: Server Service Name
+info: "Name of service exposing the Grafana server in your cluster."
+cached:
+  thing: sdk.supplier.config.variables->.grafana.namespace
+  service_ns:
+    kind: Supplier
+    inherit: sdk.supplier.config.variables
+    output: .grafana.namespace
+input:
+  kind: IfThenElse
+  source:
+    kind: Predicate
+    challenge: get::self>>service_ns
+    operator: truthiness
+  if_true:
+    kind: SelectInput
+    options:
+      kind: ResourcesSupplier
+      many: true
+      selector:
+        res_kind: Service
+        namespace: get::self>>service_ns
+      output: options_format
+      serializer: "native"
+  if_false: kind::GenericInput

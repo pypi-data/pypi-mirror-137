@@ -1,0 +1,32 @@
+kind: Field
+id: prometheus.access_type
+variable: "id::prometheus.access_type"
+
+---
+
+kind: Field
+id: prometheus.url
+variable: "id::prometheus.url"
+visible:
+  challenge: "get::self>>inputs->.prometheus.access_type"
+  check_against: "generic"
+
+---
+
+kind: Field
+id: prometheus.service_namespace
+variable: "id::prometheus.service_namespace"
+visible:
+  challenge: "get::self>>inputs->.prometheus.access_type"
+  check_against: "kubernetes"
+
+---
+
+kind: Field
+id: prometheus.service_name
+visible:
+  challenge: "get::self>>inputs->.prometheus.service_namespace"
+  operator: presence
+variable:
+  inherit: "prometheus.service_name"
+  from_namespace: "get::self>>inputs->.prometheus.service_namespace"

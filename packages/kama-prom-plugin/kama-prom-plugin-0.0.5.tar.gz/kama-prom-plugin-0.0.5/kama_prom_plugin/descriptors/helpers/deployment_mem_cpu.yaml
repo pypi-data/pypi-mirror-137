@@ -1,0 +1,44 @@
+# Attr deployment_name
+# Attr deployment_namespace
+
+kind: PromDataSupplier
+id: "nmachine.prom.supplier.deployment_memory"
+step: 5m
+deployment_namespace: "get::ns"
+source: "sum(
+          container_memory_usage_bytes{
+            namespace='${get::self>>deployment_namespace}',
+            pod=~'${get::self>>deployment_name}-.*',
+            image!='',
+            container_name!='POD'
+          }
+        )"
+
+---
+
+kind: PromDataSupplier
+id: "nmachine.prom.supplier.deployment_cpu"
+step: 5m
+deployment_namespace: get::ns
+source: "sum(
+          rate(
+            container_cpu_usage_seconds_total{
+              namespace='${get::self>>deployment_namespace}',
+              pod=~'${get::self>>deployment_name}-.*',
+              image!='',
+              container_name!='POD'
+              }[20m]
+            )
+          )"
+
+---
+
+kind: PromMatrixToSeriesSupplier
+id: "nmachine.prom.supplier.deployment_memory_timeseries"
+source: "get::id::nmachine.prom.supplier.deployment_memory"
+
+---
+
+kind: PromMatrixToSeriesSupplier
+id: "nmachine.prom.supplier.deployment_cpu_timeseries"
+source: "get::id::nmachine.prom.supplier.deployment_cpu"
