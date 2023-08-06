@@ -1,0 +1,323 @@
+# Supply Chain Model Helper
+
+This is a python package that helps with creating your own supply chain model. 
+You dont need intricate knowledge about python, you might need a bit knowledge 
+about graphs (essential part is provided in video tutorials) and a bit about 
+supply chain models in general.
+This package also gives you the opportunity to store the data you may need to 
+make this supply chain model run in an efficient manner.
+A full documentation is provided inside the python package. Videotutorials 
+will be linked here later, as well as a documentation to read.
+
+## What's New in Version 0.2.0
+I added graphics package to draw certain aspects of the supply chain model. An 
+example can be found in the subfolder example_scripts in this project.
+
+## jupyter notebook files
+Jupyter notebook tutorial files are stored in this projects 'example_scripts' 
+subfolder.
+
+Currently these these tutorials are to be found:
+- Creating a toy supply chain model (unfinished)
+- tutorial on making use of the graphics package
+
+The following jupyter tutorials are in development:
+- creating a simple supply chain model
+- toolkit for handling attributes on the network
+- data modelling and mapping it onto the predefined network structure
+- create a full gravity model
+- hdf5 datacube for supply chain modelling
+- Meta data schema of database for the supply chain model
+- handling multiple datasets for supply chain modelling
+- a not so simple example model
+
+
+## Installation manual
+> pip install supplychainmodelhelper
+
+## Example scripts
+in project folder 'example_scripts, you'll find examples of how to implement 
+supply chain toy models, so you can start working on your own much easier  
+
+## Video tutorials 
+A series of tutorials is planned, but still unfinished.
+https://www.youtube.com/channel/UCtUiAESg7TiTdublRlUhvjw
+
+If you cant wait, see a preliminary documentation below and full documentation 
+from the help functions in python itself, instructions on how to get help 
+within python below.
+
+## Functionalities
+### Create network model
+**Purpose:** create graph from specifications of the user with generally 
+used node properties 
+used in supply chain models.
+
+Get full documentation in python by
+
+> from supplchainmodulator import graphoperations as go
+
+> help(go)
+
+Get documentation on 1 particular function
+
+> help(go.[INSERT FUNCTION NAME HERE])
+
+
+#### Functions
+**Basic operations on network:**
+* **createGraph** - the graph is created with node attributes 'actors', 
+  'locations','products'
+* **getListOfNodeIDs** - returns a list of nodeIDs with the corresponding 
+  attributes, used for editing information on the graph
+* **getNodeIDswAttr** - returns a tuple of (nodeIDs,attributes) with the 
+  corresponding attributes, used for editing information on the graph
+* **addAttr2ExistingNodes** - adds a user specified attribute to the nodes 
+  of the network
+* **addAttr2Edges** - adds a user specified attribute to the edges of the 
+  network
+* **getEdgeID** - returns the IDs for the edges on the graph, given the 
+  user specified nodes (IDs given by getListOfNodeIDs) on the network 
+* **getEdgesAttr** - returns a list of attributes of the edges (IDs given 
+  by getEdgeID) specified by the user
+* **getEdgeIDswAttr** - returns a tuple of ((edge ID, attribute) = (node 
+  out,node in, attribute)) of the edges (IDs given by getEdgeID) specified 
+  by the user
+* **getExistingAttrs** - returns a list of existing attributes on the graph 
+  (either nodes or edges)
+
+
+**Toolkit for handling information and data on the network:**
+* **combineActorBrand** - if an actor consists of different subtypes (e.g. 
+  warehouse and brand(ALDI, REWE, etc.)), then this function helps with a 
+  fast way of creating additional actors, before creating the network
+* **convertLoT2NTs** - functions like getEdgeIDswAttr, return a list of 
+  tuples, but only a part of this is needed. This function accepts a list 
+  of tuples as input and returns 2 lists with the same order as before.
+* **convertTup2LoT** - functions like addAttr2ExistingNodes, accept a list 
+  of tuples as input, but only a list available. This function accepts 2 
+  lists as input and returns a list on tuples with the same order as before.
+* **getAllCombinations** - getEdgeID is a function that has the 
+  corresponding nodes as input, and returns a direct  1-to-1 list (node out,
+  node in). If all possible combinations of edges between 2 nodes are to be 
+  returned, this function helps with that.
+* **convertMatrix** - 2 applications:
+    1. for calibration might be needed if calibration measure is of 
+       different dimension as the calculated flows
+    2. if a matrix with redundant information needs to be created from a 
+       matrix with minimum information (e.g. similar geographical distances 
+       between nodes to be put into a distance matrix)
+
+**Mapping raw data objects to network data objects:**
+* **proxyModel** - simple fraction model. If data for correlated variable 
+  is available, this model may be used to use the proxy data to model the 
+  data in question (e.g. modellled data = produced eggs, proxy data= number 
+  of laying hens)
+* **furnessModel** - given geographical distance, supply and demand of the 
+  participating nodes and the free parameter (resistance factor) beta this 
+  function returns the flow between given nodes (beta needs to be 
+  determined by hymanModel / calibration)
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes. 
+  * NOTE that the attribute 'output' needs to be defined on the nodes 
+    supplying the product. 
+  * NOTE that the attribute 'input' needs to be defined on the nodes 
+    demanding the product.
+
+* **hymanModel** - calculates resistance factor beta given a transport 
+  distance. Returns the flow between participating nodes of supply and demand. 
+  * NOTE that each of the returned values are POSSIBLE average transport 
+    distance. The best one still needs to be determined(see calibration). 
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes. 
+  * NOTE that the attribute 'output' needs to be defined on the nodes 
+    supplying the product. 
+  * NOTE that the attribute 'input' needs to be defined on the nodes 
+    demanding the product.
+
+* **calibration** - function for calculating the best configuration of 
+  given transport distances and corresponding flows. A number of possible 
+  average transport distances are given by the function 
+  calcPotTransportDistances. The function hymanModel calculates the 
+  corresponding flows. Now this needs to be calibrated against a measure to 
+  determine which average transport distance fits best the calibration 
+  measure. This function accepts a 4D-Tensor of all flows as input [supply,
+  demand,product,transport distance] and the calibration measure in question. 
+  * NOTE that each of the returned values are POSSIBLE average transport 
+    distance. The best one still needs to be determined(see calibration). 
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes. 
+  * NOTE that the attribute 'output' needs to be defined on the nodes 
+    supplying the product. 
+  * NOTE that the attribute 'input' needs to be defined on the nodes 
+    demanding the product.
+  
+* **getDistMatrix** - accesses the graph for attribute 'distance' for 
+  user-specified nodes, return a dataframe containing information of the 
+  geographical distance between the locations of given nodes (needs to be 
+  entered into the graphe beforehand via the function addAttr2Edges)
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes.
+
+* **optFlow, minOptFlowForBeta** - calculating and minimizing the optimal 
+  flow given supply and demand of a product and the distance between 
+  participating nodes. Needed for calculating minimum transport distance 
+  (see calcPotTransportDistances). 
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes. 
+  * NOTE that the attribute 'output' needs to be defined on the nodes 
+    supplying the product. 
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes.
+
+* **propFlow** - calculating the proportional flow given supply and demand 
+  of a product and the distance between participating nodes. Needed for 
+  calculating maximum transport distance (see calcPotTransportDistances). 
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes.
+  * NOTE that the attribute 'output' needs to be defined on the nodes 
+    supplying the product. 
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes.
+
+
+* **calcPotTransportDistances** - calculates the range of possible average 
+  transport distances and returns a list of values within this interval. 
+  The number of returned values from this interval may be specified by the 
+  user (needed for hymanModel to determine beta for furnessModel). 
+  * NOTE that each of the returned values are POSSIBLE average transport 
+    distance. The best one still needs to be determined(see calibration). 
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes. 
+  * NOTE that the attribute 'output' needs to be defined on the nodes 
+    supplying the product. 
+  * NOTE that the attribute 'input' needs to be defined on the nodes 
+    demanding the product.
+  
+* **getWeightedDist** - returns the average transport distance, given the 
+  flow between participating nodes of supply and demand. 
+  * NOTE that each of the returned values are POSSIBLE average transport 
+    distance. The best one still needs to be determined(see calibration). 
+  * NOTE that the attribute 'distance' needs to be defined on the edges of 
+    the participating nodes. 
+  * NOTE that the attribute 'output' needs to be defined on the nodes 
+    supplying the product. 
+  * NOTE that the attribute 'input' needs to be defined on the nodes 
+    demanding the product.
+
+
+
+### Create hdf5 file structure for raw data objects
+**Purpose:** create hdf5 file structure for raw data objects including 
+infos about metadata structure. This is optional, but highly recommended. 
+Complex supply chain models are based on complex input data, so a 
+structured centralized data platform that gives easy access is necessary.
+
+Get full documentation in python by
+
+> from supplchainmodulator import mds
+
+> help(mds)
+
+Get documentation on 1 particular function
+
+> help(mds.Datacube.[INSERT FUNCTION NAME HERE])
+
+**function names:**    
+* **\_\_init\_\_** - initialise database: a new hdf5 file created or an 
+  existing accessed 
+
+* **add2TemplateMDofDB** - extend the existing basic metadata schema of the 
+  database
+
+* **removeFromTemplateMDofDB** - remove an existing element from the md 
+  schema of the database
+     
+* **add2TemplateMDofDataset** - extend the existing basic metadata schema 
+  of an existing folder
+    
+* **removeElementTemplateDataSetMD** - remove an element of the md schema 
+  of a dataset
+
+* **addFolder2ExistingDB** - add a folder to the database, incl. a list of 
+  metadata information based on the current metadata schema
+
+* **removeFolder** - remove an existing folder from the database
+    
+* **addDataSet2ExistingFolder** - add a dataset to an existing folder, incl.
+  a list of metadata information based on the current metadataschema
+    
+* **getDataFrameFromFolder** - get an existing dataset from a specific 
+  folder in the database
+
+* **removeDatasetFromFolder** - remove an existing dataset from an existing 
+  folder in the database
+    
+* **getMDFromDataSet**- get metadata information about an existing dataset 
+  in the database
+    
+* **getMDFromFolder** - get metadata information about an existing folder 
+  in the database
+    
+* **getMDFromDB** - get metadata information about the database
+
+* **editMDofDataset** - if the user changes the meta data schema of the 
+  datasets, this needs to be updated with every dataset in the db. This 
+  function helps with that.
+
+* **editMDofDB** - if the user changes the metadata schema of the database, 
+  the new entries need to be filled with content. This function helps with 
+  that.
+
+* **exportTemplateMDSchemaofDB2CSV** - store the current metadata schema of 
+  the database as a template csv file, for later import
+    
+* **exportTemplateMDSchemaofDataset2CSV** - store the current metadata 
+  schema of a folder as a template csv file, for later import 
+    
+* **importMDDataofDatasetFromCSV** - import csv file with current metadata 
+  schema of folder and filled out metadata information about containing 
+  datasets 
+    
+* **importMDDataofDBfromCSV** - import csv file with current metadata 
+  schema of database and filled out metadata information about containing 
+  datasets
+        
+## Assorted function to further support the user
+* **importDataFromFolder** - IF the user already has a data folder with 
+  certain specifications
+
+> from supplychainmodelhelper import datahandling as dh
+
+> help(dh.importDataFromFolder)
+
+this function may be used to create a hdf5 database without much effort.
+With this a complete folder of raw data may be imported into a hdf5 database.
+Note that this function is still in the testing phase and needs further 
+updates.
+
+* **decBSList** - if a list of strings or bytestrings are given, this 
+  function returns a list of strings. No need to check if some string is 
+  one or the other, just apply this to your list.
+
+* **decBS** - if a string or bytestring is given, this function returns a 
+  string. No need to check if some string is one or the other, just apply 
+  this to your list.
+
+
+## Still to do
+* check proxy model for vegetables = identical/similar to eggs in FoodFlow?
+* video tutorials:
+    * graphoperations
+    * datacube
+    * datahandling
+    * what is to do for FoodFlow
+    * export graph to hdf5 and to graphml
+* make it possible to filter/link 2 LoTs via common attribute (intersect?)
+* check minimizing of active edges still possible with concept of distance 
+  matrix mapped to graph
+* get all content of list of given node ids
+* on creating graph str should be accepted (currently list only)
+* check if get attributes of nodes/edges is always in a tuple
+* add attributes in tuples
+
