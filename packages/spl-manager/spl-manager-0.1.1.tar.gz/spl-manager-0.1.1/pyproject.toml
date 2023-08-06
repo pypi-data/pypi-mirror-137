@@ -1,0 +1,67 @@
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.poetry]
+authors = ["Nextpart Security Intelligence <info@nextpart.io>"]
+description = "A helper for Splunk-related development, maintenance, or migration operations."
+name = "spl-manager"
+readme = 'README.md'
+version = "0.1.1"
+
+[tool.poetry.scripts]
+spl = 'spl_manager.__main__:main'
+
+[tool.poetry.dependencies]
+Cerberus = "^1.3"
+deepdiff = "^5.7"
+docker = "^5.0"
+dynaconf = "^3.1"
+fire = "^0.4"
+inquirerpy = "^0.3"
+python = "^3.8"
+requests-toolbelt = "^0.9"
+rich = "^11.0"
+splunk-appinspect = "^2.14"
+splunk-sdk = "^1.6"
+
+[tool.poetry.dev-dependencies]
+black = {version = "*", allow-prereleases = true}
+ipykernel = "^6.6"
+pylint = "^2.12"
+tox = "^3.24"
+
+[tool.black]
+include = "\\.pyi?$"
+line-length = 100
+
+[tool.coverage]
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "if self\\.debug",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if 0:",
+  "if __name__ == .__main__.:",
+]
+ignore_errors = true
+omit = ["*/site-packages/*", "*/.venv/*", "*/.tox/*", "*/.local/*", "*/tests/*"]
+
+[tool.coverage.run]
+branch = true
+
+[tool.isort]
+line_length = 100
+multi_line_output = 3
+profile = "black"
+
+[tool.pytest]
+[tool.pytest.ini_options]
+addopts = "-ra -q --doctest-modules"
+junit_family = "xunit2"
+minversion = "6.0"
+norecursedirs = ["**/.svn", "**/_build", "**/tmp*", "**/.tox", "**/venv", "**/docs", "**/junit", "**/tests"]
+testpaths = ["tests"]
