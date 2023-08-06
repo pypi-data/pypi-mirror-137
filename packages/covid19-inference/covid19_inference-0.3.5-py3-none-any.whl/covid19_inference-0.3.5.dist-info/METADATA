@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: covid19-inference
+Version: 0.3.5
+Summary: Toolbox for inference and forecast of the spread of the Coronavirus.
+Home-page: https://github.com/Priesemann-Group/covid19_inference
+Author: Jonas Dehning, Johannes Zierenberg, F. Paul Spitzner, Michael Wibral, Joao Pinheiro Neto, Michael Wilczek, Sebastian B. Mohr, Viola Priesemann
+Author-email: jonas.dehning@ds.mpg.de
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: pymc3 (==3.11.2)
+Requires-Dist: arviz
+Requires-Dist: pandas
+Requires-Dist: pytest
+Requires-Dist: requests
+Requires-Dist: numpyro
+Requires-Dist: cairosvg
+Requires-Dist: filelock (>=3.2.0)
+
+# Bayesian inference and forecast of COVID-19, code repository
+
+[![Documentation Status](https://readthedocs.org/projects/covid19-inference/badge/?version=latest)](https://covid19-inference.readthedocs.io/en/latest/doc/gettingstarted.html)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+This is a Bayesian python toolbox for inference and forecast of the spread of the Coronavirus.
+
+- [**Documentation**](https://covid19-inference.readthedocs.io/en/latest/index.html)
+- [**Getting started**](https://covid19-inference.readthedocs.io/en/latest/doc/gettingstarted.html)
+- [**Examples**](https://covid19-inference.readthedocs.io/en/latest/doc/examples.html)
+- [**Contributing**](https://covid19-inference.readthedocs.io/en/latest/doc/contributing.html)
+- [**Source code**](https://github.com/Priesemann-Group/covid19_inference)
+
+
+The latest stable version is [v0.3.1](https://github.com/Priesemann-Group/covid19_inference/tree/v0.3.1)!
+
+
+The research article [is available on arXiv](https://arxiv.org/abs/2004.01105) (**updated on April 13 2020**).
+The code used to produce the figures is available in the other repository [here](https://github.com/Priesemann-Group/covid19_inference_forecast).
+
+
+If you are interested in our efforts and like to help us feel free to contact us. **We are looking for support** to help us with analyzing other countries and to extend to an hierarchical regional model.
+
+### Please take notice of our [disclaimer](DISCLAIMER.md).
+
+
+### Installation:
+
+Can be installed from pypi with
+```
+pip install covid19_inference
+```
+
+
