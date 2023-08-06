@@ -1,0 +1,13 @@
+{% load static %}
+<script src="{% static 'js/jquery.js' %}" crossorigin="use-credentials"></script>
+
+<script>
+    const getCartItems_url = 'ajax/getCartItems';
+    let last_update = '{{ last_update }}';
+    const cartBtns_url = '{% url 'cartBtns' %}';
+    const csrf_token = '{{ csrf_token }}';
+    const cart_number = '{{ cart_number }}';
+</script>
+
+<script src="{% static 'js/cart_get_items.js' %}" crossorigin="use-credentials"></script>
+<script src="{% static 'js/cart_update.js' %}" crossorigin="use-credentials"></script>
