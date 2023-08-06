@@ -1,0 +1,2 @@
+/*! For license information please see 588.6154daa16d71e01ea462.js.LICENSE.txt */
+(self.webpackChunkipydatatable=self.webpackChunkipydatatable||[]).push([[588,219],{6588:(a,e,n)=>{var t,p;t=[n(3443),n(5794),n(718)],void 0===(p=function(a){return function(a,e,n,t){return a.fn.dataTable}(a,window,document)}.apply(e,t))||(a.exports=p)}}]);
