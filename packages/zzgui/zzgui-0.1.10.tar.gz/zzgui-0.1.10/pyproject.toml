@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "zzgui"
+version = "0.1.10"
+description = "Python GUI toolkit"
+authors = ["Andrei Puchko <andrei.puchko@gmx.de>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.6"
+PyQt5 = "^5.15.6"
+QScintilla = "^2.13.1"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+black = "^21.10b0"
+pylint = "^2.11.1"
+pyinstaller = "^4.7"
+zzdb = "latest"
+
+[tool.black]
+line-length = 110
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
