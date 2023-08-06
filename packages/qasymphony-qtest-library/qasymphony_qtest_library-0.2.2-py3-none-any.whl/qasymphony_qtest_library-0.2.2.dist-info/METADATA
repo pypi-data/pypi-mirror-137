@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: qasymphony-qtest-library
+Version: 0.2.2
+Summary: UNKNOWN
+Home-page: https://github.com/paul-nelson-baker/python-qtest-library
+Author: Paul N. Baker
+Author-email: paul.nelson.baker@gmail.com
+License: ISC
+Keywords: qasymphony qtest quality-assurance qa
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3.6
+Requires-Python: ~=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests (>=2.18.4)
+
+# Python QTest Library
+
+A client library to interact with the qTest API, which one can reference here: [api.qasymphony.com](https://api.qasymphony.com/)
+
+## Installation
+```bash
+pip install qasymphony-qtest-library
+```
+
+## Usage
+
+```python
+from qtest import qtest
+
+qtest = qtest.QTestClient(username="username@yourco.com", password="password", site_name="yourco")
+all_projects = qtest.get_projects()
+project_names = [project['name'] for project in all_projects]
+print(project_names)
+```
+
+
