@@ -1,0 +1,87 @@
+Metadata-Version: 2.1
+Name: cfn-lint-ax
+Version: 0.0.8
+Summary: Rules for cfn lint.
+Home-page: https://github.com/aexeagmbh/cfn-lint-rules
+Author: AX Semantics
+Author-email: infrastructure@ax-semantics.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/aexeagmbh/cfn-lint-rules/issues
+Project-URL: Source, https://github.com/aexeagmbh/cfn-lint-rules
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cfn-lint (>=0.56.1)
+
+cfn-lint-ax
+===========
+
+[![Testing](https://github.com/aexeagmbh/cfn-lint-rules/actions/workflows/tests.yml/badge.svg)](https://github.com/aexeagmbh/cfn-lint-rules/actions/workflows/tests.yml)
+[![PyPI version](https://badge.fury.io/py/cfn-lint-ax.svg)](https://badge.fury.io/py/cfn-lint-ax)
+
+Additional rules for [cfn-lint](https://github.com/aws-cloudformation/cfn-lint).
+
+Installation
+------------
+
+```bash
+python -m pip install cfn-lint cfn-lint-ax
+```
+
+
+Usage
+-----
+
+```bash
+python -m cfnlint template.yaml -a cfn_lint_ax.rules
+```
+
+
+Run Tests
+---------
+```bash
+docker-compose build --pull
+docker-compose run --rm rules
+```
+
+
+User Rules (E9XXX)
+------------------
+
+### Basic Template Errors (E90XX)
+
+### Functions (E91XX)
+* E9101 UnresolvedObject
+
+### Parameters (E92XX)
+
+### Resources (E93XX)
+* I9301 EcsServiceFargatePlatformVersionNotOutdated
+* W9301 S3BucketPublicAccess
+* W9302 S3BucketEncryption
+* W9303 CloudfrontDistributionLogging
+* W9304 CloudfrontDistributionComment
+* W9305 CertificateManagerCertificateNameTag
+* W9306 CodeBuildProjectCloudWatchLogs
+* W9307 CloudfrontDistributionResponseHeadersPolicy
+* W9308 CloudfrontResponseHeaderConfigLongHstsMaxAge
+* W9309 EcsServiceDeploymentConfiguration
+
+### Metadata (E94XX)
+* E9401 MetadataAxChangesetAutoApprove
+
+### Outputs (E96XX)
+
+### Mappings (E97XX)
+
+### Conditions (E98XX)
+
+
