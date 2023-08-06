@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: fiddy
+Version: 0.0.1
+Summary: Finite difference methods.
+Home-page: https://github.com/ICB-DCM/fiddy
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.8.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: joblib
+Requires-Dist: numpy
+Requires-Dist: pandas
+Provides-Extra: amici
+Requires-Dist: amici ; extra == 'amici'
+Requires-Dist: petab ; extra == 'amici'
+Provides-Extra: doc
+Requires-Dist: sphinx ; extra == 'doc'
+Requires-Dist: sphinx-rtd-theme ; extra == 'doc'
+Requires-Dist: sphinx-autodoc-typehints ; extra == 'doc'
+Provides-Extra: pypesto
+Requires-Dist: pypesto ; extra == 'pypesto'
+Provides-Extra: tests
+Requires-Dist: pytest ; extra == 'tests'
+Requires-Dist: sympy ; extra == 'tests'
+Requires-Dist: more-itertools ; extra == 'tests'
+
+# fiddy
+
+Finite difference methods, for applications including gradient computation and gradient checks.
+
+Install with `pip install -e .`.
+
+
