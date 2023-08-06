@@ -1,0 +1,54 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "route_tracker"
+authors = [{name = "Ali Ghahraei Figueroa", email = "aligf94@gmail.com"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"]
+dynamic = ["version", "description"]
+dependencies = [
+    "typer[all]",
+    "xdg",
+    "pygraphviz",
+    "tomlkit",
+]
+
+[project.scripts]
+route = "route_tracker.commands:app"
+
+[project.urls]
+Home = "https://github.com/AliGhahraei/route-tracker"
+
+
+[tool.coverage]
+
+  [tool.coverage.run]
+  branch = true
+
+  [tool.coverage.report]
+  exclude_lines = [
+      'pragma: no cover',
+      'pass',
+      'if TYPE_CHECKING.*',
+      'return NotImplemented',
+  ]
+  fail_under = 100
+  show_missing = true
+
+
+[tool.mypy]
+files = ['src/route_tracker', 'tests', '*.py']
+strict = true
+
+  [[tool.mypy.overrides]]
+  module = 'pygraphviz.*'
+  ignore_missing_imports = true
+
+
+[tool.pytest.ini_options]
+markers = [
+    "skip_mock_draw_autouse",
+]
