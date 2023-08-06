@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "cc-codechecker"
+version = "0.1.2"
+description = "Facilities to manage coding challenges."
+authors = ["Daniele Tentoni <daniele.tentoni.1996@gmail.com>"]
+keywords = ['coding', 'challenge', 'yaml', 'project', 'facilities']
+license = "GPL-3.0-only"
+maintainers = ["Daniele Tentoni <daniele.tentoni.1996@gmail.com>"]
+readme = 'README.rst'
+
+[tool.poetry.scripts]
+cc-codechecker = 'cc_codechecker.codechecker:main'
+
+[tool.poetry.dependencies]
+python = "^3.10.2"
+PyYAML = "^6.0"
+
+[tool.poetry.dev-dependencies]
+bandit = "^1.7.1"
+isort = "^5.10.1"
+mypy = "^0.931"
+pre-commit = "^2.16.0"
+pylint = "^2.12.2"
+pytest = "^7.0.0"
+pytest-cov = "^3.0.0"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.isort]
+color_output = true
+import_heading_firstparty = 'Codechecker'
+import_heading_stdlib = 'Standard Library'
+include_trailing_comma = true
+indent = 2
+multi_line_output = 3
+
+[tool.pylint]
+  [tool.pylint.'BASIC']
+    docstring-min-length = 10
+    no-docstring-rgx = "(__.*__|main|test.*|.*test|.*Test)$"
+
+  [tool.pylint.'FORMAT']
+    indent-string = '  '
+    max-line-length = 80
+    max-module-lines = 1000
+
+  [tool.pylint.STRING]
+    check-quote-consistency = true
