@@ -1,0 +1,48 @@
+Metadata-Version: 2.0
+Name: currency-iso4217
+Version: 0.0.4
+Summary: Librería para buscar y validar divisas conforme listado ISO 4217
+Home-page: https://gitlab.com/marceloiacobucci
+Author: Marcelo Daniel Iacobucci
+Author-email: marceloiacobucci@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+Librería que permite buscar en el listado ISO 4217 las divisas por código, país o moneda.
+
+
+# 💡 Prerequisitos
+
+Python >=3.6
+
+
+# 📚 Ejemplo de uso
+
+##  Import
+- from currency_iso4217 import search_by_code  
+- from currency_iso4217 import search_by_country  
+- from currency_iso4217 import search_by_currency  
+- from currency_iso4217 import show_list  
+
+## Call functions
+>>> search_by_code('CLP')  
+>>> [{'id': 42, 'country': 'Chile', 'currency': 'Peso chileno', 'decimals': '0'}]  
+
+>>> search_by_country('Chile')  
+>>> [{'id': 41, 'country': 'Chile', 'currency': 'Unidad de fomento', 'decimals': '4'}, {'id': 42, 'country': 'Chile', 'currency': 'Peso chileno', 'decimals': '0'}]  
+
+>>> search_by_currency('Peso chileno')  
+>>> [{'id': 42, 'country': 'Chile', 'currency': 'Peso chileno', 'decimals': '0'}]  
+
+>>> show_list()
+>>> [...]
+
+
+Por Marcelo Daniel Iacobucci
+
+
+
