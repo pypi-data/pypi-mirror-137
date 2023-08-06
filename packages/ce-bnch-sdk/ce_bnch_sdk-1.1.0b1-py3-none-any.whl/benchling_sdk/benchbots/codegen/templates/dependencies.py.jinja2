@@ -1,0 +1,204 @@
+"""Generated from {{ manifest.info.name }} {{ manifest.info.version }}.
+
+Do not edit manually.
+
+An instance `dependencies: Dependencies` can be used as follows:
+
+```
+{% for dependency in manifest.dependencies %}
+dependencies.{{ dependency.snake_case_name }}.id
+    {% if dependency.fieldDefinitions %}
+        {% for field in dependency.fieldDefinitions %}
+dependencies.{{ dependency.snake_case_name }}.fields.{{ field.snake_case_name }}.name
+        {% endfor %}
+    {% elif dependency.options %}
+        {% for option in dependency.options %}
+dependencies.{{ dependency.snake_case_name }}.options.{{ option.snake_case_name }}.id
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+```
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass
+import json
+import os
+from typing import Any, ClassVar, Dict, Optional
+
+import jsonpath_ng.ext
+
+
+class MissingDependencyError(Exception):
+    pass
+
+
+class RedundantDependencyError(Exception):
+    pass
+
+
+@dataclass
+class _DependencyLinkStore(object):
+    """Container for accessing and caching dependency links."""
+    # Temporary stopgap until dependency links are stored in Benchling
+    parameters_file: str
+    _dependency_links: Optional[Dict] = None
+
+    @classmethod
+    def init(cls, parameters_file: str = None) -> _DependencyLinkStore:
+        if not parameters_file:
+            parameters_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "parameters.json")
+
+        return _DependencyLinkStore(parameters_file=parameters_file)
+
+    @property
+    def dependency_links(self) -> Dict[str, Any]:
+        if not self._dependency_links:
+            with open(self.parameters_file) as f:
+                self._dependency_links = json.loads(f.read())
+                assert isinstance(self._dependency_links, dict), "Dependency links must be a dict"
+        return self._dependency_links
+
+    # Allow integrations to live-update the values if desired
+    def invalidate_cache(self) -> None:
+        self._dependency_links = None
+
+
+@dataclass
+class DependencyNode(object):
+    store: _DependencyLinkStore
+
+
+@dataclass
+class ApiResourceDependency(DependencyNode):
+    json_path: ClassVar[str]
+
+    def _get_value(self, key: str) -> str:
+        full_path = f"{self.json_path}.{key}"
+        parsed_path = jsonpath_ng.ext.parse(full_path)
+        matches = parsed_path.find(self.store.dependency_links)
+        if len(matches) == 0:
+            raise MissingDependencyError(f"No matches found in dependency links for path {full_path}")
+        elif len(matches) > 1:
+            raise RedundantDependencyError(f"Multiple matches found in dependency links for path {full_path}")
+        else:
+            return matches[0].value
+
+    @property
+    def id(self) -> str:
+        return self._get_value("resourceId")
+
+
+@dataclass
+class NamedApiResourceDependency(ApiResourceDependency):
+    @property
+    def name(self) -> str:
+        return self._get_value("resourceName")
+
+
+@dataclass
+class Dependencies(object):
+    store: _DependencyLinkStore
+
+    @classmethod
+    def init(cls, parameters_file: str = None) -> Dependencies:
+        return Dependencies(_DependencyLinkStore.init(parameters_file=parameters_file))
+
+    # Allow integrations to live-update the values if desired
+    def invalidate_cache(self) -> None:
+        self.store.invalidate_cache()
+{% for dependency in manifest.dependencies %}
+
+    @property
+    def {{ dependency.snake_case_name }}(self) -> {{ dependency.pascal_case_name }}Dependency:
+        return {{ dependency.pascal_case_name }}Dependency(self.store)
+{% endfor %}
+{% for dependency in manifest.dependencies %}
+
+
+@dataclass
+class {{ dependency.pascal_case_name }}Dependency({% if dependency.is_resource_named %}NamedApiResourceDependency{% else %}ApiResourceDependency{% endif %}):
+    json_path = "$.dependencies[?name = '{{ dependency.name }}']"
+    {% if dependency.fieldDefinitions %}
+
+    @property
+    def fields(self) -> {{ dependency.pascal_case_name }}DependencyFields:
+        return {{ dependency.pascal_case_name }}DependencyFields(self.store)
+    {% elif dependency.options %}
+
+    @property
+    def options(self) -> {{ dependency.pascal_case_name }}DependencyOptions:
+        return {{ dependency.pascal_case_name }}DependencyOptions(self.store)
+    {% endif %}
+    {% if dependency.fieldDefinitions %}
+    {% if dependency.output %}
+
+    @property
+    def output(self) -> {{ dependency.pascal_case_name }}DependencyOutput:
+        return {{ dependency.pascal_case_name }}DependencyOutput(self.store)
+
+
+@dataclass
+class {{ dependency.pascal_case_name }}DependencyOutput(DependencyNode):
+    @property
+    def fields(self) -> {{ dependency.pascal_case_name }}DependencyOutputFields:
+        return {{ dependency.pascal_case_name }}DependencyOutputFields(self.store)
+
+{% set fields_class_name = dependency.pascal_case_name + "DependencyOutputFields" %}
+
+@dataclass
+class {{ fields_class_name }}(DependencyNode):
+        {% for field in dependency.output.fieldDefinitions %}
+            {% if not loop.first %}
+
+            {% endif %}
+            {% set inner_field_class_name = field.pascal_case_name + "Dependency" %}
+    @dataclass
+    class {{ inner_field_class_name }}(NamedApiResourceDependency):
+        json_path = "$.dependencies[?name = '{{ dependency.name }}'].output.fieldDefinitions[?name = '{{ field.name }}']"
+
+    @property
+    def {{ field.snake_case_name }}(self) -> {{ inner_field_class_name }}:
+        return {{ fields_class_name }}.{{ inner_field_class_name }}(self.store)
+        {% endfor %}
+
+    {% endif %}
+
+
+        {% set fields_class_name = dependency.pascal_case_name + "DependencyFields" %}
+@dataclass
+class {{ fields_class_name }}(DependencyNode):
+        {% for field in dependency.fieldDefinitions %}
+            {% if not loop.first %}
+
+            {% endif %}
+            {% set inner_field_class_name = field.pascal_case_name + "Dependency" %}
+    @dataclass
+    class {{ inner_field_class_name }}(NamedApiResourceDependency):
+        json_path = "$.dependencies[?name = '{{ dependency.name }}'].fieldDefinitions[?name = '{{ field.name }}']"
+
+    @property
+    def {{ field.snake_case_name }}(self) -> {{ inner_field_class_name }}:
+        return {{ fields_class_name }}.{{ inner_field_class_name }}(self.store)
+        {% endfor %}
+    {% elif dependency.options %}
+
+
+        {% set options_class_name = dependency.pascal_case_name + "DependencyOptions" %}
+@dataclass
+class {{ options_class_name }}(DependencyNode):
+        {% for option in dependency.options %}
+            {% if not loop.first %}
+
+            {% endif %}
+            {% set inner_option_class_name = option.pascal_case_name + "Dependency" %}
+    @dataclass
+    class {{ inner_option_class_name }}(NamedApiResourceDependency):
+        json_path = "$.dependencies[?name = '{{ dependency.name }}'].options[?name = '{{ option.name }}']"
+
+    @property
+    def {{ option.snake_case_name }}(self) -> {{ inner_option_class_name }}:
+        return {{ options_class_name }}.{{ inner_option_class_name }}(self.store)
+        {% endfor %}
+    {% endif %}
+{% endfor %}
