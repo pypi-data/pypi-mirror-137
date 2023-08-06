@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.2.2  Das &bdquo;Volkstheorem&ldquo; (&bdquo;folk theorem&ldquo;)</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node125.html" />
+<link rel="next" href="node127.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node125.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node125.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node127.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node106.html">5.1  Spieltheorie I: Einführung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node117.html">5.2  Spieltheorie II: Vertiefung und Anwendung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node118.html">5.2.1  Nicht-Nullsummenspiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node125.html">5.2.2  Wiederholte Spiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node125.html">5.2.2.1  Wiederholte Spiele am Beispiel des wiederholten Gefangenendilemmas</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node126.html">5.2.2.2  Das &bdquo;Volkstheorem&ldquo; (&bdquo;folk theorem&ldquo;)</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node127.html">5.2.3  Evolutionäre Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node129.html">5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen bei Internetauktionen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node130.html">5.2.5  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>5.2.2.2  Das &bdquo;Volkstheorem&ldquo; (&bdquo;folk theorem&ldquo;)</h4>
+
+<p>
+Wenn ausnahmslose Defektion im wiederholten Gefangenendilemma in aller 
+Regel nicht die beste Strategie ist, welches ist aber dann die beste 
+Strategie? Die Antwort lautet: Es gibt keine beste Strategie. Wie gut 
+eine Strategie abschneidet, hängt immer davon ab, auf welchen Gegner 
+sie trifft. Dass es keine beste Strategie gibt, lässt sich sehr leicht 
+beweisen, indem man zeigt, dass es zwei Strategien gibt, zu denen die 
+besten Antwort-Strategien jeweils verschieden sind. Diese beiden Strategien 
+sind die Strategien &bdquo;Falke&ldquo; und &bdquo;Unerbittlich&ldquo;. 
+Die Strategie &bdquo;Falke&ldquo; defektiert ausnahmslos in allen Runden. 
+(Das Gegenstück dazu ist übrigens die Strategie &bdquo;Taube&ldquo;, 
+die ausnahmslos kooperiert.) Die Strategie &bdquo;Unerbittlich&ldquo; 
+kooperiert solange, bis der Gegner ein einziges mal defektiert. Wenn 
+das geschieht, dann defektiert sie ab der folgenden Runde ausnahmslos 
+für den gesamten Rest des Spiels.
+</p>
+<p>
+Nun kann man sich überlegen, dass die beste Antwort auf die Strategie 
+&bdquo;Falke&ldquo; nur eine Strategie sein kann, die gegen &bdquo;Falke&ldquo; 
+ab der ersten Runde ausnahmslos defektiert. Das bedeutet nicht, dass 
+sie auch gegen andere Strategien ausnahmslos defektieren muss. (Sie 
+könnte, z.B. wenn die Gegnerstrategie ein Kooperationsangebot macht, 
+ihrerseits auf Kooperation umschwenken.) Aber zumindest in der ersten 
+Runde muss sie unbedingt defektieren, sonst würde sie in der ersten 
+Runde gegen &bdquo;Falke&ldquo; Punkte verschwenden, womit sie keine 
+beste Antwort auf &bdquo;Falke&ldquo; mehr wäre.
+</p>
+<p>
+Gegen &bdquo;Unerbittlich&ldquo; kann diese Strategie dann aber keine 
+beste Antwort mehr sein. Den jede beste Antwort auf &bdquo;Unerbittlich&ldquo; 
+muss gegen &bdquo;Unerbittlich&ldquo; ab der ersten Runde kooperieren. 
+Damit ist gezeigt, dass es im wiederholten Gefangenendilemma keine 
+stark oder schwach dominante Strategie gibt.
+</p>
+<p>
+Wie sieht es aber mit Gleichgewichtsstrategien aus? Davon gibt es einem 
+bekannten Theorem der Spieltheorie zufolge unüberschaubar viele. Das 
+Theorem, um das es sich handelt, ist das sogennante Volkstheorem (englisch: 
+&bdquo;folk theorem&ldquo;; &bdquo;folk&ldquo;, weil kein Erfinder 
+des Theorems bekannt und es damit gewissermaßen Allgemeingut ist). 
+Das Folk-Theorem sagt nun nicht unmittelbar etwas darüber aus, welche 
+Strategien in wiederholten Spielen Gleichgewichtsstrategien sind, und 
+welche nicht, aber es sagt etwas über die möglichen Durchschnittsauszahlungen 
+von Gleichgewichten in wiederholten Spielen aus. In (vereinfachter 
+Form) lautet das Folk-Theorem so: 
+</p>
+<blockquote>
+<em>Volkstheorem</em>: In (unendlich oft) wiederholten Spielen ist 
+jedes Resultat erzielbar, das den Spielern mindestens ihren <em>Maximin-Wert</em> 
+bietet.
+<p>
+Dass ein Resultat &bdquo;erzielbar&ldquo; ist heisst dabei, dass es 
+ein Gleichgewicht gibt, bei dem das entsprechende Resultat heraus kommt. 
+Unter dem &bdquo;Resultat&ldquo; sind dabei die Durchschnittsauszahlungen 
+zu verstehen, die die Spieler über das gesamte wiederholte Spiel erhalten. 
+Der Maximin-Wert ist derjenige Wert, den ein Spieler erhält, wenn er 
+&bdquo;auf Nummer sicher&ldquo; geht und so spielt, das er seinen Verlust 
+minimiert. (Vgl. dazu die Maximin-Regel bei Entscheidungen unter Unwissenheit, 
+S.  <a href="node14.html#maximinRegel">1.2.4.1</a>.) Im (wiederholten) 
+Gefangenendilemma kann ein Spieler dadurch, dass er defektiert, sicherstellen, 
+dass er mindestens die Auszahlung für wechselseitige Defektion erhält. 
+(Mit unseren Zahlen also einen Nutzenwert von 1.) </blockquote>
+
+</p>
+<p>
+Der <em>Beweis</em> der Volkstheorems lässt sich für den Sonderfall 
+des wiederholten 2-Personen Gefangenendilemmas etwa so führen: Wenn 
+jedem Spieler der Maximin-Wert garantiert werden soll, dann kann das 
+Gleichgewichts-Resultat für jeden der Spieler nur Werte von <script type="math/tex">P</script> 
+bis <script type="math/tex">R</script> haben. Andernfalls (bei Werten 
+kleiner <script type="math/tex">P</script> oder bei Werten größer <script type="math/tex">R</script>) 
+müsste einer der Spieler freiwillig auf den Minimax-Wert verzichten, 
+obwohl er diesen Wert notfalls immer durch Defektion erzwingen könnte. 
+Sei <script type="math/tex">X</script> nun irgendein Wert für den gilt: 
+<script type="math/tex">P \leq X \leq S</script>. Dann gibt es eine 
+Zugfolge, die jedem Spieler die Auszahlung <script type="math/tex">X</script> 
+liefert. (Beispiel: Angenommen <script type="math/tex">P=1</script> 
+und <script type="math/tex">S=3</script> und <script type="math/tex">X=2\frac{1}{3}</script>, 
+dann liefert die Zugfolge <script type="math/tex">Kooperation, Kooperation, Defektion</script> 
+wenn sie von beiden Spielern gespielt wird, jedem Spieler genau die 
+Auszahlung <script type="math/tex">X=2\frac{1}{3}</script>.) Dann lässt 
+sich diese Zugfolge aber durch eine spezielle Variante der Strategie 
+&bdquo;Unerbittlich&ldquo; erzwingen, die selbst diese Zugfolge spielt 
+und genau dann für den Rest des Spiels auf Bestrafung umschaltet, wenn 
+der Gegenüber von dieser Zugfolge ein einziges Mal abweicht. Wenn wir 
+diese Variante &bdquo;Unerbittlich*&ldquo; nennen, dann bildet das 
+Strategiepaar (Unerbittlich*, Unerbittlich*) ein Gleichgewicht, denn 
+keiner der beiden Spieler kann von seiner Gleichgewichtsstrategie abweichen, 
+ohne mit einer schlechteren Durchschnittsauszahlung rechnen zu müssen.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node126.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node127.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node126.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.2.2  Das &bdquo;Volkstheorem&ldquo; (&bdquo;folk theorem&ldquo;)" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node126.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node126.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.2.2  Das &bdquo;Volkstheorem&ldquo; (&bdquo;folk theorem&ldquo;)&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node126.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

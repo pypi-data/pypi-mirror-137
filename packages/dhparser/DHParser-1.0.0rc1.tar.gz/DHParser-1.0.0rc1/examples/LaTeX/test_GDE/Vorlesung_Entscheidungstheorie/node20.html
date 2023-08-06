@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 1.3.2  Kardinaler Nutzen</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node19.html" />
+<link rel="next" href="node21.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node19.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node18.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node21.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1  Entscheidungstabellen und -bäume</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node9.html">1.2  Entscheidungen unter Unwissenheit I</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node18.html">1.3  Entscheidungen unter Unwissenheit II</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node19.html">1.3.1  Die Minimax-Bedauerns-Regel</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node20.html">1.3.2  Kardinaler Nutzen</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node21.html">1.3.2.1  Exkurs: Skalentypen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node22.html">1.3.3  Weitere Entscheidungsregeln auf Basis des kardinalen Nutzens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node25.html">1.3.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node26.html">1.4  Entscheidungen unter Risiko</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>1.3.2  Kardinaler Nutzen</h3>
+
+<p>
+<span id="KardinalerNutzen"> </span> Der Grundgedanke der &bdquo;Minimax-Bedauerns-Regel&ldquo; 
+besteht darin, eine Entscheidung zu finden, bei der der maximal mögliche 
+Verlust (je nach eintretenden Zufallsereignissen) minimiert wird. Da 
+wir diese Regel auf ein Beispiel mit Geldwerten angewendet haben, konnten 
+wir die Verluste relativ bedenkenlos als die Differenz zwischen entgangenem 
+Gewinn und erhaltenem Gewinn bestimmen. Aber wie sollen wir eine solche 
+Regel wie die &bdquo;Minimax-Bedauerns-Regel&ldquo; anwenden, wenn 
+die (möglichen) Ergebnisse eines Entscheidungsproblems keine Geldwerte 
+sind? Die Ihnen zugeordneten Nutzenwerte spiegeln dann - nach dem Konzept 
+des <em> ordinalen Nutzens</em> - nur eine Rangordnung zwischen den 
+möglichen Ergebnissen des Entscheidungsprozesses entsprechend den Präferenzen 
+wieder. Das Ergebnis der Anwendung einer Entscheidungsregel sollte also auch 
+nur von der Rangordnung der Nutzenwerte nicht aber von den - solange 
+die Ordnung erhalten bleibt - willkürlich wählbaren Zahlenwerten abhängen, 
+die diese Ordnung auf einer Nutzenskala wiedergeben. Betrachten wir 
+als Beispiel einmal folgende beiden Nutzenskalen, die den Ergebnissen 
+<script type="math/tex">x, y, z</script> jeweils einen bestimmten Nutzen 
+zuordnen. (<em>x</em>, <em>y</em> und <em>z</em> sollen dabei irgendwelche 
+möglichen Resultate irgendeines Entscheidungsprozesses sein, z.B. könnten 
+sie für die Resultate <em>frustriert</em>, <em>gelangweilt</em>, <em>erfreut</em> 
+aus dem Beispiel auf Seite  <a href="node5.html#AngelnBeispiel">1.1.3.1</a> 
+stehen.)
+</p>
+<table style="text-align:center">
+<tr><td></td><td>x </td><td>y </td><td>z </td><td></td><td></td><td>x </td><td>y </td><td>z </td></tr>
+<tr><td>Nutzenskala <strong>u()</strong></td><td>1 </td><td>2 </td><td>3 </td><td></td><td>Nutzenskala <strong>v()</strong></td><td>1 </td><td>4 </td><td>9 </td></tr>
+</table>
+<p>
+Beide Skalen geben offenbar denselben ordinalen Nutzen wieder, da <script type="math/tex">u(z) > u(y) > u(x)</script> 
+und ebenso <script type="math/tex">v(z) > v(y) > v(x)</script>. Betrachtet 
+man allerdings die Differenzen, so fällt auf, dass <script type="math/tex">u(z) - u(y) = u(y) - u(x)</script>, 
+während <script type="math/tex">v(z) - v(y) > v(y) - v(x)</script>. 
+Würden diese Nutzenwerte bei einem Entscheidungsproblem auftauchen, 
+so könnte es geschehen, dass man bei Anwendung der Minimax-Bedauernsregel 
+je nachdem, ob man die Nutzenfunktion <em>u</em> oder die Nutzenfunktion 
+<em>v</em> zur Darstellung der Präferenzen heranzieht, zu einer anderen 
+Entscheidungsempfehlung kommt. Genau das dürfte aber nicht geschehen, 
+da <em> u</em> und <em>v</em> nur unterschiedliche Darstellungen desselben 
+<em>ordinalen</em> Nutzens sind. Welche Auswege könnte man sich aus 
+dieser misslichen Situation denken:
+</p>
+<ol>
+<li>Angesichts des Beispiels (Seite  <a href="node19.html#MinimaxBedauernsRegel">1.3.1</a>), 
+mit dem wir die Minimax-Bedauernsregel eingeführt haben, könnte man 
+auf die naheliegende Idee verfallen, dass man diese Regel nur in solchen 
+Fällen anwenden kann, in denen die Ergebnisse des Entscheidungsprozesses 
+monetäre Auszahlungen sind. Das hätte allerdings zwei Nachteile: 1) 
+Die Anwendbarkeit der Regel würde dabei auf eine vergleichsweise kleine 
+Menge von Entscheidungsproblemen eingeschränkt. 2) In vielen Situationen, 
+in denen in irgendeiner Form monetäre Auszahlungen vorkommen, geben 
+die monetären Auszahlungen nicht unmittelbar den damit assoziierten 
+Nutzen wieder. Hanldungsleitend und damit entscheidungsrelevant ist 
+jedoch der Nutzen und nicht der Geldwert. Ein Beispiel daür, dass Nutzen und Geldwert sich nicht decken müssen 
+ist das folgende: 2.000 Euro sind doppelt so viel Geld wie 1.000 Euro. 
+Aber der zusätzliche Nutzen, den man von 2.000 Euro Monatsgehalt gegenüber 
+1.000 Euro Monatsgehalt gewinnt, ist sicherlich geringer als der zusätzliche 
+Nutzen von 1.000 Euro gegenüber 0 Euro Gehalt.
+<br />&#160;</li>
+
+<li>Eine andere denkbare Alternative wäre die Aufstellung einer <em> qualitativen 
+Bedauernstabelle</em>. Dazu müsste man zunächst einmal die <em>Differenzergebnisse</em> 
+bestimmen, worunter man zusammengesetzte Ergebnisse aus einem nicht 
+eingetretenen und einem statt dessen eingetretenen Ergebnis verstehen 
+kann. (In dem Beispiel des Küstenbesuchers aus der ersten Vorlesung 
+(Seite  <a href="node5.html#AngelnBeispiel">1.1.3.1</a>), 
+in dem die möglichen Resultate <em>frustriert</em>, <em>gelangweilt</em>, 
+<em>erfreut</em> waren, würden sich daraus die Differenzereignisse 
+<em>frustriert statt bloß gelangweilt</em>, <em>gelangweilt statt erfreut</em> 
+und <em>frustriert statt erfreut</em> ergeben.) Weiterhin müsste man 
+ein neutrales Differenzereignis definieren, welches die Stelle der 
+0 in der aus Nutzenwerten gewonnen Bedauernstabelle einnimmt. Dieses 
+neutrale Differenzergebnis könnte man z.B. als &bdquo;Unter gegebenen 
+Umständen so gut wie möglich&ldquo; bezeichnen oder ähnlich. Schließlich 
+müsste man die Präferenzen bezüglich der Differenzergebnisse bestimmten, 
+denen man dann eine neue ordinale Nutzenfunktion zuweisen könnte. Die 
+Bestimmung des minimalen größten Bedauerns erfolgt wie zuvor beschrieben 
+(Siehe Abschnitt  <a href="node19.html#MinimaxRegret">1.3.1</a>). 
+Der Nachteil dieses Vorgehens besteht erstens darin, dass die Präferenzordnung 
+für eine weitere Ergebnismenge, nämlich die Menge der Differenzergebnisse, 
+bestimmt werden muss, und zweitens darin, dass sich dieses Verfahren 
+tatsächlich nur auf die Minimax-Bedauerns-Regel anwenden lässt, nicht 
+mehr aber auf die meisten weiteren Entscheidungsregeln, die wir gleich 
+noch kennen lernen werden. In den Fällen aber, in denen wir nicht die 
+gleich zu besprechende Neuman-Morgensternsche Nutzenfunktion bilden 
+können (d.h. in den Fällen, in denen wir aus empirisch-sachlichen Gründen 
+höchstens einen <em>ordinalen</em> Nutzen voraussetzen dürfen) bleibt 
+die Bildung einer qualitativen Bedauernstabelle die einzige Alternative.
+<br />&#160;</li>
+
+<li>Schließlich kann man versuchen, ein &bdquo;stärkeres&ldquo; Nutzenkonzept 
+als das des ordinalen Nutzens zu Grunde zu legen. Bei einem solchen Nutzenkonzept müsste nicht nur die Ordnung der Nutzenwerte 
+unter einer Transformation erhalten bleiben sondern mindestens auch 
+die Ordnung beliebiger Differenzen von Nutzenwerten. Stärker ist ein 
+solches Nutzenkonzept in dem Sinne, dass die Nutzenwerte dann mehr 
+Informationen enthalten als nur die Information über die Ordnung der 
+Präferenzen. Das bedeutet aber auch, dass ein solches Nutzenkonzept 
+empirisch schwerer zu rechtfertigen ist, und dass der empirische Anwendungsbereich 
+eines solches Nutzenkonzepts kleiner sein wird als der des ordinalen 
+Nutzens. Um die Ordnung der Differenzen zu erhalten, ist es aber andererseits 
+noch längst nicht erforderlich, den konkreten Zahlenwerten der Nutzenfunktion 
+eine eindeutige Interpretation zu geben, wie dies bei der Zuweisung 
+von Geldwerten der Fall wäre. Gesucht ist also ein möglichst schwaches 
+(und damit empirisch immer noch möglichst breit anwendbares) Nutzenkonzept, 
+das aber stärker ist als das des Ordinalen Nutzens. Ein solches Nutzenkonzept 
+ist das des <em> kardinalen</em> bzw. des <em>Neumann-Morgensternschen 
+Nutzens</em>. </li>
+</ol>
+<p>
+Das, was wir eben eher intuitiv die &bdquo;Stärke&ldquo; eines Nutzenkonzepts 
+genannt haben, ist dadurch bestimmt, unter welcher Art von Transformationen 
+man zwei Nutzenfunktionen als <em>äquivalent</em>, d.h. denselben Nutzen 
+ausdrückend, betrachtet. (Man kann es also nicht den Nutzenfunktionen 
+also solchen ansehen, ob sie einen ordinalen oder kardinalen Nutzen 
+ausdrücken. Sondern erst durch den Vergleich von Nutzenfunktionen und 
+der Festlegung der Bedingungen ihrer Äquivalenz oder Nicht-Äquivalenz 
+wird dies bestimmt.) Beim <em>ordinalen Nutzen</em> wurden alle Nutzenfunktionen 
+als äquivalent betrachtet, die durch &bdquo;ordnungserhaltende&ldquo; 
+Transformationen ineinander überführt werden können. &bdquo;Ordnungserhaltend&ldquo; 
+sind alle streng monoton steigenden Abbildungen. Der <em> kardinale 
+Nutzen</em> ist nun dadurch definiert, dass zwei Nutzenfunktionen als 
+äquivalent betrachtet werden, wenn man sie durch <em>positive lineare 
+Transformationen</em> ineinander überführen kann. Positive lineare 
+Transformationen sind alle Transformationen der Form:
+</p>
+<p>
+<script type="math/tex">
+\begin{eqnarray}u(x) = ax + b, \qquad a > 0
+\end{eqnarray}
+</script>
+<br />
+</p>
+<p>
+Man betrachte unter diesem Gesichtspunkt einmal die folgenden, in Tabellen 
+dargestellten Nutzenfunktionen:
+</p>
+<table style="text-align:center">
+<tr><td></td><td>x </td><td>y </td><td>z </td><td></td><td></td><td>x </td><td>y </td><td>z </td><td></td><td></td><td>x </td><td>y </td><td>z </td></tr>
+<tr><td><strong>u()</strong></td><td>1 </td><td>2 </td><td>3 </td><td></td><td><strong>v()</strong></td><td>1 </td><td>4 </td><td>9 </td><td></td><td><strong>w()</strong></td><td>1 </td><td>3 </td><td>5 </td></tr>
+</table>
+<p>
+Alle drei Nutzenfunktionen geben denselben ordinalen Nutzen wieder, 
+aber nur die Funktionen <em>u</em> und <em>w</em> geben denselben kardinalen 
+Nutzen wieder, da <script type="math/tex">w(x) = 2u(x)-1</script>. 
+Weiterhin kann man sich leicht überlegen, dass zwei Nutzenfunktionen, 
+die denselben kardinalen Nutzen darstellen, immer auch denselben ordinalen 
+Nutzen repräsentieren, denn positive lineare Transformationen sind 
+immer auch ordnungserhaltende Transformationen. Umgekehrt gilt dasselbe 
+aber nicht, wie die Tabelle oben zeigt. Kardinale Nutzenskalen sind 
+&bdquo;feinkörniger&ldquo; als ordinale Nutzenskalen.  Und sie erhalten, wie erwünscht nicht nur die Ordnung der Nutzenwerte 
+sondern auch die Ordnung der Differenzen von Nutzenwerten, denn seien 
+<script type="math/tex">x,y,z,w \in \mathbb{R}</script> beliebige Nutzenwerte 
+und sei <script type="math/tex">u(x) = ax + b</script> mit <script type="math/tex">a,b \in \mathbb{R}, a > 0</script> 
+eine positive lineare Transformation, dann: 
+<br /><br /><script type="math/tex">
+\begin{eqnarray*}  x - y & > & z - w  \\
+  a(x-y) & > & a(z-w)  \\
+  a(x-y) + b - b & > & a(z-w) + b - b \\
+  (ax + b) - (ay + b) & > & (az + b) - (aw + b) \\
+  u(x) - u(y) & > & u(z) - u(w) 
+\end{eqnarray*}
+</script>
+<br />
+</p>
+<p>
+Dasselbe gilt, wenn man statt des Ungleichheitszeichens ein Gleichheitszeichen 
+einsetzt, womit der Erhalt der Ordnung von Nutzendifferenzen unter 
+positiv linearer Transformation bewiesen ist. Positive lineare Transformationen 
+haben darüber hinaus die Eigenschaft, dass sie nicht bloß die Ordnung 
+der Differenzen von Nutzenwerten erhalten, sondern auch die Quotienten 
+der Differenzen: 
+<br /><br /><script type="math/tex"> \frac{u(x) - u(y)}{u(z) - u(w)} = \frac{(ax + b) - (ay + b)}{(az + b) - (aw + b)} = \frac{a(x - y) + b-b}{a(z - w) + b-b} = \frac{x - y}{z - w} </script><br /><br />
+ 
+Diese Eigenschaft wird später noch für uns wichtig werden wird. Erfüllt 
+eine Skala, wie in diesem Fall die kardinale Nutzenskala, diese Eigenschaft, 
+so nennt man sie auch eine <em>Intervallskala</em>. Zur besseren Übersicht 
+sollen im folgenden kurz einige der wichtigsten Skalentypen aufgelistet 
+werden, die in der Wissenschaft von Bedeutung sind.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node20.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node21.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node20.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 1.3.2  Kardinaler Nutzen" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node20.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node20.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 1.3.2  Kardinaler Nutzen&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node20.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

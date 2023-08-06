@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.2  Wiederholte Spiele</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node124.html" />
+<link rel="next" href="node126.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node124.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node117.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node126.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node106.html">5.1  Spieltheorie I: Einführung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node117.html">5.2  Spieltheorie II: Vertiefung und Anwendung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node118.html">5.2.1  Nicht-Nullsummenspiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node125.html">5.2.2  Wiederholte Spiele</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node125.html">5.2.2.1  Wiederholte Spiele am Beispiel des wiederholten Gefangenendilemmas</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node126.html">5.2.2.2  Das &bdquo;Volkstheorem&ldquo; (&bdquo;folk theorem&ldquo;)</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node127.html">5.2.3  Evolutionäre Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node129.html">5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen bei Internetauktionen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node130.html">5.2.5  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>5.2.2  Wiederholte Spiele</h3>
+
+<h4>5.2.2.1  Wiederholte Spiele am Beispiel des wiederholten Gefangenendilemmas</h4>
+
+<p>
+Im einfachen Gefangenendilemma ist, wenn man davon ausgeht, dass jeder 
+Spieler sich egoistisch-rational verhält, keine kooperative Lösung 
+möglich. Aber wie verhält es sich, wenn man das Spiel mehrfach wiederholt? 
+Dann können die Spieler darauf reagieren, wie sich ihr Gegenüber in 
+der letzten Runde verhalten hat. So kann ein Spieler die Kooperation 
+in der folgenden Runde davon abhängig machen, ob der andere in der 
+gegenwärtigen Runde kooperiert oder nicht. Inwiefern ändert das die 
+strategische Situation? Angenommen, es wird ein wiederholtes Gefangenendilemma 
+von fünf Runden gespielt, und einer der Spieler spielt die Strategie 
+&bdquo;Wie Du mir, so ich Dir&ldquo; (englisch: &bdquo;Tit for Tat&ldquo;), 
+d.h. er kooperiert in der ersten Runde und kooperiert in den folgenden 
+Runden immer dann, wenn der Gegenüber in der vorhergehenden Runde ebenfalls 
+kooperiert hat. Welches Verhalten ist die beste Antwort auf &bdquo;Wie 
+Du mir, so ich Dir&ldquo;, d.h. wie kann man gegen &bdquo;Wie Du mir, 
+so ich Dir&ldquo; die höchste Auszahlung erhalten? Spielt man - analog 
+zum einfachen Gefangenendilemma - immer unkooperativ, dann erhält man 
+mit den Auszahlungsparametern der oben angegebenen Spielmatrix die 
+Auszahlungen: 
+</p>
+<table style="text-align:center">
+<tr><td>Runde: </td><td>1 </td><td>2 </td><td>3 </td><td>4 </td><td>5 </td><td><script type="math/tex">\sum</script> </td></tr>
+<tr><td>Auszahlung: </td><td>5 </td><td>1 </td><td>1 </td><td>1 </td><td>1 </td><td>9 </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Hätte man dagegen immer kooperativ gespielt, dann wären die Auszahlungen 
+höher ausgefallen: 
+</p>
+<table style="text-align:center">
+<tr><td>Runde: </td><td>1 </td><td>2 </td><td>3 </td><td>4 </td><td>5 </td><td><script type="math/tex">\sum</script> </td></tr>
+<tr><td>Auszahlung: </td><td>3 </td><td>3 </td><td>3 </td><td>3 </td><td>3 </td><td>15 </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Daraus wird deutlich, dass im wiederholten Gefangenendilemma unbedingte 
+Defektion keine dominante Strategie ist. Ist aber umgekehrt eine Strategie, 
+die gegen &bdquo;Wie Du mir so ich Dir&ldquo; immer kooperiert eine 
+beste Antwort auf &bdquo;Wie Du mir, so ich Dir&ldquo;. Sie ist es 
+zumindest dann nicht, wenn man durch irgendeine Änderung der Zugfolge 
+ein besseres Ergebnis gegen &bdquo;Wie Du mir, so ich Dir&ldquo; erziehlen 
+kann. Das ist aber in der Tat möglich, wenn man nur in der letzten 
+Runde defektiert und bis dahin kooperiert. Dann ergibt sich: 
+</p>
+<table style="text-align:center">
+<tr><td>Runde: </td><td>1 </td><td>2 </td><td>3 </td><td>4 </td><td>5 </td><td><script type="math/tex">\sum</script> </td></tr>
+<tr><td>Auszahlung: </td><td>3 </td><td>3 </td><td>3 </td><td>3 </td><td>5 </td><td>17 </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Es lohnt sich also immer, in der letzten Runde zu defektieren. Und 
+dies gilt sogar nicht nur gegen die Strategie &bdquo;Wie Du mir, so 
+ich Dir&ldquo;, sondern gegen schlechthin jede Strategie, denn auch 
+gegen eine Strategie, die ihrerseits in der letzten Runde defektiert, 
+ist es besser in der letzten Runde zu defektieren (und eine Auszahlung 
+von 1 zu bekommen) als zu kooperieren (und eine Auszahlung von 0) zu 
+erhalten. Das ist auch keineswegs verwunderlich, denn für sich betrachtet, 
+stellt die letzte Runde ein einfaches Gefangenendilemma dar, und im 
+einfachen Gefangenendilemma ist Defektion, wie wir gesehen haben, die 
+dominante Strategie. Daraus ergibt sich aber eine wichtige Schlussfolgerung: 
+Wenn in der letzten Runde Defektion die dominante Strategie ist, dann 
+müssten beide Spieler, sofern sie sich strikt nutzenmaximierend verhalten, 
+in der letzten Runde stets defektieren. Wenn sie aber in der letzten 
+Runde stets defektieren, dann hat der Zug, den man in der vorletzten 
+Runde spielt, keinen Einfluss mehr darauf, wie der Gegner in der letzten 
+Runde antwortet (sofern der Gegner sich, wie gesagt, strikt nutzenmaximierend 
+verhält). Mit anderen Worten man braucht in der vorletzten Runde keine 
+Belohnung für Kooperation durch den Gegner in der folgenden Runde mehr 
+zu erhoffen, man muss aber auch die Bestrafung für Defektion nicht 
+mehr fürchten, da sie ohnehin eintritt. Dann befinden wir uns aber 
+auch in der vorletzten Runde in genau derselben Situation wie in der 
+letzten Runde, indem wir auf die zukünftige Reaktion des Gegners keine 
+Rücksicht nehmen müssen. Dann ist es aber das beste, auch in der vorletzten 
+Runde schon zu defektieren. Nun wiederholt sich dieselbe Überlegung 
+auch für die vorvorletzte Runde. Auch in der vorvorletzten Runde sollte 
+man also - wechselseitige strikte Rationalität vorausgesetzt! - defektieren 
+usw., so dass schließlich jeder Spieler schon ab der ersten Runde defektieren 
+müsste. Diese Art von Argumention bei wiederholten Spielen, bei der 
+man von der letzten Runde rückwärts auf die vorletzte schließt, und 
+von der vorletzten auf die vorvorletzte bis man schließlich bei der 
+ersten Runde angekommen ist, bezeichnet man auch als <em>Rückwärtsinduktion</em>.
+</p>
+<p>
+Die Rückwärtsinduktion zeigt uns also, dass strikt-rationale Spieler 
+auch im wiederholten Gefangenendilemma schon ab der ersten Runde defektieren 
+werden, sofern der Gegenüber sich ebenfalls strikt rational verhält 
+und sofern beiden bekannt ist, dass sie sich beide strikt rational 
+verhalten. Diese Bedingungen sind keine unwesentlichen Einschränkungen: 
+Anders als im einfachen Gefangenendilemma ist ausschließliche Defektion 
+keine dominante Strategie - dann wäre sie die beste Strategie, egal 
+ob der Gegner sich rational verhält oder nicht, und unabhäbgig davon, 
+was über das Verhalten des Gegners bekannt ist - sondern lediglich 
+eine Gleichgewichtsstrategie. Gibt es auch nur geringen Anlass daran 
+zu zweifeln, dass der Gegenspieler sich strikt rational verhält (z.B. 
+indem er auch in der letzten Runde Kooperation noch kooperiert, wenn 
+kein besonderer Grund dagegen spricht), dann greift das auf die Rückwärtsinduktion 
+gestützte Argument schon nicht mehr.
+</p>
+<p>
+Zudem setzt das Argument voraus, dass die Rundenzahl bekannt ist. Ist 
+die Rundenzahl unbekannt (z.B. wenn das Spiel nicht durch die Anzahl 
+der Wiederholungen, sondern durch eine Abbruchwahrscheinlichkeit nach 
+jeder Runde begrenzt wird), so lässt sich die Argumentation ebenfalls 
+nicht anwenden. Damit gilt aber insgesamt, dass es im wiederholten 
+Gefangenendilemma nur im Ausnahmefall rational ist, von der ersten 
+Runde an ausschließlich zu defektieren, nämlich dann, wenn entweder 
+die Rundenzahl endlich und bekannt ist <em>und</em> der Gegenspieler 
+sich strikt rational verhält <em>und</em> überdies auch seinerseits 
+von der strikten Rationalität seines Gegenübers ausgeht, oder wenn 
+die Gegnerstrategie zufällig eine solche ist, gegen die ausnahmslose 
+Defektion die beste Antwort darstellt.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node125.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node126.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node125.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.2  Wiederholte Spiele" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node125.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node125.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.2  Wiederholte Spiele&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node125.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

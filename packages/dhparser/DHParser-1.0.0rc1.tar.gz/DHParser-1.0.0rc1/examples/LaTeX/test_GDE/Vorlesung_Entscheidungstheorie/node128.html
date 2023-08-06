@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.3.2  Die empirische Unanwendbarkeit spieltheoretischer Evolutionsmodelle</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node127.html" />
+<link rel="next" href="node129.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node127.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node127.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node129.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node106.html">5.1  Spieltheorie I: Einführung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node117.html">5.2  Spieltheorie II: Vertiefung und Anwendung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node118.html">5.2.1  Nicht-Nullsummenspiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node125.html">5.2.2  Wiederholte Spiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node127.html">5.2.3  Evolutionäre Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node127.html">5.2.3.1  Evolutionäre Spieltheorie am Beispiel des wiederholten Gefangenendilemmas</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node128.html">5.2.3.2  Die empirische Unanwendbarkeit spieltheoretischer Evolutionsmodelle</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node129.html">5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen bei Internetauktionen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node130.html">5.2.5  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>5.2.3.2  Die empirische Unanwendbarkeit spieltheoretischer Evolutionsmodelle</h4>
+
+<p>
+<span id="empirischeUnanwendbarkeit"> </span>
+</p>
+<p>
+Das Modell des wiederholten Gefangenendilemmas war lange Zeit (und 
+ist möglicherweise immer noch) eines der beliebtesten Modelle der evolutionären 
+Spieltheorie. Es sind Unmengen von Simulationstudien publiziert worden, 
+die in der ein- oder anderen Form das wiederholte Gefangenendilemma 
+durchspielen  (<a class="bibref" href="node139.html#Hoffmann_2000">Hoffmann 2000</a>). 
+Wie steht es aber um die empirische Anwendung dieser Modelle? Sucht 
+man nach erfolgreichen Anwendungsbeispielen auch nur irgendeiner dieser 
+Simulationsstudien, so stellt man schnell fest, dass sie praktisch 
+nicht existieren. Etwas mehr als 10 Jahre nach der Publikation von 
+Axelrod's Buch  (<a class="bibref" href="node139.html#Axelrod_1984">Axelrod 1984</a>) 
+finden wir in der breit angelegten Meta-Studie eines Biologen  (<a class="bibref" href="node139.html#Dugatkin_1997">Dugatkin 1997</a>), 
+der den spieltheoretischen Ansatz sehr entschieden favorisiert, kein 
+einziges greifbares Beispiel, das man ernsthaft als Bestätigung des 
+Modells im empirischen Zusammenhang betrachten kann. Vor diesem Hintergrund 
+muss es verwundern, wenn ein anderer Autor wiederum einige Jahre später 
+in einem Forschungsbericht behauptet, dass es reichlich empirische 
+Anwendungen des wiederholten Gefangenendilemmamodels in der Biologie 
+gäbe  (<a class="bibref" href="node139.html#Hoffmann_2000">Hoffmann 2000</a>). 
+Der einzige Beleg, den er dafür anführt, ist eine Experimentalstudie 
+aus den 80er Jahren  (<a class="bibref" href="node139.html#Milinski_1987">Milinski 1987</a>), 
+wobei ihm entgeht, dass diese Studie der darauf folgenden wisenschaftlichen 
+Diskussion nicht standgehalten hat. So entstehen Legenden in der Wissenschaft
+</p>
+<p>
+Wie kann es aber sein, dass es für ein Modell wie das des wiederholten 
+Gefangenendilemmas, das in der Theorie so einleuchtend erscheint, kaum 
+empirische Anwendungsbeispiele gibt. Um das zu verstehen muss man zwei 
+unterschiedliche Niveaus der Anwendung von Modellen auf empirische 
+Phänome unterscheiden. Die erste Stufe ist die des bloß metaphorischen 
+Vergleichs. Die zweite und wichtigere Stufe ist die einer Anwendung 
+im vollen Sinne, die mit einem Erklärungsanspruch verbunden ist.
+</p>
+<p>
+Metaphorische Vergleiche lassen sich immer sehr leicht anstellen, und 
+es ist nicht schwer im täglichen Leben, in der Wirtschaft, der Politik 
+oder in der Natur etc. Vorgänge zu finden, die dem Modell des wiederholten 
+Gefangenendilemmas irgendwie (!) ähneln. Aber bloß weil man irgendwelche 
+Ähnlichkeiten zwischen dem Modell und bestimmten empirischen Vorgängen 
+feststellt, kann man noch nicht ernsthaft behaupten, dass das Modell 
+diese Vorgänge erklärt, denn es ist ja sehr wohl möglich, dass die 
+empirischen Vorgänge in der Wirklichkeit ganz andere Ursachen haben 
+als die analogen Vorgänge im Modell.
+</p>
+<p>
+Damit ein Modell tatsächlich als Erklärung eines Phänomens betrachtet 
+werden kann, müssen weitere Voraussetzungen erfüllt werden. Zum Beispiel 
+ist es erforderlich sämtliche Eingangs- und Ausgangsparameter des Modells 
+empirisch zu messen. Nur wenn man alle Parameter messen kann und wenn 
+die gemessenen Ausgangsparameter mit dem vom Modell aus den gemessenen 
+Eingangsparametern errechneten Ergebnissen übereinsimmen, kann man 
+behaupten, dass das Modell den in Frage stehenden Vorgang erklärt. 
+Vor allem müssen die Parameter mindestens so genau gemessen werden 
+können, dass das Modell innerhalb der Messungenauigkeiten einigermaßen 
+stabile Ergebnisse liefert. Andernfalls wäre eine Übereinstimmung der 
+gemessenen mit den errechneten Parametern nur zufällig.
+</p>
+<p>
+Nun besteht bei vielen spieltheoretischen Modellen das Problem darin, 
+dass sich die Auszahlungsparameter einfach nicht zuverlässig messen 
+lassen. Ganz besonders gilt dies für das Modell des wiederholten Gefangenendilemmas, 
+denn dieses Modell reagiert sensitiv auf Schwankungen der Eingangsparameter, 
+d.h. welche Strategie sich evolutionär durchsetzt hängt sehr wesentlich 
+unter anderem davon ab, welche Auszahlungsparamter man wählt. Eines 
+der beliebtesten Standardbeispiele für die vermeintliche Logik der 
+&bdquo;Evolution der Kooperation&ldquo;, das Wechselseitige Entlausen 
+von Schimpansen (&bdquo;Grooming&ldquo;), kann dieses Problem sehr 
+anschaulich vor Augen führen. Um ihr Fell von Ungeziefer zu befreien, 
+pflegen Schimpansen sich gegenseitig zu helfen. Die Entlausungssitzungen 
+finden in der Regel in Paaren statt, wobei sich die Schimpansen abwechseln. 
+Das Erscheinungsbild der Entlausungssitzungen legt die Annahme nahe, 
+dass es sich dabei um ein evolutionär bedingtes reziprokes (also <em>TitForTat</em>-artiges) 
+Kooperationsverhalten handelt. Dieses möglicherweise vorhandene reziproke 
+Kooperationsverhalten ist natürlich noch durch andere Faktoren des 
+Soziallebens von Schimpansen überlagert, so z.B. durch die Dominanzhierarchie 
+unter den Tieren. Aber selbst wenn wir davon einmal absehen, stellt 
+sich für die Anwendung unseres wiederholten Gefangenendilemmamodels 
+ein unüberwindbares Problem: Wie soll man die Auszahlungsparameter 
+messen? Da wir die fitness-relevante Auszahlung dieser Verhaltensweise 
+im Modell voraussetzen, müssten wir, um das Model empirisch überprüfen 
+zu können, irgendwie messen können, welche Auswirkungen ein wohlentlaustes 
+Fell auf die Reproduktionsrate hat, und wir müssten auf der anderen 
+Seite auch die Kosten (wiederum hinsichtlich der Reproduktionsrate) 
+beziffern, die einem Affen entstehen, der einem anderen das Fell entlaust. 
+Die Forschungen, die es in dieser Hinsicht tatsächlich gibt, sind bisher 
+weit davon entfernt, die für die Überprüfung des wiederholten Gefangenendilemma- 
+oder eines ähnlichen Modells erforderlichen Daten zu liefern. Und es 
+ist sehr fraglich, ob dieses Ziel jemals erreicht werden kann.
+</p>
+<p>
+Nun könnte man sich auf den Standpunkt zurückziehen, dass auch eine 
+metaphorische Verwendung des Modells immer noch eine Art von - allerdings 
+sehr viel schwächerem - Erkenntnisgewinn darstellt. Das mag stimmen, 
+nur ist ansichts des außerordentlich bescheidenen Erkenntnisziels eines 
+bloßen metaphorischen Vergleichs der riesige Aufwand der für die Modellforschung 
+getrieben wird, kaum noch vertretbar  (<a class="bibref" href="node139.html#Hammerstein_2003a">Hammerstein 2003a</a>). 
+Insbesondere kann man nicht ernsthaft behaupten, dass durch die Untersuchung 
+künstlich generierter Daten (von Computersimulationen) einen Beitrag 
+zur Erforschung der Evolution von Kooperation geleistet werden kann, 
+wenn man die Ergebnisse nicht auch einer empirischen Überprüfung unterzieht.
+</p>
+<p>
+Aus heutiger Sich muss man das Modell des wiederholten Gefangenendilemmas 
+daher wohl vor allem als ein weiteres beschämendes Beispiel wirklichkeitsfremder 
+Modellforschung und der Verselbstständigung einer technisierten Methodik 
+betrachten, wie sie leider in der Konsequenz des szientistischen Paradigmas 
+liegt, d.h. der naiven Überzeugung echte Wissenschaftlichkeit zeichne 
+sich vor allem durch den Gebrauch mathematischer und technischer Methoden 
+aus, und als sei nicht vielmehr die Wahl der Methode nach dem Erkenntnisgegenstand 
+zu richten und ihr Einsatz dem empirischen Erkenntniszweck der Wissenschaft 
+strikt unterzuordnen.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node128.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node129.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node128.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.3.2  Die empirische Unanwendbarkeit spieltheoretischer Evolutionsmodelle" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node128.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node128.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.3.2  Die empirische Unanwendbarkeit spieltheoretischer Evolutionsmodelle&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node128.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

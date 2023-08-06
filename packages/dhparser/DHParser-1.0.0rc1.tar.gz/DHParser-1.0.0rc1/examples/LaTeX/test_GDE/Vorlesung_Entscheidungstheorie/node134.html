@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 7.1.1.2  Wahrscheinlichkeitsrechnung</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node133.html" />
+<link rel="next" href="node135.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node133.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node132.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node135.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node132.html">7.1  Klausurvorbereitung und Klausur</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node132.html">7.1.1  Aufgaben zur Klausurvorbereitung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node133.html">7.1.1.1  Entscheidungen unter Unwissenheit</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node134.html">7.1.1.2  Wahrscheinlichkeitsrechnung</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node135.html">7.1.1.3  Entscheidungen unter Risiko</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node136.html">7.1.1.4  Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node137.html">7.1.2  Die Klausur</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node138.html">7.1.3  Die Lösung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>7.1.1.2  Wahrscheinlichkeitsrechnung</h4>
+
+<ol>
+<li>Ein Patient, der kürzlich einen Urlaub in Zentralafrika verbracht hat, 
+wird mit Verdacht auf Malaria in die Klinik eingeliefert. Es ist bekannt, 
+dass etwa bei 0.5% derartiger Verdachtsfälle tatsächlich eine Malariaerkrankung 
+auftritt. Die behandelnde Ärztin führt zunächst einen Antigen-Schnelltest 
+durch. Dieser Schnelltest hat eine positiv-positiv Rate von 80% und 
+eine positiv-negativ Rate von 0.01%. Der Test fällt <em>negativ</em> 
+aus.
+<p>
+Da der Schnelltest nicht besonders sensitiv ist (wie man an der niedrigen 
+positiv-positiv Rate sieht), führt die Ärztin noch einen zweiten Test 
+auf Basis einer Polymerase-Kettenreaktion durch. Dieser Test, der mit 
+einer positiv-positiv Rate von 99,5% und einer positiv-negativ Rate 
+von 0.3% sehr viel zuverlässiger ist, fällt positiv aus.
+</p>
+<p>
+Mit welcher Wahrscheinlichkeit muss die Ärztin davon ausgehen, dass 
+der Patient an Malaria erkrankt ist?</p>&#160;</li>
+
+<li>Die Laplace'sche Wahrscheinlichkeit wird wie folgt definiert: <ol>
+<li>Es gibt eine endliche Menge von Elementarereignissen: <script type="math/tex">\Omega</script>. 
+(Beispiel: Beim Würfeln <script type="math/tex">\Omega = \{1,2,3,4,5,6\}</script>) 
+<br />&#160;</li>
+
+<li>Jedes Ereignis ist durch eine Menge <script type="math/tex">E</script> 
+charakterisiert, die Teilmenge von <script type="math/tex">\Omega</script> 
+ist: <script type="math/tex">E \subseteq \Omega</script>. (Beispiel: 
+Das Ereignis, eine gerade Zahl zu würfeln, wird durch die Menge <script type="math/tex">E=\{2,4,6\}</script> 
+beschrieben.) <br />&#160;</li>
+
+<li>Die Wahrscheinlichkeit eines Ereignisses ist definiert als die Anzahl 
+der Elemente der Ereignismenge (&bdquo;günstige Fälle&ldquo;) geteilt 
+durch die Anzahl der Elementarereignisse (&bdquo;mögliche Fälle&ldquo;). 
+Wenn <script type="math/tex">|M|</script> die Anzahl der Elemente der 
+Menge <script type="math/tex">M</script> beschreibt, dann ist die Wahrscheinlichkeit 
+<script type="math/tex">p</script> also definiert durch: <script type="math/tex">p(E) := \frac{|E|}{|\Omega|}</script>. 
+</li>
+</ol>
+<p>
+<em>Beweise</em>, dass die Laplac'sche Wahrscheinlichkeit die kolmogorowschen 
+Axiome erfüllt: 
+</p>
+<ol>
+<li>Axiom: <script type="math/tex">\forall_{E \subset \Omega} \qquad p(E) \in \mathbb{R} \qquad \mbox{und} \qquad p(E) \geq 0</script> 
+<br />&#160;</li>
+
+<li>Axiom: <script type="math/tex">p(\Omega) = 1</script> <br />&#160;</li>
+
+<li>Axiom: <script type="math/tex">\forall_{E,F \subset \Omega} \qquad E \cap F \neq \emptyset \Rightarrow p(E \cup F) = p(E) + p(F)</script> 
+</li>
+</ol>
+<br />&#160;</li>
+
+<li>Zeige, dass aus den drei kolmogorwschen Axiomen, die <em>Monotonie</em> 
+von Wahrscheinlichkeiten folgt: 
+<br /><br /><script type="math/tex">\forall_{E,F \subset \Omega} \qquad E \subset F \Rightarrow p(E) \leq p(F) </script><br /><br />
+ 
+</li>
+</ol>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node134.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node135.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node134.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 7.1.1.2  Wahrscheinlichkeitsrechnung" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node134.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node134.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 7.1.1.2  Wahrscheinlichkeitsrechnung&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node134.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

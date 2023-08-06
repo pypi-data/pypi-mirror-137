@@ -1,0 +1,83 @@
+{
+	"name": "ebnf-language-server",
+	"description": "Language Server for DHParser-EBNF",
+	"author": "Eckhart Arnold",
+	"license": "Apache-2.0",
+	"version": "0.0.3",
+	"repository": {
+		"type": "git",
+		"url": "https://gitlab.lrz.de/badw-it/DHParser"
+	},
+	"publisher": "jecki",
+	"categories": [],
+	"keywords": [
+		"multi-root ready"
+	],
+	"engines": {
+		"vscode": "^1.60.0"
+	},
+	"activationEvents": [
+		"onLanguage:ebnf"
+	],
+	"main": "./client/out/extension",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "EBNF configuration",
+			"properties": {
+				"EBNFLanguageServer.maxNumberOfProblems": {
+					"scope": "resource",
+					"type": "number",
+					"default": 50,
+					"description": "Controls the maximum number of problems produced by the server."
+				},
+				"EBNFLanguageServer.trace.server": {
+					"scope": "window",
+					"type": "string",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"default": "verbose",
+					"description": "Traces the communication between VS Code and the language server."
+				}
+			}
+		},
+		"languages": [
+			{
+				"id": "ebnf",
+				"aliases": [
+					"EBNF",
+					"ebnf"
+				],
+				"extensions": [
+					".ebnf"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "ebnf",
+				"scopeName": "source.ebnf",
+				"path": "./syntaxes/ebnf.tmLanguage.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"postinstall": "cd client && npm install && cd ..",
+		"test": ""
+	},
+	"devDependencies": {
+		"@types/mocha": "^5.2.0",
+		"@types/node": "^14.0.0",
+		"@types/vscode": "^1.60.0",
+		"@vscode/test-electron": "^1.6.1",
+		"tslint": "^5.16.0",
+		"typescript": "^3.5.1"
+	}
+}

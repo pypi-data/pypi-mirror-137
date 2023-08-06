@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 1.4  Entscheidungen unter Risiko</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node25.html" />
+<link rel="next" href="node27.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node25.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node2.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node27.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1  Entscheidungstabellen und -bäume</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node9.html">1.2  Entscheidungen unter Unwissenheit I</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node18.html">1.3  Entscheidungen unter Unwissenheit II</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;<b><a class="internal" href="node26.html">1.4  Entscheidungen unter Risiko</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node27.html">1.4.1  Die Berechnung des Erwartungsnutzens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node29.html">1.4.2  Die Rechtfertigung des Erwartungsnutzens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node30.html">1.4.3  Kausale Entscheidungstheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node31.html">1.4.4  Entscheidungsregeln in der Philosophie: Die Debatte zwischen John Rawls und John C. Harsanyi</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node32.html">1.4.5  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h2>1.4  Entscheidungen unter Risiko</h2>
+
+<p>
+<span id="Risiko"> </span>
+</p>
+<p>
+Bisher haben wir nur über Entscheidungen unter Unwissenheit gesprochen. 
+Damit sind solche Entscheidungen gemeint, bei denen wir die Menge der 
+möglichen Ereignisse, die - unabhängig von unserer Wahl - auf das Ergebnis 
+Einfluss nehmen können, genau kennen, bei denen wir aber nicht wissen, 
+mit welcher Wahrscheinlichkeit jedes der Ereignisse eintreten wird. 
+In diesem Kapitel werden wir die Techniken des Umgangs mit &bdquo;Entscheidungen 
+unter Risiko&ldquo; kennen lernen, wobei mit Entscheidungen unter Risiko 
+genau solche Entscheidungen gemeint sind, bei denen wir die Wahrscheinlichkeiten 
+für das Eintreten der Ereignisse (oder der Gegebenheit bestimmter Zustände 
+kennen). Bei Entscheidungen unter Risiko verfügen wir also über mehr 
+Informationen als bei Entscheidungen unter Unwissenheit. In diesem 
+Sinne ist Risiko (so wir der Begriff innerhalb der Entscheidungstheorie 
+verstanden wird) günstiger als Unwissenheit.
+</p>
+<p>
+Da wir bei Entscheidungen unter Risiko Wahrscheinlichkeiten voraussetzen, 
+müsste, wollte man nach der logischen Reihenfolge vorgehen, eigentlich 
+zuvor der mathematische Wahrscheinlichkeitsbegriff eingeführt werden. 
+Weil die Wahrscheinlichkeitstheorie aber eine komplizierte Sache ist, 
+wird die Wahrscheinlichkeitstheorie aus didaktischen Gründen erst später 
+besprochen. Bis dahin genügt es, über Wahrscheinlichkeiten lediglich 
+das folgende zu wissen:
+</p>
+<ol>
+<li>Jede Wahrscheinlichkeit <script type="math/tex">p</script> ist eine 
+Zahl von <script type="math/tex">0</script> bis <script type="math/tex">1</script>, 
+also <script type="math/tex"> 0 \leq p \leq 1</script>. Eine Wahrscheinlichkeit 
+von <script type="math/tex">0</script> bedeutet, dass ein Ereignis 
+&bdquo;praktisch unmöglich&ldquo; ist, eine Wahrscheinlichkeit von 
+<script type="math/tex">1</script>, dass es &bdquo;praktisch sicher&ldquo; 
+ist. <br />&#160;</li>
+
+<li>Die Wahrscheinlichkeiten von Ereignissen, die sich ausschließen kann 
+man addieren und man erhält dabei die Wahrscheinlichkeit, dass das 
+eine <em> oder</em> das andere Ereignis eintritt. Also, seien <script type="math/tex">E</script> 
+und <script type="math/tex">F</script> zwei Ereignisse, die sich wechselseitig 
+ausschließen, dann gilt <script type="math/tex">P(E) + P(F) = P(E \vee F)</script>. 
+<br />&#160;</li>
+
+<li>Bei einer Menge von einander sich wechselseitig ausschließenden (<em> 
+paarweise disjunkten</em>) Ereignissen, von denen aber irgendeins auf 
+jeden Fall eintritt (<em>erschöpfende Ereignismenge</em>) addieren 
+sich die Wahrscheinlichkeiten zu <script type="math/tex">1</script> 
+auf. </li>
+</ol>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node26.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node27.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node26.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 1.4  Entscheidungen unter Risiko" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node26.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node26.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 1.4  Entscheidungen unter Risiko&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node26.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

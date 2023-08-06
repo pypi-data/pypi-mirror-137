@@ -1,0 +1,325 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 4  Neumann-Morgensternsche Nutzentheorie</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node85.html" />
+<link rel="next" href="node87.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node85.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="toc.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node87.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;<b><a class="internal" href="node86.html">4.1  Die Neumann-Morgensternsche Nutzentheorie</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node87.html">4.1.1  Vorbereitung des Beweises</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node88.html">4.1.2  Existenz der Nutzenfunktion</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node89.html">4.1.3  Eindeutigkeit der Nutzenfunktion</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node90.html">4.1.4  Die Bedeutung der Neumann-Morgensternschen Nutzentheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node91.html">4.1.5  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node92.html">4.2  Diskussion der Neumann-Morgensternschen Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h1>4  Neumann-Morgensternsche Nutzentheorie</h1>
+
+<h2>4.1  Die Neumann-Morgensternsche Nutzentheorie</h2>
+
+<p>
+<span id="NeumannMorgenstern"> </span> Schon zuvor (Kapitel  <a href="node26.html#Risiko">1.4</a> 
+wurde gezeigt, wie man mit Hilfe des Erwartungsnutzens Entscheidungen 
+unter Risiko treffen kann. In diesem Kapitel werden wir auf die theoretischen 
+Grundlagen des Erwartungsnutzens und besonders des sogenannten &bdquo;Neumann-Morgensternschen&ldquo; 
+Nutzenbegriffs eingehen, der schon früher als &bdquo;kardinale Nutzenfunktion&ldquo; 
+eingeführt wurde (siehe Kapitel  <a href="node20.html#KardinalerNutzen">1.3.2</a>).
+</p>
+<p>
+Die Grundidee der Neumann-Morgensternschen Nutzentheorie besteht darin, 
+neben den bestehenden Gütern (bzw. den Ergebnissen von Entscheidungsprozessen) 
+&bdquo;Lotterien&ldquo; als gedachte Güter einzuführen und durch den 
+Vergleich (hinsichtlich der Präferenzrelation) von Lotterien und Gütern 
+bzw. Lotterien untereinander sowie mit Hilfe von als selbst-evident 
+angesehenen Konsistenzbedingungen eine kardinale Nutzenfunktion und 
+das Prinzip des Erwartungsnutzen abzuleiten. Die folgende Darstellung 
+lehnt sich vor allem an Resnik an  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, S. 88-98). 
+Wie sehen diese &bdquo;Lotterien&ldquo; aus und wie kommen sie zu Stande?
+</p>
+<p>
+ Grundsätzlich ist eine Lotterie immer eine Wahrscheinlichkeitsverteilung 
+über einer disjunkten, aber zugleich erschöpfenden Menge von Ereignissen. 
+Kompliziert und, wenn es sich nicht gerade um Geldwerte handelt, zugegebenermaßen 
+etwas unplausibel wird die Theorie dadurch, dass diese Lotterien als 
+mögliche Güter bzw. erzielbare Ergebnisse eines Entscheidungsprozesses 
+in die Präferenzrelation eigeordnet werden können müssen. Das stellt 
+sich dann etwa wie folgt dar:
+</p>
+<p>
+Angenommen jemand ordnet seine Präferenzen bezüglich der drei Güter 
+&bdquo;Eiscreme&ldquo;, &bdquo;Joghurt&ldquo; und &bdquo;Trockenes 
+Brot&ldquo; auf diese Weise:  Eiscreme <script type="math/tex">\succ</script> Joghurt <script type="math/tex">\succ</script> 
+Trockenes Brot 
+</p>
+<p>
+Dann postuliert die Theorie,<a id="REF62" class="internal fn" href="#FN62">[62]</a> , 
+dass es eine Lotterie mit zwei möglichen Preisen, nämlich &bdquo;Eiscreme&ldquo; 
+als Hauptgewinn und &bdquo;Trockenes Brot&ldquo; als Niete gibt (wobei 
+man den Hauptgewinn mit einer bestimmten Wahrscheinlichkeit <script type="math/tex">a</script> 
+erhält und die Niete dementsprechend mit der inversen Wahrscheinlichkeit 
+<script type="math/tex">1-a</script>), so dass zwischen dieser Lotterie 
+und dem in der Mitte eingeordneten Gut &bdquo;Joghurt&ldquo; Indifferenz 
+herrscht. Angenommen eine Person speist gerne Jogurt, so dass dieser 
+Indifferenzpunkt bei einer Gewinnwahrscheinlichkeit von <script type="math/tex">a=80% </script> 
+erreicht wird. Dann gilt, wenn wir unsere gedachte Lotterie mit &bdquo;Lotterie 
+(a=0.8, Eiscreme, Trockenes Brot)&ldquo; bezeichnen: 
+</p>
+<p style="text-align:center">
+Lotterie (a=0.8, Eiscreme, Trockenes Brot) <script type="math/tex">\sim</script> 
+Joghurt 
+</p>
+<p>
+Wozu in aller Welt soll das gut sein? Und woher soll nun einer wissen, 
+ob er zwischen Jogurt und einer 80%-igen Gewinnchance auf Eiscreme 
+(bei Strafe von trockenem Brot) indifferent ist und nicht etwa einer 
+70%-igen oder 60%-igen etc.? Die Antwort auf die erste Frage ist, dass 
+sich damit eine raffinierte, und unter einer großen Gruppe von Ökonomen 
+und einer kleinen Gruppe von Philosophen überaus populäre Nutzentheorie 
+aufbauen lässt, die wir gleich kennen lernen werden. Die Antwort auf 
+die zweite Frage stellt eine etwas schwierige Angelegenheit dar, die 
+man lange diskutieren müsste. So recht überzeugend lässt sie sich, 
+wenn es sich nicht gerade mal wieder um Geldwerte handelt, offen gestanden 
+nicht beantworten, so dass wir an dieser Stelle schon eine gehörige 
+Portion guten Willen mitbringen müssen, um die Theorie zu akzeptieren. 
+Zugleich wird an dieser Stelle deutlich, warum es mit dem Hilfsmittel 
+der Lotterien immer möglich ist, aus beliebigen wohlgeformten Präferenzen 
+eine kardinale Nutzenfunktion zu erzeugen: Indem wir unserem Akteur 
+nämlich eine definitive Wahrscheinlichkeitsangabe abnötigen, zwingen 
+wir ihn zu genau der Zahlenangabe, die wir brauchen, um eine Intervallskala 
+zu konstruieren, und die uns beim bloß ordinalen Nutzen fehlt.
+</p>
+<p>
+Ist man dazu bereit, sich die Theorie trotz ihrer m.E. zweifelhaften 
+Voraussetzungen anzuhören, so wird man Lotterien der Einfachheit halber 
+in der Form darstellen:  
+<br /><br /><script type="math/tex"> L(a, x, y) </script><br /><br />
+ 
+Dabei sind <script type="math/tex">x</script> und <script type="math/tex">y</script> 
+zwei beliebige Güter (bzw. Ergebnisse). <script type="math/tex">a</script> 
+ist die Wahrscheinlichkeit, mit der der Gewinn <script type="math/tex">x</script> 
+herauskommt, und <script type="math/tex">1-a</script> ist dementsprechend 
+die Wahrscheinlichkeit mit der die &bdquo;Niete&ldquo; <script type="math/tex">y</script> 
+gezogen wird. In allgemeiner Form, d.h. bei mehr als zwei Gütern, werden 
+Lotterien so dargestellt: 
+<br /><br /><script type="math/tex">L((p_1,\ldots,p_n), (x_1,\ldots,x_n)) \qquad p_1 + \ldots + p_n = 1</script><br /><br />
+ 
+wobei <script type="math/tex">x_1,\ldots, x_n</script> ein Tupel von 
+<script type="math/tex">n</script> Gütern (oder Ergebniss) ist und 
+<script type="math/tex">p_1,\ldots, p_n</script> die Wahrscheinlichkeiten 
+mit der das jeweilige Gut &bdquo;gewonnen&ldquo; wird. Im Folgenden 
+werden wir uns aber auf zwei-stellige Lotterien beschränken, da man 
+mehrstellige Lotterien immer als verschachtelte zweistellige Lotterien 
+darstellen kann.
+</p>
+<p>
+Wenn man schon zulässt, dass Güter mit dieser Art von Lotterien darauf 
+hin verglichen werden können, ob irgendein Akteur indifferent zwischen 
+ihnen ist, dann ist es nur ein kleiner Schritt, auch noch Lotterien 
+mit Lotterien zu vergleichen. D.h. wenn <script type="math/tex">L_1(a_1, x_1, y_1)</script> 
+eine Lotterie ist und <script type="math/tex">L(a_2, x_2, y_2)</script> 
+eine weitere, dann kann man für jedes Gut oder jede Lotterie die bezüglich 
+der Präferenzen des Akteurs zwischen <script type="math/tex">L_1</script> 
+und <script type="math/tex">L_2</script> eingeordnet ist eine Lotterie 
+<script type="math/tex">L(b, L_1, L_2)</script> konstruieren, so dass 
+der Akteur zwischen dieser Lotterie und dem mittleren Gut (oder der 
+mittleren Lotterie) indifferent ist.
+</p>
+<p>
+Auf diese Weise kann man nach folgenden drei Regeln eine &bdquo;vollständige 
+Menge&ldquo; <span id="MengeVonLotterien"> </span> <a id="REF63" class="internal fn" href="#FN63">[63]</a> von 
+Lotterien konstruieren  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, S. 91): 
+ 
+</p>
+<ol>
+<li>Jedes <em>Grundgut</em> (&bdquo;basic prize&ldquo;) ist eine Lotterie. 
+(Im Zweifelsfall kann man für ein Gut <script type="math/tex">x</script> 
+ja immer die Lotterie <script type="math/tex">L(1, x, x)</script> nehmen.) 
+<span id="bestesSchlechtestesGut"> </span> Es wird weiterhin angenommen, 
+dass es ein oder mehrere beste bzw. schlechteste Grundgüter gibt (was 
+immer gegeben ist, wenn die Menge der Grundgüter endlich ist). <br />&#160;</li>
+
+<li>Wenn <script type="math/tex">L_1</script> und <script type="math/tex">L_2</script> 
+Lotterien sind, dann auch <script type="math/tex">L(a, L_1, L_2)</script> 
+für jedes beliebige <script type="math/tex">a</script> mit <script type="math/tex">0 \leq a \leq 1</script>. 
+<br />&#160;</li>
+
+<li>Es gibt keine Lotterien außer den nach den ersten beiden Regeln konstruierten. 
+</li>
+</ol>
+<p>
+Weiterhin wird verlangt, dass für die Lotterien folgende Bedingungen 
+gelten  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, S. 90-92) 
+<span id="LotterienBedingungen"> </span>:  
+</p>
+<ol>
+<li><em>Ordnungsbedingung</em>: Auf der vollständigen Menge der Lotterien 
+ist eine Präferenzrelation definiert, (die bezüglich der ursprünglichen 
+Güter mit der auf der Menge dieser Güter definierten Präferenzrelation 
+übereinstimmen sollte.) <br />&#160;</li>
+
+<li><em>Kontinuitätsbedingung</em>:<span id="Kontinuitaet"> </span>  Für beliebige Lotterien <script type="math/tex">x</script>,<script type="math/tex">y</script> 
+und <script type="math/tex">z</script> gilt: Wenn <script type="math/tex">x \succ y \succ z</script>, 
+dann gibt es eine Lotterie <script type="math/tex">L(a, x, z)</script>, 
+so dass <script type="math/tex">y \sim L(a, x, z)</script>. <br />&#160;</li>
+
+<li><em>Bedingung der höheren Gewinne</em>:<span id="BedHoehereGewinne"> </span> 
+Für beliebige Lotterien <script type="math/tex">x</script>,<script type="math/tex">y</script> 
+und <script type="math/tex">z</script> und jede beliebige Wahrscheinlichkeit 
+<script type="math/tex">a > 0</script> gilt: <script type="math/tex">x \succ y</script> 
+genau dann wenn <script type="math/tex">L(a, x, z) \succ L(a, y, z)</script>. 
+(Einfach gesagt: Eine Lotterie wir dann vorgezogen, wenn man &bdquo;höhere 
+Preise&ldquo; gewinnen kann.) <br />&#160;</li>
+
+<li><em>Bedingung der besseren Chancen</em>: Für jedes Paar von Lotterien 
+<script type="math/tex">x</script> und <script type="math/tex">y</script> 
+und beliebige Wahrscheinlichkeiten <script type="math/tex">a</script> 
+und <script type="math/tex">b</script> gilt: Wenn <script type="math/tex">x \succ y</script> 
+dann ist <script type="math/tex">L(a, x, y) \succ L(b, x, y)</script> 
+genau dann wenn <script type="math/tex">a > b</script>. (Einfach gesagt: 
+Bei gleichen Preisen wird die Lotterie mit den besseren Chancen bevorzugt.) 
+<br />&#160;</li>
+
+<li><em>Reduzierbarkeit zusammengesetzter Lotterien</em>: <span id="Reduzierbarkeit"> </span> Für jede zusammengesetzte Lotterie der Form <script type="math/tex">L(a, L(b,x,y), L(c,x,y))</script> 
+gilt: 
+<br /><br /><script type="math/tex">L(a, L(b,x,y), L(c,x,y)) \sim L(ab+(1-a)\cdot c, x, y) </script><br /><br />
+ 
+(Einfach ausgedrückt: Zusammengesetzte Lotterien, deren innere Lotterien 
+dieselben Güter enthalten (!), können entsprechend den Gesetzen der 
+Wahrscheinlichkeitsrechnung auf einfachere reduziert werden.) </li>
+</ol>
+<p>
+Wenigstens die zweite und dritte dieser Bedingungen kann man als selbstevident 
+betrachten. Die anderen Bedingungen sind zumindest plausibel, wenn 
+man sich überhaupt auf das Gedankenexperiment mit den &bdquo;Lotterien&ldquo; 
+einlässt. Nun lässt sich beweisen, dass man, wenn diese Bedingungen 
+gegeben sind, eine Nutzenfunktion konstruieren kann, die die Erwartungsnutzeneigenschaft 
+hat, und die zugleich eine kardinale Nutzenfunktion ist. Insgesamt 
+muss die so konstruierte Nutzenfunktion <script type="math/tex">u</script> 
+also die folgenden Eigenschaften haben:  
+</p>
+<ol>
+<li><script type="math/tex">u(x) > u(y)</script> genau dann wenn <script type="math/tex">x \succ y</script> 
+<br />&#160;</li>
+
+<li><script type="math/tex">u(x) = u(y)</script> genau dann wenn <script type="math/tex">x \sim y</script> 
+<br />&#160;</li>
+
+<li><script type="math/tex">u(L(a,x,y)) = au(x) + (1-a)u(y)</script> (<em>Erwartungsnutzeneigenschaft</em>) 
+<br />&#160;</li>
+
+<li>Jede Nutzenfunktion <script type="math/tex">u'</script>, welche die 
+ersten drei Bedingungen erfüllt, kann durch positiv lineare Transformation 
+in die Nutzenfunktion <script type="math/tex">u</script> überführt 
+werden. </li>
+</ol>
+<p>
+Wie kann man das beweisen? Resnik folgend kann der Beweis in zwei Schritten 
+geführt werden, indem zuerst die <em>Existenz</em> einer Nutzenfunktion 
+bewiesen wird, die die ersten drei Eigenschaften erfüllt, und dann 
+die <em> Eindeutigkeit</em> dieser Nutzenfunktion bis auf positive 
+lineare Transformation.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node86.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node87.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN62" class="internal fn" href="#REF62">[62]</a> Siehe die &bdquo;Kontinuitätsbedingung&ldquo; weiter unten auf Seite 
+ <a href="node86.html#Kontinuitaet">4.1</a>.
+</p>
+<p class="footnote">
+<a id="FN63" class="internal fn" href="#REF63">[63]</a> Dieses Verfahren, aus einer Grundmenge mit Hilfe bestimmter &bdquo;Produktionsregeln&ldquo; 
+einen &bdquo;Abschluss&ldquo; zu erzeugen (wobei ein <em>Abschluss</em> 
+allgemein als die Menge aller derjenigen Objekte verstanden werden 
+kann, die aus einer Menge von Grundobjekten mit Hilfe gegebener Produktionsregeln 
+erzeugt werden können), ist uns schon bei dem <em>De Finetti-Abschluss</em> 
+in der letzten Vorlesung begegnet (siehe Seite  <a href="node82.html#DeFinettiAbschluss">3.2.2</a>).
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node86.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node87.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node86.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 4  Neumann-Morgensternsche Nutzentheorie" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node86.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node86.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 4  Neumann-Morgensternsche Nutzentheorie&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node86.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

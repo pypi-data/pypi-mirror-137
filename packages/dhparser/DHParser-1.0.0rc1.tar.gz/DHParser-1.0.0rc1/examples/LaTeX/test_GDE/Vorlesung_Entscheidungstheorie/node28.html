@@ -1,0 +1,284 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 1.4.1.1  Beispiele</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node27.html" />
+<link rel="next" href="node29.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node27.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node27.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node29.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1  Entscheidungstabellen und -bäume</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node9.html">1.2  Entscheidungen unter Unwissenheit I</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node18.html">1.3  Entscheidungen unter Unwissenheit II</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node26.html">1.4  Entscheidungen unter Risiko</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node27.html">1.4.1  Die Berechnung des Erwartungsnutzens</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node28.html">1.4.1.1  Beispiele</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node29.html">1.4.2  Die Rechtfertigung des Erwartungsnutzens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node30.html">1.4.3  Kausale Entscheidungstheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node31.html">1.4.4  Entscheidungsregeln in der Philosophie: Die Debatte zwischen John Rawls und John C. Harsanyi</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node32.html">1.4.5  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>1.4.1.1  Beispiele</h4>
+
+<p>
+Wie kann man mit Hilfe dieser Entscheidungsregel Entscheidungen unter 
+Risiko treffen? Dazu ein Beispiel.<span id="RisikoBeispiel1"> </span> 
+Eine Computerfirma hat erfahren, dass die Konkurrenz dabei ist, eine 
+neue Art von sehr preiswerten Kleinstlaptops zu entwickeln. Sie steht 
+nun vor der Wahl, ob sie ebenfalls in die Entwicklung derartiger Laptops 
+investieren soll. Es steht nicht fest, ob diese Art Laptops vom Markt 
+akzeptiert wird. Auch hängt der zu erwartende Gewinn davon ab, ob es 
+der Konkurrenz gelingt, noch in diesem Jahr ihr Produkt auf den Markt 
+zu werfen, in welchem Fall man die Eigenentwicklung zu einem deutlich 
+niedrigeren Preis mit entsprechend reduzierten Gewinnerwartungen anbieten 
+müsste. Andererseits ist zu erwarten, dass eine erfolgreiche Konkurrenz 
+durch Kleinstlaptops die Firma auch Marktanteile in ihren Kernbereichen 
+kosten könnte. Daraus ergibt sich folgendes Entscheidungsproblem: 
+</p>
+ <table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="1"><script type="math/tex">S_1</script> (<script type="math/tex">p=0.3</script>)</td><td colspan="1"><script type="math/tex">S_2</script> (<script type="math/tex">p=0.2</script>)</td><td colspan="1"><script type="math/tex">S_3</script> (<script type="math/tex">p=0.5</script>)</td><td colspan="1"></td></tr>
+<tr><td><script type="math/tex">A_1</script> </td><td>-100.000 € </td><td>-50.000 </td><td>€ 60.000 </td><td><script type="math/tex">EU = -10.000</script> €</td></tr>
+<tr><td><script type="math/tex">A_2</script> </td><td>0 € </td><td>-80.000 </td><td>€ 0 </td><td><script type="math/tex">EU = -16.000</script> €</td></tr>
+<tr><td></td></tr>
+</table>
+<table style="text-align:center">
+<tr><td></td><td></td><td></td></tr>
+<tr><td><script type="math/tex">A_1</script>: </td><td></td><td>Investiere in die rasche Entwicklung eines Kleinstlaptops.</td></tr>
+<tr><td><script type="math/tex">A_2</script>: </td><td></td><td>Investiere nicht in die Entwicklung eines Kleinstlaptops.</td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td><script type="math/tex">S_1</script>: </td><td></td><td>Kleinstlaptops bleiben auf dem Markt erfolglos.</td></tr>
+<tr><td><script type="math/tex">S_2</script>: </td><td></td><td>Kleinstlaptops sind erfolgreich, aber die Konkurrenz ist ebenfalls 
+frühzeitig auf dem Markt präsent.</td></tr>
+<tr><td><script type="math/tex">S_3</script>: </td><td></td><td>Kleinstlaptops sind erfolgreich, aber die Entwicklung der Konkurrenz 
+verzögert sich. </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Der Erwartungsnutzen der jeweiligen Handlungen wurde dabei folgendermaßen 
+errechnet: 
+<br /><br /><script type="math/tex">
+\begin{eqnarray*}EU_{A1} & = & -100.000 \cdot 0.3 - 50.000 \cdot 0.2 + 60.000 \cdot 0.5 =
+-10.000 \\ 
+EU_{A2} & = & 0 \cdot 0.3 - 80.000 \cdot 0.2 + 0 \cdot 0.5 = -16.000
+\\
+\end{eqnarray*}
+</script>
+<br />
+</p>
+<p>
+Wie man an dem berechneten Erwartungsnutzen sieht, lohnt sich die Investition 
+in die Entwicklung eines Kleinstlaptops, obwohl auch in diesem Fall 
+ein Verlust zu erwarten ist. <span id="BeispielKausaleEntscheidung"> </span> 
+Es kann Entscheidungsprobleme geben, bei denen nicht nur die Nutzenwerte, 
+sondern auch die Wahrscheinlichkeit, mit der ein Ereignis eintritt, 
+davon abhängt, welche Handlungsalternative man wählt. In diesem Fall 
+müssen die Wahrscheinlichkeiten für die möglichen Ereignisse in jeder 
+Zeile separat mit angegeben werden. Für die Berechnung des Erwartungsnutzens 
+müssen dann natürlich die Wahrscheinlichkeiten der entsprechenden Zeile 
+herangezogen werden. Ein Beispiel: Ein großes Softwareunternehmen möchte 
+im Laufe der nächsten Monate ein kleines Softwareunternehmen aufkaufen. 
+Es besteht die Möglichkeit, dass der Aktienkurs des Kleinunternehmens 
+in den folgenden Monaten sinkt, steigt oder gleich bleibt, worüber 
+die Experten des Großunternehmens relativ zuverlässige Schätzungen 
+abgeben können. Das Großunternehmen kann seine Kaufabsicht vorher ankündigen 
+oder auch nicht. Kündigt es die Kaufabsicht vorher an, so erhöht das 
+die Wahrscheinlichkeit, dass der Aktienkurs und damit der Preis des 
+Kleinunternehmens steigt. Zugleich führt dies aber dazu, dass das Kleinunternehmen, 
+das bisher ein direkter Konkurrent des Großunternehmens ist, bis zum 
+Verkauf kaum noch Lizenzen absetzen kann, woraus sich in diesem Fall 
+ein fixer Gewinn für das Großunternehmen ergibt. Das Entscheidungsproblem 
+sieht als Tabelle folgendermaßen aus (Die eingetragenen Werte repräsentieren 
+dabei die Gesamtkosten, die sich aus dem zu erwartenden Kaufpreis minus 
+dem fixen Gewinn aus zusätzlichen Lizenzverkäufen nach Wegfall einer 
+effektiven Konkurrenz infolge der Ankündigung ergeben): 
+</p>
+ <table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="1">Kurs steigt</td><td colspan="1">Kurs fällt</td><td colspan="1">bleibt gleich</td><td colspan="1">EU<script type="math/tex">A_1</script>: </td><td>5 Mio € (p=0.1) </td><td>2 Mio € (p=0.6) </td><td>4 Mio € (p=0.3) </td><td>2.9 Mio €</td></tr>
+<tr><td>
+<script type="math/tex">A_2</script>: </td><td>4.5 Mio € (p=0.7) </td><td>1.5 Mio € (p=0.1) </td><td>3.5 Mio € (p=0.2) </td><td>4 Mio €</td></tr>
+<tr><td></td></tr>
+</table>
+<small> <table style="text-align:center">
+<tr><td></td><td></td><td></td></tr>
+<tr><td><script type="math/tex">A_1</script> </td><td></td><td>Kündige die Akquise <em>nicht</em> vorher an.</td></tr>
+<tr><td><script type="math/tex">A_2</script> </td><td></td><td>Kündige die Akquise vorher an.</td></tr>
+<tr><td></td></tr>
+</table>
+</small> <p>
+Dies mal sieht die Berechnung des Erwartungsnutzens folgendermaßen 
+aus: 
+<br /><br /><script type="math/tex">
+\begin{eqnarray*}EU_{A1} & = & 5.000.000 \cdot 0.1 + 2.000.000 \cdot 0.6 + 4.000.000 \cdot 0.3 =
+2.900.000 \\ 
+EU_{A2} & = & 4.500.000 \cdot 0.7 + 1.500.000 \cdot 0.1 + 3.500.000 \cdot 0.2 =
+4.000.000 \\
+\end{eqnarray*}
+</script>
+<br />
+</p>
+<p>
+Da es sich bei den eingetragenen Werten um Kosten handelt, sollte das 
+Unternehmen tunlichst vermeiden, die Akquiseabsichten vorher anzukündigen.
+</p>
+<p>
+Schließlich wollen wir noch an einem Beispiel betrachten, wie man den 
+Erwartungsnutzen einsetzt, um Entscheidungsbäume aufzulösen. Eine Ölfirma 
+erwägt an einer bestimmten Stelle in der Nordsee nach Öl zu bohren. 
+Es ist nicht absolut sicher, ob sich an dem entsprechenden Ort tatsächlich 
+Öl befindet. Um dies mit Sicherheit festzustellen, kann die Firma eine 
+Probebohrung durchführen lassen. Der Bau einer Bohrinsel kostet € 1.000.000. 
+Liefert die Bohrinsel tatsächlich Öl, so erwirtschaftet die Ölfirma 
+mit dem geförderten Öl € 10.000.000. Die Durchführung einer Expertise 
+mit Hilfe einer Probebohrung kostet € 250.000. Wir gehen der Einfachheit 
+halber davon aus, dass die Probebohrung absolut zuverlässig darüber 
+Auskunft gibt, ob Öl vorhanden ist. Weiterhin sei angenommen, dass 
+die Wahrscheinlichkeit, dass Öl vorhanden ist 40% beträgt. Um einen 
+entsprechenden Entscheidungsbaum für Entscheidungen unter Risiko zu 
+zeichnen, werden die Wahrscheinlichkeiten für Zufallsereignisse jeweils 
+auf den entsprechenden Zweigen nach dem Ereignisknoten eingetragen. 
+Der Entscheidungsbaum sieht dann folgendermaßen aus: 
+</p>
+<p style="text-align:center">
+<br /><img src="Beispiel6_3A.png" alt="[image: Beispiel6_3A.png]" /><br /> 
+
+</p>
+<p>
+Wie kann man nun die Frage klären, ob es sich lohnt eine Expertise 
+durchführen zu lassen oder nicht? Dazu muss man den Entscheidungsbaum 
+von rechts nach links schrittweise nach folgenden Regeln auflösen: 
+
+</p>
+<ol>
+<li>Ersetze jeden <em>Ereignis</em>knoten (der letzten Ebene) durch den 
+Erwartungsnutzen des entsprechenden Ereignisses. <br />&#160;</li>
+
+<li>Ersetze jeden <em>Entscheidungs</em>knoten (der letzten Ebene) durch 
+den (Erwartungs-)Wert der besseren Alternative. <br />&#160;</li>
+
+<li>Führe das Verfahren fort bis die gesuchte (Teil-)Entscheidung erreicht 
+ist. </li>
+</ol>
+<p>
+In unserem Fall ist die gesuchte Entscheidung die Anfangsentscheidung, 
+ob eine Expertise durchgeführt werden soll. Wenn man den Baum nach 
+dem entsprechenden Verfahren reduziert, dann sieht der Entscheidungsbaum 
+nach dem ersten Schritt so aus: 
+</p>
+<p style="text-align:center">
+<br /><img src="Beispiel6_3B.png" alt="[image: Beispiel6_3B.png]" /><br /> 
+
+</p>
+<p>
+Der Erwartungswert, den man erhält, wenn man die Bohrinsel baut, ohne 
+eine Expertise durchzuführen beträgt € 3.000.000 (= € <script type="math/tex">0.4 \cdot 9.000.000 - 0.6 \cdot 1.000.000</script>). 
+Dieser Erwartungswert wurde an die Stelle des entsprechenden Ereignisknotens 
+gesetzt. Da im anderen Fall die Entscheidung zum Bau mit dem Ausgang 
+der Expertise schon feststeht, wurden hier einfach die entsprechenden 
+Werte übertragen. Da der Bau der Ölplattform auch ohne vorherige Probebohrung 
+einen höheren Erwartungswert als 0 € liefert, muss für den letzten 
+Schritt nur noch der Erwartungsnutzen berechnet werden, der sich ergibt, 
+wenn man sich dazu entscheidet, die Expertise durchzuführen. Der nochmals 
+reduzierte Entscheidungsbaum sieht dann so aus: 
+</p>
+<p style="text-align:center">
+<br /><img src="Beispiel6_3C.png" alt="[image: Beispiel6_3C.png]" /><br /> 
+
+</p>
+<p>
+Es ist nun unmittelbar ersichtlich, dass es besser ist, vorher eine 
+Expertise in Auftrag zu geben, da der daraus resultierende Erwartungswert 
+der größere ist.
+</p>
+<p>
+Bei all diesen Beispielen haben wir übrigens eine Frage offen gelassen, 
+die in der praktischen Anwednung des Erwartungsnutzens von entscheidender 
+Bedeutung sein kann, nämlich die Frage, woher wir die Wahrscheinlichkeiten 
+kennen, und ob wir sicher sein können, dass die Wahrscheinlichkeiten 
+für das Eintreten der Ereignisse stimmen, wenn wir schon nicht sicher 
+sein können, welches Ereignis eintritt. Im Einzelfall dürfte dies von 
+der Verfügbarkeit und Zuverlässigkeit wissenschaftlicher Theorien abhängen, 
+die diese Wahrscheinlichkeiten für den entsprechenden Anwendungsbereich 
+bestimmen.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node28.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node29.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node28.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 1.4.1.1  Beispiele" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node28.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node28.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 1.4.1.1  Beispiele&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node28.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 3.1.1.2  Was sind Wahrscheinlichkeiten?</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node68.html" />
+<link rel="next" href="node70.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node68.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node68.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node70.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1  Wahrscheinlichkeiten I: Rechentechniken</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1.1  Einführung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1.1.1  Zielsetzung</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node69.html">3.1.1.2  Was sind Wahrscheinlichkeiten?</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node70.html">3.1.2  Grundlegende Gesetze der Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node71.html">3.1.3  Der Bayes'sche Lehrsatz</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node74.html">3.1.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node75.html">3.2  Wahrscheinlichkeiten II: Interpretationsfragen <strong>nicht klausurrelevant!</strong>)</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>3.1.1.2  Was sind Wahrscheinlichkeiten?</h4>
+
+<p>
+Bevor aber auf das mathematische Kalkül der Wahrscheinlichkeitsrechnung 
+eingegangen wird, ist zunächst etwas zu der Frage zu sagen, was  Wahrscheinlichkeiten eigentlich sind. Es gibt drei Arten von Phänomenen, 
+auf die man das Wahrscheinlichkeitskalkül anwenden kann:
+</p>
+<ol>
+<li><em>Häufigkeiten</em> bei einer größeren Menge oder Folge von Ereignissen. 
+So besagt die Aussage, dass ein 70-jähriger mit 3%-iger Wahrscheinlichkeit 
+an Alzheimer leidet, nichts weiter, als dass eben unter den 70-jährigen 
+die Alzheimerkrankheit mit einer Häufigkeit von 3% auftritt. (Jeder 
+einzelne 70-jährige dagegen hat die Alzheimerkrankheit oder auch nicht. 
+Aber kein 70-jähriger hat 3% Alzheimer.) Die Wahrscheinlichkeitsaussage 
+bezieht sich in diesem Fall also nur auf die Häufigkeit eines Zustands 
+in einer Gesamtheit. <br />&#160;</li>
+
+<li><em>Glaubensgrade</em> oder auch &bdquo;subjektive Wahrscheinlichkeiten&ldquo;: 
+Wenn eine Ärztin einen Patienten dem oben beschriebenen Gedächsnistest 
+unterzogen hat, und nun (mit Hilfe des Bayes'schen Lehrsatzes) die 
+korrekte Wahrscheinlichkeit berechnet hat, mit der der Patient an Alzheimer 
+erkrankt ist, dann wird sie oder er genau in dem Grad davon überzeugt 
+sein, dass der Patient an Alzheimer leidet, der dieser Wahrscheinlichkeit 
+entspricht. Wiederum gilt: Der Patient hat entweder Alzheimer oder 
+kein Alzheimer. Die Wahrscheinlichkeit sagt bei genauer Auslegung nur 
+etwas darüber aus, bis zu welchem Grad man davon ausgehen muss, dass 
+eine Alzheimererkrankung vorliegt. <br />&#160;</li>
+
+<li><em>Objektive Wahrscheinlichkeiten</em> (Propensitäten): Die Wahrscheinlichkeit 
+kann aber auch die inhärente Eigenschaft eines einzelnen Vorgangs beschreiben. 
+So hat die Wahrscheinlichkeit, beim Würfeln eine Sechs zu würfeln, 
+offensichtlich etwas mit dem symmetrischen Aufbau des Würfels zu tun. 
+Man kann die Wahrscheinlichkeit, eine Sechs zu würfeln, daher als eine 
+objektive Eigenschaft des Vorgangs eines Würfelwurfs betrachten.<a id="REF50" class="internal fn" href="#FN50">[50]</a> </li>
+</ol>
+<p>
+Die Tatsache, dass man auf alle drei Klassen von Phänomenen ein- und 
+dasselbe wahrscheinlichkeitstheoretische Kalkül anwendet - zudem es 
+übrigens, sofern man seine Anwendung auf den entsprechenden empirischen 
+Phänomenbereich überhaupt zugesteht, keine Alternative gibt - darf 
+nicht darüber hinwegtäuschen, dass es sich - empirisch betrachtet - 
+um sehr unterschiedliche Phänomene handelt. Das gilt trotz der Tatsache, 
+dass die Interpretation, um welche Art von (empirischer) Wahrscheinlichkeit 
+es sich handelt, nicht in jedem Fall eindeutig oder zwingend ist. So 
+kann man die Wahrscheinlichkeit, beim Würfeln eine Sechs zu würfeln 
+statt als Propensität des Systems &bdquo;Würfel&ldquo; auch als Häufigkeit 
+verstehen, mit der bei einer großen Anzahl von Würfen die Sechs auftritt.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node69.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node70.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN50" class="internal fn" href="#REF50">[50]</a> Dagegen könnte eingewandt werden, dass beim Würfeln als einem nach 
+der klassischen Mechanik streng deterministisch zu beschreibenden Vorgang 
+das Ergebnis schon vorherbestimmt ist, so dass man nicht im wörtlichen 
+Sinne von einer &bdquo;objektiven Wahrscheinlichkeit&ldquo; seines 
+Eintretens sprechen könne. Da es aber andererseits noch nie jemanden 
+gelungen ist, Würfelwürfe tatsächlich vorherzusagen, so spricht - ungeachtet 
+der Beschreibung des Systems durch eine deterministische Theorie - 
+nichts dagegen, den Ausgang des Würfelwurfs als objektiv zufällig zu 
+betrachten. Mit dieser Interpretation folge ich der (allerdings etwas 
+umstrittenen) Theorie von Nancy Cartwright, der zufolge (natur-)wissenschaftliche 
+Theorien nur bei den Vorgängen überhaupt gültig sind, an denen man 
+sie auch nachweisen kann  (<a class="bibref" href="node139.html#Cartwright_1999">Cartwright 1999</a>). 
+
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node69.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node70.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node69.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 3.1.1.2  Was sind Wahrscheinlichkeiten?" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node69.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node69.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 3.1.1.2  Was sind Wahrscheinlichkeiten?&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node69.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

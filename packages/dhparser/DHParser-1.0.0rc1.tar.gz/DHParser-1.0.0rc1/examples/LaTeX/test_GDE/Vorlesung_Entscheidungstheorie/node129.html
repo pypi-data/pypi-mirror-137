@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen  bei Internetauktionen</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node128.html" />
+<link rel="next" href="node130.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node128.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node117.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node130.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node106.html">5.1  Spieltheorie I: Einführung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node117.html">5.2  Spieltheorie II: Vertiefung und Anwendung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node118.html">5.2.1  Nicht-Nullsummenspiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node125.html">5.2.2  Wiederholte Spiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node127.html">5.2.3  Evolutionäre Spieltheorie</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node129.html">5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen bei Internetauktionen</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node130.html">5.2.5  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen 
+bei Internetauktionen</h3>
+
+<p>
+Um nun nicht derart pessimistisch zu schließen, soll zum Schluss wenigstens 
+noch ein erforlgreicheres Beispiel der empirischen Anwendung spieltheoretischer 
+Forschung vorgestellt werden, wenn es auch nicht gerade aus dem Bereich 
+der evolutionären Spieltheorie stammt. Es handelt sich dabei um zwei 
+Experimente, die im Rahmen einer umfangreicheren Studie über Vertrauen 
+im Internethandel angesellt wurden  (<a class="bibref" href="node139.html#Bolton_Katok_Ockenfels_2004">Bolton/Katok/Ockenfels 2004</a>), 
+und die zeigen, wie man mit Hilfe spieltheoretischer Begriffe und einfacher 
+spieltheoretischer Modelle menschliche Verhaltenstypen unterscheiden 
+und empirisch untersuchen kann, auch wenn sich die der Spieltheorie 
+traditionellerweise zu Grunde liegenden strengen Rationalitätsannahmen 
+rasch als ungültig erweisen und die spieltheoretische Lösungstheorie 
+und das Nash-Gleichgewicht in diesem Zusammenhang weniger hilfreich 
+sind (außer eben als Beispiel dafür, wie Menschen sich gerade nicht 
+verhalten).
+</p>
+<p>
+Bei Internethandelsplattformen und Internetauktionen wie E-Bay haben 
+die Transaktionen den Charakter von Vertrauensspielen: Der Käufer, 
+der eine Ware ersteigert oder gekauft hat, überweist zuerst das Geld 
+für die Ware. Sobald das Geld eingegangen ist verschickt der Verkäufer 
+die Ware. Dabei muss der Käufer dem Verkäufer vertrauen, denn der Verkäufer 
+könnte die Ware auch behalten, nachdem er das Geld schon bekommen hat. 
+Umgekehrt hat der Verkäufer ein Interesse daran, dass ihm der Käufer 
+traut. Denn sonst würde der Käufer gar nicht erst auf das Geschäft 
+eingehen. Grafisch lässt sich das entsprechende Vertrauensspiel so 
+darstellen.
+</p>
+<p>
+(10,8)(-1,0) Käufer 5 2 Verkäufer 2 2
+</p>
+<p>
+<small>kaufe nicht</small> <small>kaufe</small>
+</p>
+<p>
+<small>verschicke</small> <small>schicke nicht</small>
+</p>
+<p>
+35, 35 50, 50 0, 70  
+</p>
+<p style="text-align:center">
+<small>Quelle: Bolton, Katok, Ockenfels  (<a class="bibref" href="node139.html#Bolton_Katok_Ockenfels_2004">Bolton/Katok/Ockenfels 2004</a>)</small> 
+
+</p>
+<p>
+Dabei gibt die erste Zahl die Auszahlung für den Käufer an und die 
+zweite diejenige für den Verkäufer. In das Spiel geht, wie man sieht, 
+die Annahme ein, dass beide einen Vorteil von der Transaktion haben. 
+Findet sie statt erhält jeder eine Auszahlung von 50 statt nur 35, 
+wenn keine Transaktion statt findet. Charakteristischerweise sind die 
+Internetauktionen auf Internethandelsplattformen einmalige Vorgänge, 
+d.h. derselbe Verkäufer und derselbe Käufer treffen höchstwahrscheinlich 
+nicht wieder aufeinander. Außerdem finden sie mehr oder weniger anonym 
+ohne direkten Kontakt statt. Genau diese Situation wurde im Experiment 
+nachgestellt. Eine größere Anzahl von Probanden spielte das gegebene 
+Vertraunsspiel über eine Computerschnittstelle jeweils ein einziges 
+mal mit einem unbekannten Partner. Wer die Rolle des Käufers und wer 
+die des Verkäufers zu übernehmen hatte, wurde dabei vorher zufällig 
+ausgewählt. Die Teilnehmer bekamen anschließend einen Geldbetrag ausgezahlt, 
+der proprtional zu den im Spiel gewonnen Punkten war. Anders als bei 
+realen Internetplattformen wurde das Experiment zunächst ohne iorgend 
+eine Art von Bewertungs- und Reputationsmechanismus durchgeführt. Auch 
+bestand nach dem Experiment selbstverständlich keinerlei Möglichkeit, 
+&bdquo;unehrliche&ldquo; Verkäufer strafrechtlich zur Verantwortung 
+zu ziehen.
+</p>
+<p>
+Bevor wir nun auf die Ergebnisse des Experiments eingehen, sollten 
+wir uns fragen, wie sich rationale Spieler im Sinne der Theorie verhalten 
+würden. Da die Interaktion nur einmal stattfindet, würde ein rationaler 
+nutzenmaximierender Verkäufer die Ware auf keinen Fall verschicken, 
+da er 70 statt bloß 50 Punkte erhält, wenn er die Ware behält. Ein 
+Käufer, der davon ausgeht, dass der Verkäufer sich rational vehrält, 
+würde sich daher rationaler Weise gar nicht auf das Geschäft einlassen. 
+Würden sich alle Probanden rational im Sinne der Theorie verhalten, 
+und dies auch bei ihren Spielpartnern voraussetzen, dann dürfte im 
+Experiment kein einziges Geschäft zu Stande kommen.
+</p>
+<p>
+Wie demgegenüber der experimentelle Befund ausgefallen ist, zeigt die 
+folgende Abbildung:
+</p>
+<p>
+(10,8)(-1,0) Käufer 5 2 Verkäufer 2 2
+</p>
+<p>
+<small>kaufe nicht</small> <small>73% </small> <small>kaufe</small> 
+<small>27% </small>
+</p>
+<p>
+<small>verschicke</small> <small>37% </small> <small>schicke nicht</small> 
+<small>63% </small>
+</p>
+<p>
+35, 35 50, 50 0, 70  
+</p>
+<p style="text-align:center">
+<small>Quelle: Bolton, Katok, Ockenfels  (<a class="bibref" href="node139.html#Bolton_Katok_Ockenfels_2004">Bolton/Katok/Ockenfels 2004</a>)</small> 
+
+</p>
+<p>
+Interessanterweise verhalten sich immerhin 37% der Verkäufer ehrlich, 
+und 27% der Käufer sind bereit, einem Verkäufer zu vertrauen. Das Verhalten 
+der Verkäufer ist unter keinen Umständen mehr mit dem Menschenbild 
+des rationalen Nutzenmaximierers zu vereinbaren. Das Käuferverhalten 
+könnte man dagegen noch gewaltsam für rational egoistisch erklären, 
+wenn man 27% der Käufer unterstellt, dass sie davon ausgehen, dass 
+die Verkäufer nicht egoistisch rational sondern ehrlich sind. Aber 
+wenn man schon zugesteht, dass nicht alle Verkäufer sich rational egoistisch 
+verhalten, warum sollte man bei den Käufern noch Deutungsanstrengungen 
+unternehmen, nur um die Prämisse des rationalen Egoismus zu retten. 
+Kurz, die einzig plausible Erklärung für das experimentelle Ergebnis 
+besteht darin, dass es eben eine signifikante Abweichung vom rationalen 
+Egoismus gibt.
+</p>
+<p>
+Aber welche Gründe könnten zu dieser Abweichung führen? Denkbar wären 
+unter anderem folgende Motive:
+</p>
+<ul>
+<li>Ein gewisser Anteil der Akteure handelt im Sinne <em>reziproker</em> 
+Gerechtigkeitsvorstellungen. Präziser: Ein gewisser Anteil der Verkäufer 
+handelt reziprozitätsorientiert und ein gewisser Anteil der Käufer 
+erwartet Reziprozität vom Verkäufer. <br />&#160;</li>
+
+<li>Wenigstens einige der Akteure handeln <em>effizienzorientiert</em>. 
+Bei wechselseitiger Kooperation können Käufer und Verkäufer gemeinsam 
+am meisten erwirtschaften. <br />&#160;</li>
+
+<li>Ein gewisser Anteil der Verkäufer handelt <em>gleichheitsorientiert</em>, 
+d.h. ein Ergebnis wird dann als gerecht empfunden, wenn es zu einer 
+möglichst ausgeglichenen Verteilung führt. Für die Käufer kann Gleichheit 
+alleine kein Motiv sein, da sie dieses Ziel ja auch ohne auf den Handel 
+einzugehen erreichen könnten. Aber Gleichheit könnte neben z.B. einer 
+schwachen Gewinnorientierung eine Rolle spielen. <br />&#160;</li>
+
+<li>Der Vollständigkeithalber sollte auch <em>gewinnorientiertes</em> Handeln 
+noch einmal erwähnt werden. Immerhin weicht ja jeweils nur eine Minderheit 
+vom Gleichgewichtspfad ab. </li>
+</ul>
+<p>
+Wie kann man aber überprüfen, welches dieser möglichen Motive das ausschlaggebende 
+ist? Eine Möglichkeit besteht darin, dasselbe Spiel mit leicht veränderten 
+Auszahlungsparamtern noch einmal durchzuspielen (mit anderen Versuchspersonen, 
+wie sich versteht). Bei dem folgenden Spiel wurde einfach auf alle 
+Auszahlungen des Käufers ein Wert von 70 aufaddiert. Die strategische 
+Situation (im Sinne der Spieltheorie) bleibt dabei genau dieselbe. 
+Immer noch handelt es sich um ein Vertrauensspiel und immer noch besteht 
+das Nash-Gleichgewicht darin, dass kein Handel statt findet. Interessanterweise 
+ändert sich das Verhalten der Versuchspersonen aber schlagartig:
+</p>
+<p>
+(10,8)(-1,0) Käufer 5 2 Verkäufer 2 2
+</p>
+<p>
+<small>kaufe nicht</small> <small>54% </small> <small>kaufe</small> 
+<small>46% </small>
+</p>
+<p>
+<small>verschicke</small> <small>7% </small> <small>schicke nicht</small> 
+<small>93% </small>
+</p>
+<p>
+105, 35 120, 50 70, 70  
+</p>
+<p style="text-align:center">
+<small>Quelle: Bolton, Katok, Ockenfels  (<a class="bibref" href="node139.html#Bolton_Katok_Ockenfels_2004">Bolton/Katok/Ockenfels 2004</a>)</small> 
+
+</p>
+<p>
+Wie man sieht, ist die Zahl der ehrlichen Verkäufer auf einen kümmerlichen 
+Rest von 7% zusammengeschrumpft. Gleichzeitig aber, und das ist vielleicht 
+noch überraschender, ist die Zahl der willigen Käufer sehr deutlich 
+auf 46% gestiegen. Unterstellt man, dass sich die Käufer auch nur halbwegs 
+in die Verkäufer einfühlen können, dann hieße dies, dass sich ein großer 
+Teil der Käufer auf den Handel nur einlässt, um dem Verkäufer Gelegenheit 
+zu geben, dessen bevorzugtes Ergebnis herzustellen.
+</p>
+<p>
+Was ist aber das bevorzugte Ergebnis? Egoistische Nutzenmaximierung 
+taugt immer noch als Erklärung für die Mehrzahl der Käufer, aber wie 
+kommt die Abweichung zu Stande, die noch größer ist als im ersten Experiment? 
+Reziprozität scheidet als Motiv offensichtlich aus, da kaum einer der 
+Verkäufer sich reziprok verhält. Dasselbe gilt für eine unterstellte 
+kollektive Effizienzorientierung, die zu demselben Ergebnis führen 
+müsste wie Reziprozität als Handlungsmotiv.
+</p>
+<p>
+Die beste Erklärung für die Abweichung (wohlbemerkt nicht für das Handeln 
+aller oder auch nur für den Durchschnittstypus) ist eine verbreitete 
+Gleichheitsorientierung der Akteure, denn nur der Pfad Kaufen->Betrügen 
+führt mit diesen Auszahlungen zu einem ausgeglichenen Ergebnis.
+</p>
+<p>
+Was lernen wir nun aus alldem über die Spieltheorie? Das Beispiel zeigt, 
+dass man spieltheoretische Modellvorstellungen, wie in diesem Fall 
+das Vertrauensspiel auch dann noch fruchtbar einsetzen kann, wo menschliches 
+Verhalten vom <em>homo oeconomicus</em> Modell abweicht. Spieltheoretische 
+Modelle erlauben die begrifflich prägnante Beschreibung strategischer 
+Probleme, und das spieltheoretische Experiment erlaubt es das tatsächliche 
+Verhalten von Menschen mit dem Modell des rationalen Akteurs zu kontrastieren 
+und bis zu einem gewissen Grade auch die Gründe (d.h. die Motive) für 
+Abweichungen zu bestimmen.
+</p>
+<p>
+Allerdings sind auch einige Einschränkungen zu beachten: So gilt das, 
+was im Experiment gezeigt wurde, zunächst einmal nur für die Experimentalsituation 
+selbst. Ob und auf welche Realweltsituationen man den Experimentalbefund 
+übertragen kann, bleibt zunächst eine durchaus offene Frage. Und auch 
+nach welcher Methode man diese Frage angehen soll, ist durchaus nicht 
+leicht zu beantworten, da man dazu ja nicht wiederum Experimente (ad 
+infinitum) anstellen kann. Dass dieses Übertragungsproblem durchaus 
+ernst genommen werden sollte, kann folgende Überlegung plausibel machen. 
+Denkbar ist etwa, dass die signifikante Gleichheitsorientierung, die 
+das 2.Experiment nahelegt, in gewisser Weise nur ein Artefakt der Experimentalsituation 
+ist. Etwa so: Alle Teilnehmer fühlen sich im Experiment in einer Ausnahmesituation. 
+Das stiftet eine gewisse Solidarität, die wiederum zu einem stärker 
+gleichheitsorientierten Verhalten führt. In einer &bdquo;realen&ldquo; 
+Marktsituation wäre das möglicherweise ganz anders
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node129.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node130.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node129.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen  bei Internetauktionen" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node129.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node129.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen  bei Internetauktionen&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node129.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 3.2  Wahrscheinlichkeiten II: Interpretationsfragen  nicht klausurrelevant! )</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node74.html" />
+<link rel="next" href="node76.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node74.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node68.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node76.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1  Wahrscheinlichkeiten I: Rechentechniken</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;<b><a class="internal" href="node75.html">3.2  Wahrscheinlichkeiten II: Interpretationsfragen <strong>nicht klausurrelevant!</strong>)</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node76.html">3.2.1  Objektive Wahrscheinlichkeit</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node82.html">3.2.2  Subjektive Wahrscheinlichkeiten</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node85.html">3.2.3  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h2>3.2  Wahrscheinlichkeiten II: Interpretationsfragen <strong>nicht klausurrelevant!</strong>)</h2>
+
+<p>
+<span id="philosophischeWahrscheinlichkeitstheorien"> </span>
+</p>
+<p>
+<em>Diese Vorlesung setzt zwar keine besonders tiefgehenden Mathekenntnisse 
+voraus, dürfte für mathematisch Ungeübte aber trotzdem streckenweise 
+schwer zu verstehen sein! Wer sie nicht oder nicht ganz versteht, sollte 
+darüber hinweg lesen. Die folgenden Vorlesungen setzen zwar die Kenntnisse 
+der elementaren Wahrscheinlichkeitsrechnung aus der letzten Vorlseung 
+voraus, aber nicht unbedingt das Verständnis der diese Woche besprochenen 
+philosophischen Interpretationen des Wahrscheinlichkeitsbegriffs.</em> 
+ <br />
+
+</p>
+<p>
+In der letzten Vorlesungsstunde haben wir uns mit dem mathematischen 
+Wahrscheinlichkeitskalkül und den grundlegenden Rechentechniken der 
+Wahrscheinlichkeitsrechnung vertraut gemacht. Wie man mit Wahrscheinlichkeiten 
+rechnet wissen wir also nun. Eine ganz andere Frage ist die, was Wahrscheinlichkeiten 
+eigentlich sind. Während die mathematische Theorie der der Wahrscheinlichkeiten 
+spätestens seit der Axiomatisierung durch Kolmogorow in ihren Grundlagen 
+feststeht, ist die philosophische Interpretation des Wahrscheinlichkeitsbegriffs, 
+wie zu erwarten, ein äußerst umstrittenes Feld. In der letzten Stunde 
+wurde bereits erwähnt, dass es grundsätzlich drei unterschiedliche 
+Interpretationen des Wahrscheinlichkeitsbegriffs gibt: 
+</p>
+<ol>
+<li><em>Häufigkeitstheorie</em>: Die Wahrscheinlichkeit bezeichnet die 
+Häufigkeit des Vorkommens eines Merkmals in einer Gesamtheit. <br />&#160;</li>
+
+<li><em>Glaubensgrad</em> (subjektive Wahrscheinlichkeit): Die Wahrscheinlichkeit 
+bezeichnet den Grad des Glaubens an das Eintreten eines Ereignisses, 
+z.B. wenn man eine Wette abschließt. <br />&#160;</li>
+
+<li><em>Propensitäten</em> (objektive Wahrscheinlichkeit): Die Wahrscheinlichkeit 
+bezeichnet die &bdquo;Neigung&ldquo; mit der Ereignisse in der äußeren 
+Welt eintreten, z.B. die Neigung, mit der bei starkem Neuschnee in 
+einem bestimmten Gebiet Lawinen ausgelöst werden. </li>
+</ol>
+<p>
+Andere Einteilungen sind wie immer möglich (Schurz beispielsweise unterscheidet 
+lediglich die &bdquo;statistische (objektive) Wahrscheinlichkeit&ldquo; 
+von der &bdquo;subjektive[n] (epistemischen) Wahrscheinlichkeit&ldquo; 
+ (<a class="bibref" href="node139.html#Schurz_2006">Schurz 2006</a>, S.99)]).
+</p>
+<p>
+Diese unterschiedlichen Interpretationen der Warscheinlichkeitstheorie 
+wollen wir in dieser Vorlesungsstunde genauer betrachten. Am wichtigsten 
+sind dabei die subjektiven Wahrscheinlichkeiten, weil sich die Nutzen- 
+und Entscheidungstheorie sehr wesentlich auf subjektive Wahrscheinlichkeiten 
+stützt. Wir werden sie daher ausführlich zum Schluss der Vorlesung 
+besprechen. Zunächst soll kurz auf die Häufigkeitstheorie und die objektiven 
+Wahrscheinlichkeiten eingegangen werden.
+</p>
+<p>
+Bevor wir die unterschiedlichen Wahrscheinlichkeitsbegriffe im Einzelnen 
+untersuchen, kann man wiederum die Frage stellen, was ein gültiger 
+Wahrscheinlichkeitsbegriff ist, d.h. welche Bedingungen ein Wahrscheinlichkeitsbegriff 
+überhaupt erfüllen muss, damit wir ihn als Begriff von Wahrscheinlichkeit 
+anerkennen. Da die mathematischen Grundlagen der Wahrscheinlichkeitstheorie 
+einigermaßen feststehen, können wir vereinbaren solche Interpretationen 
+des Wahrscheinlichkeitsbegriffs als gültig zu erachten, von denen wir 
+zeigen können, dass sie die kolmogorwschen Axiome erfüllen. Im Folgenden 
+werden wir daher bei allen Interpretationen des Wahrscheinlichkeitsbegriffs 
+zeigen, dass für das entsprechende Wahrscheinlichkeitskonzept die kolmogorwschen 
+Axiome gelten.
+</p>
+<p>
+Man kann natürlich weiterhin die Frage stellen, was passiert, wenn 
+wir eine Interpretation des Wahrscheinlichkeitsbegiffs finden, die 
+uns zwar nach dem Maßstab unseres Sprachgefühls als Ausdruck von &bdquo;Wahrscheinlichkeit&ldquo; 
+erscheint, die aber nicht die kolmogorowschen Axiome erfüllt. In diesem 
+Fall hätten wir die Wahl, sie entweder doch nicht als Wahrscheinlichkeitsbegriff 
+gelten zu lassen, oder so etwas wie &bdquo;nicht-komogorowsche Wahrscheinlichkeiten&ldquo; 
+zuzulassen. Aber das eher theoretische Überlegungen, die nur die innere 
+Logik von Definitionen und Begriffsbildungen vor Augen führen sollen 
+und außerdem als Hinweis dienen können, dass die hier besprochenen 
+Wahrscheinlichkeitsbegriffe selbstverständlich nicht für alle Zukunft 
+fest stehen müssen. Für die im Folgenden zu untersuchenden Interpretationen 
+des Wahrscheinlichkeitsbegriffs lässt sich jeweils zeigen, dass sie 
+die Kolmogorowschen Axiome erfüllen.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node75.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node76.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node75.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 3.2  Wahrscheinlichkeiten II: Interpretationsfragen  nicht klausurrelevant! )" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node75.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node75.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 3.2  Wahrscheinlichkeiten II: Interpretationsfragen  nicht klausurrelevant! )&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node75.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

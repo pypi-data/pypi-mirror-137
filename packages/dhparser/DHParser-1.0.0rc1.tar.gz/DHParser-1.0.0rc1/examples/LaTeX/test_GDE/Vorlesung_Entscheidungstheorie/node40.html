@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: Beweis von Lemma 2</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node39.html" />
+<link rel="next" href="node41.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node39.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node38.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node41.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node33.html">2.1  Sozialwahltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node34.html">2.1.1  Zum Einstieg: Das Condorcet-Paradox</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node35.html">2.1.2  Das sogenannte &bdquo;Paradox des Liberalismus&ldquo;</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node36.html">2.1.3  Der &bdquo;Klassiker&ldquo; der Sozialwahltheorie: Der Satz von Arrow</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node37.html">2.1.3.1  Das Theorem</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node38.html">2.1.3.2  Der Beweis des Theorems</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node39.html">Beweis von Lemma 1</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node40.html">Beweis von Lemma 2</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node41.html">Beweis von Lemma 3</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node42.html">2.1.3.3  Ein alternativer Beweis</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node46.html">2.1.3.4  Ein dritter Beweis</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node47.html">2.1.3.5  Resumé</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node48.html">2.1.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node49.html">2.2  Zur Diskussion der Sozialwahltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node62.html">2.3  Die These des &bdquo;demokratischen Irrationalismus&ldquo;</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node66.html">2.4  Fazit</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h5>Beweis von Lemma 2</h5>
+
+<p>
+Sei <script type="math/tex">D</script> beinahe entscheidend für alle 
+Alternativen, dann enthält <script type="math/tex">D</script> ein Individuum, 
+das bereits allein beinahe entscheidend für alle Alternativen ist.
+</p>
+<ol>
+<li>Sei <script type="math/tex">D</script> eine Menge von Individuen, die 
+beinahe entscheidend für alle Alternativen ist. (<em>Anmerkung  <a href="node37.html#Anmerkung2">2.1.3.1</a> 
+auf Seite  <a href="node37.html#Anmerkung2">2.1.3.1</a> iVm Lemma 
+1</em>)
+<br />&#160;</li>
+
+<li>Wenn <script type="math/tex">D</script> aus nur einem Individuum besteht, 
+dann gilt die Folgerung von Lemma 2 bereits. (<em>offensichtlich</em>)
+<br />&#160;</li>
+
+<li>Besteht <script type="math/tex">D</script> aus zwei oder mehr Individuen, 
+dann kann <script type="math/tex">D</script> in zwei nichtleere, disjunkte 
+Teilmengen <script type="math/tex">A</script> und <script type="math/tex">B</script> 
+aufgeteilt werden. (<em> elementare Mengentheorie</em>)
+<br />&#160;</li>
+
+<li>Angenommen, für alle Individuen aus <script type="math/tex">A</script> 
+gelte <script type="math/tex">x \succ y \succ u</script>, für Individuen 
+aus <script type="math/tex">B</script> gelte <script type="math/tex">y \succ u \succ x</script> 
+und für alle anderen Individuen gelte <script type="math/tex">u \succ x \succ y</script>. 
+(<em>Unbeschränkter Bereich</em>)
+<br />&#160;</li>
+
+<li>Für das Kollektiv gilt <script type="math/tex">y \succ_K u</script>. 
+(<em><script type="math/tex">A \cup B = D</script> (3.) und <script type="math/tex">D</script> 
+ist beinahe entscheidend (1.) iVm mit den angenommenen Präferenzen 
+(4.)</em>)
+<p>
+ <br />
+<em>Fallunterscheidung: 1. Fall</em></p>&#160;</li>
+
+<li>Falls für das Kollektiv <script type="math/tex">y \succ_K x</script> 
+gilt, dann ist <script type="math/tex">B</script> beinahe entscheidend 
+für <script type="math/tex">y</script> über <script type="math/tex">x</script>. 
+(<em>Definition von &bdquo;beinahe entscheidend&ldquo; iVm mit den 
+Präferenzen (4.) und der Unabhängigkeit von dritten Alternativen</em>)
+<br />&#160;</li>
+
+<li>Aber dann ist <script type="math/tex">B</script> auch beinahe entscheidend 
+für alle Alternativen. (<em>Lemma 1</em>)
+<p>
+ <br />
+<em>Fallunterscheidung: 2. Fall</em></p>&#160;</li>
+
+<li>Falls für das Kollektiv <script type="math/tex">x \succ_K y</script> 
+gilt, dann gilt für das Kollektiv auch <script type="math/tex">x \succ_K u</script>. 
+(<em>Transitivität iVm 5.</em>)
+<br />&#160;</li>
+
+<li>Aber dann ist <script type="math/tex">A</script> beinahe entscheidend 
+für <script type="math/tex">x</script> über <script type="math/tex">u</script>. 
+(<em> Definition von &bdquo;beinahe entscheidend&ldquo; iVm mit den 
+Präferenzen (4.) und der Unabhängigkeit von dritten Alternativen</em>)
+<br />&#160;</li>
+
+<li>Und <script type="math/tex">A</script> ist auch beinahe entscheidend 
+für jede andere Alternative. (<em>Lemma 1</em>)
+<p>
+ <br />
+<em>Ende der Fallunterscheidung</em></p>&#160;</li>
+
+<li>Eine echte Teilmenge von <script type="math/tex">D</script> (nämlich 
+entweder <script type="math/tex">A</script> oder <script type="math/tex">B</script>) 
+ist beinahe entscheidend für alle Alternativen. (<em>Zusammenführung 
+der Konsequenzen beider Fälle der Fallunterscheidung</em>)
+<br />&#160;</li>
+
+<li>Es gibt eine Teilmenge von <script type="math/tex">D</script>, die 
+nur ein Individuum enthält, das für alle Alternativen beinahe entscheidend 
+ist. (<em>Wiederholung der Schritte 2.-11. für diejenige echte Teilmenge 
+von <script type="math/tex">D</script>, die beinahe entscheidend für 
+alle Alternativen ist, solange, bis sie nur noch ein Individuum enthält.</em>) 
+</li>
+</ol>
+
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node40.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node41.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node40.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: Beweis von Lemma 2" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node40.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node40.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: Beweis von Lemma 2&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node40.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

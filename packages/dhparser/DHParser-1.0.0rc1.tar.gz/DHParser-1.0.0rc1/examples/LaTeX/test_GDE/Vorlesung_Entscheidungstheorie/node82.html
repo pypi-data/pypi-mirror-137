@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 3.2.2  Subjektive Wahrscheinlichkeiten</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node81.html" />
+<link rel="next" href="node83.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node81.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node75.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node83.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1  Wahrscheinlichkeiten I: Rechentechniken</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node75.html">3.2  Wahrscheinlichkeiten II: Interpretationsfragen <strong>nicht klausurrelevant!</strong>)</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node76.html">3.2.1  Objektive Wahrscheinlichkeit</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node82.html">3.2.2  Subjektive Wahrscheinlichkeiten</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node83.html">Beweis des Ramsey-De Finetti Theorems</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node84.html">Diskussion</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node85.html">3.2.3  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>3.2.2  Subjektive Wahrscheinlichkeiten</h3>
+
+<p>
+<span id="SubjektiveWahrscheinlichkeiten"> </span> Die im Zusammenhang 
+mit der Entscheidungs- und Spieltheorie wichtigste Theorie der Wahrscheinlichkeit 
+ist die Theorie der subjektiven Wahrscheinlichkeit, wie sie ursprünglich 
+von Ramsey und De Finetti entwickelt wurde  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, p. 68ff.). 
+Subjektive Wahrscheinlichkeiten kommen im täglichen Leben u.a. dann 
+vor, wenn wir Wetten abschließen. Daran knüpft die subjektive Wahrscheinlichkeitstheorie 
+an. Natürlich kann die Theorie nicht vorschreiben, wie hoch wir auf 
+etwas wetten sollen, oder mit welcher Wahrscheinlichkeit wir davon 
+ausgehen sollen, dass diese oder jene Fussballmanschaft gewinnt, oder 
+dieses oder jenes Pferd ein Rennen gewinnt etc., denn diese Einschätzungen 
+sind ja gerade subjektiv. Was uns die Theorie subjektiver Wahrscheinlichkeiten 
+aber zeigen kann, das ist, ob unsere Wahrscheinlichkeitseinschätzungen 
+in sich konsistent sind, wenn sie sich auf mehrere, mit einander verbundene 
+Sachverhalte beziehen.
+</p>
+<p>
+Dazu ein einfaches Beispiel: Jemand behauptet, dass die Chancen, dass 
+beim Bundesligaspiel Nürnberg gegen Bayern München die Chancen für 
+einen Sieg von Nürnberg 90% betragen. Dann muss er, um konsequent zu 
+sein, auch zugleich der Ansicht sein, dass ein Sieg für Bayern München 
+zu 10% wahrscheinlich ist. Was wäre, wenn das nicht der Fall ist? Wenn 
+z.B. jemand der Ansicht ist, dass ein Sieg Nürnbergs zu 90% wahrscheinlich 
+ist, eine Sieg Bayerns aber zugleich zu 50% für wahrscheinlich hält. 
+Dann könnte ein Buchmacher mit diesem mathematisch unkundigen Fussballfan 
+eine sehr vorteilhafte Wette abschließen. Er würde z.B. vorschlagen: 
+&bdquo;Lass uns auf beides 100 € wetten, d.h. da Du den Sieg von Nürnberg 
+zu 90% für wahrscheinlich hälst, zahlst Du 90 € ein und ich 10 €. Und 
+für die Wette auf Bayern zahlen wir beide 50 € ein. Wer die Wette gewinnt, 
+bekommt in dem einen, wie in dem anderen Fall die gesamten Einzahlungen.&ldquo; 
+Geht der Fussballfan auf dieses Wettverfahren ein, dann hat der Buchmacher 
+in jedem Fall einen Gewinn von 40 € sicher. Denn, wenn Nürnberg gewinnt, 
+hat er in der ersten Wette 10 € verloren und in der zweiten 50 € gewonnen 
+und, wenn Bayern gewinnt, hat er bei der zweiten Wette 50 € verloren 
+aber bei der der ersten 90 € gewonnen. Man sagt auch (in der englischen 
+Fachliteratur), er habe ein &bdquo;<em>Dutch Book</em>&ldquo; gegen 
+den unachtsamen Wettfreund gemacht.
+</p>
+<p>
+Vor allem zeigt das Beispiel, dass unsere subjektiven Wahrscheinlichkeitseinschätzungen, 
+sollen sie konsistent sein, nicht vollkommen willkürlich sein dürfen. 
+Sobald wir nämlich der Richtigkeit irgendwelcher Aussagen (oder dem 
+Eintreten irgendwelcher Ereignisse) bestimmte Wahrscheinlichkeiten 
+zuweisen, ergeben sich daraus implizit die Wahrscheinlichkeiten, die 
+wir den logischen Verknüpfungen dieser Aussagen mit <em>und</em>, <em>oder</em> 
+und <em>nicht</em> und den bedingten Aussagen zuweisen müssen, wenn 
+wir vermeiden wollen, das jemand ein &bdquo;Dutch Book&ldquo;, d.h. 
+eine &bdquo;todsichere Wette&ldquo; gegen uns abschließen kann.
+</p>
+<p>
+Die Menge aller Aussagen, die man durch logische Verknüpfung oder Bedingungsbildung 
+aus einer Grundmenge von Aussagen bilden kann, nennt man auch den <em>De 
+Finetti-Abschluss</em><span id="DeFinettiAbschluss"> </span> dieser 
+Grundmenge von Aussagen. Die Frage ist nun, welche Wahrscheinlichkeiten 
+wir den verküpften und bedingten Aussagen zuweisen müssen, damit sie 
+konsistent in dem Sinne sind, dass man keine &bdquo;todsichere Wette&ldquo; 
+gegen sie abschließen kann? Das zentrale Theorem der subjektiven Wahrscheinlichkeitstheorie 
+besagt, dass dies <em>genau dann</em> der Fall ist, wenn die dem System 
+dieser Aussagen (i.e. dem <em>De Finetti-Abschluss</em>) zugewiesenen 
+Wahrscheinlichkeitswerte den Gesetzen der Wahrscheinlichkeitsrechnung 
+gehorchen, d.h. wenn sie die kolmogorowschen Axiome erfüllen.
+</p>
+<blockquote>
+<em>Ramsey-De Finetti Theorem:</em> Die einer Menge von Aussagen zugewiesenen 
+subjektiven Wahrscheinlichkeiten sind genau dann in sich konsistent 
+(in dem Sinne, dass keine &bdquo;todsicheren Wetten&ldquo; möglich 
+sind), wenn sie den kolmogorowschen Axiomen gehorchen. </blockquote>
+<p>
+Dieses Theorem stellt eine Beziehung her zwischen einer grob an den 
+empirischen Phänomenen des Wettens orientierten Konsistenzbedingung 
+und den Gesetzen der Wahrscheinlichkeitsrechnung. Wir werden zunächst 
+den Beweis des Theorems führen und dann, wie schon bei den anderen 
+Interpretationen des Wahrscheinlichkeitsbegriffs auch, die Argumente 
+untersuchen, die für oder gegen die Annahme subjektiver Wahrscheinlichkeiten 
+sprechen.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node82.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node83.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node82.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 3.2.2  Subjektive Wahrscheinlichkeiten" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node82.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node82.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 3.2.2  Subjektive Wahrscheinlichkeiten&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node82.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

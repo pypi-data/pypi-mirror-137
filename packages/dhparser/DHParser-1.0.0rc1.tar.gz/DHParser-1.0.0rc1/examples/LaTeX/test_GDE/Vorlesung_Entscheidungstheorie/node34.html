@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 2.1.1  Zum Einstieg: Das Condorcet-Paradox</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node33.html" />
+<link rel="next" href="node35.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node33.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node33.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node35.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node33.html">2.1  Sozialwahltheorie</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node34.html">2.1.1  Zum Einstieg: Das Condorcet-Paradox</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node35.html">2.1.2  Das sogenannte &bdquo;Paradox des Liberalismus&ldquo;</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node36.html">2.1.3  Der &bdquo;Klassiker&ldquo; der Sozialwahltheorie: Der Satz von Arrow</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node48.html">2.1.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node49.html">2.2  Zur Diskussion der Sozialwahltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node62.html">2.3  Die These des &bdquo;demokratischen Irrationalismus&ldquo;</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node66.html">2.4  Fazit</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>2.1.1  Zum Einstieg: Das Condorcet-Paradox</h3>
+
+<p>
+<span id="condorcetParadox"> </span> Der grundlegende Widerspruch, 
+auf dem in der ein- oder anderen Form viele der Unmöglichkeitsbeweise 
+der Sozialwahltheorie aufbauen, lässt sich beispielhaft am sogenannten 
+Condorcet-Paradox erläutern. Angenommen, wir haben drei Individuen 
+<script type="math/tex">A</script>,<script type="math/tex">B</script>, 
+<script type="math/tex">C</script>, die über drei Alternativen <script type="math/tex">x</script>,<script type="math/tex">y</script>,<script type="math/tex">z</script> 
+abstimmen wollen. Alle Individuen sind dabei gleichberechtigt. Ihre 
+Präferenzen sind folgendermaßen verteilt:
+</p>
+<table style="text-align:center">
+<tr><td><span id="condorcetParadoxTabelle"> </span> <script type="math/tex">A</script> 
+</td><td><script type="math/tex">B</script> </td><td><script type="math/tex">C</script> </td></tr>
+<tr><td><script type="math/tex">z</script> </td><td><script type="math/tex">x</script> </td><td><script type="math/tex">y</script> </td></tr>
+<tr><td><script type="math/tex">x</script> </td><td><script type="math/tex">y</script> </td><td><script type="math/tex">z</script> </td></tr>
+<tr><td><script type="math/tex">y</script> </td><td><script type="math/tex">z</script> </td><td><script type="math/tex">x</script> </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Welche Alternative sollte gewählt werden? Jede Alternative steht einmal 
+an erster, einmal an zweiter und einmal an dritter Stelle. Man kann 
+also keine Alternative ohne Weiteres als die kollektiv beste auszeichnen, 
+wenn man nicht eines der Individuen in ungerechter Weise bevorzugen 
+will. Das Problem lässt sich auch nicht einfach verfahrenstechnisch 
+lösen. Denn wollte man zum Beispiel Stichwahlen durchführen, so würde 
+im ersten Wahlgang jede Alternative die gleiche Stimmenzahl erhalten, 
+so dass man keine Alternative für den zweiten Wahlgang ausschließen 
+könnte. Wollte man paarweise Stichwahlen durchführen, so ergibt sich 
+jeweils, dass <script type="math/tex">x \succ_K y</script>, <script type="math/tex">y \succ_K z</script>, 
+aber ebenso auch <script type="math/tex">z \succ_K x</script>. Bei 
+jedem dieser Paare wird ja das vordere Glied von jeweils zwei Individuen 
+bevorzugt. Man nennt den Mechanismus von paarweisen Stichwahlen zur Bestimmung 
+der bevorzugten Alternative aus einer Menge von Alternativen über die 
+mehrere Individuen (möglicherweise) unterschiedliche Präferenzen haben 
+auch <em>Condorcet-Kriterium</em> (nach dem Marquis des Condorcet, 
+einem französischen Philosphen und Mathematiker des 18. Jahrhunderts, 
+der dieses Kriterium vorgeschlagen hat). Das Condorcet-Kriterium zur 
+Bestimmung der kollektiven Präferenzen würde also zu <em>zyklischen 
+Präferenzen</em> führen, weil <script type="math/tex">x \succ_K y \succ_K z \succ_K x</script> 
+gilt.  Damit wäre aber die Transitivität der kollektiven Präferenzrelation 
+verletzt. Nun haben wir zwar gesehen, dass intransitive Präferenzen 
+keineswegs &bdquo;unnatürlich&ldquo; sein müssen (siehe Seite  <a href="node11.html#intransitivePraeferenzen">1.2.2</a>). 
+Das vorliegende Beispiel zeigt ja gerade, dass sie auf eine ganz natürliche 
+und naheliegende Weise (paarweise Stichwahlen) zustande kommen können. 
+Aber intransitive Präferenzen werfen trotzdem sowohl theoretische (&bdquo;Geldpumpenargument&ldquo;, 
+siehe Seite  <a href="node11.html#Geldpumpenargument">1.2.2</a>) 
+als auch praktische Probleme auf. Denn welche Alternative soll man 
+im Fall zyklischer kollektiver Präferenzen wählen, wenn man vermeiden 
+will, irgendjemanden zu bevorzugen. Eine der naheliegendsten Lösungen 
+um mit &bdquo;Pattsituationen&ldquo; dieser Art umzugehen, besteht 
+darin das Los entscheiden zu lassen, denn beim Losverfahren bleibt 
+die demokratische Gleichheit dadurch gewahrt, dass jeder die gleichen 
+Chancen hat. Es ist daher auch nicht verwunderlich, dass wir dieses Mittel seit 
+der Antike in zahlreichen Satzungen und Verfassungen für u.a. diejenigen 
+Fälle vorgesehen finden, in denen eine Abstimmung nicht zu einem eindeutigen 
+Ergebnis führt  (<a class="bibref" href="node139.html#Delong_1991">Delong 1991</a>). 
+(Ein anderer wichtiger Grund für den Einsatz des Losverfahren ist, 
+dass es sich nicht wie Abstimmungen durch Stimmenkauf oder Erpessung 
+manipulieren lässt. Bei historischen Beispielen der Verlosung von Ämtern 
+(z.B. im antiken Athen oder in den italienischen Republiken in der 
+Zeit der Renaissance) kommt hinzu,<a id="REF23" class="internal fn" href="#FN23">[23]</a> dass 
+man auf diese Weise verhindern wollte, dass dieselben Ämter immer in 
+der Hand derselben Familien bleiben.)
+</p>
+<p>
+Die mögliche Entstehung <em>zyklischer kollektiver Präferenzen</em> 
+ist nur eins von mehreren Problemen, an denen Abstimmungsverfahren 
+leiden können. Ein weiteres mögliches Problem bestimmter Abstimmungsverfahren, 
+das bei &bdquo;ungünstig&ldquo; verteilten individuellen Präferenzen 
+auftreten kann, ist das der <em> Pfadabhängigkeit</em>. Angenommen, 
+wir hätten uns entschlossen, statt, wie eben, über alle Paare abzustimmen, 
+zunächst zwischen einem beliebig herausgegriffenen Paar von Alternativen 
+abszustimmen und dann zwischen dem Gewinner dieser Abstimmung und der 
+verbleibenden Alternative. (Sollte es mehr als drei Alternativen geben, 
+kann man das Verfahren einfach noch einmal durchführen, solange bis 
+am Ende eine Alternative gewonnen hat.) Die Teilnehmer <script type="math/tex">A,B</script> 
+und <script type="math/tex">c</script> aus der Tabelle auf Seite  <a href="node34.html#condorcetParadoxTabelle">2.1.1</a> 
+würden also z.B. zuerst über <script type="math/tex">x</script> und 
+<script type="math/tex">y</script> abstimmen, wobei <script type="math/tex">x</script> 
+mit 2 Stimmen zu einer Stimme gewinnt. Dann stimmen sie über die verbleibende 
+Alternative <script type="math/tex">x</script> oder <script type="math/tex">z</script> 
+ab. Diesmal gewinnt <script type="math/tex">z</script> mit 2:1 Stimmen. Das Problem besteht nun darin, dass eine ganz andere Alternative gewonnen 
+hätte, wenn nicht mit der Abstimmung über <script type="math/tex">x</script> 
+und <script type="math/tex">y</script> begonnen worden wäre, sondern 
+z.B. mit der Abstimmung über <script type="math/tex">x</script> und 
+<script type="math/tex">z</script> begonnen, dann hätte sich zunächst 
+<script type="math/tex">z</script> gegen <script type="math/tex">x</script> 
+behauptet, aber bei der anschließenden Stichwahl zwischen <script type="math/tex">z</script> 
+und <script type="math/tex">y</script> hätte <script type="math/tex">y</script> 
+gewonnen. Das Abstimmungsergebnis hängt also (bei entsprechend ungünstig 
+verteilten Präferen) in kontingenter Weise von der Reihenfolge der 
+Abstimmung (bzw. dem gefählten &bdquo;Pfad&ldquo;) ab. Man könnte auch 
+sagen, der Sieg von <script type="math/tex">z</script> im ersten Fall 
+bzw. von <script type="math/tex">y</script> im zweiten Fall ist bloß 
+ein &bdquo;Artefakt des Abstimmungsmechanismus&ldquo;. (Eine präzise 
+Definition des Begriffs des &bdquo;Artefakts eines Abstimmungsmechanismus&ldquo; 
+könnte lauten: Eine Artefakt eines Abstimmungmechanismus ist ein Abstimmungsergebnis, 
+das nur durch die Verletzung unserer Erwartungen an einen fairen und 
+vernünftigen Abstimmungsmechanismus zustande gekommen ist. In dem Beispiel 
+eben wäre dan die Erwartung verletzt, dass ein Abstimmungsmechanismus 
+pfadunabhängig sein sollte.) Unter Umständen könnte dieses Problem 
+sogar Manipulationsmöglichkeiten für einen geschickten Wahlleiter eröffnen, 
+der die Reihenfolge der Stichwahlen festlegen darf (siehe Übungsaufgabe 
+ <a href="node48.html#AufgPL0">2.1.4</a> auf Seite  <a href="node48.html#AufgPL0">2.1.4</a>).
+</p>
+<p>
+Dasselbe Beispiel verdeutlicht zugleich ein weiteres Problem - wenn 
+man es für ein Problem hält -, nämlich das des <em>strategischen Wählens</em>. 
+ Nehmen wir an, die Reihenfolge der Abstimmungen sei bereits dahingehend 
+festgelegt, dass zunächst zwischen <script type="math/tex">x</script> 
+und <script type="math/tex">y</script> und dann zwischen der Siegeralternative 
+und <script type="math/tex">z</script> abgestimmt wird. Angenommen 
+nun, Individuum <script type="math/tex">B</script> würde in der ersten 
+Runde nicht für <script type="math/tex">x</script>, sondern &bdquo;strategisch&ldquo;, 
+d.h. entgegen den eigenen Präferenzen, für <script type="math/tex">y</script> 
+stimmen, dann würde sich <script type="math/tex">y</script> in der 
+zweiten Runde durchsetzen und <script type="math/tex">B</script> hätte 
+vermieden, dass die aus <script type="math/tex">B</script>s Sicht schlechteste 
+Alternative <script type="math/tex">C</script> gewinnt. &bdquo;Strategisches 
+Wählen&ldquo; kann man insofern als ein Problem ansehen, als die Transparenz 
+eines Abstimmungsvorgangs darunter leidet, erst recht dann, wenn sich 
+alle Beteiligten solcher Ticks bedienen.
+</p>
+<p>
+Nun wäre es sehr naheliegend, um solche Probleme zu vermeiden, die 
+Forderung zu erheben, nur solche Abstimmungsverfahren zu verwenden, 
+bei denen keine &bdquo;Artefakte&ldquo; auftreten können. Leider gibt 
+es, wie u.a. der weiter unten (Kapitel  <a href="node36.html#SatzVonArrow">2.1.3</a>) 
+zu besprechende Satz von Arrow zeigt, kein Verfahren, das in dieser 
+Hinsicht alle Wünsche erfüllen könnte. Irgendwelche (möglichen) Artefakte 
+muss man bei jedem Abstimmungsmechanismus in Kauf nehmen. Und welches 
+Abstimmungsverfahren man unter dieser Bedingung für das &bdquo;bestmögliche&ldquo; 
+hält, hängt wiederum davon ab, welche Einschränkungen man bereit ist 
+in Kauf zu nehmen. Darüber und auch über die Frage, wie gravierend 
+diese Schwierigkeiten insgesamt sind, werden wir uns ausführlich im 
+nächsten Kapitel (Kapitel  <a href="node49.html#SozialwahltheorieDiskussion">2.2</a>) 
+unterhalten.<a id="REF24" class="internal fn" href="#FN24">[24]</a> 
+</p>
+<p>
+Schließlich, und als wären die aufgezählten Probleme: zyklische kollektive 
+Präferenzen, Pfadabhängikeit, Manipulation durch Festlegung der Abstimmungsorgnung 
+bzw. -reihenfolge, strategisches Wählen nicht schon genug, kann man 
+auch das der Tatsache, dass es keinen einzigen Abstimmungsmechanismus 
+gibt, der alle Probleme vermeidet, sondern eine Vielzahl von alternativen 
+Abstimmungsverfahren mit jeweils unterschiedlichen Schwierigkeiten, 
+ein Problem machen. Denn da unterschiedliche Abstimmungsmechanismen 
+unter Umständen zu unterschiedlichen Ergebnissen führen, so entsteht 
+auch auf dieser ebene ein Kontingenzproblem: Wie kann man noch von 
+einem Abstimmungsverfahren sagen, dass es die individuellen Präferenzen 
+in angemessener Form berücksichtigt und zu einer kollektiven Präferenz 
+bündelt, wenn es mehrere mehr oder weniger gleich guter und gleich 
+schlechter Verfahren gibt, die möglicherweise zu unterschiedlichen 
+Ergebnissen führen.
+</p>
+<p>
+Zum Schluss sein noch darauf hingewiesen, dass es sich bei den hier 
+beschriebenen Phänomenen nicht ausschließlich um ein Problem von Abstimmungen 
+und Kollektiventscheidungen (auch wenn es dabei vielleicht häufiger 
+auftritt), denn nach dem gleichen Muster kann man - wie zuvor (S.  <a href="node11.html#intransitivePraeferenzen">1.2.2</a>) 
+schon einmal angedeutet - auch zyklische individuelle Präferenzen konstruieren. 
+Insofern ist es ein Problem, dass den Kern der Theorie betrifft. Dazu 
+ein Beispiel: Eine Person steht vor der Wahl mit welchem ihrer drei 
+Kollegen und Kolleginnen Peter, Lisa und Klaus sie gemeinsam an einem 
+Projekt arbeiten möchte. Die drei Kollegen und Kolleginnen unterscheiden 
+sich dabei hinsichtlich der drei Eigenschaften nett, fleißig und pünktlich. 
+In der folgenden Tabelle ist die Rangfolge der Kollegen und Kolleginnen 
+für jede dieser Eigenschaften angegeben:
+</p>
+<table style="text-align:center">
+<tr><td></td><td>nett </td><td>fleißig </td><td>pünktlich </td></tr>
+<tr><td>1. </td><td>Peter </td><td>Lisa </td><td>Klaus </td></tr>
+<tr><td>2. </td><td>Lisa </td><td>Klaus </td><td>Peter </td></tr>
+<tr><td>3. </td><td>Klaus </td><td>Peter </td><td>Lisa </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Geht man danach, welcher Kollege bei mehr guten Eigenschaften besser 
+ist als ein anderer (paarweiser Vergleich nach dem Condorcet-Verfahren), 
+so ergibt sich auf ganz natürliche Weise die &bdquo;zyklische&ldquo; 
+Präferenzstruktur: <script type="math/tex">Peter \succ Lisa \succ Klaus \succ Peter</script>.
+</p>
+<p>
+Das Muster der Verteilung individueller Präferenzen, das sich in beiden 
+Tabellen wiederfindet, tritt in der Sozialwahltheorie ebenso wie in 
+der Wahl- und Abstimmungstheorie sehr häufig auf. Viele &bdquo;paradoxe&ldquo; 
+Ergebnisse in diesen Theorien beruhen in der ein- oder anderen Weise 
+auf diesem Muster, so auch das weiter unten folgende &bdquo;Paradox 
+des Liberalismus&ldquo;.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node34.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node35.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN23" class="internal fn" href="#REF23">[23]</a> Darauf hat mich Rudolf Schüssler aufmerksam gemacht.
+</p>
+<p class="footnote">
+<a id="FN24" class="internal fn" href="#REF24">[24]</a> Alle hier aufgezählten &bdquo;Probleme&ldquo; und noch einige mehr 
+werden nicht ohne einen gewissen Hang zur Dramatisierung bei William 
+Riker breit getreten  (<a class="bibref" href="node139.html#Riker_1982">Riker 1982</a>). 
+Eine knappe und sehr verständliche Zusammenfassung der beschriebenen 
+Phänomene findet man bei Gerry Mackie  (<a class="bibref" href="node139.html#Mackie_2003">Mackie 2003</a>, S. 5-9), 
+der Riker's skeptischen Schlussfolgerungen bezüglich demokratischer 
+Entscheidungsverfahren ansonsten aber entschieden wirderspricht.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node34.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node35.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node34.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 2.1.1  Zum Einstieg: Das Condorcet-Paradox" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node34.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node34.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 2.1.1  Zum Einstieg: Das Condorcet-Paradox&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node34.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

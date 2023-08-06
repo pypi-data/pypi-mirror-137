@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.1  Nicht-Nullsummenspiele</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node117.html" />
+<link rel="next" href="node119.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node117.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node117.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node119.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node106.html">5.1  Spieltheorie I: Einführung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node117.html">5.2  Spieltheorie II: Vertiefung und Anwendung</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node118.html">5.2.1  Nicht-Nullsummenspiele</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node119.html">5.2.1.1  Koordinationsspiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node122.html">5.2.1.2  Nicht Koordinations-Spiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node125.html">5.2.2  Wiederholte Spiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node127.html">5.2.3  Evolutionäre Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node129.html">5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen bei Internetauktionen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node130.html">5.2.5  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>5.2.1  Nicht-Nullsummenspiele</h3>
+
+<p>
+Bereits in der letzten Vorlesung haben wir mit dem Vertrauensspiel, 
+dem Hirschjagdspiel und dem Gefangenendilemma Beispiele für Nicht-Nullsummenspiele 
+besprochen. Um die Erörterung der folgenden Beispiele wenigstens etwas 
+zu systematisieren, kann zunächst zwischen Koordinations- und Nicht-Koordinationsspielen 
+unterschieden werden. <em>Koordinationsspiele</em> sind solche Spiele, 
+bei denen die Spieler sich bloß koordinieren müssen, um ein für sie 
+wünschenswertes Ergebnis zu erreichen bzw. ein für alle Beteiligten 
+nicht wünschenswertes Ergebnis zu vermeiden. Gelingt es Ihnen aber, 
+sich zu koordinieren, dann werden sie - schon aus Eigeninteresse - 
+bei der gewählten Lösung bleiben. Ein Beispiel für ein Koordinationsspiel 
+ist das Hirschjagdspiele (siehe Seite  <a href="node111.html#Hirschjagdspiel"></a>). 
+&bdquo;Nicht-Koordinationsspiele&ldquo; wären dementsprechend alle 
+anderen Spiele. Für uns sind dabei besonders solche Spiele von Interesse, 
+die ein echtes <em> Kooperationsproblem</em> modellieren, wie z.B. 
+das Gefangenendilemma. Echte Kooperationsprobleme sind, grob gesagt, 
+solche Probleme, bei denen die für alle Beteiligten wünschenswerte 
+Lösung kein Gleichgewicht ist, d.h. die Spieler haben einen Anreiz 
+aus Eigeninteresse von der wünschenswerten Lösung abzuweichen. So ist 
+die wechselseitge Kooperation im Gefangenendilemma, obwohl sie aus 
+Sicht beider Spieler wünschenswert wäre, nicht stabil, da jeder der 
+Spieler sich verbessern kann, wenn er selbst nicht kooperiert, vorausgesetzt 
+der andere bleibt bei seiner Strategiewahl.
+</p>
+<p>
+Es stellt sich die Frage, was in diesem Zusammenhang &bdquo;wünscheswert&ldquo; 
+bzw. &bdquo;wünschenswerte Lösung&ldquo; heißt. Daraus könnte man nun 
+wieder eine der philosophischen Frage machen, zu der die Meinungen 
+weit auseinandergehen können. Immerhin gibt es aber ein recht naheliegendes 
+<em>notwendiges Kriterium</em> für das, was eine &bdquo;wünschenswerte 
+Lösung&ldquo; ist, nämlich das aus den Wirtschaftswissenschaften bekannte 
+Kriterium der <em>Pareto-Optimalität</em>. Im Zusammenhang der Spieltheorie 
+ist ein Ergebnis &bdquo;pareto-optimal&ldquo; wenn es kein andere Ergebnis 
+gibt, bei dem wenigstens einer der Spieler eine höhre Auszahlung bekommt 
+und kein anderer eine niedrigere. Dass die Pareto-Optimalität ein sinnvolles 
+notwendiges Kriterium für ein &bdquo;wünschenswertes Ergebnis&ldquo; 
+darstellt, wird daraus deutlich, dass ein nicht pareto-optimaler Zustand 
+ein Zustand ist, in dem man wenigstens einen Spieler besser stellen 
+könnte, ohne dass ein anderer Spieler schlechter gestellt werden müsste. 
+Dann ist es aber sicher nicht &bdquo;wünschenswert&ldquo; bei einem 
+Zustand zu verbleiben, den man so leicht und ohne Nachteile in Kauf 
+nehmen zu müsssen, verbessern könnte.
+</p>
+<p>
+Andererseits ist einzuräumen, dass man sich auch Beispiele vorstellen 
+kann, in denen eine Gleichverteilung von Gütern unbedingt wünschenswerter 
+ist als eine Ungleichverteilung, selbst wenn man sie gegen eine Art 
+von Ungleichheit eintauschen könnte bei der niemand gegenüber der Gleichheit 
+schlechter gestellt wird. In diesem Zusammenhang ist auch darauf hinzuweisen, 
+dass das Pareto-Kriterium in erster Linie ein (kollektives) Effizienzkriterium 
+und kein Gerechtigkeitskriterium ist. Wenn wir 100 Euro an zwei Personenn 
+verteilen sollen und geben einer Person 1 Euro und der anderen 99 Euro, 
+dann ist die Verteilung ebenso paretoeffizient wie diejenige, bei der 
+beide Personen 50 Euro bekommen, obwohl die letztere von den vielen 
+Menschen als die gerechtere beurteilt werden dürfte. Man kann noch 
+einen Schritt weitergehen und fragen, ob es nicht besser wäre - wenn 
+man nur eine der beiden folgenden Alternativen hat - lieber beiden 
+40 Euro geben und 20 Euro zum Fenster hinaus zu werfen, als zuzulassen, 
+dass eine Person 99 Euro an sich reisst und die andere nur einen Euro 
+bekommt. (Dies ist in nuce eins der Argumente, mit dem man die Rechtfertigugn 
+von möglicherweise ineffizienten Umverteilungsbürokratien versuchen 
+könnte.) Schließlich könnte man die Frage aufwerfen, wie man eine Situation 
+handhaben sollte, in der 100 Euro nur in Form von 20 Euro-Scheinen 
+verfügbar sind. Angenommen, beide Personen haben schon jeweils 40 Euro 
+bekommen. Was soll nun mit den restlichen 20 Euro geschen. Soll man 
+einer Person 60 Euro geben, um einen pareto-effizienten Zustand zu 
+schaffen und &bdquo;nichts verkommen zu lassen&ldquo;. Oder sollte 
+man die restlichen 20 Euro feierlich verbrennen, um keine Ungerechtigkeiten 
+entstehen zu lassen?
+</p>
+<p>
+Diese Überlegungen sollen nur zeigen, dass das Kriterium der Pareto-Effizienz 
+nicht zwingenderweise in allen Situationen ein taugliches Kriterium 
+dafür ist, was besser oder wünschenswerter ist. Dennoch hat das Kriterium 
+der Pareto-Effizienz im Allgemeinen eine hohe Plausibilität, weshalb 
+wir auch im Folgenden darauf zurückgreifen werden. Es ist jedoch wichtig, 
+sich der Grenzen bewusst zu bleiben.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node118.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node119.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node118.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.1  Nicht-Nullsummenspiele" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node118.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node118.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.1  Nicht-Nullsummenspiele&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node118.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

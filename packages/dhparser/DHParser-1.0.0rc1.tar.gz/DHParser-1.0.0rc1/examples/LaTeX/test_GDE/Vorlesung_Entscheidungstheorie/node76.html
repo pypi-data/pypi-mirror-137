@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 3.2.1  Objektive Wahrscheinlichkeit</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node75.html" />
+<link rel="next" href="node77.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node75.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node75.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node77.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1  Wahrscheinlichkeiten I: Rechentechniken</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node75.html">3.2  Wahrscheinlichkeiten II: Interpretationsfragen <strong>nicht klausurrelevant!</strong>)</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node76.html">3.2.1  Objektive Wahrscheinlichkeit</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node76.html">3.2.1.1  Klassische Wahrscheinlichkeit</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node77.html">3.2.1.2  Häufigkeitstheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node81.html">3.2.1.3  Ein Wort zu Propensitäten</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node82.html">3.2.2  Subjektive Wahrscheinlichkeiten</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node85.html">3.2.3  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>3.2.1  Objektive Wahrscheinlichkeit</h3>
+
+<h4>3.2.1.1  Klassische Wahrscheinlichkeit</h4>
+
+<p>
+<span id="LaplacescheWahrscheinlichkeit"> </span> Den Begriff der &bdquo;klassischen&ldquo; 
+oder auch &bdquo;Laplaceschen&ldquo; Wahrscheinlichkeit kann man als 
+eine Art Vorläufer der Häufigkeitstheorie betrachten. Der klassischen 
+Wahrscheinlichkeit merkt man die Herkunft der Wahrscheinlichkeitstheorie 
+aus dem Glücksspiel am deutlichsten an, denn sie definiert die Wahrscheinlichkeit 
+als: 
+<br /><br /><script type="math/tex">Wahrscheinlichkeit = \frac{\mbox{{\em Anzahl der g"unstigen F"alle}}}{\mbox{{\em Anzahl der m"oglichen F"alle}}}</script><br /><br />
+ 
+Wobei unter &bdquo;günstigen&ldquo; Fällen diejenigen Fälle aus einer 
+nicht-leeren Grundgesamtheit von <em>gleichartigen</em> möglichen Fällen 
+zu verstehen sind, die - aus welchem Grund auch immer - von Interesse 
+sind. Typische Fälle sind z.B. die Wahrscheinlichkeit aus einem Stapel 
+von 52 Spielkarten (mögliche Fälle) ein As zu ziehen (günstige Fälle), 
+oder im Roulette unter allen möglichen Zahlen (einschließlich der Null 
+37 mögliche Fälle) eine gerade Zahl zu bekommen (18 günstige Fälle). 
+Zu den wesentlichen Eigenschaften der klassischen Wahrscheinlichkeit 
+gehört, dass sie ähnlich wie die etwas weiter unten besprochenen Propensitäten 
+eine Wahrscheinlichkeit für den <em>Einzelfall</em> beschreibt. Auch 
+wenn der Begriff der Wahrscheinlichkeit auf eine Gesamtheit von mehreren 
+möglichen Fällen bezogen ist, ist es keineswegs erforderlich, dass 
+der Vorgang, um den es geht (also z.B. das Ziehen einer Karte), mehrfach 
+wiederholt wird oder wiederholbar ist, damit der klassische Begriff 
+der Wahrscheinlichkeit Sinn hat. Denn auch, wenn man nur ein einziges 
+Mal Roulette spielt, hat es Sinn zu sagen, dass es 37 mögliche und, 
+wenn man z.B. auf Zahl setzt, einen günstigen Fall gibt.
+</p>
+<p>
+Die möglichen Fälle, aus denen sich die Grundgesamtheit zusammensetzt, 
+müssen sich wechselseitig ausschließen, wobei aber sicher ist, dass 
+irgendeiner der Fälle eintritt, und sie müssen in einem gewissen Sinne 
+&bdquo;gleichartig&ldquo; sein. Diese &bdquo;Gleichartigkeit&ldquo; 
+lässt sich zwar im Einzelfall näher beschreiben (etwa bei einem Würfel 
+die gleichmäßige Form und Masseverteilung), aber nicht leicht allgemein 
+charakterisieren, denn die naheliegende Charakterisierung, dass die 
+Fälle der Grundgesamtheit gleichartig sind, wenn sie alle gleichwahrscheinlich 
+sind, fällt aus, weil sonst die Definition der (klassischen) Wahrscheinlichkeit 
+zirkulär werden würde.
+</p>
+<p>
+Ereignisse kann man in der klassischen Wahrscheinlichkeit in naheliegender 
+Weise als Mengen möglichen Fäller und damit Teilmengen der Grundgesamtheit 
+auffassen. Das Ereignis, aus einem Kartenspiel ein As zu ziehen umfasst 
+beispielsweise die vier möglichen Fälle: Kreuz-As, Pik-As, Herz-As, 
+Karo-As. (Daher bietet sich für die klassische Wahrscheinlichkeit auch 
+in besonderer Weise die mengentheoretische Darstellung der mathematischen 
+Wahrscheinlichkeit an, aber man kann ebensogut - der aussagenbasierten 
+Darstellung in der letzten Vorlesung folgend - davon sprechen, dass 
+das Ereignis, dass ein As gezogen wird, eingetreten, wenn die Aussage, 
+&bdquo;es wurde ein As gezogen&ldquo;, wahr ist. Aussagen über Ereignisse 
+kann man dabei immer mittels und-Verknüpfung aus Aussagen über Fälle 
+der Grundgesamtheit zusammensetzen.)
+</p>
+<p>
+Eine weitere Frage wäre die, ob man die klassische Definition eher 
+als logisch-theoretische oder als empirische Definition auffassen will. 
+Grundsätzlich ist die Definition eher logisch-theoretischer Natur und 
+nur in dem weitläufigen Sinn empirisch als die Begriffe &bdquo;günstige 
+Fälle&ldquo;, &bdquo;mögliche Fälle&ldquo; und &bdquo;Anzahl&ldquo; 
+in einer unbestimmt großen (und nicht einmal zwangsläufig nicht-leeren) 
+Menge von empirischen Anwendungskontexten einen konkreten Sinn haben. 
+Bezieht man diesen Wahrscheinlichkeitsbegriff auf einen bestimmten 
+Anwendungskontext, so geht man davon aus, dass die Eigenschaften der 
+Gleichartigkeit und der wechselseitigen Ausschließlichkeit in diesem 
+Kontext gegeben sind, was sich aber immer auch als empirisch falsch 
+herausstellen kann.
+</p>
+<p>
+Zu zeigen ist nun, dass die so definierte Wahrscheinlichkeit die kolmogorowschen 
+Axiome erfüllt. Wir gehen dazu die Axiom einzeln durch:
+</p>
+<ol>
+<li><em>Axiom</em> (<script type="math/tex">0 \leq P(p)</script>): Da die 
+Anzahlen von günstigen oder möglichen Fällen niemals kleiner 0 sind, 
+ist diese Bedingung offensichtliche gegeben <br />&#160;</li>
+
+<li><em>Axiom</em> (<script type="math/tex">P(p)=1</script> wenn <script type="math/tex">p</script> 
+sicher ist): Da ein Ereignis genau dann sicher ist, wenn es alle möglichen 
+Fälle der Grundgesamtheit enthält, und schon aufgrund der Definition 
+keine Fälle enthalten kann, die nicht in der Grundgesamtheit enthalten 
+sind, ergibt der definierende Qutient der klassischen Wahrscheinlichkeit 
+für das<a id="REF56" class="internal fn" href="#FN56">[56]</a> sichere 
+Ereignis einen Wert von 1. <br />&#160;</li>
+
+<li><em>Axiom</em> (<script type="math/tex">P(p \vee q) = P(p) + P(q)</script> 
+wenn <script type="math/tex">p</script> und <script type="math/tex">q</script> 
+sich ausschließen): Zwei Ereignisse schließen sich dann aus, wenn jeder 
+möglich Fall (der Grundgesamtheit), durch den das eine Ereignis eintritt, 
+kein Fall ist, in dem das andere Ereignis eintritt. (Fassen wir Ereignisse 
+als Mengen von möglichen Fällen auf, dann kann man auch sagen: Zwei 
+Ereignisse schließen sich aus, wenn ihre Schnittmenge leer ist.) Dann 
+tritt dasjenige Ereignis, das eintritt, wenn das eine Ereignis oder 
+das andere Ereignis eintritt (<script type="math/tex">p \vee q</script>), 
+aber in genauso vielen Fällen ein wie beide Ereignisse zusammen. </li>
+</ol>
+<p>
+Die kolmogorowschen Axiome werden also durch den Begriff der klassischen 
+Wahrscheinlichkeit erfüllt. Aber wie verhält es sich mit der bedingten 
+Wahrscheinlichkeit? Da es für die bedingte Wahrscheinlichkeit eine 
+mathematische Definition gibt (<script type="math/tex">P(p|q) := P(p \wedge q)/P(q)</script>), 
+könnten wir uns eigentlich dabei beruhigen. Allerdings bliebe die klassische 
+Definition der Wahrscheinlichkeit sehr unbefriedigend, wenn man nicht 
+auch die bedingte Wahrscheinlichkeit in Bezug mögliche und günstige 
+Fälle (also in Bezug auf das &bdquo;Modell&ldquo; der klassischen Wahrscheinlichkeit) 
+definieren würde. Tut man das aber, dann muss man zeigen, dass diese 
+Definition mit dem mathematischen Begriff der bedingten Wahrscheinlichkeit 
+übereinstimmt.
+</p>
+<p>
+Für die klassische Wahrscheinlichkeit lässt sich die bedingte Wahrscheinlichkeit 
+in naheliegender Weise folgendermaßen definieren: Die bedingte Wahrscheinlichkeit 
+<script type="math/tex">P(p|q)</script> ist die Anzahl der Fälle, in 
+denen sowohl das Ereignis <script type="math/tex">p</script> als auch 
+das Ereignis <script type="math/tex">q</script> eintritt, geteilt durch 
+die Anzahl der Fälle, in denen nur <script type="math/tex">q</script> 
+eintritt. Wenn <script type="math/tex">q</script> unmöglich ist, dann 
+setzen wir die bedingte Wahrscheinlichkeit auf 0 fest. Für <script type="math/tex">P(q)=0</script> 
+entspricht die Definition dann bereits unmittelbar der Standarddefinition 
+von <script type="math/tex">P(p|q) := 0 \Leftarrow P(q) = 0</script>. 
+Andernfalls gilt: 
+<br /><br /><script type="math/tex">
+\begin{eqnarray*}P(p|q) & = & \frac{\mbox{Anzahl } p \wedge q\mbox{-Fälle}}
+                  {\mbox{Anzahl } q\mbox{-Fälle}} \\
+{ }    & = & \frac{\mbox{Anzahl } p \wedge q\mbox{-Fälle}}
+                  {\mbox{Anzahl möglicher Fälle}} \qquad / \qquad
+                  \frac{\mbox{Anzahl }q\mbox{-Fälle}}
+                  {\mbox{Anzahl mögliche Fälle}} \\ { }    
+{ }    & = & \frac{P(p \wedge q)}{P(q)} \\
+\end{eqnarray*}
+</script>
+<br />
+</p>
+<p>
+Die Definition der bedingten Wahrscheinlichkeit in Bezug auf mögliche 
+und günstige Fälle entspricht also genau der mathematischen Definition 
+der bedingten Wahrscheinlichkeit.
+</p>
+<p>
+Die Laplace'sche Wahrscheinlichkeit ist sicherlich die verständlichste 
+und naheliegendste Interpretation des Wahrscheinlichkeitsbegriffs. 
+Sie wirft aber auch eine Reihe von mehr oder minder gravierenden Problemen 
+auf: 
+</p>
+<ol>
+<li>Sie lässt sich nur dort anwenden, wo wir die Anzahl der möglichen Fälle 
+feststellen können, d.h. wo eine endliche und wohlumrissene Grundgesamtheit 
+vorliegt. Die Wahrscheinlichkeit etwa, mit der es zu einem Börsencrash 
+kommt, ließe sich mit der Laplaceschen Wahrscheinlichkeit nicht mehr 
+ohne Weiteres ausdrücken. <br />&#160;</li>
+
+<li>Die Fälle zu bestimmten, aus denen sich die Grundgesamtheit zusammensetzt, 
+kann unter Umständen ein nicht-triviales Problem darstellen. Will man 
+z.B. die Frage beantworten, wie groß die Wahrscheinlichkeit ist, bei 
+zwei Münzwürfen zweimal Kopf zu erhalten, dann besteht die Grundgesamtheit 
+aus den <em>vier</em> möglichen Kombinationen: Kopf-Kopf, Kopf-Zahl, 
+Zahl-Kopf, Zahl-Zahl. Aber warum besteht sie nicht aus den <em>drei</em> 
+möglichen Kombinationen: Beidemale Kopf, Beidemale Zahl, Einmal Kopf 
+und einmal Zahl? Die Frage ist gar nicht so leicht zu beantworten, 
+vor allem wenn man sich Situationen vorstellt, in denen die richtige 
+Lösung nicht so offensichtlich ist. <br />&#160;</li>
+
+<li>Schließlich stellt sich das Problem, was zu tun ist, wenn die Fälle 
+der Grundgesamtheit nicht gleichartig sind. Wenn wir uns beispielsweise 
+einen Holzwürfel vorstellen, in dessen Innerem ein Stück Blei direkt 
+unter der Eins angebracht ist, wie sollten wir die nun nicht mehr gleichverteilten 
+Fälle von Würfen von eins bis sechs auf eine Grundgesamtheit gleichverteilter 
+Fälle herunterbrechen? Was wären die Fälle der Grundgesamtheit, wenn 
+es nicht mehr die möglichen Würfelergebnisse sein können? </li>
+</ol>
+<p>
+Eine Antwort auf die letzte Frage gibt insbesondere die Häufigkeitstheorie 
+der Wahrscheinlichkeit, der wir uns nun zuwenden.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node76.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node77.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN56" class="internal fn" href="#REF56">[56]</a> Da &bdquo;jedes&ldquo; sichere Ereignis alle Fälle der Grundgesamtheit 
+enthalten muss, gibt es nur noch ein sicheres Ereignis.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node76.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node77.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node76.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 3.2.1  Objektive Wahrscheinlichkeit" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node76.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node76.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 3.2.1  Objektive Wahrscheinlichkeit&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node76.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

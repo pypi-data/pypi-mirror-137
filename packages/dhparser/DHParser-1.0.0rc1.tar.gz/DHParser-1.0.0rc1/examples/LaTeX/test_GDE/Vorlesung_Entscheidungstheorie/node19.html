@@ -1,0 +1,384 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 1.3.1  Die Minimax-Bedauerns-Regel</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node18.html" />
+<link rel="next" href="node20.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node18.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node18.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node20.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1  Entscheidungstabellen und -bäume</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node9.html">1.2  Entscheidungen unter Unwissenheit I</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node18.html">1.3  Entscheidungen unter Unwissenheit II</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node19.html">1.3.1  Die Minimax-Bedauerns-Regel</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node20.html">1.3.2  Kardinaler Nutzen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node22.html">1.3.3  Weitere Entscheidungsregeln auf Basis des kardinalen Nutzens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node25.html">1.3.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node26.html">1.4  Entscheidungen unter Risiko</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>1.3.1  Die Minimax-Bedauerns-Regel</h3>
+
+<p>
+<span id="MinimaxRegret"> </span>
+</p>
+<p>
+Von den bisher besprochenen Entscheidungsregeln ist die Maximin-Regel 
+wahrscheinlich die einleuchtendste und sinnvollste, aber wir haben 
+auch schon ein Beispiel kennen gelernt, bei dem ihre Anwendung möglicherweise 
+nicht sinnvoll wäre, und man kann weitere Beispiele konstruieren, bei 
+denen das noch deutlicher der Fall ist, z.B. das folgende:
+</p>
+<p style="text-align:center">
+<span id="MinimaxBedauernsRegel"> </span> 
+</p>
+<table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="1"><script type="math/tex">S_1</script></td><td colspan="1"><script type="math/tex">S_2</script></td></tr>
+<tr><td><script type="math/tex">A_1</script> </td><td>€ 1,25 </td><td>€ 1,50 </td></tr>
+<tr><td><script type="math/tex">A_2</script> </td><td>€ 1,00 </td><td>€ 50.000 </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Nach der Maximin-Regel müsste die Entscheidung zugunsten der Handlung 
+<script type="math/tex">A_1</script> ausfallen. Aber ist es sinnvoll, 
+sich die Chance auf € 50.000 entgehen zu lassen, nur um einen möglichen 
+Verlust von 25 Cent zu vermeiden? Wenn man nicht gerade eine Geschichte 
+erfindet, bei der von diesen 25 Cent Leben und Tod abhängen, erscheint 
+das mehr als zweifelhaft. Um Situationen wie dieser gerecht zu werden, gibt es eine Regel, die 
+darauf zielt, &bdquo;verpasste Chancen&ldquo; zu vermeiden. Diese Regel 
+ist die <em> Minimax-Bedauerns-Regel</em> (wohlbemerkt: diesmal heißt 
+es &bdquo;Minimax&ldquo; nicht &bdquo;Maximin&ldquo;!). Bei dieser 
+Regel leitet man von der ursprünglichen Tabelle zunächst eine Bedauernstabelle 
+ab, die für jede Entscheidung und jedes möglicherweise eintretende 
+Ereignis (bzw. jeden möglichen Weltzustand) die Größe der verpassten 
+Chance beziffert. Dann wählt man diejenige Entscheidung aus, bei der 
+die größtmögliche verpasste Chance am kleinsten ist. Die Einträge in 
+der Bedauernstabelle erhält man, indem man jeden Wert in der Tabelle 
+vom Maximalwert derselben Spalte abzieht. Für das Beispiel von eben 
+würde die Bedauernstabelle dann so aussehen:
+</p>
+<table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="1"><script type="math/tex">S_1</script></td><td colspan="1"><script type="math/tex">S_2</script></td></tr>
+<tr><td><script type="math/tex">A_1</script> </td><td>€ 0 </td><td>€ 49.998,50 </td></tr>
+<tr><td><script type="math/tex">A_2</script> </td><td>€ 0,25 </td><td>€ 0 </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Das maximale Bedauern für die Handlung <script type="math/tex">A_1</script> 
+würde also mit € 49.998,50 zu beziffern sein, während bei der Wahl 
+von <script type="math/tex">A_2</script> schlimmstenfalls ein Verlust 
+von 25 Cent verschmerzt werden müsste. Um das maximale Bedauern zu 
+minimieren, muss nach der Minimax-Bedauernsregel also die Handlung 
+<script type="math/tex">A_2</script> gewählt werden.
+</p>
+<p>
+Ähnlich wie die die Maximin-Regel kann man die Minimax-Bedauernsregel 
+auch <em>lexikalisch</em> mehrfach hintereinander anwenden, wenn nicht 
+gleich bei der ersten Anwendung eine eindeutige Entscheidung getroffen 
+werden kann.
+</p>
+<p>
+An dieser Stelle könnte jedoch ein Einwand erhoben werden: Beim Übergang 
+von der Entscheidungstabelle zur Bedauernstabelle haben wir bestimmte 
+Einträge in der Tabelle voneinander subtrahiert.  Da es sich um Geldbeträge handelte, war das denkbar unproblematisch, 
+denn jeder wird zugeben, dass man mit Geldbeträgen rechnen kann, und 
+dass man sinnvollerweise davon sprechen kann dass € 3 dreimal so viel 
+Wert sind wie € 1. Aber was ist, wenn wir es nicht mit Geldbeträgen, 
+sondern wie zuvor mit ordinalen Nutzenwerten zu tun? Den vergleichsweise 
+voraussetzungsarmen Begriff des ordinalen Nutzens haben wir ja gerade 
+deshalb eingeführt, weil man mit anderen Werten als Geldbeträgen nicht 
+unbedingt Rechnungen durchführen kann, selbst wenn sich die Größe des 
+Wertes noch unterscheiden lässt. (Beispiel: Die meisten Menschen würden 
+wohl zustimmen, dass Bier und Würstchen leckerer sind als Brot und 
+Wasser, aber es wäre Unsinn zu sagen, sie sind genau dreimal so lecker.) 
+Wenn wir eine Bedauernstabelle mit ordinalen Nutzenwerten berechnen 
+würden, dann würde sich das Ergebnis, das bei der Anwendung der Minimax-Bedauerns-Regel 
+herauskäme ändern, wenn wir die Nutzenwerte durch ordinal transformierte 
+Nutzenwerte ersetzen, was bei einer robusten Entscheidungsregel nicht 
+vorkommen sollte. Daher müssen wir entweder auf die Anwendung der Minimax-Bedauerns-Regel 
+verzichten, oder wir dürfen sie nur dort anwenden, wo wir einen stärkeren 
+Nutzenbegriff vorausetzen dürfen, wie er z.B. implizit den in den vorhergehenden 
+Beispielen verwendeten Geldwerten zu Grunde liegt. Der schwächstmögliche 
+stärkere Nutzenbegriff (stärker im Vergleich zum ordinalen Nutzen), 
+der es uns erlaubt die Minimax-Bedauerns-Regel anzuwenden, ist der 
+Begriff des kardinalen Nutzens.
+</p>
+<p>
+Bevor wir jedoch auf den Begriff des kardinalen Nutzens eingehen, soll 
+aber noch auf eine besondere Eigenschaft der Minimax-Bedauerns-Regel 
+hingewiesen werden, die unter Umständen auch als ein Einwand gegen 
+diese Regel begriffen werden kann: Die Minimax-Bedauerns-Regel verletzt 
+nämlich - ebenso wie übrigens auf die Rangordnungsregel aus Kapitel 
+ <a href="node16.html#Rangordnungsregel">1.2.4.3</a> - das 
+Prinzip der <em> paarweisen Unabhängigkeit</em> oder auch &bdquo;Unabhängigkeit 
+von dritten Alternativen&ldquo;.<a id="REF13" class="internal fn" href="#FN13">[13]</a>  Fügt 
+man den bestehenden Handlungsalternativen eine Handlungsalternative 
+hinzu, so kann das selbst dann zu einer Änderung der Entscheidung führen, 
+wenn die neu hinzugefügte Alternative nach der Minimax-Bedauerns-Regel 
+sowieso nicht gewählt werden würde. Beispiel:
+</p>
+<table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="3">Entscheidungstabelle</td><td colspan="2"></td><td colspan="3"></td><td>bdquo;Bedauerns&ldquo;-tabelle</td></tr>
+<tr><td><script type="math/tex">A_1</script> </td><td>0 </td><td>10 </td><td>4 </td><td></td><td><script type="math/tex">A_1</script> </td><td>5 </td><td>0 </td><td>6 </td></tr>
+<tr><td><script type="math/tex">A_2</script> </td><td>5 </td><td>2 </td><td>10 </td><td></td><td><script type="math/tex">A_2</script> </td><td>0 </td><td>8 </td><td>0 </td></tr>
+<tr><td></td></tr>
+</table>
+<table style="text-align:center">
+<tr><td><script type="math/tex">A_1</script> </td><td>0 </td><td>10 </td><td>4 </td><td></td><td><script type="math/tex">A_1</script> </td><td>10 </td><td>0 </td><td>6 </td></tr>
+<tr><td><script type="math/tex">A_2</script> </td><td>5 </td><td>2 </td><td>10 </td><td></td><td><script type="math/tex">A_2</script> </td><td>5 </td><td>8 </td><td>0 </td></tr>
+<tr><td><script type="math/tex">A_3</script> </td><td>10 </td><td>5 </td><td>1 </td><td></td><td><script type="math/tex">A_3</script> </td><td>0 </td><td>5 </td><td>9 </td></tr>
+<tr><td></td></tr>
+</table>
+<p style="text-align:center">
+Quelle: Michael D. Resnik: Choices. An Introduction to Decision Theory, 
+Minnesota 2000, S. 31. 
+</p>
+<p>
+Die Alternative A3 hat nach der Minimax-Bedauerns-Regel keine Chance 
+gewählt zu werden. Dennoch übt ihre Präsenz Einfluss darauf aus, welche 
+der beiden anderen Handlungsalternativen nach der Minimax-Bedauerns-Regel 
+gewählt wird. Ist die Alternative A3 abwesend, so ist die Handlung 
+A1 nach der Minimax-Bedauerns-Regel die beste Handlung. Fügt man die 
+Alternative A3 hinzu, so ist A2 die beste Handlung.
+</p>
+<p>
+Sollte man die Abhängigkeit von dritten Alternativen als eine Schwäche 
+der Minimax-Bedauerns-Regel ansehen? Das hängt wiederum sehr davon 
+ab, in welchem Zusammenhang die Entscheidungsregel angewandt wird. 
+Da das Prinzip besonders in der Sozialwahltheorie eine große Rolle 
+spielt, dazu einige Beispiele:
+</p>
+<ol>
+<span id="dritteAlternativen"> </span> <li>Resnik erzählt dazu in etwa die folgende Geschichte  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, S. 40): 
+ Stellen Sie sich vor, Sie sitzen in einem Restaurant und überlegen, 
+ob Sie lieber ein Steak oder ein vegetarisches Gericht bestellen wollen. 
+Eigentlich mögen Sie lieber Steak, aber da das Restaurant einen etwas 
+heruntergekommenen Eindruck macht, haben Sie wegen der Fleischzubereitung 
+so ihre Bedenken und tendieren eher zu einer vegetarischen Speise. 
+Nun erzählt Ihnen die Dame vom Nebentisch, dass sie gerade ein vorzügliches 
+Schnitzel gegessen hat. Sie selbst - nehmen wir an - mögen zwar kein 
+Schnitzel, aber obwohl diese Alternative für Sie &bdquo;irrelevant&ldquo; 
+ist, wissen Sie nun, dass Sie der Fleischzubereitung in diesem Restaurant 
+vertrauen können, und bestellen doch das Steak.
+<br />&#160;</li>
+
+<li>Frau Schmidt möchte ein Auto kaufen. Sie legt Wert darauf, dass es 
+das teuerste und, wenn nicht das teuerste, dann doch wenigstens dass 
+schnellste Auto von der ganzen Stadt ist. Also entscheidet sie sich 
+gegen einen Porsche und für einen S-Klasse Mercedes, weil der teurer 
+ist. Jetzt efährt sie aber, dass ihre Nachbarin Frau Klein sich kürzlich 
+einen Rolls-Royce zugelegt hat. Einen Rolls-Royce kann sich Frau Schmitt 
+aber sowieso nicht leisten. Da sie dann aber statt des teuersten wenigstens 
+das schnellste Auto haben will, kauft sie sich nun doch nicht den Mercedes, 
+sondern lieber den Porsche.
+<p>
+Ihre Wahl zwischen Porsche und Mercedes ist also nicht unabhängig von 
+dritten Alternativen, auch diese für Frau Schmitt sowieso nicht in 
+Frage kommen, wie in diesem Fall der Rolls Royce.</p>&#160;</li>
+
+<li><em>Machinas Paradox</em>: <span id="machinasParadox"> </span> Angenommen, 
+eine Person habe die Wahl zwischen zwei Lotterien: <ol>
+<li>Lotterie: 99% Chance eine Reise nach Venedig zu gewinnen, 1% Chance 
+eine Filmvorführung über Venedig zu gewinnen. <br />&#160;</li>
+
+<li>Lotterie: 99% Chance eine Reise nach Venedig zu gewinnen, 1% Chance 
+zu Hause zu bleiben. </li>
+</ol>
+<p>
+Im Sinne der Theorie müsste die erste Lotterie eindeutig bevorzugt 
+werden, wenn man annimmt, dass einen Film über Venedig anzuschauen 
+allemal interessanter ist, als zu Hause zu sitzen. Andererseits ist 
+es durchaus plausibel sich vorzustellen, dass angesichts der sehr großen 
+Chance eine Reise nach Venedig zu gewinnen, es doch noch erträglicher 
+ist zu Hause zu bleiben, wenn man die Chance verpasst, als sich dann 
+auch noch einen herrlichen Film über Venedig anschauen zu müssen.
+</p>
+<p>
+Wenn man diese Argumentation akzeptiert, dann zeigt das Beispiel einmal 
+mehr, dass die Annahme der Unabhängigkeit von dritten Alternativen, 
+z.B. auf Grund solcher psychologischen Faktoren wie des Bedauerns, 
+nicht immer zwingend oder auch nur glaubwürdig ist. Oder gäbe es vielleicht 
+eine Möglichkeit, das Beispiel durch eine entsprechende Problemspezifikation, 
+z.B. durch Einbeziehen des Bedauernsfaktors in die Konsequenz der Entscheidung, 
+doch noch mit der Theorie zu vereinbaren? (Aufgabe  <a href="node25.html#AufgabeDritteAlternative">1.3.4</a>!)</p>&#160;</li>
+
+<li><em>Mögliche Bedeutung der Rangordnung</em>  (<a class="bibref" href="node139.html#Mackie_2003">Mackie 2003</a>, S. 81): 
+Wie bereits erwähnt ist auch die Rangordnungsregel nicht mit dem Prinzip 
+der paarweisen Unabhängigkeit vereinbar. Hält man Entscheidungsregeln 
+wie die Minimax-Bedauernsregel oder die Rangordnugnsregel für sinnvoll, 
+so kann man diese Unvereinbarkeit statt gegen bestimmte Entscheidungsregeln 
+umgekehrt auch gegen das Prinzip der paarweisen Unabhängigkeit ausspielen.
+<p>
+Vorgreifend auf die Sozialwahltheorie sei zur Illustration der möglichen 
+Relevanz der Rangordnung von Präferenzen und damit auch der Relevanz 
+von dritten Alternativen folgendes Beispiel diskutiert: Angenommen 
+Napoleon habe die Präferenzen <script type="math/tex">b \succ a \succ c \succ d \succ e</script> 
+und Josephine <script type="math/tex">a \succ b \succ c \succ d \succ e</script>. 
+Es sei weiterhin angenommen, dass Napoleon und Josephine sich darauf 
+einigen müssten, ob sie gemeinsam <script type="math/tex">a</script> 
+oder <script type="math/tex">b</script> wählen wollen, und dass Napoleon 
+sich nach langwierigen Diskussionen schließlich durchgestezt habe sie 
+gemeinasm <script type="math/tex">b</script> wählen.
+</p>
+<p>
+Nun erhält Josephine eine Nachricht, die dazu führt, dass sie ihre 
+Präferenzen dergestalt abändert, dass die Alternative <script type="math/tex">b</script> 
+nun für sie an die letzte Stelle rückt, so dass sie nun die Präferenzen 
+<script type="math/tex">a \succ c \succ d \succ e \succ b</script> 
+hat.
+</p>
+<p>
+Josephine teilt dies Napoleon mit, und bittet darum, auf Grund der 
+geänderten Umstände die gemeinsame Entscheidung noch einmal zu überdenken. 
+Napoleon antwortet ihr jedoch mit dem Hinweis auf das Prinzip der Unabhängikeit 
+von &bdquo;irrelevanten&ldquo; Alternativen, dass dies nicht erforderlich 
+sei, da sich Josephines Präferenzen bezüglich <script type="math/tex">a</script> 
+und <script type="math/tex">b</script> duch die neu eingetretenen Umstände 
+nicht geändert hätten, so dass sie die Entscheidung zwischen <script type="math/tex">a</script> 
+und <script type="math/tex">b</script> gar nicht beeinflussen dürften.
+</p>
+<p>
+Sofern man Napoleons Antwort als unverschämt empfindet, ist dieses 
+Beispiel ein Gegenbeispiel gegen die generelle Gültigkeit des &bdquo;Prinzips 
+des Unabhängigkeit von dritten Alternativen&ldquo;. Das Beispiel zeigt, 
+dass das Prinzip der Unabhängkeit von dritten Alternativen uns zwingt, 
+von der Information über die Rangordnung der beiden zur Entscheidung 
+anstehenden Alternativen innerhalb einer größeren Menge von Alternativen 
+zu abstrahieren. Aber unter Umständen könnte diese Information wichtig 
+sein, z.B. indem sie die Intensität einer Präferenz ausdrückt und sofern 
+man der Ansicht ist, dass die Intensität der individuellen Präferenzen 
+bei der Diskussion über gemeinsame Entscheidungen wie der von Napoleon 
+und Josephine mitberücksichtigt werden sollte.
+</p>
+<p>
+Man kann es auch so formulieren: Eine dogmatische Festlegung auf das 
+Prinzip der Unabhängikeit von dritten Alternativen würde Entscheidungsprobleme 
+wie das von Napoleon und Josephine aus dem Anwendungsbereich der Entscheidungstheorie 
+ausschließen.
+</p>
+</li>
+</ol>
+<p>
+Wie man sieht können dritte Alternativen sehr wohl relevant für die 
+relative Bewertung der anderen Alternativen sein. Insofern muss die 
+Abhängigkeit von dritten (&bdquo;irrelevanten&ldquo;) Alternativen 
+nicht unbedingt als eine Schwäche der Entscheidungsregel aufgefasst 
+werden. Aber es gibt andere Situationen, wo das durchaus der Fall sein 
+kann, etwa bei Wahlen oder Abstimmungen, deren Ergebnis unter Umständen 
+dadurch manipuliert werden könnte, dass man weitere, scheinbar irrelevante 
+Alternativen zur Abstimmung stellt.<a id="REF14" class="internal fn" href="#FN14">[14]</a> Insgesamt 
+kann man sagen, dass das Prinzip der Unabhängigkeit von dritten Alternativen 
+bzw. der paarweisen Unabhängigkeit nur dann aufgestellt werden sollte, 
+wenn man zuvor sichergestellt hat, dass für die Entscheidung zwischen 
+jedem Paar von Alternativen (bzw. für die relative Bewertung von jedem 
+Paar von Alternativen) die Verfügbarkeit der anderen Alternativen tatsächlich 
+irrelevant ist. In einer Entscheidungssituation, wo dies nicht der 
+Fall ist, kann eine Theorie, die dieses Prinzip als Axiom einführt, 
+nicht ohne Einschränkungen angewendet werden.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node19.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node20.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN13" class="internal fn" href="#REF13">[13]</a> Die dafür häufig auch verwendete Bezeichnung &bdquo;Unabhängigkeit 
+von irrelevanten Alternativen&ldquo; ist wegen ihrer Suggestivität 
+irreführend. Es ist nämlich keineswegs immer so, dass dritte Alternativen 
+grundsätzlich irrelevant sind.
+</p>
+<p class="footnote">
+<a id="FN14" class="internal fn" href="#REF14">[14]</a> Theoretische Beispiele findet man in der entsprechenden Fachliteratur 
+unter den Stichworten &bdquo;Paradox of Voting&ldquo; und &bdquo;Agenda 
+Setting&ldquo; in Fülle  (<a class="bibref" href="node139.html#Mueller_2003">Mueller 2003</a>, S. 112ff.). 
+Die empirische Relevanz des vermeintlichen Problems zyklischer Mehrheiten 
+wird jedoch inzwischen sehr stark in Zweifel gezogen  (<a class="bibref" href="node139.html#Green_Shapiro_1994">Green/Shapiro 1994</a>, S. 147ff.). 
+Praktisch spielen die Formen der Abstimmungsmanipulation, die in der 
+Public Choice Literatur so ausführlich erörtert werden, keine Rolle, 
+während andere, die womöglich viel wichtiger sind, von den Autoren 
+der Public Choice Literatur nicht beachtet werden.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node19.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node20.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node19.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 1.3.1  Die Minimax-Bedauerns-Regel" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node19.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node19.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 1.3.1  Die Minimax-Bedauerns-Regel&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node19.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

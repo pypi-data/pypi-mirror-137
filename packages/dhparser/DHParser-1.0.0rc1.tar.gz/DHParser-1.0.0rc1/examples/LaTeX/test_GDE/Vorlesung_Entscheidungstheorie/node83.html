@@ -1,0 +1,534 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: Beweis des Ramsey-De Finetti Theorems</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node82.html" />
+<link rel="next" href="node84.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node82.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node75.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node84.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1  Wahrscheinlichkeiten I: Rechentechniken</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node75.html">3.2  Wahrscheinlichkeiten II: Interpretationsfragen <strong>nicht klausurrelevant!</strong>)</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node76.html">3.2.1  Objektive Wahrscheinlichkeit</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node82.html">3.2.2  Subjektive Wahrscheinlichkeiten</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node83.html">Beweis des Ramsey-De Finetti Theorems</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node84.html">Diskussion</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node85.html">3.2.3  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h5>Beweis des Ramsey-De Finetti Theorems</h5>
+
+<p>
+Für den Beweis müssen wir präzisieren, was wir unter einer Wette verstehen. 
+Dazu sind zunächst die Rollen des Wettenden und des Buchmachers zu 
+unterscheiden. Der Wettende darf festlegen welche Wahrscheinlichkeiten 
+er allen Aussagen bzw. Ereignissen zuweist. Der Buchmacher darf anschließend 
+entscheiden, ob er dafür oder dagegen wettet, d.h. er legt einen positiven 
+oder negativen Wettbetrag <script type="math/tex">S</script> (&bdquo;S&ldquo; 
+wie &bdquo;stakes&ldquo;) für die Wette fest. Die Wette spielt sicht 
+dann immer folgendermaßen ab, zunächst muss der Wettende den Betrag 
+<script type="math/tex">qS</script> (bei einem Treuhänder) einzahlen. 
+Gewinnt er die Wette, d.h. tritt das Ereignis ein, dann bekommt er 
+den Betrag <script type="math/tex">S</script> zurück. Verliert er die 
+Wette, so verliert er seine Einzahlung. Legt der Buchmacher den Wettbetrag 
+auf einen negativen Wert <script type="math/tex">S</script> fest, dann 
+sind auch die Ein- und Auszahlungen entsprechend negiert. Dann muss 
+zunächst der Buchmacher einen Betrag von <script type="math/tex">q \cdot |S|</script> 
+einzahlen, und bekommt <script type="math/tex">|S|</script> ausgezahlt, 
+wenn das Ereignis eintritt. Es mag etwas sonderbar erscheinen, dass 
+der Buchmacher entscheiden darf, ob er &bdquo;dafür&ldquo; oder &bdquo;dagegen&ldquo; 
+wettet, aber andernfalls hätte die Zuweisung eines Wettquotienten durch 
+den Wettenden wenig Sinn, da er ihn schon aus taktischen Gründen entweder 
+möglichst hoch oder möglichst niedrig ansetzen würde, je nachdem, ob 
+der Buchmacher gezwungen ist, dafür oder dagegen zu wetten. Nur wenn 
+der Wettende nicht weiß, ob der Buchmacher dafür oder dagegen wettet, 
+wird er seinen Wettquotienten exakt so wählen, wie es seiner Wahrscheinlichkeitseinschätzung 
+entspricht.
+</p>
+<p>
+Um den Beweis zu führen, zeigen wir zunächst, dass aus der Konsistenzannahme 
+die kolmogorowschen Axiome folgen, und dann in einem zweiten Schritt, 
+dass aus den Komogorwschen Axiomen die Konsistenz der Wahrscheinlichkeitszuweisungen 
+folgt. Wir nehmen also an, dass wir eine Menge von Aussagen oder Ereignissen 
+haben, denen konsistente Wahrscheinlichkeiten in dem oben beschriebenen 
+Sinne zugewiesen worden sind. Dann gilt (Beweis nach Gillies  (<a class="bibref" href="node139.html#Gillies_2000">Gillies 2000</a>, S. 60ff.)): 
+
+</p>
+<ol>
+<li><em>kolmogorowsches Axiom</em> (indirekter Beweis): Angenommen jemand 
+weist irgendeinem Ereignis <script type="math/tex">e</script> eine 
+Wahrscheinlichkeit <script type="math/tex">q < 0</script> zu, dann 
+wird der Buchmacher immer gewinnen, wenn er S < 0 wählt. (Da der Buchmacher 
+S < 0 gewählt hat, muss er <script type="math/tex">q\cdot |S|</script> 
+&bdquo;einzahlen&ldquo;. Da aber <script type="math/tex">q < 0</script> 
+heisst das in Wirklichkeit, dass er <script type="math/tex">|q|\cdot |S|</script> 
+bekommt. Den Betrag hat der Buchmacher auf jeden Fall sicher. Gewinnt 
+er dann noch die Wette, dann bekommt er sogar noch <script type="math/tex">|S|</script> 
+oben drauf. Der Buchmacher hat also eine &bdquo;todsichere Wette&ldquo; 
+abgeschlossen.)
+<p>
+Wenn also das 1. kolmogorowsche Axiom verletzt wird, dann war die Wahrscheinlichkeitszuweisung 
+auch inkonsistent im Sinne des Wettkriteriums. Da wir die Konsistenz 
+aber voraussetzen, muss das 1. kolmogorowsche Axiom erfüllt sein.</p>&#160;</li>
+
+<li><em>kolmogorowsches Axiom</em> (indirekter Beweis): Angenommen einem 
+beliebigen Ereignis <script type="math/tex">e</script> wurde eine Wahrscheinlichkeit 
+<script type="math/tex">q > 1</script> zugewiesen, dann gewinnt der 
+Buchmacher immer, wenn er S > 0 wählt. (Der Wettende zahlt <script type="math/tex">q\cdot S > S</script> 
+ein bekommt aber höchstens <script type="math/tex">S</script> zurück.) 
+Um konsistent zu sein, darf also keinem Ereignis eine Wahrscheinlichkeit 
+größer 1 zugewiesen werden. Insbesondere gilt dies auch für ein Ereignis, 
+dessen Eintreten sicher ist.
+<p>
+Angenommen der Wettende weist einem <em>sicheren</em> Ereignis <script type="math/tex">\Omega</script> 
+eine Wahrscheinlichkeit <script type="math/tex">q < 1</script> zu, 
+dann gewinnt der Buchmacher immer, wenn er S < 0 wählt. (Dadurch wettet 
+der Buchmacher für das Ereignis <script type="math/tex">\Omega</script>. 
+Da das Ereignis sicher ist, bekommt der Buchmacher mit Sicherheit <script type="math/tex">|S|</script> 
+für seine Einzahlung von <script type="math/tex">q|S| < |S|</script> 
+zurück.) Um konsistent im Sinne des Wettkriteriums zu bleiben, darf 
+also einem sicheren Ereignis auch niemals eine Wahrscheinlichkeit kleiner 
+1 zugewiesen werden.</p>&#160;</li>
+
+<li><em>kolmogorowsches Axiom</em> (indirekter Beweis): Wir führen den 
+Beweis in zwei Schritten. Zunächst wird gezeigt, dass aus den Konsistenz 
+der Wahrscheinlichkeitszuweisungen folgt, dass für Wahrscheinlichkeiten 
+einer beliebigen Menge sich (paarweise) wechselseitg ausschließender 
+Ereignisse <script type="math/tex">e_1,\ldots, e_n</script>, die zugleich 
+ausschöpfend sind (d.h. eins davon tritt auf jeden Fall ein), gilt, 
+dass <script type="math/tex">P(e_1) + \ldots + P(e_n) = 1</script>. 
+Dann wird gezeigt, dass daraus das 3. kolmogorowsche Axiom folgt.
+<p>
+Angenommen jemand weist einer Menge sich wechselseitg ausschließender, 
+aber ausschöpfender Ereignisse <script type="math/tex">e_1,\ldots, e_n</script> 
+die Wahrscheinlichkeiten <script type="math/tex">q_1,\ldots,q_n</script> 
+zu. und der Buchmacher setzt für alle Wetten denselben Wettbetrag <script type="math/tex">S</script> 
+an. Dann beträgt der Gewinn des Buchmachers, wenn das Ereignis <script type="math/tex">E_i</script> 
+eintritt: 
+<br /><br /><script type="math/tex"> G = q_1S + \ldots + q_nS - S = S(q_1 + \ldots + q_n -1) </script><br /><br />
+ 
+Wählt der Wettende die Wahrscheinlichkeiten so, dass <script type="math/tex">q_1 + \ldots + q_n > 1</script>, 
+dann gewinnt der Buchmacher immer, wenn er <script type="math/tex">S > 0</script> 
+ansetzt. Wählt der Wettende die Wahrscheinlichkeiten so, dass <script type="math/tex">q_1 + \ldots + q_n < 1</script>, 
+so gewinnt der Buchmacher immer, wenn er <script type="math/tex">S < 0</script> 
+wählt.
+</p>
+<p>
+Also muss der Wettende, um konsistent zu bleiben <script type="math/tex">q_1 + \ldots + q_n = 1</script> 
+wählen. Hat er das aber (für jede Menge paarweise unvereinbarer und 
+vollständig ausschöpfender Ereignisse) getan, dann erfüllen seine Wahrscheinlichkeitszuweisungen 
+auch das 3. kolmogorowsche Axiom, denn: Seien <script type="math/tex">e</script> 
+und <script type="math/tex">f</script> zwei beliebige, sich wechselseitig 
+ausschließende Ereignisse, dann gilt nach Voraussetzung für die Wahrscheinlichkeitszuweisung 
+des Wettenden: 
+<br /><br /><script type="math/tex"> P(e) + P(f) + P(\neg (e \vee f)) = 1 </script><br /><br />
+ 
+Da <script type="math/tex">e \vee f</script> und <script type="math/tex">\neg (e \vee f)</script> 
+sich aber ebenfalls ausschließen, eins von beiden Ereignissen aber 
+eintreten muss, gilt ebenfalls: 
+<br /><br /><script type="math/tex">\ P(e \vee f) + P(\neg (e \vee f)) = 1 </script><br /><br />
+ 
+Subtrahieren wir die zweite von der ersten Gleichung, so folgt das 
+3. kolmogorowsche Axiom: 
+<br /><br /><script type="math/tex">
+\begin{eqnarray*}  P(e) + P(f) - P(e \vee f) & = & 0 \qquad \Leftrightarrow \\
+  P(e) + P(f) & = & P(e \vee f) 
+\end{eqnarray*}
+</script>
+<br /></p>&#160;</li>
+
+<li><em>Bedingte Wahrscheinlichkeit</em>. Zunächst ist zu erklären, was 
+unter einer bedingten Wahrscheinlichkeit zu verstehen ist, wenn wir 
+die Wahrscheinlichkeiten als Wettquotienten verstehen. <script type="math/tex">P(e|f)</script> 
+ist zu verstehen als der Wettquotient, mit dem auf das Ereignis e gewettet 
+wird, sofern <script type="math/tex">f</script> eintritt. Tritt <script type="math/tex">f</script> 
+nicht ein, so findet keine Wette statt. Es handelt sich also um eine 
+Art &bdquo;Optionswette&ldquo;. Zu zeigen ist nun, dass bei einer konsistenten 
+Festlegung aller bedingten Wettquotienten, die bedingte Wahrscheinlichkeit 
+im Sinne der Theorie subjektivier Wahrscheinlichkeiten der bedingten 
+Wahrscheinlichkeit wie sie im Zusammenhang mit den kolmogorowschen 
+Axiomen definiert wurde ( <a href="node70.html#bedingteWahrscheinlichkeit">3.1.2</a>) 
+entspricht. Dazu beweisen wir, dass bei konsistenter Zuweisung von 
+Wettquotienten das Multiplikationsgesetz für bedingte Wahrscheinlichkeiten 
+<script type="math/tex">P(e \wedge f) = P(e|f)\cdot P(f)</script> erfüllt 
+ist. Es sei zunächst für zwei beliebige Ereignisse <script type="math/tex">e</script> 
+und <script type="math/tex">f</script>: <ol>
+<li><script type="math/tex">a</script> der Wettquotient des Ereignisses 
+<script type="math/tex">e \wedge f</script>. <br />&#160;</li>
+
+<li><script type="math/tex">b</script> der Wettquotient des Ereignisses 
+<script type="math/tex">e|f</script>. <br />&#160;</li>
+
+<li><script type="math/tex">c</script> der Wettquotient des Ereignisses 
+<script type="math/tex">f</script>. </li>
+</ol>
+<p>
+Seien weiterhin <script type="math/tex">S_1,S_2,S_3</script> die den 
+entsprechenden Ereignissen vom Buchmacher zugewiesenen Wettbeträge, 
+dann ergeben sich folgende Gewinnrechnungen für jeden der drei möglichen 
+Fälle 1. e und f treten ein, 2. f tritt ein, aber nicht e, 3. f tritt 
+nicht ein.<a id="REF60" class="internal fn" href="#FN60">[60]</a> : 
+
+</p>
+<ol>
+<li><script type="math/tex">G_1 = (a-1)\cdot S_1 + (b-1)\cdot S_2 + (c-1)\cdot S_3</script> 
+<br />&#160;</li>
+
+<li><script type="math/tex">G_2 = a\cdot S_1 + b\cdot S_2 + (c-1)\cdot S_3</script> 
+<br />&#160;</li>
+
+<li><script type="math/tex">G_3 = a\cdot S_1 + c\cdot S_3</script> </li>
+</ol>
+<p>
+(Was hier vorliegt ist ein Gleichungssystem mit drei unbekannten (<script type="math/tex">S_1, S_2, S_3</script>). 
+Zu zeigen ist also, dass die einzige Bedingung unter der dieses Gleichungssystem 
+keine Lösung für <script type="math/tex">G_1, G_2, G_3 > 0</script><a id="REF61" class="internal fn" href="#FN61">[61]</a> hat, 
+die ist, dass <script type="math/tex">a=bc</script>. Gäbe es nämlich 
+eine solche Lösung, dann hätte der Buchmacher für die entsprechenden 
+Werte von <script type="math/tex">S_1, S_2, S_3</script> seinen sicheren 
+Gewinn.) Wenn der Buchmacher nun <script type="math/tex">S_1 := 1</script>, 
+<script type="math/tex">S_2 := -1</script> und <script type="math/tex">S_3 := -b</script> 
+wählt, dann ergibt sich daraus für den Buchmacher folgende Gewinnrechnung: 
+
+</p>
+<ol>
+<li><script type="math/tex">G_1 = (a-1) + (1-b) + b-b\cdot c = a - b\cdot c</script> 
+<br />&#160;</li>
+
+<li><script type="math/tex">G_2 = a - b - b \cdot c + b = a - b\cdot c</script> 
+<br />&#160;</li>
+
+<li><script type="math/tex">G_3 = a - b \cdot c</script> </li>
+</ol>
+<p>
+D.h. der Buchmacher hat einen sicheren Gewinn, sofern für die Wahrscheinlichkeitszuweisungen 
+nicht gilt <script type="math/tex">a \leq b\cdot c</script>. Wählt 
+er aber <script type="math/tex">S_1 := -1</script>, <script type="math/tex">S_2 := 1</script> 
+und <script type="math/tex">S_3 := b</script>, dann hat er einen sicheren 
+Gewinnt, sofern für die Wahrscheinlichkeitszuweisungen nicht gilt <script type="math/tex">a \geq b \cdot c</script>. 
+Das bedeutet aber, dass die Wettquotienten, um konstitent zu sein sowohl 
+<script type="math/tex">a \leq b\cdot c</script> als auch <script type="math/tex">a \geq b \cdot c</script> 
+erfüllen müssen. Das ist aber nur möglich, wenn: 
+<br /><br /><script type="math/tex"> a = b\cdot c \qquad \Leftrightarrow \qquad P(e \wedge f) = P(e|f)\cdot P(f) </script><br /><br />
+ 
+Also muss für die in dem oben erklärten Sinne bedingten Wettquotienten 
+das Multiplikationsgesetz gelten, wenn sie konstistent sein sollen. 
+
+</p>
+</li>
+</ol>
+<p>
+Damit wäre die eine Richtung des Äquivalenzbeweises zwischen der Wettkonsistenz 
+und der kolmogorowschen Wahrscheinlichkeit abgeschlossen. Was noch 
+aussteht, ist die andere Richtung des Beweises, d.h. dass aus der Erfüllung 
+der kolmogorowschen Axiome durch eine Zuweisung von Wettquotienten 
+zu Ereignissen auch die Konsistenz der Wettquotienten in dem Sinne 
+folgt, dass ein gedachter Gegenspieler keine &bdquo;todsicheren Wetten&ldquo; 
+abschließen kann. Was wir zeigen müssen ist, dass der De Finetti Abschluss 
+einer beliebigen Menge von Aussagen (bzw. Ereignissen) konsistent ist, 
+sofern die kolmogorowschen Axiome erfüllt sind.
+</p>
+<p>
+Wir betrachten zunächst die im De Finetti-Abschluss vorkommenden Aussagen 
+als jeweils einzelne Aussagen. Erfüllen die Aussagen die Kolmogorowschen 
+Axiome, dann gilt für jede Aussage, dass ihre Wahrscheinlichkeit zwischen 
+0 und 1 liegt. Dann ist es aber unmöglich für die Wette auf eine einzelne 
+Aussage den Wettbetrag so zu festzulegen, dass der Buchhalter zwangsläufig 
+gewinnt. (Auch wenn er in den Extremfällen, dass der Wettquotient <script type="math/tex">q</script> 
+auf 0 oder 1 festgelegt worden ist, den Wettbetrag <script type="math/tex">S</script> 
+so wählen kann, dass er nicht mehr verlieren kann, bedeutet dies noch 
+nicht, dass ihm der Gewinn sicher ist. Insofern ist dann auch die Wette 
+nicht &bdquo;todsicher&ldquo;.)
+</p>
+<p>
+Als nächstes zeigen wir, dass auch die Wahrscheinlichkeiten von beliebigen 
+oder-verknüpften Aussagen, soweit sie einander paarweise ausschließen 
+und erschöpfend sind, konsistent sein müssen. Dazu leiten wir zunächst 
+aus dem 3. kolmogorowschen Axiom ab, dass sich die Wahrscheinlichkeiten 
+einer Menge von Aussagen (bzw. Ereignissen) <script type="math/tex">e_1,\ldots,e_n</script>, 
+die sich paarweise ausschließen und ausschöpfend sind zu eins aufsummieren 
+müssen. Durch entsprechende Klammerung kann man das, was im 3. kolmogorowschen 
+Axiom für zwei unvereinbare Aussagen ausgesagt wird, leicht auf <script type="math/tex">n</script> 
+paarweise unvereinbare Aussagen übertragen, d.h. es gilt: 
+<br /><br /><script type="math/tex"> P(e_1\vee \ldots \vee e_n) = P(e_1) + \ldots + P(e_n) </script><br /><br />
+ 
+Wenn die Ereignisse <script type="math/tex">e_1,\ldots,e_n</script> 
+aber ausschöpfend sind, dann gilt, dass <script type="math/tex">e_1\vee \ldots \vee e_n</script> 
+sicher ist und damit <script type="math/tex">P(e_1\vee \ldots \vee e_n) = 1</script>. 
+Dann gilt aber auch: 
+<br /><br /><script type="math/tex"> P(e_1) + \ldots + P(e_n) = P(e_1\vee \ldots \vee e_n) = 1 </script><br /><br />
+ 
+Zur Vereinfachung schreiben wir für die Wahrscheinlichkeiten <script type="math/tex">P(e_1),\ldots,P(e_n)</script> 
+im folgenden <script type="math/tex">q_1,\ldots,q_n</script>. Aus der 
+Gleichung ergibt sich, dass mindestens ein <script type="math/tex">q_i \geq 0</script>. 
+Wenn der Buchmacher den Wetten auf die Ereignisse <script type="math/tex">e_1,\ldots,e_n</script> 
+die Wettbeträge <script type="math/tex">S_1,\ldots,S_n</script> zuweist, 
+dann berechnet sich der Gewinn, den er erhält, falls das <script type="math/tex">i</script>-te 
+Ereignis eintritt nach: 
+<br /><br /><script type="math/tex">G_i = q_1S_1 + \ldots + q_nS_n - S_i </script><br /><br />
+ 
+Da wir für jedes <script type="math/tex">i</script> (im Bereich <script type="math/tex">1 \leq i \leq n</script>) 
+eine solche Gleichung aufstellen, verfügen wir über <script type="math/tex">n</script> 
+derartige Gleichungen. Jede dieser Gleichungen können wir auf beiden 
+Seiten mit dem entsprechenden <script type="math/tex">q_i</script> 
+noch einmal multiplizieren. Wir erhalten dann eine Schar von Gleichungen 
+der Form: 
+<br /><br /><script type="math/tex">
+\begin{eqnarray*}q_1G_1 & = & q_1(q_1S_1 + \ldots + q_nS_n) - q_1S_1 \\
+{ }    & \vdots & { } \\
+q_nG_n & = & q_n(q_1S_1 + \ldots + q_nS_n) - q_nS_n \\ 
+\end{eqnarray*}
+</script>
+<br />
+</p>
+<p>
+Wenn wir diese Gleichungen aufaddieren, dann erhalten wir folgende 
+Bedingung für die Gewinne, die der Buchmacher erzielen kann: 
+<br /><br /><script type="math/tex"> q_1G_1 + q_2G_2 + \ldots + q_nG_n = 0 </script><br /><br />
+ 
+Inhaltlich entspricht die rechte Seite der Gleichung übrigens dem Erwartungsnutzen 
+des Buchmachers unter Zugrundelegung der subjektiven Wahrscheinlichkeiten 
+des Wettenden, d.h. die Bedingung besagt, dass der Erwartungsnutzen 
+des Buchmachers 0 sein muss. Wenn der Erwartungsnutzen<span id="bmErwartungsnutzen"> </span> 
+des Buchmachers 0 ist, dann kann er aber keine &bdquo;todsichere Wette&ldquo; 
+mehr abschließen, denn: Für ihn ist nur dann ein sicherer Gewinn möglich, 
+wenn <em>alle</em> <script type="math/tex">G_i</script> positiv, d.h. 
+echt größer 0 sind. (Andernfalls hätte er, wenn irgend ein <script type="math/tex">G_k \leq 0</script>, 
+dann keinen Gewinn, wenn das <script type="math/tex">k</script>-te 
+Ereignis eintritt, damit wäre seine Wette aber nicht mehr &bdquo;todsicher&ldquo;.) 
+Es können aber nicht alle <script type="math/tex">G_i</script> positiv 
+sein, da wegen <script type="math/tex">q_i \geq 0 \forall_i</script> 
+(1. kolmogorowsches Axiom) und <script type="math/tex">\exists_ki q_k > 0</script> 
+(wg. <script type="math/tex">\sum q_i = 1</script>) die Summe auf der 
+linken Seite der Gleichung sonst nicht 0 werden könnte.
+</p>
+<p>
+Damit ist gezeigt, dass auch die oder-Verknüpfung von paarweise unvereinbaren 
+aber den Ereignisraum ausschöpfenden Aussagen konsistent ist, sofern 
+die zugewiesenen Wettquotienten den kolmogorowschen Axiomen gehorchen. 
+So wie der Beweis geführt wurde, war es dem Buchmacher dabei sogar 
+gestattet, den Wettbetrag nicht nur für die Gesamtaussage sondern für 
+jedes Teilglied festzulegen. Dennoch ist keine &bdquo;todsichere Wette&ldquo; 
+möglich. Daraus folgt aber unmittelbar, dass wenn für jede oder-Verknüpfte 
+Gesamtaussage (bestehend aus wechselweise unvereinbaren und ausschöpfenden 
+Teilaussagen) schon keine &bdquo;todsichere Wette&ldquo; möglich ist, 
+dann auch für keine der Teilaussagen, denn sonst bräuchte der Buchmacher 
+nur für die Teilaussage, für die eine &bdquo;todsichere Wette&ldquo; 
+möglich ist, den Wettbetrag entsprechend festzulegen und für alle weiteren 
+Teilaussagen den Wettbetrag auf Null zu setzen, um eine todsichere 
+Wette auf die Gesamtaussage abzuschließen.
+</p>
+<p>
+Daraus ergibt sich wiederum unmittelbar, dass der Buchmacher auch auf 
+wechselseitig unvereinbare aber nicht ausschöpfende oder-verknüpfte 
+Aussagen keine &bdquo;todsichere Wette&ldquo; abschließen kann. Denn 
+angenommen <script type="math/tex">a</script> sei eine solche Aussage, 
+dann kann er auf <script type="math/tex">a \vee \neg a</script> keine 
+&bdquo;todsichere Wette&ldquo; abschließen, dann nach dem eben gesagten 
+aber auch nicht auf <script type="math/tex">a</script>. In einem letzten 
+Schritt kann nun gezeigt werden, dass der Buchmacher in der Tat auf 
+überhaupt keine oder-verknüpfte Aussage eine todsichere Wette abschließen 
+kann (also auch ohne die Voraussetzung paarweiser Ausschließlichkeit). 
+Denn seien <script type="math/tex">a</script> und <script type="math/tex">b</script> 
+zwei nicht ausschließliche Aussagen, dann ist die Aussage <script type="math/tex">a \vee b</script> 
+äquivalent zu der Aussage <script type="math/tex">(a \wedge \neg b) \vee (b \wedge \neg a) \vee (a \wedge b)</script>. 
+Diese drei Aussagen sind wechselweise unvereinbar. Da auf sie keine 
+&bdquo;todsichere Wette&ldquo; abgeschlossen werden kann, kann auch 
+auf die äquivalente Aussage <script type="math/tex">a \vee b</script> 
+keine &bdquo;todsichere Wette&ldquo; abgeschlossen werden.
+</p>
+<p>
+Schließlich ist zu zeigen, dass auch bei und-verknüpften Aussagen keine 
+&bdquo;todsichere Wette&ldquo; möglich ist, sofern die kolmogorowschen 
+Axiome erfüllt sind. Seien <script type="math/tex">e</script> und <script type="math/tex">f</script> 
+zwei mögliche Ereignisse. Aus den kolmogorowschen Axiomen und der Definition 
+der bedingten Wahrscheinlichkeit ergitb sich bekanntlich das Multiplikationsgesetz 
+<script type="math/tex">P(e \wedge f) = P(e|f)\cdot P(f)</script>. 
+Wie schon zuvor legen wir zur Vereinfachung folgende abkürzende Bezeichnungen 
+fest. 
+</p>
+<ol>
+<li><script type="math/tex">a = P(e \wedge f)</script> <br />&#160;</li>
+
+<li><script type="math/tex">b = P(e|f)</script> <br />&#160;</li>
+
+<li><script type="math/tex">c = P(f)</script> </li>
+</ol>
+<p>
+Seien weiterhin <script type="math/tex">S_1,S_2,S_3</script> die den 
+enstprechenden Ereignissen vom Buchmacher zugewiesenen Wettbeträge. 
+Wiederum sind dann vier Fälle zu unterscheiden, von allerdings zwei 
+zusammen fallen, so dass sich hinsichtlich des Gewinns des Buchmachers 
+drei Fälle ergeben: 
+</p>
+<ol>
+<li><script type="math/tex">e \wedge f</script>: <script type="math/tex">G_1 = (a-1)\cdot S_1 + (b-1)\cdot S_2 + (c-1)\cdot S_3</script> 
+<br />&#160;</li>
+
+<li><script type="math/tex">\neg e \wedge f</script> : <script type="math/tex">G_2 = a\cdot S_1 + b\cdot S_2 + (c-1)\cdot S_3</script> 
+<br />&#160;</li>
+
+<li><script type="math/tex">\neg f</script>: <script type="math/tex">G_3 = a\cdot S_2 + c\cdot S_3</script> 
+</li>
+</ol>
+<p>
+Zu zeigen ist, dass, wenn wir gemäß dem Multiplikationsgesetz <script type="math/tex">a=b\cdot c</script> 
+voraussetzen, die Gewinne nicht alle positiv sein können. Es genügt 
+zu zeigen, dass der Erwartungsnutzen des Buchmachers (bezüglich der 
+Wahrscheinlichkeiten des Wettenden) gleich 0 ist (siehe Seite  <a href="node83.html#bmErwartungsnutzen"></a>). 
+Der Erwartungsnutzen des Buchmachers berechnet sich nach: 
+<br /><br /><script type="math/tex"> \lambda_1G_1 + \lambda_2G_2 + \lambda_3G_3 </script><br /><br />
+ 
+mit: 
+<br /><br /><script type="math/tex"> \lambda_1 = b\cdot c, \qquad \lambda_2 = (1-b)\cdot c, \qquad \lambda_3 = 1-c </script><br /><br />
+ 
+(wovon man sich überzeugen kann, wenn man sich überlegt, in welchen 
+Fällen welches <script type="math/tex">\lambda</script> herangezogen 
+werden muss).
+</p>
+<p>
+Durch Einsetzen der obigen Gleichungen und Ausklammern von <script type="math/tex">S_1</script>, 
+<script type="math/tex">S_2</script> und <script type="math/tex">S_3</script> 
+erhält man: 
+<br /><br /><script type="math/tex"> \lambda_1G_1 + \lambda_2G_2 + \lambda_3G_3 = \alpha S_1 + \beta S_2 + \gamma S_3  </script><br /><br />
+ 
+wobei: 
+<br /><br /><script type="math/tex"> \alpha = bc(a-1) + (1-b)ca + (1-c)a </script><br /><br />
+ 
+
+<br /><br /><script type="math/tex"> \beta  = bc(b-1) + (1-b)cb  </script><br /><br />
+ 
+
+<br /><br /><script type="math/tex"> \gamma = bc(c-1) + (1-b)c(c-1) + (1-c)c </script><br /><br />
+ 
+Durch Ausrechnen und Subsitution mit Hilfe der Voraussetzung <script type="math/tex">a=b\cdot c</script> 
+lässt sich zeigen, dass <script type="math/tex">\alpha = \beta = \gamma = 0</script> 
+Da wenigstens ein <script type="math/tex">\lambda > 0</script> ist 
+(die durch <script type="math/tex">\lambda_1,\lambda_2,\lambda_3</script> 
+angegebenen Wahrscheinlichkeiten decken alle möglichen Fälle ab, summieren 
+sich also zu 1) folgt, dass keine &bdquo;todsichere Wette&ldquo; für 
+den Buchmacher möglich ist. Das betrifft sowohl und-verknüpfte Aussagen 
+als auch bedingte Wahrscheinlichkeiten.
+</p>
+<p>
+Dass aus der Erfüllung der kolmogorowschen Axiome wiederum die Konsistenz 
+der Wahrscheinlichkeiten (im Sinne des Wettkriteriumgs) folgt, hat 
+eine wichtige Konsequenz in Fällen, in denen neue Informationen bekannt 
+werden, die geeignet sind, die Wahrscheinlichkeiten, die wir bestimmten 
+Ereignissen zuweisen, zu ändern. Da wir wissen, dass Wahrscheinlichkeiten, 
+die wir durch &bdquo;Bedingungsbildung&ldquo; (<em>conditionalization</em>) 
+erhalten, wiederum die kolmogorowschen Axiome erfüllen, können wir 
+auch davon ausgehen, dass wir durch die Ersetzung sämtlicher Wahrscheinlichkeiten 
+mit den durch die Information &bdquo;bedingten&ldquo; Wahrscheinlichkeiten, 
+wieder ein System (genauer einen &bdquo;De Finetti-Abschluss&ldquo;) 
+konsistenter subjektiver Wahrscheinlichkeiten erhalten. Die Bedingungsbildung 
+geht dabei immer so vor sich, dass wir <script type="math/tex">P(a)</script> 
+durch <script type="math/tex">P(a|I)</script> ersetzen und <script type="math/tex">P(a|b)</script> 
+durch <script type="math/tex">P(a|(b \wedge I))</script>, wobei <script type="math/tex">a</script> 
+eine beliebige Aussage bzw. ein beliebiges Ereignis unseres Systems 
+ist, und <script type="math/tex">I</script> die neu hinzugekommene 
+Information. (Da bei Aussagen, die unabhängig von <script type="math/tex">I</script> 
+sind, sowieso <script type="math/tex">P(a|I) = P(a)</script> gilt, 
+können wir die Bedingungsbildung unbedenklich auf alle Aussagen des 
+Systems anwenden.)
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node83.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node84.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN60" class="internal fn" href="#REF60">[60]</a> Zwischen den Fällen <script type="math/tex">\neg f \wedge e</script> 
+und <script type="math/tex">\neg f \wedge \neg e</script> braucht nicht 
+unterschieden werden, da die Gewinnrechnung in beiden Fällen dieselbe 
+ist: <script type="math/tex">G_3 = a\cdot S_2 + c\cdot S_3</script>
+</p>
+<p class="footnote">
+<a id="FN61" class="internal fn" href="#REF61">[61]</a> <script type="math/tex">G_1, G_2, G_3</script> decken alle drei möglichen 
+Fälle ab, also müssen alle größer Null sein. Sonst wäre der Gewinn 
+nicht mehr sicher, da ein Fall eintreten könnte, indem <script type="math/tex">G \leq 0</script>
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node83.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node84.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node83.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: Beweis des Ramsey-De Finetti Theorems" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node83.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node83.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: Beweis des Ramsey-De Finetti Theorems&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node83.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

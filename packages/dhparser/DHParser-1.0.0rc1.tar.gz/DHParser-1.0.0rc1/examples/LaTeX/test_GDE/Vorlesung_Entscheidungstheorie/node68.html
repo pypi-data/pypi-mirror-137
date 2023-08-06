@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 3  Wahrscheinlichkeitsrechnung</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node67.html" />
+<link rel="next" href="node69.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node67.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="toc.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node69.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1  Wahrscheinlichkeiten I: Rechentechniken</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1.1  Einführung</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node68.html">3.1.1.1  Zielsetzung</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node69.html">3.1.1.2  Was sind Wahrscheinlichkeiten?</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node70.html">3.1.2  Grundlegende Gesetze der Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node71.html">3.1.3  Der Bayes'sche Lehrsatz</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node74.html">3.1.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node75.html">3.2  Wahrscheinlichkeiten II: Interpretationsfragen <strong>nicht klausurrelevant!</strong>)</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h1>3  Wahrscheinlichkeitsrechnung</h1>
+
+<h2>3.1  Wahrscheinlichkeiten I: Rechentechniken</h2>
+
+<h3>3.1.1  Einführung</h3>
+
+<h4>3.1.1.1  Zielsetzung</h4>
+
+<p>
+<span id="Wahrscheinlichkeitsrechnung"> </span>
+</p>
+<p>
+In dieser und der folgenden Woche werden die mathematischen Grundlagen 
+der Wahrscheinlichkeitstheorie besprochen, die für die Theorie der 
+Entscheidungen unter Risiko (d.h. solchen Entscheidungen, bei denen 
+wir im Gegensatz zu Entscheidungen unter Unwissenheit die Wahrscheinlichkeiten 
+für die möglichen Zustände oder Zufallsereignisse kennen) benötigt 
+werden.
+</p>
+<p>
+Folgendes steht auf dem Programm:
+</p>
+<ol>
+<li>Herleitung der wesentlichen Gesetze der elementaren Wahrscheinlichkeitstheorie, 
+also insbesondere: <ol>
+<li><em>Wahrscheinlichkeit von &bdquo;und&ldquo;-verknüpften Ereignissen</em>: 
+Wie groß ist die Wahrscheinlichkeit, dass von zwei möglichen Zufallsereignissen, 
+deren jeweilige Wahrscheinlichkeit bekannt ist, beide eintreten? <br />&#160;</li>
+
+<li><em>Wahrscheinlichkeit von &bdquo;oder&ldquo;-verknüpften Ereignissen</em>: 
+Wie groß ist die Wahrscheinlichkeit, dass von zwei möglichen Ereignissen 
+das eine oder das andere eintritt? <br />&#160;</li>
+
+<li><em>Bedingte Wahrscheinlichkeit</em>: Wie groß ist die Wahrscheinlichkeit, 
+dass ein Ereignis eintritt, dass von einem anderen abhängt, unter der 
+Bedingung, dass das andere Ereignis schon eingetreten ist? Und im Gegensatz 
+dazu, wie groß ist die Wahrscheinlichkeit, dass es überhaupt, also 
+ohne diese Bedingung, eintritt? </li>
+</ol>
+<br />&#160;</li>
+
+<li>Der Satz von Bayes. Das Theorem von Bayes ist grundlegend für die Berechnung 
+von bedingten Wahrscheinlichkeiten und hat zahlreiche Anwendungen in 
+der Statistik, der Entscheidungstheorie und der Philosophie. </li>
+</ol>
+<p>
+Am Ende dieses Kapitel wird jeder Aufgaben wie die folgende mühelos 
+lösen können:
+</p>
+<blockquote>
+Ca. 3% aller 70-jährigen haben Alzheimer. Auch wenn Alzheimer bisher 
+nicht geheilt werden kann, ist die Früherkennung eine wichtige Voraussetzung 
+für vorbeugende, den Krankheitsverlauf evtl. mildernde Maßnahmen. Leider 
+lässt sich Alzheimer nur schwer präzise diagnostizieren. (Erst durch 
+Gewebeuntersuchungen am verstorbenen Patienten lässt sich mit Sicherheit 
+feststellen, ob eine Alzheimererkrankung vorlag.) Angenommen einmal, 
+die Forschung hätte einen Gedächtnistest entwickelt, durch den eine 
+vorliegende Alzheimererkrankung mit 95%-iger Sicherheit diagnostizierbar 
+ist, an dem im Durchschnitt aber auch 2% der älteren Menschen scheitern, 
+selbst wenn sie nicht an Alzheimer erkrankt sind.
+<p>
+Angenommen, Sie sind Ärztin oder Arzt und untersuchen einen 70-jährigen 
+Patienten mit Hilfe des Gedächnistests. Es zeigt sich, dass der Patient 
+nicht mehr in der Lage ist, die Aufgaben des Tests zu lösen. Wie groß 
+ist die Wahrscheinlichkeit, dass der Patient an Alzheimer erkrant ist? 
+</blockquote>
+
+</p>
+<p>
+Um es vorweg zu nehmen: Die Antwort &bdquo;95%&ldquo; ist falsch! Aber 
+warum? Dafür eben benötigt man die Wahrscheinlichkeitsrechnung.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node68.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node69.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node68.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 3  Wahrscheinlichkeitsrechnung" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node68.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node68.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 3  Wahrscheinlichkeitsrechnung&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node68.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

@@ -1,0 +1,428 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 2.1.3.4  Ein dritter Beweis</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node45.html" />
+<link rel="next" href="node47.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node45.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node36.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node47.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node33.html">2.1  Sozialwahltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node34.html">2.1.1  Zum Einstieg: Das Condorcet-Paradox</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node35.html">2.1.2  Das sogenannte &bdquo;Paradox des Liberalismus&ldquo;</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node36.html">2.1.3  Der &bdquo;Klassiker&ldquo; der Sozialwahltheorie: Der Satz von Arrow</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node37.html">2.1.3.1  Das Theorem</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node38.html">2.1.3.2  Der Beweis des Theorems</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node42.html">2.1.3.3  Ein alternativer Beweis</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node46.html">2.1.3.4  Ein dritter Beweis</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node47.html">2.1.3.5  Resumé</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node48.html">2.1.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node49.html">2.2  Zur Diskussion der Sozialwahltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node62.html">2.3  Die These des &bdquo;demokratischen Irrationalismus&ldquo;</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node66.html">2.4  Fazit</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>2.1.3.4  Ein dritter Beweis</h4>
+
+<p>
+Der folgende Beweis stammt aus dem Buch von Resnik  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, S. 186ff.). 
+Der Beweis ähnelt sehr stark dem ersten hier vorgestellten Beweis. 
+Nur wird diesmal nicht zuerst gezeigt, dass es eine Teilmenge von Individuen 
+gibt, die beinahe entscheidend für alle Alternativen ist und dann, 
+dass sie tatsächlich nur aus einem Individuum besteht. Sondern es wird 
+zuerst gezeigt, dass es ein Individuum gibt, dass für eine Alternative 
+beinahe entscheidend ist, und dann, dass daraus folgt, dass dieses 
+Individuum für alle Alternativen nicht nur beinahe sondern vollständig 
+entscheidend ist. Die einzelnen Beweisschritte sind aber zum Teil ähnlich 
+wie beim ersten Beweis, so dass die Lektüre des zweiten Beweises gut 
+zur Übung und zum besseren Verständnis dienen kann.
+</p>
+<p>
+Zunächst wird folgendes Lemma bewiesen:
+</p>
+<blockquote>
+<strong>Lemma 1</strong>: <em>Es existiert immer ein Individuum, das 
+für irgendein Paar von Alternativen beinahe entscheidend ist.</em> 
+</blockquote>
+<p>
+<em>Beweis</em>: Wie oben angemerkt existieren &bdquo;entscheidende&ldquo; 
+Mengen für jedes Paar von Alternativen. Da jede &bdquo;entscheidende&ldquo; 
+Menge immer auch &bdquo;beinahe entscheidend&ldquo; ist, existieren 
+für jedes Paar von Alternativen auch beinahe &bdquo;entscheidende&ldquo; 
+Mengen.
+</p>
+<p>
+Wir setzten voraus, dass die Menge der Individuen und Alternativen 
+endlich ist. Dann existiert wenigstens eine &bdquo;beinahe entscheidende&ldquo; 
+Menge, die keine echte Teilmenge enthält, die &bdquo;beinahe entscheidende&ldquo; 
+Menge wäre, denn: Man beginne mit irgend einer beliegigen &bdquo;beinahe 
+entscheidenden&ldquo; Menge. Hat diese Menge noch (nicht-leere) Teilmengen, 
+die &bdquo;beinahe entscheidende&ldquo; Mengen sind, dann wähle man 
+irgend eine dieser &bdquo;beinahe entscheidenden&ldquo; Teilmengen 
+und stelle für diese Teilmenge dieselbe Untersuchung an, solange bis 
+man bei einer Menge angekommen ist, die keine echten Teilmengen mehr 
+enthält, die ihrerseits &bdquo;beinahe entscheidende&ldquo; Mengen 
+irgendeines Paares von Alternativen sind.
+</p>
+<p>
+Wir verfügen damit über eine &bdquo;minimale Menge&ldquo;, die &bdquo;beinahe 
+entscheidend&ldquo; bezüglich eines bestimmten Paares von Alternativen 
+ist. Wenn wir zeigen können, dass diese &bdquo;minimale Menge&ldquo; 
+nur noch ein einziges Individuum enthält, dann haben wir das Lemma 
+bewiesen. Dazu kann ein Widerspruchsbeweis geführt werden. Wir nehmen 
+also an, es gäbe eine entsprechende &bdquo;minimale beinahe entscheidende 
+Menge&ldquo;, die mehrere Individuen enthält und zeigen, dass diese 
+Annahme zu einem Widerspruch führt.
+</p>
+<p>
+Angenommen also, <script type="math/tex">M</script> sei eine &bdquo;minimale 
+beinahe entscheidende Menge&ldquo; für die Alternative <script type="math/tex">x</script> 
+über <script type="math/tex">y</script>, die mehrere Individuen enthält. 
+Man betrachte ein beliebiges Individuum <script type="math/tex">J</script> 
+aus der Menge <script type="math/tex">M</script>. Da die Menge <script type="math/tex">M</script> 
+mehr Individuen als nur <script type="math/tex">J</script> enthält, 
+und da möglicherweise noch ein &bdquo;Rest&ldquo; von Individuen existiert, 
+die nicht zu <script type="math/tex">M</script> gehören, kann man folgende 
+drei unterschiedlichen Gruppierungen betrachten: 1) Die Menge, die 
+nur aus dem Individuum <script type="math/tex">J</script> besteht. 
+2) Die Menge, die aus den Individuen von <script type="math/tex">M</script> 
+ohne <script type="math/tex">J</script> besteht, kurz: <script type="math/tex">M-J</script>. 
+3) Der &bdquo;Rest&ldquo;, d.h. alle Individuen, die nicht zu <script type="math/tex">M</script> 
+gehören.
+</p>
+<p>
+Da jedes beliebige Präferenzprofil zugelassen ist (&bdquo;unbeschränkter 
+Bereich&ldquo;) und sich die Eigenschaft eine (minimale) &bdquo;beinahe 
+entscheidende&ldquo; Menge zu sein auf alle Präferenzprofile bezieht, 
+muss sie sich auch bei jedem beliebigen einzelnen Präferenzprofil bewähren. 
+Man nehme an, dass es mindestens drei Güter gibt und betrachte nun 
+folgendes Präferenzprofil:
+</p>
+<table style="text-align:center">
+<tr><td><script type="math/tex">J</script> </td><td><script type="math/tex">M-J</script> </td><td>Rest </td></tr>
+<tr><td><script type="math/tex">z</script> </td><td><script type="math/tex">x</script> </td><td><script type="math/tex">y</script> </td></tr>
+<tr><td><script type="math/tex">x</script> </td><td><script type="math/tex">y</script> </td><td><script type="math/tex">z</script> </td></tr>
+<tr><td><script type="math/tex">y</script> </td><td><script type="math/tex">z</script> </td><td><script type="math/tex">x</script> </td></tr>
+<tr><td></td></tr>
+</table>
+<p style="text-align:center">
+<br />
+ <small>Quelle:  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, S. 188)</small> 
+
+</p>
+<p>
+Da <script type="math/tex">M</script> eine &bdquo;beinahe entscheidende&ldquo; 
+Menge für <script type="math/tex">x</script> über <script type="math/tex">y</script> 
+ist und in diesem Präferenzprofil für alle Mitglieder von <script type="math/tex">M</script> 
+gilt: <script type="math/tex">x \succ y</script>, und alle Nicht-Mitglieder 
+gilt: <script type="math/tex">y \succ x</script>, so muss die Wohlfahrtsfunktion 
+diesem Präferenzprofil kollektive Präferenzen zuordnen, bei denen <script type="math/tex">x \succ y</script> 
+gilt. Darüber hinaus muss die Wohlfahrtsfunktion natürlich auch festlegen, 
+welche Beziehung (<script type="math/tex">\succ</script>, <script type="math/tex">\prec</script> 
+oder <script type="math/tex">\sim</script>) zwischen <script type="math/tex">x</script> 
+und <script type="math/tex">z</script> zu gelten hat. Wir betrachten 
+die drei Möglichkeiten im Einzelnen, und zeigen, dass jede davon zu 
+einem Widerspruch führt. Dabei ist zu beachten, dass wir nicht ausgeschlossen 
+haben, dass die Menge &bdquo;Rest&ldquo; leer sein kann. Die folgenden 
+Argumente funktionieren aber (wovon man sich leicht überzeugen kann) 
+auch in dem Fall, dass die &bdquo;Rest&ldquo;-Gruppe leer ist.
+</p>
+<ol>
+<li>Angenommen nach der Wohlfahrtsfunktion gilt für dieses Präferenzprofil 
+<script type="math/tex">x \succ z</script>. Dann muss die Wohlfahrtsfunktion 
+nach der Bedingung der Unabhängigkeit von dritten Alternativen <script type="math/tex">x \succ z</script> 
+auch für alle anderen Präferenzprofile liefern, nach denen <script type="math/tex">x</script> 
+und <script type="math/tex">z</script> für jedes Individuum in derselben 
+Weise relativ zueinander geordnet sind wie in dem gegebenen Präferenzprofil. 
+Damit liefert die Wohlfahrtsfunktion aber immer <script type="math/tex">x \succ z</script>, 
+wenn für alle Individuen in <script type="math/tex">M-J</script> gilt 
+<script type="math/tex">x \succ z</script> und für alle Individuen, 
+die nicht in <script type="math/tex">M-J</script> enthalten sind <script type="math/tex">z \succ x</script>. 
+Damit ist <script type="math/tex">M-J</script> aber &bdquo;beinahe 
+entscheidende&ldquo; Menge für <script type="math/tex">x</script> über 
+<script type="math/tex">z</script>. Nach der Konstruktion von <script type="math/tex">M</script> 
+hätte <script type="math/tex">M</script> als &bdquo;minimale beinahe 
+entscheidende Menge&ldquo; (für <script type="math/tex">x</script> 
+über <script type="math/tex">y</script>) aber keine Teilmenge mehr 
+enthalten dürfen, die noch &bdquo;beinahe entscheidende&ldquo; Menge 
+<em>irgendeines</em> Paars von Alternativen ist. Also liegt hier ein 
+Widerspruch vor, so dass die Möglichkeit, dass die Wohlfahrtfunktion 
+dem oben stehenden Präferenzprofil kollektive Präferenzen zuordnet, 
+die <script type="math/tex">x \succ z</script> enthalten, ausgeschlossen 
+ist.
+<br />&#160;</li>
+
+<li>Angenommen, die Wohlfahrtsfunktion legt für dieses Präferenzprofil 
+<script type="math/tex">x \sim z</script> fest. Dann ergibt sich, da 
+bereits <script type="math/tex">x \succ y</script> gilt, dass auch 
+<script type="math/tex">z \succ y</script>. Da <script type="math/tex">J</script> 
+aber <script type="math/tex">z</script> gegenüber <script type="math/tex">y</script> 
+vorzieht, während alle anderen Individuen <script type="math/tex">y</script> 
+gegenüber <script type="math/tex">z</script> vorziehen, wäre nach dem 
+gleichen Argument wie im 1.Fall <script type="math/tex">J</script> 
+beinahe entscheidend für die Alternative <script type="math/tex">z</script> 
+über <script type="math/tex">y</script>, was ebenfalls der Minimalität 
+von <script type="math/tex">M</script> widerspricht. Damit scheidet 
+die zweite Möglichkeit auch aus.
+<br />&#160;</li>
+
+<li>Angenommen, die Wohlfahrtsfunktion liefert <script type="math/tex">z \succ x</script>. 
+Dann gilt wegen <script type="math/tex">x \succ y</script> und der 
+Transitivität der Präferenzrelation auch <script type="math/tex">z \succ y</script>. 
+Dann liegt aber wiederum der Fall vor, dass bei dem oben angegebenen 
+Präferenzprofil für <script type="math/tex">J</script> gilt: <script type="math/tex">z \succ y</script>, 
+aber für alle anderen Individuen: <script type="math/tex">y \succ z</script>, 
+woraus sich mit Hilfe der Bedingung der Unabhängigkeit von dritten 
+Alternativen wiederum ergibt, dass <script type="math/tex">J</script> 
+&bdquo;beinahe entscheidend&ldquo; für <script type="math/tex">z \succ y</script> 
+ist, im Widerspruch zur Minimalität von <script type="math/tex">M</script>. 
+Auch diese Möglichkeit scheidet aus. </li>
+</ol>
+<p>
+Da alle Möglichkeiten zum Widerspruch führen, kann die Wohlfahrtsfunktion 
+die individuellen Präferenzen nicht auf kollektive Präferenzen abbilden, 
+sofern die minimale &bdquo;beinahe entscheidende&ldquo; Menge <script type="math/tex">M</script> 
+noch mehr als ein Individuum enthält.
+</p>
+<p>
+Das erste Lemma scheint alleine noch nicht viel zu besagen, denn von 
+dem Individuum, aus dem die Menge <script type="math/tex">M</script> 
+am Ende besteht, ist zunächst nur bewiesen, dass es lediglich beinahe 
+entscheidend ist, und auch das nur für ein Paar von Alternativen. Ein 
+zweites Lemma zeigt aber, dass weit mehr dahinter steckt:
+</p>
+<blockquote>
+<strong>Lemma 2:</strong> <em>Ein Individuum, das für irgendein Paar 
+von Alternativen beinahe entscheidend ist, ist entscheidend für jedes 
+Paar von Alternativen.</em> </blockquote>
+<p>
+<em>Beweis</em>: Wir nehmen an, dass das Individuum <script type="math/tex">J</script> 
+beinahe entscheidend für <script type="math/tex">x</script> über <script type="math/tex">y</script> 
+ist. Es muss nun gezeigt werden, dass es dann auch entscheidend (und 
+zwar nicht bloß <em>beinahe</em> entscheidend!) für alle Paare von 
+Alternativen ist. Dies ist dann bewiesen, wenn wir zwei weitere Alternativen 
+<script type="math/tex">a</script> und <script type="math/tex">b</script> 
+in die Betrachtung einbeziehen und beweisen können, dass <script type="math/tex">J</script> 
+in folgenden sieben Fällen entscheidend ist: 1) <script type="math/tex">x</script> 
+über <script type="math/tex">y</script>; 2) <script type="math/tex">y</script> 
+über <script type="math/tex">x</script>; 3) <script type="math/tex">x</script> 
+über <script type="math/tex">a</script>; 4) <script type="math/tex">a</script> 
+über <script type="math/tex">x</script>; 5) <script type="math/tex">y</script> 
+über <script type="math/tex">a</script>; 6) <script type="math/tex">a</script> 
+über <script type="math/tex">y</script>; 7) <script type="math/tex">a</script> 
+über <script type="math/tex">b</script>.
+</p>
+<p>
+Da <script type="math/tex">a</script> und <script type="math/tex">b</script> 
+beliebig wählbar sind, schließt der Beweis automatisch (&bdquo;ohne 
+Beschränkung der Allgemeinheit&ldquo;) alle weiteren Alternativen mit 
+ein, die es außer <script type="math/tex">x,y,a</script> und <script type="math/tex">b</script> 
+noch geben könnte. Gibt es außer <script type="math/tex">x</script> 
+und <script type="math/tex">y</script> nur noch eine oder gar keine 
+weiteren Alternativen, dann fallen nur einige der betrachteten Fälle 
+weg, und der Beweis gilt trotzdem. Aus Gründen der Konvenienz werden 
+in dem folgenden Beweis die Fälle in einer anderen Reihenfolge behandelt 
+(vgl.  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, S.190/191)). 
+Nun zu den Fällen im Einzelnen:
+</p>
+<ol>
+<li>Fall <em><script type="math/tex">x</script> über <script type="math/tex">a</script></em>: 
+Wir betrachten das Präferenzprofil, in dem <script type="math/tex">J</script> 
+die Alternativen <script type="math/tex">x,y</script> und <script type="math/tex">a</script> 
+in der Reihenfolge <script type="math/tex">x \succ y \succ a</script> 
+ordnet, und in denen die anderen Individuen die Alternative <script type="math/tex">y</script> 
+sowohl <script type="math/tex">x</script> als auch <script type="math/tex">a</script> 
+vorziehen, wobei zwischen <script type="math/tex">x</script> und <script type="math/tex">a</script> 
+jede mögliche Reihenfolge zugelassen sei.
+<p>
+Da <script type="math/tex">J</script> nach Voraussetzung beinahe entscheidend 
+für <script type="math/tex">x</script> über <script type="math/tex">y</script> 
+ist, muss die Wohlfahrtsfunktion bei einem solchen Profil <script type="math/tex">x \succ y</script> 
+liefern. Da aber ebenfalls für alle Individuen <script type="math/tex">y \succ a</script> 
+gilt, muss auf Grund der Bedingung der Pareto-Effizienz auch die Wohlfahrtsfunktion 
+<script type="math/tex">y \succ a</script> für ein derartiges Präferenzprofil 
+liefern. Da aber schon <script type="math/tex">x \succ y</script> gilt, 
+liefert die Sozialwahlfunktion aufgrund der Transitivität von Präferenzen 
+auch <script type="math/tex">x \succ a</script>. Auf Grund der Bedingung 
+der Unabhängigkeit von dritten Alternativen gilt aber, dass die Wohlfahrtsfunktion 
+<script type="math/tex">x \succ a</script> für alle Präferenzprofile 
+liefern muss, in denen <script type="math/tex">x</script> und <script type="math/tex">a</script> 
+in derselben Weise relativ zueinander geordnet sind, wie in dem betrachteten 
+Beispiel. In dem Beispiel hat <script type="math/tex">J</script> aber 
+<script type="math/tex">x</script> vor <script type="math/tex">a</script> 
+eingeordnet, während bei allen anderen Individuen die Ordnung beliebig 
+war. Das bedeutet aber, dass die Wohlfahrtsfunktion <script type="math/tex">x \succ a</script> 
+liefert, sobald <script type="math/tex">J</script> die Ordnung <script type="math/tex">x \succ a</script> 
+festlegt. Damit ist <script type="math/tex">J</script> entscheidend 
+(nicht bloß nahezu entscheidend!) für <script type="math/tex">x</script> 
+über <script type="math/tex">a</script>.</p>&#160;</li>
+
+<li>Fall <em><script type="math/tex">a</script> über <script type="math/tex">y</script></em>: 
+Wir betrachten das Präferenzprofil, in dem für <script type="math/tex">J</script> 
+die Präferenz <script type="math/tex">a \succ x \succ y</script> gilt, 
+und in dem für alle anderen Individuen <script type="math/tex">a \succ x</script> 
+und <script type="math/tex">y \succ x</script> gilt, d.h. in dem <script type="math/tex">a</script> 
+und <script type="math/tex">y</script> der Alternative <script type="math/tex">x</script> 
+vorgezogen werden, während die Reihenfolge zwischen <script type="math/tex">a</script> 
+und <script type="math/tex">y</script> nicht festgelegt sein soll.
+<p>
+Weil <script type="math/tex">J</script> beinahe entscheidend für <script type="math/tex">x</script> 
+über <script type="math/tex">y</script> ist gilt, dass die Wohlfahrtsfunktion 
+bei den angenommenen Präferenzen <script type="math/tex">x \succ y</script> 
+liefert. Aufgrund der Einstimmigkeit (Pareto-Effizienz) muss die Wohlfahrtsfunktion 
+aber auch <script type="math/tex">x \succ a</script> festlegen. Aufgrund 
+der Unabhängigkeit von dritten Alternativen gilt das letztere wann 
+immer <script type="math/tex">J</script> die Präferenz <script type="math/tex">a \succ y</script> 
+enthält. Damit ist <script type="math/tex">J</script> aber entscheidend 
+für <script type="math/tex">a</script> über <script type="math/tex">y</script>.</p>&#160;</li>
+
+<li>Fall <em><script type="math/tex">y</script> über <script type="math/tex">a</script></em>: 
+Betrachtet sei folgendes Präferenzprofil: Für <script type="math/tex">J</script> 
+gilt <script type="math/tex">y \succ x \succ a</script>; für alle anderen 
+gilt <script type="math/tex">a,y \succ x</script>.
+<p>
+Gemäß der Bedingung der Pareto-Effizienz liefert die Wohlfahrtsfunktion 
+für dieses Profil <script type="math/tex">y \succ x</script>. Da <script type="math/tex">J</script> 
+entscheidend ist für <script type="math/tex">x</script> über <script type="math/tex">a</script>, 
+liefert sie auch <script type="math/tex">x \succ a</script> und, wegen 
+der Transitivität der Präferenzrelation schließlich auch <script type="math/tex">y \succ a</script>.
+</p>
+<p>
+Wiederum muss, wenn die Wohlfahrtsfunktion <script type="math/tex">y \succ a</script> 
+für ein Profil liefert, in dem <script type="math/tex">J</script> die 
+Alternative <script type="math/tex">y</script> vor <script type="math/tex">a</script> 
+stellt, während die Ordnung von <script type="math/tex">y</script> 
+und <script type="math/tex">a</script> für die anderen Individuen nicht 
+festgelegt ist, auf Grund der Bedingung der Unabhängigkeit von dritten 
+Alternativen die Wohlfahrtsfunktion <script type="math/tex">y \succ a</script> 
+bei allen Profilen liefern, die <script type="math/tex">y</script> 
+und <script type="math/tex">a</script> in derselben Weise ordnen, d.h. 
+bei allen Profilen, in denen für <script type="math/tex">J</script> 
+gilt: <script type="math/tex">y \succ a</script>. Damit ist <script type="math/tex">J</script> 
+aber entscheidend für <script type="math/tex">y</script> über <script type="math/tex">a</script>.</p>&#160;</li>
+
+<li>Fall <em><script type="math/tex">a</script> über <script type="math/tex">x</script></em>: 
+Man betrachte zunächst das Profil, in dem für <script type="math/tex">J</script> 
+gilt: <script type="math/tex">a \succ y \succ x</script>, während <script type="math/tex">y \succ x,a</script> 
+für die anderen Individuen gilt.
+<p>
+Wir wissen bereits, dass <script type="math/tex">J</script> entscheidend 
+für <script type="math/tex">a \succ y</script> ist. Aufgrund der Bedingung 
+der Pareto-Effizienz liefert die Wohlfahrtsfunktion aber auch <script type="math/tex">y \succ x</script>. 
+Analog zu den vorhergehenden Fällen können wir daraus mit Hilfe der 
+Bedingung der Unabhängigkeit von dritten Alternativen ableitent, dass 
+<script type="math/tex">J</script> entscheidend für <script type="math/tex">a</script> 
+über <script type="math/tex">x</script> ist.</p>&#160;</li>
+
+<li>Fall <em><script type="math/tex">x</script> über <script type="math/tex">y</script></em>: 
+Wir betrachten das Profil, in dem für <script type="math/tex">J</script> 
+gilt: <script type="math/tex">x \succ a \succ y</script>. Wir wissen 
+bereits, dass <script type="math/tex">J</script> entscheidend für <script type="math/tex">x \succ a</script> 
+und ebenso für <script type="math/tex">a \succ y</script> ist. Also 
+muss die Wohlfahrtsfunktion für dieses Profil <script type="math/tex">x \succ y</script> 
+liefern. Analog zu den vorhergehenden Fällen lässt sich dann mit Hilfe 
+der Bedingung der Unabhängigkeit von dritten Alternativen schließen, 
+dass <script type="math/tex">J</script> entscheidend für <script type="math/tex">x \succ y</script> 
+ist.
+<br />&#160;</li>
+
+<li>Fall <em><script type="math/tex">y</script> über <script type="math/tex">x</script></em>: 
+Wie im vorhergehenden Fall, nur dass diesmal <script type="math/tex">x</script> 
+und <script type="math/tex">y</script> vertauscht sind.
+<br />&#160;</li>
+
+<li>Fall <em><script type="math/tex">a</script> über <script type="math/tex">b</script></em>: 
+Wir betrachten ein Profil, in dem für <script type="math/tex">J</script> 
+gilt <script type="math/tex">a \succ x \succ b</script>. Analog zu 
+dem vorhergehenden Fall, können wir dann zeigen, dass <script type="math/tex">J</script> 
+entscheidend für <script type="math/tex">a</script> über <script type="math/tex">b</script> 
+ist.
+</li>
+</ol>
+<p>
+In jedem der Fälle ist <script type="math/tex">J</script> also &bdquo;entscheidend&ldquo;, 
+womit das zweite Lemma bewiesen ist. Aus dem ersten und dem zweiten 
+Lemma ergibt sich zusammengenommen der Satz von Arrow, der damit ebenfalls 
+bewiesen ist.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node46.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node47.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node46.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 2.1.3.4  Ein dritter Beweis" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node46.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node46.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 2.1.3.4  Ein dritter Beweis&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node46.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+
+<title>title : 1.2.1  Die einfachste Entscheidungsregel: Das Prinzip der Dominanz</title>
+
+<meta name="author"       content="reference to author ?" />
+
+
+<meta name="date"         content="2015-10-19T21:51:41+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="GDE-part.css" />
+<link rel="top" href="GDE-part.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node9.html" />
+<link rel="next" href="node11.html" />
+</head>
+
+<body style="background-color:white">
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">title ?</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" align="center" valign="middle"><a class="internal" href="node9.html"><img width="40" height="40" border="0" align="middle" src="prevgrey.jpg" alt="previous" /></a></td>
+<td class="toplink" align="center" valign="middle"><a class="internal" href="node9.html"><img width="40" height="40" border="0" align="middle" src="upgrey.jpg" alt="up" /></a></td>
+<td class="toplink" align="center" valign="middle"><a class="internal" href="node11.html"><img width="40" height="40" border="0" align="middle" src="nextgrey.jpg" alt="next" /></a></td>
+<td class="toplink" align="center" valign="middle" width="100%">reference to author ?</td>
+<td class="toplink" align="center" valign="middle"><a class="internal" href="toc.html">Contents</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1  Entscheidungstabellen und -bäume</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node9.html">1.2  Entscheidungen unter Unwissenheit I</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node10.html">1.2.1  Die einfachste Entscheidungsregel: Das Prinzip der Dominanz</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node11.html">1.2.2  Präferenzen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node12.html">1.2.3  Ordinale Nutzenfunktionen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node13.html">1.2.4  Entscheidungsregeln auf Basis des ordinalen Nutzens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node17.html">1.2.5  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node18.html">Bibliography</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>1.2.1  Die einfachste Entscheidungsregel: Das Prinzip der Dominanz</h3>
+
+<p>
+<span id="DominanzPrinzip"> </span> Bisher haben wir nur über die Darstellung 
+von Entscheidungsproblemen in Form von Entscheidungsbäumen und -tabellen 
+gesprochen. Wie kann man aber nun (mit Hilfe von Bäumen oder Tabellen) 
+Entscheidungsprobleme lösen? Ein besonders offensichtliches Prinzip, 
+das bei der Lösung von Entscheidungsproblemen eine Rolle spielt, ist 
+das <em>Prinzip der Dominanz</em>. Betrachten wir dazu noch einmal 
+die eingangs vorgestellte Entscheidungstabelle:
+</p>
+<table style="text-align:center">
+<tr><td></td><td colspan="1"></td><td colspan="2"><strong>Zustand</strong></td></tr>
+<tr><td></td><td></td><td>schwere Klausur </td><td>leichte Klausur </td></tr>
+<tr><td></td><td>lernen </td><td><em>bestehen</em> </td><td><em>bestehen</em> </td></tr>
+<tr><td><strong>Handlung</strong></td><td>faulenzen </td><td><em>durchfallen</em> </td><td><em>bestehen</em> </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Man sieht anhand der Tabelle sofort, dass es auf jeden Fall besser 
+wäre zu lernen als zu faulenzen, denn in dem Fall, dass die Klausur 
+schwer ist, erzielt man durch Lernen ein besseres Ergebnis und in dem 
+Fall, dass sie leicht wird, ist das Ergebnis wenigstens nicht schlechter 
+als wenn man nicht lernt. Das bei dieser Überlegung implizit zu Grunde 
+gelegte Entscheidungsprinzip kann man folgendermaßen formulieren.
+</p>
+<blockquote>
+ <em>Prinzip der schwachen Dominanz</em>: Wenn eine Handlung unter allen 
+Umständen zu einem mindestens gleichguten Ergebnis führt wie alle anderen 
+Alternativen und in mindestens einem möglichen Fall zu einem besseren 
+Ergebnis, dann wähle diese Handlung. </blockquote>
+<p>
+ Analog zu dem Prinzip der schwachen Dominanz kann man auch ein Prinzip 
+der starken Dominanz aufstellen, bei dem gefordert wird, dass die zu 
+wählende Handlung unter allen Umständen zu einem eindeutig besseren 
+Ergebnis führt als sämtliche verfügbaren Alternativen. An dieser Stelle 
+ist die Unterscheidung zwischen schwacher Dominanz und starker Dominanz 
+noch nicht besonders wichtig. Der Begriff der starken Dominanz könnte 
+sogar verzichtbar erscheinen. Allerdings spielt diese Unterscheidung 
+spätestens bei der Suche nach geeigneten Lösungsstrategien in der Spieltheorie 
+wieder eine wichtige Rolle und wird uns dort noch beschäftigen.
+</p>
+<p>
+ Das Prinzip der schwachen Dominanz erscheint so einfach und eindeutig, 
+dass man nicht vermuten sollte, dass es bei seiner Anwendung irgendwelche 
+Schwierigkeiten auftreten könnten. Dass das nicht unbedingt stimmen 
+muss, kann das folgende Beispiel verdeutlichen: Angenommen, Sie betreten 
+ein Wettbüro, in dem Sportwetten für die Sportarten Fussball und Tennis 
+angeboten werden. Der Einsatz beträgt in jedem Fall 2 Euro, aber da 
+sehr viel weniger Leute an Tennis interessiert sind als an Fussball, 
+können Sie bei einer Tenniswette höchstens € 10.000 gewinnen, während 
+bei einer Fußballwette satte € 50.000 drin sind. Ihre Entscheidungstabelle 
+würde als folgendermaßen aussehen:
+</p>
+<table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="1">Wette gewinnt</td><td colspan="1">Wette verliert</td></tr>
+<tr><td>Tenniswette </td><td>€ 9.998 </td><td>€ -2 </td></tr>
+<tr><td>Fussballwette </td><td>€ 49.998 </td><td>€ -2 </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Wollte man in dieser Situation auf das Prinzip der Dominanz zurückgreifen, 
+dann müsste man sich eigentlich ganz klar für die Fussballwette entscheiden. 
+Warum könnte das aber ein Trugschluss sein? Der Grund ist folgender: 
+Es ist höchst wahrscheinlich, dass die Gewinnchancen bei beiden Wetten 
+sehr unterschiedlich verteilt sind. Werden einem zwei solche Wetten 
+angeboten, dann ist davon auszugehen, dass die Gewinnchancen bei der 
+Fussballwette sehr viel geringer sind als bei der Tenniswette. Je nachdem, 
+um wieviel sie geringer sind, könnte es sein, dass die Tenniswette 
+sogar aussichtsreicher ist als die Fussballwette. (Was &ldquo;aussichtsreicher&rdquo; 
+dabei exakt heisst, werden wir noch genau definieren, wenn wir Entscheidungen 
+unter Risiko besprechen.) Wenn man so will, besteht der &ldquo;Denkfehler&rdquo; 
+bei diesem Beispiel also darin, dass die Problemspezifikation unvollkommen 
+war, indem wichtige Hintergrundinformationen über die Natur dieses 
+speziellen Entscheidungsproblem,  nämlich die Handlungsabhängigkeit der Eintrittswahrscheinlichkeiten 
+der Ereignisse, bei der Formalisierung in Tabellenform &ldquo;vergessen&rdquo; 
+wurden.
+</p>
+<p>
+Daneben gibt es aber noch ein weiteres denkbares Problem, wie das folgende, 
+mit leichten Abwandlungen aus Resniks Buch  (<a class="bibref" href="node18.html#Resnik_1987">Resnik 1987</a>, S.9 ) 
+übernommene Beispiel verdeutlicht. Das Beispiel gibt stark vereinfacht 
+die strategische Problematik der Aufrüstung im kalten Krieg wieder:
+</p>
+<table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="1">Krieg</td><td colspan="1">Frieden</td></tr>
+<tr><td>Aufrüsten </td><td>&ldquo;Tot&rdquo; </td><td>hohe Militärausgaben </td></tr>
+<tr><td>Abrüsten </td><td>&ldquo;Rot&rdquo; </td><td>&ldquo;Friedensdividende&rdquo; </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Nimmt man einmal an, dass es besser ist, sich zum Kommunismus bekehren 
+zu lassen als zu sterben, dann müsste man nach dem Prinzip der Dominanz 
+eigentlich Handlungsalternative &ldquo;Abrüsten&rdquo; eindeutig vorziehen, 
+denn unabhängig davon, ob es Krieg oder Frieden gibt, erzielt man mit 
+der Entscheidung zugunsten der Abrüstung in beiden Fällen das jeweils 
+bessere Ergebnis. Wo ist der Haken an dieser Argumentation? Der &ldquo;Haken&rdquo; 
+besteht darin, dass das Eintreten der Zustände &ldquo;Krieg&rdquo; 
+oder &ldquo;Frieden&rdquo; nicht unabhängig davon ist, welche Handlung 
+gewählt wird. Zumindest nach Ansicht von Aufrüstungsbefürwortern hätte damals eine 
+zu weit gehende Abrüstung die Gefahr eines Überfalls durch die Ostblockstaaten 
+drastisch erhöht. Stimmt man dem zu, dann ist es keineswegs mehr so 
+eindeutig, dass Abrüsten die bessere Wahl ist.
+</p>
+<p>
+Dieses Beispiel zeigt, dass es noch eine weitere stillschweigende Voraussetzungen 
+für die Anwendung des Prinzips der Dominanz (wie sowie übrigens auch 
+anderer Entscheidungsregeln) gibt, nämlich die Unabhängigkeit der &ldquo;Zufallsereignisse&rdquo; 
+bzw. der Weltzustände von den getroffenen Entscheidungen. In dem angeführten 
+Beispiel ist eine solche Unabhängigkeit nicht gegeben, da wir es mit 
+einem Gegenspieler zu tun haben, der auf unsere Entscheidungen reagiert. 
+Strengenommen haben wir es daher gar nicht mehr mit einem reinen Entscheidungsproblem 
+zu tun, sondern mit einem Problem strategischer Interaktion, das bereits 
+in das Gebiet der Spieltheorie fällt.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" align="center" valign="middle" width="100%"><hr noshade="noshade" /></td>
+<td class="bottomlink" align="center" valign="middle"><a class="internal" href="node10.html#pagetop"><img width="40" height="40" border="0" align="middle" src="up.jpg" alt="page top" /></a></td>
+<td class="bottomlink" align="center" valign="middle"><a class="internal" href="node11.html"><img width="40" height="40" border="0" align="middle" src="next.jpg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share" align="center"
+ style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=/node10.html&text=title : 1.2.1  Die einfachste Entscheidungsregel: Das Prinzip der Dominanz" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=/node10.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=/node10.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=title : 1.2.1  Die einfachste Entscheidungsregel: Das Prinzip der Dominanz&body=/node10.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+

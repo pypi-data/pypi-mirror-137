@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 1.1.2  Der Gegenstand der Entscheidungstheorie</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node2.html" />
+<link rel="next" href="node4.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node2.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node2.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node4.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1  Entscheidungstabellen und -bäume</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1.1  Einleitung</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node3.html">1.1.2  Der Gegenstand der Entscheidungstheorie</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node4.html">1.1.3  Darstellungsformen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node7.html">1.1.4  Literaturhinweise</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node8.html">1.1.5  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node9.html">1.2  Entscheidungen unter Unwissenheit I</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node18.html">1.3  Entscheidungen unter Unwissenheit II</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node26.html">1.4  Entscheidungen unter Risiko</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>1.1.2  Der Gegenstand der Entscheidungstheorie</h3>
+
+<p>
+Die Entscheidungstheorie, die in dieser Vorlesung vorgestellt wird, 
+ist eine  formale Theorie davon, wie man in Entscheidungssituationen bestmögliche 
+Entscheidungen trifft. Eine <em>Entscheidungssituation</em> ist dabei 
+charakterisiert durch 1) eine Menge von möglichen (Welt-)<em>Zuständen</em>, 
+von denen wir entweder nicht wissen, in welchem dieser möglichen Zustände 
+sich die Welt tatsächlich befindet (epistemische Unsicherheit), oder 
+bei denen noch nicht feststeht, welcher Zustand eintreten wird (reale 
+Unsicherheit), 2) eine Menge von <em>Handlungsalternativen</em> und 
+3) eine Menge von <em>Ergebnissen</em>, deren Realisierung von der 
+gewählten Handlung und dem bestehenden bzw. dem eingetretenen (Welt-)Zustand 
+abhängt.
+</p>
+<p>
+Kann man eine bestimmte Entscheidungssituation überhaupt in dieser 
+Form analysieren, dann lässt sich das Entscheidungsproblem sehr leicht 
+schematisch in einer Tabelle darstellen:
+</p>
+<table style="text-align:center">
+<tr><td></td><td colspan="1"></td><td colspan="2"><strong>Zustand</strong></td></tr>
+<tr><td></td><td></td><td>schwere Klausur </td><td>leichte Klausur </td></tr>
+<tr><td></td><td>lernen </td><td><em>bestehen</em> </td><td><em>bestehen</em> </td></tr>
+<tr><td><strong>Handlung</strong></td><td>schwimmen gehen </td><td><em>durchfallen</em> </td><td><em>bestehen</em> </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Die Zeilen repräsentieren in dieser Tabelle unterschiedliche Handlungsalternativen, 
+die Spalten stellen die verschiedenen Weltzustände dar. Die den Handlungen 
+und Zuständen zugeordneten Ergebnisse stehen in den entsprechenden 
+Zeilen und Spalten innerhalb der Tabelle. Diese Tabelle gibt natürlich 
+nur ein äußerst einfaches Entscheidungsproblem wieder. Ebensogut könnte 
+man sich eine größere Tabelle mit mehr Handlungsalternativen, z.B. 
+&bdquo;lernen und mitschreiben&ldquo;, &bdquo;schwimmen gehen und mitschreiben&ldquo;, 
+&bdquo;krank schreiben lassen&ldquo;, oder mit mehr Zuständen, z.B. 
+&bdquo;schwere&ldquo;, &bdquo;leichte&ldquo; und &bdquo;mittelschwere 
+Klausur&ldquo;, vorstellen.
+</p>
+<p>
+Bei der Analyse realer Entscheidungsprobleme stellt es oft eine Herausforderung 
+ dar, alle Zustände und Handlungsalternativen zu identifizieren bzw. 
+eine geeignete Einteilung dafür zu finden. Insbesondere dürfen sich 
+die Handlungsalterantiven untereinander (und ebenso die Zustände untereinander) 
+nicht überschneiden, das Ergebnis muss eindeutig von den Handlungen 
+abhängen und es sollten <em>alle</em> möglichen Zustände berücksichtigt 
+werden, die Einfluss auf das Ergebnis haben können. Vergisst man irgendwelche 
+Zustände, die Einfluss auf das Ergebnis haben können, in der Entscheidungstabelle 
+zu berücksichtigen, so besteht die Gefahr, dass man unangenehme Überraschungen 
+erlebt, indem Ergebnisse eintreten, mit denen man nicht gerechnet hat. 
+Versäumt man umgekehrt, mögliche Handlungsalternativen zu berücksichtigen, 
+so schränkt man nur die eigene Entscheidungsfreiheit unnötig ein, wird 
+aber bei ansonsten korrekter Analyse keine Überraschungen erleben. 
+Mit diesen Schwierigkeiten, die die <em> Problemspezifikation</em> 
+betreffen, werden wir uns in dieser Vorlesungsreihe jedoch nur am Rande 
+beschäftigen. Es sei jedoch darauf hingewiesen, dass die korrekte Spezifikation 
+des Entscheidungsproblems eine hochgradig nicht-triviale Aufgabe sein 
+kann, und dass die praktische Anwendbarkeit der Entscheidungstheorie 
+auch davon abhängig ist, ob es in einer gegebenen Situation überhaupt 
+möglich ist, eine zuverlässige Problemspezifikation im Sinne der Entscheidungstheorie 
+zu geben.
+</p>
+<p>
+Abgesehen von den Schwierigkeiten, die sich bei der Problemspezifikation 
+ergeben  können, ist die Anwendbarkeit der Entscheidungstheorie aber auch aus 
+systematischen Gründen auf ganz bestimmte Entscheidungsprobleme eingeschränkt. 
+So kann sie uns z.B. wenig weiterhelfen, wenn wir uns über die Ergebnisse 
+bzw. die Bewertung der Ergebnisse einer Entscheidungssituation selbst 
+nicht im Klaren sind. Die Frage, ob jemand im Urlaub lieber ans Meer oder in die Berge fahren 
+will, stellt ganz sicher ein Entscheidungsprobem dar, aber es handelt 
+sich nicht um ein Entscheidungsproblem von der Sorte, bei der uns die 
+Entscheidungstheorie viel weiterhelfen kann. Vielmehr handelt es sich 
+um ein Problem, bei dem man sich über die eigenen Präferenzen klar 
+werden muss, man könnte auch sagen: um ein Problem, bei dem man sich 
+einfach entscheiden muss. In Anlehnung an bestimmte Doktrinen in der 
+Moralphilosophie bzw. in der politischen Philosophie könnte man hier 
+vielleicht von einem &bdquo;<em>dezisionistischen</em> Entscheidungsproblem&ldquo; 
+sprechen.
+</p>
+<p>
+Weiterhin setzt die Entscheidungstheorie voraus, dass wir wissen, welche 
+möglichen Ergebnisse als Folge der von uns getroffenen Entscheidungen 
+überhaupt eintreten können. Es gibt aber viele Situationen, in denen die möglichen Folgen unserer 
+Handlungen für uns schlicht unabsehbar sind. So können wir zwar absehen, 
+dass sich der <script type="math/tex">CO_2</script> Gehalt in der Atmosphäre 
+in Zukunft erhöhen wird, wenn wir die Entscheidung treffen, den <script type="math/tex">CO_2</script> 
+Ausstoß nicht zu verringern, und mit einer - allerdings schon erheblich 
+größeren Unsicherheit - können uns die Wissenschaftler sagen, dass 
+sich dann das Klima erwärmen wird, aber wie sich die Erwärmung und 
+die daraus resultierenden klimatischen Veränderungen gesellschaftlich 
+und politisch auswirken werden, darüber können wir nur spekulieren. 
+Bei Entscheidungen, bei denen wir die Menge der möglichen Ergebnisse 
+nicht angeben können, weil wir es dabei mit &bdquo;unknown unknowns&ldquo; 
+zu tun haben, stehen wir mit der formalen Entscheidungstheorie natürlich 
+auf verlorenem Posten. In Bezug auf den Klimawandel ist daher auch 
+schon der Vorschlag gemacht worden statt des auf der Entscheidungstheorie 
+fußenden Utilitarismus, verstärkt einen tugendethischen Ansatz in Anschlag 
+zu bringen  (<a class="bibref" href="node139.html#Hillerbrand_2006">Hillerbrand 2006</a>, 155ff., 230ff.).<a id="REF2" class="internal fn" href="#FN2">[2]</a> 
+</p>
+<p>
+Damit scheiden neben den Entscheidungsproblemen, die aus praktischen 
+Gründen keine adäquate Problemspezifikation zulassen, viele weitere 
+wichtige Enscheidungsprobleme aus dem Anwendungsbereich der formalen 
+Entscheidungstheorie schon von vornherein aus. Es ist wichtig sich 
+diesen Sachverhalt, dass die Entscheidungstheorie nur einen Teil der 
+realen Entscheidungsprobleme adäquat behandeln kann, vor Augen zu halten. 
+Denn dies bedeutet, dass die Entscheidungstheorie, die wir hier besprechen, 
+nicht notwendigerweise die Theorie der Entscheidungen schlechthin ist. 
+Oft ist es der Fall, dass wir diejenigen Entscheidungsprobleme, für 
+die diese Theorie ungeeignet ist, immer noch im Rahmen anderer, von 
+ihrem Stil her vielleicht ganz andersartiger Theorien und Ansätze behandeln 
+können, so wie für die Ethik des Klimaschutzes eine Tugendethik vorgeschlagen 
+worden ist, um den Schwierigkeiten des Utilitarismus angesichts extremer 
+Unsicherheit (&bdquo;unknown unknowns&ldquo;) zu begegnen.
+</p>
+<p>
+ In noch einmal verschärfter Form stellt sich dasselbe Problem für die 
+Spieltheorie, deren empirische Anwendungsfälle außerhalb der Ökonomie 
+eher dünn gesät sind. Die Gefahr besteht daher, dass man durch die 
+einseitige Konzentration auf solche Probleme, die sich mit Hilfe derartiger 
+Theorien methodisch in den Griff bekommen lassen, ein völlig falsches 
+Bild von dem emprischen Sachbereich bekommt, auf den sie sich beziehen, 
+und von dem sie nur einen kleinen Ausschnitt erfassen können, der in 
+Wahrheit aber größtenteils ganz anderen Gesetzen gehorcht. Dass diese 
+Gefahr vornehmlich bei szientistischen, d.h. sich strenger und formaler 
+Methoden nach dem Vorbild der Naturwissenschaften bedienender Ansätze 
+auftritt, hängt mit der Methodenzentriertheit dieser Ansätze zusammen, 
+die dazu führt, dass vornehmlich solche Probleme als wissenschaftlich 
+relevant ausgewählt und der Untersuchung für wert befunden werden, 
+die zum vorgegebenen Methodenkanon passen, anstatt umgekehrt zu gegebenen 
+empirischen Problemen und Fragestellungen die zur ihrer Behandlung 
+geeigneten Methoden auszuwählen. A priori sind übrigens der methodenzentrierte 
+Ansatz und sein Gegenstück, der problemorientierte Ansatz, gleichermaßen 
+legitim. Nur ist die Gefahr der intellektuellen Selbsttäuschung beim 
+methodenzentrierten Ansatz offenbar erheblich größer und tritt daher 
+genau da auf, wo wir sie am wenigsten erwarten würden, nämlich dort, 
+wo auch das Bewusstsein wissenschaftlicher Strenge am größten ist.<a id="REF3" class="internal fn" href="#FN3">[3]</a> 
+</p>
+<p>
+Immerhin verbleiben der formalen Entscheidungstheorie aber weite Bereiche, 
+innerhalb derer wir sie fruchtbar und gewinnbringend anwenden können. 
+(Und dort wo man sie anwenden kann, ist man mit Hilfe der Theorie anderen, 
+intuitiven Entscheidungsfindungsmechanismen so gut wie immer überlegen!) 
+Sofern die Menge der möglichen Ergebnisse und die Menge der Zustände 
+bekannt ist, können wir sie selbst dann noch heranziehen, wenn wir 
+nicht einmal wissen, mit welcher Wahrscheinlichkeit wir mit einem bestimmten 
+Zustand rechnen müssen. In diesem Fall handelt es sich um &bdquo;Entscheidungen 
+unter Unwissen&ldquo;. Den dazugehörigen Teil der Entscheidungstheorie 
+werden wir in der nächsten und übernächsten Woche besprechen. Sind 
+die Wahrscheinlichkeiten, mit denen bestimmte Ereignisse eintreten 
+können, dagegen bekannt, dann spricht man von &bdquo;Entscheidungen 
+unter Risiko&ldquo;. In diesem Fall lässt sich die Entscheidungstheorie 
+sogar noch viel besser anwenden, was in den darauffolgenden Wochen 
+demonstriert wird. Was schließlich die Spieltheorie, die wir als Letztes 
+in diesem Semester ansprechen werden, von der Entscheidungstheorie 
+unterscheidet, ist, dass sie die strategische Interaktion zwischen 
+mehreren Entscheidern (&bdquo;Spielern&ldquo;) untersucht, die wechselseitig 
+aufeinander reagieren bzw. die Reaktion des Gegenübers antezipieren 
+können. An die Stelle der (Welt-)Zustände in der Entscheidungstheorie 
+treten in der Spieltheorie also die Züge des anderen Spielers.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node3.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node4.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN2" class="internal fn" href="#REF2">[2]</a> Da das Buch ansonsten sehr stark dem utilitaristischen Ansatz verpflichtet 
+ist, vor allem auch gegen die nicht-anthropozentrische Naturethik etwa 
+eines H. Jonas, wird man hinter diesem Vorschlag keine grundsätzliche 
+Ablehnung des Utilitarismus oder wissenschaftliche Unbedarftheit vermuten 
+dürfen.
+</p>
+<p class="footnote">
+<a id="FN3" class="internal fn" href="#REF3">[3]</a> Siehe dazu die Kritik von Ian Shapiro  (<a class="bibref" href="node139.html#Shapiro_2005">Shapiro 2005</a>) 
+oder von John Dupré  (<a class="bibref" href="node139.html#Dupre_2001">Dupre 2001</a>), 
+sowie die ausführliche Studie von Donald Green und Ian Shapiro  (<a class="bibref" href="node139.html#Green_Shapiro_1994">Green/Shapiro 1994</a>). 
+Besonders das letztere Buch hat eine rege Diskussion hervorgerufen. 
+Eine Verteidigung des formalen Rational Choice Ansatzes gegen die Kritik 
+von Green und Shapiro hat neben anderen Gary W. Cox (<a class="bibref" href="node139.html#Cox_1999">Cox 1999</a>) 
+unternommen. Cox Ansicht allerdings, dass man selbst dann noch theoretische 
+Erfolge für eine Theorie reklamieren kann, wenn sie empirisch erfolglos 
+ist  (<a class="bibref" href="node139.html#Cox_1999">Cox 1999</a>, S.159-164), 
+geht an dem grundlegenden Ziel der Wissenschaft vorbei, das selbstverständlich 
+in der Erklärung von Vorgängen in der empirischen Welt besteht und 
+nichts anderem, und ist eher ein Beispiel wie Wissenschaftlicher sich 
+lieber die Wissenschaftstheorie zurechtbiegen als ein Scheitern des 
+von ihnen verfolgten Ansatzes einzugestehen. Eine wissenschaftliche 
+Theorie, die falsch ist, oder deren Richtigkeit oder Falschheit man 
+nicht empirisch feststellen kann, kann man unmöglich &bdquo;erfolgreich&ldquo; 
+nennen.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node3.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node4.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node3.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 1.1.2  Der Gegenstand der Entscheidungstheorie" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node3.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node3.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 1.1.2  Der Gegenstand der Entscheidungstheorie&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node3.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

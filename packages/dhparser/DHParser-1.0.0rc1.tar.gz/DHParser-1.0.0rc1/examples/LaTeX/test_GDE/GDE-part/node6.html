@@ -1,0 +1,478 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+
+<title>title : 1.1.3.2  Exkurs: Entscheidungsbäume in Tabellen umwandeln</title>
+
+<meta name="author"       content="reference to author ?" />
+
+
+<meta name="date"         content="2015-10-19T21:51:41+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=en">
+</script>
+<link rel="stylesheet" type="text/css" href="GDE-part.css" />
+<link rel="top" href="GDE-part.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node5.html" />
+<link rel="next" href="node7.html" />
+</head>
+
+<body style="background-color:white">
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">title ?</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" align="center" valign="middle"><a class="internal" href="node5.html"><img width="40" height="40" border="0" align="middle" src="prevgrey.jpg" alt="previous" /></a></td>
+<td class="toplink" align="center" valign="middle"><a class="internal" href="node4.html"><img width="40" height="40" border="0" align="middle" src="upgrey.jpg" alt="up" /></a></td>
+<td class="toplink" align="center" valign="middle"><a class="internal" href="node7.html"><img width="40" height="40" border="0" align="middle" src="nextgrey.jpg" alt="next" /></a></td>
+<td class="toplink" align="center" valign="middle" width="100%">reference to author ?</td>
+<td class="toplink" align="center" valign="middle"><a class="internal" href="toc.html">Contents</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1  Entscheidungstabellen und -bäume</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1.1  Einleitung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node3.html">1.1.2  Der Gegenstand der Entscheidungstheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node4.html">1.1.3  Darstellungsformen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node5.html">1.1.3.1  Entscheidungsbäume und -tabellen</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node6.html">1.1.3.2  Exkurs: Entscheidungsbäume in Tabellen umwandeln</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node7.html">1.1.4  Literaturhinweise</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node8.html">1.1.5  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node9.html">1.2  Entscheidungen unter Unwissenheit I</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node18.html">Bibliography</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>1.1.3.2  Exkurs: Entscheidungsbäume in Tabellen umwandeln</h4>
+
+<p>
+<span id="BaumTabelle"> </span>
+</p>
+<p>
+<em>Dieses Teilkapitel ist als Exkurs gedacht. Wem es für den Anfang 
+zu schwierig ist, der kann diesen Exkurs (und die dazu gehörigen Übungsaufgaben) 
+ruhig überspringen. Im Folgenden wird darauf nicht mehr zurück gegriffen.</em>
+</p>
+<p>
+Um Entscheidungsbäume in Tabellen umzuwandeln, können wir uns den Umstand 
+zu Nutze machen, dass Entscheidungsbäume, so kompliziert sie auch sein 
+mögen, aus der Kombination von nur zwei Elementen bestehen, Entscheidungsknoten 
+und Zufallsknoten. Um einen Entscheidungsbaum in eine Tabelle zu überführen 
+müssen wir also nur wissen, wie man 1) Entscheidungsknoten in eine 
+Tabelle überträgt, wie man 2) Zufallsknoten in eine Tabelle überträgt 
+und 3) wie man einen komplizierten zusammengesetzten Baum schrittweise 
+mit Hilfe der beiden vorherigen Übertragungsregeln reduziert.
+</p>
+<p>
+1) Ein Entscheidungsbaum, der nur aus einem einzigen Entscheidungsknoten 
+mit zwei Alternativen besteht, ergibt eine Tabelle mit zwei Zeilen 
+und einer Spalte:
+</p>
+<p>
+<br />
+
+</p>
+<div class="parbox">
+Baum:
+</div>
+<div class="parbox">
+Tabelle:
+</div>
+
+<p>
+<br />
+
+</p>
+<div class="parbox">
+
+<br /><img src="Beispiel1b_1.png" alt="[image: Beispiel1b_1.png]" /><br />
+
+</div>
+<div class="parbox">
+<table>
+<tr><td></td><td><script type="math/tex">S_1</script> </td></tr>
+<tr><td><script type="math/tex">A_1</script> </td><td><script type="math/tex">r_1</script> </td></tr>
+<tr><td><script type="math/tex">A_2</script> </td><td><script type="math/tex">r_2</script> </td></tr>
+<tr><td></td></tr>
+</table>
+
+</div>
+
+<p>
+<br />
+
+</p>
+<p>
+2) Ein Baum, der nur aus einem Zufallsknoten besteht, liefert demgegenüber 
+eine Tabelle mit nur einer Zeile und genau soviel Spalten wie Ereignisse 
+an dem entsprechenden Ereignisknoten eintreten können.
+</p>
+<p>
+<br />
+
+</p>
+<div class="parbox">
+Baum:
+</div>
+<div class="parbox">
+Tabelle:
+</div>
+
+<p>
+<br />
+
+</p>
+<div class="parbox">
+
+<br /><img src="Beispiel1b_2.png" alt="[image: Beispiel1b_2.png]" /><br />
+
+</div>
+<div class="parbox">
+<table>
+<tr><td></td><td><script type="math/tex">S_1</script> </td><td><script type="math/tex">S_2</script> </td></tr>
+<tr><td><script type="math/tex">A_1</script> </td><td><script type="math/tex">r_1</script> </td><td><script type="math/tex">r_2</script> </td></tr>
+<tr><td></td></tr>
+</table>
+
+</div>
+
+<p>
+<br />
+
+</p>
+<p>
+3) Wie kann man nun aber einen Entscheidungsbaum, der aus einer Vielzahl 
+von Entscheidungs- und Zufallsknoten besteht, in eine Tabelle überführen? 
+Dazu wird der Baum schrittweise von hinten &ldquo;aufgerollt&rdquo;. 
+Die jeweils &ldquo;letzten&rdquo; Entscheidungs- bzw. Zufallsknoten 
+von rechts entsprechen genau den vorher beschriebenen Fällen und können 
+auf die beschriebende Weise umgewandelt werden. Kompliziert wird es 
+erst bei den weiter in der Mitte und am Anfang liegenden Knoten. Wenn 
+wir an einem solchen Knoten ankommen, haben wir den Baum aber schon 
+soweit aufgerollt, dass wir zu den sich an den Knoten anschließenden 
+Teilbäumen bereits über Tabellen verfügen. Das Problem stellt sich 
+also folgendermaßen dar: Wie kann ein Entscheidungsknoten bzw. ein 
+Zufallsknoten in eine Tabelle überführt werden, an dessen Enden sich 
+wiederum ganze Entscheidungsbäume anschließen, für die wir aber immerhin 
+schon über eine Repräsentation in Tabellenform verfügen?
+</p>
+<p>
+Um dieses Problem zu lösen, müssen wir wiederum Entscheidungs- und 
+Zufallsknoten getrennt betrachten:
+</p>
+<p>
+3 a) Angenommen, wir haben es mit einem Entscheidungsknoten zu tun. 
+Dann endet der Entscheidungsknoten in zwei Teilbäumen, die bereits 
+als Tabellen dargestellt sind. Jede dieser Tabellen enthält wiederum 
+eine Menge von Handlungsalternativen und eine Menge von Zufallsereignissen.
+</p>
+<p>
+<br />
+
+</p>
+<small> <div class="parbox">
+
+</div>
+<div class="parbox" style="text-align:center">
+Tabelle zu Baum 1
+</div>
+<div class="parbox" style="text-align:center">
+Tabelle zu Baum 2
+</div>
+
+<div class="parbox">
+
+<br /><img src="Beispiel1b_3.png" alt="[image: Beispiel1b_3.png]" /><br />
+
+</div>
+<div class="parbox">
+<table>
+<tr><td></td><td><script type="math/tex">S_1</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">S_n</script> </td></tr>
+<tr><td><script type="math/tex">A_1</script> </td><td><script type="math/tex">r_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{1n}</script> </td></tr>
+<tr><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td></tr>
+<tr><td><script type="math/tex">A_m</script> </td><td><script type="math/tex">r_{m1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{mn}</script> </td></tr>
+<tr><td></td></tr>
+</table>
+
+</div>
+<div class="parbox">
+<table>
+<tr><td></td><td><script type="math/tex">T_1</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">T_l</script> </td></tr>
+<tr><td><script type="math/tex">B_1</script> </td><td><script type="math/tex">u_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{1l}</script> </td></tr>
+<tr><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td></tr>
+<tr><td><script type="math/tex">B_h</script> </td><td><script type="math/tex">u_{h1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{hl}</script> </td></tr>
+<tr><td></td></tr>
+</table>
+
+</div>
+</small>
+<p>
+<br />
+
+</p>
+<p>
+Die beiden Ereignismengen <script type="math/tex">\{S_1, \ldots, S_n\}</script> 
+und <script type="math/tex">\{T_1, \ldots, T_l\}</script> des ersten 
+und des zweiten Teilbaums sowie die entsprechenden Mengen von Handlungsalternativen 
+<script type="math/tex">\{A_1, \ldots, A_m\}</script> und <script type="math/tex">\{B_1, \ldots, B_h\}</script> 
+müssen nun in geeigneter Form kobminiert werden, um die Tabelle des 
+gesamten Entscheidungsknotens aufzubauen. Das geschieht folgendermaßen: 
+In den Spalten der zusammengefassten Tabelle muss jede mögliche Kombination 
+der Zufallsereignisse aus beiden Mengen eingetragen werden. In den 
+Zeilen wird als erstes der Block von Handlungen <script type="math/tex">X_1 \wedge A_1,\ldots, X_1 \wedge A_m</script> 
+eingetragen, worauf als zweites ein Block von Handlungen <script type="math/tex">X_2 \wedge B_1,\ldots, X_2 \wedge B_h</script> 
+folgt (d.h. jede der Handlungen der ersten Tabelle wird mit der Handlung 
+<script type="math/tex">X_1</script> kombiniert, jede alternative Handlung 
+der zweiten Tabelle mit <script type="math/tex">X_2</script>).<a id="REF4" class="internal fn" href="#FN4">[4]</a> Daraus 
+ergibt sich folgende kombinierte Tabelle:
+</p>
+<small> <table style="text-align:center">
+<tr><td></td><td><script type="math/tex">S_1 \wedge T_1</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">S_n \wedge T_1</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">S_1 \wedge T_l</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">S_n \wedge T_l</script> </td></tr>
+<tr><td><script type="math/tex">X_1 \wedge A_1</script> </td><td><script type="math/tex">r_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{1n}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{1n}</script> </td></tr>
+<tr><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script></td></tr>
+<tr><td><script type="math/tex">X_1 \wedge A_m</script> </td><td><script type="math/tex">r_{m1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{mn}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{m1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{mn}</script></td></tr>
+<tr><td>
+<script type="math/tex">X_2 \wedge B_1</script> </td><td><script type="math/tex">u_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{1l}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{1l}</script></td></tr>
+<tr><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script></td></tr>
+<tr><td><script type="math/tex">X_2 \wedge B_h</script> </td><td><script type="math/tex">u_{h1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{h1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{hl}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{hl}</script></td></tr>
+<tr><td></td></tr>
+</table>
+</small>
+<p>
+Man beachte: Jedes mögliche Resultat <script type="math/tex">r_{xy}</script> 
+aus der ersten Tabelle kommt genau <script type="math/tex">l</script>-mal 
+vor, d.h. genauso viel mal, wie es Zufallsereignisse in der zweiten 
+Tabelle gibt. Umgekehrt kommt jedes mögliche Resultat <script type="math/tex">u_{xy}</script> 
+aus der zweiten Tabelle genau <script type="math/tex">n</script>-mal 
+vor, wobei <script type="math/tex">n</script> die Anzahl der Zufallsereignisse 
+in der ersten Tabelle ist. (Die entsprechende Tabellendarstellung ist 
+also in der Regel hochgradig redundant und könnte, wenn dies der Fall 
+ist, nachträglich noch vereinfacht werden.)
+</p>
+<p>
+<br />
+
+</p>
+<p>
+3 b) Geht es statt dessen um die Umwandlung eines Zufallsknotens, dann 
+stehen wir vor der spiegelbildlichen Situation, so dass wir diesmal 
+zwei Spaltenblöcke bilden und in den Zeilen jede Kombination möglicher 
+Handlungen zu berücksichtigen haben.
+</p>
+<p>
+<br />
+
+</p>
+<small> <div class="parbox">
+
+</div>
+<div class="parbox" style="text-align:center">
+Tabelle zu Baum 1
+</div>
+<div class="parbox" style="text-align:center">
+Tabelle zu Baum 2
+</div>
+
+<div class="parbox">
+
+<br /><img src="Beispiel1b_4.png" alt="[image: Beispiel1b_4.png]" /><br />
+
+</div>
+<div class="parbox">
+<table>
+<tr><td></td><td><script type="math/tex">S_1</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">S_n</script> </td></tr>
+<tr><td><script type="math/tex">A_1</script> </td><td><script type="math/tex">r_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{1n}</script> </td></tr>
+<tr><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td></tr>
+<tr><td><script type="math/tex">A_m</script> </td><td><script type="math/tex">r_{m1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{mn}</script> </td></tr>
+<tr><td></td></tr>
+</table>
+
+</div>
+<div class="parbox">
+<table>
+<tr><td></td><td><script type="math/tex">T_1</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">T_l</script> </td></tr>
+<tr><td><script type="math/tex">B_1</script> </td><td><script type="math/tex">u_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{1l}</script> </td></tr>
+<tr><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td></tr>
+<tr><td><script type="math/tex">B_h</script> </td><td><script type="math/tex">u_{h1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{hl}</script> </td></tr>
+<tr><td></td></tr>
+</table>
+
+</div>
+</small>
+<p>
+<br />
+
+</p>
+<p>
+Um die kombinierte Tabelle zu konstruieren, müssen wir also zwei Spaltenblöcke 
+bilden, wobei der erste Block alle Zufallsereignisse der ersten Tabelle 
+umfasst (und-verknüpft mit dem Ereignis <script type="math/tex">Y_1</script> 
+versteht sich!) und der zweite Block die der zweiten Tabelle: In den 
+Zeilen treten alle Kombinationen möglicher Handlungen auf, und zwar, 
+da die Möglichkeit, eine bestimmte Handlung zu wählen oder nicht zu 
+wählen erst durch das Eintreten von <script type="math/tex">Y_1</script> 
+oder <script type="math/tex">Y_2</script> überhaupt eröffnet wird, 
+in einer &ldquo;wenn dann&rdquo;-Form. In einer abgekürzten Schreibweise, 
+bei der das Zeichen &ldquo;<script type="math/tex">\rightarrow</script>&rdquo; 
+für die wenn-dann-Beziehung stehen soll, schreiben wir also z.B. <script type="math/tex">(Y_1 \rightarrow A_2) \wedge (Y_2 \rightarrow B_5)</script>.<a id="REF5" class="internal fn" href="#FN5">[5]</a> 
+</p>
+<small> <table style="text-align:center">
+<tr><td></td><td><script type="math/tex">Y_1 \wedge S_1</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">Y_1 \wedge S_n</script> </td><td><script type="math/tex">Y_2 \wedge T_1</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">Y_2 \wedge T_l</script> </td></tr>
+<tr><td><script type="math/tex">Y_1 \rightarrow A_1 \wedge Y_2 \rightarrow B_1</script> 
+</td><td><script type="math/tex">r_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{1n}</script> </td><td><script type="math/tex">u_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{1l}</script> </td></tr>
+<tr><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script></td></tr>
+<tr><td><script type="math/tex">Y_1 \rightarrow A_1 \wedge Y_2 \rightarrow B_h</script> 
+</td><td><script type="math/tex">r_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{1n}</script> </td><td><script type="math/tex">u_{h1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{hl}</script></td></tr>
+<tr><td>
+<script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script></td></tr>
+<tr><td>
+<script type="math/tex">Y_1 \rightarrow A_m \wedge Y_2 \rightarrow B_1</script> 
+</td><td><script type="math/tex">r_{m1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{mn}</script> </td><td><script type="math/tex">u_{11}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">u_{1l}</script> </td></tr>
+<tr><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\vdots</script> </td><td><script type="math/tex">\ddots</script> </td><td><script type="math/tex">\vdots</script></td></tr>
+<tr><td><script type="math/tex">Y_1 \rightarrow A_m \wedge Y_2 \rightarrow B_h</script> 
+</td><td><script type="math/tex">r_{m1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{mn}</script> </td><td><script type="math/tex">u_{h1}</script> </td><td><script type="math/tex">\cdots</script> </td><td><script type="math/tex">r_{hl}</script></td></tr>
+<tr><td></td></tr>
+</table>
+</small>
+<p>
+Mit diesen beiden &ldquo;Übersetzungsregeln&rdquo; kann man jeden Entscheidungsbaum 
+systematisch schrittweise in eine Tabelle überführen. Man ahnt, dass 
+die Tabelle ziemlich groß werden kann. Dies hängt auch damit zusammen, 
+dass wir an dieser Stelle auf Sonderfallbetrachtungen verzichtet haben, 
+die die Tabelle vereinfachen könnten. Z.B. ist es sehr wohl möglich, 
+dass unterschiedliche Zufallsknoten in einem Baum in Wirklichkeit ein- 
+und dasselbe Ereignis ausdrücken, nur dass es je nach den zuvor getroffenen 
+Entscheidungen möglicherweise zu anderen Resultaten führt. Am Beispiel 
+von vorhin lässt sich dies erläutern: 
+</p>
+<p style="text-align:center">
+
+<br /><img src="Beispiel1_1.png" alt="[image: Beispiel1_1.png]" /><br />
+ 
+
+</p>
+<p>
+Würde man diesen Entscheidungsbaum nach unserem &ldquo;mechanischen&rdquo; 
+Verfahren in eine Tabelle überführen, dann würden in den Spaltenüberschriften 
+die Ereignisse &ldquo;schwere Klausur &amp; schwere Klausur&rdquo;, 
+&ldquo;schwere Klausur &amp; leichte Klausur&rdquo;, &ldquo;leichte 
+Klausur &amp; schwere Klausur&rdquo; und &ldquo;leichte Klausur &amp; 
+leichte Klausur&rdquo; stehen. Das hängt damit zusammen, dass der Algorithmus 
+zunächst keine Informationen darüber hat, ob unterschiedliche Zufallsknoten 
+möglicherweise identische Zufallsereignisse repräsentieren. Man müsste 
+den Entscheidungsbaum um entsprechende Informationen ergänzen (z.B. 
+indem man eine Verbindungslinie zwischen identischen Ereignissen zieht) 
+und den Algorithmus so anpassen, dass er unmögliche Ereigniskombinationen 
+(&ldquo;schwere &amp; leichte Klausur&rdquo;) streicht.
+</p>
+<p>
+Weiterhin haben wir den Algorithmus zur Übersetzung von Bäumen in Tabellen 
+zunächst nur für <em>Binär-</em>bäume (d.h. Bäume, die an jeder Verzweigung 
+nur zwei Äste haben) beschrieben. Das ist aber unproblematisch, da 
+man jeden Entscheidungsbaum in einen binären Entscheidungsbaum umwandeln 
+kann. Z.B. kann der Entscheidungsbaum 
+</p>
+<p style="text-align:center">
+
+<br /><img src="Beispiel1b_5.png" alt="[image: Beispiel1b_5.png]" /><br />
+ 
+
+</p>
+<p>
+einfach in den Baum 
+</p>
+<p style="text-align:center">
+
+<br /><img src="Beispiel1b_6.png" alt="[image: Beispiel1b_6.png]" /><br />
+ 
+
+</p>
+<p>
+umgewandelt werden. Eine andere Alternative bestünde darin, den Algorithmus 
+so anzupassen, dass er sich auch für nicht binäre Entscheidungsbäume 
+eignet (siehe Übungsaufgabe  <a href="node8.html#Algorithmusaufgabe">1.1.5</a> 
+auf Seite  <a href="node8.html#Algorithmusaufgabe">1.1.5</a>).
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" align="center" valign="middle" width="100%"><hr noshade="noshade" /></td>
+<td class="bottomlink" align="center" valign="middle"><a class="internal" href="node6.html#pagetop"><img width="40" height="40" border="0" align="middle" src="up.jpg" alt="page top" /></a></td>
+<td class="bottomlink" align="center" valign="middle"><a class="internal" href="node7.html"><img width="40" height="40" border="0" align="middle" src="next.jpg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN4" class="internal fn" href="#REF4">[4]</a> Das aus der Logik bekannte Zeichen <script type="math/tex">\wedge</script> 
+bedeutet &ldquo;und&rdquo;, so dass der Ausdruck <script type="math/tex">X_1 \wedge A_1</script> 
+so zu verstehen ist, dass die Handlung <script type="math/tex">X_1</script> 
+<em>und</em> die (möglicherweise wiederum aus mehreren Einzelhandlungen 
+zusammengesetzte) Handlung <script type="math/tex">A_1</script> ausgeführt 
+werden.
+</p>
+<p class="footnote">
+<a id="FN5" class="internal fn" href="#REF5">[5]</a> Angesichts der Symmetrie zwischen dem Problem der Umwandlung eines 
+Entscheidungsknotens in eine Tabelle und dem der Umwandlung eines Zufallsknotens 
+in eine Tabelle, könnte es verwundern, dass wir im zweiten Fall in 
+den Zeilen der generierten Tabelle &ldquo;wenn dann&rdquo;-Audrücke 
+vorfinden, während wir uns im ersteren Fall mit simpleren und-Verknüpfungen 
+begnügen. Dies ist dadurch motiviert, dass wir davon ausgehen, dass 
+die Ereignisse der Serien <script type="math/tex">T_1, \ldots, T_n</script> 
+bzw. <script type="math/tex">S_1, \ldots, S_n</script> unabhängig von 
+den getroffenen Entscheidungen auch dann eintreten, wenn sie angesichts 
+des gewählten Zweiges für das erzielbare Ergebnis nicht mehr relevant 
+sind. Diese Annahme ist zwar harmlos aber keinesfalls zwingend. Wollte 
+man ganz präzise sein, dann müsste man die Spaltenüberschriften der 
+aus einem Entscheidungsknoten gewonnen Tabelle ebenfalls als &ldquo;wenn 
+dann&rdquo;-Aussagen ausformulieren.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" align="center" valign="middle" width="100%"><hr noshade="noshade" /></td>
+<td class="bottomlink" align="center" valign="middle"><a class="internal" href="node6.html#pagetop"><img width="40" height="40" border="0" align="middle" src="up.jpg" alt="page top" /></a></td>
+<td class="bottomlink" align="center" valign="middle"><a class="internal" href="node7.html"><img width="40" height="40" border="0" align="middle" src="next.jpg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share" align="center"
+ style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=/node6.html&text=title : 1.1.3.2  Exkurs: Entscheidungsbäume in Tabellen umwandeln" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=/node6.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=/node6.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=title : 1.1.3.2  Exkurs: Entscheidungsbäume in Tabellen umwandeln&body=/node6.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+

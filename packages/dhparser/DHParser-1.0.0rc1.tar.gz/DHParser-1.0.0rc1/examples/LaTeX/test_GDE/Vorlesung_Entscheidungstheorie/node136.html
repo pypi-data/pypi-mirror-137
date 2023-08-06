@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 7.1.1.4  Spieltheorie</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node135.html" />
+<link rel="next" href="node137.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node135.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node132.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node137.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node132.html">7.1  Klausurvorbereitung und Klausur</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node132.html">7.1.1  Aufgaben zur Klausurvorbereitung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node133.html">7.1.1.1  Entscheidungen unter Unwissenheit</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node134.html">7.1.1.2  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node135.html">7.1.1.3  Entscheidungen unter Risiko</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node136.html">7.1.1.4  Spieltheorie</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node137.html">7.1.2  Die Klausur</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node138.html">7.1.3  Die Lösung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>7.1.1.4  Spieltheorie</h4>
+
+<ol>
+<li>Löse das folgende Spiel durch sukkzessive Dominanz (Gib dazu in der 
+richtigen Reihenfolge die zu streichenden Zeilen- bzw. Spaltenstrategien 
+an): <table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="1"><script type="math/tex">S_1</script></td><td colspan="1"><script type="math/tex">S_2</script></td><td colspan="1"><script type="math/tex">S_3</script></td><td colspan="1"><script type="math/tex">S_4</script></td></tr>
+<tr><td><script type="math/tex">Z_1</script> </td><td>4 </td><td>2 </td><td>0 </td><td>14 </td></tr>
+<tr><td><script type="math/tex">Z_2</script> </td><td>11</td><td>7 </td><td>1 </td><td>12 </td></tr>
+<tr><td><script type="math/tex">Z_3</script> </td><td>9 </td><td>6 </td><td>4 </td><td>5 </td></tr>
+<tr><td><script type="math/tex">Z_4</script> </td><td>3 </td><td>4 </td><td>2 </td><td>8 </td></tr>
+<tr><td></td></tr>
+</table>
+<br />&#160;</li>
+
+<li>Gegeben seien diese beiden Spiele:
+<table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="2"><strong>Spiel A</strong></td><td colspan="2"></td><td colspan="2"><strong>Spiel B</strong></td></tr>
+<tr><td colspan="1"></td><td colspan="1"><script type="math/tex">S_1</script></td><td colspan="1"><script type="math/tex">S_2</script></td><td></td><td colspan="1"></td><td colspan="1"><script type="math/tex">S_1</script></td><td colspan="1"><script type="math/tex">S_2</script></td></tr>
+<tr><td><script type="math/tex">Z_1</script> </td><td>2, 1 </td><td>0,0 </td><td></td><td><script type="math/tex">Z_1</script> </td><td>0,0 </td><td>-1,1 </td></tr>
+<tr><td><script type="math/tex">Z_2</script> </td><td>-1,-2 </td><td>1,3 </td><td></td><td><script type="math/tex">Z_2</script> </td><td>1,-1 </td><td>-2,-2 </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Aufgaben: 
+</p>
+<ol>
+<li>Bestimmte zu jedem Spiel: <ol>
+<li>die <em>reinen</em> Nash-Gleichgewichte (sofern vorhanden). <br />&#160;</li>
+
+<li>die <em>gemischten</em> Nash-Gleichgewichte (sofern vorhanden). </li>
+</ol>
+<br />&#160;</li>
+
+<li>Bestimme den Erwatungswert der Spiele für jeden Spieler in den gemischten 
+Gleichgewichten. </li>
+</ol>
+</li>
+</ol>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node136.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node137.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node136.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 7.1.1.4  Spieltheorie" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node136.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node136.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 7.1.1.4  Spieltheorie&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node136.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

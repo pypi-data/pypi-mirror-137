@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 1.2.2  Präferenzen</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node10.html" />
+<link rel="next" href="node12.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node10.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node9.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node12.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node2.html">1.1  Entscheidungstabellen und -bäume</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node9.html">1.2  Entscheidungen unter Unwissenheit I</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node10.html">1.2.1  Die einfachste Entscheidungsregel: Das Prinzip der Dominanz</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node11.html">1.2.2  Präferenzen</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node12.html">1.2.3  Ordinale Nutzenfunktionen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node13.html">1.2.4  Entscheidungsregeln auf Basis des ordinalen Nutzens</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node17.html">1.2.5  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node18.html">1.3  Entscheidungen unter Unwissenheit II</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node26.html">1.4  Entscheidungen unter Risiko</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>1.2.2  Präferenzen</h3>
+
+<p>
+<span id="Praeferenzen"> </span> In der letzten Vorlesungsstunde wurde 
+als Beispiel für ein mögliches Entscheidungsproblem, bei dem uns die 
+Entscheidungstheorie <em>nicht</em> weiterhelfen kann, die Frage angeführt, 
+ob der nächste Urlaub lieber in den Bergen oder an der See gebucht 
+werden sollte. Der Grund, weshalb uns die Entscheidungstheorie hier 
+nicht weiterhelfen kann, besteht darin, dass es bei diesem Entscheidungsproblem 
+noch darum geht, wie die verschiedenen Ergebnisse der Entscheidung 
+zu bewerten sind. Grundsätzlich setzt die Entscheidungstheorie voraus, 
+dass wir uns über die Bewertung der möglichen Ergebnisse, sprich über 
+unsere <em>Präferenzen</em> schon im Klaren sind. Im Folgenden ist 
+daher zunächst einiges über Präferenzen zu sagen, insbesondere welche 
+Anforderungen an die Präferenzen gestellt werden müssen, damit sie 
+im Sinne der Entscheidungstheorie wohlgeformt sind.
+</p>
+<p>
+Unter <em>Präferenz</em> ist im Zusammenhang der Entscheidungstheorie 
+eine Relation zu verstehen, die festlegt, wann ein mögliches Resultat<a id="REF6" class="internal fn" href="#FN6">[6]</a> eines 
+Entscheidungsprozesses einem anderen vorgezogen wird. (Da wir es mit 
+Entscheidungsproblemen zu tun haben, bezieht sich unsere Präferenzrelation 
+auf die möglichen Resultate von Entscheidungsprozessen. In der Ökonomie 
+würde man die Präferenzrelation dagegen eher auf der Menge möglicher 
+&bdquo;Güterbündel&ldquo; oder dergleichen definieren. Der Einfachtheit 
+halber wird daher im Folgenden auch oft von &bdquo;Gütern&ldquo; anstelle 
+von &bdquo;Resultaten&ldquo; oder &bdquo;Ergebnissen&ldquo; die Rede 
+sein.) Wenn <script type="math/tex">x</script> und <script type="math/tex">y</script> 
+zwei mögliche Resultate eines Entscheidungsprozesses sind, dann schreiben 
+wir <script type="math/tex">x \succ y</script>, um auszudrücken, dass 
+<script type="math/tex">x</script> gegenüber <script type="math/tex">y</script> 
+vorgezogen wird. Und wir schreiben <script type="math/tex">x \sim y</script>, 
+wenn <script type="math/tex">x</script> und <script type="math/tex">y</script> 
+gleich gut bewertet werden bzw. wenn diejenige Person, die die Entscheidung 
+trifft, zwischen <script type="math/tex">x</script> und <script type="math/tex">y</script> 
+<em>indifferent</em> ist. Eine wohlgeformte Präferenzrelation muss 
+folgende fundamentale Eigenschaften erfüllen:
+</p>
+ <ol>
+<span id="Ordnungsaxiome"> </span> <li><em>Antisymmetrie:</em> Wenn <script type="math/tex">x \succ y</script>, 
+dann nicht <script type="math/tex">y \succ x</script> und auch nicht 
+<script type="math/tex">x \sim y</script> <br />&#160;</li>
+
+<li><em>Zusammenhang:</em> Für jedes Paar <script type="math/tex">x, y</script> 
+aus der Menge der möglichen Resultate gilt entweder <script type="math/tex">x \succ y</script> 
+oder <script type="math/tex">y \succ x</script> oder <script type="math/tex">x \sim y</script> 
+<br />&#160;</li>
+
+<li><em>Transitivität:</em> Wenn <script type="math/tex">x \succ y</script> 
+und <script type="math/tex">y \succ z</script>, dann auch <script type="math/tex">x \succ z</script>. 
+(In analoger Weise gilt: <script type="math/tex">x \sim y \wedge y \sim z \Rightarrow x \sim z</script>, 
+sowie weiterhin: <script type="math/tex">x \sim y \wedge y \succ z \Rightarrow x \succ z</script> 
+und: <script type="math/tex">x \succ y \wedge y \sim z \Rightarrow x \succ z</script>) 
+</li>
+</ol>
+<p>
+ Mit welchem Recht können wir fordern, dass eine Präferenzrelation diese 
+Eigenschaften erfüllen muss? Man kann diese Frage von zwei Seiten aus 
+betrachten: 1) von der Seite des entscheidungstheoretischen Formalismus 
+aus und 2) von der empirischen und normativen Seite aus. Von der Seite 
+des entscheidungstheoretischen Formalismus stellt sich die Situation 
+so dar, dass z.B. bestimmte Lösungsverfahren nur dann tatsächlich richtige 
+(d.h. die Präferenzen optimal erfüllende) Entscheidungen liefern, wenn 
+die Präferenzrelation in dem oben beschriebenen Sinne wohlgeformt ist; 
+und zwar schon deshalb, weil die entsprechenden Lösungsverfahren unter 
+genau dieser Voraussetzung entwickelt worden sind. Anderseits gilt 
+aber auch, dass die Entscheidungstheorie beansprucht unser Handeln 
+beschreiben (empirische Anwendung der Entscheidungstheorie) und richtig 
+anleiten (normative Anwendung der Entscheidungstheorie) zu können. 
+Dann sollten diese Eigenschaften auch den Eigenschaften von Präferenzen 
+von Menschen in empirischen Entscheidungssituationen mehr oder weniger 
+entsprechen.<a id="REF7" class="internal fn" href="#FN7">[7]</a> Kann 
+man das ungeprüft voraussetzen? Wenigstens bei den Eigenschaften der 
+<em> Transitivität</em> und des <em>Zusammenhangs</em> sind in dieser 
+Hinsicht erhebliche Abstriche zu machen.
+</p>
+<p>
+Zur <em>Tansitivität</em>: Wie könnte man zunächst einmal die Eigenschaft 
+der Transitivität rechtfertigen?  <span id="Geldpumpenargument"> </span> Ein beliebtes Argument zur Rechtfertigung 
+dieser Eigenschaft ist das sogenannte <em> Geldpumpenargument</em>. 
+Angenommen, es gibt jemanden, dessen Präferenzen nicht transitiv sind. 
+Dann gibt es drei Weltzustände (bzw. &bdquo;Resultate&ldquo; oder &bdquo;Güterbündel&ldquo;) 
+<script type="math/tex">a, b, c</script>, für die für diese Person 
+gilt: <script type="math/tex">a \prec b \prec c \prec a</script>. Wenn 
+diese Person aber b gegen über a vorzieht, so bedeutet dass (wie die 
+Ökonomen glauben), dass sie gegebenenfalls bereit wäre, für den Übergang 
+von a zu b einen bestimmten Geldbetrag zu zahlen. Dann wäre sie aber 
+wiederum bereit einen Geldbetrag für den Übergang von b zu c bezahlen. 
+Ist sie aber erst einmal bei c angekommen, dann würde sie wegen <script type="math/tex">c \prec a</script> 
+nochmals bereit sein für den Übergang zu a in die Tasche zu greifen, 
+und das ganze Spiel fängt von vorne an und könnte beliebig oft wiederholt 
+werden. Die Überlegung zeigt, dass intransitive Präferenzen in gewisser 
+Weise unplausibel bzw. inkonsequent sind.
+</p>
+<p>
+ <span id="intransitivePraeferenzen"> </span> Allerdings gibt es ebenso 
+Beispiele dafür, dass Präferenzen auf ganz natürliche Wese transitiv 
+sein können, z.B. das folgende  (<a class="bibref" href="node139.html#Delong_1991">Delong 1991</a>, S. 20): 
+Frau Schmidt möchte einen Schachcomputer kaufen. Es gibt drei Modelle, 
+A, B und C. Einem Testbericht kann sie entnehmen, dass Modell A in 
+einem Probespiel Modell B geschlagen hat. Modell B hat wiederum Modell 
+C geschlagen, aber Modell C hat Modell A geschlagen. (Man kann sich 
+überlegen, dass diese Situation sehr wohl möglich ist, denn es ist 
+denkbar, dass der Algorithmus von Modell A mit dem von Modell B sehr 
+gut &bdquo;klarkommt&ldquo;, aber nicht mit dem von Modell C, auch 
+wenn Modell C schlechter als Modell B ist.) Die einzig sinnvollen Präferenzen, 
+die Frau Schmidt in Bezug auf die Schachcomputer haben kann, sind in 
+diesem Fall intransitiv, nämlich <script type="math/tex">A \succ B \succ C \succ A</script>. 
+Man kann leicht andere Beispiele dieser Art konstruieren. Der Grund 
+für die, in diesem Fall, sinnvolle Intransitivität von Präferenzen 
+liegt darin, dass sich unsere Präferenzen häufig an objektive Beziehungen 
+wie &bdquo;stärker als&ldquo;, &bdquo;besser als&ldquo;, &bdquo;Sieger 
+über&ldquo; etc. knüpfen, die ihrerseits oftmals nicht transitiv sind. 
+(So ist ja auch z.B. von der Fussballmanschaft an der Spitze der Liga 
+keineswegs gesagt, dass sie alle anderen Mannschaften besiegt oder 
+mindestens unentschieden gespielt hat.)
+</p>
+<p>
+Wenn es aber sinnvolle transitive Präferen gibt, was wird dann aus 
+dem Geldpumpenargument, könnte man nun fragen. Die Antwort darauf ist, 
+dass man dann, wenn intransitive Präferenzen auftreten, verschiedene 
+Mechanismus anwenden kann, um mit den möglicherweise daraus resultierenden 
+Problemen fertig zu werden. In dem Beispiel von eben könnte Frau Schmidt 
+sich einfach beliebig für irgendeinen der Schachcomputer entscheiden 
+oder ein Los werfen. (Dass es einem raffinierten Verkäufer tatsächlich 
+gelingen könnte, eine Geldpumpe aus ihr zu machen, ist wohl eher unrealistisch<a id="REF8" class="internal fn" href="#FN8">[8]</a> )
+</p>
+<p>
+ Ganz besonders stellt sich das Problem intransitiver oder, ganz allgemein 
+gesprochen, inkonsistenter Präferenzn im Zusammenhang von Kollektivpräferenzen 
+(d.h. den gemeinsamen Präferenzen eines Kollektivs von Menschen). Wie 
+wir gesehen haben, sind schon die Präferenzen einzelner Menschen nicht 
+immer transitiv geordnet (und zwar nicht bloß auf Grund von Inkonsequenz 
+oder menschlicher Unvollkommenheit, sondern weil es manchmal durchaus 
+Sinn hat, wenn Präferenzen nicht transitiv sind!). Diese Situation 
+tritt nocht viel leichter auf, wenn wir vor dem Problem stehen, aus 
+den Einzelpräferenzen einer Vielzahl von Individuuen eine sinnvolle 
+kollektive Präferenz abzuleiten. Denn dazu müsste irgendein geeigneter 
+Abstimmungsmechanismus vorhanden sein, der es erlaubt aus den vielfältigen 
+und möglicherweise höchst disparaten Interessen der Einzelnen eine 
+gemeinsame Zielvorstellung zu bilden. Es gehört nun aber zu den interessantesten 
+Theoremen der Social-Choice Theory, die unter Stichworten wie &bdquo;Paradox 
+des Liberalismus&ldquo; und &bdquo;Satz von Arrow&ldquo; bekannt geworden 
+sind, dass einen solchen Abstimmungsmechanismus zu finden nicht immer 
+leicht und manchmal sogar unmöglich ist, sofern bestimmte Anforderungen 
+an die Fairness und die Vernunft eines solchen Abstimmungsmechanismus 
+gestellt werden. (Inwiefern diese Anforderungen notwendig sind oder 
+variiert werden können, so dass die &bdquo;Probleme&ldquo; nicht mehr 
+auftreten, ist dann Gegenstand der Diskussion.) Wir werden auf diese 
+Theoreme im Laufe dieses Semesters noch ausführlich eingehen (Kapitel 
+ <a href="node35.html#LiberalismusParadox">2.1.2</a> 
+und  <a href="node36.html#SatzVonArrow">2.1.3</a> dieses Skripts).
+</p>
+<p>
+Eine weitere Einschränkung der Gültigkeit der Annahme transitiver Präferenzen 
+ergibt sich aus folgender Überlegung  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, p. 23/24): 
+ Man stelle sich zwei Tassen Kaffe vor, eine ohne Zucker und eine, die 
+eine sehr kleine Menge Zucker enthält, gerade so viel, dass man den 
+Zucker beim Trinken noch nicht bemerkt. Jemand, der entscheiden sollte, 
+welche Tasse Kaffee er vorzieht, würde also indifferent zwischen diesen 
+beiden Kaffeetassen sein, auch wenn er vielleicht gezuckerten Kaffee 
+bevorzugt. Nun denken wir uns eine dritte Kaffeetasse, die wiederum 
+ein klein wenig mehr Zucker enthält als die zweite, aber nicht so viel 
+mehr, als dass man den Unterschied bemerken könnte. Dann, eine vierte 
+Kaffeetasse, die sich wiederum von der dritten durch einen nur marginal 
+größeren Zuckergehalt unterscheidet usw. Irgendwann haben wir dann 
+eine Kaffeetasse, die soviel Zucker enthält, dass sich der Geschmack 
+von dem der allerersten Kaffeetasse deutlich unterscheidet. Dann würde 
+jemand, der gezuckerten Kaffee bevorzugt, diese letzte Tasse unseres 
+Gedankenexperiments der ersten Tasse sicherlich vorziehen, was aber 
+im Widerspruch zur Transitivität der Indifferenzbeziehung steht. Das 
+Gedankenexperiment ist zudem so konstruiert, dass es sich in diesem 
+Fall nicht um ein Beispiel von Inkonsequenz oder Irrationalität handelt, 
+sondern dass sich die Transitivität der Präferenzrelation &bdquo;beim 
+besten Willen&ldquo; nicht aufrecht erhalten lässt. Wenn wir das Gedankenexperiment 
+als glaubhaft ansehen, dann bleibt uns nichts weiter übrig als zuzugestehen, 
+dass wir in der Wirklichkeit nicht immer von transitiven Präferenzen 
+ausgehen können, und dass die Präferenzrelation, so wie sie hier definiert 
+ist, lediglich eine bessere oder manchmal auch schlechtere Annhährung 
+an die Wirklichkeit darstellt. Man kann bereits an dieser Stelle antizipieren, 
+dass unsere Modelle und Theorien spätestens dann in Schwierigkeiten 
+geraten, wenn sie irgendwann einmal, und möglicherweise völlig unbemerkt 
+(!), innerhalb einer komplizierten mathematischen Beweisführung allzu 
+starke Anforderungen an die Gültigkeit von Indifferenzbeziehungen stellen.<a id="REF9" class="internal fn" href="#FN9">[9]</a> 
+</p>
+<p>
+Der tiefere Grund für das eben beschriebene Problem besteht darin, 
+dass Relationen vom Typ &bdquo;<em>ungefähr</em> gleich wie&ldquo; 
+im Gegensatz zu Relationen vom Typ &bdquo;gleich wie&ldquo; nicht (vollkommen) 
+transitiv sind. Da wir es in der Empirie aber schon auf Grund von Messungenauigkeiten 
+fast immer mit dem ersteren Typ zu tun haben, kann das zu Problemen 
+führen, wenn man vollständige (d.h. über eine beliebig große Anzahl 
+von Zwischengliedern erhalten bleibende) Transitivität voraussetzt.
+</p>
+<p>
+ Neben der Transitivität, lässt sich aber auch in Zweifel ziehen, ob 
+man stets davon ausgehen kann, dass unsere Präferenzen <em>zusammenhängend</em> 
+sind. Zumindest wenn wir eine größere und nicht mehr ohne Weiteres 
+überschaubare Menge von Gütern (oder möglichen Entscheidungsresultaten) 
+betrachten, kann man sich leicht vorstellen, dass es nicht mehr so 
+ohne Weiteres möglich ist, von jedem Paar aus dieser Menge eindeutig 
+zu sagen, welche der Relationen <script type="math/tex">\succ</script>, 
+<script type="math/tex">\prec</script> oder <script type="math/tex">\sim</script> 
+zwischen den beiden Gliedern des Paars besteht. Einige Autoren wie 
+z.B.  (<a class="bibref" href="node139.html#Kaplan_1996">Kaplan 1996</a>), 
+die die Voraussetzung durchgehend zusammenhängender Präferenzen für 
+allzu artifiziell halten, führen deshalb neben der Beziehung der <em>Indifferenz</em>, 
+die besteht, wenn wir zwei Güter gleich hoch schätzen, eine davon deutlich 
+zu unterscheidende Beziehung der <em>Unentschiedenheit</em> oder auch 
+&bdquo;Unentschlossenheit&ldquo; ein, die dann besteht, wenn wir nicht 
+sicher sind, ob wir eine Sache einer anderen vorziehen oder nicht, 
+was ja etwas anderes ist, als wenn wir eine Sache als genauso gut bewerten 
+wie eine andere.  Dieser Unterschied ist recht subtil, denn man kann sowohl hinsichtlich 
+der Indifferenz als auch hinsichtlich der Unentschiedenheit mit Recht 
+sagen, dass wir <em>weder</em> den einen <em>noch</em> den anderen 
+der beiden Gegenstände, zwischen denen wir indifferent bzw. unentschieden 
+sind, dem anderen vorziehen. Trotzdem ist es noch etwas anderes, wenn 
+wir es deshalb nicht tun, weil sie uns beide gleich lieb sind, oder 
+deshalb, weil wir unentschieden zwischen beiden sind.
+</p>
+<p>
+Die Annahme, dass es so etwas wie Unentscheidenheit gibt, erscheint 
+besonders bei unüberschaubar großen Gegenstandsmengen oder bei solchen 
+Gegenstandsmengen, die Güter von sehr unterschiedlicher Art enthalten, 
+sehr viel realistischer, denn anderenfalls würde man voraussetzen, 
+dass die Frage, welches von zwei Gütern man vorzieht, oder ob man sie 
+beide als gleichwertig beurteilt, immer schon entschieden ist, selbst 
+wenn wir sie uns im konkreten Fall noch gar nicht vorgelegt haben. 
+Aber es ist immerhin möglich, eine Entscheidungstheorie auch auf der 
+Grundlage zu konstruieren, dass es neben Bevorzugung und Indifferenz 
+auch so etwas wie Untschlossenheit gibt. In diesem Fall muss man die 
+Forderung, dass die Präferenzen &bdquo;zusammenhängend&ldquo; sind, 
+zu der Eigenschaft des <em>beschränkten Zusammenhangs</em> abschwächen 
+ (<a class="bibref" href="node139.html#Kaplan_1996">Kaplan 1996</a>, S. 13, 24). 
+Noch weiter geht der Ansatz, die Entscheidungstheorie nicht &bdquo;präferenzbasiert&ldquo;, 
+sondern &bdquo;wahlbasiert&ldquo; aufzubauen  (<a class="bibref" href="node139.html#Mascolell_Whinston_Green_1995">Mascolell/Whinston/Green 1995</a>, SEITE???). 
+ Dabei wird statt einer Präferenzrelation über einer Menge von Alternativen 
+(<em>präferenzbasierter Ansatz</em>) eine Wahlfunktion definiert, die 
+aus Teilmengen einer Menge von Alternative die bevorzugte Alternative 
+innerhalb dieser Teilmenge auswählt (<em>wahlbasierter Ansatz</em>). 
+Die Formulierung der Entscheidungstheorie gestaltet sich dadurch technisch 
+etwas komplizierter. Wir werden im Folgenden daher nur den präferenzzentrierten 
+Ansatz zu Grunde legen und der Einfachheit halber davon ausgehen, dass 
+es keine Unentschiedenheit gibt bzw. dass alle denkbaren Unentscheidenheiten 
+im Vorfeld der Entscheidungsfindung geklärt worden sind. Rechtfertigen 
+lässt sich das auf jeden Fall solange, wie wir uns auf Anwendungsfälle 
+nur mit sehr begrenzten und überschaubaren Zielmengen beschränken. 
+Zudem setzen wir eine gültige Präferenzrelation nur jeweils <em>lokal</em> 
+für das in Frage stehende Entscheidungsproblem voraus. Wir unterstellen 
+nicht, dass irgendjemand &bdquo;global&ldquo; (d.h. bezüglich aller 
+Ziele und Wünsche, die man im Leben haben kann) über wohlgeordnete 
+(d.h. transitive und durchgängig zusammenhängende) Präferenzen verfügt.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node11.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node12.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN6" class="internal fn" href="#REF6">[6]</a> Die <em> Resultate</em> eines Entscheidungsprzesses sind nicht zu verwechseln 
+mit der Entscheidung selbst. Das Resultat ist vielmehr das, was bei 
+einer Entscheidung heraus kommt, die Entscheidung selbst ist die Wahl, 
+die man trifft, um dann ggf. ein bestimmtes Resultat zu erzielen. Die 
+Präferenzen, von denen hier die Rede ist beziehen sich zunächst auf 
+die Resultate, auch wenn man im übertragenen Sinne ebenfalls davon 
+sprechen könnten, dass eine Entscheidung einer anderen <em> vorgezogen</em> 
+wird, weil man sich von ihr ein besseres Resultat erhofft.
+</p>
+<p class="footnote">
+<a id="FN7" class="internal fn" href="#REF7">[7]</a> Insgesamt haben wir es hier mit drei Perspektiven auf die Entscheidungstheorie 
+zu tun: 1. der logischen; 2. der empirischen; 3. der normativen. Häufig 
+wird nur zwischen den letzteren beiden unterschieden. Dabei wird dann 
+in der Regel eingeräumt, dass die Entscheidungstheorie zwar das empirisch 
+beobachtbare Verhalten von Menschen nicht richtig beschreibt. Aber 
+meistens wird dennoch darauf bestanden, dass sie in normativer Hinsicht 
+dennoch zu richtigen Entscheidungen anleitet. Das stimmt insofern, 
+als die normative Anwendung vergelichsweise schwächere erkenntnistheoretische 
+Rechtfertigungsprobleme aufwirft als die empirische, aber auch die 
+normative Anwendung beruht immer noch auf bestimmten empirischen Voraussetzungen, 
+wie z.B. der, dass wohlgeformte Präferenzrelationen die empirischen 
+Phänomene der Präferenz (d.i. des Vorziehens, des Beabsichtigens, des 
+Wertschätzens etc.) halbwegs richtig erfassen. Vgl. dazu die klassische 
+Darstellung von Savage  (<a class="bibref" href="node139.html#Savage_1954">Savage 1954</a>, S. 7ff.), 
+der hinsichtlich solcher subtiler Unterscheidungen im Übrigen sehr 
+umsichtig und genau verfährt.
+</p>
+<p class="footnote">
+<a id="FN8" class="internal fn" href="#REF8">[8]</a> Rabin und Thaler formulieren es sehr treffend: &bdquo;It does not seem 
+to us obvious that if you can take some of a fool’s money from him 
+some of the time then you can take all of his money all of the time&ldquo;. (<a class="bibref" href="node139.html#Rabin_Thaler_2001">Rabin/Thaler 2001</a>, S. 227) 
+Den Hinweis auf den Artikel von Rabin und Thaler verdanke ich Matthias 
+Brinkmann.
+</p>
+<p class="footnote">
+<a id="FN9" class="internal fn" href="#REF9">[9]</a> An diesem Problem leidet ganz wesentlich die mathematische Rückführung 
+kardinaler auf ordinale Präferenzen, die in Kapitel  <a href="node86.html#NeumannMorgenstern">4.1</a> 
+und  <a href="node92.html#DiskussionNeumannMorgenstern">4.2</a> 
+vorgestellt und diskutiert wird.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node11.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node12.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node11.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 1.2.2  Präferenzen" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node11.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node11.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 1.2.2  Präferenzen&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node11.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

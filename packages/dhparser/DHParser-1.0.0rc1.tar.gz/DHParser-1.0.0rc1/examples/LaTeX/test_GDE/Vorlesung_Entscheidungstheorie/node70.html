@@ -1,0 +1,505 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 3.1.2  Grundlegende Gesetze der Wahrscheinlichkeitsrechnung</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node69.html" />
+<link rel="next" href="node71.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node69.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node68.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node71.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1  Wahrscheinlichkeiten I: Rechentechniken</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1.1  Einführung</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node70.html">3.1.2  Grundlegende Gesetze der Wahrscheinlichkeitsrechnung</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node71.html">3.1.3  Der Bayes'sche Lehrsatz</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node74.html">3.1.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node75.html">3.2  Wahrscheinlichkeiten II: Interpretationsfragen <strong>nicht klausurrelevant!</strong>)</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>3.1.2  Grundlegende Gesetze der Wahrscheinlichkeitsrechnung</h3>
+
+<p>
+Wenn wir in der Entscheidungstheorie von Wahrscheinlichkeiten sprechen, 
+dann sind fast immer die Wahrscheinlichkeiten von Zuständen oder von 
+Zufallsereignissen gemeint. Für die Wahrscheinlichkeit eines Ereignisses 
+<script type="math/tex">E</script> schreibt man: <script type="math/tex">
+\begin{eqnarray}P(E) = a \qquad 0 \leq a \leq 1
+\end{eqnarray}
+</script>
+<br />
+</p>
+<p>
+Lies: Die Wahrscheinlichkeit, dass das Ereignis <script type="math/tex">E</script> 
+eintritt beträgt <script type="math/tex">a</script>. Statt über die 
+Wahrscheinlichkeit von Ereignissen zu reden, können wir ebensogut über 
+die Wahrscheinlichkeit der Wahrheit von Aussagen reden, die besagen, 
+dass ein Ereignis eintritt. Wenn <script type="math/tex">q</script> 
+die Aussage ist, dass das Ereignis <script type="math/tex">E</script> 
+eintritt, dann ist mit  <script type="math/tex">
+\begin{eqnarray}P(q) = a \qquad 0 \leq a \leq 1
+\end{eqnarray}
+</script>
+<br />
+</p>
+<p>
+die Wahrscheinlichkeit beschrieben, dass die Aussage <script type="math/tex">q</script> 
+wahr ist. Da <script type="math/tex">q</script> aussagt, dass E eintritt, 
+ist diese Wahrscheinlichkeit natürlich genau dieselbe wie diejenige, 
+dass E eintritt. Spricht man von den Wahrscheinlichkeiten von Aussagen 
+über Ereignisse, so erlaubt dies ohne weitere Umstände die aussagenlogischen 
+und modallogischen<a id="REF51" class="internal fn" href="#FN51">[51]</a> Verknüpfungen 
+von Aussagen anzuwenden und die Wahrscheinlichkeiten von aussagenlogisch 
+verknüpften Aussagen zu bestimmen. Aber im Grunde handelt es sich dabei 
+nur um eine andere Redeweise. Besonders in der mathematischen Literatur 
+zur Wahrscheinlichkeitstheorie ist es darüber hinaus auch üblich den 
+Wahrscheinlichkeitsbegriff in Bezug auf Ereignismengen zu definieren, 
+die die Teilmengen eines Ereignisraums sind, wobei man zusammengesetzte 
+Ereignisse noch einmal von Elementarereignissen unterscheidet  (<a class="bibref" href="node139.html#Bosch_1976">Bosch 1976</a>, S. 1ff.). 
+Der Einfachheit halber beschränken wir uns, Resnik folgend  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, S. 45ff.), 
+hier meist aber auf die Wahrscheinlichkeiten von Ereignissen bzw. Aussagen 
+über Ereignisse.
+</p>
+<p>
+Die Wahrscheinlichkeitsrechnung wurde 1993 von dem russischen Mathematiker 
+Andrej Nikolajewitsch Kolmogorow axiomatisiert. Seitdem beruht die 
+gesamte  Wahrscheinlichkeitsrechnung auf folgenden drei (harmlos wirkenden) 
+Axiomen:
+</p>
+<dl>
+<dt>Axiom 1:</dt>
+<dd>Für die Wahrscheinlichkeit <script type="math/tex">P(p)</script> eines 
+Ereignisses <script type="math/tex">p</script> gilt: 
+<br /><br /><script type="math/tex">0 \leq P(p) \qquad P(p) \in \mathbb{R}</script><br /><br />
+ 
+<br />&#160;</dd>
+
+<dt>Axiom 2:</dt>
+<dd>Wenn <script type="math/tex">p</script> sicher ist, dann gilt: 
+<br /><br /><script type="math/tex">P(p) = 1</script><br /><br />
+ 
+<br />&#160;</dd>
+
+<dt>Axiom 3:</dt>
+<dd>Wenn die Ereignisse <script type="math/tex">p</script> und <script type="math/tex">q</script> 
+sich ausschließen, dann gilt: 
+<br /><br /><script type="math/tex">P(p \vee q) = P(p) + P(q)</script><br /><br />
+ 
+</dd>
+</dl>
+<p>
+Sofern die Menge möglicher Ereignisse abzählbar unendlich viele Ereignisse 
+enthält, ersetzt man Axiom 3 durch:
+</p>
+<dl>
+<dt>Axiom 3':</dt>
+<dd>Seien <script type="math/tex">p_1, p_2, \ldots</script> höchstens abzählbar 
+unendlich viele Ereignisse und paarweise unvereinbar, dann gilt: 
+<br /><br /><script type="math/tex">P(\bigvee p_i) = P(p_1 \vee p_2 \vee \ldots) = P(p_1) + P(p_2) + \ldots = \sum P(p_i)</script><br /><br />
+ 
+</dd>
+</dl>
+<p>
+Es ist bemerkenswert, dass man mit diesen drei Axiomen auskommt, und 
+dass sich alle anderen Gesetze für das Rechnen mit Wahrscheinlichkeiten 
+daraus ableiten lassen. Insbesondere kann man aus diesen Axiomen relativ 
+unmittelbar folgende  <em>Corrolarien</em> ableiten:
+</p>
+<ol>
+<li><script type="math/tex">P(\neg p) = 1 - P(p) \qquad</script> (<em>inverse 
+Wahrscheinlichkeit</em>)
+<p>
+<small>Beweis: Da <script type="math/tex">p \vee \neg p</script> sicher 
+ist, gilt nach Axiom 2: <script type="math/tex">P(p \vee \neg p) = 1</script>. 
+Da <script type="math/tex">p</script> und <script type="math/tex">\neg p</script> 
+sich ausschließen, kann man Axiom 3 anwenden: 
+<br /><br /><script type="math/tex">P(p) + P(\neg p) = P(p \vee \neg p) = 1</script><br /><br />
+ 
+Daraus folgt unmittelbar: <script type="math/tex">P(\neg p) = 1 - P(p) \qquad</script></small></p>&#160;</li>
+
+<li>Wenn <script type="math/tex">q</script> unmöglich, dann <script type="math/tex">P(q) = 0 \qquad</script> 
+(<em> Null-Wahrscheinlichkeit</em>)
+<p>
+<small>Beweis: Wenn <script type="math/tex">q</script> unmöglich ist, 
+dann ist <script type="math/tex">\neg q</script> sicher. Damit ergibt 
+sich aus dem vorhergehenden und Axiom 2: 
+<br /><br /><script type="math/tex">P(q) = 1 - P(\neg q) = 1 - 1 = 0</script><br /><br />
+</small></p>&#160;</li>
+
+<li>Wenn p aus q folgt, dann <script type="math/tex">P(q) \leq P(p) \qquad</script> 
+(<em>Monotonie</em>)
+<p>
+<small>Beweis: Wenn <script type="math/tex">p \leftarrow q</script>, 
+dann gilt <script type="math/tex">p \Leftrightarrow q \vee (\neg q \wedge p)</script>. 
+Da aber auch gilt, dass <script type="math/tex">q</script> und <script type="math/tex">(\neg q \wedge p)</script> 
+sich ausschließen, ist die Voraussetzung von Axiom 3 erfüllt und wir 
+können folgern, dass: 
+<br /><br /><script type="math/tex">P(p) = P(q) + P(\neg q \wedge p)</script><br /><br />
+ 
+Da wegen Axiom 1 sowohl <script type="math/tex">P(q) \geq 0</script> 
+als auch <script type="math/tex">P(\neg q \wedge p) \geq 0</script>, 
+können wir daraus folgern, dass <script type="math/tex">P(q) \leq P(p)</script>. 
+(Da es nicht strikt ausgeschlossen ist, dass <script type="math/tex">\neg q \wedge p</script> 
+wahr ist, kann es in der Tat auch Fälle geben in denen <script type="math/tex"><</script> 
+also <em>echt kleiner</em> gilt.)</small></p>&#160;</li>
+
+<li><script type="math/tex">P(p) \leq 1</script>  (<em>obere Grenze der 
+Wahrscheinlichkeit</em>)
+<p>
+<small>Beweis: Logisch betrachtet folgt ein sicheres Ereignis q aus 
+jedem Ereignis p. (Da q als sicheres Ereignis immer gilt, gilt es insbesondere 
+auch wenn p gilt.) Für jedes Ereignis p gilt also <script type="math/tex">P(p) \leq P(q)</script>, 
+wenn q sicher ist. Da nach dem 2. Axiom <script type="math/tex">P(q) = 1</script>, 
+folgt die Behauptung.</small></p>&#160;</li>
+
+<li><script type="math/tex">P(q \vee p) = P(q) + P(p) - P(q \wedge p) \qquad</script> 
+(<em> oder-verknüpfte Ereignisse</em>)
+<p>
+<small>Beweis: Da <script type="math/tex">q \vee p</script> äquivalent 
+ist mit <script type="math/tex">q \vee (\neg q \wedge p)</script> und 
+<script type="math/tex">q</script> und <script type="math/tex">\neg q \wedge p</script> 
+sich ausschließen, gilt nach Axiom 3: 
+<br /><br /><script type="math/tex">P(q \vee p) = P(q \vee (\neg q \wedge p)) = P(q) + P(\neg q \wedge p)</script><br /><br />
+ 
+Da aber weiterhin <script type="math/tex">p \Leftrightarrow (q \wedge p) \vee (\neg q \wedge p)</script> 
+und auch <script type="math/tex">q \wedge p</script> und <script type="math/tex">\neg q \wedge p</script> 
+sich ausschließen, gilt wiederum nach Axiom 3: 
+<br /><br /><script type="math/tex">P(p) = P((q \wedge p) \vee (\neg q \wedge p)) = P(q \wedge p) + P(\neg q \wedge p)</script><br /><br />
+ 
+Dies lässt sich umformen zu: 
+<br /><br /><script type="math/tex">P(\neg q \wedge p) = P(p) - P(q \wedge p)</script><br /><br />
+ 
+Indem wir den Term <script type="math/tex">P(\neg q \wedge p)</script> 
+in der ersten Gleichung durch diesen Ausdruck ersetzen erhalten wir 
+die Behauptung.</small> 
+</p>
+</li>
+</ol>
+<p>
+Der &bdquo;Sinn&ldquo; der meisten dieser Corrolarien drüfte relativ 
+einleuchtend sein. Etwas verblüffend könnte höchstens die Monotoniebedingung 
+(3.) erscheinen. Wenn p aus q folgt (<script type="math/tex">q \rightarrow p</script>), 
+warum gilt dann, dass die Wahrscheinlichkeit von q kleiner ist als 
+die von p (<script type="math/tex">P(q) \leq P(p)</script>) und nicht 
+umgekehrt? Man kann sich das folgendermaßen klar machen: q ist eine 
+<em>hinreichende</em>, aber keine notwendige Voraussetzung von p. Immer 
+wenn q gegeben ist, ist damit auch p gegeben. Aber umgekehrt kann p 
+auch gegeben sein, ohne dass q gegeben ist. So gesehen ist p wahrscheinlicher 
+als q.
+</p>
+<p>
+Alle oben aufgeführten Gesetzmäßigkeiten betreffen unbedingte Wahrscheinlichkeiten. 
+Als nächstes ist der Begriff der bedingen Wahrscheinlichkeit einzuführen. 
+Mit 
+<br /><br /><script type="math/tex"> P(p|q) </script><br /><br />
+ 
+bezeichnen wir die Wahrscheinlichkeit eines Ereignisses p unter der 
+Bedingungen, dass das Ereignis q eingetreten ist.
+</p>
+<p>
+Mathematisch kann die bedingte Wahrscheinlichkeit <script type="math/tex">P(p|q)</script> 
+durch folgende  Definition eingeführt werden<span id="bedingteWahrscheinlichkeit"> </span>: 
+
+<br /><br /><script type="math/tex"> P(p|q) := \frac{P(p \wedge q)}{P(q)} \qquad P(q) > 0 </script><br /><br />
+ 
+In Umgangssprache übertragen bedeutet dies, dass die bedingte Wahrscheinlichkeit 
+als die Wahrscheinlichkeit definiert ist, mit der beide Ereignisse 
+(das Bedingte und das Bedingende) eintreten, geteilt durch die Wahrscheinlichkeit, 
+dass die Bedingung eintritt. Für den Fall, dass <script type="math/tex">P(q)=0</script>, 
+setzt man üblicherweise <script type="math/tex">P(p|q) := 0</script>. 
+Diese Festsetzung ist möglich und sinnvoll, weil damit immer noch das 
+unten angegebene Multiplikationsgesetz erfüllt ist.
+</p>
+<p>
+Wenn es sich dabei um die &bdquo;Definition&ldquo; bedingter Wahrscheinlichkeit 
+handelt, dann könnte man die Frage aufwerfen, warum man die bedingte 
+Wahrscheinlichkeit gerade so definieren soll und ob man sie nicht auch 
+anders definieren könnte. Betrachtet man die Wahrscheinlichkeitsrechnung 
+nicht allein als eine rein mathematische Disziplin, in welchem Falle 
+die Definition in der Tat willkürlich wäre, solange sie nicht den voher 
+(ebenso willkürlich) festgelegten Axiomen widerspricht, dann muss der 
+Rechtfertigungsgrund für diese Definition genauso wie für die vorhergehenden 
+Kolmogorowschen Axiome in letzter Instanz ein empirischer sein: Die 
+Axiome und Definitionen der Wahrscheinlichkeitsrechnung sind gültig, 
+insofern sich damit Gesetzmäßigkeiten empirischer Wahrscheinlichkeitsphänomene 
+richtig erfassen lassen. Andernfalls wären sie nicht mathematisch falsch 
+aber empirisch unanwendbar. (Dasselbe gilt übrigens für alle Bereiche 
+der Mathematik, sogar für das Rechnen mit natürlichen Zahlen. Empirisch 
+betrachtet, ist <script type="math/tex">2+2=4</script>, weil zwei Äpfel 
+und noch zwei Äpfel vier Äpfel sind und weil zwei Häuser und noch zwei 
+Häuser vier Häuser sind, usf. Gäbe es irgendeinen Planeten auf dem 
+zwei Äpfel und noch zwei Äpfel fünf statt vier Äpfel sind, dann wäre 
+damit nicht die Mathematik natürlicher Zahlen widerlegt, aber sie wäre 
+auf diesem Planeten unanwendbar. Wem das Beispiel zu abwegig vorkommt, 
+der mag sich überlegen, dass die einfache Additivität schon bei Volumengrößen 
+nicht gegeben ist. Wenn man 1 Liter Alkohol und 1 Liter Wasser mischt, 
+dann bekommt man nicht etwa <script type="math/tex">1+1=2</script> 
+Liter Alkohol-Wasser-Gemisch, sondern etwas weniger als 2 Liter! Ob 
+und worauf sich die Gesetze der Addition, Subtraktion, Multiplikation 
+etc. anwenden lassen ist also eine rein empirische Frage. A priori 
+lässt sich nur beweisen, dass <script type="math/tex">1+1=2</script>,<a id="REF52" class="internal fn" href="#FN52">[52]</a> aber 
+nicht dass eine Mengeneinheit von irgendetwas (z.B. Flüssigkeit) plus 
+noch eine Mengeneinheit von irgendetwas zwei Mengeneinheiten von irgendetwas 
+sind.)
+</p>
+<p>
+Um nun aber die oben aufgeführte Definition der bedingten Wahrscheinlichkeit 
+noch etwas besser zu motivieren, kann man darauf hinweisen, dass sich 
+aus ihr unmittelbar das uns schon zuvor bekannte (oder wie man riskanterweise 
+auch manchmal behauptet: das uns intuitiv einleuchtende) Gesetz für 
+die <em> Multiplikation der Wahrscheinlichkeiten</em> von und-verknüpften 
+Ereignissen ergibt:  
+<br /><br /><script type="math/tex"> P(p \wedge q) = P(p)\cdot P(q|p) </script><br /><br />
+ 
+Wegen der Kommutativität des logischen und-Operators &bdquo;<script type="math/tex">\wedge</script>&ldquo; 
+ergibt sich daraus unmittelbar auch: 
+<br /><br /><script type="math/tex"> P(p \wedge q) = P(q \wedge p) = P(q)\cdot P(p|q) </script><br /><br />
+ 
+Beim Gesetz der Multiplikation von Wahrscheinlichkeiten ist zu beachten, 
+dass die Wahrscheinlichkeit des einen Ereignisses die unbedingte Wahrscheinlichkeit 
+ist, die des anderen Ereignisses aber stets die Wahrscheinlichkeit 
+unter der Bedingung, dass das eine Ereignis eingetreten ist.
+</p>
+<p>
+Dieser Zusammenhang wird bei empirischen Beispielen manchmal verdeckt. 
+Berechnet man beispielsweise die Wahrscheinlichkeit, dass man bei zwei 
+Münzwürfen beidemale hintereinander Zahl erhält, so würde man 1/2 mal 
+1/2 rechnen, also scheinbar <script type="math/tex">P(p)\cdot P(q)</script> 
+rechnen, wenn mit p die Aussage &bdquo;Beim ersten Wurf lag die Zahl 
+oben&ldquo; und mit q die Aussage &bdquo;Beim zweiten Wurf lag die 
+Zahl oben&ldquo; gemeint ist. Aber auch hier muss man Korrekterweise 
+<script type="math/tex">P(p)\cdot P(q|p)</script> rechnen, nur sind 
+beim Münzwurf die Ereignisse p und q unabhängig, so dass - wiederum 
+per Definition für unabhängige Ereignisse (siehe unten) - gilt <script type="math/tex">P(q|p) = P(q)</script>, 
+womit die Rechnung <script type="math/tex">P(p)\cdot P(q|p)</script>, 
+wenn man Zahlen einsetzt, eben genauso aussieht wie die Rechnung <script type="math/tex">P(p)\cdot P(q)</script>. 
+In Wirklichkeit ist es aber eine andere Rechnung.
+</p>
+<p>
+Deutlicher wird dies an einem zweiten Beispiel: <span id="AktienBeispiel"> </span> 
+Zu berechnen sei die Wahrscheinlichkeit, dass ein Unternehmen U eine 
+Gewinnwarnung ausgibt <em>und</em> der Aktienkurs von U dennoch steigt. 
+Wenn <script type="math/tex">q</script> die Aussage ist &bdquo;U gibt 
+eine Gewinnwarnung aus&ldquo; und p die Aussage &bdquo;Der Aktienkurs 
+von U steigt&ldquo; und <script type="math/tex">p|q</script> die Aussage 
+&bdquo;Der Aktienkurs von U steigt, nachdem eine Gewinnwarnung ausgegeben 
+wurde&ldquo;, dann ist recht offensichtlich, dass man, um die Wahrscheinlichkeit 
+zu bestimmen, dass eine Gewinnwarnung ausgegeben wird <em> und</em> 
+der Aktienkurs steigt, rechnen muss <script type="math/tex">P(p \wedge q) = P(q)\cdot P(p|q)</script>. 
+Denn wenn schon einmal eine Gewinnwarnung ausgegeben wurde, dann ist 
+die Wahrscheinlichkeit, dass der Aktienkurs trotzdem steigt, natürlich 
+eine ganz andere als die, dass der Aktienkurs einfach so steigt.
+</p>
+<p>
+Aus dem Gesetz der Multiplikation von Wahrscheinlichkeiten und-verknüpfter 
+Ereignisse ergibt sich eine naheliegende Definition für die Unabhängigkeit 
+von Ereignissen. Zwei Ereignisse p und q sind <em>statistisch unabhängig</em>, 
+ wenn: 
+<br /><br /><script type="math/tex"> P(p \wedge q) = P(p)\cdot P(q) </script><br /><br />
+ 
+Da das Gesetz der Multiplikation von Wahrscheinlichkeiten bereits besagt, 
+dass <script type="math/tex">P(p \wedge q) = P(p)\cdot P(q|p) = P(q)\cdot P(p|q)</script>, 
+so folgt für unabhängige Ereignisse unmittelbar: 
+<br /><br /><script type="math/tex"> P(p|q) = P(p) \qquad \mbox{und} \qquad P(q|p) = P(q) </script><br /><br />
+ 
+In Worte gefasst sind zwei Ereignisse also dann statistisch unabhängig 
+voneinander, wenn sie als Bedingung des anderen keinen Einfluss auf 
+die Größe von dessen Wahrscheinlichkeit ausüben. Wenn man mit <script type="math/tex">p|q</script> 
+das Ereignis <script type="math/tex">p</script> unter der Bedingung 
+von <script type="math/tex">q</script> darstellt, so ist damit noch 
+nicht ausgeschlossen, dass das Ereignis p unabhängig von der Bedingung 
+<script type="math/tex">q</script> ist. (Umgangssprachlich würden wir 
+freilich nur von den Bedingungen eines Ereignisses sprechen, wenn das 
+Ereignis gerade nicht unabhängig davon ist. Andernfalls würden wir 
+den Ausdruck &bdquo;Bedingung&ldquo; wahrscheinlich nicht verwenden. 
+Die Fachsprache deckt sich hier, wie so oft, nicht mit der Umgangssprache!)
+</p>
+<p>
+Sind <script type="math/tex">p</script> und <script type="math/tex">q</script> 
+statistisch unabhängig von einander, dann gilt auch, dass <script type="math/tex">p</script> 
+und <script type="math/tex">\neg q</script> statistisch unabhängig 
+sind.
+</p>
+<p>
+<em>Beweis</em>: 
+<br /><br /><script type="math/tex"> p \Leftrightarrow (p \wedge q) \vee (p \wedge \neg q) </script><br /><br />
+ 
+Da <script type="math/tex">(p \wedge q)</script> und <script type="math/tex">(p \wedge \neg q)</script> 
+einander ausschließen, gilt nach Axiom 3: 
+<br /><br /><script type="math/tex"> P(p) = P((p \wedge q) \vee (p \wedge \neg q)) = P(p \wedge q) + P(p \wedge \neg q) </script><br /><br />
+ 
+Das lässt sich umformen zu: 
+<br /><br /><script type="math/tex"> P(p \wedge \neg q) = P(p) - P(p \wedge q) </script><br /><br />
+ 
+Da nach Voraussetzung <script type="math/tex">p</script> und <script type="math/tex">q</script> 
+statistisch unabhängig sind, gilt: <script type="math/tex">P(p \wedge q) = P(p)\cdot P(q)</script>. 
+In der vorhergehenden Gleichung dürfen wir also <script type="math/tex">P(p \wedge q)</script> 
+durch <script type="math/tex">P(p)P(q)</script> ersetzen und erhalten: 
+
+<br /><br /><script type="math/tex"> P(p \wedge \neg q) = P(p) - P(p)P(q) = P(p)\cdot (1 - P(q)) </script><br /><br />
+ 
+Nach Corrolar 1 ist aber <script type="math/tex">1 - P(q) = P(\neg q)</script>. 
+Somit erhalten wir: 
+<br /><br /><script type="math/tex"> P(p \wedge \neg q) = P(p)P(\neg q) </script><br /><br />
+ 
+Also sind nach der Definition der statistischen Unabhängigkeit auch 
+<script type="math/tex">p</script> und <script type="math/tex">\neg q</script> 
+voneinander unabhängig. <em>q.e.d.</em>
+</p>
+<p>
+Dementsprechend gilt: Wenn <script type="math/tex">p</script> statistisch 
+unabhängig von <script type="math/tex">q</script> ist, dann ist nicht 
+nur <script type="math/tex">P(p|q) = P(p)</script> sondern auch <script type="math/tex">P(p|\neg q) = P(p)</script>. 
+Kurz, wenn <script type="math/tex">p</script> unabhängig von <script type="math/tex">q</script> 
+ist, dann ändert sich die Wahrscheinlichkeit von <script type="math/tex">p</script> 
+nicht durch irgendwelche Informationen hinsichtlich der Frage, ob <script type="math/tex">q</script> 
+eingetreten ist oder nicht. (Aber genauso würden wir es von unabhängigen 
+Ereignissen ja auch erwarten, oder?)
+</p>
+<p>
+Bei mehr als zwei Ereignissen legt man wie bei der Unvereinbarkeit 
+üblicherweise die <em>paarweise</em> Unabhängigkeit zu Grunde. Ähnlich 
+wie bei paarweise <em> unvereinbaren</em> Ereignissen die Wahrscheinlichkeit, 
+dass mindestens eins davon eintritt (oder-Verknüpfung!), der <em>Summe</em> 
+der Wahrscheinlichkeiten der einzelnen Ereignisse entspricht, so ist 
+die Wahrscheinlichkeit, dass alle Ereignisse einer Menge von paarweise 
+<em>unabhängigen</em> Ereignissen eintreten, gleich dem <em>Produkt</em> 
+der Wahrscheinlichkeiten der Einzelereignisse.
+</p>
+<p>
+Der Umgang mit bedingten Wahrscheinlichkeiten ist nicht immer vollkommen 
+intuitiv. Einige Dinge sollte man im Auge behalten: Durch das Hinzufügen von 
+Bedingungen kann die Wahrscheinlichkeit eines Ereignisses größer oder 
+auch kleiner werden oder auch gleich bleiben. (Es ist also nicht wahr, 
+dass irgendein Grundsatz der Art: &bdquo;Je mehr Bedingungen, desto 
+unwahrscheinlicher ein Ereignis&ldquo; gelten würde.) Beispiel: Angenommen, 
+auf Grund historischer Erfahrungswerte weiß man, dass die Wahrscheinlichkeit, 
+dass die Aktienkurse eines großen Gartenbauunternehmens im Frühjahr 
+mit einer bestimmten Wahrscheinlichkeit <script type="math/tex">w</script> 
+steigen. Dann wird die Wahrscheinlichkeit, dass sie steigen, wenn das 
+Gartenbauunternehmen im ersten Quartal Gewinne ausweisen konnte, sicher 
+größer sein als <script type="math/tex">w</script>, während sie unter 
+der Bedingung, dass es Verluste melden musste, wahrscheinlich kleiner 
+sein wird.
+</p>
+<p>
+Schließlich ist noch auf eine Verwechselungsmöglichkeit aufmerksam 
+zu machen. Die Wahrscheinlichkeit, dass &bdquo;<script type="math/tex">q</script> unter der Bedingung, 
+dass <script type="math/tex">p</script>&ldquo; eintritt (also <script type="math/tex">P(q|p)</script>) 
+ist nicht zu verwechseln mit der Wahrscheinlichkeit von &bdquo;<script type="math/tex">q</script> 
+wenn <script type="math/tex">p</script>&ldquo; (<script type="math/tex">P(p \rightarrow q)</script>). 
+Ein Beispiel: Die Wahrscheinlichkeit aus einem Stapel von Karten eine 
+Karte mit Herz zu ziehen (<script type="math/tex">q</script>) beträgt 
+<script type="math/tex">1/4</script>. Wenn man aber vorher alle schwarzen 
+Karten aus dem Stapel entfernt, dann ist die Bedingung gegeben ist, 
+dass die gezogene Karte eine rote Karte ist (<script type="math/tex">p</script>), 
+und die Wahrscheinlichkeit, dass die Karte unter dieser Bedingung Herz 
+ist, beträgt <script type="math/tex">P(q|p) = 1/2</script>. Andererseits 
+aber beträgt die Wahrscheinlichkeit, dass es wahr ist, dass &bdquo;wenn 
+eine rote Karte gezogen wird, dann ist es eine Herz-Karte&ldquo; <script type="math/tex">P(p \rightarrow q) = 3/4</script>, 
+denn die Aussage ist auch dann wahr, wenn überhaupt keine rote Karte 
+gezogen wird, was bereits in der Hälfte aller Fälle gilt. Die Bedingungsaussage 
+<script type="math/tex">q|p</script> ist also nicht zu verwechseln 
+mit der Implikationsaussage <script type="math/tex">p \rightarrow q</script>. 
+Der Unterschied ist der zwischen der bedingten Behauptung des Folgeglieds 
+einer Implikation und der Behauptung der Gültigkeit einer Implikationsbeziehung 
+selbst, ein subtiler aber wichtiger Unterschied!
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node70.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node71.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN51" class="internal fn" href="#REF51">[51]</a> Während die Aussagenlogik nur die Wahrheit und Falschheit von Aussagen 
+einbezieht, behandelt die Modallogik auch solche Eigenschaften wie 
+die <em>Möglichkeit</em> und <em>Notwendigkeit</em> von Aussagen. So 
+ergibt sich in der Modallogik z.B. dass die Negation einer Aussage, 
+die <em>unmöglich</em> wahr sein kann, <em>notwendig</em> wahr ist.
+</p>
+<p class="footnote">
+<a id="FN52" class="internal fn" href="#REF52">[52]</a> Dergleichen lässt sich tatsächlich beweisen. Näheres dazu auf: <a class="external" href="http://us.metamath.org/mpegif/mmset.html\#trivia">us.metamath.org/mpegif/mmset.html\#trivia</a>. 
+Ich bin Matthias Brinkmann für den Hinweis auf diese Webseite dankbar!
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node70.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node71.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node70.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 3.1.2  Grundlegende Gesetze der Wahrscheinlichkeitsrechnung" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node70.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node70.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 3.1.2  Grundlegende Gesetze der Wahrscheinlichkeitsrechnung&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node70.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

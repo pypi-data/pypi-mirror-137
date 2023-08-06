@@ -1,0 +1,553 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.3  Evolutionäre Spieltheorie</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node126.html" />
+<link rel="next" href="node128.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node126.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node117.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node128.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node106.html">5.1  Spieltheorie I: Einführung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node117.html">5.2  Spieltheorie II: Vertiefung und Anwendung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node118.html">5.2.1  Nicht-Nullsummenspiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node125.html">5.2.2  Wiederholte Spiele</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node127.html">5.2.3  Evolutionäre Spieltheorie</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node127.html">5.2.3.1  Evolutionäre Spieltheorie am Beispiel des wiederholten Gefangenendilemmas</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node128.html">5.2.3.2  Die empirische Unanwendbarkeit spieltheoretischer Evolutionsmodelle</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node129.html">5.2.4  Ein Anwendungsbeispiel der Spieltheorie, das funktioniert: Vertrauen bei Internetauktionen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node130.html">5.2.5  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h3>5.2.3  Evolutionäre Spieltheorie</h3>
+
+<h4>5.2.3.1  Evolutionäre Spieltheorie am Beispiel des wiederholten Gefangenendilemmas</h4>
+
+<p>
+Das Modell des wiederholten Gefangenendilemmas war für lange Zeit eines 
+der populärsten Modelle der evolutionären Spieltheorie. Besonders duch 
+den auf Computersimulationen gestützten Ansatz von Robert Axelrod  (<a class="bibref" href="node139.html#Axelrod_1984">Axelrod 1984</a>) 
+ist es weithin bekannt geworden. Leider hat die Popularität dieses 
+Modells zu einer maßlosen Überschätzung seiner Leistungsfähigkeit geführt. 
+Einer unüberschaubaren Fülle von reinen Modell- und Simulationsstudien 
+steht ein mehr als auffälliger Mangel an empirischen Anwendungen gegenüber. 
+Da das Modell aber ebenso anschaulich wie leicht verständlich ist, 
+werden wir es hier dennoch zur Einführung in einige der Grundgedanken 
+der evolutionären Spieltheorie heranziehen. Auf die Probleme werden 
+wir danach kurz eingehen.
+</p>
+<p>
+Wie wir gesehen haben, existiert im wiederholten Gefangenendilemma 
+keine dominante Strategie und es gibt eine Vielzahl von Gleichgewichtsstrategien. 
+Können wir trotzdem irgendwelche Strategien als gute oder in irgendeinem 
+anderen Sinne als dem der Dominanz als &bdquo;beste&ldquo; Strategien 
+auszeichnen. Der (aus heutiger Sicht naive) Ansatz, den Axelrod verfolgt 
+hat  (<a class="bibref" href="node139.html#Axelrod_1984">Axelrod 1984</a>), 
+bestand darin, einfach eine größere Menge von unterschiedlichen Strategien 
+in einer Art Turnier gegeneinander antreten zu lassen. Jede Strategie 
+spielt gegen jede andere ein paarweise Gefangenendilemma durch. &bdquo;Gewonnen&ldquo; 
+hat am Ende die Strategie, die die höchste Durchschnittspunktzahl über 
+alle Begegnungen erzielt hat. (Wohlbemerkt: Es kommt bei diesem Turnier 
+auf die Durchschnittspunktzahl und nicht auf die Anzahl gewonnenen 
+Begegnunen bzw. der besiegten Gegner an, ganz wie es dem ökonomischen 
+Menschbild des &bdquo;neidlosen Egoisten&ldquo; entspricht.) Da man 
+die Strategien im wiederholten Gefangenendilemma sehr leicht programmieren 
+kann, führt man entsprechende Turniere am besten mit dem Computer durch.<a id="REF79" class="internal fn" href="#FN79">[79]</a> 
+</p>
+<p>
+Um das Prinzip zu verdeutlichen, wird an dieser Stelle nur ein sehr 
+einfaches Turnier mit einer sehr kleinen Stratgiemenge von 7 Strategien 
+besprochen. Diese ausgewählten Strategien sind: 
+</p>
+<ul>
+<span id="Strategien"> </span> <li><em>Grim</em> (&bdquo;Unerbittlich&ldquo;): Kooperiere in der ersten 
+Runde; setze in den folgenden Runden die Kooperation fort, solange 
+der Gegner kooperiert; Defektiere bis zum Ende der Begegnung, wenn 
+der Gegner ein einziges Mal defektiert hat. <br />&#160;</li>
+
+<li><em>TitForTat</em> (&bdquo;Wie Du mir, so ich Dir&ldquo;): Kooperiere 
+in der ersten Runde; Wenn der Gegner in der letzten Runde kooperiert 
+hat, kooperiere auch, sonst defektiere. <br />&#160;</li>
+
+<li><em>Pavlov</em>: Defektiere in der ersten Runde. Schalte die Taktik 
+von Defektion auf Kooperation oder von Kooperation auf Defektion um, 
+sofern der Gegner in der letzten Runde defektiert (d.h. &bdquo;bestraft&ldquo;) 
+hat. Sonst behalte die bisherige Taktik bei, d.h. spiele so wie in 
+der letzten Runde. <br />&#160;</li>
+
+<li><em>Tester</em>: Defektiere in den ersten beiden Runden. Reagiert der 
+Gegner mit Defektion (also mit einer &bdquo;Bestrafung&ldquo;), dann 
+kooperiere zweimal in Folge (als &bdquo;Wiedergutmachung&ldquo;) und 
+spiele für den Rest des Spiels &bdquo;Wie Du mir, so ich Dir&ldquo;. 
+Hat der Gegner die Defektionen in den ersten beiden Runden nicht bestraft, 
+dann spiele für den Rest des Spiels abwechselnd Defektionszüge (zur 
+&bdquo;Ausbeutung&ldquo;) und Kooperationszüge. <br />&#160;</li>
+
+<li><em>Hawk</em> (&bdquo;Falke&ldquo;): Defektiere immer. <br />&#160;</li>
+
+<li><em>Dove</em> (&bdquo;Taube&ldquo;): Kooperiere immer. <br />&#160;</li>
+
+<li><em>Random</em> (&bdquo;Zufall&ldquo;): Kooperiere oder Defektiere 
+völlig zufällig. </li>
+</ul>
+<p>
+Ein &bdquo;Turnier&ldquo; dieser Strategien liefert für die Auszahlungsparameter 
+<script type="math/tex">T=5, R=3, P=1, S=0</script> (siehe Seite  <a href="node124.html#GefangenendilemmaTabelle"></a>) 
+folgendes Ergebnis: 
+</p>
+<table style="text-align:center">
+<tr><td>Rang </td><td>Stratgie </td><td>Durchschnittspunkte </td></tr>
+<tr><td>1. </td><td>TitForTat: </td><td>2.4631 </td></tr>
+<tr><td>2. </td><td>Grim: </td><td>2.4270 </td></tr>
+<tr><td>3. </td><td>Tester: </td><td>2.3565 </td></tr>
+<tr><td>4. </td><td>Pavlov: </td><td>2.2185 </td></tr>
+<tr><td>5. </td><td>Hawk: </td><td>2.1486 </td></tr>
+<tr><td>6. </td><td>Random: </td><td>1.9992 </td></tr>
+<tr><td>7. </td><td>Dove: </td><td>1.7121 </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+In diesem Fall hat also <em>TitForTat</em> das Turnier gewonnen. Die 
+Durchschnittspunktzahl von <script type="math/tex">2,46</script> liegt 
+zwar deutlich unter der Auszahlung für wechselseitige Kooperation von 
+<script type="math/tex">3</script> Punkten, aber das ist nicht verwunderlich, 
+da man gegen eine Strategie wie <em>Hawk</em>, die immer defektiert, 
+bestenfalls eine Durchschnittspunktzahl von <script type="math/tex">1</script> 
+erzielen kann. Auffällig ist, dass in diesem Beispiel bösartige Strategien 
+wie <em>Tester</em>, die versuchen naive Strategien wie <em>Dove</em> 
+auszubeuten, nicht die erfolgreichsten sind. Aber das ist erklärlich, 
+wenn auch Strategien wie <em>Grim</em> im Rennen sind, die von &bdquo;bösartigen&ldquo; 
+Strategien wie <em>Tester</em> keine Friedensangebote akzeptieren. 
+So erzielt <em>Tester</em> gegen <em>Grim</em> nur eine Durchschnittspunktzahl 
+von knapp <script type="math/tex">1</script> (was der Auszahlung für 
+wechselseitige Defektion entspricht), während <em>TitForTat</em> und 
+<em>Grim</em> kooperieren, so dass <em>TitForTat</em> gegen <em>Grim</em> 
+satte <script type="math/tex">3</script> Punkte erhält. Es ist zu betonen, 
+dass das Ergebnis sehr stark von der Ausgansstrategiemenge und von 
+den gewählten Auszahlungsparametern abhängt. Wandelt man das eine oder 
+andere ab, dann kann eine ganz andere Strategie die beste sein. Grundsätzlich 
+sollte man keine voreiligen und verallgemeinernden Schlussfolgerungen 
+aus Computersimulationen mit willkürlich festgesetzten Ausgangsbedingungen 
+und Parameterwerten ziehen.
+</p>
+<p>
+Bis hierher hat das Computerturnier nur etwas mit wiederholten Spielen, 
+aber noch nichts mit Evolution zu tun. Zu einem evolutionären Modell 
+wird das Computerturnier, wenn man die Durchschnittsauszahlungen als 
+<em>Fitnesswerte</em> interpretiert. Man stellt sich dazu vor, dass 
+wir es mit einer großen Population von Spielern und einer kleinen Menge 
+von Spielertypen zu tun haben. Der Typ eines Spielers ist die Strategie, 
+die er spielt. Um es noch ein wenig anschaulicher zu machen, können 
+wir uns auch eine Population von Tieren vorstellen, die in Gemeinschaft 
+leben, etwa einen Vogelschwarm. Bei der Nahrungssuche unterstützen 
+die Vögel einander, aber es gibt genetisch bedingte Unterschiede. Einige 
+Tiere sind extrem sozial, d.h. sie unterstützen jeden Artgenossen (Strategie: 
+<em>Dove</em>), andere machen die Unterstützung eines Artgenossen davon 
+abhängig, ob sie erwiedert wird (<em>TitForTat</em>), wieder andere 
+verhalten sich völlig egoistisch (<em>Hawk</em>). Der Erfolg bei der 
+Nahrungssuche hängt nun davon ab, wie leistungsfähig jede der Strategien 
+ist. Zugleich kann man davon ausgehen, dass sich der Erfolg bei der 
+Nahrungssuche in Fortpflanzungserfolg umsetzt. Das bedeutet aber wiederum, 
+dass eine erfolgreiche Strategie in der folgenden Generation häufiger 
+auftritt und eine weniger erfolgreiche seltener, sie könnte irgendwann 
+sogar ganz aussterben.
+</p>
+<p>
+Um nun diese Überlegungen in das Modell zu übertragen, gehen wir der 
+Einfachheit halber davon aus, dass in der ersten Generation auf jede 
+Strategie auf ein gleich großer Anteil der Spielpopulation entfällt. 
+Für die nächste Generation wird der Populationsanteil dann allerdings 
+mit dem Fitnesswert mutlipliziert. Der Fitnesswert entspricht nach 
+der ersten Generation noch genau den Durchschnittsauszahlungen, die 
+auf die (gleichverteilten) Strategien entfallen. In den folgenden Generationen 
+darf man jedoch nicht mehr einfach den Durchschnitt bilden, sondern 
+muss für jede Strategie das mit dem Bevölkerungsanteil der Gegnerstrategien 
+gewichtete Mittel der Ergebnisse der einzelnen Begegnungen berechnen. 
+Das ist durchaus einleuchtend, wenn man sich vor Augen hält, dass der 
+Erfolg einer Strategie wie <em>Tester</em> umso größer ist, je mehr 
+<em> Dove</em>-Spieler in der Population vorkommen, und dass er geringer 
+wird, wenn der Populationsanteil von <em>Dove</em>-Spielern absinkt. 
+Im Laufe von mehreren Generationen ändern sich also sowohl die Populationsanteile 
+der Strategien als auch die Fitnesswerte der Strategien (weil sie von 
+den Populationsanteilen abhängen). Mathematisch werden diese Zusammenhänge 
+folgendermaßen ausgedrückt: <script type="math/tex">
+\begin{equation}\label{fitnessEquation}
+F_i = \sum_{k=1}^n S_{ik}P_k
+\end{equation}
+</script>
+
+</p>
+<table>
+<tr><td><script type="math/tex">F_i</script> </td><td></td><td>Fitness der <script type="math/tex">i</script>-ten Strategie </td></tr>
+<tr><td><script type="math/tex">S_{ik}</script> </td><td></td><td>Auszahlung für die <script type="math/tex">i</script>-te Strategie 
+gegen die <script type="math/tex">k</script>-te Strategie </td></tr>
+<tr><td><script type="math/tex">P_k</script> </td><td></td><td>Bevölkerungsanteil der <script type="math/tex">k</script>-ten Strategie 
+</td></tr>
+<tr><td><script type="math/tex">n</script> </td><td></td><td>Anzahl der vorkommenden Strategien </td></tr>
+<tr><td><script type="math/tex">i,k</script> </td><td></td><td>Indizes einzelner Strategien (<script type="math/tex">0 \leq i,k \leq n</script>) 
+</td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Anstatt mit der absoluten Zahl von Individuen zu rechnen, die eine 
+Strategie angenommen haben, wobei man die Größe der Population willkürlich 
+festlegen müsste, rechnet man der Einfachheit halber immer mit relativen 
+Bevölkerungsanteilen einer gedachten unendlich großen Bevölkerung. 
+(Die Bevölkerungsanteile müssen sich dabei immer zu 1 aufsummieren, 
+weshalb man sie nach jeder Generation renormieren muss.) Neben der 
+Formel, nach der die Fitness berechnet wird, ist noch eine Formel notwendig, 
+um die Bevölkerungsanteile, die in der Folgegeneration auf jede Strategie 
+entfallen, zu berechnen: <script type="math/tex">
+\begin{equation}\label{populationEquation}
+P_i^{g+1} = \frac{P_i^gF_i^g}{\sum_{k=1}^n P_k^gF_k^g}
+\end{equation}
+</script>
+
+</p>
+<table>
+<tr><td><script type="math/tex">P_i^g</script> </td><td></td><td>Populationsanteil der <script type="math/tex">i</script>-ten Strategie 
+in der <script type="math/tex">g</script>-ten Generation </td></tr>
+<tr><td><script type="math/tex">F_i^g</script> </td><td></td><td>Fitness der <script type="math/tex">i</script>-ten Strategie in der 
+Generation Nummer <script type="math/tex">g</script> </td></tr>
+<tr><td><script type="math/tex">g</script> </td><td></td><td>die Nummer der gegenwärtigen Generation </td></tr>
+<tr><td><script type="math/tex">n</script> </td><td></td><td>Anzahl der vorkommenden Strategien </td></tr>
+<tr><td><script type="math/tex">i,k</script> </td><td></td><td>Indizes einzelner Strategien (<script type="math/tex">0 \leq i,k \leq n</script>) 
+</td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Die Formel sieht sehr viel hässlicher aus, als sie ist. Alles Wichtige 
+steht im Zähler des Bruchs. Der Nenner dient lediglich der Renormierung. 
+(Wir teilen einfach den nicht normierten Bevölkerungsanteil jeder Strategie 
+durch die Summe aller nicht normierten Bevölkerungsanteile.)
+</p>
+<p>
+Übt die evolutionäre Entwicklung einen Einfluss darauf aus, welche 
+Strategien erfolgreich sind? Dazu betrachten wir die Rangfolge nach 
+50 Generationen: 
+</p>
+<table style="text-align:center">
+<tr><td>Rang </td><td>Stratgie </td><td>Bevölkerungsanteil </td><td>Durchschnittspunkte </td></tr>
+<tr><td>1. </td><td>TitForTat </td><td>0.7745 </td><td>3.0000 </td></tr>
+<tr><td>2. </td><td>Grim </td><td>0.1922 </td><td>2.9984</td></tr>
+<tr><td>3. </td><td>Dove </td><td>0.0325 </td><td>2.9988</td></tr>
+<tr><td>4. </td><td>Tester </td><td>0.0008 </td><td>2.6461</td></tr>
+<tr><td>5. </td><td>Random </td><td>0.0000 </td><td>1.9727</td></tr>
+<tr><td>6. </td><td>Pavlov </td><td>0.0000 </td><td>1.8125</td></tr>
+<tr><td>7. </td><td>Hawk </td><td>0.0000 </td><td>1.1338</td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Die Strategie <em>TitForTat</em> steht nach wie vor an der Spitze, 
+aber die Strategie <em>Tester</em> ist vom dritten auf den vierten 
+Platz abgesackt und <em>Hawk</em> befindet sich nunmehr ganz am Ende 
+der Tabelle. Die evolutionäre Entwicklung lässt sich sehr anschaulich 
+in einem kartesischen Koordinatensystem darstellen, wenn man auf der 
+X-Achse die Generation und auf der Y-Achse die Bevölkerungsanteile 
+für jede Strategie einträgt, wie auf der Abbildung  <a href="node127.html#BeispielEvolution">1</a> 
+auf Seite  <a href="node127.html#BeispielEvolution">1</a> 
+zu sehen ist. <figure>
+<br /><img src="Einfaches_Beispiel.png" alt="[image: Einfaches_Beispiel.png]" /><br /> 
+ <figcaption><span id="BeispielEvolution">Abbildung 1. </span> Beispiel 
+einer evolutionären Simulation des wiederholten Gefangenendilemmas</figcaption> 
+
+</figure>
+
+</p>
+<p>
+Ganz grob kann man die Entwicklung folgendermaßen charakterisieren. 
+Durch Präsenz ausbeuterischer Strategien (<em>Tester</em>, <em>Hawk</em> 
+und m.E. auch <em> Pavlov</em> und <em>Random</em>) sacken die rein 
+kooperativen Straegien (in dieser Simulation nur <em>Dove</em>) am 
+Anfang stark ab. Dadurch verlieren aber die ausbeuterischen Strategien 
+auf längere Sicht gesehen ihre Basis, so dass sich die reziproken Strategien 
+durchsetzen. Ein hoher Anteil reziproker Strategien (d.h. Strategien, 
+die Wohlverhalten belohnen und Fehlverhalten bestrafen wie <em>TitForTat</em> 
+und besonders <em>Grim</em>) bewirkt schließlich, dass erstens die 
+ausbeuterischen Strategien sich nicht wieder erholen und zweitens ein 
+gewisser Anteil rein kooperativer Strategien &bdquo;im Windschatten&ldquo; 
+der reziproken Strategien überleben kann.
+</p>
+<p>
+Es ist durchaus charakteristisch, dass evolutionäre Entwicklung am 
+Ende mit einem Mix von Strategien zum Stillstand kommt. <em>TitForTat</em>, 
+<em>Dove</em> und <em>Grim</em> kooperieren immer miteinander, so dass 
+die Unterschiede zwischen diesen Strategien unter Abwesenheit anderer 
+Strategien gar nicht zum tragen kommen und keine Verschiebungen in 
+der Bevölkerungsverteilung mehr bewirken können. Man kann die Situation 
+auch so interpretieren, dass sich am Ende eine gemischte Strategie 
+durchgesetzt hat, die zu ca. 77,5% <em>TitForTat</em>, 19,2% <em>Grim</em> 
+zu und zu 3,3% <em>Dove</em> spielt. Übrigens ist das auch eine übliche 
+Interpretation gemischter Strategien im evolutionären Zusammenhang: 
+Eine gemischte Strategie kann man auch als eine gemischte Population 
+reiner Strategien auffassen.
+</p>
+<p>
+Bei evolutionären Computersimulationen stellt sich in besonderer Schärfe 
+das Problem der <em>Modellkontingenz</em> (d.h. die Ergebnisse sind 
+abhägig von der Ausgangssituation und den Modellparametern und damit 
+kaum verallgemeinerbar).<a id="REF80" class="internal fn" href="#FN80">[80]</a> Bloß 
+auf Grund von Simulationsläufen, seien dies nun einzelne oder eine 
+große Zahl von Simulationsläufen, lässt sich bestenfalls ein subjektiver 
+Eindruck davon gewinnen, welche Strategien vorteilhaft sind und welche 
+nicht.
+</p>
+<p>
+Aussichtsreicher, da weniger kontingenzbehaftet, erscheint der Versuch 
+einer mathematischen Charakterisierung vorteilhafter Strategien. Ähnlich 
+wie in der gewöhnlichen Spieltheorie der Begriff des Nash-Gleichgewichts 
+entwickelt wurde, um bestimmte Strategien bzw. Strategiekombinationen 
+auszuzeichnen, gibt es auch in der evolutionären Spieltheorie diverse 
+Gleichgewichtsbegriffe, durch die evolutionäre Strategien charakterisiert 
+werden können. Der wichtigste davon ist der Begriff des &bdquo;evolutionären 
+Gleichgewichts&ldquo; bzw. der <em>evolutionär stabilen Strategien</em> 
+(ESS). Als &bdquo;evolutionär stabil&ldquo; charakterisiert man Strategien, 
+die, wenn sie sich einmal in einer Population durchgesetzt haben, vor 
+dem Eindringen von mutierten Strategien geschützt sind. Zur Charakterisierung 
+von Strategien im wiederholten Gefangenendilemma-Spiel bietet sich 
+allerdings eher der etwas schwächere Begriff der kollektiven Stabilität 
+an. Im folgenden wird daher vorwiegend von kollektiver Stabilität die 
+Rede sein.
+</p>
+<p>
+Eine Strategie <script type="math/tex">A</script> gilt als &bdquo;kollektiv 
+stabil&ldquo; wenn kein einzelnes Individuum einer anderen Strategie 
+<script type="math/tex">B</script> in eine Population, die nur aus 
+Individuen der der Strategie <script type="math/tex">A</script> gebildet 
+wird &bdquo;eindringen&ldquo; kann. Eindringen kann <script type="math/tex">B</script> 
+genau dann, wenn die Auszahlung, die <script type="math/tex">B</script> 
+der Begegnung mit <script type="math/tex">A</script> erhält (formal: 
+<script type="math/tex">V(B/A)</script>, wobei das V für &bdquo;value&ldquo; 
+steht, also den Wert des Spiels für Spieler B wiedergibt) größer ist, 
+als die Auszahlung, die <script type="math/tex">A</script> gegen sich 
+selbst erhält (<script type="math/tex">V(A/A)</script>), kurz &bdquo;Eindringen&ldquo; 
+wird durch die Ungleichung beschrieben: 
+<br /><br /><script type="math/tex"> V(B/A) > V(A/A) </script><br /><br />
+ 
+Wenn diese Ungleichung erfüllt ist, dann wird ein einzelner <script type="math/tex">B</script>-Spieler 
+nämlich eine höhere Durchschnittsauszahlung erhalten als die <script type="math/tex">A</script>-Spieler 
+und sich damit stärker vermehren, so dass sich die <script type="math/tex">B</script>-Spieler 
+schließlich in der <script type="math/tex">A</script>-Population ausbreiten.
+</p>
+<p>
+Kollektiv stabil ist eine Strategie <script type="math/tex">A</script> 
+nun genau dann, wenn keine andere Strategie <script type="math/tex">B</script> 
+exiistiert, die in <script type="math/tex">A</script> eindringen kann, 
+d.h. wenn 
+<br /><br /><script type="math/tex"> \forall_B \qquad V(B/A) \leq V(A/A) </script><br /><br />
+ 
+Man kann nun leicht zeigen, dass die Strategie <em>TitForTat</em> kollektiv 
+stabil ist, denn <em>TitForTat</em> erhält gegen sich selbst als Durchschnittspunktzahl 
+den Kooperationsgewinn von 3 (bzw. <script type="math/tex">R</script>). 
+Keine Strategie, die gegen <em> TitForTat</em> ausschließlich kooperiert, 
+kann mehr als 3 (bzw. <script type="math/tex">R</script>) Punkte erhalten. 
+Damit können aber höchstens noch solche Strategien in eine Population 
+von <em>TitForTat</em>-Spielern eindringen, die gegen <em>TitForTat</em> 
+nicht immer kooperieren. Wenn eine Strategie aber in irgendeiner Runde 
+gegen <em> TitForTat</em> nicht kooperiert, dann wird sie in den folgenden 
+Runden von <em> TitForTat</em> solange bestraft, bis sie eine Bestrafung 
+&bdquo;hinnimmt&ldquo;, d.h. bis sie in einer der Runden, in der <em>TitForTat</em> 
+bestraft, ihrerseits nicht defektiert. Dann erhält sie von der Runde, 
+in der sie ausbeutet, zusammen genommen mit der Runde, in der sie die 
+Bestrafung hinnimmt, eine Durchschnittsauszahlung von 5+0 (bzw. <script type="math/tex">T</script>+<script type="math/tex">S</script>), 
+was kleiner als 3 (bzw. <script type="math/tex">R</script>) ist. (Gibt 
+es dazwischen Runden wechselseitiger Defektion, so ist die Durchschnittsauszahlung 
+von 1 (bzw. <script type="math/tex">P</script>) ohnehin kleiner als 
+3 (bzw. <script type="math/tex">R</script>).) Damit sinkt aber der 
+Gesamtdurchschnitt <script type="math/tex">V(Eindringling/TFT)</script> 
+unter die Kooperationsauszahlung von <script type="math/tex">R</script>. 
+Wegen <script type="math/tex">V(TFT/TFT) = R</script> gilt also <script type="math/tex">V(Eindringling/TFT) < V(TFT/TFT)</script>. 
+Mit anderen Worten eine Strategie, die gegen <em>TitForTat</em> irgendwann 
+einmal nicht kooperiert, kann erst recht nicht in eine Population von 
+<em>TitForTat</em>-Spielern eindringen. (Dieser Beweis gilt, so wie 
+er geführt wurde, zunächst einmal für ein idealisiertes unendlich oft 
+wiederholtes Gefangenendilemma. Man kann ihn aber auch leicht auf unbestimmt 
+oft wiederholte endliche Spiele übertragen, sofern die Wahrscheinlichkeit, 
+mit der nach jeder Runde das Spiel abgebrochen wird, klein genug (bezogen 
+auf die Auszahlungsparameter in ihrem Verhältnis zueinander) gewählt 
+wird, so dass - grob gesagt - die Chance, dass die Runde, in der defektiert 
+wird, die letzte ist, nicht den zu erwartenden Schaden ausgleicht, 
+falls sie es doch nicht ist.)
+</p>
+<p>
+Aber ebenso ist auch die Strategie <em>Hawk</em> kollektiv stabil, 
+denn jede andere Strategie kann gegen <em>Hawk</em> höchstens eine 
+Durschnittspunktzahl von 1 (bzw. <script type="math/tex">P</script>) 
+erzielen, was aber nicht mehr ist als <em>Hawk</em> gegen sich selbst 
+erzielt. Wenn <em>Hawk</em> und <em>TitForTat</em> beide gleichermaßen 
+kollektiv stabil sind, kann man dann noch eine dieser beiden Strategien 
+bezüglich der ihrer Stabilität vor der anderen auszeichnen? Man kann: 
+Bei der kollektiven Stabilität wird nur gefragt, ob ein einzelner Eindringling 
+sich in einer Fremdpopulation ausbreiten kann. Aber wie verhält es 
+sich, wenn eine kleine Gruppe von Eindringligen versucht, in eine Fremdpopulation 
+einzudringen? Angenommen eine kleine Gruppe von <em>TitForTat</em>-Spielern 
+versucht in eine Gruppe von <em>Hawk</em>-Spielern einzudringen. Dann 
+ist <script type="math/tex">V(TFT/Hawk)</script> geringfügig kleiner 
+als <script type="math/tex">V(Hawk/Hawk)</script>, da TFT in der ersten 
+Runde einen Kooperationsversuch wagt. Andererseits erhalten die TFT-Spieler 
+untereinander die Kooperationsauszahlung <script type="math/tex">R</script>, 
+die erheblich größer ist als die Defektionsauszahlung <script type="math/tex">P</script>, 
+die die <em>Hawk</em>-Spieler untereinander erhalten (<script type="math/tex">V(TFT/TFT) \gg V(Hawk/Hawk) </script>). 
+Dementsprechend könnte schon eine Minderheit von TFT Spielern eine 
+höhere Durchschnittsauszahlung erhalten als die Mehrheitspopulation 
+der <em>Hawk</em>-Spieler. Umgekehrt ist das nicht der Fall. Das bedeutet 
+aber, dass eine Population von <em>Hawk</em>-Spielern nur relativ schwach 
+gegen das Eindringen durch eine Gruppe von <em>TitForTat</em>-Spielern 
+geschützt ist.<a id="REF81" class="internal fn" href="#FN81">[81]</a> . 
+Dominieren die <em>TitForTat</em>-Spieler aber erst einmal die Population, 
+so hat umgekehrt eine Gruppe von <em>Hawk</em>-Spielern kaum eine Chance 
+in die Population einzudringen. Es besteht also eine Asymmetrie zwischen 
+reziproken und bösartigen Strategien, die sich zugunsten der reziproken 
+Strategien auswirkt.
+</p>
+<p>
+Der Begriff der kollektiven Stabilität hat die Schwäche, dass kollektiv 
+stabile Strategien nicht unbedingt gegen das Eindringen von Mutationen 
+geschützt sind, die gegen die Vertreter der Stammpopulation genauso 
+gut abschneiden wie diese gegen sich selbst. Damit schließt die kollektive 
+Stabilität einer Strategie z.B. nicht aus, dass ihre Population gegen 
+die Ausbreitung degenerierender Mutationen geschützt ist. So könnte 
+sich innerhalb einer Population von <em> TitForTat</em>-Spielern die 
+Strategie <em>Dove</em> ungehindert ausbreiten, da keinerlei &bdquo;Erhaltungsselektion&ldquo; 
+statt findet, durch die die &bdquo;schwächeren&ldquo; <em> Dove</em>-Spieler 
+in einem Millieu von <em>TitForTat</em>-Spielern an der Ausbreitung 
+gehindert würden. Aus diesem Grund ist insbesondere in der Biologie 
+ein vergleichsweise stärkeres Konzept als das der kollektiven Stabilität 
+üblich, nämlich des der <em>evolutionären Stabilität</em>. 
+</p>
+<blockquote>
+<em>Evolutionäre Stabilität</em>: Eine Strategie <script type="math/tex">A</script> 
+ist evolutionär stabil, wenn für jede beliebige Strategie <script type="math/tex">B</script> 
+gilt, dass entweder 
+<br /><br /><script type="math/tex"> V(A/A) > V(B/A) </script><br /><br />
+ 
+oder 
+<br /><br /><script type="math/tex"> V(A/A) = V(B/A) \qquad \wedge \qquad V(A/B) > V(B/B) </script><br /><br />
+ 
+</blockquote>
+<p>
+Für die Analyse des wiederholten Gefangenendilemma-Spiels erscheint 
+dieser vergleichsweise stärkere Begriff jedoch nicht unbedingt geeignet, 
+weil es dann äußerst schwierig wird, überhaupt noch eine Strategie 
+zu konsturieren, die evolutionär stabil ist. Eine reziproke Strategie 
+könnte gegenüber von <em> Dove</em>-Mutanten nur noch dann evolutionär 
+stabil sein, wenn sie einen Mechanismus enthält, der die Abwesenheit 
+des eigenen Bestrafungsmechanismus sanktioniert (wodzu dieser Mechanismus 
+durch zufällige Defektion aber erst einmal ausgelöst werden muss). 
+Aber nicht nur ausbleibende Bestrafungen müssten sanktioniert werden, 
+sondern auch ausbleibende Bestrafungen von ausbleibenden Bestrafungen 
+usf. Ob eine solche Stratgie wenigstens theoretisch denkbar ist, sei 
+hier einmal dahin gestellt.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node127.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node128.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN79" class="internal fn" href="#REF79">[79]</a> Wen es interessiert, der kann sich die Software dafür von dieser Web-Seite 
+herunterladen: <a class="external" href="http://www.eckhartarnold.de/apppages/coopsim.html">www.eckhartarnold.de/apppages/coopsim.html</a> 
+
+</p>
+<p class="footnote">
+<a id="FN80" class="internal fn" href="#REF80">[80]</a> Axelrod glaubte aufgrund der detaillierten Analyse mehrfacher Simulationsläufe 
+die Strategie <em>TitForTat</em> als eine besonders vorteilhafte Strategie 
+auszeichnen zu können  (<a class="bibref" href="node139.html#Axelrod_1984">Axelrod 1984</a>, S. 25ff, S. 29ff.). 
+Ken Binmore argumentiert jedoch überzeugend dagegen und zeigt, dass 
+die vermeintliche Überlegenheit von <em>TitForTat</em> als theoretischer 
+Befund nicht haltbar ist  (<a class="bibref" href="node139.html#Binmore_1998">Binmore 1998</a>, S. 313). 
+(Empirisch bestätigt ist sie ohnehin nicht, siehe unten, Kapitel  <a href="node128.html#empirischeUnanwendbarkeit">5.2.3.2</a>). 
+Angesichts der außergewöhnlichen Popularität von Axelrods Ansatz spricht 
+Binmore daher durchaus treffend von der &bdquo;Tit for Tat Bubble&ldquo; 
+ (<a class="bibref" href="node139.html#Binmore_1994">Binmore 1994</a>, S. 194).
+</p>
+<p class="footnote">
+<a id="FN81" class="internal fn" href="#REF81">[81]</a> Wieviele TFT-Spieler notwendig sind, um in eine Population von <em>Hawk</em>-Spielern 
+einzudringen, hängt von der relativen Größe der Auszahlungsparameter 
+und der durchschnittlichen Spiellänge ab.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node127.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node128.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node127.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.3  Evolutionäre Spieltheorie" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node127.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node127.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 5.2.3  Evolutionäre Spieltheorie&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node127.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

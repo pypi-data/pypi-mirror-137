@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 2.1.3.1  Das Theorem</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node36.html" />
+<link rel="next" href="node38.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node36.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node36.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node38.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node33.html">2.1  Sozialwahltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node34.html">2.1.1  Zum Einstieg: Das Condorcet-Paradox</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node35.html">2.1.2  Das sogenannte &bdquo;Paradox des Liberalismus&ldquo;</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node36.html">2.1.3  Der &bdquo;Klassiker&ldquo; der Sozialwahltheorie: Der Satz von Arrow</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node37.html">2.1.3.1  Das Theorem</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node38.html">2.1.3.2  Der Beweis des Theorems</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node42.html">2.1.3.3  Ein alternativer Beweis</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node46.html">2.1.3.4  Ein dritter Beweis</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node47.html">2.1.3.5  Resumé</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node48.html">2.1.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node49.html">2.2  Zur Diskussion der Sozialwahltheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node62.html">2.3  Die These des &bdquo;demokratischen Irrationalismus&ldquo;</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node66.html">2.4  Fazit</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>2.1.3.1  Das Theorem</h4>
+
+<p>
+Der Satz von Arrow zeigt - ähnlich wie Sens sog. &bdquo;Paradox des 
+Liberalismus&ldquo; - dass eine Abbildung individueller Präferenzen 
+auf eine kollektive Präferenzordnung nicht mehr möglich ist, wenn man 
+nur ein par &bdquo;selbstverständliche&ldquo; Anforderungen an diese 
+Abbildung stellt. Wenn wir dieses zunächst einmal mathematisch abstrakte 
+Resultat auf demokratische Entscheidungsfindungsprozesse übertragen, 
+dann besagt es, dass bestimmte normative Kriterien wie etwa 1) dass 
+jeder eine faire Chance bekommen soll, 2) dass die Entscheidungsfindung 
+effizient sein soll, 3) dass die Entscheidungsprozedur auch bei höchst 
+unterschiedlichen Meinungen noch funktioniert, miteinander unvereinbar 
+sein können. Da man dies den entsprechenden normativen Kriterien nicht 
+unmittelbar ansieht, hat das Resultat schon einige Bedeutung, indem 
+es uns auf einen möglichen Zielkonflikt aufmerksam macht. Wie bei beinahe 
+allen Resultaten der Sozialwahltheorie muss man allerdings auch hier 
+die Frage stellen, inwieweit die abstrakt-mathematische Formulierung 
+die entsprechenden konkret-empirischen Zusammenhänge richtig erfasst.
+</p>
+<p>
+Zum Anforderungskatalog, auf den sich der Satz von Arrow bezieht, gehören 
+nun folgende Bedingungen:
+</p>
+<ol>
+<span id="ArrowVoraussetzungen"> </span> <li><em>Diktaturfreiheit</em>: Es dürfen sich nicht in jedem Fall (d.h. 
+bei jedem möglichen Profil von individuellen Präferenzen) die Präferenzen 
+von ein- und demselben Individuum durchsetzen.
+<p>
+Diese Bedingung ist vergleichweise schwächer als die Bedingung der 
+&bdquo;minimalen Fairness&ldquo; im Falle des Paradoxes des Liberalismus, 
+indem sie immer noch zulässt, dass einzelne Individuen völlig übergangen 
+werden, solange nicht alle bis auf ein Individuum übergangen werden.</p>&#160;</li>
+
+<li><em>Unbeschränkter Bereich</em>: Jedes beliebige individuelle Präferenzprofil, 
+das die Bedingungen einer wohlgeformten Präferenzrelation erfüllt, 
+ist zugelassen.
+<br />&#160;</li>
+
+<li><em>Einstimmigkeit</em> bzw. <em>Pareto-Effizienz</em>: Wenn alle Individuen 
+eine bestimmte Alternative einer anderen vorziehen, dann sollte auch 
+nach dem Kollektiventscheidungsverfahren diese Alternative der anderen 
+vorgezeogen werden.<a id="REF28" class="internal fn" href="#FN28">[28]</a> 
+<br />&#160;</li>
+
+<li><em>Unabhängigkeit von dritten<a id="REF29" class="internal fn" href="#FN29">[29]</a> Alternativen</em> bzw. 
+<em>Paarweise Unabhängigkeit</em>: Die Anordnung, die das Kollektiventscheidungsverfahren 
+zwei Alternativen zuweist, sollte allein von der Ordnung <em>dieser</em> 
+beiden Alternativen in den Präferenzen der Individuen abhängen und 
+nicht davon, wie andere Alternativen in den Präferenzen der Individuen 
+eingeordnet sind.
+<p>
+Anders als bei der Paretobedingung legt die Bedingung der Unabhängigkeit 
+von dritten Alternativen nicht fest, welche kollektive Wahl getroffen 
+werden soll, wenn unterschiedliche Individuuen bezüglich bestimmter 
+Alternativen übereinstimmen, sondern vielmehr, welche Wahl getroffen 
+werden soll, wenn unterschiedliche Präferenzprofile bezüglich der Anordnung 
+bestimmter Alternativen übereinstimmen. Dabei können die Individuuen 
+innerhalb der Präferenzordnungen diese Alternativen sehr wohl unterschiedlich 
+anordnen (siehe dazu die Aufgaben  <a href="node48.html#AufgArrow1">2.1.4</a> 
+und  <a href="node48.html#AufgArrow2">2.1.4</a>).
+</p>
+</li>
+</ol>
+<p>
+<strong>Theorem (Satz von Arrow)</strong>: <em>Es gibt (bei zwei oder mehr Individuen und drei oder mehr zur Wahl 
+stehenden Alternativen) kein Kollektiventscheidungsverfahren, das individuelle 
+Präferenzordnungen so auf eine kollektive Präferenzordnung abbildet, 
+dass die Bedingungen der Diktaturfreiheit, der Einstimmigkeit und der 
+Unabhängigkeit von dritten Alternativen für alle denkbaren indvididuellen 
+Präferenzordnungen erfüllt sind.</em>   <br />
+
+</p>
+<p>
+Um den Beweis des Theorems vorzubereiten, führen wir zunächst zwei 
+weitere Definitionen ein: 
+</p>
+<ol>
+ <li>Eine Menge von Individuen ist <em>vollständig entscheidend</em> für 
+<script type="math/tex">x</script> über <script type="math/tex">y</script>, 
+wenn das Kollektiventscheidungsverfahren <script type="math/tex">x \succ_K y</script> 
+liefert, sobald jedes Individuum aus dieser Menge <script type="math/tex">x</script> 
+gegenüber <script type="math/tex">y</script> vorzieht.
+<br />&#160;</li>
+
+<li>Eine Menge von Individuen ist <em>beinahe entscheidend</em> für <script type="math/tex">x</script> 
+über <script type="math/tex">y</script>, wenn das Kollektiventscheidungsverfahren 
+<script type="math/tex">x \succ_K y</script> liefert, sobald alle Individuen 
+aus dieser Menge <script type="math/tex">x</script> gegenüber <script type="math/tex">y</script> 
+vorziehen <em>und</em> alle Individuen außerhalb dieser Menge <script type="math/tex">y</script> 
+gegenüber <script type="math/tex">x</script> vorziehen.
+<p>
+Umgangssprachlich besagt die Definition also, dass eine Menge von Individuen 
+&bdquo;beinahe entscheidend&ldquo; ist, wenn sie nur in dem Extremfall 
+maximaler Opposition von außerhalb entscheidend ist, aber nicht in 
+anderen Fällen. Es gilt daher, dass eine Menge von Individuen, die 
+&bdquo;entscheidend&ldquo; ist, immer auch &bdquo;beinahe entscheidend&ldquo; 
+ist, aber nicht umgekehrt.
+</p>
+<p>
+Anmerkungen: 
+</p>
+<ol>
+<li>Wenn eine Menge von Individuen beinahe (bzw. vollständig) entscheidend 
+für <script type="math/tex">x</script> über <script type="math/tex">y</script> 
+ist, so muss noch lange nicht gelten, dass sie auch beinahe (bzw. vollständig) 
+entscheidend für <script type="math/tex">y</script> über <script type="math/tex">x</script> 
+ist. <br />&#160;</li>
+
+<li><span id="Anmerkung2"> </span>  Für jede Menge von Individuen und jedes Paar von Alternativen gibt 
+es wenigstens eine beinahe (bzw. eine vollständig) entscheidende Menge. 
+Aufgrund der Einstimmigkeitsbedingung ist für jedes Paar von Alternativen 
+nämlich die Menge aller Individuen eine zugleich beinahe als auch vollständig 
+entscheidende Menge, denn, sobald alle Individuen <script type="math/tex">x</script> 
+der Alternative <script type="math/tex">y</script> vorziehen, fordert 
+die Einstimmigkeitsbedingung, dass auch kollektiv <script type="math/tex">x \succ_K y</script> 
+gilt. <br />&#160;</li>
+
+<li>Wenn eine Menge, die nur ein Individuum enthält, vollständig entscheidend 
+sowohl für <script type="math/tex">x</script> über <script type="math/tex">y</script> 
+als auch für <script type="math/tex">y</script> über <script type="math/tex">x</script> 
+ist, dann soll das Individuum &bdquo;Diktator&ldquo; für die Alternative 
+<script type="math/tex">x</script> oder <script type="math/tex">y</script> 
+heißen. </li>
+</ol>
+</li>
+</ol>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node37.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node38.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN28" class="internal fn" href="#REF28">[28]</a> Statt der schwachen Pareto-Bedingung kann man hier ebenso gut die starke 
+Paretobedingung einsetzen (siehe Aufgabe  <a href="node48.html#AufgPareto">2.1.4</a>).
+</p>
+<p class="footnote">
+<a id="FN29" class="internal fn" href="#REF29">[29]</a> Häufig wird diese Bedingung auch &bdquo;Unabhängigkeit von <em>irrelevanten</em> 
+Alternativen&ldquo; genannt. Wie bereits zuvor (Seite  <a href="node19.html#dritteAlternativen">1.3.1</a>) 
+an einigen Beispielen dargelegt, ist diese Bezeichnung irreführend, 
+da dritte Alternativen in manchen Fällen sehr wohl und zu Recht einen 
+Einfluss auf die Rangordnung eines Paars von Alternativen ausüben.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node37.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node38.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node37.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 2.1.3.1  Das Theorem" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node37.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node37.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 2.1.3.1  Das Theorem&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node37.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

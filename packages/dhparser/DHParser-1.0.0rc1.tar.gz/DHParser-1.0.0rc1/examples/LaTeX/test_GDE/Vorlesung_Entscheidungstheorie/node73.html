@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 3.1.3.2  Ein weiteres Anwendungsbeispiel: Wieviel Geld sind Informationen wert?</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&locale=de">
+</script>
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node72.html" />
+<link rel="next" href="node74.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node72.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node71.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node74.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1  Wahrscheinlichkeiten I: Rechentechniken</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node68.html">3.1.1  Einführung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node70.html">3.1.2  Grundlegende Gesetze der Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node71.html">3.1.3  Der Bayes'sche Lehrsatz</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node72.html">3.1.3.1  Ein &bdquo;Anwendungsbeispiel&ldquo;: Bayes in der medizinischen Diagnostik</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node73.html">3.1.3.2  Ein weiteres Anwendungsbeispiel: Wieviel Geld sind Informationen wert?</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node74.html">3.1.4  Aufgaben</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node75.html">3.2  Wahrscheinlichkeiten II: Interpretationsfragen <strong>nicht klausurrelevant!</strong>)</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>3.1.3.2  Ein weiteres Anwendungsbeispiel: Wieviel Geld sind Informationen wert?</h4>
+
+<p>
+<span id="WertVonInformtationen"> </span> Der Bayes'sche Lehrsatz lässt 
+sich auch einsetzen, wenn es darum geht, den Wert von unsicheren Informationen 
+zu beurteilen. Dazu muss man allerdings zunächst klären, wie hoch man 
+den Wert von Informationen überhaupt zu veranschlagen hat. Resnik führt 
+dazu folgendes gedachte Beispiel an  (<a class="bibref" href="node139.html#Resnik_1987">Resnik 1987</a>, S. 57):
+</p>
+<p>
+Jemand steht vor der Entscheidung, € 50.000 in eine Firma zu investieren 
+oder lieber in Sparbriefen anzulegen. Die Investition in die Firma 
+würde im Laufe eines Jahres 5% Zinsen einbringen, die in Sparbriefe 
+10%. Was die Investition in die Firma dennoch interessant macht ist, 
+dass sie möglicherweise noch im Laufe desselben Jahres an die Börse 
+geht. Dann nämlich würden sich die investierten € 50.000 verdoppeln. 
+Als Entscheidungstabelle dargestellt, sieht die Situation also folgendermaßen 
+aus:
+</p>
+<table style="text-align:center">
+<tr><td colspan="1"></td><td colspan="1">Börsengang</td><td colspan="1">Kein Börsengang</td></tr>
+<tr><td>Investiere </td><td>€ 100.000 </td><td>€ 52.500 </td></tr>
+<tr><td>Kaufe Sparbriefe </td><td>€ 55.000 </td><td>€ 55.000 </td></tr>
+<tr><td></td></tr>
+</table>
+<p>
+Angenommen, die Person, die vor dieser Entscheidung steht, hält sich 
+an das Indifferenzprinzip und geht davon aus, dass eine 50% Chance 
+besteht, dass die Firma an die Börse geht. In diesem Fall hätte die 
+Entscheidung zu investieren einen Erwartungswert von € 100.000<script type="math/tex">\cdot 0.5</script> 
++ € 52.500<script type="math/tex">\cdot 0.5</script> = € 76.250 und 
+wäre damit dem Kauf von Sparbriefen vorzuziehen. Nun nehmen wir weiterhin 
+an, es gäbe in der Firma einen Insider, der mit Sicherheit sagen könnte, 
+ob die Firma im Laufe des Jahres an die Börse geht oder nicht, und 
+dieser Insider wäre bereit, seine Information zu verkaufen.<a id="REF55" class="internal fn" href="#FN55">[55]</a> Wieviel 
+Geld sollte einem diese Information Wert sein. Das hängt wiederum davon 
+ab, welche subjektive Einschätzung man über die Wahrscheinlichkeit 
+hat, dass die Information dahingehend lautet, dass die Firma an die 
+Börse geht. Nehmen wir an, dass in Ermangelung näheren Wissens wiederum 
+von einer 50% Chance ausgegangen wird. Welchen Erwartungswert erzielt 
+man mit dieser Information? In diesem Fall lautet die Rechnung € 100.000<script type="math/tex">\cdot 0.5</script> 
++ € 55.500<script type="math/tex">\cdot 0.5</script> = € 77.500, weil 
+in dem Fall, dass man erfährt, dass die Firma doch nicht an die Börse 
+geht, Sparbriefe kaufen wird. Die Information sollte einem also höchstens 
+€ 1.250 Wert sein.
+</p>
+<p>
+Um nun die Bayes'sche Formel ins Spiel zu bringen, gehen wir von der 
+etwas realistischeren Annahme aus, dass die Information des Insiders 
+nicht völlig zuverlässig ist. Wir nehmen vielmehr an, dass sie einem 
+internen Bericht entnommen ist, von dem nicht sicher ist, wie zuverlässig 
+er ist. Angenommen aus vergleichbaren Fällen ist bekannt, dass wenn 
+ein Börsengang geplant ist, dies mit einer 90%-igen Wahrscheinlichkeit 
+in dem Bericht korrekt mitgeteilt wird, mit einer 10%-igen Wahrscheinlichkeit 
+aber das Gegenteil behauptet wird. Angenommen weiterhin, wir hätten 
+Grund zu der Annahme, dass wenn kein Börsengang stattfinden wird, dennoch 
+mit einer 50%-igen Wahrscheinlichkeit in dem Bericht behauptet wird, 
+es würde ein Börsengang statt finden. Welche Überlegung muss die Person, 
+die vor der Frage steht, ob es sich lohnt, Geld in die Bestechung eines 
+Informanden zu investieren, nun anstellen? Zunächst müsste sie die 
+Wahrscheinlichkeiten berechnen, mit der die Firma an die Börse geht, 
+falls dies in dem Bericht behauptet wird. Und ebenso müsste die Wahrscheinlichkeit 
+berechnet werden, falls dies in dem Bericht bestritten wird.
+</p>
+<p>
+Für beide Rechnungen muss man die Bayes'sche Formel heranziehen. In 
+beiden Fällen ist die Basisrate wiederum die subjektive Wahrscheinlichkeit, 
+die für einen Börsengang spricht, und die wir nach dem Indifferenzprinzip 
+auf 50% festgesetzt haben. Im ersten Fall beträgt die positiv-positiv-Rate 
+90% und die positiv-negativ-Rate 50%. Wenn <script type="math/tex">b</script> 
+das Ereignis ist, dass die Firma an die Börse geht und <script type="math/tex">j</script> 
+das Ereignis, dass im Bericht behauptet wird, dass sie es tut, und 
+<script type="math/tex">n</script> das Ereignis, dass im Bericht behauptet 
+wird, dass sie es nicht tut, dann ergibt sich folgende Rechnung: 
+<br /><br /><script type="math/tex"> P(b|j) = \frac{P(b)P(j|b)}{P(b)P(j|b) + P(\neg b)P(j|\neg b)} = \frac{0,5\cdot 0,9}{0,5\cdot 0,9 + 0,5\cdot 0,5} = 0,643 </script><br /><br />
+ 
+Die Wahrscheinlichkeit, dass die Firma nicht an die Börse geht, wenn 
+im Bericht behauptet wird, dass sie es tut <script type="math/tex">P(\neg b|j)</script>, 
+ist natürlich genau die inverse Wahrscheinlichkeit, also <script type="math/tex">P(\neg b|j) = 1 - P(b|j) = 0,357</script>.
+</p>
+<p>
+Im zweiten Fall, d.h. in dem Fall, dass der Bericht einen Börsengang 
+dementiert, betragen die entsprechenden Raten 10% und 50%. Die Rechnung 
+sieht wie folgt aus: 
+<br /><br /><script type="math/tex"> P(b|n) = \frac{P(b)P(n|b)}{P(b)P(n|b) + P(\neg b)P(n|\neg b)} = \frac{0,5\cdot 0,1}{0,5\cdot 0,1 + 0,5\cdot0,5} = 0,167 </script><br /><br />
+ 
+Die entsprechende inverse Wahrscheinlichkeit <script type="math/tex">P(\neg b|n)</script> 
+beträgt 0,833.
+</p>
+<p>
+Für die Beantwortung der Frage, welchen Wert eine solche nur relativ 
+zuverlässige Information hat, müssen nun die Erwartungswerte berechnet 
+werden, 1) für den Fall, dass die Information dahingehend lautet, dass 
+das Unternehmen an die Börse geht, und 2) für den Fall, dass die Information 
+anders lautet, wobei der durch die eben berechneten Wahrscheinlichkeiten 
+umschriebene Zuverlässigkeitsgrad der Information zu berücksichtigen 
+ist. Es ergibt sich in dem ersten Fall (Börsengang wird behauptet) 
+ein Erwartungswert von: 
+<br /><br /><script type="math/tex"> 0,643\cdot \mbox{€ 100.000} + 0,357\cdot \mbox{€ 52.500} = \mbox{€ 83.035,71} </script><br /><br />
+ 
+Und für den zweiten Fall: 
+<br /><br /><script type="math/tex"> 0,167\cdot \mbox{€ 100.000} + 0,833\cdot \mbox{€ 52.500} = \mbox{€ 60.416,67} </script><br /><br />
+ 
+Das bedeutet aber, dass egal wie die Information ausfällt, es auf jeden 
+Fall besser wäre, in die Firma zu investieren. Die Information selbst 
+ist also wertlos! Es gnügt das Wissen, dass es eine entsprechende Information 
+überhaupt gibt, und mit welchen Wahrscheinlichkeiten sie in dem ein 
+oder anderen Fall (Börsengang oder nicht) zurverlässig ist oder nicht, 
+im Zusammenhang mit der subjektiven Annahme einer gleichen Wahrscheinlichkeit 
+für das Eintreten des Ereignisses und das Nicht-Eintreten des Ereignisses.
+</p>
+<p>
+(Nun könnte man noch die Frage anschließen, wie der Fall zu beurteilen 
+wäre, wenn - bei anderen Wahrscheinlichkeiten - im zweiten Fall ein 
+Wert herausgekommen wäre, der niedriger wäre als € 55.000. Dann müsste 
+man, wie zuvor, den Erwartungswert, mit dem man in dem Fall rechnet, 
+dass die Information positiv ausfällt, zu den € 55.000 addieren, die 
+man in dem Fall erhält, dass die Information negativ ausfällt und man 
+Sparbriefe kaufen wird. Beide Summanden müssten mit den subjektiven 
+Wahrscheinlichkeitseinschätzungen dafür, wie die Information ausfällt, 
+gewichtet werden (wofür wir eine gleichverteilte Wahrscheinlichkeit 
+von 50% veranschlagt hatten). Das Ergebnis wäre mit dem Erwartungswert 
+ohne jede Information von € 76.250 zu vergleichen, und entsprechend 
+der Differenz der Wert der Information zu veranschlagen.)
+</p>
+<p>
+Bei diesem Beispiel ist zu beachten, dass die mit Hilfe des Bayes'schen 
+Lehrsatzes berechneten bedingten Wahrscheinlichkeiten davon abhängen, 
+welche subjektive Wahrscheinlichkeitseinschätzung man bezüglich der 
+in die Bayes'sche Formel eingesetzten Basisrate vornimmt. Es handelt 
+sich um (rationale) subjektive Wahrscheinlichkeitseinschätzungen, nicht 
+um &bdquo;objektiv berechnete Wahrscheinlichkeiten&ldquo;.
+</p>
+<p>
+Damit sind wir wieder bei dem Problem der Interpretation von Wahrscheinlichkeitsaussagen, 
+d.h. bei Frage, ob es sich um Aussagen über Häufigkeiten, subjektive 
+Einschätzungen oder objektive &bdquo;Propensitäten&ldquo; handelt. 
+Mit diesem Problem werden wir uns in der nächsten Woche beschäftigen.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node73.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node74.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN55" class="internal fn" href="#REF55">[55]</a> Aus gutem Grund verbieten die Gesetze der meisten Länder übrigens sehr 
+strikt den Gebrauch von Insiderwissen bei Börsengeschäften, wie er 
+in diesem Beispiel angenommen wird.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node73.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node74.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node73.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 3.1.3.2  Ein weiteres Anwendungsbeispiel: Wieviel Geld sind Informationen wert?" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node73.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node73.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 3.1.3.2  Ein weiteres Anwendungsbeispiel: Wieviel Geld sind Informationen wert?&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node73.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+

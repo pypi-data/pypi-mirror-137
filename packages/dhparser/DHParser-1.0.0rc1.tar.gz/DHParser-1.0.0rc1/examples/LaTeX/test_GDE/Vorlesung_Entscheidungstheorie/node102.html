@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+
+<html lang="de">
+
+<head>
+<meta charset="utf-8" />
+
+<title>Vorlesungsskript: Grundlagen des Entscheidens I: 4.2.2.2  Ellsberg Paradox</title>
+
+<meta name="author"       content=" Eckhart Arnold " />
+
+
+<meta name="date"         content="2017-04-05T22:12:26+01:00" />
+<meta name="robots"       content="follow" />
+
+<meta http-equiv="content-type"        content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type"  content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="Vorlesung_Entscheidungstheorie.css" />
+<link rel="top" href="Vorlesung_Entscheidungstheorie.html" />
+<link rel="contents" href="toc.html" />
+<link rel="prev" href="node101.html" />
+<link rel="next" href="node103.html" />
+</head>
+
+<body>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0"
+ summary="page heading">
+<tr>
+<td class="title">
+<h1 style="text-align:center;">
+<span id="pagetop">Vorlesungsskript: Grundlagen des Entscheidens I</span>
+</h1>
+</td>
+</tr>
+</table>
+
+<div class="title authorref"><a href="https://eckhartarnold.de">Eckhart Arnold</a></div>
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="navigation bar">
+<tr>
+<td class="toplink" style="text-align:left; width:122px;" valign="middle"><a class="imglink" href="node101.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="prev.svg" alt="previous" /></a><a class="imglink" href="node99.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="up" /></a><a class="imglink" href="node103.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a><td class="toplink" style="text-align:right;" valign="middle"><a class="internal" href="toc.html">Inhalt</a></td>
+</tr>
+</table>
+
+<hr noshade="noshade" />
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="0" summary="abbreviated table of contents">
+<tr><td class="toc"><a class="internal" href="node2.html">1  Techniken des Entscheidens</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node33.html">2  Zur Theorie der Kollektiven Entscheidungen</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node68.html">3  Wahrscheinlichkeitsrechnung</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node86.html">4  Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node86.html">4.1  Die Neumann-Morgensternsche Nutzentheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;<a class="internal" href="node92.html">4.2  Diskussion der Neumann-Morgensternschen Nutzentheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node93.html">4.2.1  Unterschiedliche Lesarten der Neumann-Morgensternschen Nutzentheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node99.html">4.2.2  &bdquo;Paradoxien&ldquo; der Nutzentheorie</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node100.html">4.2.2.1  Allais' Paradox</a></td></tr>
+<tr><td class="tochilit">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<b><a class="internal" href="node102.html">4.2.2.2  Ellsberg Paradox</a></b></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node103.html">4.2.2.3  St. Petersburg Paradox</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node104.html">4.2.2.4  Das Hellseherparadox</a></td></tr>
+<tr><td class="toc">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a class="internal" href="node105.html">4.2.3  Aufgaben</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node106.html">5  Spieltheorie</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">6  Kritische Reflexion</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node131.html">7  Beispielklausur</a></td></tr>
+<tr><td class="toc"><a class="internal" href="node139.html">Literaturverzeichnis</a></td></tr>
+</table>
+
+<hr noshade="noshade" />
+<h4>4.2.2.2  Ellsberg Paradox</h4>
+
+<p>
+Ein anderes Paradox ist das Ellsberg Paradox. Es entsteht so: Jemand 
+hat die Wahl zwischen zwei Arten von Glückspielen. Bei dem ersten muss 
+sie eine Kugel aus einer Urne ziehen, die zur Hälfte rote und zur Hälfte 
+schwarze Kugeln enthält, wobei sie gewinnt, wenn sie eine rote Kugel 
+zieht. Bei dem zweiten Spiel muss sie wieder aus einer Urne mit roten 
+und schwarzen Kugeln ziehen und gewinnt wieder, wenn sie eine rote 
+Kugel zieht. Nur weiss sie bei dem zweiten Spiel nicht wieviele rote 
+und schwarze Kugeln die Urne enthält.
+</p>
+<p>
+Die meisten Menschen würden in einer solchen Situation angeblich das 
+erste Spiel mit bekannter Kugel-Verteilung vorziehen  (<a class="bibref" href="node139.html#Myerson_1991">Myerson 1991</a>, S. 24).<a id="REF75" class="internal fn" href="#FN75">[75]</a> Ein 
+&bdquo;Paradox&ldquo; entsteht dann, wenn man das Indifferenzprinzip 
+(siehe Kapitel  <a href="node23.html#Indifferenzprinzip">1.3.3.2</a>) 
+voraussetzt, das besagt, dass man bei unbekannten Wahrscheinlichkeiten 
+eine Gleichverteilung voraussetzen soll. Akzeptiert man das Indifferenzprinzip, 
+dann handelt es sich aber wiederum nicht um ein Paradox, sondern - 
+sofern die Behauptung über das, was die meisten Menschen tun würden 
+stimmt - lediglich um einen Widerspruch zwischen Theorie um Empirie, 
+der zeigt, dass das Indifferenzprinzip empirisches beobachtbares Entscheidungsverhalten 
+bei Entscheidungen unter Unwissenheit nicht richtig beschreibt. Lehnt 
+man das Indifferenzprinzip überhaupt ab, so entsteht von vornherein 
+kein Paradox.
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node102.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node103.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+<p class="footnote">
+<a id="FN75" class="internal fn" href="#REF75">[75]</a> Über den bedeutenden Entscheidungstheoretiker Savage geht das Gerücht 
+um, &bdquo;that the author of what is perhaps the most elegant derivation 
+of expected utility theory [...] reported after careful consideration 
+of the problem in the light of his theory, he would still want to choose 
+I and IV&ldquo; (wie bei einem echten Gerücht ausnahmsweise mal ohne 
+Quellenangabe ;) ).
+</p>
+
+<table width="100%" border="0" frame="void" cellpadding="0" cellspacing="2" summary="navigation bar">
+<tr>
+<td class="bottomlink" style="text-align:left;" valign="middle"><hr noshade="noshade" /></td>
+<td class="bottomlink" style="text-align:right; width:82px;" valign="middle"><a class="imglink" href="node102.html#pagetop"><img class="navicon" width="32" height="32" border="0" align="middle" src="up.svg" alt="page top" /></a><a class="imglink" href="node103.html"><img class="navicon" width="32" height="32" border="0" align="middle" src="next.svg" alt="next" /></a></td>
+</tr>
+</table>
+
+
+
+<p id="share"
+   style="text-align:center; font-family:sans-serif; font-weight:bold;">
+<a href="http://twitter.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node102.html&text=Vorlesungsskript: Grundlagen des Entscheidens I: 4.2.2.2  Ellsberg Paradox" target="_blank"
+   class="share-btn twitter">t</a>
+<a href="https://plus.google.com/share?url=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node102.html" target="_blank"
+   class="share-btn google-plus">g+</a>
+<a href="http://www.facebook.com/sharer/sharer.php?u=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node102.html" target="_blank"
+   class="share-btn facebook">f</a>
+<a href="mailto:?subject=Vorlesungsskript: Grundlagen des Entscheidens I: 4.2.2.2  Ellsberg Paradox&body=https://eckhartarnold.de/papers/2009_Vorlesung_Entscheidungstheorie/node102.html" class="share-btn email">@</a>
+</p>
+<br />
+</body>
+
+</html>
+
+<link rel="stylesheet" href="../../css/cmun-serif.css" />
+<link rel="stylesheet" href="../../css/cmun-sans.css" />
+<link rel="stylesheet" href="../../css/cmun-typewriter.css" />
+
