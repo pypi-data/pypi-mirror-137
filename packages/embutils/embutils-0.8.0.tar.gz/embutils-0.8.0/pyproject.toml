@@ -1,0 +1,50 @@
+[tool.poetry]
+version = "0.8.0"
+name = "embutils"
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/cwichel/embutils"
+description = "Python utilities for embedded projects"
+authors = ["Christian Wiche <cwichel@gmail.com>"]
+keywords = [
+    'python',
+    'embedded',
+    'utilities'
+    ]
+classifiers = [
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Topic :: Utilities',
+    ]
+
+[tool.poetry.scripts]
+docs            = 'scripts.poetry:run_docs'
+html            = 'scripts.poetry:run_html'
+test            = 'scripts.poetry:run_test'
+version         = 'scripts.poetry:run_version'
+check_coverage  = 'scripts.poetry:run_check_coverage'
+check_linter    = 'scripts.poetry:run_check_linter'
+check_types     = 'scripts.poetry:run_check_types'
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pyserial = "^3.5"
+intelhex = "^2.3.0"
+attrs = "^21.2.0"
+cattrs = "^1.10.0"
+PyYAML = "^6.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.0.0"
+toml = "^0.10.2"
+Sphinx = "^4.0.2"
+sphinx-rtd-theme = "^1.0.0"
+coverage = "^6.0.0"
+pylint = "^2.10.2"
+mypy = "^0.910"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
