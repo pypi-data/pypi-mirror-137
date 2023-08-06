@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "django-dragon"
+version = "0.1.6"
+description = "A cache manager for Django admin"
+homepage = "https://github.com/Lenders-Cooperative/django-dragon"
+readme = "README.md"
+license = "BSD-3-Clause"
+authors = ["Logan Bibby <lbibby@thesummitgrp.com>"]
+packages = [
+    { include = "dragon_cache_manager" },
+]
+include = [
+    "LICENSE",
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+Django = "^3.1.13"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
