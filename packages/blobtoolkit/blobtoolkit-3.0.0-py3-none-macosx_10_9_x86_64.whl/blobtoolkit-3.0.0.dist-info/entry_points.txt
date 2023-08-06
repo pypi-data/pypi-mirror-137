@@ -1,0 +1,13 @@
+[blobtools.subcmd]
+add = blobtools.lib.add:cli
+create = blobtools.lib.add:cli
+filter = blobtools.lib.filter:cli
+host = blobtools.lib.host:cli
+remove = blobtools.lib.remove:cli
+replace = blobtools.lib.add:cli
+validate = blobtools.lib.validate:cli
+view = blobtools.lib.view:cli
+
+[console_scripts]
+blobtools = blobtools:cli
+
