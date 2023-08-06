@@ -1,0 +1,363 @@
+Metadata-Version: 2.1
+Name: biased-memory-toolbox
+Version: 1.3.0
+Summary: Mixture modeling for working-memory experiments
+Home-page: https://github.com/smathot/biased_memory_toolbox
+Author: Sebastiaan Mathot
+Author-email: s.mathot@cogsci.nl
+License: GNU GPL Version 3
+Description: # Biased Memory Toolbox
+        
+        *A Python toolbox for mixture modeling of data from visual-working-memory experiments*
+        
+        Cherie Zhou (@cherieai) and Sebastiaan Mathôt (@smathot) <br />
+        Copyright 2020 - 2022
+        
+        ![](https://travis-ci.com/smathot/biased_memory_toolbox.svg?branch=master)
+        
+        
+        ## Contents
+        
+        - [Citation](#citation)
+        - [Installation](#installation)
+        - [Usage](#usage)
+        - [Function reference](#function-reference)
+        - [License](#license)
+        
+        
+        ## Citation
+        
+        Zhou, C., Lorist, M., Mathôt, S., (2021). Categorical bias in visual working memory: The effect of memory load and retention interval. *Cortex*. <https://osf.io/puq4v/>
+        
+        *This manuscript is a Stage 1 in-principle acceptance of a registered report*
+        
+        
+        ## Installation
+        
+        ```
+        pip install biased_memory_toolbox
+        ```
+        
+        
+        ## Usage
+        
+        This section focuses on using the module, assuming that you have a basic understanding of mixture modeling of working memory data. If you want to know more about the theory behind mixture modeling, please read (for example) the manuscript cited above.
+        
+        We start by reading in a data file using [DataMatrix](https://datamatrix.cogsci.nl/). The data should contain a column that contains the memoranda (here: `memory_hue`) and a column that contains the responses (here: `response_hue`), both in degrees with values between 0 and 360.
+        
+        
+        
+        ```python
+        from datamatrix import io
+        
+        dm = io.readtxt('example-data/example-participant.csv')
+        ```
+        
+        
+        
+        As a first step, which is not related to mixture modeling per se, we check whether the participant performed significantly (p < .05) above chance. This is done with a permutation test that is implemented as `test_chance_performance()`. Here, low p-values indicate that performance deviates from chance.
+        
+        
+        
+        ```python
+        import biased_memory_toolbox as bmt
+        
+        t, p = bmt.test_chance_performance(dm.memory_hue, dm.response_hue)
+        print('testing performance: t = {:.4f}, p = {:.4f}'.format(t, p))
+        ```
+        
+        __Output:__
+        ``` .text
+        testing performance: t = -56.7786, p = 0.0000
+        ```
+        
+        
+        
+        Now let's fit the mixture model. We start with a basic model in which only precision and guess rate are estimated, as in the original [Zhang and Luck (2008)](https://doi.org/10.1038/nature06860) paper.
+        
+        To do so, we first calculate the response error, which is simply the circular distance between the memory hue (the color that the participant needed to remember) and the response hue (the color that the participant reproduced). This is done with `response_bias()`, which, when no categories are provided, simply calculates the response error.
+        
+        
+        
+        ```python
+        dm.response_error = bmt.response_bias(dm.memory_hue, dm.response_hue)
+        ```
+        
+        
+        
+        We can fit the model with a simple call to `fix_mixture_model()`. By specifying `include_bias=False`, we fix the bias parameter (the mean of the distribution) at 0, and thus
+        only get two parameters: the precision and the guess rate.
+        
+        
+        
+        ```python
+        precision, guess_rate = bmt.fit_mixture_model(
+            dm.response_error,
+            include_bias=False
+        )
+        print('precision: {:.4f}, guess rate: {:.4f}'.format(precision, guess_rate))
+        ```
+        
+        __Output:__
+        ``` .text
+        precision: 1721.6386, guess rate: 0.0627
+        ```
+        
+        
+        
+        Now let's fit a slightly more complex model that also includes a bias parameter. To do so, we first calculate the response 'bias', which is similar to the response error except that it is recoded such that positive values reflect a response error towards the prototype of the category that the memorandum belongs to. For example, if the participant saw a slightly aqua-ish shade of green but reproduced a pure green, then this would correspond to a positive response bias for that response.
+        
+        To calculate the response bias we need to specify a `dict` with category boundaries and prototypes when calling `response_bias()`. A sensible default (`DEFAULT_CATEGORIES`), based on ratings of human participants from [Zhou, Mathôt, & Lorist, 2021b](http://dx.doi.org/10.1101/2021.11.23.469689), is provided with the toolbox. Another set of ratings, from [Zhou, Mathôt, & Lorist, 2021a](https://osf.io/puq4v/), is provided as `CORTEX_CATEGORIES`.
+        
+        
+        
+        ```python
+        dm.response_bias = bmt.response_bias(
+            dm.memory_hue,
+            dm.response_hue,
+            categories=bmt.DEFAULT_CATEGORIES
+        )
+        ```
+        
+        
+        
+        Next we fit the model again by calling `fit_mixture_model()`. We now also get a bias parameter (because we did not specify `include_bias=False`) as described in [Zhou, Lorist, and Mathôt (2021)](https://osf.io/puq4v/).
+        
+        
+        
+        ```python
+        precision, guess_rate, bias = bmt.fit_mixture_model(dm.response_bias)
+        print(
+            'precision: {:.4f}, guess rate: {:.4f}, bias: {:.4f}'.format(
+                precision,
+                guess_rate,
+                bias
+            )
+        )
+        ```
+        
+        __Output:__
+        ``` .text
+        precision: 1725.9568, guess rate: 0.0626, bias: 0.5481
+        ```
+        
+        
+        
+        It also makes sense to visualize the model fit, to see if the model accurately captures the pattern of responses. We can do this by plotting a probability density function, which can be generated by `mixture_model_pdf()`.
+        
+        
+        
+        ```python
+        import numpy as np
+        import seaborn as sns
+        from matplotlib import pyplot as plt
+        
+        x = np.linspace(-180, 180, 360)
+        y = bmt.mixture_model_pdf(x, precision, guess_rate, bias)
+        plt.figure(figsize=(10, 5))
+        plt.subplot(121)
+        plt.title('Model fit')
+        plt.xlim(-50, 50)
+        plt.plot(x, y)
+        plt.subplot(122)
+        plt.title('Histogram of response biases')
+        plt.xlim(-50, 50)
+        sns.distplot(dm.response_bias, kde=False)
+        plt.savefig('example.png')
+        ```
+        
+        
+        
+        ![](https://github.com/smathot/biased_memory_toolbox/raw/master/example.png)
+        
+        We can also fit a model that takes into account swap errors, as described by [Bays, Catalao, and Husain (2009)](https://doi.org/10.1167/9.10.7). To do so, we need to also specify the response bias (or plain error) with respect to the non-target items.
+        
+        Here, we select only those trials in which the set size was 3, and then create two new columns for the response bias with respect to the second and third memory colors, which were non-targets in this experiment. (The first color was the target color.)
+        
+        
+        
+        ```python
+        dm3 = dm.set_size == 3
+        dm3.response_bias_nontarget2 = bmt.response_bias(
+            dm3.hue2,
+            dm3.response_hue,
+            categories=bmt.DEFAULT_CATEGORIES
+        )
+        dm3.response_bias_nontarget3 = bmt.response_bias(
+            dm3.hue3,
+            dm3.response_hue,
+            categories=bmt.DEFAULT_CATEGORIES
+        )
+        ```
+        
+        
+        
+        By passing a list of non-target response biases, we get a fourth parameter: swap rate.
+        
+        
+        
+        ```python
+        precision, guess_rate, bias, swap_rate = bmt.fit_mixture_model(
+            x=dm3.response_bias,
+            x_nontargets=[
+                dm3.response_bias_nontarget2,
+                dm3.response_bias_nontarget3
+            ],
+        )
+        print(
+            'precision: {:.4f}, guess rate: {:.4f}, bias: {:.4f}, swap_rate: {:.4f}'.format(
+                precision,
+                guess_rate,
+                bias,
+                swap_rate
+            )
+        )
+        ```
+        
+        __Output:__
+        ``` .text
+        precision: 1458.9628, guess rate: 0.0502, bias: 1.2271, swap_rate: 0.0191
+        ```
+        
+        
+        
+        ## Function reference
+        
+        **<span style="color:purple">biased&#95;memory&#95;toolbox.category</span>_(x, categories)_**
+        
+        
+        Gets the category to which x belongs. For example, if x corresponds to a
+        slightly orangy shade of red, then the category would be 'red'.
+        
+        
+        #### Parameters
+        * x: float or int :  A value in degrees (0 - 360)
+        * categories: dict :  See reponse_bias()
+        
+        #### Returns
+        <b><i>str</i></b>  A category label
+        
+        **<span style="color:purple">biased&#95;memory&#95;toolbox.fit&#95;mixture&#95;model</span>_(x, x_nontargets=None, include_bias=True, x0=None, bounds=None)_**
+        
+        
+        Fits the biased mixture model to a dataset. The input to the mixture
+        model should generally be a response bias as determined by
+        `response_bias()` when the bias parameter is fit, or a signed response
+        error when no bias parameter is fit.
+        
+        
+        #### Parameters
+        * x: array_like :  An array, DataMatrix column, or other iterable object of response
+        	biases
+        * x_nontargets: list, optional :  A list of arrays, DataMatrix columns, or other iterable objects of
+        	response biases relative to non-targets. If this argument is
+        	provided, a swap rate is returned as a final parameter.
+        * include_bias: bool, optional :  Indicates whether the bias parameter should be fit as well.
+        * x0: list, optional :  A list of starting values for the parameters. Order: precision, guess
+        	rate, bias. If no starting value is provided for a parameter, then it
+        	is left at the default value of `mixture_model_pdf()`.
+        * bounds: list, optional :  A list of (upper, lower) bound tuples for the parameters. If no value
+        	is provided, then default values are used.
+        
+        #### Returns
+        <b><i>tuple</i></b>  A tuple with parameters. Depending on the arguments these are on of the
+        	following:
+        	
+        	- (precision, guess rate)
+        	- (precision, guess rate, bias)
+        	- (precision, guess rate, swap rate)
+        	- (precision, guess rate, bias, swap rate)
+        
+        **<span style="color:purple">biased&#95;memory&#95;toolbox.mixture&#95;model&#95;pdf</span>_(x, precision=500, guess_rate=0.1, bias=0)_**
+        
+        
+        Returns a probability density function for a mixture model.
+        
+        
+        #### Parameters
+        * x: array_like :  A list (or other iterable object) of values for the x axis. For example
+        	`range(-180, 181)` would generate the PDF for every relevant value.
+        * precision: float, optional :  The precision (or kappa) parameter. This is inversely related to the
+        	standard deviation, and is a value in degrees.
+        * guess_rate: float, optional :  The proportion of guess responses (0 - 1).
+        * bias: float, optional :  The bias (or loc) parameter in degrees.
+        
+        #### Returns
+        <b><i>array</i></b>  An array with probability densities for each value of x.
+        
+        **<span style="color:purple">biased&#95;memory&#95;toolbox.prototype</span>_(x, categories)_**
+        
+        
+        Gets the prototype for the category to which x belongs. For example, if
+        x corresponds to a slightly orangy shade of red, then the prototype would
+        be the hue of a prototypical shade of red.
+        
+        
+        #### Parameters
+        * x: float or int :  A value in degrees (0 - 360)
+        * categories: dict :  See reponse_bias()
+        
+        #### Returns
+        <b><i>float or int</i></b>  A prototype value in degrees (0 360)
+        
+        **<span style="color:purple">biased&#95;memory&#95;toolbox.response&#95;bias</span>_(memoranda, responses, categories=None)_**
+        
+        
+        Calculates the response bias, which is the error between a response and
+        a memorandum in the direction of the prototype for the category to which
+        the memorandum belongs. For example, if the memorandum was an orangy shade
+        of red, then a positive value would indicate an error towards a
+        prototypical red, and a negative value would indicate an error towards the
+        yellow category.
+        
+        
+        #### Parameters
+        * memoranda: array_like :  An array, DataMatrix column, or other iterable object with memoranda
+        	values in degrees (0 - 360)
+        * responses: array_like :  An array, DataMatrix column, or other iterable object with response
+        	values in degrees (0 - 360)
+        * categories: dict, optional :  A dict that defines the categories. Keys are names of categories and
+        	values are (start_value, end_value, prototype) values that indicate
+        	where categories begin and end, and what the prototypical value is.
+        	The start_value and prototpe can be negative and should be smaller than
+        	the end value.
+        	
+        	See `biased_memory_toolbox.DEFAULT_CATEGORIES` and
+        	`biased_memory_toolbox.CORTEX_CATEGORIES` for two sets of category
+        	ratings.
+        
+        #### Returns
+        <b><i>list</i></b>  A list of response_bias values.
+        
+        **<span style="color:purple">biased&#95;memory&#95;toolbox.test&#95;chance&#95;performance</span>_(memoranda, responses)_**
+        
+        
+        Tests whether responses are above chance. This is done by first
+        determining the real error and the memoranda, and then determinining the
+        shuffled error between the memoranda and the shuffled responses. Finally,
+        an independent t-test is done to compare the real and shuffled error. The
+        exact values will vary because the shuffling is random.
+        
+        
+        #### Parameters
+        * memoranda: array_like :  An array, DataMatrix column, or other iterable object with memoranda
+        	values in degrees (0 - 360)
+        * responses: array_like :  An array, DataMatrix column, or other iterable object with response
+        	values in degrees (0 - 360)
+        
+        #### Returns
+        <b><i>tuple</i></b>  A (t_value, p_value) tuple.
+        
+        
+        ## License
+        
+        `biased_memory_toolbox` is licensed under the [GNU General Public License
+        v3](http://www.gnu.org/licenses/gpl-3.0.en.html).
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
