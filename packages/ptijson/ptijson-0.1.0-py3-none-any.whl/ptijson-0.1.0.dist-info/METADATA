@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: ptijson
+Version: 0.1.0
+Summary: Interactive JSON queries, built on prompt toolkit and jmespath
+Home-page: https://github.com/aatifsyed/ptijson
+License: MIT
+Author: Aatif Syed
+Author-email: aatifsyedyp@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: argcomplete (>=2.0.0,<3.0.0)
+Requires-Dist: jmespath (>=0.10.0,<0.11.0)
+Requires-Dist: prompt-toolkit (>=3.0.26,<4.0.0)
+Project-URL: Repository, https://github.com/aatifsyed/ptijson
+Description-Content-Type: text/markdown
+
+# Interactive JSON queries, built on prompt toolkit and jmespath
+![Example](./demo.gif)
+
+## Installation
+Recommended installation is with [pipx](https://github.com/pypa/pipx):
+```bash
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+python3 -m pipx install ptijson
+```
+
