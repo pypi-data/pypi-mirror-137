@@ -1,0 +1,70 @@
+{% extends 'fleetpings/base.html' %}
+
+{% load i18n %}
+{% load fleetpings_versioned_static %}
+
+{% block details %}
+    <div class="aa-fleetpings row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading aa-fleetpings-ping-header">
+                    <span class="panel-title">{% translate "Fleet Information" %}</span>
+                </div>
+                <div class="panel-body">
+                    {% include "fleetpings/form.html" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 aa-fleetpings-pingtext">
+            <div class="panel panel-default">
+                <div class="panel-heading aa-fleetpings-ping-header">
+                    <span class="panel-title">{% translate "Formatted Ping Text" %}</span>
+                </div>
+                <div class="panel-body">
+                    {% include 'fleetpings/ping.html' %}
+                </div>
+            </div>
+        </div>
+
+        <script type="application/javascript">
+            const fleetpingsTranslations = {
+                ping: {
+                    success: '{% blocktrans context "%(platform_used)s is a variable that holds the current used platform. It can be either Slack or Discord. Do not translate it, just use it as it is." %}Success! Your ping has been sent to your {{ platform_used }}.{% endblocktrans %}'
+                },
+                optimer: {
+                    created: '{% translate 'Fleet operations timer has been created ...' %}'
+                },
+                srp: {
+                    created: '{% translate 'SRP link has been created ...' %}'
+                },
+                copyToClipboard: {
+                    error: '{% translate "Error! Your ping was not copied to your clipboard. Maybe your browser doesn&apos;t support this feature." %}',
+                    success: '{% blocktrans context "%(platform_used)s is a variable that holds the current used platform. It can be either Slack or Discord. Do not translate it, just use it as it is." %}Success! Your ping text has been copied to your clipboard. Now be a good FC and throw it in your {{ platform_used }} so you actually get some people in fleet.{% endblocktrans %}'
+                }
+            };
+        </script>
+    </div>
+{% endblock %}
+
+{% block extra_javascript %}
+    {% include 'bundles/jquery-datetimepicker-js.html' %}
+    {% include 'bundles/clipboard-js.html' %}
+
+    <script type="application/javascript" src="{% fleetpings_static 'fleetpings/js/fleetpings.min.js' %}"></script>
+    <script type="application/javascript">
+        $('#formupTime').datetimepicker({
+            lang: '{{ LANGUAGE_CODE }}',
+            maskInput: true,
+            format: 'Y-m-d H:i',
+            dayOfWeekStart: 1,
+            step: 15
+        });
+    </script>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% fleetpings_static 'fleetpings/css/fleetpings.min.css' %}">
+
+    {% include 'bundles/jquery-datetimepicker-css.html' %}
+{% endblock %}
