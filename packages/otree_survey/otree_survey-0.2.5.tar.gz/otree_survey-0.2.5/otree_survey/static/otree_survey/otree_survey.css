@@ -1,0 +1,108 @@
+/* Page layout */
+
+.page-header {
+  padding-top: 40px;
+  margin: 0;
+}
+
+.navigation-container {
+  max-width: none;
+  margin-bottom: 1rem;
+}
+
+textarea.form-control {
+    height: 90px;
+    max-width: none;
+}
+
+/* Progress bar general */
+
+.otree-progress {
+  padding-bottom: 40px;
+  max-width: none;
+}
+
+/* Complex progress bar */
+
+.progress-container > .row > div {
+  padding: 0;
+}
+
+.progress-label {
+  text-align: center;
+}
+
+.col .progress {
+  border-radius: 0;
+}
+
+.progress-container > .row > div:not(:last-child) > .progress-complete {
+  border-right: 1px solid;
+}
+
+/* slider change */
+
+.ui-slider-handle {
+    background: #007bff !important;
+    border-radius: 50% !important;
+    border: 0px !important;
+}
+
+.ui-slider-handle:focus {
+    background: #0069d9 !important;
+    box-shadow: 0 0 0 .2rem rgba(0,123,255,.5);
+}
+
+/* LikertScale page */
+
+.survey-table .first-row {
+    color: grey;
+}
+
+.survey-table-title {
+    font-weight: bold;
+}
+
+.grid-striped .row:nth-of-type(even) {
+    background-color: rgba(0,0,0,.05);
+}
+
+.survey-table .row {
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+.survey-table-slider .ui-slider-wrapper {
+    width: 100% !important;
+    height: 1.5em !important;  /* if no labels */
+}
+
+.survey-table .form-group {
+    margin-bottom: 0;
+}
+
+.survey-table .end-labels {
+    color: grey;
+}
+
+.survey-table .subtitle {
+    font-weight: normal;
+}
+
+.survey-table label {
+    width: 100%;
+    height: 100%;
+    font-weight: normal;
+    padding-left: 1.25rem;
+}
+
+@media only screen and (min-width : 768px) {
+    .survey-table label input {
+        position: relative;
+        margin: 0;
+    }
+}
+
+.survey-table-choice {
+    line-height: 0;
+}

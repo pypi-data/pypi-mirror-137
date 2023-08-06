@@ -1,0 +1,29 @@
+[build-system]
+requires = ["flit_core >=3,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "otree_survey"
+author = "Christoph Semken"
+author-email = "otree.dev@csemken.eu"
+home-page = "https://github.com/csemken/otree-survey/"
+requires=[
+    "otree>=3.3,<5"
+]
+requires-python=">=3.7"
+
+description-file="README.md"
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"
+]
+
+[tool.flit.metadata.requires-extra]
+dev = [
+    "pre-commit",
+]
+doc = [
+    "sphinx",
+    "myst-parser",
+    "nbsphinx",
+    "sphinx-rtd-theme",
+]
