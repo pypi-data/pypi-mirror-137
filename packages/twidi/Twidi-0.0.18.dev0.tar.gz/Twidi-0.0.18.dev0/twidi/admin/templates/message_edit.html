@@ -1,0 +1,47 @@
+{% extends 'admin/model/edit.html' %}
+{% block body %}
+
+    {% block edit_form %}
+        <script type=text/javascript>
+            let panic = function (e) {
+                params = new URLSearchParams(window.location.search);
+                id = params.get('id');
+                $.ajax({
+                    url: 'panic_message?id=' + id,
+                    type: 'post',
+                    data: $('.admin-form').serialize(),
+                    success: function (data) {
+                        console.info('Panic sent!')
+                    },
+                })
+            }
+            let testMidi = function (e) {
+                params = new URLSearchParams(window.location.search);
+                id = params.get('id');
+                $.ajax({
+                    url: 'test_message?id=' + id,
+                    type: 'post',
+                    data: $('.admin-form').serialize(),
+                    success: function (data) {
+                        console.info('Message Sent', data)
+                    },
+                    complete: function () {
+                        console.info('Request complete')
+                    }
+                })
+            }
+        </script>
+        <div class="form-horizontal admin-form">
+            <div class="form-group align-center">
+                <div class="col-md-offset-2 col-md-10">
+                    <button onclick="testMidi()" class="btn-primary">Test Message</button>
+                    <button onclick="panic()" class="btn-danger">Panic</button>
+                </div>
+                <div class="message-result">
+
+                </div>
+            </div>
+        </div>
+        {{ lib.render_form(form, return_url, extra(), form_opts) }}
+    {% endblock %}
+{% endblock %}

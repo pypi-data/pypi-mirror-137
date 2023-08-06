@@ -1,0 +1,54 @@
+{% extends 'admin/master.html' %}
+
+
+
+{% block body %}
+    <script type=text/javascript>
+        testMidi = function (e) {
+            console.log($('#_command1'))
+            $.ajax({
+                url: 'test_message',
+                type: 'post',
+                data: $('#_command' + e).serialize(),
+                success: function () {
+                }
+            })
+        }
+    </script>
+    <h1>Test MIDI Commands</h1>
+    {{ super() }}
+
+    <div class="container">
+        {% for device in data.devices %}
+            <h2>{{ device.device.label }}</h2>
+            {% for command in device.commands %}
+                <div class="row">
+                    <div class="col-lg-7" style="font-size: 0.9rem">
+                        {{ command }}
+                    </div>
+                    <div class="col-lg-4">
+                        <form id="_command{{ command.id }}" onsubmit="return false">
+
+                            <label for="value" style="font-size: 0.9rem">Value
+                            </label>
+                            <input name="command_id" type="hidden" style="font-size: 0.9rem"
+                                   value="{{ command.id }}"/>
+                            <input name="value" type="number" style="font-size: 0.9rem"
+                                   value="{{ command.value }}"/>
+                            <button style="font-size: 0.9rem" onclick="testMidi('{{ command.id }}')">
+                                Test
+                            </button>
+                        </form>
+                        <button class="btn-danger" style="font-size: 0.9rem">
+                            Panic
+                        </button>
+                        <button class="btn-primary" style="font-size: 0.9rem">
+                            Calibrate
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+    </div>
+{% endblock %}
