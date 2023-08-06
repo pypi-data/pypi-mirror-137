@@ -1,0 +1,27 @@
+dask
+geopandas>=0.7
+netcdf4
+numpy>=1.17
+pygeos
+pyproj>=2.2
+rasterio>=1.2
+rioxarray>=0.8
+scipy
+shapely>=1.6
+ujson
+xarray>=0.18
+
+[:python_version < "3.8"]
+importlib-metadata
+
+[test]
+coverage[toml]
+pytest-cov
+pytest-xdist[psutil]
+
+[typeguard]
+coverage[toml]
+pygments
+pytest-cov
+pytest-xdist[psutil]
+typeguard
