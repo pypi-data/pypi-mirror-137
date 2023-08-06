@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "suppy"
+version = "v0.1.3"
+
+description = ""
+authors = ["Allex Veldman <a.veldman@chain-stock.com>", "Luuk Gijben <l.gijben@chain-stock.com>"]
+license = "GPL-3.0-only"
+
+readme = "README.md"
+
+homepage = "https://github.com/chain-stock/suppy"
+repository = "https://github.com/chain-stock/suppy"
+documentation = "https://github.com/chain-stock/suppy"
+
+keywords = []
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Typing :: Typed",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+typeguard = "^2.13.3"
+tqdm = "^4.62.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+pytest-xdist = "^2.5.0"
+pylint = "^2.12.2"
+safety = "^1.10.3"
+pre-commit = "^2.17.0"
+mypy = "^0.931"
+black = "^22.1"
+jupyterlab = "^3.2.8"
+hypothesis = "^6.36.1"
+
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"
+
+[tool.mypy]
+show_error_codes = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+strict_equality = false
+disallow_untyped_calls = false
