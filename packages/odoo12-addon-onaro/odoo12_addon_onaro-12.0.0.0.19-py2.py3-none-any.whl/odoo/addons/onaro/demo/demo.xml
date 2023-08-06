@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="res_partner_manager_demo" model="res.partner">
+        <field name="name">Manager</field>
+        <field name="customer" eval="False" />
+        <field name="is_company" eval="False" />
+        <field name="email">manager@coop.coop</field>
+        <field name="street">Calle bruc, 24</field>
+        <field name="city">Bilbao</field>
+        <field name="zip">4100</field>
+        <field name="country_id" ref="base.es" />
+    </record>
+
+    <record id="res_users_manager_demo" model="res.users">
+        <field name="partner_id" ref="res_partner_manager_demo" />
+        <field name="login">manager</field>
+        <field name="password">demo</field>
+        <field
+            name="groups_id"
+            eval="[(4, ref('onaro.group_manager'))]"
+        />
+    </record>
+
+    <record id="auth_api_key_manager_demo" model="auth.api.key">
+        <field name="user_id" ref="res_users_manager_demo"/>
+        <field name="name">api-key</field>
+        <field name="key">9b8a14e3-g2c8-34b6-h60e-x7461005j3t9</field>
+    </record>
+
+</odoo>

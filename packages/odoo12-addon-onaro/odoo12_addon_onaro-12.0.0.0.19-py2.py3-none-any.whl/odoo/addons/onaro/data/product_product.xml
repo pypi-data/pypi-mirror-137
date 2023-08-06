@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="SinMinutosSinDatos" model="product.product">
+      <field name="name">Sin Minutos</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('SinDatos')])]"/>
+      <field name="custom_name">0 min 0 MB</field>
+    </record>
+    <record id="150Min2GB" model="product.product">
+      <field name="name">150 min</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('2GB')])]"/>
+      <field name="custom_name">150 min 2 GB</field>
+    </record>
+    <record id="200Min3GB" model="product.product">
+      <field name="name">200 min</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('3GB')])]"/>
+      <field name="custom_name">200 min 3 GB</field>
+    </record>
+    <record id="200Min5GB" model="product.product">
+      <field name="name">200 min</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('5GB')])]"/>
+      <field name="product_tmpl_id" ref="200Min3GB_product_template"/>
+      <field name="custom_name">200 min 5 GB</field>
+    </record>
+    <record id="LlamadasIlimitadasSinDatos" model="product.product">
+      <field name="name">Llamadas Ilimitadas</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('SinDatos')])]"/>
+      <field name="custom_name">Ilimitadas 0 MB</field>
+    </record>
+    <record id="LlamadasIlimitadas9GB" model="product.product">
+      <field name="name">Llamadas Ilimitadas</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('9GB')])]"/>
+      <field name="product_tmpl_id" ref="LlamadasIlimitadasSinDatos_product_template"/>
+      <field name="custom_name">Ilimitadas 9 GB</field>
+    </record>
+    <record id="LlamadasIlimitadas23GB" model="product.product">
+      <field name="name">Llamadas Ilimitadas</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('23GB')])]"/>
+      <field name="product_tmpl_id" ref="LlamadasIlimitadasSinDatos_product_template"/>
+      <field name="custom_name">Ilimitadas 23 GB</field>
+    </record>
+    <record id="LlamadasIlimitadas30GB" model="product.product">
+      <field name="name">Llamadas Ilimitadas</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('30GB')])]"/>
+      <field name="product_tmpl_id" ref="LlamadasIlimitadasSinDatos_product_template"/>
+      <field name="custom_name">Ilimitadas 30 GB</field>
+    </record>
+    <record id="LlamadasIlimitadas50GB" model="product.product">
+      <field name="name">Llamadas Ilimitadas</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('50GB')])]"/>
+      <field name="product_tmpl_id" ref="LlamadasIlimitadasSinDatos_product_template"/>
+      <field name="custom_name">Ilimitadas 50 GB</field>
+    </record>
+
+
+    <record id="Radiofrecuencia30Mb" model="product.product">
+      <field name="name">Radiofrecuencia 30 Mb</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('30Mb')])]"/>
+      <field name="custom_name">Radiofrecuencia 30 Mb</field>
+    </record>
+    <record id="Fibra100Mb" model="product.product">
+      <field name="name">Fibra 100Mb</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('100Mb')])]"/>
+      <field name="custom_name">Fibra 100Mb</field>
+    </record>
+    <record id="Fibra600Mb" model="product.product">
+      <field name="name">Fibra 600Mb</field>
+      <field name="attribute_value_ids" eval="[(6, 0, [ref('600Mb')])]"/>
+      <field name="product_tmpl_id" ref="Fibra100Mb_product_template" />
+      <field name="custom_name">Fibra 600Mb</field>
+    </record>
+  </data>
+</odoo>
