@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "fossil-cli"
+version = "4.3.1"
+description = "Fossil Cli Helper"
+authors = ["Lorenzo Antonio Garcia Calzadilla <lorenzogarciacalzadilla@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console :: Curses",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Version Control",
+    "Topic :: Utilities"
+]
+
+[tool.poetry.scripts]
+fossil-cli = "fossil_cli:cli"
+    
+[tool.poetry.dependencies]
+python = "^3.9"
+click = "*"
+questionary = "*"
+semver = "*"
+
+[tool.poetry.dev-dependencies]
+tox = "*"
+isort = "*"
+black = "*"
+flake8 = "*"
+
+[[tool.poetry.source]]
+name = "private"
+url = "http://127.0.0.1:8000/simple"
+default = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
