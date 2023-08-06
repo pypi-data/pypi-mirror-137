@@ -1,0 +1,20 @@
+dill>=0.3.2
+kafka-python>=2.0.0
+setuptools>=42
+setuptools_scm[toml]>=3.4
+
+[:python_version < "3.7"]
+dataclasses>=0.6
+
+[dev]
+black
+flake8>=3.8.4
+isort>=5.0.0
+mypy>=0.790
+pre-commit>=2.9.3
+pytest>=6.0.0
+pytest-cov>=2.0.0
+sphinx
+sphinx_rtd_theme
+types-setuptools
+types-dataclasses
