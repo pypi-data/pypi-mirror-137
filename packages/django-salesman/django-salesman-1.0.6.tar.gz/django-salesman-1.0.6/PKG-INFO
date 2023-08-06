@@ -1,0 +1,95 @@
+Metadata-Version: 2.1
+Name: django-salesman
+Version: 1.0.6
+Summary: Headless e-commerce framework for Django.
+Home-page: https://pypi.org/project/django-salesman/
+License: BSD-3-Clause
+Keywords: e-commerce,headless,rest-api,shop,framework
+Author: Dino Perovic
+Author-email: dino.perovic@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.0
+Classifier: Framework :: Django :: 3.1
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Framework :: Wagtail
+Classifier: Framework :: Wagtail :: 2
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Internet
+Provides-Extra: docs
+Provides-Extra: example
+Provides-Extra: pygments
+Provides-Extra: tests
+Requires-Dist: Pygments (>=2.6,<3.0); extra == "pygments" or extra == "example" or extra == "tests"
+Requires-Dist: django (>=3.0,<4.1)
+Requires-Dist: djangorestframework (>=3.11,<3.14)
+Requires-Dist: pytest (>=7.0.0,<7.1.0); extra == "tests"
+Requires-Dist: pytest-cov (>=3.0.0,<3.1.0); extra == "tests"
+Requires-Dist: pytest-django (>=4.5.0,<4.6.0); extra == "tests"
+Requires-Dist: sphinx (>=4.4.0,<4.5.0); extra == "docs"
+Requires-Dist: sphinx-autobuild (>=2021.3.0,<2021.4.0); extra == "docs"
+Requires-Dist: sphinx-rtd-theme (>=1.0.0,<1.1.0); extra == "docs"
+Requires-Dist: sphinxcontrib-httpdomain (>=1.8.0,<1.9.0); extra == "docs"
+Requires-Dist: wagtail (>=2.9,<2.17); extra == "example" or extra == "tests" or extra == "docs"
+Project-URL: Documentation, https://django-salesman.readthedocs.io
+Project-URL: Repository, https://github.com/dinoperovic/django-salesman
+Description-Content-Type: text/markdown
+
+<p align="center">
+    <a href="https://django-salesman.readthedocs.org/">
+        <img src="https://cdn.jsdelivr.net/gh/dinoperovic/django-salesman@master/docs/_static/logo.svg" width="250" alt="Salesman logo">
+    </a>
+</p>
+<h3 align="center">Headless e-commerce framework for Django.</h3>
+<p align="center">
+    <a href="https://pypi.org/project/django-salesman/">
+        <img alt="PyPI" src="https://img.shields.io/pypi/v/django-salesman">
+    </a>
+    <a href="https://github.com/dinoperovic/django-salesman/actions?query=workflow:Test">
+        <img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/dinoperovic/django-salesman/Test/master">
+    </a>
+    <a href="http://codecov.io/github/dinoperovic/django-salesman">
+        <img alt="Codecov branch" src="https://img.shields.io/codecov/c/github/dinoperovic/django-salesman/master">
+    </a>
+    <a href="https://pypi.org/project/django-salesman/">
+        <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/django-salesman">
+    </a>
+    <a href="https://pypi.org/project/django-salesman/">
+        <img alt="PyPI - Django Version" src="https://img.shields.io/pypi/djversions/django-salesman">
+    </a>
+    <a href="https://github.com/psf/black">
+        <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
+    </a>
+</p>
+
+**Salesman** provides a configurable system for building an online store.
+It includes a **RESTful** API with endpoints for manipulating the basket,
+processing the checkout and payment operations as well as managing customer orders.
+
+## Features
+
+- API endpoints for **Basket**, **Checkout** and **Order**
+- Support for as many **Product** types needed using generic relations
+- Pluggable **Modifier** system for basket processing
+- **Payment** methods interface to support any gateway necessary
+- Customizable **Order** model
+- [Wagtail](https://wagtail.io/) and **Django** admin implementation
+
+## Documentation
+
+Documentation is available on [Read the Docs](https://django-salesman.readthedocs.org).
+
+<p>
+    <a href="https://www.buymeacoffee.com/dinoperovic">
+        <img src="https://cdn.jsdelivr.net/gh/dinoperovic/django-salesman@master/docs/_static/buymeacoffee.svg" alt="Buy me a coffee">
+    </a>
+</p>
+
