@@ -1,0 +1,80 @@
+import nevergrad as ng
+from data.trasformations.trasformations import saturation, adstock
+from model.linear import linear
+
+
+#' Nevergrad is used for Hyperparameters' optimizations
+#' It minimizes a function's output by changing its inputs
+#' E.G. We can ask Nevergrad to minimize our model's error
+
+#' Important: Notes on variables names
+#' Defining variables like @transformations__g_display_cost__carryover__strength
+#' Does something pretty cool in Python
+#' The double underscore "__" is like entering inside a function
+
+#' For this reason @transformations__g_display_cost__carryover__strength
+#' Can be seen as
+#' -> Enter inside the @transformations ColumnTrasformer
+#' -> Enter inside @g_display_cost Pipeline
+#' -> Enter inside @carryover Class (ExponentialCarryover())
+#' -> Use @strength variable in there
+
+#' This allows us to define Hyperparameters for all the functions called all over the model's definition
+
+
+#' We define one big function that does all the modeling
+#' This allows us to put all the Hyperparameters in one place and run Nevergrad once for all of them
+#' Create a dictionary to hold transformed columns
+#' Create a dictionary to hold transformed columns
+
+new_X = {}
+
+
+def build_model(facebook_spend_theta, facebook_spend_beta,
+                radio_spend_theta, radio_spend_beta,
+                tv_spend_theta, tv_spend_beta):
+    #' Transform all media variables and set them in the new Dictionary
+    #' Adstock first and Saturation second
+    new_X["facebook_spend"] = saturation(adstock(df["facebook_spend"], facebook_spend_theta), facebook_spend_beta)
+    new_X["radio_spend"] = saturation(adstock(df["radio_spend"], radio_spend_theta), radio_spend_beta)
+    new_X["tv_spend"] = saturation(adstock(df["tv_spend"], tv_spend_theta), tv_spend_beta)
+
+    #' Cast Dictionary to DataFrame and append the output column
+    new_df = pd.DataFrame.from_dict(new_X)
+    new_df = new_df.join(df['revenue'])
+
+    #' Train test split data
+    X = new_df[medias_column]
+    y = new_df['revenue']
+
+    result, model = linear(df, medias_column, organic, X, y, 'Nevergrad', metric)
+
+
+#' Define the list of hyperparameters to optimize
+#' List must be the same as the ones in the function's definition, same order recommended too
+instrum = ng.p.Instrumentation(
+    facebook_spend_theta=ng.p.Scalar(lower=0, upper=1),
+    facebook_spend_beta=ng.p.Scalar(lower=0, upper=1),
+
+    radio_spend_theta=ng.p.Scalar(lower=0, upper=1),
+    radio_spend_beta=ng.p.Scalar(lower=0, upper=1),
+
+    tv_spend_theta=ng.p.Scalar(lower=0, upper=1),
+    tv_spend_beta=ng.p.Scalar(lower=0, upper=1)
+)
+#' Define an Optimizer (use NGOpt as default) and set budget as number of trials (recommended 2500+)
+optimizer = ng.optimizers.NGOpt(parametrization=instrum, budget=1500)
+
+#' Pass the function to minimize
+#' Nevergrad will automatically map Hyperparams
+recommendation = optimizer.minimize(build_model)
+
+#' Results of the optimization are inside the following variable
+recommendation.value
+
+#' Use the following code to directly use the optimized hyperparams to build you model
+build_model(**recommendation.value[1])
+
+
+
+
