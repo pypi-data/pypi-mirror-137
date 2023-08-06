@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: artemis-utils
+Version: 1.0.14
+Summary: ARTEMIS utility modules
+Home-page: https://github.com/FORTH-ICS-INSPIRE/artemis
+Author: Dimitrios Mavrommatis, Vassileios Kotronis
+Author-email: jim.mavrommatis@gmail.com, biece89@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: PyYAML (==5.4)
+Requires-Dist: gql (==0.4.0)
+Requires-Dist: ipaddress (==1.0.23)
+Requires-Dist: kombu (==4.6.7)
+Requires-Dist: psycopg2 (==2.8.4)
+Requires-Dist: ruamel.yaml (==0.16.5)
+Requires-Dist: slacker-log-handler (==1.7.1)
+Requires-Dist: tornado (==6.0.4)
+Requires-Dist: ujson (==1.35)
+
+ARTEMIS is an open-source tool, that implements a defense approach against BGP prefix hijacking attacks.
+
+This package holds all the utility functions that are shared between the different modules.
+
+Read more at [bgpartemis.org](http://bgpartemis.org/) and the [docs](https://bgpartemis.readthedocs.io/en/latest/).
+
+Instructions on publishing a package update:
+
+```
+# follow instructions to build a correct $HOME/.pypirc for artemis-utils
+https://docs.gitlab.com/ee/user/packages/pypi_repository/
+# generate pypi token
+https://pypi.org/manage/account/token/
+# update the package (code, version, files, etc.)
+python3 setup.py sdist bdist_wheel
+twine upload dist/*
+```
+
+
