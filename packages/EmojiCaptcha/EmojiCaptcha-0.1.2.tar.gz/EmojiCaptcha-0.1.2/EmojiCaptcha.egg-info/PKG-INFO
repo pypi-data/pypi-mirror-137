@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: EmojiCaptcha
+Version: 0.1.2
+Summary: A python3 library that generates Emoji CAPTCHAs.
+Home-page: https://github.com/Jigarvarma2005/EmojiCaptcha
+Author: Jigar Varma
+Author-email: Jigarverma2002@gmail.com
+License: MIT
+Project-URL: Tracker, https://github.com/Jigarvarma2005/EmojiCaptcha/issues
+Project-URL: Source, https://github.com/Jigarvarma2005/EmojiCaptcha
+Keywords: telegram emoji library python captcha api
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: ~=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# EmojiCaptcha
+
+# Installation
+------------
+
+Install EmojiCaptcha with pip::
+
+    $ pip install EmojiCaptcha
+
+# Usage
+------------
+
+``` python
+from EmojiCaptcha import Captcha
+
+captcha = Captcha()
+"""
+    Optional **args
+
+    file_name[str]: custom file name for generating.
+
+    background[str]: background image file path for captcha.
+
+    ---------------------------------------------------------
+
+    Return type -----> dict
+    """
+#Generate captcha
+generated_captcha = captcha.generate()
+
+#Print the output
+print(generated_captcha)
+```
+
+**EmojiCaptcha** is Fast, Easy python3 library to generate Emoji captcha.
+
+#### Credits
+- [Jigar Varma(me😉)](https://github.com/JigarVarma2005)
+- [Abir Hasan](https://github.com/AbirHasan2005)
+- [Pillow](https://github.com/python-pillow/Pillow)
+
+
