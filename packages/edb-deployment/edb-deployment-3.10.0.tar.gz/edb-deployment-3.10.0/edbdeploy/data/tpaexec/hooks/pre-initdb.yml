@@ -1,0 +1,18 @@
+---
+- name: Install missing packages by tpaexec
+  package:
+    name:
+      - edb-as14-server-indexadvisor
+      - edb-as14-server-sqlprofiler
+      - edb-as14-server-sqlprotect
+      - edb-as14-server-edb_wait_states
+  when: >
+    'bdr' in role
+
+- name: Create /pgwal/wal directory
+  file:
+    path: "/pgwal/pg_wal"
+    state: directory
+    owner: "{{ postgres_user }}"
+  when: >
+    'bdr' in role

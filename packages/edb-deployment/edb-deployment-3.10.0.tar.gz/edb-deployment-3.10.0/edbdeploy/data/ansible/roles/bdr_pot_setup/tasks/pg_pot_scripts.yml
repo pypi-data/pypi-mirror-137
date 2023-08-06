@@ -1,0 +1,32 @@
+---
+- name: Update servers with pg_pot_sql_scripts
+  shell: psql -h {{ pg_unix_socket_directories[0] }} -d {{ line_item.db }} -f {{ line_item.file_path }}
+  when: pg_pot_sql_scripts|length >0
+  with_items: "{{ pg_pot_sql_scripts }}"
+  loop_control:
+       loop_var: line_item
+  become: yes
+  become_user: "{{ pg_owner }}"
+  ignore_errors: yes
+
+- name: Create exention edb_wait_states
+  shell: >
+       psql -h "{{ pg_unix_socket_directories[0] }}" \
+            -d "{{ pg_database }}" \
+            -c "CREATE EXTENSION IF NOT EXISTS edb_wait_states;"
+  become: yes
+  become_user: "{{ pg_owner }}"
+  ignore_errors: yes
+
+- name: Grant index_advisor permission to pg_ansible_user and pg_project_user
+  include_role:
+    name: edb_devops.edb_postgres.manage_dbserver
+    tasks_from: manage_privileges
+  vars:
+    pg_grant_privileges:
+       - roles: public
+         type: table
+         schema: public
+         objects: index_advisor_log
+         database: "{{ pg_database }}"
+         privileges: ALL
