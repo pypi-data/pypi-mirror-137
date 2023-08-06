@@ -1,0 +1,1 @@
+from .predict_image_mnist import predictImage
