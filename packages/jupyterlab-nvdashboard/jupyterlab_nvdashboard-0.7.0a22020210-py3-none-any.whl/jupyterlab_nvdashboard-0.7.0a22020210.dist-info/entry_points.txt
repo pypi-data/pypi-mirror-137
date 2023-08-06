@@ -1,0 +1,6 @@
+[console_scripts]
+nvdashboard = jupyterlab_nvdashboard.server:go
+
+[jupyter_serverproxy_servers]
+nvdashboard = jupyterlab_nvdashboard:launch_server
+
