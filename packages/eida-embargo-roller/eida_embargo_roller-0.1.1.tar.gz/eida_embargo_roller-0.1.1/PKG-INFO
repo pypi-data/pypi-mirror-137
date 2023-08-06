@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: eida_embargo_roller
+Version: 0.1.1
+Summary: Transform stationXML files to update embargo policy
+Home-page: https://github.com/EIDA/embargo-roller/
+Author: Jonathan Schaeffer
+Author-email: dc@resif.fr
+Maintainer: Résif-DC
+Maintainer-email: dc@resif.fr
+License: GPLv3
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/plain
+License-File: LICENSE
+
+#+TITLE: EIDA embargo roller
+
+* Description
+This program takes a stationXML file in input and updates channels epochs to reflect the embargo start date specified.
+
+1. If the channel epoch ends before embargo, it does not do anything
+2. If the channel epoch ends after embargo:
+   - if the channel epoch starts before embargo and the restiction policy is closed then the epoch is split at the embargo date.
+     1. The epoch's restriction policy before the embargo is forced to be open
+     2. The other epoch's restiction policy is left closed
+
+* Usage
+
+#+begin_example
+eida_embargo_roller [-i] [-d YYYY-MM-DD] station.xml
+-i      transform stationXML file provided in place
+-d      embargo start date. All channels before this date will get unrestricted policy
+#+end_example
+
+* Examples
+Writing a new XML file  for an embargo starting 2 years from now, on the 1 of january:
+: eida_embargo_roller Z3.A190A.xml > result.xml
+
+Changing an existing XML file:
+: eida_embargo_roller -i Z3.A190A.xml
+
+Using standard input :
+: wget -qO- "ws.resif.fr/fdsnws/station/1/query?net=Z3&level=channel&sta=A190A" | eida_embargo_roller - > result.xml
+
+* Installation
+As a python package:
+
+: python -m pip install --user eida_embargo_roller
+
+From sources:
+
+#+begin_example
+git clone
+cd eida_embargo_roller
+pyhton3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+pip install .
+#+end_example
+
+
