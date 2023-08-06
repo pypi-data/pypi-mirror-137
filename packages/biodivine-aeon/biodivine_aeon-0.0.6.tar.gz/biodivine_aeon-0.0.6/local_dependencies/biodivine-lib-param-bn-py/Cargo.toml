@@ -1,0 +1,21 @@
+[build-dependencies]
+pyo3-build-config = "0.15.1"
+
+[dependencies]
+biodivine-lib-param-bn = "0.2.1"
+
+[dependencies.biodivine-lib-bdd-py]
+path = "../biodivine-lib-bdd-py"
+
+[dependencies.pyo3]
+features = ["extension-module"]
+version = "0.15.1"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+name = "biodivine_boolean_networks"
+
+[package]
+edition = "2018"
+name = "biodivine-lib-param-bn-py"
+version = "0.1.0"
