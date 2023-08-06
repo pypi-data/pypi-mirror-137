@@ -1,0 +1,7 @@
+[console_scripts]
+convert_pep621 = vulcan.scripts.setuppy_to_pep621:convert
+vulcan = vulcan.cli:main
+
+[vulcan.pre_build]
+example_plugin = vulcan.plugins:test_plugin
+
