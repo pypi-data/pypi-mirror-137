@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "oarepo_model_builder_communities"
+version = "0.1.0"
+description = ""
+authors = ["Miroslav Bauer <bauer@cesnet.cz>"]
+license = "MIT"
+readme = "README.md"
+
+packages = [{ include = "oarepo_model_builder_communities" }]
+
+[tool.poetry.extras]
+json5 = ["json5"]
+pyyaml = ["pyyaml"]
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+oarepo-model-builder = "^0.9.24"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7"
+
+[tool.poetry.plugins."oarepo.models"]
+oarepo-communities = "oarepo_model_builder_communities.models:communities.yaml"
+
+[tool.poetry.plugins."oarepo_model_builder.builders"]
+0854-oarepo_communities_poetry = "oarepo_model_builder_communities.invenio.poetry:OARepoCommunitiesPoetryBuilder"
+
+[tool.poetry.plugins."oarepo_model_builder.templates"]
+101-communities_templates = "oarepo_model_builder_communities.invenio"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
