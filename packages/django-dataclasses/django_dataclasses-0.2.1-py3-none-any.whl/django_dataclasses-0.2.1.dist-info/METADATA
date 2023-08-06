@@ -1,0 +1,249 @@
+Metadata-Version: 2.1
+Name: django-dataclasses
+Version: 0.2.1
+Summary: Implement a JSON API using dataclasses
+Home-page: https://gitlab.com/roivant/oss/django-dataclasses
+Author: Roivant Sciences
+Author-email: vant.tech.eng@roivant.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Development Status :: 4 - Beta
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: apispec
+Requires-Dist: django
+Requires-Dist: dataclasses-jsonschema
+
+django-dataclasses
+================================
+
+This library provides a decorator that when applied to a Django views does JSON serialization and enforces
+schemas using the ``dataclasses-jsonschema`` library.
+
+It also enables you to export your API definition to an `OpenAPI`_ spec file. This enables you to
+autogenerate client libraries.
+
+.. _OpenApi: https://oai.github.io/Documentation/start-here.html
+
+Usage
+-----
+
+To use it, decorate your view functions with the appropriate HTTP method provided by `django-dataclasses`
+(``post``, ``get``, ``patch``, or ``put``). Annotate the return values of your functions with the appropriate
+dataclass type.
+
+Views that take input require an additional ``body`` parameter with the appropriate dataclass type annotation::
+
+    from django import http
+    import django_dataclasses
+
+
+    @django_dataclasses.dataclass
+    class StringLengthRequest:
+        input: str
+
+
+    @django_dataclasses.dataclass
+    class StringLengthResponse:
+        length: int
+
+
+    @django_dataclasses.login_required
+    @django_dataclasses.post
+    def string_length(request: http.HttpRequest, body: StringLengthRequest) -> StringLengthResponse:
+        """Calculate the length of a string"""
+        return StringLengthResponse(length=len(body.input))
+
+Returning errors
+~~~~~~~~~~~~~~~~
+
+To return an error response in your views, raise `django_dataclasses.ErrorResponse <django_dataclasses/schema.py#L9>`_.
+For example, in this instance we raise an `ErrorResponse` if the login credentials are invalid:
+::
+
+    if user is not None:
+        login(request, user)
+        return UserResponse(user.username)
+    else:
+        raise django_dataclasses.ErrorResponse("Incorrect username or password", 401)
+
+The exception will be `caught <django_dataclasses/schema.py#L57>`_
+by the `django-dataclasses` decorator and an HTTP response with a text body and status
+code you provide will be returned.
+
+Query Parameters
+~~~~~~~~~~~~~~~~
+
+Views that use query params require an additional ``query`` parameter with the appropriate
+dataclass as a type annotation::
+
+    from django import http
+    import django_dataclasses
+
+
+    @django_dataclasses.dataclass
+    class QueryParams:
+        contains: str = ""
+
+
+    @django_dataclasses.dataclass
+    class FruitsResponse:
+        """Fruits with the given string"""
+        fruits: typing.List[str]
+
+
+    @django_dataclasses.get
+    def fruit_medley(request: http.HttpRequest, query: QueryParams) -> FruitsResponse:
+        """Fruits that contain a given string"""
+        fruits = ["apple", "pear", "orange", "plum"]
+        return FruitsResponse([fruit for fruit in fruits if query.contains in fruit])
+
+Iterables and paginated results
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`django-dataclasses` includes the ``iterable_factory`` utility for creating a dataclass that represents an
+iterable list of results, alleviating the need to redefine the same schema for list-based endpoints.
+
+For example, if one wants to return a list of the following results::
+
+    @django_dataclasses.dataclass
+    class MyObject:
+        val: int
+
+Use the ``iterable_factory`` to create a wrapper around an iterable of items. For example::
+
+    MyIterableObject = django_dataclasses.iterable_factory(MyObject)
+
+
+    @django_dataclasses.post
+    def iterable_get(request: http.HttpRequest) -> MyIterableObject:
+        """Return an iterable of results"""
+        return MyIterableObject(items=[MyObject(val=0), MyObject(val=1)])
+
+The returned payload will include an ``items`` key with the serialized results.
+
+The payload also includes attributes for pagination, including the total ``count`` of items
+returned and the current ``page`` number. By default, no pagination occurs. To enable pagination,
+pass ``paginated=True`` to ``iterable_factory`` like so.::
+
+    @django_dataclasses.dataclass
+    class QueryParams:
+        """All query params must be strings as they are encoded in the URL"""
+        page: str = "1"
+        page_size: str = "10"
+
+
+    MyPaginatedObject = django_dataclasses.iterable_factory(MyObject, paginated=True)
+
+
+    @django_dataclasses.get
+    def paginated_get(request: http.HttpRequest, query: QueryParams) -> MyPaginatedObject:
+        """Return an paginated iterable of results"""
+        page = MyPaginatedObject(
+            items=models.MyModel.objects.all(),
+            page_num=int(query.page),
+            page_size=int(query.page_size)
+        )
+        page.items = [IterableObject(row.a) for row in page.items]
+        return page
+
+By default, the page size is 10. This can be changed by passing ``page_size`` to the paginator.
+An example response payload with a page size of ``2`` will look like this::
+
+    {
+        'page': 1,
+        'count': 20,
+        'items': [
+            {'val': 0},
+            {'val': 1}
+        ]
+    }
+
+Schema export
+~~~~~~~~~~~~~
+
+This library was inspired by the convenience of using autogenerated gRPC client libraries. Not everyone
+can adopt gRPC, and `django-dataclasses` aims to provides a similar toolkit for JSON APIs.
+
+Export your schemas in the OpenAPI format using this management command. You need to add
+``django_dataclasses`` to your ``INSTALLED_APPS`` for it to be available::
+
+    ./manage.py openapi_export > api.json
+
+Then, use another library to autogenerate client libraries. For example, you can use
+`openapi-typescript-codegen`_ to generate a JavaScript client complete with typed methods by running::
+
+    yarn add --dev openapi-typescript-codegen
+    yarn run openapi --input api.json --output api/
+
+.. _openapi-typescript-codegen: https://github.com/ferdikoomen/openapi-typescript-codegen
+
+License
+-------
+
+Contributions are made under the terms of the Apache License, Version 2.0.
+See `LICENSE <LICENSE>`_.
+
+Contributing
+----------------
+
+This project uses `pyenv <https://github.com/yyuu/pyenv>`_, please install it first.
+When running on a Mac, the ``Makefile`` uses Homebrew to install dependencies. On other
+platforms please install them manually.
+
+Clone the repo and setup your development environment by running::
+
+    git clone https://gitlab.com/roivant/oss/django-dataclasses.git
+    make setup
+
+Run the tests and code validations::
+
+    make test
+    make validate
+
+You can test exporting the openapi schema and compiling it to JavaScript using ``openapi-typescript-codegen``
+by running this command. The output files are put in a folder ``api/``::
+
+    make api
+
+Contributors must adhere to the Contributor Covenant `Code of Conduct
+<https://www.contributor-covenant.org/version/2/0/code_of_conduct/>`_.
+Please report suspected violations to vant.tech.eng@roivant.com.
+
+About the template
+-------------------
+
+This repository was created from the `temple-python <https://gitlab.com/roivant/vant-tech/temple-python>`_
+template. If you have access to that repository, apply updates from the template by running::
+
+    temple update
+
+What tools are included?
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+- A Makefile for convenience; use ``make setup`` to setup your dev environment
+- A build configuration in ``.gitlab-ci.yml``
+- A test framework using pytest and requiring 100% coverage; use ``make test`` to run
+- Python auto-formatting using ``black``, ``flake8``, and ``isort`` via a git pre-commit hook
+- Automatic versioning and ChangeLog using `PBR <https://docs.openstack.org/developer/pbr/>`_
+
+Versioning using PBR
+~~~~~~~~~~~~~~~~~~~~
+
+The `PBR <https://docs.openstack.org/developer/pbr/>`_ library will automatically
+increment the version when you commit to the main branch by merging your pull request.
+The commit message that you enter on GitHub when merging will determine what version
+number is assigned, using `Semantic Versioning <http://semver.org/>`_.
+
+- Messages starting with ``Sem-Ver: bugfix,`` or with no matching message will bump the ``PATCH`` number
+- Messages starting with ``Sem-Ver: feature,`` or ``Sem-Ver: deprecation,`` will bump the ``MINOR`` number.
+- Messages starting with ``Sem-Ver: api-break,`` will bump the ``MAJOR`` number.
+
+
+
