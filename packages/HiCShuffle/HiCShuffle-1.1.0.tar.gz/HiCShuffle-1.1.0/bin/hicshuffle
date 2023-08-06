@@ -1,0 +1,89 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import math
+import argparse
+import subprocess
+import numpy as np
+import HiCShuffle.commands as commands
+from HiCShuffle.version import __version__
+
+class Hicshuffle(object):
+
+    def __init__(self):
+        parser = commands.hicshuffle_parser()
+
+        option_ix = 1
+        while (option_ix < len(sys.argv) and
+               sys.argv[option_ix].startswith('-')):
+            option_ix += 1
+                
+        args = parser.parse_args(sys.argv[1:option_ix+1])
+        
+        if args.command is None or not hasattr(self, args.command):
+            print('Unrecognized command')
+            parser.print_help()
+            exit(1)
+        
+        command = " ".join(sys.argv)
+        
+        import HiCShuffle
+        
+        getattr(self, args.command)([sys.argv[0]] + sys.argv[option_ix:])
+            
+    def diff(self, argv):
+        parser = commands.diff_parser()
+
+        args = parser.parse_args(argv[2:])
+
+        reference_1 = os.path.abspath(args.reference_path_1)
+        reference_2 = os.path.abspath(args.reference_path_2)
+        query_1 = os.path.abspath(args.query_path_1)
+        query_2 = os.path.abspath(args.query_path_2)
+        
+        if reference_1.lower().endswith('.gz'):
+            subprocess.call(['gunzip', '-k', reference_1])
+            reference_1 = reference_1[:-3]
+        if reference_2.lower().endswith('.gz'):
+            subprocess.call(['gunzip', '-k', reference_2])
+            reference_2 = reference_2[:-3]
+        if query_1.lower().endswith('.gz'):
+            subprocess.call(['gunzip', '-k', query_1])
+            query_1 = query_1[:-3]
+        if query_2.lower().endswith('.gz'):
+            subprocess.call(['gunzip', '-k', query_2])
+            query_2 = query_2[:-3]
+        
+        output_dir = os.path.abspath(args.output_directory)
+        os.makedirs(output_dir, exist_ok = True)
+        
+        f = open(output_dir + '/hicshuffle_order.sh','w+')
+        f.write('#!/bin/bash\nconcatenate() {\ncat $1 $2 > $3\n}\nconcatenate "' + reference_1 + '" "' + query_1 + '" "' + output_dir + '/output_1.fq" &\nconcatenate "' + reference_2 + '" "' + query_2 + '" "' + output_dir + '/output_2.fq"\nwait\ncount=$(grep -c \'^\' "' + output_dir + '/output_1.fq")\necho $count > ' + output_dir + '/hicshuffle_order.txt\nseq -w 4 4 $count | shuf | awk \'{printf "%0\'${#count}\'d\\n%0\'${#count}\'d\\n%0\'${#count}\'d\\n%0\'${#count}\'d\\n",$1-3,$1-2,$1-1,$1}\' > "' + output_dir + '/hicshuffle.order"\n')
+        f.close()
+        subprocess.call(['sh', output_dir + '/hicshuffle_order.sh'])
+        subprocess.call(['rm', output_dir + '/hicshuffle_order.sh'])
+        
+        totalcount = np.loadtxt(output_dir + '/hicshuffle_order.txt')
+        splitcount = str(int(math.floor(totalcount/8)*4))
+        
+        f = open(output_dir + '/hicshuffle_diff.sh','w+')
+        f.write('#!/bin/bash\npaste -d \' \' ' + output_dir + '/hicshuffle.order ' + output_dir + '/output_1.fq | sort -k1n | cut -d \' \' -f2- > ' + output_dir + '/output_shuf_1.fq &\npaste -d \' \' ' + output_dir + '/hicshuffle.order ' + output_dir + '/output_2.fq | sort -k1n | cut -d \' \' -f2- > ' + output_dir + '/output_shuf_2.fq')
+        f.close()
+        subprocess.call(['sh', output_dir + '/hicshuffle_diff.sh'])
+        subprocess.call(['rm', output_dir + '/hicshuffle_diff.sh'])
+        subprocess.call(['rm', output_dir + '/output_1.fq'])
+        subprocess.call(['rm', output_dir + '/output_2.fq'])
+        
+        f = open(output_dir + '/hicshuffle_split.sh','w+')
+        f.write('#!/bin/bash\nhead -n ' + splitcount + ' ' + output_dir + '/output_shuf_1.fq | gzip > ' + output_dir + '/shuffled_head_1.fq.gz &\ntail -n ' + splitcount + ' ' + output_dir + '/output_shuf_1.fq | gzip > ' + output_dir + '/shuffled_tail_1.fq.gz &\nhead -n ' + splitcount + ' ' + output_dir + '/output_shuf_2.fq | gzip > ' + output_dir + '/shuffled_head_2.fq.gz &\ntail -n ' + splitcount + ' ' + output_dir + '/output_shuf_2.fq | gzip > ' + output_dir + '/shuffled_tail_2.fq.gz\nwait\n')
+        f.close()
+        subprocess.call(['sh', output_dir + '/hicshuffle_split.sh'])
+        subprocess.call(['rm', output_dir + '/hicshuffle_split.sh'])
+        subprocess.call(['rm', output_dir + '/hicshuffle_order.txt'])
+        subprocess.call(['rm', output_dir + '/hicshuffle.order'])
+        subprocess.call(['rm', output_dir + '/output_shuf_1.fq'])
+        subprocess.call(['rm', output_dir + '/output_shuf_2.fq'])
+        
+if __name__ == '__main__':
+    Hicshuffle()
