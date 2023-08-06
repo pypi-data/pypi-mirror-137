@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: pydasher
+Version: 0.0.13
+Summary: A small set of utility functions for deterministically hashing pydantic base-models.
+License: Apache-2.0
+Author: Michael Statt
+Author-email: michael.statt@modelyst.io
+Requires-Python: >=3.7,<4.0
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Provides-Extra: docs
+Requires-Dist: markdown-include (==0.6.0); extra == "docs"
+Requires-Dist: mkdocs (>=1.1.2,<2.0.0); extra == "docs"
+Requires-Dist: mkdocs-autorefs (>=0.1.1,<0.2.0); extra == "docs"
+Requires-Dist: mkdocs-markdownextradata-plugin (>=0.2.4,<0.3.0); extra == "docs"
+Requires-Dist: mkdocs-material (>=7.0.6,<8.0.0); extra == "docs"
+Requires-Dist: mkdocstrings (>=0.15.0,<0.16.0); extra == "docs"
+Requires-Dist: pdocs[docs] (>=1.1.1,<2.0.0); extra == "docs"
+Requires-Dist: pydantic[dotenv] (>=1.8.2,<2.0.0)
+Requires-Dist: pymdown-extensions (>=8.2,<9.0); extra == "docs"
