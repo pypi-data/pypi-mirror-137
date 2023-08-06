@@ -1,0 +1,22 @@
+image: python:3.9
+
+stages:
+ - tests
+ - deploy
+
+run_tests:
+ stage: tests
+ script:
+  - pip install .[test]
+  - coverage run --rcfile=.coveragerc -m unittest discover tests
+  - coverage report
+
+push_to_pypi:
+ stage: deploy
+ script:
+  - pip install .[deploy]
+  - python -m build
+  - twine upload -u __token__ -p ${PYPI_UPLOAD_TOKEN} dist/*
+ only:
+  refs:
+   - tags
