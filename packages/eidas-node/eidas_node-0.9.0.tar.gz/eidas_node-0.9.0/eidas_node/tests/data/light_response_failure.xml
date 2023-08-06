@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<lightResponse xmlns="http://cef.eidas.eu/LightResponse">
+  <id>test-light-response-id</id>
+  <inResponseToId>test-light-request-id</inResponseToId>
+  <issuer>test-light-response-issuer</issuer>
+  <relayState>relay123</relayState>
+  <status>
+    <failure>true</failure>
+    <statusCode>urn:oasis:names:tc:SAML:2.0:status:Requester</statusCode>
+    <subStatusCode>urn:oasis:names:tc:SAML:2.0:status:RequestDenied</subStatusCode>
+    <statusMessage>Something went wrong.</statusMessage>
+  </status>
+  <attributes/>
+</lightResponse>
