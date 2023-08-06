@@ -1,0 +1,1 @@
+'A simple library providing dataframe feature selection, and sklearn training comparison widgets
