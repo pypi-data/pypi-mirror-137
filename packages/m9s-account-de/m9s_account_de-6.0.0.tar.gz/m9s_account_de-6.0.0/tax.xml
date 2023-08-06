@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<!-- The COPYRIGHT file at the top level of this repository contains
+the full copyright notices and license terms. -->
+<tryton>
+  <data>
+
+         <record model="ir.ui.view" id="advance_turnover_tax_return_view_tree">
+            <field name="model">account.tax.code</field>
+            <field name="type">tree</field>
+            <field name="field_childs">childs</field>
+            <field name="name">advance_turnover_tax_return_tree</field>
+        </record>
+        <record model="ir.action.act_window" id="act_advance_turnover_tax_return_tree">
+            <field name="name">Advance Turnover Tax Return</field>
+            <field name="res_model">account.tax.code</field>
+            <field name="context_model">tax.advance_turnover_tax_return.context</field>
+            <field name="domain"
+                eval="[('parent', '=', None)]"
+                pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_advance_turnover_tax_return_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="advance_turnover_tax_return_view_tree"/>
+            <field name="act_window" ref="act_advance_turnover_tax_return_tree"/>
+        </record>
+
+        <menuitem parent="account.menu_reporting" action="act_advance_turnover_tax_return_tree"
+            id="menu_open_advance_turnover_tax_return"/>
+
+        <record model="ir.ui.view" id="advance_turnover_tax_return_context_view_form">
+            <field name="model">tax.advance_turnover_tax_return.context</field>
+            <field name="type">form</field>
+            <field name="name">advance_turnover_tax_return_context_form</field>
+        </record> 
+
+        <record model="ir.action.report" id="report_advance_turnover_tax_return">
+            <field name="name">Advance Turnover Tax Return</field>
+            <field name="model">account.tax.code</field>
+            <field name="report_name">tax.advance_turnover_tax_return</field>
+            <field name="report">account_de/advance_turnover_tax_return.fodt</field>
+        </record>
+        <record model="ir.action.keyword" id="report_advance_turnover_tax_return_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">account.tax.code,-1</field>
+            <field name="action" ref="report_advance_turnover_tax_return"/>
+        </record> 
+  </data>
+</tryton>
