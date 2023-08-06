@@ -1,0 +1,1 @@
+Proyecto comun de ORION para compartir partes communes como INTERFACES para serializadores
