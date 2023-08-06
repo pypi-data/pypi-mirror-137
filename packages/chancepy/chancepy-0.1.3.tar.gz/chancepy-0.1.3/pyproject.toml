@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "chancepy"
+version = "0.1.3"
+description = "Random generator helper for Python"
+authors = ["Nuni <nuni@kovrr.com>"]
+readme = "README.md"
+repository = "https://github.com/kovrr/chancepy"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytz = "^2020.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+black = "^19.10b0"
+pytest-repeat = "^0.8.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
