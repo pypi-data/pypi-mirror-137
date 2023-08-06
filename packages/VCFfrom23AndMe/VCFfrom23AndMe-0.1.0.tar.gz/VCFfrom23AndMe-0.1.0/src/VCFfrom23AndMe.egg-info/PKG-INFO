@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: VCFfrom23AndMe
+Version: 0.1.0
+Summary: @csonido2 An retooling of github @david-wb's "23andme-to-vcf" command line code to work with inline python code.
+Home-page: https://github.com/csonido/VCFfrom23AndMe
+Author: Cameron Sonido
+Author-email: cxs1545@miami.edu
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/csonido/VCFfrom23AndMe/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+An retooling of github @david-wb's "23andme-to-vcf" command line code to work with inline python code.
+    
+Developed to enhance business capabilities for the government contractor Spinsys.
+
+Usage:
+<br/>
+<code>
+import vcf_from_23andme
+</code>
+<br/>
+<code>
+vcf_from_23andme.from_file("C:/input_name.23andme", "C:/desired_output_name.vcf", "C:/my_fasta_file.fa.fasta", "C:/my_human_genome_file.fa.fai")
+</code>
+
