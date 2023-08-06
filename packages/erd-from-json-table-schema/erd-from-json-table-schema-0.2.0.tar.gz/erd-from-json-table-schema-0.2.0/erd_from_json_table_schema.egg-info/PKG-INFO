@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: erd-from-json-table-schema
+Version: 0.2.0
+Summary: Entity-relationship diagram for a schema given as JSON-table-schema
+Home-page: https://github.com/OpenDataServices/erd-from-json-table-schema
+Author: Open Data Services Co-op
+Author-email: code@opendataservices.coop
+License: GPLv3
+Keywords: ERD entity relationship diagram JSON table schema database tabular data
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.8
+License-File: LICENSE.TXT
+
+erd-from-json-table-schema
+==========================
+
+Does what it says on the tin; creates an entity-relationship diagram from a [JSON Table Schema](https://specs.frictionlessdata.io/table-schema/)
+
+Massive thanks to [iburadempa](https://github.com/iburadempa/) for creating [jts_erd](https://github.com/iburadempa/jts_erd), from which this code is derived. jts_erd was designed with Postgres exports in mind; this code assumes a slightly different packaging structure and so probably won't work for that use case. 
+
+Development has used Python 3.8. 
+
+Documentation: https://erd-from-json-table-schema.readthedocs.org/
+
+
+
