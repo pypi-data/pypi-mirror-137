@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: pycryptotransactions
+Version: 0.1.0
+Summary: Python Package to query crpyto transactions from various blockchains and exchanges through public APIs
+Home-page: https://github.com/jensb89/py-Crypto-Transactions
+Author: Jens Brauer
+Author-email: jensb89@users.noreply.github.com
+Requires-Python: >=3.10,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: blockcypher (>=1.0.93,<2.0.0)
+Requires-Dist: pandas (>=1.4.0,<2.0.0)
+Requires-Dist: pycoin (>=0.91.20210515,<0.92.0)
+Requires-Dist: requests (>=2.27.1,<3.0.0)
+Project-URL: Repository, https://github.com/jensb89/py-Crypto-Transactions
+Description-Content-Type: text/markdown
+
+# py-Crypto-Transactions
+
+A python package to query crypto transaction from various blockchains and exchanges
+to build your own portfolio app!
+
+pyCryptoTransactions also supports a few exporters, such that data can be imported e.g. at Koinly or Accointing.
+
+Note: Very elary alpha version!
+
+## Supported Blockchains
+ * Bitcoin
+ * Litecoin
+ * Cosmos
+ * Thorchain
+ * Osmos
+ * Iota
+ * Persistence
+ * Ethereum (soon)
+ * Bsc (soon)
+
+## Supported exchanges
+ * Binance (support for exported CSVs, no API yet)
+ * Coinbase (Oauth Api)
+ * Coinbase Pro (soon)
+
+## Examples
+```
+t = LitecoinImport("xpub...")
+t.getTransactions()`
+```
+
+```
+t = CosmosChain("cosmos....")
+txs = t.getTransactions()
+print(txs)
+df = txs.toPandasDataframe()
+df.to_csv("atom_test.csv")
+print(txs.calculateBalance())
+a = AccointingExporter(txs)
+a.exportToExcel("atom_accointing.xlsx")
+```
