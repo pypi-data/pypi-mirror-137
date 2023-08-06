@@ -1,0 +1,29 @@
+setuptools
+pyautogui>=0.9.38
+pynput>=1.6.7
+pyperclip==1.7.0
+pyparsing==2.2.2
+requests>=2.22.0
+robotframework>=3.2.2
+robotframework-debuglibrary==2.2.1
+selenium==3.141.0
+msedge-selenium-tools==3.141.2
+scipy==1.5.*
+ply
+opencv-python==4.5.3.56
+slate3k>=0.5.3
+
+[:"darwin" in sys_platform]
+pyobjc-core==7.3
+pyobjc==7.3
+
+[:"linux" in sys_platform]
+xlib
+
+[:python_version == "3.6"]
+Pillow==8.3.2
+scikit-image==0.17.2
+
+[:python_version > "3.6"]
+Pillow==9.0.0
+scikit-image==0.18.0
