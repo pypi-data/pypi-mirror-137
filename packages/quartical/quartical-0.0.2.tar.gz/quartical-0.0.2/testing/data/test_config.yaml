@@ -1,0 +1,63 @@
+input_ms:
+  path: C147_subset.MS
+  data_column: DATA
+  weight_column:
+  time_chunk: '0'
+  freq_chunk: 0
+  is_bda: false
+  group_by:
+  - SCAN_NUMBER
+  - FIELD_ID
+  - DATA_DESC_ID
+  select_corr:
+  select_fields: []
+  select_ddids: []
+input_model:
+  recipe: MODEL_DATA
+  beam:
+  beam_l_axis: X
+  beam_m_axis: Y
+  invert_uvw: true
+  source_chunks: 500
+  apply_p_jones: true
+solver:
+  threads: 1
+  terms:
+  - G
+  - B
+  iter_recipe:
+  - 25
+  - 25
+output:
+  directory: outputs.qc
+  overwrite: true
+  products:
+  - residual
+  columns:
+  - TEST_RESIDUALS
+  net_gain: False
+mad_flags:
+  enable: false
+  threshold_bl: 10
+  threshold_global: 12
+dask:
+  threads: 0
+  workers: 1
+  address:
+  scheduler: threads
+G:
+  type: complex
+  direction_dependent: false
+  time_interval: '1'
+  freq_interval: '1'
+  load_from:
+  interp_mode: reim
+  interp_method: 2dlinear
+B:
+  type: complex
+  direction_dependent: false
+  time_interval: '1'
+  freq_interval: '1'
+  load_from:
+  interp_mode: reim
+  interp_method: 2dlinear
