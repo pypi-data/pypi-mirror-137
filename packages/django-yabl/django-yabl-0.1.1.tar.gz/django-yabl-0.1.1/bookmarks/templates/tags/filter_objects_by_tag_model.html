@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Tagged | BrandX</title>  {% endblock title %}
+
+{% block content %}
+    <main class="container">
+
+        <h1 class="my-3">
+            {% if model_type %}<mark>{{model_type.name}}</mark>{% endif %}
+            tagged <mark>{{tag_slug}}</mark>
+        </h1>
+
+        {% for obj in user_tagged_objs %}
+            {% if forloop.first %}
+                <div class="row text-muted fs-3 my-2">
+                    <div class="col">Bookmarked</div>
+                    <div class="col">Type</div>
+                </div>
+            {% endif %}
+            <div class="row my-2">
+                <div class="col">
+                    <span>{{obj.content_object}}</span>
+                    {% if user.is_authenticated %}
+                        {{obj.content_object.modal}}
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <span>{{obj.content_type.name}}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock content %}
