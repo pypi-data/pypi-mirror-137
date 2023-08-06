@@ -1,0 +1,68 @@
+[tool.poetry]
+
+name = "flake8-cached"
+version = "0.0.3"
+description = "A wrapper around flake8's cli that uses cache at file level"
+
+license = "MIT"
+
+authors = ["Noortheen Raja  <jnoortheen@gmail.com>"]
+
+readme = "README.md"
+
+homepage = "https://pypi.org/project/flake8-cached"
+#documentation = "https://flake8-cached.readthedocs.io"
+repository = "https://github.com/jnoortheen/flake8-cached"
+
+keywords = ["flake8"]
+classifiers = [
+    # TODO: update this list to match your application: https://pypi.org/pypi?%3Aaction=list_classifiers
+    "Development Status :: 1 - Planning",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+]
+
+[tool.poetry.dependencies]
+
+python = "^3.8"
+flake8 = ">=3.9.0"
+
+
+[tool.poetry.dev-dependencies]
+
+# Formatters
+black = "*"
+isort = "*"
+
+# Linters
+mypy = "*"
+pydocstyle = "*"
+pylint = "*"
+
+# Testing
+pytest = "*"
+pytest-cov = "*"
+
+# Documentation
+mkdocs = "*"
+pygments = "*"
+
+# Tooling
+ipython = "*"
+
+[tool.poetry.scripts]
+
+flake8-cached = "flake8_cached.cli:main"
+
+[tool.black]
+
+target-version = ["py36", "py37", "py38"]
+
+
+[build-system]
+
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
