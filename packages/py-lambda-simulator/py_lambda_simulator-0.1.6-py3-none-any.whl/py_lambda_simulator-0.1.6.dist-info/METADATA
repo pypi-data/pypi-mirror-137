@@ -1,0 +1,80 @@
+Metadata-Version: 2.1
+Name: py-lambda-simulator
+Version: 0.1.6
+Summary: 
+Home-page: https://github.com/hemma/py-lambda-simulator
+License: MIT
+Author: Johan Bothin
+Author-email: johan.bothin@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: aiohttp (>=3.8.1,<4.0.0)
+Requires-Dist: asyncer (>=0.0.1,<0.0.2)
+Requires-Dist: boto3 (>=1.20.46,<2.0.0)
+Requires-Dist: moto (>=3.0.2,<4.0.0)
+Requires-Dist: typing-extensions (>=4.0.1,<5.0.0)
+Project-URL: Repository, https://github.com/hemma/py-lambda-simulator
+Description-Content-Type: text/markdown
+
+# py-lambda-simulator
+
+py-lambda-simulator is a Python library for running aws-lambda functions locally.
+
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install py-lambda-simulator.
+
+```bash
+pip install py-lambda-simulator
+```
+
+## Usage
+
+```python
+import asyncio
+import json
+from asyncio import run
+
+from py_lambda_simulator.lambda_simulator import AwsSimulator
+from py_lambda_simulator.sqs_lambda_simulator import SqsLambdaSimulator, SqsEvent, LambdaSqsFunc
+
+
+async def example(simulator, aws_simulator):
+    queue = aws_simulator.create_sqs_queue("queue-name")
+
+    def sqs_handler(event: SqsEvent, context):
+        print(event["Records"][0]["body"])
+
+    simulator.add_func(LambdaSqsFunc(name="test-sqs-lambda", queue_name="queue-name", handler_func=sqs_handler))
+
+    async def send_msg():
+        while True:
+            aws_simulator.get_sqs_client().send_message(
+                QueueUrl=queue["queue_url"], MessageBody=json.dumps({"test": 123})
+            )
+            await asyncio.sleep(1)
+
+    await asyncio.gather(simulator.start(), send_msg())
+
+
+if __name__ == '__main__':
+    _simulator = SqsLambdaSimulator()
+    _aws_simulator = AwsSimulator()
+    run(example(_simulator, _aws_simulator))
+```
+
+For more examples see the tests.
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
