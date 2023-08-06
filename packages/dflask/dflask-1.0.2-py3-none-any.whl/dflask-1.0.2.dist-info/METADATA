@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: dflask
+Version: 1.0.2
+Summary: Use responses for Flask directly
+Home-page: https://github.com/donno2048/Direct-Flask
+Author: Elisha Hollander
+Author-email: just4now666666@gmail.com
+License: MIT
+Project-URL: Documentation, https://github.com/donno2048/Direct-Flask#readme
+Project-URL: Bug Reports, https://github.com/donno2048/Direct-Flask/issues
+Project-URL: Source Code, https://github.com/donno2048/Direct-Flask
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Flask (>=2.0.1)
+
+# Direct-Flask
+
+Use responses for Flask directly
+
+## Installation
+
+### From PyPI
+
+```sh
+pip3 install dflask
+```
+
+### From GitHub
+
+```sh
+pip3 install git+https://github.com/donno2048/Direct-Flask
+```
+
+## Usage
+
+```py
+from dflask import DirectFlask, Response
+app = DirectFlask(__name__)
+app.add_response("/", Response("<html><head><link href='/style.css' rel='stylesheet'></head><body></body></html>"))
+app.add_response("/style.css", "body{background-color: red;}").run()
+```
+
+
