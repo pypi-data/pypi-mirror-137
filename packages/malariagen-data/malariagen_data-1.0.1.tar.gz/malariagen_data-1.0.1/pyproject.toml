@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "malariagen_data"
+version = "1.0.1"
+description = "A package for accessing MalariaGEN public data."
+authors = ["Alistair Miles <alistair.miles@sanger.ac.uk>", "Chris Clarkson <cc28@sanger.ac.uk>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.10"
+numpy = "*"
+scipy = "*"
+pandas = "*"
+zarr = "*"
+dask = {version="*", extras=["array"]}
+fsspec = "*"
+gcsfs = "*"
+BioPython = "*"
+scikit-allel = "*"
+xarray = "*"
+numba = "*"
+plotly = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+notebook = "*"
+pre-commit = "*"
+black = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
