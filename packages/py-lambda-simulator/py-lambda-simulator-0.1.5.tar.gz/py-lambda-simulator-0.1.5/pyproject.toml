@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "py-lambda-simulator"
+version = "0.1.5"
+description = ""
+authors = ["Johan Bothin <johan.bothin@gmail.com>"]
+license = "MIT"
+homepage = "https://github.com/hemma/py-lambda-simulator"
+repository = "https://github.com/hemma/py-lambda-simulator"
+include = [
+    "LICENSE",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+aiohttp = "^3.8.1"
+moto = "^3.0.2"
+boto3 = "^1.20.46"
+asyncer = "^0.0.1"
+typing-extensions = "^4.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-mock = "^3.7.0"
+pytest-aiohttp = "^1.0.3"
+pytest-asyncio = "^0.17.0"
+black = "^22.1.0"
+coverage = "^6.3.1"
+aiorun = "^2021.10.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
