@@ -1,0 +1,21 @@
+{% extends 'django_cash_register/base.html' %}
+
+{% block content %}
+    <div class="login-container">
+        <form action="{% url 'django_cash_register_login' %}" method="POST" class="login-form">
+            <h2>Welcome</h2>
+
+            <label for="{{ form.username.id_for_label }}"></label>
+            {{ form.username }}
+            {{ form.username.errors }}
+            <br>
+            <label for="{{ form.password.id_for_label }}"></label>
+            {{ form.password }}
+            {{ form.password.errors }}
+            {% csrf_token %}
+            {% if context %}<br><p>{{ context }}</p>{% endif %}
+            <br>
+            <input type="submit" value="Log-in" class="login-btn">
+        </form>
+    </div>
+{% endblock %}

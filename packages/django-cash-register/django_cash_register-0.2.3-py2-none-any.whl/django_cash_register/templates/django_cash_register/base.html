@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "django_cash_register/head.html" %}
+</head>
+<body>
+    <div class="body-container">{% block content %}{% endblock %}</div>
+    {% if request.user.is_authenticated %}{% include "django_cash_register/scripts.html" %}{% endif %}
+</body>
+</html>
