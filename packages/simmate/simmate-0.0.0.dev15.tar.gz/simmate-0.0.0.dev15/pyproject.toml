@@ -1,0 +1,20 @@
+
+# These settings initialize pytest and django-pytest. We prefer this file over 
+# pytest.ini because pyproject.toml has more uses that we may need in the future.
+[tool.pytest.ini_options]
+
+# Tell django-pytest settings for a dummy database and also website interaction.
+# To disable django-pytest, add "-p no:django" to your pytest command
+DJANGO_SETTINGS_MODULE = "simmate.configuration.django.settings_test"
+
+# We classify all tests so that we can run different subgroups of tests. You can
+# run the tests marked with "slow"... "pytest -m slow"
+markers = [
+    "slow: mark test as slow.",  # not used at the moment
+]
+
+# By default, we only want to run unmarked tests. The simplest way to do this
+# without adding extra files is to just list "not <marker1> and not <marker2" 
+# for all of them. We also want migrations to be built from scratch, not past 
+# migration folders.
+addopts = "--no-migrations -m 'not slow'"

@@ -1,0 +1,31 @@
+{% extends "core/site-base.html" %}
+
+{% block tabtitle %}
+Simmate | Login
+{% endblock %}
+
+{% block banner %}
+{% include "core/header.html"%}
+{% endblock %}
+
+
+{% block body %}
+{% load crispy_forms_tags %}
+<div class="container mt-3">
+    <div class="col-6 offset-3">
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ usercreation_form | crispy }}
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Create User</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+{% endblock %}
