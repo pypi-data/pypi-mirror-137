@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: kompiler
+Version: 1.2.0
+Summary: A package for auto compiling C++ files as soon as they are saved.
+Home-page: https://github.com/garvit-joshi/kompiler
+Author: Garvit Joshi
+Author-email: garvitjoshi9@gmail.com
+License: UNKNOWN
+Keywords: C++ Compiling g++
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Education
+Classifier: Programming Language :: C++
+Classifier: Topic :: Utilities
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Kompiler
+A package for auto compiling C++ files as soon as they are saved.
+
+```
+Usage: kompiler [File.cpp] [COMMAND...]
+eg:
+    ❯ kompiler hello.cpp
+        Command used for compiling: g++ hello.cpp
+    ❯ kompiler hello.cpp -std=c++11 -O2 -Wall hello.cpp -o hello
+        Command used for compiling: g++ -std=c++11 -O2 -Wall hello.cpp -o hello
+    ❯ kompiler 3.cpp -std=c++11 -O2 -Wall 3.cpp -o hello "&&" ./hello
+        Command used for compiling: g++ -std=c++11 -O2 -Wall 3.cpp -o hello && ./hello
+```
+
