@@ -1,0 +1,63 @@
+0.7
+---
+* additional fitting methods (OMP, adaptive-LASSO, split-Bregman with pre-conditioning) !206 !223 !225
+* support for modeling selection via AIC and BIC !225
+* support for GPUMD format !200 !230
+* refactored and improved handling of constraints !224
+* changed the training set size default fraction from 0.75 to 0.9 !226
+* improved documentation !207 !209 !219
+* improved tests !211 !216 !217 !218 !229
+* updated dependencies and compatibility with external libraries !210 !212 !220
+* various fixes and smaller improvements !199 !205 !221 !222 !228 !231 !232
+
+0.6
+---
+* added line search option for lambda-parameter in ARDR (default is no line search)
+* added read/write functions for optimizer
+* target values are now normalized during fitting when standardize=True
+* adjusted to changes in ase 3.18 concerning Cell object
+
+0.5
+---
+* IO functions for Optimizer
+* updated rotational sum rules example
+* metadata added to ForceConstantsPotential
+* various small fixes to documentation
+
+0.4.1
+-----
+* functionality for reconstructing force constants obtained from e.g., phonopy
+* native rattle module
+* ForceConstants object now supports read and write
+* improved documentation
+* improved Cutoffs object
+* improved support for recursive feature elimination (RFE)
+* code clean up
+* overnight builds
+
+0.4
+---
+* added cluster filter functionality
+* fixed and improved IO functions for force constants parsing from phonopy, phono3py, and ShengBTE
+* improved interface for optimization with recursive feature elimination
+* ForceConstants API
+* extended additional topics (including interfacing DFT codes with hiphive)
+* bug fixes (related to numerical tolerance and others)
+
+0.3
+---
+* large speed up of sensing matrix calculation
+* self-consistent phonons
+* spectral energy density
+* new advanced tutorial topics
+* smaller bug fixes and improvements
+
+0.2
+---
+* much improved performance
+* improved numerical stability
+* improved memory management
+* structure container storage uses data compression
+* additional unit tests; increased code coverage
+* improved code quality thanks to extensive refactoring
+* bug fixes
