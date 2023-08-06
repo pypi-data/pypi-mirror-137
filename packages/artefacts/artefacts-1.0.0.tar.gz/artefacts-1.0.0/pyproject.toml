@@ -1,0 +1,30 @@
+[tool.pytest.ini_options]
+addopts = "-v"
+
+[tool.poetry]
+name = "artefacts"
+version = "1.0.0"
+description = "Deserialization for dbt artifacts"
+authors = ["Tom Waterman <tjwaterman99@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pydantic = "^1.9.0"
+toml = "^0.10.2"
+
+[tool.poetry.dev-dependencies]
+dbt-core = "^1.0.1"
+dbt-postgres = "^1.0.1"
+pytest = "^6.0"
+Sphinx = "^4.4.0"
+sphinx-toolbox = "^2.16.1"
+furo = "^2022.1.2"
+sphinx-autobuild = "^2021.3.14"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[artefacts]
+target_path = './target'
