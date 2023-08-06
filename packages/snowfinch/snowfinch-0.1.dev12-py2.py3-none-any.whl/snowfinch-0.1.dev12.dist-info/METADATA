@@ -1,0 +1,132 @@
+Metadata-Version: 2.1
+Name: snowfinch
+Version: 0.1.dev12
+Summary: A general purpose framework to migrate object to snowflake from different databases
+Home-page: https://bitbucket.anthem.com/users/ag29266/repos/snowfinch
+Author: Kadam, Gangadhar
+Author-email: gangadhar.kadam@anthem.com
+License: MIT
+Project-URL: Documentation, https://snowfinch.readthedocs.io/
+Project-URL: Release Notes, https://snowfinch.readthedocs.io/en/latest/changes/
+Project-URL: source, https://bitbucket.anthem.com/users/ag29266/repos/snowfinch
+Project-URL: Tracker, https://bitbucket.anthem.com/users/ag29266/repos/snowfinch/issues
+Platform: any
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development
+Classifier: Topic :: Database
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.6
+Description-Content-Type: text/x-rst; charset=UTF-8
+License-File: LICENSE.txt
+License-File: AUTHORS.rst
+Requires-Dist: importlib-metadata
+Requires-Dist: sqlalchemy (~=1.4.17)
+Requires-Dist: sqlalchemy-teradata
+Requires-Dist: teradatasqlalchemy
+Requires-Dist: snowflake (~=0.0.3)
+Requires-Dist: snowflake-sqlalchemy
+Requires-Dist: snowflake-connector-python (~=2.5.1)
+Requires-Dist: numpy (~=1.20.3)
+Requires-Dist: pandas (~=1.2.4)
+Requires-Dist: pyodbc (~=4.0.30)
+Requires-Dist: teradatasql (==17.10.0.1)
+Requires-Dist: teradata (~=15.10.0.21)
+Requires-Dist: setuptools (~=57.0.0)
+Requires-Dist: confuse (~=1.4.0)
+Requires-Dist: PyYAML (~=5.4.1)
+Requires-Dist: pymssql (~=2.2.1)
+Requires-Dist: attrs
+Requires-Dist: boto3 (~=1.17.87)
+Requires-Dist: botocore (~=1.20.87)
+Requires-Dist: sqlparse (~=0.4.1)
+Requires-Dist: PyMySQL (~=1.0.2)
+Requires-Dist: python-dateutil (~=2.8.1)
+Requires-Dist: requests (>=1.2.0)
+Requires-Dist: futures (>=2.1.3)
+Requires-Dist: pyfiglet (~=0.8.post1)
+Requires-Dist: python-json-logger (==2.0.0)
+Requires-Dist: colorama (~=0.4.4)
+Requires-Dist: boto (~=2.49.0)
+Requires-Dist: ddlparse (~=1.9.0)
+Requires-Dist: pyparsing (~=2.4.7)
+
+==========
+SnowFinch
+==========
+Snowfinch is general purpose python library which allows developers
+to quickly convert on prem databases SQL to SnowFlake, perform lightweight ETL,
+assist in managing CICD pipelines and  data tokenization.
+
+Why SnowFinch
+=============
+* Unavailability of any tool for migrating Teradata/MS SQL Server DDLs to Snowflake DDL with constraints
+* Time consuming manual process for migrating large number of tables and high volume of data
+* Manual validation of migrated data resulting in inaccuracy and inefficiency of the process
+
+Introduction
+============
+SnowFinch is the tool of choice for
+* Schema Mapping and Auto conversion of DDL, Stored procedures, BTEQ scripts
+* Dynamic creation of the converted objects on SnowFlake using python connectors DB API
+* deploying your artifacts s3 and bitbucket in an automated fashion
+
+Features
+########
+
+- `Command-line tool`
+- `Python API` - expressive, powerful, and great for working with other packages _ (e.g. `pandas <http://pandas.pydata.org>`_)
+- `Config Driven` - manage connection information and credentials securely using the ``snowfinch yaml config`` and ``snowfinch secret`` commands
+- `Fully Automated` - Up to 80% automated code conversion to SnowSQL
+- `Dynamic Snowflake object creation` - directly performs the DML operation on snowflake
+- `CICD` - Uploads the source code to S3  bucket or Bitbucket
+- `Tokenization` - Handles tokenization and de-tokenization
+- `DBAPI2 Compliant` - DB Driver (Adapter) agnostic. Use your favourite driver that complies with DB-API 2.0
+- `S3 Integration` - provides functionality to download and upload data to S3 buckets, and internal stages (Snowflake)
+
+Getting Started
+---------------
+Assuming that you have Python and ``virtualenv`` installed,
+set up your environment and install the required dependencies
+like this or you can install the library using ``pip``::
+
+    $ virtualenv snowfinch
+    $ source snowfinch/bin/activate
+    $ pip install --upgrade setuptools pip
+    $ pip install --index-url https://test.pypi.org/simple/ --no-deps snowfinch==0.1.dev3
+
+Install the latest SnowFinch release via pip: ::
+
+    python -m pip install --index-url https://test.pypi.org/simple/ --no-deps snowfinch==0.1.dev3
+
+Using SnowFinch
+---------------
+After installing SnowFinch
+
+for MS SQL Server: ::
+
+    python  snowfinch.py -c /path/to/snowfinch-app-dev.yaml -p=dev -m=ddl -d=mssql -dt=True
+    python  snowfinch.py -c /path/to/snowfinch-app-dev.yaml -p=dev -m=sproc -d=mssql -dt=True
+    python  snowfinch.py -c /path/to/snowfinch-app-dev.yaml -p=dev -m=full -d=mssql -dt=True
+    python  snowfinch.py -c /path/to/snowfinch-app-dev.yaml -p=dev -m=s3 -d=mssql
+
+for Teradata: ::
+
+    python  snowfinch.py --config /path/to/snowfinch-app-dev.yaml --profile=dev --mode=ddl --dialect=teradata -dt=False
+    python  snowfinch.py --config /path/to/snowfinch-app-dev.yaml --profile=dev --mode=sproc --dialect=teradata -dt=True
+    python  snowfinch.py --config /path/to/snowfinch-app-dev.yaml --profile=dev --mode=full --dialect=teradata -dt=False
+    python  snowfinch.py --config /path/to/snowfinch-app-dev.yaml --profile=dev --mode=s3 --dialect=teradata
+
+Getting Help
+------------
+
+Please use the below resources for getting help
+* Please email us on the `snowfinch-support@anthem.com`
+* Open a SNOW ticket using `snowfinch support`
+* If it turns out that you may have found a bug, please `snowfinch issues`
+
