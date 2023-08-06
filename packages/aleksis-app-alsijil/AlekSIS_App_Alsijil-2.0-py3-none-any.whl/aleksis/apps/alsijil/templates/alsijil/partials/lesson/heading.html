@@ -1,0 +1,61 @@
+{% load i18n %}
+
+<h1>
+  <span class="right hide-on-small-only">
+    {% include "alsijil/partials/lesson_status.html" with register_object=register_object css_class="medium" %}
+  </span>
+
+  <a class="btn-flat waves-effect waves-light primary-color-text left alsijil-header-nav-button hide-on-med-and-up {% if not prev_lesson %}disabled{% endif %}"
+      {% if prev_lesson %}
+     href="{% url "lesson_period" prev_lesson.week.year prev_lesson.week.week prev_lesson.id %}"
+      {% endif %}
+  >
+    <i class="material-icons center">navigate_before</i>
+  </a>
+  <a class="btn-flat waves-effect waves-light primary-color-text right alsijil-header-nav-button hide-on-med-and-up {% if not next_lesson %}disabled{% endif %}"
+      {% if next_lesson %}
+     href="{% url "lesson_period" next_lesson.week.year next_lesson.week.week next_lesson.id %}"
+      {% endif %}
+  >
+    <i class="material-icons center">navigate_next</i>
+  </a>
+
+  <span class="alsijil-time-head">
+    {% if register_object.label_ == "event" %}
+      {% if register_object.date_start == register_object.date_end %}
+        {% if register_object.period_from.period == register_object.period_to.period %}
+          {{ register_object.date_start|date:"SHORT_DATE_FORMAT" }},
+          {% blocktrans with period=register_object.period_from.period %}{{ period }}. period{% endblocktrans %}
+        {% else %}
+          {{ register_object.date_start|date:"SHORT_DATE_FORMAT" }},
+          {% blocktrans with period_from=register_object.period_from.period  period_to=register_object.period_to.period %}
+            {{ period_from }}.–{{ period_to }}.  period
+          {% endblocktrans %}
+        {% endif %}
+      {% else %}
+        {{ register_object.date_start|date:"SHORT_DATE_FORMAT" }},
+        {{ register_object.period_from.period }}.–{{ register_object.date_end|date:"SHORT_DATE_FORMAT" }},
+        {{ register_object.period_to.period }}.
+      {% endif %}
+    {% else %}
+      {{ day|date:"SHORT_DATE_FORMAT" }},
+      {% blocktrans with period=register_object.period.period %}{{ period }}. period{% endblocktrans %}
+    {% endif %}
+  </span>
+
+  <span class="alsijil-object-head">
+    {{ register_object.group_names }},
+
+    {% if register_object.label_ == "event" %}
+      {% trans "Event" %} ({{ register_object.title }}),
+    {% else %}
+      {{ register_object.get_subject.short_name }},
+    {% endif %}
+
+    {{ register_object.teacher_short_names }}
+  </span>
+</h1>
+
+<div class="hide-on-med-and-up margin-bottom">
+  {% include "alsijil/partials/lesson_status.html" with register_object=register_object chip=1 css_class="hundred-percent center" %}
+</div>

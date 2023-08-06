@@ -1,0 +1,14 @@
+{% if chip %}
+  <span class="{% if chip %}chip{% endif %} {{ color }} white-text {{ css_class }}">
+    <i class="material-icons left">
+      {{ icon }}
+    </i>
+    {{ text }}
+  </span>
+{% else %}
+  <i class="material-icons {{ color }}{% firstof color_suffix "-text" %} tooltipped {{ css_class }}"
+     data-position="bottom"
+     data-tooltip="{{ text }}" title="{{ text }}">
+    {{ icon }}
+  </i>
+{% endif %}
