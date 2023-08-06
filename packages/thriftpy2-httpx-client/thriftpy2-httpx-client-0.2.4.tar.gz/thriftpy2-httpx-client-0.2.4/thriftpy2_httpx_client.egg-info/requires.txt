@@ -1,0 +1,21 @@
+thriftpy2>=0.4.11
+httpx<0.23,>=0.16
+
+[:python_version < "3.8"]
+typing_extensions
+
+[all]
+pytest
+pytest-asyncio
+urllib3
+
+[all:python_version < "3.7"]
+async_generator
+
+[test]
+pytest
+pytest-asyncio
+urllib3
+
+[test:python_version < "3.7"]
+async_generator
