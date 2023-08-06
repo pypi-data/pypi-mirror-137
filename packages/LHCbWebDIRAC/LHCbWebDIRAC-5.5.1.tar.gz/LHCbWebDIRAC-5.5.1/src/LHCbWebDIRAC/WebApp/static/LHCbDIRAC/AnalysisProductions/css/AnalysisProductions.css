@@ -1,0 +1,125 @@
+/*****************************************************************************\
+* (c) Copyright 2021 CERN for the benefit of the LHCb Collaboration           *
+*                                                                             *
+* This software is distributed under the terms of the GNU General Public      *
+* Licence version 3 (GPL Version 3), copied verbatim in the file "COPYING".   *
+*                                                                             *
+* In applying this licence, CERN does not waive the privileges and immunities *
+* granted to it by virtue of its status as an Intergovernmental Organization  *
+* or submit itself to any jurisdiction.                                       *
+\*****************************************************************************/
+/* The TreeList component in extjs 6.2.0 uses font awesome font when used with the "Crisp" theme.
+
+If this fails for some reason it only causes minor graphical bugs.
+*/
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+@font-face {
+  font-family: "FontAwesome";
+  src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.eot?v=4.7.0");
+  src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"),
+    url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"),
+    url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"),
+    url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"),
+    url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.ap-summary {
+  background-color: powderblue;
+  margin: 10px;
+  border-radius: 10px 10px 0px 0px;
+}
+.ap-view-header,
+.ap-details {
+  background-color: #ddd;
+  padding: 10px;
+}
+.ap-summary .ap-details input {
+  color: black;
+}
+.ap-summary,
+.ap-summary .ap-value-container {
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+.ap-summary .ap-value {
+  width: calc(100% - 6px);
+  border: 2px inset #ebe9ed;
+  background: white;
+  padding: 1px;
+  position: absolute;
+}
+.ap-summary .ap-value {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.ap-summary .ap-toolbar-button {
+  position: relative;
+  float: right;
+  color: black;
+  font-size: 0.8em;
+  border-radius: 0.5em;
+  user-select: none;
+  margin: auto 0.1em;
+  padding: 0 0.5em;
+  background: rgba(155, 155, 155, 1);
+  cursor: pointer;
+  line-height: 1.2em;
+  height: 1.2em;
+}
+.ap-header {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  align-self: center;
+  cursor: pointer;
+}
+.ap-summary .ap-id,
+.ap-summary .ap-name {
+  margin: 0;
+  padding: 5px;
+  font-size: 1.5em;
+}
+.ap-summary .ap-id {
+  background-color: #0008;
+  color: white;
+  border-radius: 5px 0 0 0;
+}
+.ap-summary .ap-header-padding {
+  flex-grow: 1;
+}
+.ap-summary code {
+  align-self: center;
+}
+.ap-summary .ap-toolbar {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  width: 100%;
+}
+.ap-summary .ap-value-container {
+  flex-grow: 1;
+}
+.ap-break,
+.ap-sep {
+  flex-basis: 100%;
+  height: 0;
+}
+.ap-sep {
+  margin: 0;
+  border: 1px solid black;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+.ap-summary label {
+  font-weight: bold;
+}
+.ap-summary code,
+.ap-summary img,
+.ap-summary label,
+.ap-summary button {
+  margin: auto 0.5em;
+  padding: 0;
+}
