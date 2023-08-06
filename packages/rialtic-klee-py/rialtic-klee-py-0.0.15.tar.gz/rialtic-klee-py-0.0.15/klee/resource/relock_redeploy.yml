@@ -1,0 +1,54 @@
+name: relock_redeploy
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  relock_redeploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install Pipenv
+        run: pip install pipenv
+      
+      - name: relock and install
+        run: pipenv install --dev --system
+        
+      - name: test
+        env:
+          APIKEY: ${{secrets.RIALTIC_API_KEY}}
+          RIALTIC_REF_DB: 'demodb'
+          RIALTIC_DATA_ENV: 'local'
+        
+        run: klee test
+      
+      - name: commit
+        run: |
+          git config user.name "Rialtic E&D"
+          git config user.email "engines.data@rialtic.io"
+          git add Pipfile.lock
+          if ! git commit -m "relocked"; then echo "Releasing without new commit"; fi
+          
+      - name: Get Version Number
+        run: | 
+          git fetch --unshallow 
+          export TAG=$(git describe --tags --abbrev=0 | awk -F. '{OFS="."; $NF+=1; print $0}')
+          echo "::set-output name=git_tag::$TAG"
+          echo "git_tag=$TAG" >> $GITHUB_ENV
+      
+      - uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ env.git_tag }}
+          commit: 'develop'
+    

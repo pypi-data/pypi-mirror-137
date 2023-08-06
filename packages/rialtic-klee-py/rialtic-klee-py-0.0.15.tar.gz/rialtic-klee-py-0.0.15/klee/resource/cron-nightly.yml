@@ -1,0 +1,62 @@
+name: Nighly Redeploy
+on:
+  workflow_dispatch:
+
+jobs:
+  cron-nightly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install Pipenv
+        run: pip3 install pipenv
+
+      - name: Checkout New Branch
+        run: git checkout -B nightly
+
+      - name: Klee Sync Pipenv
+        run: |
+          pipenv install rialtic-klee-py --system
+          klee sync-pipenv
+
+      - name: Install Pipenv Dependencies
+        run: |
+          rm Pipfile.lock
+          pipenv install --dev
+
+      - name: Klee Test
+        env:
+          APIKEY: ${{secrets.RIALTIC_API_KEY}}
+          RIALTIC_REF_DB: 'demodb'
+          RIALTIC_DATA_ENV: 'local'
+        run: pipenv run klee test
+
+      - name: Force Push Nightly Branch
+        run: |
+          git config user.name "Automated Redeploy"
+          git config user.email "engines.data@rialtic.io"
+          git add Pipfile Pipfile.lock
+
+          export DATE=$(date -u +%Y.%m.%d-%H.%M.%S)
+          echo "date=$DATE" >> $GITHUB_ENV
+
+          git commit -m "redploy: $DATE"
+          git push origin nightly
+
+      - name: Describe Latest Version
+        run: |
+          git fetch --unshallow
+          export TAG=$(git describe --tags --abbrev=0 --exclude '*-redploy+*')
+          echo "git_tag=$TAG" >> $GITHUB_ENV
+
+      - name: Create Nightly Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.git_tag }}-redploy+${{ env.date }}
+          release_name: "${{ env.LAST_COMMIT }}"
+          prerelease: true
