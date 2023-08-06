@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: fastcrypto
+Version: 0.0.2
+Summary: fastcrypto 加密库, 支持aes加密解密"
+Home-page: https://github.com/ssbuild
+Author: ssbuild
+Author-email: 9727464@qq.com
+License: Apache 2.0
+Keywords: fastcrypto,crypto,aes,des
+Platform: linux_x86_64
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3, <4
+Description-Content-Type: text/markdown
+
+fastcrypto 加密库, 支持aes加密解密"
+
+fastcrypto aes加密解密库
+
+```py
+# -*- coding: utf-8 -*-
+import sys
+#from fastcrypto import fastcrypto
+import fastcrypto
+
+data = bytes([125,2,3,4])
+#,key,iv  length must 16
+key = bytes([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+iv = bytes([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+
+ret = fastcrypto.aes_encode(data,key,iv)
+print(ret)
+if ret[0] == 0:
+    crypt_data = ret[1]
+    ret = fastcrypto.aes_decode(crypt_data,key,iv)
+    print(ret)
+
+```
+
+
