@@ -1,0 +1,305 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<tryton>
+    <data>
+
+<!-- group, user -->
+        <record model="res.group" id="group_batch">
+            <field name="name">Batch</field>
+        </record>
+        <record model="res.user-res.group" id="user_admin_group_batch">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_batch"/>
+        </record>
+
+<!-- menu -->
+        <menuitem name="Batch" parent="account.menu_account"
+            id="menu_batch" sequence="45"/>
+        <record model="ir.ui.menu-res.group" id="menu_batch_group_batch">
+            <field name="menu" ref="menu_batch"/>
+            <field name="group" ref="group_batch"/>
+        </record>
+        <menuitem name="Batch" parent="account.menu_account_configuration"
+            id="menu_batch_configuration" sequence="70"/>
+
+
+        <record model="ir.ui.view" id="batch_line_view_form">
+            <field name="model">account.batch.line</field>
+            <field name="type">form</field>
+            <field name="name">batch_line_form</field>
+        </record>
+        <record model="ir.ui.view" id="batch_line_view_tree">
+            <field name="model">account.batch.line</field>
+            <field name="type">tree</field>
+            <field name="name">batch_line_tree</field>
+        </record>
+        <record model="ir.action.act_window" id="act_batch_line_form">
+            <field name="name">Batch Lines</field>
+            <field name="res_model">account.batch.line</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_batch_line_form_view_1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="batch_line_view_tree"/>
+            <field name="act_window" ref="act_batch_line_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_batch_line_form_view_2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="batch_line_view_form"/>
+            <field name="act_window" ref="act_batch_line_form"/>
+        </record>
+        <menuitem parent="menu_batch" sequence="30" name="Show Batch Lines"
+            action="act_batch_line_form" id="menu_batch_line_form"/>
+
+        <record model="ir.ui.view" id="batch_line_view_tree_editable">
+            <field name="model">account.batch.line</field>
+            <field name="type">tree</field>
+            <field name="name">batch_line_tree_editable</field>
+        </record>
+        <record model="ir.action.act_window" id="act_batch_line_form_editable">
+            <field name="name">Batch Lines</field>
+            <field name="res_model">account.batch.line</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_batch_line_form_view_editable_1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="batch_line_view_tree_editable"/>
+            <field name="act_window" ref="act_batch_line_form_editable"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_batch_line_form_view_editable_2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="batch_line_view_form"/>
+            <field name="act_window" ref="act_batch_line_form_editable"/>
+        </record>
+
+        <record model="ir.ui.view" id="open_batch_journal_ask_view_form">
+            <field name="model">account.batch.open_batch_journal.ask</field>
+            <field name="type">form</field>
+            <field name="name">open_batch_journal_ask_form</field>
+        </record>
+        <record model="ir.action.wizard" id="act_open_batch_journal">
+            <field name="name">Enter Batch Lines</field>
+            <field name="wiz_name">account.batch.open_batch_journal</field>
+        </record>
+        <record model="ir.action.keyword" id="act_open_batch_journal_keyword">
+            <field name="keyword">tree_open</field>
+            <field name="model">account.batch.journal,-1</field>
+            <field name="action" ref="act_open_batch_journal"/>
+        </record>
+        <menuitem parent="menu_batch" sequence="20"
+            action="act_open_batch_journal" icon="tryton-form"
+            id="menu_open_batch_journal"/>
+    
+        <record model="ir.ui.view" id="batch_view_form">
+            <field name="model">account.batch</field>
+            <field name="type">form</field>
+            <field name="name">batch_form</field>
+        </record>
+        <record model="ir.ui.view" id="batch_view_form2">
+            <field name="model">account.batch</field>
+            <field name="type">form</field>
+            <field name="name">batch_form2</field>
+        </record>
+        <record model="ir.ui.view" id="batch_view_tree">
+            <field name="model">account.batch</field>
+            <field name="type">tree</field>
+            <field name="name">batch_tree</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_batch_form">
+            <field name="name">Batches</field>
+            <field name="res_model">account.batch</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_batch_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="batch_view_tree"/>
+            <field name="act_window" ref="act_batch_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_batch_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="batch_view_form2"/>
+            <field name="act_window" ref="act_batch_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_batch_form_domain_open">
+            <field name="name">Open</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain" eval="[('state', '=', 'open')]" pyson="1"/>
+            <field name="act_window" ref="act_batch_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_batch_form_domain_closed">
+            <field name="name">Closed</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain" eval="[('state', '=', 'closed')]" pyson="1"/>
+            <field name="act_window" ref="act_batch_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_batch_form_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="act_window" ref="act_batch_form"/>
+        </record>
+        <menuitem parent="menu_batch" sequence="50"
+            action="act_batch_form" id="menu_batch_form"/>
+
+        <record model="ir.model.button" id="batch_close_button">
+            <field name="name">close</field>
+            <field name="model"
+                search="[('model', '=', 'account.batch')]"/>
+        </record>
+        <record model="ir.model.button-res.group"
+            id="batch_close_button_group_batch">
+            <field name="button" ref="batch_close_button"/>
+            <field name="group" ref="account_batch.group_batch"/>
+        </record>
+
+        <record model="ir.action.act_window" id="act_batch_line_move_lines">
+            <field name="name">Move Lines</field>
+            <field name="res_model">account.move.line</field>
+            <field name="domain" eval="[('move.origin.id', 'in', Eval('active_ids'), 'account.batch.line')]" pyson="1"/>
+        </record>
+        <record model="ir.action.keyword" id="act_batch_line_move_keyword1">
+            <field name="keyword">form_relate</field>
+            <field name="model">account.batch.line,-1</field>
+            <field name="action" ref="act_batch_line_move_lines"/>
+        </record>
+
+        <record model="ir.action.wizard" id="act_batch_post">
+            <field name="name">Post Selected Lines</field>
+            <field name="wiz_name">account.batch.post</field>
+            <field name="model">account.batch.line</field>
+        </record>
+        <record model="ir.action.keyword" id="act_batch_post_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">account.batch.line,-1</field>
+            <field name="action" ref="act_batch_post"/>
+        </record>
+
+        <record model="ir.ui.view" id="wiz_cancel_batch_lines_ask_sure_form">
+            <field name="model">account.batch.cancel.ask.sure</field>
+            <field name="type">form</field>
+            <field name="name">cancel_batch_lines_ask_sure_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="wiz_cancel_batch_lines_ask_problem_form">
+            <field name="model">account.batch.cancel.ask.problem</field>
+            <field name="type">form</field>
+            <field name="name">cancel_batch_lines_ask_problem_form</field>
+        </record>
+        <record model="ir.action.wizard" id="act_batch_cancel">
+            <field name="name">Cancel Selected Lines</field>
+            <field name="wiz_name">account.batch.cancel</field>
+            <field name="model">account.batch.line</field>
+        </record>
+        <record model="ir.action.keyword" id="act_batch_cancel_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">account.batch.line,-1</field>
+            <field name="action" ref="act_batch_cancel"/>
+        </record>
+
+<!-- sequences -->
+        <record model="ir.sequence.type" id="sequence_type_account_batch_line">
+            <field name="name">Account Batch Line Code</field>
+            <field name="code">account.batch.line</field>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_account_batch_line_group_batch">
+            <field name="sequence_type" ref="sequence_type_account_batch_line"/>
+            <field name="group" ref="group_batch"/>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_account_batch_line_group_admin">
+            <field name="sequence_type" ref="sequence_type_account_batch_line"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.sequence" id="sequence_account_batch_line">
+            <field name="name">Batch Line Code</field>
+            <field name="code">account.batch.line</field>
+        </record>
+        <record model="ir.sequence.type" id="sequence_type_account_batch_line_create">
+            <field name="name">Account Batch Line Registration</field>
+            <field name="code">account.batch.line.create</field>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_account_batch_line_create_group_batch">
+            <field name="sequence_type" ref="sequence_type_account_batch_line_create"/>
+            <field name="group" ref="group_batch"/>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_account_batch_line_create_group_admin">
+            <field name="sequence_type" ref="sequence_type_account_batch_line_create"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.sequence" id="sequence_account_batch_line_create">
+            <field name="name">Batch Line Registration</field>
+            <field name="code">account.batch.line.create</field>
+        </record>
+
+<!-- access -->
+	<record model="ir.rule.group" id="rule_group_batch">
+            <field name="name">User in company</field>
+            <field name="model" search="[('model', '=', 'account.batch')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_batch1">
+            <field name="domain" eval="[('company', 'in', Eval('user', {}).get('companies', []))]" pyson="1"/>
+            <field name="rule_group" ref="rule_group_batch"/>
+        </record>
+
+	<record model="ir.model.access" id="access_batch">
+            <field name="model" search="[('model', '=', 'account.batch')]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_batch_account_admin">
+            <field name="model" search="[('model', '=', 'account.batch')]"/>
+            <field name="group" ref="account.group_account_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_batch_batch">
+            <field name="model" search="[('model', '=', 'account.batch')]"/>
+            <field name="group" ref="group_batch"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+	<record model="ir.model.access" id="access_batch_line">
+            <field name="model" search="[('model', '=', 'account.batch.line')]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_batch_line_account_admin">
+            <field name="model" search="[('model', '=', 'account.batch.line')]"/>
+            <field name="group" ref="account.group_account_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_batch_line_batch">
+            <field name="model" search="[('model', '=', 'account.batch.line')]"/>
+            <field name="group" ref="group_batch"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_move_account">
+            <field name="model" search="[('model', '=', 'account.move')]"/>
+            <field name="group" ref="group_batch"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+    </data>
+</tryton>

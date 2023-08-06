@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<form>
+    <label name="name"/>
+    <field name="name"/>
+    <label name="journal"/>
+    <field name="journal"/>
+    <notebook colspan="4">
+        <page string="Batch Lines" col="4" id="batch_lines">
+            <field name="lines" colspan="4"
+                view_ids="account_batch.batch_line_view_tree_editable">
+            </field>
+        </page>
+        <page string="Move Lines" col="1" id="move_lines">
+            <field name="move_lines"/>
+        </page>
+    </notebook>
+    <group col="2" colspan="3" id="button_separator">
+        <label name="state"/>
+        <field name="state"/>
+    </group>
+    <button string="Post Batch" name="close" icon="tryton-ok"/>
+</form>

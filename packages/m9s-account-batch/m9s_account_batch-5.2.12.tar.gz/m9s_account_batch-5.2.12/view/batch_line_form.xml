@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<form col="6">
+    <label name="date"/>
+    <field name="date"/>
+    <label name="batch"/>
+    <field name="batch"/>
+    <label name="journal"/>
+    <field name="journal"/>
+
+    <label name="amount"/>
+    <field name="amount"/>
+    <label name="party"/>
+    <field name="party"/>
+    <label name="invoice"/>
+    <field name="invoice"/>
+    <newline/>
+    <label name="contra_account"/>
+    <group col="10" colspan="1" id="contra_account_group">
+        <field name="side_contra_account" xfill="0" xexpand="0"/>
+        <field name="contra_account" colspan="9"/>
+    </group>
+    <label name="account"/>
+    <group col="10" colspan="1" id="account_group">
+        <field name="side_account" xfill="0" xexpand="0"/>
+        <field name="account" colspan="9"/>
+    </group>
+    <label name="is_cancelation_move"/>
+    <field name="is_cancelation_move"/>
+    <label name="tax"/>
+    <field name="tax"/>
+    <newline/>
+    <label name="reference"/>
+    <field name="reference"/>
+    <label name="posting_text"/>
+    <field name="posting_text"/>
+    <label name="maturity_date"/>
+    <field name="maturity_date"/>
+    <newline/>
+    <label name="sequence"/>
+    <field name="sequence"/>
+    <label name="code"/>
+    <field name="code"/>
+    <label name="move"/>
+    <field name="move"/>
+    <separator id="state" colspan="6"/>
+    <label name="state"/>
+    <field name="state"/>
+</form>
