@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {name}
+  labels:
+    app: {name}
+spec:
+  replicas: {n_workers}
+  selector:
+    matchLabels:
+      app: {name}
+  template:
+    metadata:
+      labels:
+        app: {name}
+    spec:
+      containers:
+        - name: {name}
+          image: {image_name}
+          env:
+            - name: TOPIC_OUT
+              value: "{name}.out"
+          envFrom:
+            - configMapRef:
+                name: fabrique-kafka-config
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "100m"
+            limits:
+              memory: "200Mi"
+              cpu: "200m"
