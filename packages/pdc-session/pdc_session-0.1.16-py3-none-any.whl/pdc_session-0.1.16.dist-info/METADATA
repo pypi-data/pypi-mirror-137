@@ -1,0 +1,122 @@
+Metadata-Version: 2.1
+Name: pdc-session
+Version: 0.1.16
+Summary: simple shopee session manager
+Author: Hfrada
+Author-email: madefrada@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: ecceran (==0.1.1)
+Requires-Dist: requests (>=2,<3)
+Description-Content-Type: text/markdown
+
+# Shopee Session
+
+simple shopee session manager
+
+### Install
+`$ python -m pip install pdc-session`
+
+### configure
+
+ ```python
+from pdc_session.session_config import configure_client
+
+api_uri = 'http://localhost:51016'
+api_key = '0234a45a4d4c34f1849638f****'
+botname = 'test'
+
+
+configure_client(
+    api_uri = api_uri, # api_uri default http://localhost:4000
+    api_key = api_key, # api_key format string hex
+    botname = botname # botname format string
+)
+
+```
+
+### A Simple Example
+
+```python
+from requests import Session
+from pdc_session.session_persist import SessionPersist
+
+# SessionPersist need username to run
+SessionPersist.username = 'test'
+
+
+with SessionPersist() as sp:
+    # when entering class will find available sessions and lock them
+    
+    # create new session
+    session = Session() # session from requests
+    sp.create(lock=True) # lock is optional, defaults as True
+
+    # get avaliable session
+    # by default it is called when on enter
+    sp.get_session()
+    sp.session_id # when id is not 0, then session is valid
+    sp.session_valid # or check with session_valid
+
+    # if get_session() is falied, method all_locked() will be called
+
+    # lock session
+    # by default you need to change the session_id property and call lock_session()
+    sp.session_id = 'someid'
+    sp.lock_session() # but this is not recommended
+
+    # release session
+    # set session to unlocked
+    sp.release_session()
+
+    # update session
+    # by default it is called when on exit
+    sp.session.cookies.set('test', 'test')
+    sp.update_session()
+```
+
+### Best Practice
+
+```python
+from pdc_session.session_persist import SessionPersist
+
+class Auth(SessionPersist):
+    
+    username: str
+    password:str
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+
+with Auth('test', 'test') as auth:
+    auth.session.get('/getinfo')
+    auth.session.get('/product')
+    auth.session.post('/upload_product')
+```
+
+### Blocking Code
+
+```python
+from pdc_session.session_persist import SessionPersist
+
+class Auth(SessionPersist):
+    
+    username: str
+    password:str
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+user = Auth('test', 'test')
+user._acquire()
+auth.session.get('/getinfo')
+auth.session.get('/product')
+auth.session.post('/upload_product')
+user._release()
+```
+
