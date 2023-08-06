@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+<title>rna-tools.online</title>
+
+<style>
+ .hint {color:#808080;font-size:12px;}
+
+.dz {
+    border: dashed !important;
+    background-color: white !important;
+    border-radius: 10px !important;
+}
+
+.dz:hover {
+    background-color: aliceblue !important;
+}
+</style>
+
+<script>
+    var progress_interval;
+
+    $(document).ready( function(){
+        progress_interval = setInterval(checkProgress, 1000);
+    });
+
+    function checkProgress() {
+        $.ajax({
+            url: "{% url 'ajax_job_status' job_id=j.job_id %}",
+            data: { tool: 'delete' },
+            success: function(d) {
+                $("#log_txt").html(d['log']);
+                if (d['reload']==true){
+                    window.location.reload()
+                }
+            }
+    })
+    };
+
+   function demo(){
+        $.ajax({
+            url: "/demo/{{ tool }}/{{ j.job_id }}",
+	})
+    };
+
+  function analyze() {
+        $.ajax({
+            url: "/run/seq/{{ j.job_id }}",
+            success: function(d) {
+                $("#log_txt").html(d['log']);
+                if (d['reload']==true){
+                    window.location.reload()
+                }
+            }
+        })
+    };
+
+   function rm(){
+        $.ajax({
+            url: "/run/clear/{{ j.job_id }}",
+	})
+    };
+
+    function del() {
+
+        $.ajax({
+            url: "/run/delete/{{ j.job_id }}",
+	    data: { del: $("#del").val() }
+	})
+    };
+
+</script>
+
+<h2>Delete part of PDB files</h2>
+
+<div align="right">
+  <button onclick="demo()" class="btn btn-small btn-ok">Load demo</button>
+  <button onclick="rm()" class="btn btn-small btn-ok">Remove All Files</button>
+  <button onclick="javascript:location.reload();" class="btn btn-small btn-ok">Clear DropZone</button>  
+</div>
+
+<label for="comment">RNA structure (in the PDB format)</label>
+
+<form enctype='multipart/form-data' action="/upload/{{ j.job_id }}" method='POST' class="dropzone dz" id="my-dropzone" >
+  {% csrf_token %}
+  <input type="hidden" id="job_id" name="job_id" value="{{ j.job_id }}" />
+    <div class="fallback">
+      <input name="file" type="file" multiple />
+    </div>
+</form>
+
+<div class="form-group" style="width: 100%;">
+    <label for="comment">Selection for deletion</label>
+    <input type="text" class="form-control" style="font-family:Monospace;" id="del" name="xxx" placeholder="" value=""></textarea>
+    <small class="hint">e.g., A:1-16</small>
+</div>
+
+    <pre><div id="log_txt" class='log'>{{ log | safe }}</div></pre>
+
+<p>
+  <button onclick="analyze()" class="btn btn-large btn-success">Analyze</button>
+  <button onclick="del()" class="btn btn-large btn-success">Delete</button>
+</p>
+
+<p>The raw output files for each step of the pipeline can be found <a href="{% url 'download_project_dir' job_id=j.job_id %}">here</a></p>
+
+<small class="hint">
+  <p>
+    <h5>Documentation</h5>
+  </p>
+  <p>The output are files with "_delete.pdb".</p>
+  <p>Load an example and remove chain A, "A:1-16"</p>
+
+  This is <a href="https://rna-tools.readthedocs.io/en/latest/main.html#delete">https://rna-tools.readthedocs.io/en/latest/main.html#rna-pdb-toolsx</a> --delete DELETE functionality.
+
+    </small>
+
+{% endblock %}
