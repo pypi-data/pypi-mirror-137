@@ -1,0 +1,3096 @@
+<!DOCTYPE html>
+<html ng-app="AWSDocsDocPageApp" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <title>
+   Actions, resources, and condition keys for Amazon CloudFront - Service Authorization Reference
+  </title>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="/assets" name="assets_root"/>
+  <meta content="list_amazoncloudfront" name="target_state"/>
+  <meta content="list_amazoncloudfront" name="default_state"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="shortcut icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazoncloudfront.html" rel="canonical"/>
+  <meta content="Lists all of the available service-specific resources, actions, and condition keys that can be used in IAM policies to control access to Amazon CloudFront." name="description"/>
+  <meta content="IAD" name="deployment_region"/>
+  <meta content="Service Authorization Reference" name="product"/>
+  <meta content="Service Authorization Reference" name="guide"/>
+  <meta content="Provides a list of the actions, resources, and condition keys supported by each AWS service that can be used in an IAM policy." name="abstract"/>
+  <meta content="en_us" name="guide-locale"/>
+  <meta content="toc-contents.json" name="tocs"/>
+  <meta content="Service Authorization Docs" name="feedback-item"/>
+  <meta content="Service Authorization Reference" name="this_doc_product"/>
+  <meta content="Service Authorization Reference" name="this_doc_guide"/>
+  <link href="https://docs.aws.amazon.com/assets/css/vendor4.css?version=2021.12.02" rel="stylesheet"/>
+  <link href="https://docs.aws.amazon.com/assets/css/awsdocs-common.css?version=2021.12.02" rel="stylesheet"/>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor3.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor4.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor1.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-common.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-doc-app.js?version=2021.12.02" type="text/javascript">
+  </script>
+ </head>
+ <body class="awsdocs awsui" ng-csp="no-unsafe-eval">
+  <div class="awsdocs-container">
+   <awsdocs-header>
+   </awsdocs-header>
+   <awsui-app-layout class="awsui-util-no-gutters" header-selector="awsdocs-header" id="app-layout" navigation-change="$ctrl.onNavChange($event)" navigation-hide="false" navigation-open="$ctrl.navOpen" navigation-width="$ctrl.navWidth" ng-controller="ContentController as $ctrl" tools-change="$ctrl.onToolsChange($event)" tools-hide="$ctrl.hideTools" tools-open="$ctrl.toolsOpen" tools-width="$ctrl.toolsWidth">
+    <div dom-region="navigation" id="guide-toc">
+     <awsdocs-toc>
+     </awsdocs-toc>
+    </div>
+    <div dom-region="content" id="main-column" tabindex="-1">
+     <awsdocs-view class="awsdocs-view">
+      <div id="awsdocs-content">
+       <head>
+        <title>
+         Actions, resources, and condition keys for Amazon CloudFront - Service Authorization Reference
+        </title>
+        <meta content="service-authorization.pdf#list_amazoncloudfront" name="pdf"/>
+        <meta content="http://forums.aws.amazon.com/forum.jspa?forumID=76" name="forums"/>
+        <meta content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service%20Authorization%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoncloudfront.html" name="feedback"/>
+        <meta content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoncloudfront.html" name="feedback-yes"/>
+        <meta content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoncloudfront.html" name="feedback-no"/>
+       </head>
+       <body>
+        <div id="main">
+         <div style="display: none">
+          <a href="service-authorization.pdf#list_amazoncloudfront" rel="noopener noreferrer" target="_blank" title="Open PDF">
+          </a>
+         </div>
+         <div class="breadcrumb" id="breadcrumbs">
+          <a href="http://aws.amazon.com">
+           AWS
+          </a>
+          <a href="/index.html">
+           Documentation
+          </a>
+          <a href="/iam/index.html">
+           Service Authorization Reference
+          </a>
+          <a href="reference.html">
+           Service Authorization Reference
+          </a>
+         </div>
+         <div id="page-toc-src">
+          <a href="#amazoncloudfront-actions-as-permissions">
+           Actions
+          </a>
+          <a href="#amazoncloudfront-resources-for-iam-policies">
+           Resource types
+          </a>
+          <a href="#amazoncloudfront-policy-keys">
+           Condition keys
+          </a>
+         </div>
+         <div class="awsui-util-container" id="main-content">
+          <div id="main-col-body">
+           <awsdocs-language-banner data-service="$ctrl.pageService">
+           </awsdocs-language-banner>
+           <h1 class="topictitle" id="list_amazoncloudfront">
+            Actions, resources, and condition keys for      Amazon CloudFront
+           </h1>
+           <div class="awsdocs-page-header-container">
+            <awsdocs-page-header>
+            </awsdocs-page-header>
+            <awsdocs-filter-selector id="awsdocs-filter-selector">
+            </awsdocs-filter-selector>
+           </div>
+           <p>
+            Amazon CloudFront (service prefix:
+            <code class="code">
+             cloudfront
+            </code>
+            ) provides the following    service-specific resources, actions, and condition context keys for use in IAM permission    policies.
+           </p>
+           <p>
+            References:
+           </p>
+           <div class="itemizedlist">
+            <ul class="itemizedlist" type="disc">
+             <li class="listitem">
+              <p>
+               Learn how to
+               <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/">
+                configure this service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               View a list of the
+               <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/">
+                API operations available for this          service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               Learn how to secure this service and its resources by
+               <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/auth-and-access-control.html/">
+                using          IAM
+               </a>
+               permission policies.
+              </p>
+             </li>
+            </ul>
+           </div>
+           <div class="highlights" id="inline-topiclist">
+            <p>
+             <strong>
+              Topics
+             </strong>
+            </p>
+            <ul>
+             <li>
+              <a href="#amazoncloudfront-actions-as-permissions">
+               Actions defined by        Amazon CloudFront
+              </a>
+             </li>
+             <li>
+              <a href="#amazoncloudfront-resources-for-iam-policies">
+               Resource types defined by        Amazon CloudFront
+              </a>
+             </li>
+             <li>
+              <a href="#amazoncloudfront-policy-keys">
+               Condition keys for        Amazon CloudFront
+              </a>
+             </li>
+            </ul>
+           </div>
+           <h2 id="amazoncloudfront-actions-as-permissions">
+            Actions defined by        Amazon CloudFront
+           </h2>
+           <p>
+            You can specify the following actions in the
+            <code class="code">
+             Action
+            </code>
+            element of an IAM      policy statement. Use policies to grant permissions to perform an operation in AWS. When you      use an action in a policy, you usually allow or deny access to the API operation or CLI      command with the same name. However, in some cases, a single action controls access to more      than one operation. Alternatively, some operations require several different actions.
+           </p>
+           <p>
+            The
+            <b>
+             Resource types
+            </b>
+            column indicates whether each action supports      resource-level permissions. If there is no value for this column, you must specify all      resources ("*") in the
+            <code class="code">
+             Resource
+            </code>
+            element of your policy statement. If the column      includes a resource type, then you can specify an ARN of that type in a statement with that      action. Required resources are indicated in the table with an asterisk (*). If you specify a      resource-level permission ARN in a statement using this action, then it must be of this type.      Some actions support multiple resource types. If the resource type is optional (not indicated      as required), then you can choose to use one but not the other.
+           </p>
+           <p>
+            For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#actions_table" rel="noopener noreferrer" target="_blank">
+             Actions table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d203c11b9">
+              <thead>
+               <tr>
+                <th>
+                 Actions
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Access level
+                </th>
+                <th>
+                 Resource types (*required)
+                </th>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Dependent actions
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-AssociateAlias">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_AssociateAlias.html">
+                 AssociateAlias
+                </a>
+               </td>
+               <td>
+                Grants permission to associate an alias to a CloudFront distribution
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateCachePolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateCachePolicy.html">
+                 CreateCachePolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to add a new cache policy to CloudFront
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-cache-policy">
+                  cache-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateCloudFrontOriginAccessIdentity">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateCloudFrontOriginAccessIdentity.html">
+                 CreateCloudFrontOriginAccessIdentity
+                </a>
+               </td>
+               <td>
+                Grants permission to create a new CloudFront origin access identity
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-access-identity">
+                  origin-access-identity*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateDistribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html">
+                 CreateDistribution
+                </a>
+               </td>
+               <td>
+                Grants permission to create a new web distribution
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazoncloudfront-CreateDistributionWithTags">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistributionWithTags.html">
+                 CreateDistributionWithTags
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a new web distribution with tags
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazoncloudfront-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateFieldLevelEncryptionConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateFieldLevelEncryptionConfig.html">
+                 CreateFieldLevelEncryptionConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to create a new field-level encryption configuration
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption">
+                  field-level-encryption*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateFieldLevelEncryptionProfile">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateFieldLevelEncryptionProfile.html">
+                 CreateFieldLevelEncryptionProfile
+                </a>
+               </td>
+               <td>
+                Grants permission to create a field-level encryption profile
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption-profile">
+                  field-level-encryption-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateFunction">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateFunction.html">
+                 CreateFunction
+                </a>
+               </td>
+               <td>
+                Grants permission to create a CloudFront function
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-function">
+                  function*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateInvalidation">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateInvalidation.html">
+                 CreateInvalidation
+                </a>
+               </td>
+               <td>
+                Grants permission to create a new invalidation batch request
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateKeyGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateKeyGroup.html">
+                 CreateKeyGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to add a new key group to CloudFront
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateMonitoringSubscription">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateMonitoringSubscription.html">
+                 CreateMonitoringSubscription
+                </a>
+               </td>
+               <td>
+                Grants permission to enable additional CloudWatch metrics for the specified CloudFront distribution. The additional metrics incur an additional cost
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateOriginRequestPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateOriginRequestPolicy.html">
+                 CreateOriginRequestPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to add a new origin request policy to CloudFront
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-request-policy">
+                  origin-request-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreatePublicKey">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreatePublicKey.html">
+                 CreatePublicKey
+                </a>
+               </td>
+               <td>
+                Grants permission to add a new public key to CloudFront
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateRealtimeLogConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateRealtimeLogConfig.html">
+                 CreateRealtimeLogConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to create a real-time log configuration
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-realtime-log-config">
+                  realtime-log-config*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateResponseHeadersPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateResponseHeadersPolicy.html">
+                 CreateResponseHeadersPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to add a new response headers policy to CloudFront
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-response-headers-policy">
+                  response-headers-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-CreateStreamingDistribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateStreamingDistribution.html">
+                 CreateStreamingDistribution
+                </a>
+               </td>
+               <td>
+                Grants permission to create a new RTMP distribution
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-streaming-distribution">
+                  streaming-distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazoncloudfront-CreateStreamingDistributionWithTags">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateStreamingDistributionWithTags.html">
+                 CreateStreamingDistributionWithTags
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to create a new RTMP distribution with tags
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-streaming-distribution">
+                  streaming-distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazoncloudfront-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteCachePolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteCachePolicy.html">
+                 DeleteCachePolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a cache policy
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-cache-policy">
+                  cache-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteCloudFrontOriginAccessIdentity">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteCloudFrontOriginAccessIdentity.html">
+                 DeleteCloudFrontOriginAccessIdentity
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a CloudFront origin access identity
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-access-identity">
+                  origin-access-identity*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteDistribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteDistribution.html">
+                 DeleteDistribution
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a web distribution
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteFieldLevelEncryptionConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteFieldLevelEncryptionConfig.html">
+                 DeleteFieldLevelEncryptionConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a field-level encryption configuration
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption">
+                  field-level-encryption*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteFieldLevelEncryptionProfile">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteFieldLevelEncryptionProfile.html">
+                 DeleteFieldLevelEncryptionProfile
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a field-level encryption profile
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption-profile">
+                  field-level-encryption-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteFunction">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteFunction.html">
+                 DeleteFunction
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a CloudFront function
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-function">
+                  function*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteKeyGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteKeyGroup.html">
+                 DeleteKeyGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a key group
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteMonitoringSubscription">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteMonitoringSubscription.html">
+                 DeleteMonitoringSubscription
+                </a>
+               </td>
+               <td>
+                Grants permission to disable additional CloudWatch metrics for the specified CloudFront distribution
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteOriginRequestPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteOriginRequestPolicy.html">
+                 DeleteOriginRequestPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to delete an origin request policy
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-request-policy">
+                  origin-request-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeletePublicKey">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeletePublicKey.html">
+                 DeletePublicKey
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a public key from CloudFront
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteRealtimeLogConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteRealtimeLogConfig.html">
+                 DeleteRealtimeLogConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a real-time log configuration
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-realtime-log-config">
+                  realtime-log-config*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteResponseHeadersPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteResponseHeadersPolicy.html">
+                 DeleteResponseHeadersPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a response headers policy
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-response-headers-policy">
+                  response-headers-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DeleteStreamingDistribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DeleteStreamingDistribution.html">
+                 DeleteStreamingDistribution
+                </a>
+               </td>
+               <td>
+                Grants permission to delete an RTMP distribution
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-streaming-distribution">
+                  streaming-distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-DescribeFunction">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DescribeFunction.html">
+                 DescribeFunction
+                </a>
+               </td>
+               <td>
+                Grants permission to get a CloudFront function summary
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-function">
+                  function*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetCachePolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetCachePolicy.html">
+                 GetCachePolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to get the cache policy
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-cache-policy">
+                  cache-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetCachePolicyConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetCachePolicyConfig.html">
+                 GetCachePolicyConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get the cache policy configuration
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-cache-policy">
+                  cache-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetCloudFrontOriginAccessIdentity">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetCloudFrontOriginAccessIdentity.html">
+                 GetCloudFrontOriginAccessIdentity
+                </a>
+               </td>
+               <td>
+                Grants permission to get the information about a CloudFront origin access identity
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-access-identity">
+                  origin-access-identity*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetCloudFrontOriginAccessIdentityConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetCloudFrontOriginAccessIdentityConfig.html">
+                 GetCloudFrontOriginAccessIdentityConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get the configuration information about a Cloudfront origin access identity
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-access-identity">
+                  origin-access-identity*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetDistribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistribution.html">
+                 GetDistribution
+                </a>
+               </td>
+               <td>
+                Grants permission to get the information about a web distribution
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetDistributionConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistributionConfig.html">
+                 GetDistributionConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get the configuration information about a distribution
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetFieldLevelEncryption">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetFieldLevelEncryption.html">
+                 GetFieldLevelEncryption
+                </a>
+               </td>
+               <td>
+                Grants permission to get the field-level encryption configuration information
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption">
+                  field-level-encryption*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetFieldLevelEncryptionConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetFieldLevelEncryptionConfig.html">
+                 GetFieldLevelEncryptionConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get the field-level encryption configuration information
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption">
+                  field-level-encryption*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetFieldLevelEncryptionProfile">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetFieldLevelEncryptionProfile.html">
+                 GetFieldLevelEncryptionProfile
+                </a>
+               </td>
+               <td>
+                Grants permission to get the field-level encryption configuration information
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption-profile">
+                  field-level-encryption-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetFieldLevelEncryptionProfileConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetFieldLevelEncryptionProfileConfig.html">
+                 GetFieldLevelEncryptionProfileConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get the field-level encryption profile configuration information
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption-profile">
+                  field-level-encryption-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetFunction">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetFunction.html">
+                 GetFunction
+                </a>
+               </td>
+               <td>
+                Grants permission to get a CloudFront function's code
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-function">
+                  function*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetInvalidation">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetInvalidation.html">
+                 GetInvalidation
+                </a>
+               </td>
+               <td>
+                Grants permission to get the information about an invalidation
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetKeyGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetKeyGroup.html">
+                 GetKeyGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to get a key group
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetKeyGroupConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetKeyGroupConfig.html">
+                 GetKeyGroupConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get a key group configuration
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetMonitoringSubscription">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetMonitoringSubscription.html">
+                 GetMonitoringSubscription
+                </a>
+               </td>
+               <td>
+                Grants permission to get information about whether additional CloudWatch metrics are enabled for the specified CloudFront distribution
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetOriginRequestPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetOriginRequestPolicy.html">
+                 GetOriginRequestPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to get the origin request policy
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-request-policy">
+                  origin-request-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetOriginRequestPolicyConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetOriginRequestPolicyConfig.html">
+                 GetOriginRequestPolicyConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get the origin request policy configuration
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-request-policy">
+                  origin-request-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetPublicKey">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetPublicKey.html">
+                 GetPublicKey
+                </a>
+               </td>
+               <td>
+                Grants permission to get the public key information
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetPublicKeyConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetPublicKeyConfig.html">
+                 GetPublicKeyConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get the public key configuration information
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetRealtimeLogConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetRealtimeLogConfig.html">
+                 GetRealtimeLogConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get a real-time log configuration
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-realtime-log-config">
+                  realtime-log-config*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetResponseHeadersPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetResponseHeadersPolicy.html">
+                 GetResponseHeadersPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to get the response headers policy
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-response-headers-policy">
+                  response-headers-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetResponseHeadersPolicyConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetResponseHeadersPolicyConfig.html">
+                 GetResponseHeadersPolicyConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get the response headers policy configuration
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-response-headers-policy">
+                  response-headers-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetStreamingDistribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetStreamingDistribution.html">
+                 GetStreamingDistribution
+                </a>
+               </td>
+               <td>
+                Grants permission to get the information about an RTMP distribution
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-streaming-distribution">
+                  streaming-distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-GetStreamingDistributionConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetStreamingDistributionConfig.html">
+                 GetStreamingDistributionConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get the configuration information about a streaming distribution
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-streaming-distribution">
+                  streaming-distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListCachePolicies">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListCachePolicies.html">
+                 ListCachePolicies
+                </a>
+               </td>
+               <td>
+                Grants permission to list all cache policies that have been created in CloudFront for this account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListCloudFrontOriginAccessIdentities">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListCloudFrontOriginAccessIdentities.html">
+                 ListCloudFrontOriginAccessIdentities
+                </a>
+               </td>
+               <td>
+                Grants permission to list your CloudFront origin access identities
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListConflictingAliases">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListConflictingAliases.html">
+                 ListConflictingAliases
+                </a>
+               </td>
+               <td>
+                Grants permission to list all aliases that conflict with the given alias in CloudFront
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListDistributions">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributions.html">
+                 ListDistributions
+                </a>
+               </td>
+               <td>
+                Grants permission to list the distributions associated with your AWS account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListDistributionsByCachePolicyId">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributionsByCachePolicyId.html">
+                 ListDistributionsByCachePolicyId
+                </a>
+               </td>
+               <td>
+                Grants permission to list distribution IDs for distributions that have a cache behavior that's associated with the specified cache policy
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListDistributionsByKeyGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributionsByKeyGroup.html">
+                 ListDistributionsByKeyGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to list distribution IDs for distributions that have a cache behavior that's associated with the specified key group
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListDistributionsByLambdaFunction">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributionsByLambdaFunction.html">
+                 ListDistributionsByLambdaFunction
+                </a>
+                [permission only]
+               </td>
+               <td>
+                Grants permission to list the distributions associated a Lambda function
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListDistributionsByOriginRequestPolicyId">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributionsByOriginRequestPolicyId.html">
+                 ListDistributionsByOriginRequestPolicyId
+                </a>
+               </td>
+               <td>
+                Grants permission to list distribution IDs for distributions that have a cache behavior that's associated with the specified origin request policy
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListDistributionsByRealtimeLogConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributionsByRealtimeLogConfig.html">
+                 ListDistributionsByRealtimeLogConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to get a list of distributions that have a cache behavior that’s associated with the specified real-time log configuration
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListDistributionsByResponseHeadersPolicyId">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributionsByResponseHeadersPolicyId.html">
+                 ListDistributionsByResponseHeadersPolicyId
+                </a>
+               </td>
+               <td>
+                Grants permission to list distribution IDs for distributions that have a cache behavior that's associated with the specified response headers policy
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListDistributionsByWebACLId">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListDistributionsByWebACLId.html">
+                 ListDistributionsByWebACLId
+                </a>
+               </td>
+               <td>
+                Grants permission to list the distributions associated with your AWS account with given AWS WAF web ACL
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListFieldLevelEncryptionConfigs">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListFieldLevelEncryptionConfigs.html">
+                 ListFieldLevelEncryptionConfigs
+                </a>
+               </td>
+               <td>
+                Grants permission to list all field-level encryption configurations that have been created in CloudFront for this account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListFieldLevelEncryptionProfiles">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListFieldLevelEncryptionProfiles.html">
+                 ListFieldLevelEncryptionProfiles
+                </a>
+               </td>
+               <td>
+                Grants permission to list all field-level encryption profiles that have been created in CloudFront for this account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListFunctions">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListFunctions.html">
+                 ListFunctions
+                </a>
+               </td>
+               <td>
+                Grants permission to get a list of CloudFront functions
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListInvalidations">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListInvalidations.html">
+                 ListInvalidations
+                </a>
+               </td>
+               <td>
+                Grants permission to list your invalidation batches
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListKeyGroups">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListKeyGroups.html">
+                 ListKeyGroups
+                </a>
+               </td>
+               <td>
+                Grants permission to list all key groups that have been created in CloudFront for this account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListOriginRequestPolicies">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListOriginRequestPolicies.html">
+                 ListOriginRequestPolicies
+                </a>
+               </td>
+               <td>
+                Grants permission to list all origin request policies that have been created in CloudFront for this account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListPublicKeys">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListPublicKeys.html">
+                 ListPublicKeys
+                </a>
+               </td>
+               <td>
+                Grants permission to list all public keys that have been added to CloudFront for this account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListRealtimeLogConfigs">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListRealtimeLogConfigs.html">
+                 ListRealtimeLogConfigs
+                </a>
+               </td>
+               <td>
+                Grants permission to get a list of real-time log configurations
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListResponseHeadersPolicies">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListResponseHeadersPolicies.html">
+                 ListResponseHeadersPolicies
+                </a>
+               </td>
+               <td>
+                Grants permission to list all response headers policies that have been created in CloudFront for this account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-ListStreamingDistributions">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListStreamingDistributions.html">
+                 ListStreamingDistributions
+                </a>
+               </td>
+               <td>
+                Grants permission to list your RTMP distributions
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="amazoncloudfront-ListTagsForResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ListTagsForResource.html">
+                 ListTagsForResource
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to list tags for a CloudFront resource
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-streaming-distribution">
+                  streaming-distribution
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-PublishFunction">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_PublishFunction.html">
+                 PublishFunction
+                </a>
+               </td>
+               <td>
+                Grants permission to publish a CloudFront function
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-function">
+                  function*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="3">
+                <a id="amazoncloudfront-TagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_TagResource.html">
+                 TagResource
+                </a>
+               </td>
+               <td rowspan="3">
+                Grants permission to add tags to a CloudFront resource
+               </td>
+               <td rowspan="3">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-streaming-distribution">
+                  streaming-distribution
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#amazoncloudfront-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-TestFunction">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_TestFunction.html">
+                 TestFunction
+                </a>
+               </td>
+               <td>
+                Grants permission to test a CloudFront function
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-function">
+                  function*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="3">
+                <a id="amazoncloudfront-UntagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UntagResource.html">
+                 UntagResource
+                </a>
+               </td>
+               <td rowspan="3">
+                Grants permission to remove tags from a CloudFront resource
+               </td>
+               <td rowspan="3">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-streaming-distribution">
+                  streaming-distribution
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateCachePolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateCachePolicy.html">
+                 UpdateCachePolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to update a cache policy
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-cache-policy">
+                  cache-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateCloudFrontOriginAccessIdentity">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateCloudFrontOriginAccessIdentity.html">
+                 UpdateCloudFrontOriginAccessIdentity
+                </a>
+               </td>
+               <td>
+                Grants permission to set the configuration for a CloudFront origin access identity
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-access-identity">
+                  origin-access-identity*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateDistribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html">
+                 UpdateDistribution
+                </a>
+               </td>
+               <td>
+                Grants permission to update the configuration for a web distribution
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-distribution">
+                  distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateFieldLevelEncryptionConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateFieldLevelEncryptionConfig.html">
+                 UpdateFieldLevelEncryptionConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to update a field-level encryption configuration
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption">
+                  field-level-encryption*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateFieldLevelEncryptionProfile">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateFieldLevelEncryptionProfile.html">
+                 UpdateFieldLevelEncryptionProfile
+                </a>
+               </td>
+               <td>
+                Grants permission to update a field-level encryption profile
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-field-level-encryption-profile">
+                  field-level-encryption-profile*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateFunction">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateFunction.html">
+                 UpdateFunction
+                </a>
+               </td>
+               <td>
+                Grants permission to update a CloudFront function
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-function">
+                  function*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateKeyGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateKeyGroup.html">
+                 UpdateKeyGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to update a key group
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateOriginRequestPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateOriginRequestPolicy.html">
+                 UpdateOriginRequestPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to update an origin request policy
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-origin-request-policy">
+                  origin-request-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdatePublicKey">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdatePublicKey.html">
+                 UpdatePublicKey
+                </a>
+               </td>
+               <td>
+                Grants permission to update public key information
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateRealtimeLogConfig">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateRealtimeLogConfig.html">
+                 UpdateRealtimeLogConfig
+                </a>
+               </td>
+               <td>
+                Grants permission to update a real-time log configuration
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-realtime-log-config">
+                  realtime-log-config*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateResponseHeadersPolicy">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateResponseHeadersPolicy.html">
+                 UpdateResponseHeadersPolicy
+                </a>
+               </td>
+               <td>
+                Grants permission to update a response headers policy
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-response-headers-policy">
+                  response-headers-policy*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-UpdateStreamingDistribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateStreamingDistribution.html">
+                 UpdateStreamingDistribution
+                </a>
+               </td>
+               <td>
+                Grants permission to update the configuration for an RTMP distribution
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-streaming-distribution">
+                  streaming-distribution*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="amazoncloudfront-resources-for-iam-policies">
+            Resource types defined by        Amazon CloudFront
+           </h2>
+           <p>
+            The following resource types are defined by this service and can be used in the
+            <code class="code">
+             Resource
+            </code>
+            element of IAM permission policy statements. Each action in the
+            <a href="#amazoncloudfront-actions-as-permissions">
+             Actions table
+            </a>
+            identifies the      resource types that can be specified with that action. A resource type can also define which      condition keys you can include in a policy. These keys are displayed in the last column of the      table. For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#resources_table" rel="noopener noreferrer" target="_blank">
+             Resource types table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d203c13b5">
+              <thead>
+               <tr>
+                <th>
+                 Resource types
+                </th>
+                <th>
+                 ARN
+                </th>
+                <th>
+                 Condition keys
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-distribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html">
+                 distribution
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:distribution/$
+                 <span>
+                  {
+                 </span>
+                 DistributionId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-streaming-distribution">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html">
+                 streaming-distribution
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:streaming-distribution/$
+                 <span>
+                  {
+                 </span>
+                 DistributionId}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#amazoncloudfront-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-origin-access-identity">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html#private-content-restricting-access-to-s3-overview">
+                 origin-access-identity
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:origin-access-identity/$
+                 <span>
+                  {
+                 </span>
+                 Id}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-field-level-encryption">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html">
+                 field-level-encryption
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:field-level-encryption/$
+                 <span>
+                  {
+                 </span>
+                 Id}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-field-level-encryption-profile">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html">
+                 field-level-encryption-profile
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:field-level-encryption-profile/$
+                 <span>
+                  {
+                 </span>
+                 Id}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-cache-policy">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/working-with-policies.html">
+                 cache-policy
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:cache-policy/$
+                 <span>
+                  {
+                 </span>
+                 Id}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-origin-request-policy">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/working-with-policies.html">
+                 origin-request-policy
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:origin-request-policy/$
+                 <span>
+                  {
+                 </span>
+                 Id}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-realtime-log-config">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html">
+                 realtime-log-config
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:realtime-log-config/$
+                 <span>
+                  {
+                 </span>
+                 Name}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-function">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-functions.html">
+                 function
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:function/$
+                 <span>
+                  {
+                 </span>
+                 Name}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-response-headers-policy">
+                </a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/working-with-policies.html">
+                 response-headers-policy
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:cloudfront::$
+                 <span>
+                  {
+                 </span>
+                 Account}:response-headers-policy/$
+                 <span>
+                  {
+                 </span>
+                 Id}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="amazoncloudfront-policy-keys">
+            Condition keys for        Amazon CloudFront
+           </h2>
+           <p>
+            Amazon CloudFront defines the following condition keys that can be used in the
+            <code class="code">
+             Condition
+            </code>
+            element of an IAM policy. You can use these keys to further refine      the conditions under which the policy statement applies. For details about the columns in the      following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#context_keys_table" rel="noopener noreferrer" target="_blank">
+             Condition keys table
+            </a>
+            .
+           </p>
+           <p>
+            To view the global condition keys that are available to all services, see
+            <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys">
+             Available global condition keys
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d203c15b7">
+              <thead>
+               <tr>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Type
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-aws_RequestTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag">
+                 aws:RequestTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters access by the presence of tag key-value pairs in the request
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-aws_ResourceTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag">
+                 aws:ResourceTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters access by tag key-value pairs attached to the resource
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="amazoncloudfront-aws_TagKeys">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tagkeys">
+                 aws:TagKeys
+                </a>
+               </td>
+               <td>
+                Filters access by the presence of tag keys in the request
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <awsdocs-copyright class="copyright-print">
+           </awsdocs-copyright>
+           <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}">
+           </awsdocs-thumb-feedback>
+          </div>
+          <noscript>
+           <div>
+            <div>
+             <div>
+              <div id="js_error_message">
+               <p>
+                <img alt="Warning" src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png"/>
+                <strong>
+                 Javascript is disabled or is unavailable in your browser.
+                </strong>
+               </p>
+               <p>
+                To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.
+               </p>
+              </div>
+             </div>
+            </div>
+           </div>
+          </noscript>
+          <div class="awsui-util-font-size-0" id="main-col-footer">
+           <div id="doc-conventions">
+            <a href="/general/latest/gr/docconventions.html" target="_top">
+             Document Conventions
+            </a>
+           </div>
+           <div class="prev-next">
+            <div accesskey="p" class="prev-link" href="./list_awscloudformation.html" id="previous">
+             AWS CloudFormation
+            </div>
+            <div accesskey="n" class="next-link" href="./list_awscloudhsm.html" id="next">
+             AWS CloudHSM
+            </div>
+           </div>
+          </div>
+          <awsdocs-page-utilities>
+          </awsdocs-page-utilities>
+         </div>
+         <div id="quick-feedback-yes" style="display: none;">
+          <div class="title">
+           Did this page help you? - Yes
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know we're doing a good job!
+           </p>
+           <p>
+            If you've got a moment, please tell us what we did right so we can do more of it.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoncloudfront.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+         <div id="quick-feedback-no" style="display: none;">
+          <div class="title">
+           Did this page help you? - No
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know this page needs work. We're sorry we let you down.
+           </p>
+           <p>
+            If you've got a moment, please tell us how we can make the documentation better.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_amazoncloudfront.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+        </div>
+       </body>
+      </div>
+     </awsdocs-view>
+     <div class="page-loading-indicator" id="page-loading-indicator">
+      <awsui-spinner size="large">
+      </awsui-spinner>
+     </div>
+    </div>
+    <div dom-region="tools" id="tools-panel">
+     <awsdocs-tools-panel id="awsdocs-tools-panel">
+     </awsdocs-tools-panel>
+    </div>
+   </awsui-app-layout>
+   <awsdocs-cookie-banner class="doc-cookie-banner">
+   </awsdocs-cookie-banner>
+  </div>
+ </body>
+</html>

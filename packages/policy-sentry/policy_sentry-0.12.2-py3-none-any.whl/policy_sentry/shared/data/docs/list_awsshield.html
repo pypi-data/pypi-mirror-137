@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html ng-app="AWSDocsDocPageApp" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <title>
+   Actions, resources, and condition keys for AWS Shield - Service Authorization Reference
+  </title>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="/assets" name="assets_root"/>
+  <meta content="list_awsshield" name="target_state"/>
+  <meta content="list_awsshield" name="default_state"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="shortcut icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsshield.html" rel="canonical"/>
+  <meta content="Lists all of the available service-specific resources, actions, and condition keys that can be used in IAM policies to control access to AWS Shield." name="description"/>
+  <meta content="IAD" name="deployment_region"/>
+  <meta content="Service Authorization Reference" name="product"/>
+  <meta content="Service Authorization Reference" name="guide"/>
+  <meta content="Provides a list of the actions, resources, and condition keys supported by each AWS service that can be used in an IAM policy." name="abstract"/>
+  <meta content="en_us" name="guide-locale"/>
+  <meta content="toc-contents.json" name="tocs"/>
+  <meta content="Service Authorization Docs" name="feedback-item"/>
+  <meta content="Service Authorization Reference" name="this_doc_product"/>
+  <meta content="Service Authorization Reference" name="this_doc_guide"/>
+  <link href="https://docs.aws.amazon.com/assets/css/vendor4.css?version=2021.12.02" rel="stylesheet"/>
+  <link href="https://docs.aws.amazon.com/assets/css/awsdocs-common.css?version=2021.12.02" rel="stylesheet"/>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor3.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor4.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor1.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-common.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-doc-app.js?version=2021.12.02" type="text/javascript">
+  </script>
+ </head>
+ <body class="awsdocs awsui" ng-csp="no-unsafe-eval">
+  <div class="awsdocs-container">
+   <awsdocs-header>
+   </awsdocs-header>
+   <awsui-app-layout class="awsui-util-no-gutters" header-selector="awsdocs-header" id="app-layout" navigation-change="$ctrl.onNavChange($event)" navigation-hide="false" navigation-open="$ctrl.navOpen" navigation-width="$ctrl.navWidth" ng-controller="ContentController as $ctrl" tools-change="$ctrl.onToolsChange($event)" tools-hide="$ctrl.hideTools" tools-open="$ctrl.toolsOpen" tools-width="$ctrl.toolsWidth">
+    <div dom-region="navigation" id="guide-toc">
+     <awsdocs-toc>
+     </awsdocs-toc>
+    </div>
+    <div dom-region="content" id="main-column" tabindex="-1">
+     <awsdocs-view class="awsdocs-view">
+      <div id="awsdocs-content">
+       <head>
+        <title>
+         Actions, resources, and condition keys for AWS Shield - Service Authorization Reference
+        </title>
+        <meta content="service-authorization.pdf#list_awsshield" name="pdf"/>
+        <meta content="http://forums.aws.amazon.com/forum.jspa?forumID=76" name="forums"/>
+        <meta content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service%20Authorization%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsshield.html" name="feedback"/>
+        <meta content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsshield.html" name="feedback-yes"/>
+        <meta content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsshield.html" name="feedback-no"/>
+       </head>
+       <body>
+        <div id="main">
+         <div style="display: none">
+          <a href="service-authorization.pdf#list_awsshield" rel="noopener noreferrer" target="_blank" title="Open PDF">
+          </a>
+         </div>
+         <div class="breadcrumb" id="breadcrumbs">
+          <a href="http://aws.amazon.com">
+           AWS
+          </a>
+          <a href="/index.html">
+           Documentation
+          </a>
+          <a href="/iam/index.html">
+           Service Authorization Reference
+          </a>
+          <a href="reference.html">
+           Service Authorization Reference
+          </a>
+         </div>
+         <div id="page-toc-src">
+          <a href="#awsshield-actions-as-permissions">
+           Actions
+          </a>
+          <a href="#awsshield-resources-for-iam-policies">
+           Resource types
+          </a>
+          <a href="#awsshield-policy-keys">
+           Condition keys
+          </a>
+         </div>
+         <div class="awsui-util-container" id="main-content">
+          <div id="main-col-body">
+           <awsdocs-language-banner data-service="$ctrl.pageService">
+           </awsdocs-language-banner>
+           <h1 class="topictitle" id="list_awsshield">
+            Actions, resources, and condition keys for      AWS Shield
+           </h1>
+           <div class="awsdocs-page-header-container">
+            <awsdocs-page-header>
+            </awsdocs-page-header>
+            <awsdocs-filter-selector id="awsdocs-filter-selector">
+            </awsdocs-filter-selector>
+           </div>
+           <p>
+            AWS Shield (service prefix:
+            <code class="code">
+             shield
+            </code>
+            ) provides the following    service-specific resources, actions, and condition context keys for use in IAM permission    policies.
+           </p>
+           <p>
+            References:
+           </p>
+           <div class="itemizedlist">
+            <ul class="itemizedlist" type="disc">
+             <li class="listitem">
+              <p>
+               Learn how to
+               <a href="https://docs.aws.amazon.com/waf/latest/developerguide/shield-chapter.html">
+                configure this service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               View a list of the
+               <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/">
+                API operations available for this          service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               Learn how to secure this service and its resources by
+               <a href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-auth-and-access-control.html">
+                using          IAM
+               </a>
+               permission policies.
+              </p>
+             </li>
+            </ul>
+           </div>
+           <div class="highlights" id="inline-topiclist">
+            <p>
+             <strong>
+              Topics
+             </strong>
+            </p>
+            <ul>
+             <li>
+              <a href="#awsshield-actions-as-permissions">
+               Actions defined by        AWS Shield
+              </a>
+             </li>
+             <li>
+              <a href="#awsshield-resources-for-iam-policies">
+               Resource types defined by        AWS Shield
+              </a>
+             </li>
+             <li>
+              <a href="#awsshield-policy-keys">
+               Condition keys for        AWS Shield
+              </a>
+             </li>
+            </ul>
+           </div>
+           <h2 id="awsshield-actions-as-permissions">
+            Actions defined by        AWS Shield
+           </h2>
+           <p>
+            You can specify the following actions in the
+            <code class="code">
+             Action
+            </code>
+            element of an IAM      policy statement. Use policies to grant permissions to perform an operation in AWS. When you      use an action in a policy, you usually allow or deny access to the API operation or CLI      command with the same name. However, in some cases, a single action controls access to more      than one operation. Alternatively, some operations require several different actions.
+           </p>
+           <p>
+            The
+            <b>
+             Resource types
+            </b>
+            column indicates whether each action supports      resource-level permissions. If there is no value for this column, you must specify all      resources ("*") in the
+            <code class="code">
+             Resource
+            </code>
+            element of your policy statement. If the column      includes a resource type, then you can specify an ARN of that type in a statement with that      action. Required resources are indicated in the table with an asterisk (*). If you specify a      resource-level permission ARN in a statement using this action, then it must be of this type.      Some actions support multiple resource types. If the resource type is optional (not indicated      as required), then you can choose to use one but not the other.
+           </p>
+           <p>
+            For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#actions_table" rel="noopener noreferrer" target="_blank">
+             Actions table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9e1122c11b9">
+              <thead>
+               <tr>
+                <th>
+                 Actions
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Access level
+                </th>
+                <th>
+                 Resource types (*required)
+                </th>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Dependent actions
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="awsshield-AssociateDRTLogBucket">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_AssociateDRTLogBucket.html">
+                 AssociateDRTLogBucket
+                </a>
+               </td>
+               <td>
+                Grants permission to authorize the DDoS Response team to access the specified Amazon S3 bucket containing your flow logs
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 s3:GetBucketPolicy
+                </p>
+                <p>
+                 s3:PutBucketPolicy
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-AssociateDRTRole">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_AssociateDRTRole.html">
+                 AssociateDRTRole
+                </a>
+               </td>
+               <td>
+                Grants permission to authorize the DDoS Response team using the specified role, to access your AWS account to assist with DDoS attack mitigation during potential attacks
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 iam:GetRole
+                </p>
+                <p>
+                 iam:ListAttachedRolePolicies
+                </p>
+                <p>
+                 iam:PassRole
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsshield-AssociateHealthCheck">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_AssociateHealthCheck.html">
+                 AssociateHealthCheck
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to add health-based detection to the Shield Advanced protection for a resource
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection">
+                  protection*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 route53:GetHealthCheck
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-AssociateProactiveEngagementDetails">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_AssociateProactiveEngagementDetails.html">
+                 AssociateProactiveEngagementDetails
+                </a>
+               </td>
+               <td>
+                Grants permission to initialize proactive engagement and set the list of contacts for the DDoS Response Team (DRT) to use
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-CreateProtection">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_CreateProtection.html">
+                 CreateProtection
+                </a>
+               </td>
+               <td>
+                Grants permission to activate DDoS protection service for a given resource ARN
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsshield-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-CreateProtectionGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_CreateProtectionGroup.html">
+                 CreateProtectionGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to create a grouping of protected resources so they can be handled as a collective
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsshield-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-CreateSubscription">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_CreateSubscription.html">
+                 CreateSubscription
+                </a>
+               </td>
+               <td>
+                Grants permission to activate subscription
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsshield-DeleteProtection">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DeleteProtection.html">
+                 DeleteProtection
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to delete an existing protection
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection">
+                  protection*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsshield-DeleteProtectionGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DeleteProtectionGroup.html">
+                 DeleteProtectionGroup
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to remove the specified protection group
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection-group">
+                  protection-group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DeleteSubscription">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DeleteSubscription.html">
+                 DeleteSubscription
+                </a>
+               </td>
+               <td>
+                Grants permission to deactivate subscription
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DescribeAttack">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DescribeAttack.html">
+                 DescribeAttack
+                </a>
+               </td>
+               <td>
+                Grants permission to get attack details
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-attack">
+                  attack*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DescribeAttackStatistics">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DescribeAttackStatistics.html">
+                 DescribeAttackStatistics
+                </a>
+               </td>
+               <td>
+                Grants permission to describe information about the number and type of attacks AWS Shield has detected in the last year
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DescribeDRTAccess">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DescribeDRTAccess.html">
+                 DescribeDRTAccess
+                </a>
+               </td>
+               <td>
+                Grants permission to describe the current role and list of Amazon S3 log buckets used by the DDoS Response team to access your AWS account while assisting with attack mitigation
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DescribeEmergencyContactSettings">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DescribeEmergencyContactSettings.html">
+                 DescribeEmergencyContactSettings
+                </a>
+               </td>
+               <td>
+                Grants permission to list the email addresses that the DRT can use to contact you during a suspected attack
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsshield-DescribeProtection">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DescribeProtection.html">
+                 DescribeProtection
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to get protection details
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection">
+                  protection*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsshield-DescribeProtectionGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DescribeProtectionGroup.html">
+                 DescribeProtectionGroup
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to describe the specification for the specified protection group
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection-group">
+                  protection-group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DescribeSubscription">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DescribeSubscription.html">
+                 DescribeSubscription
+                </a>
+               </td>
+               <td>
+                Grants permission to get subscription details, such as start time
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DisableApplicationLayerAutomaticResponse">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DisableApplicationLayerAutomaticResponse.html">
+                 DisableApplicationLayerAutomaticResponse
+                </a>
+               </td>
+               <td>
+                Grants permission to disable application layer automatic response for Shield Advanced protection for a resource
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DisableProactiveEngagement">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DisableProactiveEngagement.html">
+                 DisableProactiveEngagement
+                </a>
+               </td>
+               <td>
+                Grants permission to remove authorization from the DDoS Response Team (DRT) to notify contacts about escalations
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DisassociateDRTLogBucket">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DisassociateDRTLogBucket.html">
+                 DisassociateDRTLogBucket
+                </a>
+               </td>
+               <td>
+                Grants permission to remove the DDoS Response team's access to the specified Amazon S3 bucket containing your flow logs
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 s3:DeleteBucketPolicy
+                </p>
+                <p>
+                 s3:GetBucketPolicy
+                </p>
+                <p>
+                 s3:PutBucketPolicy
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-DisassociateDRTRole">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DisassociateDRTRole.html">
+                 DisassociateDRTRole
+                </a>
+               </td>
+               <td>
+                Grants permission to remove the DDoS Response team's access to your AWS account
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsshield-DisassociateHealthCheck">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_DisassociateHealthCheck.html">
+                 DisassociateHealthCheck
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to remove health-based detection from the Shield Advanced protection for a resource
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection">
+                  protection*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-EnableApplicationLayerAutomaticResponse">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_EnableApplicationLayerAutomaticResponse.html">
+                 EnableApplicationLayerAutomaticResponse
+                </a>
+               </td>
+               <td>
+                Grants permission to enable application layer automatic response for Shield Advanced protection for a resource
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+                <p>
+                 cloudfront:GetDistribution
+                </p>
+                <p>
+                 iam:CreateServiceLinkedRole
+                </p>
+                <p>
+                 iam:GetRole
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-EnableProactiveEngagement">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_EnableProactiveEngagement.html">
+                 EnableProactiveEngagement
+                </a>
+               </td>
+               <td>
+                Grants permission to authorize the DDoS Response Team (DRT) to use email and phone to notify contacts about escalations
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-GetSubscriptionState">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_GetSubscriptionState.html">
+                 GetSubscriptionState
+                </a>
+               </td>
+               <td>
+                Grants permission to get subscription state
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-ListAttacks">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_ListAttacks.html">
+                 ListAttacks
+                </a>
+               </td>
+               <td>
+                Grants permission to list all existing attacks
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-ListProtectionGroups">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_ListProtectionGroups.html">
+                 ListProtectionGroups
+                </a>
+               </td>
+               <td>
+                Grants permission to retrieve the protection groups for the account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-ListProtections">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_ListProtections.html">
+                 ListProtections
+                </a>
+               </td>
+               <td>
+                Grants permission to list all existing protections
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-ListResourcesInProtectionGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_ListResourcesInProtectionGroup.html">
+                 ListResourcesInProtectionGroup
+                </a>
+               </td>
+               <td>
+                Grants permission to retrieve the resources that are included in the protection group
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection-group">
+                  protection-group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsshield-ListTagsForResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_ListTagsForResource.html">
+                 ListTagsForResource
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to get information about AWS tags for a specified Amazon Resource Name (ARN) in AWS Shield
+               </td>
+               <td rowspan="2">
+                Read
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection">
+                  protection
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsshield-protection-group">
+                  protection-group
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="3">
+                <a id="awsshield-TagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_TagResource.html">
+                 TagResource
+                </a>
+               </td>
+               <td rowspan="3">
+                Grants permission to add or updates tags for a resource in AWS Shield
+               </td>
+               <td rowspan="3">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection">
+                  protection
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsshield-protection-group">
+                  protection-group
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsshield-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="3">
+                <a id="awsshield-UntagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_UntagResource.html">
+                 UntagResource
+                </a>
+               </td>
+               <td rowspan="3">
+                Grants permission to remove tags from a resource in AWS Shield
+               </td>
+               <td rowspan="3">
+                Tagging
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection">
+                  protection
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <p>
+                 <a href="#awsshield-protection-group">
+                  protection-group
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_RequestTag___TagKey_">
+                  aws:RequestTag/${TagKey}
+                 </a>
+                </p>
+                <p>
+                 <a href="#awsshield-aws_TagKeys">
+                  aws:TagKeys
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-UpdateApplicationLayerAutomaticResponse">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_UpdateApplicationLayerAutomaticResponse.html">
+                 UpdateApplicationLayerAutomaticResponse
+                </a>
+               </td>
+               <td>
+                Grants permission to update application layer automatic response for Shield Advanced protection for a resource
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-UpdateEmergencyContactSettings">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_UpdateEmergencyContactSettings.html">
+                 UpdateEmergencyContactSettings
+                </a>
+               </td>
+               <td>
+                Grants permission to update the details of the list of email addresses that the DRT can use to contact you during a suspected attack
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td rowspan="2">
+                <a id="awsshield-UpdateProtectionGroup">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_UpdateProtectionGroup.html">
+                 UpdateProtectionGroup
+                </a>
+               </td>
+               <td rowspan="2">
+                Grants permission to update an existing protection group
+               </td>
+               <td rowspan="2">
+                Write
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-protection-group">
+                  protection-group*
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-UpdateSubscription">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_UpdateSubscription.html">
+                 UpdateSubscription
+                </a>
+               </td>
+               <td>
+                Grants permission to update the details of an existing subscription
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="awsshield-resources-for-iam-policies">
+            Resource types defined by        AWS Shield
+           </h2>
+           <p>
+            The following resource types are defined by this service and can be used in the
+            <code class="code">
+             Resource
+            </code>
+            element of IAM permission policy statements. Each action in the
+            <a href="#awsshield-actions-as-permissions">
+             Actions table
+            </a>
+            identifies the      resource types that can be specified with that action. A resource type can also define which      condition keys you can include in a policy. These keys are displayed in the last column of the      table. For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#resources_table" rel="noopener noreferrer" target="_blank">
+             Resource types table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9e1122c13b5">
+              <thead>
+               <tr>
+                <th>
+                 Resource types
+                </th>
+                <th>
+                 ARN
+                </th>
+                <th>
+                 Condition keys
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="awsshield-attack">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_AttackDetail.html">
+                 attack
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:shield::$
+                 <span>
+                  {
+                 </span>
+                 Account}:attack/$
+                 <span>
+                  {
+                 </span>
+                 Id}
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-protection">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_Protection.html">
+                 protection
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:shield::$
+                 <span>
+                  {
+                 </span>
+                 Account}:protection/$
+                 <span>
+                  {
+                 </span>
+                 Id}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-protection-group">
+                </a>
+                <a href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_ProtectionGroup.html">
+                 protection-group
+                </a>
+               </td>
+               <td>
+                <code class="code">
+                 arn:$
+                 <span>
+                  {
+                 </span>
+                 Partition}:shield::$
+                 <span>
+                  {
+                 </span>
+                 Account}:protection-group/$
+                 <span>
+                  {
+                 </span>
+                 Id}
+                </code>
+               </td>
+               <td>
+                <p>
+                 <a href="#awsshield-aws_ResourceTag___TagKey_">
+                  aws:ResourceTag/${TagKey}
+                 </a>
+                </p>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="awsshield-policy-keys">
+            Condition keys for        AWS Shield
+           </h2>
+           <p>
+            AWS Shield defines the following condition keys that can be used in the
+            <code class="code">
+             Condition
+            </code>
+            element of an IAM policy. You can use these keys to further refine      the conditions under which the policy statement applies. For details about the columns in the      following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#context_keys_table" rel="noopener noreferrer" target="_blank">
+             Condition keys table
+            </a>
+            .
+           </p>
+           <p>
+            To view the global condition keys that are available to all services, see
+            <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys">
+             Available global condition keys
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9e1122c15b7">
+              <thead>
+               <tr>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Type
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="awsshield-aws_RequestTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag">
+                 aws:RequestTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters actions based on the presence of tag key-value pairs in the request
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-aws_ResourceTag___TagKey_">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag">
+                 aws:ResourceTag/${TagKey}
+                </a>
+               </td>
+               <td>
+                Filters actions based on tag key-value pairs attached to the resource
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsshield-aws_TagKeys">
+                </a>
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tagkeys">
+                 aws:TagKeys
+                </a>
+               </td>
+               <td>
+                Filters actions based on the presence of tag keys in the request
+               </td>
+               <td>
+                String
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <awsdocs-copyright class="copyright-print">
+           </awsdocs-copyright>
+           <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}">
+           </awsdocs-thumb-feedback>
+          </div>
+          <noscript>
+           <div>
+            <div>
+             <div>
+              <div id="js_error_message">
+               <p>
+                <img alt="Warning" src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png"/>
+                <strong>
+                 Javascript is disabled or is unavailable in your browser.
+                </strong>
+               </p>
+               <p>
+                To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.
+               </p>
+              </div>
+             </div>
+            </div>
+           </div>
+          </noscript>
+          <div class="awsui-util-font-size-0" id="main-col-footer">
+           <div id="doc-conventions">
+            <a href="/general/latest/gr/docconventions.html" target="_top">
+             Document Conventions
+            </a>
+           </div>
+           <div class="prev-next">
+            <div accesskey="p" class="prev-link" href="./list_amazonsessionmanagermessagegatewayservice.html" id="previous">
+             Amazon Session Manager Message Gateway Service
+            </div>
+            <div accesskey="n" class="next-link" href="./list_awssigner.html" id="next">
+             AWS Signer
+            </div>
+           </div>
+          </div>
+          <awsdocs-page-utilities>
+          </awsdocs-page-utilities>
+         </div>
+         <div id="quick-feedback-yes" style="display: none;">
+          <div class="title">
+           Did this page help you? - Yes
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know we're doing a good job!
+           </p>
+           <p>
+            If you've got a moment, please tell us what we did right so we can do more of it.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsshield.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+         <div id="quick-feedback-no" style="display: none;">
+          <div class="title">
+           Did this page help you? - No
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know this page needs work. We're sorry we let you down.
+           </p>
+           <p>
+            If you've got a moment, please tell us how we can make the documentation better.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsshield.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+        </div>
+       </body>
+      </div>
+     </awsdocs-view>
+     <div class="page-loading-indicator" id="page-loading-indicator">
+      <awsui-spinner size="large">
+      </awsui-spinner>
+     </div>
+    </div>
+    <div dom-region="tools" id="tools-panel">
+     <awsdocs-tools-panel id="awsdocs-tools-panel">
+     </awsdocs-tools-panel>
+    </div>
+   </awsui-app-layout>
+   <awsdocs-cookie-banner class="doc-cookie-banner">
+   </awsdocs-cookie-banner>
+  </div>
+ </body>
+</html>

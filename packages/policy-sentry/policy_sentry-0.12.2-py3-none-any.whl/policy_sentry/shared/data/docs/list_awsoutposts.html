@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html ng-app="AWSDocsDocPageApp" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <title>
+   Actions, resources, and condition keys for AWS Outposts - Service Authorization Reference
+  </title>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="/assets" name="assets_root"/>
+  <meta content="list_awsoutposts" name="target_state"/>
+  <meta content="list_awsoutposts" name="default_state"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/assets/images/favicon.ico" rel="shortcut icon" type="image/ico"/>
+  <link href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsoutposts.html" rel="canonical"/>
+  <meta content="Lists all of the available service-specific resources, actions, and condition keys that can be used in IAM policies to control access to AWS Outposts." name="description"/>
+  <meta content="IAD" name="deployment_region"/>
+  <meta content="Service Authorization Reference" name="product"/>
+  <meta content="Service Authorization Reference" name="guide"/>
+  <meta content="Provides a list of the actions, resources, and condition keys supported by each AWS service that can be used in an IAM policy." name="abstract"/>
+  <meta content="en_us" name="guide-locale"/>
+  <meta content="toc-contents.json" name="tocs"/>
+  <meta content="Service Authorization Docs" name="feedback-item"/>
+  <meta content="Service Authorization Reference" name="this_doc_product"/>
+  <meta content="Service Authorization Reference" name="this_doc_guide"/>
+  <link href="https://docs.aws.amazon.com/assets/css/vendor4.css?version=2021.12.02" rel="stylesheet"/>
+  <link href="https://docs.aws.amazon.com/assets/css/awsdocs-common.css?version=2021.12.02" rel="stylesheet"/>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor3.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor4.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/vendor1.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-common.js?version=2021.12.02" type="text/javascript">
+  </script>
+  <script defer="" src="https://docs.aws.amazon.com/assets/js/awsdocs-doc-app.js?version=2021.12.02" type="text/javascript">
+  </script>
+ </head>
+ <body class="awsdocs awsui" ng-csp="no-unsafe-eval">
+  <div class="awsdocs-container">
+   <awsdocs-header>
+   </awsdocs-header>
+   <awsui-app-layout class="awsui-util-no-gutters" header-selector="awsdocs-header" id="app-layout" navigation-change="$ctrl.onNavChange($event)" navigation-hide="false" navigation-open="$ctrl.navOpen" navigation-width="$ctrl.navWidth" ng-controller="ContentController as $ctrl" tools-change="$ctrl.onToolsChange($event)" tools-hide="$ctrl.hideTools" tools-open="$ctrl.toolsOpen" tools-width="$ctrl.toolsWidth">
+    <div dom-region="navigation" id="guide-toc">
+     <awsdocs-toc>
+     </awsdocs-toc>
+    </div>
+    <div dom-region="content" id="main-column" tabindex="-1">
+     <awsdocs-view class="awsdocs-view">
+      <div id="awsdocs-content">
+       <head>
+        <title>
+         Actions, resources, and condition keys for AWS Outposts - Service Authorization Reference
+        </title>
+        <meta content="service-authorization.pdf#list_awsoutposts" name="pdf"/>
+        <meta content="http://forums.aws.amazon.com/forum.jspa?forumID=76" name="forums"/>
+        <meta content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service%20Authorization%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsoutposts.html" name="feedback"/>
+        <meta content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsoutposts.html" name="feedback-yes"/>
+        <meta content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsoutposts.html" name="feedback-no"/>
+       </head>
+       <body>
+        <div id="main">
+         <div style="display: none">
+          <a href="service-authorization.pdf#list_awsoutposts" rel="noopener noreferrer" target="_blank" title="Open PDF">
+          </a>
+         </div>
+         <div class="breadcrumb" id="breadcrumbs">
+          <a href="http://aws.amazon.com">
+           AWS
+          </a>
+          <a href="/index.html">
+           Documentation
+          </a>
+          <a href="/iam/index.html">
+           Service Authorization Reference
+          </a>
+          <a href="reference.html">
+           Service Authorization Reference
+          </a>
+         </div>
+         <div id="page-toc-src">
+          <a href="#awsoutposts-actions-as-permissions">
+           Actions
+          </a>
+          <a href="#awsoutposts-resources-for-iam-policies">
+           Resource types
+          </a>
+          <a href="#awsoutposts-policy-keys">
+           Condition keys
+          </a>
+         </div>
+         <div class="awsui-util-container" id="main-content">
+          <div id="main-col-body">
+           <awsdocs-language-banner data-service="$ctrl.pageService">
+           </awsdocs-language-banner>
+           <h1 class="topictitle" id="list_awsoutposts">
+            Actions, resources, and condition keys for      AWS Outposts
+           </h1>
+           <div class="awsdocs-page-header-container">
+            <awsdocs-page-header>
+            </awsdocs-page-header>
+            <awsdocs-filter-selector id="awsdocs-filter-selector">
+            </awsdocs-filter-selector>
+           </div>
+           <p>
+            AWS Outposts (service prefix:
+            <code class="code">
+             outposts
+            </code>
+            ) provides the following    service-specific resources, actions, and condition context keys for use in IAM permission    policies.
+           </p>
+           <p>
+            References:
+           </p>
+           <div class="itemizedlist">
+            <ul class="itemizedlist" type="disc">
+             <li class="listitem">
+              <p>
+               Learn how to
+               <a href="https://docs.aws.amazon.com/outposts/latest/userguide/get-started-outposts.html">
+                configure this service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               View a list of the
+               <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/">
+                API operations available for this          service
+               </a>
+               .
+              </p>
+             </li>
+             <li class="listitem">
+              <p>
+               Learn how to secure this service and its resources by
+               <a href="https://docs.aws.amazon.com/outposts/latest/userguide/identity-access-management.html">
+                using          IAM
+               </a>
+               permission policies.
+              </p>
+             </li>
+            </ul>
+           </div>
+           <div class="highlights" id="inline-topiclist">
+            <p>
+             <strong>
+              Topics
+             </strong>
+            </p>
+            <ul>
+             <li>
+              <a href="#awsoutposts-actions-as-permissions">
+               Actions defined by        AWS Outposts
+              </a>
+             </li>
+             <li>
+              <a href="#awsoutposts-resources-for-iam-policies">
+               Resource types defined by        AWS Outposts
+              </a>
+             </li>
+             <li>
+              <a href="#awsoutposts-policy-keys">
+               Condition keys for        AWS Outposts
+              </a>
+             </li>
+            </ul>
+           </div>
+           <h2 id="awsoutposts-actions-as-permissions">
+            Actions defined by        AWS Outposts
+           </h2>
+           <p>
+            You can specify the following actions in the
+            <code class="code">
+             Action
+            </code>
+            element of an IAM      policy statement. Use policies to grant permissions to perform an operation in AWS. When you      use an action in a policy, you usually allow or deny access to the API operation or CLI      command with the same name. However, in some cases, a single action controls access to more      than one operation. Alternatively, some operations require several different actions.
+           </p>
+           <p>
+            The
+            <b>
+             Resource types
+            </b>
+            column indicates whether each action supports      resource-level permissions. If there is no value for this column, you must specify all      resources ("*") in the
+            <code class="code">
+             Resource
+            </code>
+            element of your policy statement. If the column      includes a resource type, then you can specify an ARN of that type in a statement with that      action. Required resources are indicated in the table with an asterisk (*). If you specify a      resource-level permission ARN in a statement using this action, then it must be of this type.      Some actions support multiple resource types. If the resource type is optional (not indicated      as required), then you can choose to use one but not the other.
+           </p>
+           <p>
+            For details about the columns in the following table, see
+            <a href="reference_policies_actions-resources-contextkeys.html#actions_table" rel="noopener noreferrer" target="_blank">
+             Actions table
+            </a>
+            .
+           </p>
+           <div class="table-container">
+            <div class="table-contents">
+             <table id="w85aab5b9d942c11b9">
+              <thead>
+               <tr>
+                <th>
+                 Actions
+                </th>
+                <th>
+                 Description
+                </th>
+                <th>
+                 Access level
+                </th>
+                <th>
+                 Resource types (*required)
+                </th>
+                <th>
+                 Condition keys
+                </th>
+                <th>
+                 Dependent actions
+                </th>
+               </tr>
+              </thead>
+              <tr>
+               <td>
+                <a id="awsoutposts-CancelOrder">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_CancelOrder.html">
+                 CancelOrder
+                </a>
+               </td>
+               <td>
+                Grants permission to cancel an order
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-CreateOrder">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_CreateOrder.html">
+                 CreateOrder
+                </a>
+               </td>
+               <td>
+                Grants permission to create an order
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-CreateOutpost">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_CreateOutpost.html">
+                 CreateOutpost
+                </a>
+               </td>
+               <td>
+                Grants permission to create an Outpost
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-CreateSite">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_CreateSite.html">
+                 CreateSite
+                </a>
+               </td>
+               <td>
+                Grants permission to create a site
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-DeleteOutpost">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_DeleteOutpost.html">
+                 DeleteOutpost
+                </a>
+               </td>
+               <td>
+                Grants permission to delete an Outpost
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-DeleteSite">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_DeleteSite.html">
+                 DeleteSite
+                </a>
+               </td>
+               <td>
+                Grants permission to delete a site
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-GetCatalogItem">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_GetCatalogItem.html">
+                 GetCatalogItem
+                </a>
+               </td>
+               <td>
+                Grants permission to get a catalog item
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-GetOutpost">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_GetOutpost.html">
+                 GetOutpost
+                </a>
+               </td>
+               <td>
+                Grants permission to get information about the specified Outpost
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-GetOutpostInstanceTypes">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_GetOutpostInstanceTypes.html">
+                 GetOutpostInstanceTypes
+                </a>
+               </td>
+               <td>
+                Grants permission to get the instance types for the specified Outpost
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-GetSite">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_GetSite.html">
+                 GetSite
+                </a>
+               </td>
+               <td>
+                Grants permission to get a site
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-GetSiteAddress">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_GetSiteAddress.html">
+                 GetSiteAddress
+                </a>
+               </td>
+               <td>
+                Grants permission to get a site address
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-ListCatalogItems">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_ListCatalogItems.html">
+                 ListCatalogItems
+                </a>
+               </td>
+               <td>
+                Grants permission to list all catalog items
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-ListOrders">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_ListOrders.html">
+                 ListOrders
+                </a>
+               </td>
+               <td>
+                Grants permission to list the orders for your AWS account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-ListOutposts">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_ListOutposts.html">
+                 ListOutposts
+                </a>
+               </td>
+               <td>
+                Grants permission to list the Outposts for your AWS account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-ListSites">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_ListSites.html">
+                 ListSites
+                </a>
+               </td>
+               <td>
+                Grants permission to list the sites for your AWS account
+               </td>
+               <td>
+                List
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-ListTagsForResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_ListTagsForResource.html">
+                 ListTagsForResource
+                </a>
+               </td>
+               <td>
+                Grants permission to list tags for a resource
+               </td>
+               <td>
+                Read
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-TagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_TagResource.html">
+                 TagResource
+                </a>
+               </td>
+               <td>
+                Grants permission to tag a resource
+               </td>
+               <td>
+                Tagging
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-UntagResource">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_UntagResource.html">
+                 UntagResource
+                </a>
+               </td>
+               <td>
+                Grants permission to untag a resource
+               </td>
+               <td>
+                Tagging
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-UpdateOutpost">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_UpdateOutpost.html">
+                 UpdateOutpost
+                </a>
+               </td>
+               <td>
+                Grants permission to update an Outpost
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-UpdateSite">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_UpdateSite.html">
+                 UpdateSite
+                </a>
+               </td>
+               <td>
+                Grants permission to update a site
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-UpdateSiteAddress">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_UpdateSiteAddress.html">
+                 UpdateSiteAddress
+                </a>
+               </td>
+               <td>
+                Grants permission to update the site address
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <a id="awsoutposts-UpdateSiteRackPhysicalProperties">
+                </a>
+                <a href="https://docs.aws.amazon.com/outposts/latest/APIReference/API_UpdateSiteRackPhysicalProperties.html">
+                 UpdateSiteRackPhysicalProperties
+                </a>
+               </td>
+               <td>
+                Grants permission to update the physical properties of a rack at a site
+               </td>
+               <td>
+                Write
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </table>
+            </div>
+           </div>
+           <h2 id="awsoutposts-resources-for-iam-policies">
+            Resource types defined by        AWS Outposts
+           </h2>
+           <p>
+            AWS Outposts does not support specifying a resource ARN in the
+            <code class="code">
+             Resource
+            </code>
+            element of an IAM policy statement. To allow access to      AWS Outposts, specify
+            <code class="code">
+             “Resource”: “*”
+            </code>
+            in your policy.
+           </p>
+           <h2 id="awsoutposts-policy-keys">
+            Condition keys for        AWS Outposts
+           </h2>
+           <p>
+            Outposts has no service-specific context keys that can be used in the
+            <code class="code">
+             Condition
+            </code>
+            element of policy statements. For the list of the global context keys      that are available to all services, see
+            <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys">
+             Available keys for conditions
+            </a>
+            .
+           </p>
+           <awsdocs-copyright class="copyright-print">
+           </awsdocs-copyright>
+           <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}">
+           </awsdocs-thumb-feedback>
+          </div>
+          <noscript>
+           <div>
+            <div>
+             <div>
+              <div id="js_error_message">
+               <p>
+                <img alt="Warning" src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png"/>
+                <strong>
+                 Javascript is disabled or is unavailable in your browser.
+                </strong>
+               </p>
+               <p>
+                To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.
+               </p>
+              </div>
+             </div>
+            </div>
+           </div>
+          </noscript>
+          <div class="awsui-util-font-size-0" id="main-col-footer">
+           <div id="doc-conventions">
+            <a href="/general/latest/gr/docconventions.html" target="_top">
+             Document Conventions
+            </a>
+           </div>
+           <div class="prev-next">
+            <div accesskey="p" class="prev-link" href="./list_awsorganizations.html" id="previous">
+             AWS Organizations
+            </div>
+            <div accesskey="n" class="next-link" href="./list_awspanorama.html" id="next">
+             AWS Panorama
+            </div>
+           </div>
+          </div>
+          <awsdocs-page-utilities>
+          </awsdocs-page-utilities>
+         </div>
+         <div id="quick-feedback-yes" style="display: none;">
+          <div class="title">
+           Did this page help you? - Yes
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know we're doing a good job!
+           </p>
+           <p>
+            If you've got a moment, please tell us what we did right so we can do more of it.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsoutposts.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+         <div id="quick-feedback-no" style="display: none;">
+          <div class="title">
+           Did this page help you? - No
+          </div>
+          <div class="content">
+           <p>
+            Thanks for letting us know this page needs work. We're sorry we let you down.
+           </p>
+           <p>
+            If you've got a moment, please tell us how we can make the documentation better.
+           </p>
+           <p>
+            <awsui-button click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Service Authorization Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/service-authorization/latest/reference/list_awsoutposts.html" id="fblink" target="_blank" text="Feedback">
+            </awsui-button>
+           </p>
+          </div>
+         </div>
+        </div>
+       </body>
+      </div>
+     </awsdocs-view>
+     <div class="page-loading-indicator" id="page-loading-indicator">
+      <awsui-spinner size="large">
+      </awsui-spinner>
+     </div>
+    </div>
+    <div dom-region="tools" id="tools-panel">
+     <awsdocs-tools-panel id="awsdocs-tools-panel">
+     </awsdocs-tools-panel>
+    </div>
+   </awsui-app-layout>
+   <awsdocs-cookie-banner class="doc-cookie-banner">
+   </awsdocs-cookie-banner>
+  </div>
+ </body>
+</html>
