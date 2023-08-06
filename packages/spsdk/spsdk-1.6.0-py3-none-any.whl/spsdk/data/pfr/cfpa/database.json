@@ -1,0 +1,98 @@
+{
+    "devices": {
+        "lpc55s6x": {
+            "revisions": {
+                "0a": "lpc55s6x_0a.xml",
+                "1b": "lpc55s6x_1b.xml"
+            },
+            "latest": "1b",
+            "address": "0x9_DE00"
+        },
+        "lpc551x": {
+            "revisions": {
+                "a": "lpc551x_a.xml"
+            },
+            "latest": "a",
+            "address": "0x3_DE00"
+        },
+        "lpc55s1x": {
+            "revisions": {
+                "a": "lpc55s1x_a.xml"
+            },
+            "latest": "a",
+            "address": "0x3_DE00"
+        },
+        "lpc550x": {
+            "revisions": {
+                "a": "lpc550x_a.xml"
+            },
+            "latest": "a",
+            "address": "0x3_DE00"
+        },
+        "lpc55s0x": {
+            "revisions": {
+                "a": "lpc55s0x_a.xml"
+            },
+            "latest": "a",
+            "address": "0x3_DE00"
+        },
+        "lpc552x": {
+            "revisions": {
+                "0a": "lpc552x_1b.xml",
+                "1b": "lpc552x_1b.xml"
+            },
+            "latest": "1b",
+            "address": "0x9_DE00"
+        },
+        "lpc55s2x": {
+            "revisions": {
+                "0a": "lpc55s2x_1b.xml",
+                "1b": "lpc55s2x_1b.xml"
+            },
+            "latest": "1b",
+            "address": "0x9_DE00"
+        },
+        "lpc55s3x": {
+            "revisions": {
+                "0a": "lpc55s3x_0a.xml"
+            },
+            "latest": "0a",
+            "address": "0x3_DC00",
+            "seal_start": "CFPA_CRC32",
+            "seal_count": 1,
+            "mandatory_computed_regs": 1
+        },
+        "lpc553x": {
+            "revisions": {
+                "0a": "lpc553x_0a.xml"
+            },
+            "latest": "0a",
+            "address": "0x3_DC00",
+            "seal_start": "CFPA_CRC32",
+            "seal_count": 1,
+            "mandatory_computed_regs": 1
+        }
+    },
+    "computed_registers": [
+        "SHA256_DIGEST"
+    ],
+    "computed_fields": {
+        "VENDOR_USAGE": {
+            "INVERSE_VALUE": "pfr_reg_inverse_high_half"
+        },
+        "DCFG_CC_SOCU_NS_PIN": {
+            "INVERSE_VALUE": "pfr_reg_inverse_high_half"
+        },
+        "DCFG_CC_SOCU_NS_DFLT": {
+            "INVERSE_VALUE": "pfr_reg_inverse_high_half"
+        }
+    },
+    "ignored_registers": [
+        "PRINCE_REGION0_IV_CODE",
+        "PRINCE_REGION1_IV_CODE",
+        "PRINCE_REGION2_IV_CODE"
+    ],
+    "seal_start": "SHA256_DIGEST0",
+    "seal_count": 8,
+    "mandatory_computed_regs": 0
+}
