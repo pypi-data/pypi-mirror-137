@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: panini
+Version: 0.7.0a1
+Summary: A python messaging framework for microservices based on NATS
+Home-page: https://github.com/lwinterface/panini
+Author: Op Return SA, developers: Andrii Volotskov, Danylo Tiutiushkin
+Author-email: example@example.com
+License: MIT
+Project-URL: Bug Reports, https://github.com/lwinterface/panini/issues
+Project-URL: Source, https://github.com/lwinterface/panini/
+Keywords: nats,microservice,stream,processing,asyncio,distributed,queue
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Topic :: System :: Networking
+Classifier: Topic :: System :: Distributed Computing
+Requires-Python: >=3.8.3
+Description-Content-Type: text/x-rst
+License-File: LICENSE.md
+
+
+Panini is a modern framework for quick development of streaming microservices.
+Our goal is to create fastapi/aiohttp/flask-like solution but for NATS streaming.
+The framework allows you to work with NATS features and some additional logic using a simple interface:
+
+- publish messages to subject
+- subscribe to subject
+- request-response
+- request-response to another subject
+- tasks
+- periodic tasks
+- middlewares
+- HTTP server
+
+
+
