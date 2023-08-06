@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: Chaos-Intelligence
+Version: 0.0.1.dev202202
+Summary: Responsive Neural Network Layers
+Home-page: https://github.com/SilverousBlack/Chaos-Intelligence
+Author: SilverousBlack
+Author-email: mail.silverousblack@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/SilverousBlack/Chaos-Intelligence/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Chaos-Intelligence
+
+A Layer API built on top of `tensorflow.keras` Functional API. Allows application of chaos theory deterministic functions to neural networks.
+
+A dataset is said to be deterministic chaotic when:
+
+1. Sensitive to initial conditions;
+2. Topologically transistive; and
+3. Have dence periodic orbits
+
+![Chaos Dynamics Image]()
+
+The API can be thought as an API that is used to specialize a model for a specific chaotic data model. It provides tools to make dynamically changing layers; responsive to the deterministic function.
+
+
