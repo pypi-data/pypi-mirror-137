@@ -1,0 +1,60 @@
+version: 1
+images:
+  - version: 1
+    id: "id"
+    url: "url"
+    os: "os"
+    tags: ["tags"]
+    package_groups:
+      - cloud-node
+    bcm_version: "7.3-dev"
+    image_type: "headnode"
+    revision: 1
+    cmd_revision: 1
+    created_at: 0
+    cloud_type: "openstack"
+  - version: 1
+    id: "id"
+    url: "url"
+    os: "os"
+    tags: ["tags"]
+    md5sum: "md5sum"
+    size: 100
+    uncompressed_size: 200
+    package_groups:
+      - cloud-node
+    bcm_version: "trunk"
+    image_type: "headnode"
+    revision: 1
+    cmd_revision: 1
+    created_at: 0
+    cloud_type: "openstack"
+  - version: 1
+    id: "id"
+    url: "url"
+    os: "os"
+    tags: []
+    md5sum: "md5sum"
+    size: 100
+    uncompressed_size: 200
+    package_groups:
+      - cloud-node
+    bcm_version: "trunk"
+    image_type: "headnode"
+    revision: 1
+    cmd_revision: 1
+    created_at: 0
+    cloud_type: "openstack"
+  - version: 2
+    id: "id"
+    url: "url"
+    os: "os"
+    tags: []
+    md5sum: "md5sum"
+    size: 100
+    uncompressed_size: 200
+    package_groups:
+      - cloud-node
+    bcm_version: "trunk"
+    image_type: "headnode"
+    cloud_type: "openstack"
