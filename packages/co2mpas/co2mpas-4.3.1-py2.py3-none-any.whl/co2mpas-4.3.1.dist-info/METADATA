@@ -1,0 +1,207 @@
+Metadata-Version: 2.1
+Name: co2mpas
+Version: 4.3.1
+Summary: The Type-Approving vehicle simulator predicting NEDC CO2 emissions from WLTP
+Home-page: https://github.com/JRCSTU/co2mpas-ta
+Author: CO2MPAS-Team
+Author-email: JRC-CO2MPAS@ec.europa.eu
+License: EUPL 1.1+
+Download-URL: https://github.com/JRCSTU/co2mpas-ta/tarball/v4.3.1
+Project-URL: Documentation, http://co2mpas.readthedocs.io
+Project-URL: Issue tracker, https://github.com/JRCSTU/co2mpas-ta/issues
+Keywords: CO2,fuel-consumption,WLTP,NEDC,vehicle,automotive,EU,JRC,IET,STU,correlation,back-translation,policy,monitoring,M1,N1,simulator,engineering,scientific
+Platform: any
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Development Status :: 4 - Beta
+Classifier: Natural Language :: English
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Manufacturing
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Obsoletes: co2mpas (< 4.0)
+Requires-Python: >=3.5
+License-File: LICENSE
+Requires-Dist: PyYAML
+Requires-Dist: schedula (>=0.3.2)
+Requires-Dist: tqdm
+Requires-Dist: scikit-learn
+Requires-Dist: regex
+Requires-Dist: lmfit (>=0.9.7)
+Requires-Dist: numpy
+Requires-Dist: schema
+Requires-Dist: scipy
+Requires-Dist: wltp
+Requires-Dist: xgboost (>=0.90)
+Requires-Dist: statsmodels
+Provides-Extra: all
+Requires-Dist: xlref ; extra == 'all'
+Requires-Dist: click-log ; extra == 'all'
+Requires-Dist: pandas (>=0.21.0) ; extra == 'all'
+Requires-Dist: co2mpas-dice (>=4.0.5) ; extra == 'all'
+Requires-Dist: dill ; extra == 'all'
+Requires-Dist: regex ; extra == 'all'
+Requires-Dist: click ; extra == 'all'
+Requires-Dist: asteval ; extra == 'all'
+Requires-Dist: plotly ; extra == 'all'
+Requires-Dist: xlrd ; extra == 'all'
+Requires-Dist: graphviz ; extra == 'all'
+Requires-Dist: lxml ; extra == 'all'
+Requires-Dist: syncing (>=1.0.4) ; extra == 'all'
+Requires-Dist: jinja2 ; extra == 'all'
+Requires-Dist: docutils ; extra == 'all'
+Requires-Dist: beautifulsoup4 ; extra == 'all'
+Requires-Dist: flask ; extra == 'all'
+Requires-Dist: Pygments ; extra == 'all'
+Provides-Extra: cli
+Requires-Dist: click ; extra == 'cli'
+Requires-Dist: click-log ; extra == 'cli'
+Provides-Extra: dev
+Requires-Dist: xlref ; extra == 'dev'
+Requires-Dist: click-log ; extra == 'dev'
+Requires-Dist: pandas (>=0.21.0) ; extra == 'dev'
+Requires-Dist: co2mpas-dice (>=4.0.5) ; extra == 'dev'
+Requires-Dist: dill ; extra == 'dev'
+Requires-Dist: regex ; extra == 'dev'
+Requires-Dist: click ; extra == 'dev'
+Requires-Dist: asteval ; extra == 'dev'
+Requires-Dist: plotly ; extra == 'dev'
+Requires-Dist: xlrd ; extra == 'dev'
+Requires-Dist: graphviz ; extra == 'dev'
+Requires-Dist: lxml ; extra == 'dev'
+Requires-Dist: syncing (>=1.0.4) ; extra == 'dev'
+Requires-Dist: jinja2 ; extra == 'dev'
+Requires-Dist: docutils ; extra == 'dev'
+Requires-Dist: beautifulsoup4 ; extra == 'dev'
+Requires-Dist: flask ; extra == 'dev'
+Requires-Dist: Pygments ; extra == 'dev'
+Requires-Dist: wheel ; extra == 'dev'
+Requires-Dist: sphinx ; extra == 'dev'
+Requires-Dist: gitchangelog ; extra == 'dev'
+Requires-Dist: mako ; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme ; extra == 'dev'
+Requires-Dist: setuptools (>=36.0.1) ; extra == 'dev'
+Requires-Dist: sphinxcontrib-restbuilder ; extra == 'dev'
+Requires-Dist: nose ; extra == 'dev'
+Requires-Dist: coveralls ; extra == 'dev'
+Requires-Dist: ddt ; extra == 'dev'
+Requires-Dist: sphinx-click ; extra == 'dev'
+Provides-Extra: dice
+Requires-Dist: co2mpas-dice (>=4.0.5) ; extra == 'dice'
+Requires-Dist: pandas (>=0.21.0) ; extra == 'dice'
+Requires-Dist: dill ; extra == 'dice'
+Requires-Dist: regex ; extra == 'dice'
+Requires-Dist: xlref ; extra == 'dice'
+Requires-Dist: xlrd ; extra == 'dice'
+Requires-Dist: asteval ; extra == 'dice'
+Provides-Extra: io
+Requires-Dist: pandas (>=0.21.0) ; extra == 'io'
+Requires-Dist: dill ; extra == 'io'
+Requires-Dist: regex ; extra == 'io'
+Requires-Dist: xlref ; extra == 'io'
+Requires-Dist: xlrd ; extra == 'io'
+Requires-Dist: asteval ; extra == 'io'
+Provides-Extra: plot
+Requires-Dist: flask ; extra == 'plot'
+Requires-Dist: regex ; extra == 'plot'
+Requires-Dist: graphviz ; extra == 'plot'
+Requires-Dist: Pygments ; extra == 'plot'
+Requires-Dist: lxml ; extra == 'plot'
+Requires-Dist: beautifulsoup4 ; extra == 'plot'
+Requires-Dist: jinja2 ; extra == 'plot'
+Requires-Dist: docutils ; extra == 'plot'
+Requires-Dist: plotly ; extra == 'plot'
+Provides-Extra: sync
+Requires-Dist: syncing (>=1.0.4) ; extra == 'sync'
+Requires-Dist: pandas (>=0.21.0) ; extra == 'sync'
+
+
+What is CO2MPAS?
+****************
+
+CO2MPAS is backward-looking longitudinal-dynamics CO2 and
+fuel-consumption simulator for light-duty M1 & N1 vehicles (cars and
+vans), specially crafted to *estimate the CO2 emissions of vehicles
+undergoing NEDC* testing based on the emissions produced *WLTP
+testing* during type-approval, according to the EU legislations
+*1152/EUR/2017 and 1153/EUR/2017* (see `History`_ section, below).
+
+It is an open-source project (`EUPL 1.1+
+<https://joinup.ec.europa.eu/software/page/eupl>`_) developed for
+Python-3.6+. It runs either as a *console command* or as a *desktop
+GUI application*, and it uses Excel-files or pure python structures
+(dictionary and lists) for its input & output data.
+
+
+History
+=======
+
+The *European Commission* has introduced the *WLTP* as the test
+procedure for the type I test of the European type-approval of
+Light-duty vehicles as of September 2017. Its introduction has
+required the adaptation of CO2 certification and monitoring procedures
+set by European regulations (443/2009, 510/2011, 1152/EUR/2017 and
+1153/EUR/2017). European Commission’s *Joint Research Centre* (JRC)
+has been assigned the development of this vehicle simulator to
+facilitate this adaptation.
+
+The European Regulation setting the conditions for using CO2MPAS can
+be found in `the Comitology Register
+<http://ec.europa.eu/transparency/regcomitology/index.cfm?do=search.documentdetail&dos_id=0&ds_id=45835&version=2>`_
+after its adoption by the *Climate Change Committee* which took place
+on June 23, 2016, and its 2nd vote for modifications, in April 27,
+2017.
+
+
+Installation
+************
+
+To install CO2MPAS use (with root privileges):
+
+.. code:: console
+
+   $ pip install co2mpas
+
+Or download the latest git version and use (with root privileges):
+
+.. code:: console
+
+   $ python setup.py install
+
+Some additional functionality is enabled installing the following
+extras:
+
+*  ``cli``: enables the command line interface.
+
+*  ``sync``: enables the time series synchronization tool (i.e.,
+   `syncing <https://github.com/vinci1it2000/syncing>`_ previously
+   named ``datasync``).
+
+*  ``gui``: enables the graphical user interface.
+
+*  ``plot``: enables to plot the CO2MPAS model and the workflow of
+   each run.
+
+*  ``io``: enables to read/write excel files.
+
+*  ``driver``: enables the driver model (currently is not available).
+
+To install co2mpas and all extras, do:
+
+.. code:: console
+
+   $ pip install 'co2mpas[all]'
+
+
