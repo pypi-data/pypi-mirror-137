@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: feishuconnector
+Version: 0.0.2
+Summary: connect feishu content franchise
+Home-page: http://www.puyuan.tech
+Author: Changhao Jiang
+Author-email: jch@puyuan.tech
+License: MIT License
+Platform: all
+Classifier: Development Status :: 4 - Beta
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: Implementation
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Software Development :: Libraries
+License-File: LICENSE
+
+飞书文档内容连接器
+
+install::
+
+    pip install feishuconnector
+
+
+code usage::
+
+    from feishuconnector import FeishuConnector
+
+    fc = FeishuConnector()
+    fc.init("user***", "pass***)
+
