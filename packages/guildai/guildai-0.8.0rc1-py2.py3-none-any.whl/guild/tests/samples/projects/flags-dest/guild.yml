@@ -1,0 +1,104 @@
+args:
+  main: args
+  flags-import: all
+  flags-dest: args
+  flags:
+    i: 2
+    f: 2.345
+    s: hi
+    b:
+      arg-switch: yes
+
+globals:
+  main: globals
+  flags-import: all
+  flags-dest: globals
+  flags:
+    i: 2
+    f: 2.345
+    s: hi
+    b: no
+
+params:
+  main: params
+  flags-import: all
+  flags-dest: global:params
+  flags:
+    i: 2
+    s1:
+      default: Hola
+      arg-name: strings.s1
+    s2:
+      arg-name: strings.s2
+
+params-dict:
+  main: params
+  flags-import: all
+  flags-dest: dict:params
+  flags:
+    i: 2
+    s1:
+      default: Hola
+      arg-name: strings.s1
+    s2:
+      arg-name: strings.s2
+
+params-namespace:
+  main: params_namespace
+  flags-import: all
+  flags-dest: namespace:params
+  flags:
+    i: 2
+
+args2:
+  main: args2
+  flags-import: all
+  flags:
+    i: 2
+    f: 2.2
+  flags-dest: args
+
+args3:
+  main: args2
+  flags-import: all
+  flags:
+    i: 2
+    f: 2.2
+
+split-args:
+  main: args3
+  flags-import: all
+  flags:
+    x:
+      arg-split: yes  # equivalent to 'shlex'
+      default: "1 2 'a b'"
+    y:
+      arg-split: ','
+      default: 1,2,3
+
+split-globals:
+  main: globals3
+  flags:
+    x:
+      arg-split: 'shlex'  # equivalent to yes
+    y:
+      arg-split: ':'
+
+split-typed:
+  main: globals3
+  flags:
+    paths:
+      type: existing-path
+      arg-name: x
+      arg-split: yes
+    ints:
+      type: int
+      arg-name: y
+      arg-split: yes
+
+no-dest:
+  main: guild.main args=${x},${y}
+  flags-dest: none
+  flags:
+    x: 1
+    y: a
