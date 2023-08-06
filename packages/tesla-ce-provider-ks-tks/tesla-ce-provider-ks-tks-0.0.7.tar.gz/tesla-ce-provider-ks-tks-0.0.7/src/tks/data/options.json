@@ -1,0 +1,28 @@
+{
+  "instrument": 2,
+  "acronym": "tks",
+  "version": "0.0.5",
+  "url": "https://github.com/tesla-ce/provider-ks-tks",
+  "image": "teslace/provider-ks-tks:latest",
+  "name": "TeSLA CE Keystroke",
+  "description": "Keystroke instrument provider",
+  "credentials": [],
+  "has_service": false,
+  "service_port": null,
+  "options_schema": {
+    "type" : "object",
+    "additionalProperties": false,
+    "properties": {
+      "model" : {"type": "string", "default": "GaussianModel", "enum": ["GaussianModel", "GaussianMixturesModel"]},
+      "min_enrol_samples": {"type": "number", "default": 10},
+      "target_enrol_samples": {"type": "number", "default": 15},
+      "failed_missing_data": {"type": "boolean", "default": false},
+      "missing_data_threshold": {"type": "number", "default": 0.5}
+    }
+  },
+  "queue": "ks_tks",
+  "allow_validation": true,
+  "alert_below": 0.3,
+  "warning_below": 0.6,
+  "inverted_polarity": false
+}
