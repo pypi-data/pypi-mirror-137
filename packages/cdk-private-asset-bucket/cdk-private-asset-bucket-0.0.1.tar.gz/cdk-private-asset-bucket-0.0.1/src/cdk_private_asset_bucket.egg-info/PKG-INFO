@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: cdk-private-asset-bucket
+Version: 0.0.1
+Summary: Construct to create a private asset S3 bucket. A cognito token can be used to allow access to he S3 asset.
+Home-page: https://github.com/mmuller88/cdk-private-asset-bucket
+Author: Martin Mueller<damadden88@googlemail.com>
+License: Apache-2.0
+Project-URL: Source, https://github.com/mmuller88/cdk-private-asset-bucket
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: JavaScript
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Typing :: Typed
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+[![NPM version](https://badge.fury.io/js/cdk-private-asset-bucket.svg)](https://badge.fury.io/js/cdk-private-asset-bucket)
+[![PyPI version](https://badge.fury.io/py/cdk-private-asset-bucket.svg)](https://badge.fury.io/py/cdk-private-asset-bucket)
+[![.NET version](https://img.shields.io/nuget/v/com.github.mmuller88.cdkPrivateAssetBucket.svg?style=flat-square)](https://www.nuget.org/packages/com.github.mmuller88.cdkPrivateAssetBucket/)
+![Release](https://github.com/mmuller88/cdk-private-asset-bucket/workflows/Release/badge.svg)
+
+# cdk-private-asset-bucket
+
+A construct to create a private asset S3 bucket. Cognito will be used for token validation with Lambda@Edge.
+
+## Planned Features
+
+* Support S3 bucket import ootb.
+* Support custom authorizer
+
+## Thanks To
+
+* Crespo Wang for his pioneer work regarding private S3 assets https://javascript.plainenglish.io/use-lambda-edge-jwt-to-secure-s3-bucket-dcca6eec4d7e
+* As always to the amazing CDK / Projen Community. Join us on [Slack](https://cdk-dev.slack.com)!
+* [Projen](https://github.com/projen/projen) project and the community around it
+
+
