@@ -1,0 +1,89 @@
+[tool.poetry]
+name = "sdss-drift"
+version = "0.4.1"
+description = "Modbus PLC control library"
+authors = ["José Sánchez-Gallego <gallegoj@uw.edu>"]
+license = "BSD-3-Clause"
+readme = "README.md"
+homepage = "https://github.com/sdss/drift"
+repository = "https://github.com/sdss/drift"
+documentation = "https://sdss-drift.readthedocs.org"
+keywords = ["astronomy", "software"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+	"Programming Language :: Python :: 3.7",
+	"Programming Language :: Python :: 3.8",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+packages = [
+    { include = "drift", from = "python" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+sdsstools = ">=0.4.1"
+pymodbus = "^2.5.0"
+
+[tool.poetry.dev-dependencies]
+ipython = ">=7.11.0"
+matplotlib = ">=3.1.1"
+flake8 = ">=3.7.9"
+doc8 = ">=0.8.0"
+pytest = ">=5.2.2"
+pytest-asyncio = ">=0.10.0"
+pytest-cov = ">=2.8.1"
+pytest-mock = ">=1.13.0"
+pytest-sugar = ">=0.9.2"
+isort = ">=4.3.21"
+codecov = ">=2.0.15"
+coverage = {version = ">=5.0", extras = ["toml"]}
+ipdb = ">=0.12.3"
+asyncmock = ">=0.4.2"
+rstcheck = ">=3.3.1"
+Sphinx = ">=3.5.2"
+black = {version = ">=20.8b1", allow-prereleases = true}
+myst-parser = ">=0.14.0"
+furo = ">=2021.6.18-beta.36"
+nox = ">=2021.6.12"
+sphinx-autobuild = ">=2021.3.14"
+sphinx-copybutton = ">=0.3.3"
+sphinx-click = {version = ">=2.3.0"}
+sphinx-jsonschema = ">=1.16.8"
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+fast = true
+
+[tool.isort]
+profile = "black"
+sections = ["FUTURE", "STDLIB", "TYPING", "THIRDPARTY", "SDSS", "FIRSTPARTY", "LOCALFOLDER"]
+default_section = "THIRDPARTY"
+known_first_party = "drift"
+known_typing = ["typing"]
+known_sdss = ["sdsstools"]
+lines_after_imports = 2
+
+[tool.pytest.ini_options]
+addopts = "--cov drift --cov-report xml --cov-report html --cov-report term -W ignore"
+
+[tool.coverage.run]
+branch = true
+include = ["python/drift/*"]
+omit = [
+    "*/__init__.py",
+    "*/exceptions.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "class CaseInsensitiveDict",
+    "def __repr__"
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools>=49.6.0"]
+build-backend = "poetry.core.masonry.api"
