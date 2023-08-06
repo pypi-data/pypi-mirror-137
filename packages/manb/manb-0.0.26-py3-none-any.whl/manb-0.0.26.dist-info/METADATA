@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: manb
+Version: 0.0.26
+Summary: Mission Aware Notebook
+Home-page: https://github.com/tsherburne/de-textbook
+Author: Virginia Tech
+Author-email: info@mission-aware.net
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/tsherburne/de-textbook/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: plantuml
+Requires-Dist: requests
+Requires-Dist: ipywidgets
+Requires-Dist: pandas
+
+# Mission Aware Note Book (manb)
+
+## Description
+* A Python package for Google Colab that supports [Mission Aware](https://mission-aware.net) concepts using the [GENESYS](https://www.vitechcorp.com/genesys_software/) REST API.
+
+## Usage
+```
+
+# Notebook Initialization
+import manb
+env = manb.Environment(domain, path)
+env.Tunnel()
+env.Login()
+
+# System Description
+sd = manb.SystemDescription(env)
+sd.UseCaseDiagram()
+sd.UseCaseTable()
+sd.ControlStructureDiagram()
+sd.MSCDiagrams()
+
+# Risk Assessment
+ra = manb.RiskAssessment(env)
+ra.LossTable()
+ra.HazardTable()
+ra.ControlActionTable()
+ra.HazardousActionTable()
+ra.ControlActionAnalysisTable()
+
+# Vulnerability Assessment
+va = manb.VulnerabilityAssesment(env)
+va.LossScenarioTable()
+va.LossScenarioAnalysisTable()
+
+# Section Exercises
+ex = manb.Exercises(env, manb.Section.<section enum>)
+ex.Edit()
+```
+
