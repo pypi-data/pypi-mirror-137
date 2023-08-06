@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: Uni-Legacy
+Version: 1.0.0
+Summary: A simple python library for convert sinhala unicode font to legacy font. Supported for FM fonts and Isi fonts.This library can be used offline
+Home-page: 
+Author: Gavindu Tharaka
+Author-email: gavi.tharaka@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# Uni-Legacy
+--- ---
+###### Uni-Legacy is a Python library used to Sinhala unicode font Converte to legacy font offline.
+ - ###### FM legacy Font
+ - ###### Isi legacy Font
+
+## Installation
+###### To install, run the following command:
+```bash
+python3 pip install Uni-Legacy
+```
+
+## for FM fonts
+###### Sinhala Unicode convert to FM font type
+```python
+from uni_legacy import uni2fm
+Unicode_font = "à·ƒà·’à¶‚à·„à¶½ à¶ºà·”à¶±à·’à¶šà·šà¶­"
+FM_font = uni2fm(Unicode_font)
+print(FM_font)
+```
+
+## for Isi fonts
+###### Sinhala Unicode convert to Isi font type
+
+```python
+from uni_legacy import uni2isi
+Unicode_font = "à·ƒà·’à¶‚à·„à¶½ à¶ºà·”à¶±à·’à¶šà·šà¶­"
+Isi_font = uni2isi(Unicode_font)
+print(Isi_font)
+```
+
