@@ -1,0 +1,178 @@
+Metadata-Version: 2.1
+Name: optimade
+Version: 0.16.10
+Summary: Tools for implementing and consuming OPTIMADE APIs.
+Home-page: https://github.com/Materials-Consortia/optimade-python-tools
+Author: OPTIMADE Development Team
+Author-email: dev@optimade.org
+License: MIT
+Keywords: optimade jsonapi materials
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Database
+Classifier: Topic :: Database :: Database Engines/Servers
+Classifier: Topic :: Database :: Front-Ends
+Requires-Python: >=3.7,<3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: lark-parser (~=0.12)
+Requires-Dist: fastapi (~=0.65.2)
+Requires-Dist: pydantic (~=1.9)
+Requires-Dist: email-validator (~=1.1)
+Requires-Dist: requests (~=2.27)
+Requires-Dist: typing-extensions (~=4.0) ; python_version < "3.8"
+Provides-Extra: aiida
+Requires-Dist: aiida-core (>=1.6.4,~=1.6) ; extra == 'aiida'
+Provides-Extra: all
+Requires-Dist: pylint (~=2.12) ; extra == 'all'
+Requires-Dist: pre-commit (~=2.17) ; extra == 'all'
+Requires-Dist: invoke (~=1.6) ; extra == 'all'
+Requires-Dist: mike (~=1.1) ; extra == 'all'
+Requires-Dist: mkdocs (~=1.2) ; extra == 'all'
+Requires-Dist: mkdocs-awesome-pages-plugin (~=2.6) ; extra == 'all'
+Requires-Dist: mkdocs-material (~=8.1) ; extra == 'all'
+Requires-Dist: mkdocstrings (~=0.17.0) ; extra == 'all'
+Requires-Dist: build (~=0.7.0) ; extra == 'all'
+Requires-Dist: codecov (~=2.1) ; extra == 'all'
+Requires-Dist: jsondiff (~=1.3) ; extra == 'all'
+Requires-Dist: pytest (~=7.0) ; extra == 'all'
+Requires-Dist: pytest-cov (~=3.0) ; extra == 'all'
+Requires-Dist: uvicorn (~=0.17) ; extra == 'all'
+Requires-Dist: Jinja2 (<4.0,>=2.10) ; extra == 'all'
+Requires-Dist: pyyaml (<7,>=5.4) ; extra == 'all'
+Requires-Dist: pymongo (<5,>=3.12.1) ; extra == 'all'
+Requires-Dist: mongomock (~=4.0) ; extra == 'all'
+Requires-Dist: numpy (~=1.21) ; extra == 'all'
+Requires-Dist: elasticsearch-dsl (<7.0,~=6.4) ; extra == 'all'
+Requires-Dist: aiida-core (>=1.6.4,~=1.6) ; extra == 'all'
+Requires-Dist: ase (~=3.22) ; extra == 'all'
+Requires-Dist: pymatgen (==2022.0.16) ; extra == 'all'
+Requires-Dist: jarvis-tools (==2022.1.10) ; extra == 'all'
+Provides-Extra: ase
+Requires-Dist: ase (~=3.22) ; extra == 'ase'
+Provides-Extra: cif
+Requires-Dist: numpy (~=1.21) ; extra == 'cif'
+Provides-Extra: client
+Requires-Dist: numpy (~=1.21) ; extra == 'client'
+Provides-Extra: dev
+Requires-Dist: pylint (~=2.12) ; extra == 'dev'
+Requires-Dist: pre-commit (~=2.17) ; extra == 'dev'
+Requires-Dist: invoke (~=1.6) ; extra == 'dev'
+Requires-Dist: mike (~=1.1) ; extra == 'dev'
+Requires-Dist: mkdocs (~=1.2) ; extra == 'dev'
+Requires-Dist: mkdocs-awesome-pages-plugin (~=2.6) ; extra == 'dev'
+Requires-Dist: mkdocs-material (~=8.1) ; extra == 'dev'
+Requires-Dist: mkdocstrings (~=0.17.0) ; extra == 'dev'
+Requires-Dist: build (~=0.7.0) ; extra == 'dev'
+Requires-Dist: codecov (~=2.1) ; extra == 'dev'
+Requires-Dist: jsondiff (~=1.3) ; extra == 'dev'
+Requires-Dist: pytest (~=7.0) ; extra == 'dev'
+Requires-Dist: pytest-cov (~=3.0) ; extra == 'dev'
+Requires-Dist: uvicorn (~=0.17) ; extra == 'dev'
+Requires-Dist: Jinja2 (<4.0,>=2.10) ; extra == 'dev'
+Requires-Dist: pyyaml (<7,>=5.4) ; extra == 'dev'
+Requires-Dist: pymongo (<5,>=3.12.1) ; extra == 'dev'
+Requires-Dist: mongomock (~=4.0) ; extra == 'dev'
+Requires-Dist: numpy (~=1.21) ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: mike (~=1.1) ; extra == 'docs'
+Requires-Dist: mkdocs (~=1.2) ; extra == 'docs'
+Requires-Dist: mkdocs-awesome-pages-plugin (~=2.6) ; extra == 'docs'
+Requires-Dist: mkdocs-material (~=8.1) ; extra == 'docs'
+Requires-Dist: mkdocstrings (~=0.17.0) ; extra == 'docs'
+Provides-Extra: elastic
+Requires-Dist: elasticsearch-dsl (<7.0,~=6.4) ; extra == 'elastic'
+Provides-Extra: jarvis
+Requires-Dist: jarvis-tools (==2022.1.10) ; extra == 'jarvis'
+Provides-Extra: mongo
+Requires-Dist: pymongo (<5,>=3.12.1) ; extra == 'mongo'
+Requires-Dist: mongomock (~=4.0) ; extra == 'mongo'
+Provides-Extra: pdb
+Requires-Dist: numpy (~=1.21) ; extra == 'pdb'
+Provides-Extra: pymatgen
+Requires-Dist: pymatgen (==2022.0.16) ; extra == 'pymatgen'
+Provides-Extra: server
+Requires-Dist: uvicorn (~=0.17) ; extra == 'server'
+Requires-Dist: Jinja2 (<4.0,>=2.10) ; extra == 'server'
+Requires-Dist: pyyaml (<7,>=5.4) ; extra == 'server'
+Requires-Dist: pymongo (<5,>=3.12.1) ; extra == 'server'
+Requires-Dist: mongomock (~=4.0) ; extra == 'server'
+Provides-Extra: testing
+Requires-Dist: build (~=0.7.0) ; extra == 'testing'
+Requires-Dist: codecov (~=2.1) ; extra == 'testing'
+Requires-Dist: jsondiff (~=1.3) ; extra == 'testing'
+Requires-Dist: pytest (~=7.0) ; extra == 'testing'
+Requires-Dist: pytest-cov (~=3.0) ; extra == 'testing'
+Requires-Dist: uvicorn (~=0.17) ; extra == 'testing'
+Requires-Dist: Jinja2 (<4.0,>=2.10) ; extra == 'testing'
+Requires-Dist: pyyaml (<7,>=5.4) ; extra == 'testing'
+Requires-Dist: pymongo (<5,>=3.12.1) ; extra == 'testing'
+Requires-Dist: mongomock (~=4.0) ; extra == 'testing'
+
+<img width="10%" align="left" src="images/optimade_logo_180x180.svg">
+
+# OPTIMADE Python tools
+
+| Latest release | Build status | Activity |
+|:--------------:|:------------:|:--------:|
+| [![PyPI Version](https://img.shields.io/pypi/v/optimade?logo=pypi&logoColor=white)](https://pypi.org/project/optimade/)<br>[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/optimade?logo=python&logoColor=white)](https://pypi.org/project/optimade/)<br>[![OPTIMADE](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Materials-Consortia/optimade-python-tools/master/optimade-version.json)](https://github.com/Materials-Consortia/OPTIMADE/) | [![Build Status](https://img.shields.io/github/workflow/status/Materials-Consortia/optimade-python-tools/CI%20tests?logo=github)](https://github.com/Materials-Consortia/optimade-python-tools/actions?query=branch%3Amaster+)<br>[![codecov](https://img.shields.io/codecov/c/github/Materials-Consortia/optimade-python-tools?logo=codecov&logoColor=white&token=UJAtmqkZZO)](https://codecov.io/gh/Materials-Consortia/optimade-python-tools)<br>[![Heroku App Status](https://heroku-shields.herokuapp.com/optimade??logo=heroku)](https://optimade.herokuapp.com) | [![Commit Activity](https://img.shields.io/github/commit-activity/m/Materials-Consortia/optimade-python-tools?logo=github)](https://github.com/Materials-Consortia/optimade-python-tools/pulse)<br>[![Last Commit](https://img.shields.io/github/last-commit/Materials-Consortia/optimade-python-tools/master?logo=github)](https://github.com/Materials-Consortia/optimade-python-tools/commits/master)<br>[![Contributors](https://badgen.net/github/contributors/Materials-Consortia/optimade-python-tools?icon=github)](https://github.com/Materials-Consortia/optimade-python-tools/graphs/contributors) |
+
+The aim of OPTIMADE is to develop a common API, compliant with the [JSON:API 1.0](http://jsonapi.org/format/1.0/) specification.
+This is to enable interoperability among databases that contain calculated properties of existing and hypothetical materials.
+
+This repository contains a library of tools for implementing and consuming [OPTIMADE](https://www.optimade.org) APIs using Python.
+Server implementations can make use of the supported MongoDB (v4) and Elasticsearch (v6) database backends, or plug in a custom backend implementation.
+The package also contains a server validator tool, which may be called from the shell (`optimade-validator`) or used as a GitHub Action from [optimade-validator-action](https://github.com/Materials-Consortia/optimade-validator-action).
+
+The release history and changelog can be found in [the changelog](CHANGELOG.md).
+
+## Documentation
+
+This document, guides, and the full module API documentation can be found online at [https://optimade.org/optimade-python-tools](https://optimade.org/optimade-python-tools).
+In particular, documentation of the OPTIMADE API response data models (implemented here with [pydantic](https://github.com/samuelcolvin/pydantic)) can be found online under [OPTIMADE Data Models](https://optimade.org/optimade-python-tools/all_models).
+
+## Installation
+
+Detailed installation instructions for different use cases (e.g., using the library or running a server) can be found in [the installation documentation](INSTALL.md).
+
+The latest stable version of this package can be obtained from [PyPI](https://pypi.org/project/optimade) `pip install optimade`.
+The latest development version of this package can be installed from the master branch of this repository `git clone https://github.com/Materials-Consortia/optimade-python-tools`.
+
+## Supported OPTIMADE versions
+
+Each release of the `optimade` package from this repository only targets one version of the OPTIMADE specification, summarised in the table below.
+
+| OPTIMADE API version | `optimade` version |
+|:--------------------:|:------------------:|
+| [v1.0.0](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.0.0/optimade.rst) | [v0.12.9](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.12.9) |
+| [v1.1.0](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.1.0/optimade.rst) | [v0.16.0](https://github.com/Materials-Consortia/optimade-python-tools/tree/v0.16.0) |
+
+## Contributing and Getting Help
+
+All development of this package (bug reports, suggestions, feedback and pull requests) occurs in the [optimade-python-tools GitHub repository](https://github.com/Materials-Consortia/optimade-python-tools).
+Contribution guidelines and tips for getting help can be found in the [contributing notes](CONTRIBUTING.md).
+
+## How to cite
+
+If you use this package to access or serve OPTIMADE data, we kindly request that you consider citing the following:
+
+- Andersen *et al.*, OPTIMADE, an API for exchanging materials data, *Sci. Data* **8**, 217 (2021) [10.1038/s41597-021-00974-z](https://doi.org/10.1038/s41597-021-00974-z)
+- Evans *et al.*, optimade-python-tools: a Python library for serving and consuming materials data via OPTIMADE APIs. *Journal of Open Source Software*, **6**(65), 3458 (2021) [10.21105/joss.03458](https://doi.org/10.21105/joss.03458)
+
+## Links
+
+- [OPTIMADE Specification](https://github.com/Materials-Consortia/OPTIMADE/blob/develop/optimade.rst), the human-readable specification that this library is based on.
+- [optimade-validator-action](https://github.com/Materials-Consortia/optimade-validator-action), a GitHub action that can be used to validate implementations from a URL (using the validator from this repo).
+- [OpenAPI](https://github.com/OAI/OpenAPI-Specification), the machine-readable format used to specify the OPTIMADE API in [`openapi.json`](openapi/openapi.json) and [`index_openapi.json`](openapi/index_openapi.json).
+- [Interactive documentation](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Materials-Consortia/optimade-python-tools/master/openapi/openapi.json) generated from [`openapi.json`](openapi/openapi.json) (see also [interactive JSON editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/Materials-Consortia/optimade-python-tools/master/openapi/openapi.json)).
+- [pydantic](https://pydantic-docs.helpmanual.io/), the library used for generating the OpenAPI schema from [Python models](https://www.optimade.org/optimade-python-tools/all_models/).
+- [FastAPI](https://fastapi.tiangolo.com/), the framework used for generating the reference implementation expressed by the [`openapi.json`](openapi/openapi.json) specification.
+- [lark](https://github.com/lark-parser/lark), the library used to parse the filter language in OPTIMADE queries.
+
+
