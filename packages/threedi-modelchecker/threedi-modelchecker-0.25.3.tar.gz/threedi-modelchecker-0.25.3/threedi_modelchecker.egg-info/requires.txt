@@ -1,0 +1,26 @@
+Click
+GeoAlchemy2>=0.9
+SQLAlchemy>=1.2
+alembic>=0.9
+
+[:python_version < "3.7"]
+dataclasses
+
+[postgis]
+psycopg2
+
+[simulation_templates]
+threedi-api-client>=4.0.0b2
+aiofiles
+aiohttp
+
+[test]
+factory_boy
+pytest
+mock
+pytest-cov
+threedi-api-client>=4.0.0b2
+aiofiles
+aiohttp
+pytest-asyncio
+numpy
