@@ -1,0 +1,65 @@
+Metadata-Version: 2.1
+Name: ok-dmrlib
+Version: 0.2
+Summary: Parse, assemble and handle DMR protocols
+Home-page: https://github.com/OK-DMR/ok-dmrlib
+Author: Marek Sebera
+Author-email: marek.sebera@gmail.com
+License: AGPL-3.0
+Keywords: dmr etsi ham mmdvm homebrew radio hytera motorola
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Environment :: Console
+Classifier: Topic :: Communications :: Ham Radio
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Typing :: Typed
+Classifier: Framework :: Pytest
+Classifier: Intended Audience :: Telecommunications Industry
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: ~=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: dmr-kaitai (>=0.7)
+Requires-Dist: bitarray (>=2.3.5)
+Requires-Dist: numpy (>=1.21.4)
+
+# OK-DMR Lib
+
+![.github/workflows/sanity.yml](https://img.shields.io/github/workflow/status/OK-DMR/ok-dmrlib/Sanity?style=flat-square)
+![Code Style: Python Black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)
+![License](https://img.shields.io/github/license/OK-DMR/ok-dmrlib?style=flat-square)
+![Last released version](https://img.shields.io/pypi/v/ok-dmrlib?style=flat-square)
+![PyPI downloads](https://img.shields.io/pypi/dd/ok-dmrlib?style=flat-square)
+![Python versions](https://img.shields.io/pypi/pyversions/ok-dmrlib?style=flat-square)
+![Wheel](https://img.shields.io/pypi/wheel/ok-dmrlib?style=flat-square)
+
+This package provides way to parse and assemble various DMR ETSI protocols and functions, in pure Python implementation
+
+## Supported features
+
+### FEC (Forward Error Correction)
+
+| Algorithm                         | Encoding | Decoding / Verification |
+|-----------------------------------|:--------:|:-----------------------:|
+| Hamming (7,4,3)                   |    ✅     |            ✅            |
+| Hamming (13,9,3)                  |    ✅     |            ✅            |
+| Hamming (15,11,3)                 |    ✅     |            ✅            |
+| Hamming (16,11,3)                 |    ✅     |            ✅            |
+| Hamming (17,12,3)                 |    ✅     |            ✅            |
+| Golay (20,8,7)                    |    ✅     |            ✅            |
+| Quadratic Residue (16,7,6)        |    ✅     |            ✅            |
+| Reed-Solomon (12,9,4)             |    ✅     |            ✅            |
+| Rate 3/4 Trellis                  |    ✅     |            ✅            |
+| Block Product Turbo Code (196,96) |    ✅     |            ✅            |
+
+### CRC (Cyclic Redundancy Check) and Checksums
+
+| Name                  | Generate | Verify |
+|-----------------------|:--------:|:------:|
+| 5-bit checksum        |    ✅     |   ✅    |
+| CRC-9                 |    ✅     |   ✅    |
+| CRC-CCIT (CRC16-CCIT) |    ✅     |   ✅    |
+| CRC-32 (32-bit CRC)   |    ✅     |   ✅    |
+
