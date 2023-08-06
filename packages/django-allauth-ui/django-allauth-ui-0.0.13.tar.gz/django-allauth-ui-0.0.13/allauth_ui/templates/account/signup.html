@@ -1,0 +1,12 @@
+{% extends "account/base.html" %}
+
+{% block head_title %}Sign up{% endblock %}
+
+{% block whitebox %}
+<h1 class="mb-5 text-3xl text-center">Sign up</h1>
+<form id="signup_form" method="post" action="{% url 'account_signup' %}" novalidate>
+  {% include "account/_render_form.html" %}
+  <button type="submit" class="w-64 h-12 px-6 mt-8 text-lg text-white uppercase bg-blue-600 rounded text-bold hover:bg-blue-700">Sign Up</button>
+</form>
+<a class="self-center pt-8 text-xs text-blue-400 justify-self-center hover:text-blue-500" href="{{ login_url }}">Already have an account? Sign in.</a>
+{% endblock %}
