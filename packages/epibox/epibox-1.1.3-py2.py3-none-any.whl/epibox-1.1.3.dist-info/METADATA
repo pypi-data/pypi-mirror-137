@@ -1,0 +1,162 @@
+Metadata-Version: 2.1
+Name: epibox
+Version: 1.1.3
+Summary: EpiBOX is a Raspberry Pi tool for easy signal acquisition.
+Home-page: https://github.com/anascacais/epibox
+Author: Ana Sofia Carmo
+Author-email: anascacais@gmail.com
+License: MIT license
+Keywords: epibox,signal acquisition,Raspberry Pi
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: alabaster (==0.7.12)
+Requires-Dist: appdirs (==1.4.4)
+Requires-Dist: argh (==0.26.2)
+Requires-Dist: arrow (==1.1.1)
+Requires-Dist: Babel (==2.9.1)
+Requires-Dist: binaryornot (==0.4.4)
+Requires-Dist: bitalino (==1.2.1)
+Requires-Dist: bleach (==3.3.0)
+Requires-Dist: certifi (==2021.5.30)
+Requires-Dist: chardet (==4.0.0)
+Requires-Dist: click
+Requires-Dist: colorama (==0.4.4)
+Requires-Dist: cookiecutter (==1.7.3)
+Requires-Dist: distlib (==0.3.2)
+Requires-Dist: docutils (==0.17.1)
+Requires-Dist: entrypoints (==0.3)
+Requires-Dist: filelock (==3.0.12)
+Requires-Dist: idna (==2.10)
+Requires-Dist: imagesize (==1.2.0)
+Requires-Dist: install (==1.3.4)
+Requires-Dist: Jinja2 (==3.0.1)
+Requires-Dist: jinja2-time (==0.2.0)
+Requires-Dist: MarkupSafe (==2.0.1)
+Requires-Dist: mccabe (==0.6.1)
+Requires-Dist: numpy (==1.21.0)
+Requires-Dist: packaging (==21.0)
+Requires-Dist: paho-mqtt (==1.5.1)
+Requires-Dist: pathtools (==0.1.2)
+Requires-Dist: pexpect (==4.8.0)
+Requires-Dist: pkginfo (==1.7.0)
+Requires-Dist: pluggy
+Requires-Dist: poyo (==0.5.0)
+Requires-Dist: primefac (==1.1)
+Requires-Dist: ptyprocess (==0.7.0)
+Requires-Dist: py (==1.10.0)
+Requires-Dist: pybluez2 (==0.41)
+Requires-Dist: pycodestyle (==2.5.0)
+Requires-Dist: pyflakes (==2.1.1)
+Requires-Dist: Pygments (==2.9.0)
+Requires-Dist: pyparsing (==2.4.7)
+Requires-Dist: pyserial (==3.5)
+Requires-Dist: python-dateutil (==2.8.1)
+Requires-Dist: python-slugify (==5.0.2)
+Requires-Dist: pytz (==2021.1)
+Requires-Dist: PyYAML (==5.4.1)
+Requires-Dist: readme-renderer (==29.0)
+Requires-Dist: requests (==2.25.1)
+Requires-Dist: requests-toolbelt (==0.9.1)
+Requires-Dist: scipy (==1.7.0)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: snowballstemmer (==2.1.0)
+Requires-Dist: Sphinx (==1.8.5)
+Requires-Dist: sphinxcontrib-serializinghtml (==1.1.5)
+Requires-Dist: sphinxcontrib-websupport (==1.2.4)
+Requires-Dist: text-unidecode (==1.3)
+Requires-Dist: toml (==0.10.2)
+Requires-Dist: tox
+Requires-Dist: tqdm (==4.61.2)
+Requires-Dist: twine
+Requires-Dist: urllib3 (==1.26.6)
+Requires-Dist: virtualenv (==20.4.7)
+Requires-Dist: watchdog (==0.9.0)
+Requires-Dist: webencodings (==0.5.1)
+
+# EpiBOX, the Python package
+## A Research Tool to Stimulate Collaboration Within Biosignal Collection
+
+EpiBOX was developed as a way to enable researchers to escalate their data collection process by leveraging the human resources available. By providing a versatile, discreet, user-friendly and open-source system, operated through a mobile application, we hope to provide a collaboration tool for the acquisition of biosignals.
+
+Designed for use with a Raspberry Pi due to its unobtrusive design (but usable with any Linux device), it acts as an autonomous recording unit - allowing for sensor connectivity and data storage. EpiBOX mobile app provides the user interface and the near-real time visualization of the data. 
+
+Currently, EpiBOX supports BITalino-based equipments allowing for the recording, storage and visualization of up to 12 channels simmultaneously. Nevertheless, this package can be easily integrated with other sensors, as long as a Python API is provided!
+
+## Requirements
+
+ - This Python package is complementary the mobile app EpiBOX (available at [EpiBOX](https://github.com/anascacais/epibox_app));
+ - It also requires a Raspberry Pi set up as a wireless access point and MQTT broker in order to ensure communication between the mobile app and the recording unit (RPi itself or another Linux device).
+
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install epibox.
+
+```bash
+pip install epibox
+or 
+pip install --upgrade epibox
+```
+
+## Usage
+
+```bash 
+# this will initiate the process - which should be continued by the user interface (EpiBOX app)
+python -m epibox
+```
+
+## Features
+
+- Step-by-step interactions to start the acquisition
+- History of acquisition devices
+- Default configurations for optimized interaction
+- Real-time visualization of up-to 12 channels
+- In-acquisition annotations
+
+![](intro.gif) ![](conf.gif) ![](acquisition.gif)
+
+## Additional Resources
+
+Why BITalino: 
+ - Versatility of sensors & flexibility of wearable form-factors
+ - Rapid & cheap prototyping
+ - Peer-validated against gold-standards
+
+Why Raspberry Pi:
+ - Discreteness
+ - Affordability 
+ - Ease of system replication - through shell script or RPi imager
+ - Computational and storage power
+
+Get to know our project @ [LinkedIn - PreEpiSeizures](https://www.linkedin.com/feed/update/urn:li:activity:6787017108631941120/)
+
+
+
+## License
+
+MIT
+
+## Contact
+
+For any additional information about the mobile app or our project please contact me: anascacais@gmail.com
+
+=======
+History
+=======
+
+0.1.0 (2021-07-08)
+------------------
+
+* First release on PyPI.
+
+
