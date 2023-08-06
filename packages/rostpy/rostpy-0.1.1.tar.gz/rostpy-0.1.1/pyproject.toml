@@ -1,0 +1,39 @@
+[build-system]
+requires = [
+    "wheel",
+    "setuptools>=42",
+    "setuptools_scm>=6.2",
+    "pybind11>=2.7.0",
+]
+build-backend = "setuptools.build_meta"
+
+[tools.setuptools_scm]
+write_to = "src/rostpy/_version.py"
+
+[tool.cibuildwheel]
+test-extras = ["test"]
+test-command = "pytest {project}/tests"
+manylinux-x86_64-image = "manylinux_2_24"
+
+[tool.cibuildwheel.linux]
+before-all = [
+    "apt-get update || apk update || yum check-update",
+    "apt-get install -y git cmake libboost-all-dev || apk add git cmake boost-dev openssh || yum -y install git cmake boost-devel",
+    "mkdir ~/.ssh",
+    "ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts",
+    "git submodule init",
+    "git submodule update"
+]
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+xfail_strict = true
+filterwarnings = ["error"]
+testpaths = [
+    "tests",
+]
+
+[tool.isort]
+profile = "black"
