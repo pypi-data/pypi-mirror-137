@@ -1,0 +1,19 @@
+label {
+	width: 10em;
+	display: inline-block;
+}
+
+input, select {
+	width: 5em;
+}
+
+input:invalid+span:after {
+	content: '!';
+	padding-left: 5px;
+	color: #A00;
+}
+
+button {
+	padding: .5em 1em;
+	margin-right: 1em;
+}
