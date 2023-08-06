@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: texel
+Version: 0.1.3
+Summary: Command line interface for reading spreadsheets inside terminal.
+Home-page: https://github.com/lauriat/texel
+Author: Lauri Tuominen
+Author-email: lauri.a.tuominen@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+## texel - Command line interface for reading spreadsheets inside terminal.
+
+Sometimes, you have to deal with spreadsheets. Those are sad times.
+Fortunately there is texel!
+
+Texel is a useful CLI for quickly reading spreadsheets and
+copying their contents to clipboard in CSV format.
+
+  ![texel in action](./assets/texel.png)
+## Usage
+```
+texel [-h] [-d DELIMITER] [-c CELLWIDTH] [-p PRECISION]
+             [--fillna FILLNA]
+             FILE
+
+positional arguments:
+  FILE                  Spreadsheet path (csv, xls, xlsx, xlsm,
+                        xlsb, odf, ods or odt)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d DELIMITER, --delimiter DELIMITER
+                        Delimiter for csv files
+  -c CELLWIDTH, --cellwidth CELLWIDTH
+                        Width of a cell
+  -p PRECISION, --precision PRECISION
+                        Precision of floating point numbers
+  --fillna FILLNA       Value to use to fill holes in the
+                        spreadsheet
+```
+#### Commands
+  - ⬆️⬇️⬅️➡️ / `kjhl` - Move
+  - `<TAB> <SHIFT-TAB>`/`n <SHIFT-n>` - Switch sheet
+  - `v` - Visual/selection mode
+  - `<ESC>` - Exit visual/selection mode
+  - `c` / `y` - Copy selected cell(s)
+  - `q` - Exit
+
+#### Supported file formats:
+  - xlsx
+  - xls
+  - xlsm
+  - xlsb
+  - csv
+  - odt
+  - odf
+  - ods
+
+## Installation
+
+`$ pip install texel`
+
+## Licence
+MIT
+
+
