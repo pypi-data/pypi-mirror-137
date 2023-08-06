@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: voxly
+Version: 0.0.1
+Summary: Chunked voxel data structure that facilitates basic logic and math operations on a 3d voxel grid.
+Keywords: voxel,chunk,3d,point-cloud,library,numpy-library
+Author-email: Michael Käser <info@mickare.de>
+Requires-Python: >=3.10.0,<4
+Description-Content-Type: text/markdown
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python
+Classifier: Topic :: Multimedia :: Graphics :: 3D Modeling
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development
+Classifier: Typing :: Typed
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: sphinx ; extra == "doc"
+Requires-Dist: pytest >=6.2.4,<7 ; extra == "test"
+Requires-Dist: pytest-cov ; extra == "test"
+Requires-Dist: mypy ==0.931 ; extra == "test"
+Requires-Dist: flake8 >=3.8.3,<4 ; extra == "test"
+Requires-Dist: pylint >=2.12.2,<3 ; extra == "test"
+Requires-Dist: black ~=22.1,<23.0 ; extra == "test"
+Requires-Dist: bandit ~=1.7,<2.0 ; extra == "test"
+Project-URL: Documentation, https://github.com/mickare/voxly
+Project-URL: Source, https://github.com/mickare/voxly
+Provides-Extra: doc
+Provides-Extra: test
+
+# Voxly
