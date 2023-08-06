@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "logbesselk"
+version = "1.0.0"
+description = "Provide function to calculate the modified Bessel function of the second kind"
+authors = ["TAKEKAWA Takashi <takekawa@tk2lab.org>"]
+
+[tool.poetry.dependencies]
+python = ">=3.7.1,<3.11"
+tensorflow = "^2.6.1"
+
+[tool.poetry.dev-dependencies]
+tensorflow-probability = "^0.13"
+pandas = "^1.3"
+pytest = "^5.2"
+matplotlib = "^3.4"
+seaborn = "^0.11"
+tqdm = "^4.62"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
