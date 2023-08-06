@@ -1,0 +1,66 @@
+site_name: Boxs documentation
+site_url: https://docs.kant.ai/boxs/
+repo_url: https://gitlab.com/kantai/boxs/
+site_dir: build
+
+nav:
+  - Home: index.md
+  - Getting started: getting_started.md
+  - User guide: user_guide.md
+  - Command line interface: cli.md
+  - Value types:
+      - Common: value_types/common.md
+      - Pandas: value_types/pandas.md
+      - Tensorflow: value_types/tensorflow.md
+  - Transformers:
+      - Statistics: transformers/statistics.md
+      - Checksum: transformers/checksum.md
+  - Storages:
+      - File: storages/file.md
+  - Changelog: changelog.md
+  - API: api.md
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  features:
+    - navigation.tracking
+  icon:
+    repo: fontawesome/brands/gitlab
+  palette:
+    scheme: kantai
+  logo: icon_white.svg
+  favicon: favicon.svg
+
+markdown_extensions:
+  - toc:
+      permalink: 🔗
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - admonition
+
+extra_javascript:
+    -
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  analytics:
+    provider: plausible
+    domain: docs.kant.ai
+  homepage: https://docs.kant.ai
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/kantaiML
+      name: kantai on Twitter
+  version:
+    provider: mike
+
+copyright: Copyright &copy; 2022 Kantai GmbH
+
+plugins:
+  - git-revision-date
+  - mkdocstrings
+  - search
