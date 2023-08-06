@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: higlass-schema
+Version: 0.0.2
+Summary: Pydantic models for HiGlass
+Home-page: https://github.com/higlass/higlass-schema
+Author: Trevor Manz
+Author-email: trevor.j.manz@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pydantic
+Requires-Dist: rich
+
+# higlass-schema
+
+Pydantic models for HiGlass
+
+```
+pip install higlass-schema
+```
+
+🚧 👷
+
+
+## Development
+
+```
+$ pip install -e .
+$ hgschema export # prints json schema
+$ hgschema check ./example.json # validates json
+```
+
+
+## Release
+
+```
+git tag -a v0.0.0 -m "v0.0.0"
+git push --follow-tags
+```
+
+
