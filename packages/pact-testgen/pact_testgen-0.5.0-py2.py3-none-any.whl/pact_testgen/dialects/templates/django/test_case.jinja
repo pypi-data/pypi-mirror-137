@@ -1,0 +1,11 @@
+{% if ps_names %}
+class Test{{ps_names|camel_case}}({{file.base_class}}):
+{% else %}
+class TestNoInitialState({{file.base_class}}):
+{% endif %}
+
+    {% if setup_function_name %}
+    def setUp(self):
+        {{setup_function_name}}()
+    {% endif %}
+    {{methods}}
