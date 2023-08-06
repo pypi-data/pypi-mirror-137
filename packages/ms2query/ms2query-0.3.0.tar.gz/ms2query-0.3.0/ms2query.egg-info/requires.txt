@@ -1,0 +1,23 @@
+matchms>=0.11.0
+numpy
+spec2vec>=0.6.0
+h5py<3.0.0
+tensorflow
+scikit-learn
+ms2deepscore
+gensim>=4.0.0
+pandas>=1.2.5
+
+[:python_version < "3.8"]
+pickle5
+
+[dev]
+bump2version
+isort>=5.1.0
+prospector[with_pyroma]
+pytest
+pytest-cov
+sphinx!=3.2.0,<4.0.0,>=3.0.0
+sphinx_rtd_theme
+sphinxcontrib-apidoc
+yapf
