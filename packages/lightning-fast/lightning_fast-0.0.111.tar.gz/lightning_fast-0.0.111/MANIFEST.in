@@ -1,0 +1,43 @@
+# include lightning_fast/c_dynamic_library/*
+recursive-include c_source/cmake_tools *
+recursive-include c_source/common_tools *
+recursive-include c_source/encoders *
+recursive-include c_source/external_include *
+recursive-include c_source/tests *
+include c_source/CMakeLists.txt
+include c_source/conanfile.txt
+recursive-include lightning_fast/c_tools *
+
+
+# remove what we don't want, kept in step with .gitignore
+# Logs
+global-exclude *.log
+# Swap files
+global-exclude *.sw[nop]
+global-exclude *~
+# Data files
+global-exclude *.mat
+# OSX crap
+global-exclude *.DS_Store
+# Python setuptools
+global-exclude *.egg-info
+# Compiled Object files
+global-exclude *.slo
+global-exclude *.lo
+global-exclude *.o
+global-exclude *.pyc
+# Compiled Dynamic libraries
+global-exclude *.so
+global-exclude *.dylib
+# Compiled Static libraries
+global-exclude *.lai
+global-exclude *.la
+global-exclude *.a
+# built doc files
+recursive-exclude lightning_fast/c_dynamic_library/ *
+recursive-exclude doc/_* *
+recursive-exclude doc/xml/* *
+recursive-exclude doc/latex/* *
+recursive-exclude doc/html/* *
+recursive-exclude doc/.doctrees/* *
+

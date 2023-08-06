@@ -1,0 +1,1 @@
+add_library(tpl tpl.c tpl.h)
