@@ -1,0 +1,19 @@
+import pandas as pd
+import plotly.express as px
+from IPython.display import Markdown, display
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+import numpy as np
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.utils.validation import check_is_fitted, check_array
+from scipy.signal import convolve2d
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LinearRegression
+from sklearn.impute import SimpleImputer
+from sklearn import metrics
+import plotly.graph_objects as go
+from sklearn.preprocessing import OneHotEncoder
+from IPython.display import Markdown
+import nevergrad as ng
