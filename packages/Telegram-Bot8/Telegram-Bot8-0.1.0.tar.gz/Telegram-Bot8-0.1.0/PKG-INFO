@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: Telegram-Bot8
+Version: 0.1.0
+Summary: Python package to utilizes the telegram API to easily add commands and person other actions
+Home-page: https://github.com/AppDevIn/TelegramBot
+Author: AppDevIn Sliver
+Author-email: teamprojectlive@example.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/AppDevIn/TelegramBot
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# TelegramBot
+
+## Project Description
+
+This project uses the telegram bot API to create a bot service
+
+## Installation
+
+To install with pip <br>
+
+```
+$ python -m pip install repo_helper_github
+```
+
+## Usage
+
+```
+from TeleBot import TeleBot
+
+@bot.add_command_helper(command="/hi")
+def hi(message: Message):
+    bot.send_message(message.chat.getID(), "Hello")
+
+
+@bot.add_command_menu_helper(command="/bye", description="Just testing added command")
+def bye(message: Message):
+    bot.send_message(message.chat.getID(), "Bye")
+
+
+@bot.add_regex_helper(regex="^hi$")
+def regex(message: Message):
+    bot.send_message(message.chat.getID(), "Hello")
+
+bot.poll()
+```
+
+
