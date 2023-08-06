@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: pycounts-polluxtroy3758
+Version: 0.3.0
+Summary: Calculate word counts in a text file!
+License: MIT
+Author: polluxtroy3758
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: matplotlib (>=3.5.1,<4.0.0)
+Description-Content-Type: text/markdown
+
+# pycounts_polluxtroy3758
+
+Calculate word counts in a text file!
+
+## Installation
+
+```bash
+$ pip install pycounts_polluxtroy3758
+```
+
+## Usage
+
+`pycounts_polluxtroy3758` can be used to count words in a text file and plot results
+as follows:
+
+```python
+from pycounts_polluxtroy3758.pycounts import count_words
+from pycounts_polluxtroy3758.plotting import plot_words
+import matplotlib.pyplot as plt
+
+file_path = "test.txt"  # path to your file
+counts = count_words(file_path)
+fig = plot_words(counts, n=10)
+plt.show()
+```
+
+## Contributing
+
+Interested in contributing? Check out the contributing guidelines. Please note that this project is released with a Code of Conduct. By contributing to this project, you agree to abide by its terms.
+
+## License
+
+`pycounts_polluxtroy3758` was created by polluxtroy3758. It is licensed under the terms of the MIT license.
+
+## Credits
+
+`pycounts_polluxtroy3758` was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).
+
