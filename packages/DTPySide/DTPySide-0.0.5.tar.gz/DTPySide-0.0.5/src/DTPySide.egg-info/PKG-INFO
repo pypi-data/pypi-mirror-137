@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: DTPySide
+Version: 0.0.5
+Summary: A PySide framework for constructing customizable GUI software.
+Home-page: https://github.com/Holence/DongliTeahousePySide
+Author: Holence
+Author-email: Holence08@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/Holence/DongliTeahousePySide/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# DongliTeahousePySideWheel
+
+## Installation
+
+Install from PyPI:
+
+`pip install DTPySide`
+
+or build on your own:
+
+`py -m build`
+
+## Try Demo
+
+```python
+from DTPySide.demo import main
+
+main.run()
+```
+# Changelog
+
+## 0.0.5
+
+- TrayIcon showMessage and messageClicked's slot are now built in DTApp
+- Now the opening of the backup folder is triggered by clicking the TrayIcon's message
+- Add Win32_Shellmove function
+
+## 0.0.4
+
+- Added requirements
+
+## 0.0.3
+
+- Added some source files
+
+## 0.0.2
+
+- Structure Fixed
+
+## 0.0.1
+
+- Initial Upload
+
+
