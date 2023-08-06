@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: PyMysqlTools
+Version: 0.3
+Summary: A library that makes MySQL operation more convenient.
+Home-page: https://gitee.com/uraurara/PyMysqlTools
+Author: ulala
+Author-email: 2713389652@qq.com
+License: MIT
+Keywords: mysql,client,mysqluitls,PyMysqlTools
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: Chinese (Simplified)
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.8.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+
+# PyMysqlTools
+
+---
+PyMysqlTools 是一个能以更方便的方式操作mysql的库
+
+
+### 使用示例
+
+    1. 建立mysql连接
+        ```python
+            mysql = PyMysqlTools(
+                'example',
+                username='root',
+                password='123456'
+            )
+
+            print(mysql)
+            # 这样, 你就建立了一个mysql的本地连接
+        ```
+
