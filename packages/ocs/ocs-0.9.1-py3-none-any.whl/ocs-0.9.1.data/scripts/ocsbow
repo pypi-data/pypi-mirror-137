@@ -1,0 +1,10 @@
+#!python
+
+from ocs import ocsbow
+import sys
+
+try:
+    ocsbow.main()
+except ocsbow.OcsbowError as e:
+    print('ocsbow exiting with error: %s' % e, file=sys.stderr)
+    sys.exit(1)
