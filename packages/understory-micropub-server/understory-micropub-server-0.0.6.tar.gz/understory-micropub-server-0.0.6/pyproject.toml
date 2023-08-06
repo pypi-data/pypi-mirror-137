@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "understory-micropub-server"
+version = "0.0.6"
+description = "A Micropub server for the Understory framework."
+authors = ["Angelo Gladding <self@angelogladding.com>"]
+license = "CC0-1.0"
+readme = "README.md"
+packages = [{include = "understory"}]
+
+[tool.poetry.plugins."web.apps"]
+micropub_server = "understory.apps.micropub_server.posts:app"
+micropub_content = "understory.apps.micropub_server.content:app"
+micropub_media = "understory.apps.micropub_server.media:app"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+understory = "^0"
+micropub = "^0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.9b0"
+isort = "^5.9.3"
+flake8 = "^3.9.2"
+flake8-docstrings = "^1.6.0"
+pep8-naming = "^0.12.1"
+radon = "^5.1.0"
+understory = {path = "../understory"}
+micropub = {path = "../micropub-python"}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
