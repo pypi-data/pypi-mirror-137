@@ -1,0 +1,78 @@
+[tool.poetry]
+name = "ja-timex"
+version = "0.2.3"
+description = "Analyze and parse natural language temporal expression from Japanese sentences"
+authors = ["Yuki Okuda <y.okuda@dr-ubie.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/yagays/ja-timex"
+repository = "https://github.com/yagays/ja-timex"
+keywords = ["ja_timex", "NLP", "japanese"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Natural Language :: Japanese",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Linguistic",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7.1"
+mojimoji = "^0.0.11"
+pendulum = "^2.1.2"
+
+[tool.poetry.dev-dependencies]
+ipython = "^7.31.1"
+ipdb = "^0.13.9"
+flake8 = "^3.9.2"
+mypy = "^0.910"
+black = "^21.12b0"
+isort = "^5.10.1"
+pytest = "^6.2.5"
+streamlit = "^0.84.2"
+pandas = "^1.2.5"
+watchdog = "^2.1.6"
+mkdocs = "^1.2.3"
+mkdocs-material = "^7.3.0"
+Pygments = "^2.11.2"
+pymdown-extensions = "^8.2"
+lxml = "^4.7.1"
+tox = "^3.24.5"
+
+[tool.black]
+line-length = 120
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
+
+[tool.isort]
+profile = "hug"
+line_length = 120
+src_paths = ["ja_timex", "tests", "tools"]
+
+[tool.poetry-dynamic-versioning]
+enable = true
+style = "pep440"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
