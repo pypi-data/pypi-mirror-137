@@ -1,0 +1,126 @@
+\documentclass[10pt,titlepage,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[finnish]{babel}
+\usepackage{amssymb,amsmath}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{eurosym}
+\usepackage{wrapfig}
+\usepackage[most]{tcolorbox}
+\usepackage[ddmmyyyy]{datetime}
+\renewcommand{\dateseparator}{.}
+\definecolor{fuksia}{RGB}{211,52,121}
+\definecolor{fuksia_dark}{RGB}{191,48,110}
+\tcbset{
+	frame code={}
+	center title,
+	left=0pt,
+	right=0pt,
+	top=0pt,
+	bottom=0pt,
+	coltext=white,
+	colback=fuksia_dark,
+	colframe=white,
+	width=\dimexpr\textwidth\relax,
+	enlarge left by=0mm,
+	boxsep=5pt,
+	arc=0pt,outer arc=0pt,
+}
+
+\geometry{verbose,a4paper,tmargin=20mm,bmargin=20mm,lmargin=19mm,rmargin=19mm}
+
+
+\begin{document}
+	\fontfamily{phv}\selectfont
+	\renewcommand{\arraystretch}{1.2}
+	\pagestyle{empty} 
+	\begin{wrapfigure}[1]{r}{0.5\textwidth}
+		\begin{center}
+			\includegraphics[width=.25\textwidth]{$logo$}
+		\end{center}
+	\end{wrapfigure}
+	\noindent 
+	\\
+	\\
+	LATEKSII RY\\
+	Laserkatu 10\\
+	53850 LAPPEENRANTA\\
+	rahastonhoitaja@lateksii.fi
+	\vspace{4cm}
+	\begin{tcolorbox}
+		\textsc{\large Lasku $invoiceid$}\hfill{\large $date$}
+	\end{tcolorbox}
+	\vspace{5pt}
+	\noindent
+	\hspace{2pt}
+	\begin{minipage}{.3\textwidth}
+		\color{fuksia}
+		\vspace{-7pt}
+		MYYJÄ\\
+		\color{black}
+		\line(1,0){150}
+		
+		
+		\vspace{2pt}
+		Lateksii ry\\
+		Laserkatu 10\\
+		53850 LAPPEENRANTA
+		\\
+		\\
+	\end{minipage}
+	\begin{minipage}{.7\textwidth}
+		\begin{flushright}
+			\begin{tabular}{l l}
+				Maksettava & $price$ \euro  \\
+				Eräpäivä & $duedate$ \\
+				Maksunsaajan nimi & LATEKSII RY\\
+				IBAN & FI63 4108 0011 0303 79\\
+				BIC & ITELFIHH\\
+				Viitenumero & $reference$\\
+				Maksuehto & $condition$ pv.
+			\end{tabular}
+		\end{flushright}
+	\end{minipage}
+	
+	\vspace{2cm}
+	\color{darkgray}
+	$info$
+	\vspace{\fill}
+	
+	
+	\noindent
+	\begin{tabular}{m{.25\textwidth} m{.7\textwidth}}
+		\color{fuksia_dark}Laskutettava\hspace{2cm} &\color{fuksia_dark} Laskun vastaanottaja\hspace{9cm} \\
+		\hline
+		\noindent
+		\begin{tabular}[t]{l}
+			$address$
+		\end{tabular}
+		 & $email$ 
+	\end{tabular}
+	\vspace{2cm}
+	
+	\renewcommand{\arraystretch}{1.5}
+	\noindent
+	\color{black}
+	\begin{tabular}{|m{30pt}|m{10cm}|m{2.5cm}|m{2cm}|}
+		\hline
+		\rowcolor{fuksia_dark}
+		\color{white}Määrä\hspace{15pt} & \color{white}Kuvaus\hspace{8.5cm} & \color{white}Yksikköhinta, \euro & \color{white} Yhteensä, \euro \\
+		$items$
+	\end{tabular}
+	\begin{flushright}
+		\begin{tabular}{|l|l|}
+			\hline
+			Välisumma, \euro & $price$\\
+			\hline
+			Alv. & 0\% \\
+			\hline
+			\textbf{Maksettavaa yhteensä} & \textbf{$price$ \euro} \\
+			\hline
+		\end{tabular}
+	\end{flushright}
+\end{document}
