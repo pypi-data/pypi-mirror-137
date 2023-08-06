@@ -1,0 +1,18 @@
+
+[dev]
+Django>=1.11
+nose2
+tox
+check_manifest
+coverage
+flake8
+wheel
+zest.releaser[recommended]
+
+[dev:python_version == "3.4"]
+readme_renderer<25.0
+colorama<=0.4.1
+
+[doc]
+Sphinx
+sphinx_rtd_theme
