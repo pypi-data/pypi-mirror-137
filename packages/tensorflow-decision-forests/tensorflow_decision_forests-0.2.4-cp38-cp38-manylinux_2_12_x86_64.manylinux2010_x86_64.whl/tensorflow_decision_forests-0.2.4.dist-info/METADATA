@@ -1,0 +1,134 @@
+Metadata-Version: 2.1
+Name: tensorflow-decision-forests
+Version: 0.2.4
+Summary: Collection of training and inference decision forest algorithms.
+Home-page: https://github.com/tensorflow/decision-forests
+Author: Google Inc.
+Author-email: packages@tensorflow.org
+License: Apache 2.0
+Project-URL: Bug Tracker, https://github.com/tensorflow/decision-forests/issues
+Keywords: tensorflow tensor machine learning decision forests random forest gradient boosted decision trees
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: tensorflow (~=2.8.0)
+Requires-Dist: six
+Requires-Dist: absl-py
+Requires-Dist: wheel
+Requires-Dist: wurlitzer
+
+# TensorFlow Decision Forests
+
+[![TensorFlow](https://img.shields.io/badge/TensorFow-page-orange)](https://www.tensorflow.org/decision_forests)
+
+**TensorFlow Decision Forests** (**TF-DF**) is a collection of state-of-the-art
+algorithms for the training, serving and interpretation of **Decision Forest**
+models. The library is a collection of [Keras](https://keras.io/) models and
+supports classification, regression and ranking.
+
+**TF-DF** is a [TensorFlow](https://www.tensorflow.org/) wrapper around the
+[Yggdrasil Decision Forests](https://github.com/google/yggdrasil-decision-forests)
+C++ libraries. Models trained with TF-DF are compatible with Yggdrasil Decision
+Forests' models, and vice versa.
+[This link](https://github.com/google/yggdrasil-decision-forests/blob/main/documentation/user_manual.md#serving-tensorflow-decision-forests-model)
+explains how to do inference of TF-DF models in C++ using Yggdrasil.
+
+## Usage example
+
+A minimal end-to-end run looks as follow:
+
+```python
+import tensorflow_decision_forests as tfdf
+import pandas as pd
+
+# Load the dataset in a Pandas dataframe.
+train_df = pd.read_csv("project/train.csv")
+test_df = pd.read_csv("project/test.csv")
+
+# Convert the dataset into a TensorFlow dataset.
+train_ds = tfdf.keras.pd_dataframe_to_tf_dataset(train_df, label="my_label")
+test_ds = tfdf.keras.pd_dataframe_to_tf_dataset(test_df, label="my_label")
+
+# Train the model
+model = tfdf.keras.RandomForestModel()
+model.fit(train_ds)
+
+# Look at the model.
+model.summary()
+
+# Evaluate the model.
+model.evaluate(test_ds)
+
+# Export to a TensorFlow SavedModel.
+# Note: the model is compatible with Yggdrasil Decision Forests.
+model.save("project/model")
+```
+
+## Documentation & Resources
+
+The following resources are available:
+
+-   [TF-DF on TensorFlow.org](https://tensorflow.org/decision_forests) (with the
+    API Reference and Tutorials)
+-   [Notebook tutorials (on Github)](documentation/tutorials)
+-   [Notebook tutorials (on tensorflow.org)](https://www.tensorflow.org/decision_forests/tutorials)
+-   [Migration guide from Neural Network to Decision Forests](documentation/migration.md)
+-   [Issue tracker](https://github.com/tensorflow/decision-forests/issues)
+-   [Known issues](documentation/known_issues.md)
+-   [Changelog](CHANGELOG.md)
+-   [Discuss on TensorFlow.Org](https://discuss.tensorflow.org)
+-   [Yggdrasil documentation](https://github.com/google/yggdrasil-decision-forests)
+    (for advanced users and C++ serving)
+-   [Distributed Training](documentation/distributed_training.md)
+-   [TF-DF in TensorFlow Serving](documentation/tensorflow_serving.md)
+
+## Installation
+
+To install TensorFlow Decision Forests, run:
+
+```shell
+pip3 install tensorflow_decision_forests --upgrade
+```
+
+See the [installation](documentation/installation.md) page for more details,
+troubleshooting and alternative installation solutions.
+
+## Contributing
+
+Contributions to TensorFlow Decision Forests and Yggdrasil Decision Forests are
+welcome. If you want to contribute, make sure to review the
+[developer manual](documentation/developer_manual.md) and
+[contribution guidelines](CONTRIBUTING.md).
+
+## Credits
+
+TensorFlow Decision Forests was developed by:
+
+-   Mathieu Guillame-Bert (gbm AT google DOT com)
+-   Jan Pfeifer (janpf AT google DOT com)
+-   Sebastian Bruch (sebastian AT bruch DOT io)
+-   Arvind Srinivasan (arvnd AT google DOT com)
+
+## License
+
+[Apache License 2.0](LICENSE)
+
+
