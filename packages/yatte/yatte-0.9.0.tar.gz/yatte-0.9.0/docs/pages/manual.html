@@ -1,0 +1,90 @@
+<article>
+
+<h1>User manual</h1>
+
+<p>This is the manual page for the <code class="cmd">yatte</code> command-line interface (CLI).</p>
+
+
+<p>If <code>yatte</code> is installed on your system,
+  you can view the same information locally by running <code class="cmd">yatte --help</code>.</p>
+
+<p>If you prefer to view the manual with <code class="cmd">man yatte</code>,
+  download <a href="yatte.1">the <code>man</code>-format file</a>
+  and place it on your <code>$MANPATH</code>,
+  e.g. in <code>~/.local/share/man/man1/</code>.</p>
+
+<section id="manpage" class="topborder">
+
+<h2>NAME</h2>
+<p>yatte – a simple task runner</p>
+
+<h2>SYNOPSIS</h2>
+<p><b>yatte</b> [-h | -V | <i>task</i> [ <i>task_args</i> ... ] ]</p>
+
+<h2>DESCRIPTION</h2>
+<p>Runs tasks defined in a Python script (named <i>tasks.py</i> by default).</p>
+<p>Pass the task name as the first argument,
+  followed by any additional arguments expected by the task:</p>
+<pre><code>$ <b>yatte <i>task</i> [<i>task_args ...</i>]</b></code></pre>
+<p>Run without arguments
+  to print the list of available tasks and the arguments expected by each:</p>
+<pre><code>$ <b>yatte</b></code></pre>
+
+<h2>OPTIONS</h2>
+<p>Use the following flags to display information about the program:</p>
+<dl>
+  <dt><b>-h</b> <b>--help</b></dt>
+  <dd>Show usage information and exit.</dd>
+  <dt><b>-V</b> <b>--version</b></dt>
+  <dd>Show the version number and exit.</dd>
+</dl>
+
+<h2>EXIT STATUS</h2>
+<p>Exits with return code <b>0</b> upon successful completion,
+  or ≥ <b>1</b> in case of failure,
+  the exact value depending on the return code of any subprocesses invoked.</p>
+
+<h2>ENVIRONMENT</h2>
+<p>The default behaviour can be modified by setting the following environment variables:</p>
+<dl>
+  <dt><b>YATTE_TASKFILE</b></dt>
+  <dd>the path to the task file
+    (default: <i>tasks.py</i>)</dd>
+  <dt><b>YATTE_SUCCESS_MSG</b></dt>
+  <dd>the message printed to the console upon successful completion of the task
+    (default: “= Yatta! =”)</dd>
+</dl>
+
+<h2>FILES</h2>
+<p><b>yatte</b> expects the task file to be a Python module
+  containing one or more function definitions decorated with <i>yatte.task()</i>.
+  See below for an example.</p>
+<p>The first line of the function docstring is used as the task description
+  when printing the task list.</p>
+<p>The function can take one or more positional arguments of type <i>str,</i>
+  which must then be supplied on the command line when running the task.</p>
+
+<h2>EXAMPLES</h2>
+<p>Running <b>yatte</b> against this task file:</p>
+<pre><code>from yatte import task
+
+@task("echo")
+def print_echo(word):
+    "Echoes a word."
+    print(word.upper(), word.title(), word.lower())</code></pre>
+
+<p>will produce output like the following:</p>
+
+<pre><code>$ <b>yatte</b>
+echo word		Echoes a word.</code></pre>
+
+<pre><code>$ <b>yatte echo hello</b>
+HELLO Hello hello
+= Yatta! =</code></pre>
+
+<h2>SEE ALSO</h2>
+<p><b>invoke</b>(1), <b>make</b>(1)</p>
+
+</section>
+
+</article>

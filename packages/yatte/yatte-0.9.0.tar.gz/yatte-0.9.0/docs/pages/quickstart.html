@@ -1,0 +1,46 @@
+<article>
+
+<h1>Quickstart</h1>
+
+<p>This example demonstrates how to write a task file and run it with <code class="cmd">yatte</code>.</p>
+
+<p>After <a href="installation.html">installing</a> the package,
+create a file named <code>tasks.py</code>
+containing some functions decorated with <code>@task</code>:</p>
+
+<pre><code><span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> run
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> exit, stderr
+
+<span class="kn">from</span> <span class="nn">yatte</span> <span class="kn">import</span> task
+
+@task(<span class="s2">&quot;greet&quot;</span>)
+<span class="k">def</span> hello():
+    <span class="sd">&quot;&quot;&quot;Greet the world&quot;&quot;&quot;</span>
+    print(<span class="s2">&quot;Hello, world!&quot;</span>)
+
+@task(<span class="s2">&quot;list-files&quot;</span>)
+<span class="k">def</span> list_files(dir):
+    <span class="sd">&quot;&quot;&quot;List the files in the directory&quot;&quot;&quot;</span>
+    shell(<span class="sa">f</span><span class="s2">&quot;ls </span><span class="si">{</span>dir<span class="si">}</span><span class="s2">&quot;</span>)
+
+<span class="k">def</span> shell(cmd):
+    print(<span class="s2">&quot;sh&gt;&quot;</span>, cmd, file=stderr)
+    p = run(cmd, shell=<span class="kc">True</span>)
+    <span class="k">if</span> p.returncode:
+        exit(p.returncode)</code></pre>
+
+<p>Then call <code class="cmd">yatte</code> by itself to list the tasks:</p>
+
+<pre><code><span class="gp">$ </span>yatte
+<span>greet                   Greet the world</span>
+<span>list-files dir          List the files in the directory</span></code></pre>
+
+<p>And <code class="cmd">yatte {task}</code> to execute the given task:</p>
+
+<pre><code><span class="gp">$ </span>yatte list-files .
+<span>sh&gt; ls .</span>
+<span>pyproject.toml README.md tasks.py</span></code></pre>
+
+<p>The <a href="manual.html">manual</a> describes how to use the <code class="cmd">yatte</code> command in more detail.</p>
+
+</article>

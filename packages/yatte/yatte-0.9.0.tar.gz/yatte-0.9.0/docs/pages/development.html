@@ -1,0 +1,35 @@
+<article>
+
+<h1>Development</h1>
+
+<p>In order to run project-related tasks defined in <code>tasks.py</code>,
+  its immediate dependencies must first be installed:</p>
+
+<pre><code><span class="gp">$ </span>pip install . chevron==0.14</code></pre>
+
+<p>The package can now be installed in development mode
+  via <code class="cmd">yatte</code> itself:</p>
+
+<pre><code><span class="gp">$ </span>yatte setup</code></pre>
+
+<p>Other project-related tasks can then be listed and run:</p>
+
+<pre><code><span class="gp">$ </span>yatte
+<span class="gp">$ </span>yatte fmt  <span class="c1"># etc.</span></code></pre>
+
+<p>To add a pre-commit hook to check the code when committing,
+  write the following to <code>.git/hook/pre-commit</code>
+  and <code class="cmd">chmod +x</code> it:</p>
+
+<pre><code><span class="ch">#!/bin/sh -e</span>
+yatte check</code></pre>
+
+<p><em>Note:</em>
+  The <code>man</code> task has the following non-Python dependency,
+  which must be installed separately:</p>
+
+<ul>
+  <li><a href="https://git.sr.ht/~sircmpwn/scdoc">scdoc</a></li>
+</ul>
+
+</article>
