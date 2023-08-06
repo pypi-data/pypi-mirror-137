@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 
+
+Copyright (C) 2019 - 2020
+
+This file is part of Carburetor.
+
+Carburetor is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Carburetor is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Carburetor.  If not, see <http://www.gnu.org/licenses/>.
+
+Author: Danial Behzadi <dani.behzi@ubuntu.com>
+
+-->
+<interface domain="messages">
+  <requires lib="gtk+" version="3.24"/>
+  <requires lib="libhandy" version="1.2"/>
+  <!-- interface-css-provider-path style.css -->
+  <!-- interface-license-type gplv3 -->
+  <!-- interface-name Carburetor -->
+  <!-- interface-description Settings for Tractor -->
+  <!-- interface-copyright 2019 - 2020 -->
+  <!-- interface-authors Danial Behzadi <dani.behzi@ubuntu.com> -->
+  <object class="GtkMenu" id="ActionMenu">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="NewIDItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="action-name">app.new_id</property>
+        <property name="label" translatable="yes">_New ID</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkCheckMenuItem" id="SetProxyItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="action-name">app.set_proxy</property>
+        <property name="label" translatable="yes">_Set proxy on system</property>
+        <property name="use-underline">True</property>
+        <signal name="realize" handler="on_SetProxyItem_realize" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="CheckConnectionItem">
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">_Check connection</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="MenuIcon">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">open-menu-symbolic</property>
+  </object>
+  <object class="HdyApplicationWindow" id="MainWindow">
+    <property name="can-focus">False</property>
+    <property name="default-width">425</property>
+    <property name="icon-name">carburetor</property>
+    <child>
+      <object class="GtkBox" id="MainBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="HdyHeaderBar" id="HeaderBar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="valign">start</property>
+            <property name="title" translatable="yes">Carburetor</property>
+            <property name="subtitle" translatable="yes">For Tractor</property>
+            <property name="show-close-button">True</property>
+            <property name="decoration-layout">:close</property>
+            <child>
+              <object class="GtkButtonBox" id="ActionButtonBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="homogeneous">True</property>
+                <property name="layout-style">expand</property>
+                <child>
+                  <object class="GtkButton" id="ConnectButton">
+                    <property name="label" translatable="yes">_Connect</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="action-name">app.connect</property>
+                    <property name="use-underline">True</property>
+                    <style>
+                      <class name="connectbutton"/>
+                      <class name="green"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                    <property name="non-homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkMenuButton" id="ActionMenuButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="halign">start</property>
+                    <property name="popup">ActionMenu</property>
+                    <property name="use-popover">False</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="icon-name">pan-down-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                    <property name="non-homogeneous">True</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkMenuButton" id="MenuButton">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="image">MenuIcon</property>
+                <property name="popover">MenuPopover</property>
+                <accelerator key="F10" signal="activate"/>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkViewport" id="MainContainer">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="HdyStatusPage" id="MainPage">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="icon-name">process-stop-symbolic</property>
+                <property name="title" translatable="yes">Stopped</property>
+                <signal name="realize" handler="on_MainPage_realize" swapped="no"/>
+                <child>
+                  <object class="GtkButton" id="CancelButton">
+                    <property name="label" translatable="yes">_Cancel</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="action-name">app.cancel</property>
+                    <property name="use-underline">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <style>
+              <class name="maincontainer"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="MenuPopover">
+    <property name="can-focus">False</property>
+    <property name="relative-to">MenuButton</property>
+    <child>
+      <object class="GtkBox" id="MenuBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkModelButton" id="MenuPreferences">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="action-name">app.preferences</property>
+            <property name="text" translatable="yes">Preferences</property>
+            <property name="centered">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkModelButton" id="MenuAbout">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="action-name">app.about</property>
+            <property name="text" translatable="yes">About Carburetor</property>
+            <property name="centered">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkModelButton" id="MenuQuit">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="action-name">app.quit</property>
+            <property name="text" translatable="yes">Quit</property>
+            <property name="centered">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
