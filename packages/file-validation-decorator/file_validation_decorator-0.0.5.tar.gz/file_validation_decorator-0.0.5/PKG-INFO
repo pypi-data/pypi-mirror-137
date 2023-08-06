@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: file_validation_decorator
+Version: 0.0.5
+Summary: This decorator validates the file extension and file size of an in memory file object.
+Home-page: https://github.com/JustinShuttleworth/file_validation_decorator
+Author: Justin Shuttleworth
+Author-email: justin_shuttleworth@outlook.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# File Validation Decorator
+A decorator for validating file types and sizes. If the validation fails, an Exception will be raised and the code will stop before reaching the function you are decorating. A successful validation will execute the function being decorated - business as usual.
+
+![Alt_Text](https://source.unsplash.com/Q9y3LRuuxmg)
+
+---
+
+## Example Of A Successful File Validation
+```
+from file_validation_decorator.file_validation import file_validation
+
+with open('places_to_go.txt') as file:
+    @file_validation(file, ['txt', 'jpeg'], 10)
+    def test():
+        print('it works')
+
+    test()
+```
+
+## Example Of A File That Is Too Large In Size
+The decorator is provided a file size of 0 below and will raise a FileSizeExceeded error.
+```
+from file_validation_decorator.file_validation import file_validation
+
+with open('places_to_go.txt') as file:
+    @file_validation(file, ['txt', 'jpeg'], 0)
+    def test():
+        print('it works')
+
+    test()
+```
+
+## Example Of A File Extension That Is Not Allowed
+The example file being uploaded here is a .txt but a text file is not provided in the accepted file extensions list. This will raise a FileTypeNotAllowed error. 
+
+```
+from file_validation_decorator.file_validation import file_validation
+
+with open('places_to_go.txt') as file:
+    @file_validation(file, ['jpeg'], 0)
+    def test():
+        print('it works')
+
+    test()
+```
+
