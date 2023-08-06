@@ -1,0 +1,23 @@
+include README.rst
+include CHANGES.rst
+include LICENSE.rst
+
+recursive-include asv *.html *.js *.css *.ico *.png
+
+include asv.conf.json
+recursive-include benchmarks *.py
+
+include requirements-dev.txt
+include pyproject.toml
+include pytest.ini
+
+include docs/make.bat
+include docs/Makefile
+recursive-include docs *.rst *.txt *.py *.ico *.html *.png *.css
+
+recursive-include test *.json *.py README
+
+prune docs/build
+prune build
+
+global-exclude *.pyc *.o __pycache__

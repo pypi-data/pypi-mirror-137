@@ -1,0 +1,29 @@
+six>=1.4
+
+[hg]
+python-hglib>=1.5
+
+[testing]
+virtualenv>=1.7
+filelock
+six
+pip
+setuptools
+wheel
+numpy
+scipy
+selenium
+pytest-xdist
+pytest-timeout
+feedparser
+python-hglib
+
+[testing:platform_python_implementation != "PyPy"]
+pytest>=4.4.0
+pytest-rerunfailures>=8.0
+pytest-faulthandler
+
+[testing:platform_python_implementation == "PyPy"]
+pytest<5.0,>=4.4.0
+pytest-rerunfailures<9.0,>=8.0
+pytest-faulthandler<2.0
