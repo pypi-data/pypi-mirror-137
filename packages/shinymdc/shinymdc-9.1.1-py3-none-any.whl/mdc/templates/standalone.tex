@@ -1,0 +1,73 @@
+\RequirePackage{scrlfile}
+\PreventPackageFromLoading{subfig}
+
+\documentclass[preview,varwidth=100in]{standalone}
+
+\usepackage[T1]{fontenc}
+\usepackage[no-math]{fontspec}
+\usepackage[babel=true,protrusion=true,expansion=true]{microtype}
+\usepackage[american]{babel}
+\usepackage[unicode=true,hidelinks]{hyperref}
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{booktabs}
+\usepackage{footnote}
+\usepackage{acronym}
+\usepackage{relsize}
+\usepackage{upquote}
+\usepackage{fancyvrb}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mleftright}
+\usepackage{bm}
+\usepackage{algpseudocode}
+
+% Pandoc crossref workaround
+\let\pandoccrossrefsubfigures\figure
+\let\endpandoccrossrefsubfigures\endfigure
+
+% Pandoc mods
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Keep aspect ratio of figures
+\let\origincgfx\includegraphics
+\renewcommand{\includegraphics}[2][]{\origincgfx[#1,max width=\textwidth,max height=\textheight,keepaspectratio]{#2}}
+
+% Use mleftright
+\renewcommand\left\mleft
+\renewcommand\right\mright
+
+% Automatically use \left and \right with parentheses
+\makeatletter
+\def\resetMathstrut@{%
+  \setbox\z@\hbox{%
+    \mathchardef\@tempa\mathcode`\[\relax
+    \mathchardef\@tempc\mathcode`\]\relax
+    \def\@tempb##1"##2##3{\the\textfont"##3\char"}%
+    \expandafter\@tempb\meaning\@tempa \relax
+  }%
+  \ht\Mathstrutbox@\ht\z@ \dp\Mathstrutbox@\dp\z@}
+\makeatother
+\begingroup
+  \catcode`(\active \xdef({\left\string(}
+  \catcode`)\active \xdef){\right\string)}
+\endgroup
+\mathcode`(="8000 \mathcode`)="8000
+
+% Configure acronym font
+\renewcommand*{\acsfont}[1]{{\addfontfeature{LetterSpace=10.0}\scshape\textsmaller{#1}}}
+
+$for(include-before)$$include-before$$endfor$
+
+\begin{document}
+
+% Enable french spacing
+\frenchspacing
+
+$body$
+
+\end{document}
