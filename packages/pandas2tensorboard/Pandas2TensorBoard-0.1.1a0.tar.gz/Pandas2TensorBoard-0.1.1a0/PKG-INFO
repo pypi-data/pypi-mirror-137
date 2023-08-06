@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: pandas2tensorboard
+Version: 0.1.1a0
+Summary: Pandas DataFrames converted to TensorBoard Format
+Home-page: https://pypi.org/project/pandas2tensorboard/
+License: MIT
+Keywords: tensorboard,pandas,machine learning,visualizer
+Author: Anselm Hahn
+Author-email: Anselm.Hahn@gmail.com
+Maintainer: Anselm Hahn
+Maintainer-email: Anselm.Hahn@gmail.com
+Requires-Python: >=3.8,<3.10
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Database
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Provides-Extra: all
+Provides-Extra: backend
+Provides-Extra: modin
+Requires-Dist: dask (>=2022.1.1,<2023.0.0); extra == "backend" or extra == "all"
+Requires-Dist: intake-omnisci (>=0.1.0,<0.2.0); extra == "backend" or extra == "all"
+Requires-Dist: modin (>=0.13.0,<0.14.0); extra == "modin" or extra == "all"
+Requires-Dist: pandas (>=1.4.0,<2.0.0)
+Requires-Dist: tensorboard (>=2.8.0,<3.0.0)
+Requires-Dist: torch (>=1.10.2,<2.0.0)
+Project-URL: Documentation, https://github.com/Anselmoo/pandas2tensorboard/
+Project-URL: Repository, https://github.com/Anselmoo/pandas2tensorboard/
