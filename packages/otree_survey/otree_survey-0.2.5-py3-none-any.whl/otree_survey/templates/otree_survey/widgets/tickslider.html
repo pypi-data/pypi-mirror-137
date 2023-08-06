@@ -1,0 +1,60 @@
+{% load otree static %}
+<div id="main">
+    {% if widget.attrs.show_value %}
+        <div class="sliderinfoblocks {% if widget.attrs.show_block == 'left' %}sliderblockleft{% else %}sliderblockright order-last{% endif %}"
+             id="info_{{ widget.attrs.id }}"
+        >
+            {% if widget.attrs.set_value %}{{ widget.attrs.slider_start_value }}{% endif %}
+        </div>
+    {% endif %}
+    <div class="sliderouter">
+        <div id="{{widget.attrs.id}}" class="slider"></div>
+        <input type="hidden" name="{{ widget.name }}" id="{{ widget.attrs.id }}"
+               {% if widget.attrs.set_value %}
+               value="{{ widget.attrs.slider_start_value }}"
+               {% endif %}
+        >
+		{% if widget.attrs.end_labels %}
+			<div class="end-labels content small" style="margin-top: -1.5em;">
+				<div class="row">
+					<div class="col-6 text-left">{{ widget.attrs.end_labels.0 }}</div>
+					<div class="col-6 text-right">{{ widget.attrs.end_labels.1 }}</div>
+				</div>
+			</div>
+		{% endif %}
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('div.slider#{{widget.attrs.id}}').labeledslider({
+            orientation: 'horizontal',
+            min: {{ widget.attrs.min|json }},
+            max: {{ widget.attrs.max|json }},
+            value: {{widget.attrs.slider_start_value|json}},
+            step:{{ widget.attrs.step|json }},
+            tickInterval: {{ widget.attrs.tick_interval }},
+            secondaryTicks: {{ widget.attrs.secondary_ticks|json }},
+            showLabels: {{ widget.attrs.show_ticks|json }},
+            ndigits:{{ widget.attrs.ndigits|json }},
+            suffix:{{ widget.attrs.suffix|json }},
+            create: function(event, ui) {
+                // hide
+                {% if widget.attrs.slider_start_value is None %}
+                    $("#{{widget.attrs.id}} > .ui-slider-handle").hide();
+                {% endif %}
+            },
+            slide: function(event, ui) {
+                // show
+                $("#{{widget.attrs.id}} > .ui-slider-handle").show().focus();
+
+                // update values
+                var handleIndex = $(ui.handle).data('uiSliderHandleIndex');
+                var label = handleIndex == 0 ? '.sliderinfoblocks#info_{{ widget.attrs.id }}' : '#max';
+                $(label).html( ui.value);
+                $('input#{{widget.attrs.id}}').val(ui.value);
+            }
+        });
+
+    });
+</script>

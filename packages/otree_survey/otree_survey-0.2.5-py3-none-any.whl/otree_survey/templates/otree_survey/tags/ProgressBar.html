@@ -1,0 +1,30 @@
+<div class="otree-progress">
+{% if progress|length == 1 %}
+    {# simple progress bar, no title #}
+    <div class="progress">
+        <div class="progress-bar bg-info" role="progressbar" style="width: {{ progress.0.width }}%"></div>
+    </div>
+{% else %}
+    {# multi-column progress bar with titles #}
+    <div class="container progress-container">
+        <div class="row">
+            {% for pi in progress %}
+                <div class="{{ pi.css_class }}">
+                    <div class="progress-label {% if pi.width < 100 %}text-secondary{% endif %}">
+                        {# pi.title #}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {% for pi in progress %}
+                <div class="{{ pi.css_class }}">
+                    <div class="progress {% if pi.width == 100 %}progress-complete{% endif %}">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: {{ pi.width }}%"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+</div>

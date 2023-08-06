@@ -1,0 +1,31 @@
+{% load otree otree_internal %}
+<div class="container-fluid survey-table grid-striped mb-3">
+    {% for field in form %}
+        {% if fields == None or field.name in fields %}
+            {% if forloop.first %}
+                {# header row #}
+                <div class="row grid-th d-none d-md-flex text-md-center">
+                    <div class="{{ first_col_class|default:'col-md' }}"></div>
+                        {% for radio in field %}
+                            <div class="{{ main_col_class|default:'col-md-1' }}">
+                                <span class="survey-table-choice small">{{ radio.choice_label }}</span>
+                            </div>
+                        {% endfor %}
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-12 {{ first_col_class|default:'col-md' }}">
+                    {{ field.label }}
+                </div>
+                {% for radio in field %}
+                    <div class="col-12 {{ main_col_class|default:'col-md-1' }}">
+                        <label for="{{ radio.id_for_label }}">
+                            {{ radio.tag }}
+                            <span class="d-md-none survey-table-choice small">{{ radio.choice_label }}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

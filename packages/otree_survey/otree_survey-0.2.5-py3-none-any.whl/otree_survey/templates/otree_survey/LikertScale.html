@@ -1,0 +1,7 @@
+{% extends "otree_survey/SurveyPage.html" %}
+{% load otree otree_internal static otree_survey %}
+
+{% block survey_content %}
+    {% block intro %}{% endblock %}
+    {% likert_fields form %}
+{% endblock %}

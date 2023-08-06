@@ -1,0 +1,21 @@
+<div class="container navigation-container">
+    <div class="row">
+        <div class="col order-last pr-0">
+            {% if show_next %}
+                <button class="otree-btn-next btn btn-primary float-right">{{ next_text }}</button>
+            {% endif %}
+        </div>
+        <div class="col">
+            {% block navigation_midcol %}
+
+            {% endblock %}
+        </div>
+        <div class="col order-first pl-0">
+            {% if show_back %}
+                <button class="btn btn-outline-primary" name="back" formnovalidate>
+                    {{ back_text }}
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</div>
