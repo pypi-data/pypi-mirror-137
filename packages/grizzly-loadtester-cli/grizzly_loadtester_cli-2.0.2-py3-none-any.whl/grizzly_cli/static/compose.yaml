@@ -1,0 +1,44 @@
+version: '3'
+services:
+  master:
+    hostname: master
+    image: ${GRIZZLY_IMAGE_REGISTRY}${GRIZZLY_PROJECT_NAME}:${GRIZZLY_USER_TAG}
+    tty: true
+    ulimits:
+      nofile: 10001
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ${GRIZZLY_MOUNT_CONTEXT}/:/srv/grizzly
+    environment:
+      - PYTHONPATH=/srv/grizzly
+    entrypoint: /usr/local/bin/behave
+    command: -D master=true -D expected-workers=${GRIZZLY_EXPECTED_WORKERS} /srv/grizzly/${GRIZZLY_RUN_FILE:-features} ${GRIZZLY_MASTER_RUN_ARGS:-} ${GRIZZLY_COMMON_RUN_ARGS:-}
+    env_file: "${GRIZZLY_ENVIRONMENT_FILE}"
+    healthcheck:
+      test: ["CMD", "lsof", "-i", ":5557", "-sTCP:LISTEN"]
+      interval: ${GRIZZLY_HEALTH_CHECK_INTERVAL}s
+      timeout: ${GRIZZLY_HEALTH_CHECK_TIMEOUT}s
+      retries: ${GRIZZLY_HEALTH_CHECK_RETRIES}
+
+  worker:
+    image: ${GRIZZLY_IMAGE_REGISTRY}${GRIZZLY_PROJECT_NAME}:${GRIZZLY_USER_TAG}
+    ulimits:
+      nofile: 10001
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ${GRIZZLY_MOUNT_CONTEXT}/:/srv/grizzly
+    environment:
+      - PYTHONPATH=/srv/grizzly
+    entrypoint: /usr/local/bin/behave
+    command: -q --no-summary --format null -D worker=true -D master-host=master /srv/grizzly/${GRIZZLY_RUN_FILE:-features} ${GRIZZLY_WORKER_RUN_ARGS:-} ${GRIZZLY_COMMON_RUN_ARGS:-}
+    env_file: "${GRIZZLY_ENVIRONMENT_FILE}"
+    depends_on:
+      master:
+        condition: service_healthy
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: ${GRIZZLY_MTU}
