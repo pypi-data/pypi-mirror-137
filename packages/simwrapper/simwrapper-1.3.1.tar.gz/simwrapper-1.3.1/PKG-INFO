@@ -1,0 +1,114 @@
+Metadata-Version: 2.1
+Name: simwrapper
+Version: 1.3.1
+Summary: Python support library for SimWrapper data visualization tool
+Home-page: https://github.com/simwrapper/simwrapper-python-tools
+Author: Billy Charlton
+Author-email: billy@okbecause.com
+License: GPLv3
+Description: # SimWrapper Python Tools
+        
+        Official python library for working with SimWrapper.
+        
+        [SimWrapper](https://simwrapper.github.io) is a data visualization tool for exploring large transport simulation results.
+        
+        ## About this library
+        
+        This library contains the "simwrapper" command-line tool, which allows browsing of local files on your PC/laptop using the SimWrapper website.
+        
+        We are at the very early stages of building this tool. The API will change, things will break, and there are certainly bugs.
+        
+        - Our primary goal is to make it easy to get local simulation results viewable using the SimWrapper website.
+        - We have only tested this using Anaconda Python. Only Python 3.x is supported.
+        
+        ## Installation
+        
+        Install once, using `pip install simwrapper`
+        
+        ## Usage
+        
+        `simwrapper` knows two commands:
+        
+        - `simwrapper serve` starts a local file server in the current directory. Run this command, then browse to either <https://vsp.berlin/simwrapper> or <https://activitysim.github.io/dashboard> to view your local folder outputs.
+        
+        - `simwrapper open [vsp|asim]` opens a new web browser tab AND a local file server in the current directory. The site will only operate as long as you keep that local server running, so don't close the command window.
+          - For the ActivitySim site, use `simwrapper open asim`
+          - For the VSP MATSim site, use `simwrapper open vsp`
+        
+        ## Running as HTTPS - required for Safari
+        
+        Safari blocks HTTPS websites (such as SimWrapper VSP and ASIM) which access localhost resources such as this local simwrapper file server. You can run simwrapper in HTTPS mode by following these extra instructions.
+        
+        Both simwrapper commands accept `--key` and `--cert` options to specific the two pieces of a PEM certicate. You can create a PEM certificate for "localhost" and install it in your browser's certificate database with the following commands.
+        
+        This requires Homebrew, which supplies the `brew` command.
+        
+        ```bash
+        brew install mkcert nss   # installs mkcert command
+        mkcert localhost          # Create PEM key/cert files for "localhost"
+        mkcert -install           # Installs certificates in browser
+        ```
+        
+        This creates two files: `localhost.pem` and `localhost-key.pem`. Move them somewhere where you cn find them.
+        
+        Now you can run simwrapper as follows:
+        
+        - `simwrapper serve --cert localhost.pem --key localhost-key.pem`
+        - `simwrapper open asim --cert localhost.pem --key localhost-key.pem`
+        
+        That's it!
+        
+        ---
+        # Changelog
+        
+        All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+        
+        ### [1.3.1](https://github.com/simwrapper/simwrapper-python-tools/compare/v1.3.0...v1.3.1) (2022-02-03)
+        
+        
+        ### Bug Fixes
+        
+        * allow connections from network instead of just localhost ([0eaff9e](https://github.com/simwrapper/simwrapper-python-tools/commit/0eaff9e7f191b2cefe8bfbd44e1c78f16c0df064))
+        
+        ## [1.3.0](https://github.com/simwrapper/simwrapper-python-tools/compare/v1.2.1...v1.3.0) (2021-12-05)
+        
+        
+        ### Features
+        
+        * Learned --cert and --key fields to support HTTPS for Safari. See docs. ([fd8e286](https://github.com/simwrapper/simwrapper-python-tools/commit/fd8e2864e31de71e1fb27a750dcd6ad1ef64a71d))
+        
+        ### [1.2.1](https://github.com/simwrapper/simwrapper-python-tools/compare/v1.2.0...v1.2.1) (2021-12-01)
+        
+        
+        ### Bug Fixes
+        
+        * Update docs to include changelog ([796bcf4](https://github.com/simwrapper/simwrapper-python-tools/commit/796bcf4458e3d78b084642587c369f6740548ba2))
+        
+        ## [1.2.0](https://github.com/simwrapper/simwrapper-python-tools/compare/v1.1.0...v1.2.0) (2021-12-01)
+        
+        
+        ### Features
+        
+        * Learned new command "simwrapper open [vsp/asim]" ([80551ae](https://github.com/simwrapper/simwrapper-python-tools/commit/80551ae95d6d68166ef064b405c080220824d6b7))
+        
+        
+        ### Bug Fixes
+        
+        * use next open port, starting at 8000 ([3501c21](https://github.com/simwrapper/simwrapper-python-tools/commit/3501c21b249121d951a10e03b05da77613846645))
+        
+        ## 1.1.0 (2021-12-01)
+        
+        
+        ### Features
+        
+        * CLI learned serve command ([742d48e](https://github.com/simwrapper/simwrapper-python-tools/commit/742d48ea68fdf63d695239f0a33121e1a35db34c))
+        * Initial version! ([0b2c0a7](https://github.com/simwrapper/simwrapper-python-tools/commit/0b2c0a7b03f929aed2f35d720df5190a0b6b94b9))
+        
+        # Changelog
+        
+        All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+        
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
