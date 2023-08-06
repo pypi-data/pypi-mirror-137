@@ -1,0 +1,28 @@
+Metadata-Version: 2.1
+Name: wordle-python
+Version: 1.1.10
+Summary: The popular word game recreated in Python, deployable with custom answers.
+Home-page: UNKNOWN
+Author: Prerit Das
+Author-email: <preritdas@gmail.com>
+License: UNKNOWN
+Keywords: python,covid,rest,information,wrapper
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+Requires-Dist: requests (==2.27.1)
+
+# Wordle
+
+More to come here shortly. Usage is simple:
+
+```python
+import wordle
+
+game = wordle.wordle(word = 'HELLO') # where hello is replaced with the answer to the Wordle.
+game.run()
+```
+
