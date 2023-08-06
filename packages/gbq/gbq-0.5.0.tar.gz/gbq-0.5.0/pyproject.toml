@@ -1,0 +1,46 @@
+[tool.black]
+line-length = 88
+target_version = ['py38']
+exclude = '''
+/(
+    venv
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+
+  # The following are specific to Black, you probably don't want those.
+  | blib2to3
+  | tests/data
+)/
+'''
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["setuptools >= 40.9.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "--verbose --cov=gbq --cov-report xml:/tmp/coverage.xml --cov-report term-missing"
+python_files = "tests/*.py"
+
+[tool.coverage.run]
+branch = true
+data_file = "/tmp/columbo_coverage"
+
+[tool.coverage.report]
+fail_under = 90
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover"
+]
