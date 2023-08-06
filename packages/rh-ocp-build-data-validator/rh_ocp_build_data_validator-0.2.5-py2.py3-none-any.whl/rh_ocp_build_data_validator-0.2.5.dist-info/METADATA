@@ -1,0 +1,106 @@
+Metadata-Version: 2.1
+Name: rh-ocp-build-data-validator
+Version: 0.2.5
+Summary: Validation of ocp-build-data Image & RPM declarations
+Home-page: https://github.com/openshift/ocp-build-data-validator
+Author: AOS ART Team
+Author-email: aos-team-art@redhat.com
+License: Apache License, Version 2.0
+Platform: UNKNOWN
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: appdirs (==1.4.4)
+Requires-Dist: bleach (==3.1.5)
+Requires-Dist: certifi (==2020.4.5.1)
+Requires-Dist: cffi (==1.14.0)
+Requires-Dist: chardet (==3.0.4)
+Requires-Dist: contextlib2 (==0.6.0.post1)
+Requires-Dist: cryptography (==2.9.2)
+Requires-Dist: distlib (==0.3.0)
+Requires-Dist: docutils (==0.16)
+Requires-Dist: filelock (==3.0.12)
+Requires-Dist: future (==0.18.2)
+Requires-Dist: idna (==2.9)
+Requires-Dist: importlib-metadata (==1.6.1)
+Requires-Dist: importlib-resources (==1.5.0)
+Requires-Dist: jeepney (==0.4.3)
+Requires-Dist: keyring (==21.2.1)
+Requires-Dist: packaging (==20.4)
+Requires-Dist: pkginfo (==1.5.0.1)
+Requires-Dist: pluggy (==0.13.1)
+Requires-Dist: py (==1.8.1)
+Requires-Dist: pycparser (==2.20)
+Requires-Dist: pygit2 (==1.6.*)
+Requires-Dist: Pygments (==2.6.1)
+Requires-Dist: pyparsing (==2.4.7)
+Requires-Dist: PyYAML (==5.3.1)
+Requires-Dist: readme-renderer (==26.0)
+Requires-Dist: requests (==2.23.0)
+Requires-Dist: requests-toolbelt (==0.9.1)
+Requires-Dist: rpm (==0.0.2)
+Requires-Dist: ruamel.yaml
+Requires-Dist: schema (==0.7.2)
+Requires-Dist: SecretStorage (==3.1.2)
+Requires-Dist: six (==1.15.0)
+Requires-Dist: toml (==0.10.1)
+Requires-Dist: tqdm (==4.46.1)
+Requires-Dist: twine (==3.1.1)
+Requires-Dist: urllib3 (==1.25.9)
+Requires-Dist: virtualenv (==20.0.21)
+Requires-Dist: webencodings (==0.5.1)
+Requires-Dist: zipp (==3.1.0)
+
+ocp-build-data-validator
+========================
+
+.. image:: https://badge.fury.io/py/rh-ocp-build-data-validator.svg
+  :target: https://badge.fury.io/py/rh-ocp-build-data-validator
+.. image:: https://codecov.io/gh/openshift/ocp-build-data-validator/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/openshift/ocp-build-data-validator
+
+Validation of `ocp-build-data <https://gitlab.cee.redhat.com/openshift-art/ocp-build-data>`__
+Image & RPM declarations
+
+Installation
+------------
+
+::
+
+    $ pip install rh-ocp-build-data-validator
+
+Usage
+-----
+
+Validating a single file:
+
+::
+
+    $ validate-ocp-build-data path/to/ocp-build-data/images/or/rpms.yml
+
+Validating the whole `ocp-build-data <https://gitlab.cee.redhat.com/openshift-art/ocp-build-data>`__
+repository:
+
+::
+
+    $ validate-ocp-build-data path/to/ocp-build/data/{images,rpms}/*
+
+Validations
+-----------
+
+-  YAML Format
+-  YAML Schema (supported schemas: **Image** and **RPM**)
+-  Presence of corresponding `DistGit <http://pkgs.devel.redhat.com>`__ repository
+   (needs to match YAML filename)
+
+   -  Presence of corresponding **branch** on `DistGit <http://pkgs.devel.redhat.com>`__
+
+-  Presence of `GitHub <https://github.com>`__ repository (if declared)
+
+   -  Presence of **branch** on `GitHub <https://github.com>`__ (if declared)
+   -  Presence of **dockerfile** on `GitHub <https://github.com>`__ (if declared)
+   -  Presence of **manifests-dir** on `GitHub <https://github.com>`__ (if declared)
+
+-  Stream is supported (if declared, value must match one of the entries in ``streams.yml``)
+-  Member exists (if declared, member must be another existing declaration under ``images/``)
+
+
