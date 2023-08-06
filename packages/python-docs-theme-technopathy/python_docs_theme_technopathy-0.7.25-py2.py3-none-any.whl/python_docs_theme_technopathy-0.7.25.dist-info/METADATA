@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: python-docs-theme-technopathy
+Version: 0.7.25
+Summary: A responsive sphinx theme for github pages based on python-docs-theme
+Home-page: https://about.me/oliver-zehentleitner
+Author: Oliver Zehentleitner
+License: UNKNOWN
+Project-URL: Source, https://github.com/oliver-zehentleitner/python-docs-theme-technopathy
+Project-URL: Howto, https://www.technopathy.club/2019/11/03/use-python-sphinx-on-github-pages-with-html-and-an-indivdual-template/
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Sphinx
+Classifier: Framework :: Sphinx :: Theme
+Classifier: License :: OSI Approved :: Python Software Foundation License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Documentation
+Classifier: Topic :: Software Development :: Documentation
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+License-File: LICENSE
+
+.. image:: https://img.shields.io/pypi/dm/python-docs-theme-technopathy.svg?label=PyPI%20downloads&color=orange
+   :alt: PyPi downloads
+
+Python Docs Sphinx Theme (technopathy.club Edition)
+===================================================
+Forked from https://github.com/python/python-docs-theme
+
+Installation
+------------
+To use the theme, install it into your docs build environment via ``pip``:
+
+pip install python-docs-theme-technopathy
+
+https://pypi.org/project/python-docs-theme-technopathy/
+
+Howto
+-----
+https://www.technopathy.club/2019/11/03/use-python-sphinx-on-github-pages-with-html-and-an-indivdual-theme/
+
+Documentation
+-------------
+Settings for source/conf.py:
+
+html_theme = \'python_docs_theme_technopathy\'
+
+html_context = \{\'github_user_name\': \'your_user\', \'github_repo_name\': \'your_repository\', \'project_name\': project\, \'show_github_download_btn\': True\}
+
+
+Elements are inherited by:
+
+https://github.com/sphinx-doc/sphinx/tree/master/sphinx/themes/default
+https://github.com/sphinx-doc/sphinx/tree/master/sphinx/themes/basic
+
+
