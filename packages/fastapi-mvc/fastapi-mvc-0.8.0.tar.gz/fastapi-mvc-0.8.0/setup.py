@@ -1,0 +1,73 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+packages = \
+['fastapi_mvc',
+ 'fastapi_mvc.cli',
+ 'fastapi_mvc.cli.commands',
+ 'fastapi_mvc.generators',
+ 'fastapi_mvc.parsers',
+ 'fastapi_mvc.template',
+ 'fastapi_mvc.template.hooks',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.integration',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit.app',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit.app.controllers',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit.app.controllers.api',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit.app.controllers.api.v1',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit.app.exceptions',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit.app.models',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit.app.utils',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit.cli',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.tests.unit.cli.commands',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.app',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.app.controllers',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.app.controllers.api',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.app.controllers.api.v1',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.app.exceptions',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.app.models',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.app.utils',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.cli',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.cli.commands',
+ 'fastapi_mvc.template.{{cookiecutter.folder_name}}.{{cookiecutter.package_name}}.config',
+ 'fastapi_mvc.utils']
+
+package_data = \
+{'': ['*'],
+ 'fastapi_mvc.template': ['{{cookiecutter.folder_name}}/*',
+                          '{{cookiecutter.folder_name}}/.github/workflows/*',
+                          '{{cookiecutter.folder_name}}/build/*',
+                          '{{cookiecutter.folder_name}}/charts/{{cookiecutter.chart_name}}/*',
+                          '{{cookiecutter.folder_name}}/charts/{{cookiecutter.chart_name}}/templates/*',
+                          '{{cookiecutter.folder_name}}/charts/{{cookiecutter.chart_name}}/templates/tests/*',
+                          '{{cookiecutter.folder_name}}/manifests/*']}
+
+install_requires = \
+['click>=7.1.2,<7.2.0',
+ 'cookiecutter>=1.7.3,<1.8.0',
+ 'uvicorn[standard]>=0.17.4,<0.18.0']
+
+entry_points = \
+{'console_scripts': ['fastapi-mvc = fastapi_mvc.cli.cli:cli']}
+
+setup_kwargs = {
+    'name': 'fastapi-mvc',
+    'version': '0.8.0',
+    'description': 'Create and develop production grade FastAPI projects.',
+    'long_description': '<div align="center">\n<h1>fastapi-mvc</h1>\n\n![fastapi-mvc](https://github.com/rszamszur/fastapi-mvc-template/blob/master/assets/readme.gif?raw=true)\n[![CI](https://github.com/rszamszur/fastapi-mvc/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/rszamszur/fastapi-mvc/actions/workflows/main.yml)\n[![codecov](https://codecov.io/gh/rszamszur/fastapi-mvc/branch/master/graph/badge.svg?token=7ESV30TYZS)](https://codecov.io/gh/rszamszur/fastapi-mvc)\n[![K8s integration](https://github.com/rszamszur/fastapi-mvc/actions/workflows/integration.yml/badge.svg)](https://github.com/rszamszur/fastapi-mvc/actions/workflows/integration.yml)\n[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)\n![PyPI](https://img.shields.io/pypi/v/fastapi-mvc)\n![PyPI - Downloads](https://img.shields.io/pypi/dm/fastapi-mvc)\n![PyPI - Python Version](https://img.shields.io/pypi/pyversions/fastapi-mvc)\n![GitHub](https://img.shields.io/github/license/rszamszur/fastapi-mvc?color=blue)\n\n</div>\n\n---\n\n**Documentation**: [https://fastapi-mvc.netlify.app](https://fastapi-mvc.netlify.app)\n\n**Source Code**: [https://github.com/rszamszur/fastapi-mvc](https://github.com/rszamszur/fastapi-mvc)\n\n**Example generated project**: https://github.com/rszamszur/fastapi-mvc-example\n\n---\n\n## Features\n<details>\n  <summary>Generated project core implemented using MVC architectural pattern</summary>\n  \n  Generated project is structured in MVC architectural pattern to help developers who don\'t know FastAPI yet but are familiar with MVC to get up to speed quickly.\n</details>\n\n<details>\n  <summary>WSGI + ASGI for high performance and better configuration</summary>\n\n#### TLDR;\n\nRunning WSGI as a master worker with ASGI workers gives better results than running pure ASGI (for FastAPI for now):\n* better performance (requests per second)\n* better support for different protocols\n* broader configuration\n* better support with using reverse proxy\n---\nFirst of all, whether it\'s ASGI, WSGI, or combined, think of this as something that serves the application. For instance, Ruby on Rails uses Puma. The result of any of those servers is a TCP/IP or UNIX socket which is later on utilized by reverse proxy ex: Nginx (a TCP/IP socket you can access directly over the network, but still in production, usually it\'ll be behind a reverse proxy).\n\nNow to WSGI + ASGI part. FastAPI is implemented with asyncio (https://docs.python.org/3/library/asyncio.html), so having a pure WSGI server doesn\'t make sense since you\'d lose all the benefits of asynchronous concurrency. That\'s where ASGI comes in. However, Python journey with asyncio is still pretty young. Most projects have yet to reach maturity level (you should expect early bugs and a limited feature set). FastAPI, as ASGI server uses uvicorn, which is still prior 1.x.x release (17 in total so far, current 0.16.0) and lacks support for some protocols (ex: no HTTP/2).\nMoreover, some reverse proxy might not know how to work with asynchronous servers, and some problems or early bugs on this layer might happen as well.\n\nI\'m not saying uvicorn is bad. Quite contrary, if you\'d run 4 pure uvicorn workes, you\'d still get great results. But if you\'d run the same amount of workers with gunicorn (WSGI) as a master worker, it turns out you can even pump those numbers up.\n\nGunicorn with 4 Uvicorn Workers (source: https://stackoverflow.com/a/62977786/10566747):\n```\nRequests per second: 7891.28 [#/sec] (mean)\nTime per request: 126.722 [ms] (mean)\nTime per request: 0.127 [ms] (mean, across all concurrent requests)\n```\n\nPure Uvicorn with 4 workers:\n```\nRequests per second: 4359.68 [#/sec] (mean)\nTime per request: 229.375 [ms] (mean)\nTime per request: 0.229 [ms] (mean, across all concurrent requests)\n```\n\n~80% better\n\nI guess gunicorn does a better job in worker management. However, it\'s a more mature project, so it\'s probably a matter of time when uvicorn (or other ASGI for that matter) will catch up to this benchmark.\n\nLast but not least, gunicorn gives a ton of settings to configure (https://docs.gunicorn.org/en/stable/settings.html), which can come in handy.\n</details>\n\n<details>\n  <summary>Generated project comes with tests at 99% coverage</summary>\n  \n  Unit test coverage is at 99% regardless of chosen configuration. There is also a placeholder for integration tests with an example dummy test.\n</details>\n\n<details>\n  <summary>Proper Dockerfile created with best practices for the cloud and Kubernetes</summary>\n  \nContainer image features:\n* Based on distroless image\n* Run as PID 1 (with child processes)\n* Utilizes multi-stage build for smallest size possible, also this results in having only necessary libraries/dependencies/tools in outcome container image.\n* DigestSHA - immutable identifier instead of tags, for better reproducibility and security.\n* Signal handling, for Kubernetes to be able to gracefully shut down pods.\n* Created with common layers.\n* By default runs as non-root user\n\nBased on Google [Best practices for building containers](https://cloud.google.com/architecture/best-practices-for-building-containers), [Top 20 Dockerfile best practices](https://sysdig.com/blog/dockerfile-best-practices), and own experience.\n</details>\n\n<details>\n  <summary>Extensive GitHub actions for CI</summary>\n  \n![ci_example](https://github.com/rszamszur/fastapi-mvc-template/blob/master/assets/ci.png?raw=true)\n</details>\n\n<details>\n  <summary>Helm chart for Kubernetes</summary>\n  \nFor easily deploying application in Kubernetes cluster.\n</details>\n\n<details>\n  <summary>Reproducible virtualized development environment</summary>\n\nEasily boot virtual machine with Vagrant. Code and test straight away. \n\n*Note: Project directory is rsync\'ed between Host and Guest.*\n\n*Note2: provided Vagrant vm doesn\'t have port forwarding configured which means, that application won\'t be accessible on Host OS.*\n</details>\n\n<details>\n  <summary>Redis and aiohttp utilities</summary>\n  \nFor your discretion, I\'ve provided some basic utilities:\n* RedisClient `.app.utils.redis`\n* AiohttpClient `.app.utils.aiohttp_client`\n\nThey\'re initialized in `asgi.py` on FastAPI startup event handler, and are available for whole application scope without passing object instances between controllers.\n</details>\n\n<details>\n  <summary>Kubernetes deployment with HA Redis cluster</summary>\n  \nApplication stack in Kubernetes:\n![k8s_arch](https://github.com/rszamszur/fastapi-mvc-template/blob/master/assets/k8s_arch.png?raw=true)\n</details>\n\n<details>\n  <summary>Readable and documented code</summary>\n  \nThe metrics stage in CI workflow ensures important PEP rules are enforced. For additional readability and formatting checks - black is used. Every piece of generated code is documented with docstrings. Last but not least there is also extended README with how to.\n</details>\n\n<details>\n  <summary>Configurable from env</summary>\n  \nGenerated application provides flexibility of configuration. All significant settings are defined by the environment variables, each with the default value.\n</details>\n\n<details>\n  <summary>Generated project uses <a href="https://github.com/python-poetry/poetry" target="_blank">Poetry</a> dependency management</summary>\n\nPoetry comes with all the tools you might need to manage your project in a deterministic way. Moreover, it\'s based on new unified Python project settings file - <a href="https://www.python.org/dev/peps/pep-0518/" target="_blank">PEP 518</a> that replaces `setup.py`.\n</details>\n\n## Quick start\n\n```shell\npip install fastapi-mvc\nfastapi-mvc new /tmp/demo-project\ncd /tmp/demo-project\nfastapi-mvc run\n```\n\n## Prerequisites\n\n* Python 3.7 or later installed [How to install python](https://docs.python-guide.org/starting/installation/)\n* Poetry [How to install poetry](https://python-poetry.org/docs/#installation) or pip [How to install pip](https://pip.pypa.io/en/stable/installation/) installed\n* make (optional)\n\n## Installation\n\n```shell\npip install fastapi-mvc\n```\n\nOr directly from source:\n```shell\ngit clone git@github.com:rszamszur/fastapi-mvc.git\ncd fastapi-mvc\nmake install\n```\n\n## Getting started\n\nCreating a new FastAPI project is as easy as:\n```shell\nfastapi-mvc new my-project\n```\n\nTo run development uvicorn server:\n```shell\ncd my-project\nfastapi-mvc run\n```\n\nTo run production WSGI + ASGI server:\n```shell\ncd my-project\npoetry run my-project serve\n# or if project virtualenv PATH is set\nmy-project serve\n```\n\nTo confirm it\'s working:\n```shell\ncurl localhost:8000/api/ready\n{"status":"ok"}\n```\n\n## CLI\n\nThis package exposes simple CLI for easier interaction:\n\n```shell\n$ fastapi-mvc --help\nUsage: fastapi-mvc [OPTIONS] COMMAND [ARGS]...\n\n  Create and develop production grade FastAPI projects.\n\n  Documentation: https://fastapi-mvc.netlify.app\n\n  Source Code: https://github.com/rszamszur/fastapi-mvc\n\nOptions:\n  -v, --verbose  Enable verbose logging.\n  --help         Show this message and exit.\n\nCommands:\n  new  Create a new FastAPI application.\n  run  Run development uvicorn server.\n```\n```shell\n$ fastapi-mvc new --help\nUsage: fastapi-mvc new [OPTIONS] APP_PATH\n\n  Create a new FastAPI application.\n\n  The \'fastapi-mvc new\' command creates a new FastAPI application with a\n  default directory structure and configuration at the path you specify.\n\nOptions:\n  -R, --skip-redis                Skip Redis utility files.\n  -A, --skip-aiohttp              Skip aiohttp utility files.\n  -V, --skip-vagrantfile          Skip Vagrantfile.\n  -H, --skip-helm                 Skip Helm chart files.\n  -G, --skip-actions              Skip GitHub actions files.\n  -C, --skip-codecov              Skip codecov in GitHub actions.\n  -I, --skip-install              Dont run make install\n  --license [MIT|BSD2|BSD3|ISC|Apache2.0|LGPLv3+|LGPLv3|LGPLv2+|LGPLv2|no]\n                                  Choose license.  [default: MIT]\n  --repo-url TEXT                 Repository url.\n  --help                          Show this message and exit.\n```\n```shell\n$ fastapi-mvc run --help\nUsage: fastapi-mvc run [OPTIONS]\n\n  Run development uvicorn server.\n\n  The \'fastapi-mvc run\' commands runs development uvicorn server for a\n  fastapi-mvc project at the current working directory.\n\nOptions:\n  --host TEXT                  Host to bind.  [default: 127.0.0.1]\n  -p, --port INTEGER           Port to bind.  [default: 8000]\n  -w, --workers INTEGER RANGE  The number of worker processes for handling\n                               requests.  [default: 1]\n\n  --no-reload                  Disable auto-reload.\n  --help                       Show this message and exit.\n```\n\n## Contributing\n\n[CONTRIBUTING](https://github.com/rszamszur/fastapi-mvc/blob/master/CONTRIBUTING.md)\n\n## License\n\n[MIT](https://github.com/rszamszur/fastapi-mvc/blob/master/LICENSE)\n',
+    'author': 'Radosław Szamszur',
+    'author_email': 'radoslawszamszur@gmail.com',
+    'maintainer': None,
+    'maintainer_email': None,
+    'url': 'https://github.com/rszamszur/fastapi-mvc',
+    'packages': packages,
+    'package_data': package_data,
+    'install_requires': install_requires,
+    'entry_points': entry_points,
+    'python_requires': '>=3.7,<4.0',
+}
+
+
+setup(**setup_kwargs)
