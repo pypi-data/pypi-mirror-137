@@ -1,0 +1,116 @@
+Metadata-Version: 2.1
+Name: stat-box
+Version: 0.1.1.post1
+Summary: Convinient statistical description of dataframes and time series.
+Home-page: https://gitlab.com/dmatryus.sqrt49/stat_box
+Author: dmatryus
+Author-email: dmatryus.sqrt49@yandex.ru
+License: GPLv3
+Description: # Welcome to Stat Box рџ‘‹
+        
+        ![Version](https://img.shields.io/badge/version-0.1.1-blue.svg?cacheSeconds=2592000)
+        [![License: GPLv3](https://img.shields.io/badge/License-GPLv3-yellow.svg)](https://gitlab.com/dmatryus.sqrt49/stat_box/-/blob/b6399bd3cc0f3282c2a54bc9b8952456723ccada/LICENSE)
+        
+        > A low-code python utility for fast statistics collection
+        
+        ## Install
+        
+        ```sh
+        pip install stat-box
+        ```
+        
+        ## Usage
+        
+        ### Statistics
+        
+        ```python3
+        from stat_box.statistic import StatisticSet, Quantile
+        import pandas as pd
+        
+        df = pd.DataFrame(
+            {"1": {"a": 1, "b": 2}, "2": {"a": 3, "b": 3}, "3": {"a": "1", "b": "d"}}
+        )
+        print(StatisticSet({Quantile(i / 100) for i in range(1, 100)}).stat_table(df))
+        ```
+        
+        ### Time series
+        
+        ```python3
+        from stat_box.time_series import TimeSeries, plot, group, rolling_trend, exp1, exp2, linear_trend, diff
+        import pandas as pd
+        from datetime import datetime
+        from dateutil.relativedelta import relativedelta
+        import numpy as np
+        
+        
+        # Generate data
+        data = pd.DataFrame(
+            {
+                "time": [datetime.now() + relativedelta(days=i) for i in range(365)],
+                "value": [
+                    np.random.randint(-30, 30) + np.random.randint(-i / 7, i / 3 + 1)
+                    for i in range(365)
+                ],
+            }
+        )
+        # Indexed data
+        ts = TimeSeries(data)
+        ts.set_index('time')
+        plot(ts, title="Indexed data")
+        # Grouped data
+        gts = group(ts, "30d")
+        plot(gts, title="Grouped data")
+        # Rolling trend
+        rts = rolling_trend(ts, "30d")
+        plot(rts, title="Rolling trend")
+        # EXP_1
+        alpha = 0.02
+        e1ts = exp1(ts, alpha)
+        plot(e1ts, title=f"Exp_1 a trend (alpha = {alpha})")
+        # EXP_2
+        alpha = 0.6
+        beta = 0.9
+        e2ts = exp2(ts, alpha, beta)
+        plot(e2ts, title=f"Exp_2 a trend (alpha = {alpha} beta={beta})")
+        # Linear trend
+        lts = linear_trend(rts)
+        plot(lts, title="Linear trend")
+        # Diff
+        sdts = diff(rts, "sequential", True)
+        plot(sdts, title="Sequential diff of rolling data")
+        edts = diff(rts, "end", True)
+        plot(edts, title="End diff of rolling data")
+        ledrs = linear_trend(edts)
+        plot([edts, ledrs], legend=['edts', 'ledrs'], title="Linear trend of end dif of rolling data")
+        ```
+        
+        ## Author
+        
+        рџ‘¤ **dmatryus**
+        
+        * Github: [@dmatryus.sqrt49](https://github.com/dmatryus.sqrt49)
+        
+        ## рџ¤ќ Contributing
+        
+        Contributions, issues and feature requests are welcome!
+        
+        Feel free to check [issues page](https://gitlab.com/dmatryus.sqrt49/stat_box/-/issues). PRs are welcome!
+        
+        ## Show your support
+        
+        Give a в­ђпёЏ if this project helped you!
+        
+        ## рџ“ќ License
+        
+        Copyright В© 2021 [dmatryus](https://github.com/dmatryus.sqrt49).
+        
+        This project
+        is [GPLv3](https://gitlab.com/dmatryus.sqrt49/stat_box/-/blob/b6399bd3cc0f3282c2a54bc9b8952456723ccada/LICENSE)
+        licensed.
+        
+        ***
+        _This README was generated with вќ¤пёЏ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+        
+Keywords: STATICS,TIME_SERIES
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
