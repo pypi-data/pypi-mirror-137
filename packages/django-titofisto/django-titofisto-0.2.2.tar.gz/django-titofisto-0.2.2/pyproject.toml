@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "django-titofisto"
+version = "0.2.2"
+description = "Django Time-Token File Storage"
+authors = ["Dominik George <dominik.george@teckids.org>", "Jonathan Weth <dev@jonathanweth.de>"]
+license = "Apache-2.0"
+readme = "README.rst"
+repository = "https://edugit.org/AlekSIS/libs/django-titofisto"
+keywords = ["django", "storage", "media", "secure"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+]
+packages = [
+    { include = "titofisto" },
+]
+include = ["LICENSE", "CHANGELOG.md"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = ">2.2,<5.0"
+
+[tool.poetry.dev-dependencies]
+freezegun = "^1.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
