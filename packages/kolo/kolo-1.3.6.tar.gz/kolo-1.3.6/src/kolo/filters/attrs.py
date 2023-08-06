@@ -1,0 +1,22 @@
+import types
+
+
+def attrs_filter(frame: types.FrameType, event: str, arg: object) -> bool:
+    """
+    Ignore attrs generated code
+
+    The attrs library constructs an artificial filename for generated
+    class methods like __init__ and __hash__.
+
+    It also uses a fake module without a path when creating a class.
+    """
+    filename = frame.f_code.co_filename
+    if filename:
+        return filename.startswith("<attrs generated")
+
+    previous = frame.f_back
+    if previous is not None and previous.f_code.co_filename == "":
+        previous = previous.f_back
+    return previous is not None and previous.f_code.co_filename.endswith(
+        "attr/_make.py"
+    )
