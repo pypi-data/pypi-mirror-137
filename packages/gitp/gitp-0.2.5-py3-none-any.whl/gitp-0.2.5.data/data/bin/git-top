@@ -1,0 +1,68 @@
+#!/bin/sh
+
+: git rev-parse 
+
+_help="$(cat <<EOF
+NAME
+  ${0##*/} - top repository path (git top), parser and change to top repository path when sourced (. git-top)
+
+DESCRIPTION
+  Parses -h, --desc and --version for caller and changes to top repository directory.
+  Shows 'git rev-parse --show-toplevel' output when executed.
+
+SYNOPSYS
+  git [-C <path>] ${0##*git-} [options]
+  git ${0##*git-}
+  git ${0##*git-} path
+  git ${0##*git-} file
+  git -C dir ${0##*git-} file
+  . ${0##*/} "$@"
+
+ARGUMENTS
+  -h              show help and exit
+  --desc          show desc and exit
+  --version       show version and exit
+  
+OPTIONS
+  path             relative directory (excluding the name).
+  no|<var>=<path>  variable ('no' to not add variable) and executable or executable to add to rc.d
+
+EXIT CODE
+  128         not a git repository or not such file or directory.
+EOF
+)"
+ 
+_git_help() {
+  case "${1-}" in 
+    -h) echo "${help:-No help message}"; false ;;
+    --desc) echo "to be copied"; false ;;
+    --version) echo "to be copied, git latest"; false ;;
+  esac
+}
+
+_git_rc() {
+  case "${1-}" in 
+    *=*) 
+      mkdir -p /etc/rc.d /etc/paths.d /etc/manpaths.d
+      var="${1%%=*}"
+      value="${1##*=}"
+      cmd="${1##*/}"
+      top="$(_git_top "${value}")"
+      if ! command -vp "${1##*/}" >/dev/null; then 
+        echo Aqui lo dejo, meter en paths.d que funcione con VARIABLE=value y no en rc.d "${var}" "${cmd}" "${top}"
+      fi
+      echo Meter aqui el pull si es main
+  esac
+}
+
+_git_top() {
+  git rev-parse --show-toplevel "$@" 2>/dev/null
+}
+
+if [ "${0##*/}" = 'git-top' ]; then
+  help="${_help}" _git_help "$@" || exit
+  _git_top "$@"
+else
+  _git_help "$@" || exit
+  _git_C="$(_git_top)" && { cd "$(echo "{_git_C}" | head -1)" || false; }
+fi
