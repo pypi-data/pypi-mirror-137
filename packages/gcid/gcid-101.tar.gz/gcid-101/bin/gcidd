@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+
+
+"OTP-CR-117/19"
+
+
+from gcid.evt import Event
+from gcid.fnc import format
+from gcid.krn import Cfg, boot, kcmd, root, wait
+from gcid.obj import Object, update, values
+from gcid.prs import parse
+from gcid.hdl import Handler
+from gcid.thr import launch
+
+
+from gcid.irc import IRC
+from gcid.rss import Fetcher
+
+
+import gcid.all
+
+
+Cfg.wd = "/var/lib/gcid/"
+
+
+def main():
+    i = IRC()
+    launch(i.start)
+    f = Fetcher()
+    f.start()
+    wait()
+
+
+main()

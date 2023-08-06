@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+
+
+"OTP-CR=117/19"
+
+
+import os
+import readline
+import termios
+import traceback
+import sys
+import time
+
+
+sys.path.insert(0, os.getcwd())
+
+
+from gcid.cbs import Cbs
+from gcid.cmd import Cmd
+from gcid.evt import Event
+from gcid.flt import Fleet
+from gcid.hdl import Handler, dispatch
+from gcid.krn import Cfg, boot, kcmd, wait
+from gcid.fnc import format
+from gcid.thr import launch
+
+
+from gcid.irc import IRC
+from gcid.rss import Fetcher
+
+
+import gcid.all
+
+
+Cfg.wd = os.path.expanduser("~/.gcid")
+
+
+class Console(Handler):
+
+    def __init__(self):
+        Handler.__init__(self)
+
+    def announce(self, txt):
+        pass
+
+    def handle(self, e):
+        Handler.handle(self, e)
+        e.wait()
+
+    def poll(self):
+        e = Event()
+        e.txt = input("> ")
+        e.orig = repr(self)
+        return e
+
+    def raw(self, txt):
+        print(txt)
+
+
+def daemon():
+    pid = os.fork()
+    if pid != 0:
+        os._exit(0)
+    os.setsid()
+    os.umask(0)
+    si = open("/dev/null", 'r')
+    so = open("/dev/null", 'a+')
+    se = open("/dev/null", 'a+')
+    os.dup2(si.fileno(), sys.stdin.fileno())
+    os.dup2(so.fileno(), sys.stdout.fileno())
+    os.dup2(se.fileno(), sys.stderr.fileno())
+
+
+def nprint(txt):
+    print(txt)
+    sys.stdout.flush()
+    
+
+def wrap(func):
+    fd = sys.stdin.fileno()
+    old = termios.tcgetattr(fd)
+    try:
+        func()
+    except (EOFError, KeyboardInterrupt):
+        print("")
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+
+def main():
+    boot(" ".join(sys.argv[1:]))
+    if Cfg.txt:
+        c = Console()
+        return kcmd(c, Cfg.otxt)
+    nprint("GCID start at %s" % (time.ctime(time.time()).replace("  ", " ")))
+    if Cfg.daemon:
+        daemon()
+    if "i" in Cfg.opts:
+        i = IRC()
+        i.start()
+        nprint(format(i.cfg, "server,port,channel,nick,cc"))
+    if "r" in Cfg.opts:
+        f = Fetcher()
+        f.start()
+    c = Console()
+    c.start()
+    wait()
+
+
+wrap(main)

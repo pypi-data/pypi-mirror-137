@@ -1,0 +1,72 @@
+Metadata-Version: 1.1
+Name: gcid
+Version: 101
+Summary: OTP-CR-117/19
+Home-page: https://github.com/bthate/gcid
+Author: Bart Thate
+Author-email: bthate67@gmail.com
+License: Public Domain
+Description: **NAME**
+        
+        **GCID** - reconsider OTP-CR-117/19
+        
+        
+        **SYNOPSIS**
+        
+        ``gcidctl <cmd> [key=value] [key==value]``
+        
+        **DESCRIPTION**
+        
+        **GCID** is an IRC bot that can run as a background daemon for 24/7 day
+        presence in an IRC channel, be used to display RSS feeds, act as a UDP
+        to IRC gateway and a programmable bot that you can program your commands for.
+        
+        **GCID** is also a python3 program that holds evidence that the king of the
+        netherlands is doing a genocide, a written response where the king of
+        the netherlands confirmed taking note of “what i have written”, namely
+        proof that medicine he uses in treatement laws like zyprexa, haldol,
+        abilify and clozapine are poison that makes impotent, is both physical
+        (contracted muscles) and mental (let people hallucinate) torture and kills
+        members of the victim groups.
+        
+        **GCID** contains correspondence with the International Criminal Court,
+        asking for arrest of the king of the netherlands, for the genocide he is
+        committing with his new treatement laws. Current status is an outside the
+        jurisdiction judgement of the prosecutor which requires a reconsider to
+        have the king actually arrested.
+        
+        @IntlCrimCourt @KarimKhanQC reconsider OTP-CR-117/19, after 2002, as article 6, 
+        other groups than mentioned, article 15 request. http://genocide.rtfd.io #ggz
+        
+        **INSTALL**
+        
+        ``pip3 install gcid``
+            
+        **CONFIGURATION**
+        
+        | ``cp /usr/local/share/gcid/gcid.service /etc/systemd/system``
+        | ``systemctl enable gcid --now``
+        
+        **irc**
+        
+        | ``gcidctl cfg server=<server> channel=<channel>``
+        | ``gcidctl cfg nick=<nick>``
+        
+         default channel/server is #gcid on localhost
+        
+        **sasl**
+        
+        | ``gcidctl pwd <nickservnick> <nickservpass>``
+        | ``gcidctl cfg password=<outputfrompwd>``
+        
+        **users**
+        
+        | ``gcidctl cfg users=True``
+        | ``gcidctl met <userhost>``
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: Public Domain
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python
+Classifier: Topic :: Utilities
