@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: pydantic-schemaorg
+Version: 1.0.0rc2
+Summary: Pydantic classes for Schema.org
+Home-page: https://github.com/lexiq-legal/pydantic_schemaorg
+License: MIT
+Keywords: schema.org,pydantic
+Author: Reinoud Baker
+Author-email: reinoud@lexiq.nl
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: pydantic (>=1.8.2,<2.0.0)
+Project-URL: Documentation, https://github.com/lexiq-legal/pydantic_schemaorg
+Project-URL: Repository, https://github.com/lexiq-legal/pydantic_schemaorg
+Description-Content-Type: text/markdown
+
+# pydantic_schemaorg
+
+Use [Schema.org](https://schema.org) types in [pydantic](https://pydantic-docs.helpmanual.io/)! <br> <br>
+**Pydantic_schemaorg** contains all the models defined by schema.org. The pydantic classes are auto-generated from the
+schema.org model definitions that can be found
+on [https://schema.org/version/latest/schemaorg-current-https.jsonld](https://schema.org/version/latest/schemaorg-current-https.jsonld)
+
+## Requirements
+
+Works with python >= 3.7 since the library uses `__future__.annotations`
+
+## How to install
+
+```pip install pydantic_schemaorg```<br><br>
+Import any class you want to use by with the following convention<br>
+```from pydantic_schemaorg.<SCHEMAORG_MODEL_NAME> import <SCHEMAORG_MODEL_NAME>```<br><br>
+
+A full (hierarchical) list of Schema.org model names can be found [here](https://schema.org/docs/full.html)
+
+## Example usages
+
+```
+from pydantic_schemaorg.ScholarlyArticle import ScholarlyArticle
+
+scholarly_article = ScholarlyArticle(url='https://github.com/lexiq-legal/pydantic_schemaorg',
+                                    sameAs='https://github.com/lexiq-legal/pydantic_schemaorg',
+                                    copyrightNotice='Free to use under the MIT license',
+                                    dateCreated='15-12-2012')
+print(scholarly_article.json())
+```
+
+```
+{"@type": "ScholarlyArticle", "url": "https://github.com/lexiq-legal/pydantic_schemaorg", "sameAs": "https://github.com/lexiq-legal/pydantic_schemaorg", "copyrightNotice": "Free to use under the MIT license", "dateCreated": "15-12-2012"}
+```
