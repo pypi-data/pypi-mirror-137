@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: autosubmit
+Version: 3.13.2
+Summary: Autosubmit: a versatile tool to manage Weather and Climate Experiments in diverse Supercomputing Environments
+Home-page: http://www.bsc.es/projects/earthscience/autosubmit/
+Author: Domingo Manubens-Gil
+Author-email: domingo.manubens@bsc.es
+License: GNU GPL v3
+Download-URL: https://earth.bsc.es/wiki/doku.php?id=tools:autosubmit
+Keywords: climate,weather,workflow,HPC
+Platform: GNU/Linux Debian
+Requires-Dist: argparse (<2,>=1.2)
+Requires-Dist: python-dateutil (>2)
+Requires-Dist: pydotplus (>=2)
+Requires-Dist: pyparsing (>=2.0.1)
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: typing
+Requires-Dist: paramiko (==1.15)
+Requires-Dist: requests
+Requires-Dist: mock (>=1.3.0)
+Requires-Dist: portalocker (==0.5.7)
+Requires-Dist: networkx
+Requires-Dist: bscearth.utils
+Provides-Extra: dialog
+Requires-Dist: python2-pythondialog (>=3.3.0) ; extra == 'dialog'
+
+UNKNOWN
+
+
