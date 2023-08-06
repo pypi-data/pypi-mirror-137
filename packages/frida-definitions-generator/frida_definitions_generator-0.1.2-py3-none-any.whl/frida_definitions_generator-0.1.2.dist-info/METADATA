@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: frida-definitions-generator
+Version: 0.1.2
+Summary: Generate TypeScript definition files for use with Frida
+Home-page: https://git.sr.ht/~yotam/frida-definitions-generator
+Author: Yotam Nachum
+Author-email: me@yotam.net
+License: MIT
+Keywords: frida,java,android,generation
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Software Development :: Code Generators
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: lief (>=0.12.0.dev0)
+
+Frida Definitions Generator
+===========================
+
+Generate TypeScript definitions for a given APK file or unpacked APK directory.
+
+NOTICE: you will need to install the nightly version of LIEF until they release
+a version with the Dalvik fields fix. The installation command will look
+something like this:
+
+    $ python3 -m pip install --extra-index-url https://lief-project.github.io/packages frida-definitions-generator
+
+After you've installed the program you should have an executable named
+`frida-definitions-generator` that you can run like this:
+
+    $ frida-definitions-generator --type java /path/to/apk > app.d.ts
+
+This will output all the classes from the APK as Frida TypeScript definitions
+into the piped file. You can also pass a directory of the unzipped APK instead
+of the APK itself.
+
+
