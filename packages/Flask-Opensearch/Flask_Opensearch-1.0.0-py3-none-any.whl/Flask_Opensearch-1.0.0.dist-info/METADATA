@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: Flask-Opensearch
+Version: 1.0.0
+Summary: Flask extension for opensearch integration
+Home-page: https://github.com/galbwe/Flask-Opensearch
+Author: Wes Galbraith
+Author-email: galbwe92@gmail.com
+License: MIT
+Platform: any
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Flask
+Requires-Dist: opensearch-py
+Requires-Dist: aws-requests-auth
+
+*Currently under development*
+
+# Flask Opensearch
+
+A minimal flask extension that provides compatibility with the opensearch python client.
+
+# Development
+
+To set up a development environment, you need to install Docker and Docker-Compose. Please see https://www.docker.com/products/docker-desktop for installation instructions.
+
+Once you have Docker and Docker-Compose installed, you can create a development environment by running the following commands:
+
+```
+# Create a new development environment with Docker-Compose and run the tests
+docker compose up --build
+```
+
+If you have already build the docker images and just want to run the tests, you can run the following command:
+
+```
+docker compose exec testenv tox
+```
+
+
+When you are done developing, you can stop the development environment by running:
+
+```
+docker compose down
+```
+
