@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: bedrock-cgi
+Version: 2.0.20
+Summary: Bedrock-2 for CGI
+Home-page: https://github.com/brettonw/Bedrock-2-CGI
+Author: Bretton Wade
+Author-email: bretton.wade@inboundresearchmd.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/brettonw/Bedrock-2-CGI/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Bedrock-2 (CGI)
+CGI implementation of Bedrock-2 in python 
+
+## Testing the Bedrock service
+```
+curl -X POST -d '{ "blah": "boo", "event": "ok" }' -H "Content-Type: application/json; charset=UTF-8" http://localhost/cgi-bin/rpi_sensor.py -i
+```
+
+## Using IntelliJ IDEA
+In module settings, make sure to mark the src/ and test/ directories as 'sources' so that IDEA will find the bedrock_cgi module.
+
+
