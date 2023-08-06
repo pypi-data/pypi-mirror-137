@@ -1,0 +1,196 @@
+"""Compute and write Sparameters using Meep in an MPI pool."""
+
+import multiprocessing
+import pathlib
+import shutil
+import time
+from pathlib import Path
+from pprint import pprint
+from typing import Dict, List
+
+import numpy as np
+import pydantic
+from tqdm import tqdm
+
+import gdsfactory as gf
+from gdsfactory.config import logger, sparameters_path
+from gdsfactory.simulation.get_sparameters_path import (
+    get_sparameters_path_meep as get_sparameters_path,
+)
+from gdsfactory.simulation.gmeep.write_sparameters_meep import remove_simulation_kwargs
+from gdsfactory.simulation.gmeep.write_sparameters_meep_mpi import (
+    write_sparameters_meep_mpi,
+)
+from gdsfactory.tech import LAYER_STACK, LayerStack
+
+ncores = multiprocessing.cpu_count()
+
+temp_dir_default = Path(sparameters_path) / "temp"
+
+
+@pydantic.validate_arguments
+def write_sparameters_meep_mpi_pool(
+    jobs: List[Dict],
+    cores_per_run: int = 2,
+    total_cores: int = 4,
+    temp_dir: Path = temp_dir_default,
+    delete_temp_files: bool = True,
+    dirpath: Path = sparameters_path,
+    layer_stack: LayerStack = LAYER_STACK,
+    **kwargs,
+) -> List[Path]:
+    """Write Sparameters and returns the filepaths.
+    Given a list of write_sparameters_meep keyword arguments (the "jobs"),
+    launches them in different cores
+    where each simulation runs with "cores_per_run" cores
+    If there are more simulations than cores each batch runs sequentially
+
+
+    Args
+        jobs: list of Dicts containing the simulation settings for each job.
+            for write_sparameters_meep
+        cores_per_run: number of processors to assign to each component simulation
+        total_cores: total number of cores to use
+        temp_dir: temporary directory to hold simulation files
+        delete_temp_files: deletes temp_dir when done
+        dirpath: directory to store Sparameters
+        layer_stack:
+
+    keyword Args:
+        overwrite: overwrites stored simulation results.
+        dispersive: use dispersive models for materials (requires higher resolution)
+        extend_ports_length: to extend ports beyond the PML
+        zmargin_top: thickness for cladding above core
+        zmargin_bot: thickness for cladding below core
+        tpml: PML thickness (um)
+        clad_material: material for cladding
+        is_3d: if True runs in 3D
+        wl_min: wavelength min (um)
+        wl_max: wavelength max (um)
+        wl_steps: wavelength steps
+        dfcen: delta frequency
+        port_source_name: input port name
+        port_field_monitor_name:
+        port_margin: margin on each side of the port
+        distance_source_to_monitors: in (um) source goes before
+        port_source_offset: offset between source GDS port and source MEEP port
+        port_monitor_offset: offset between monitor GDS port and monitor MEEP port
+
+    Returns:
+        filepath list for sparameters CSV (wavelengths, s11a, s12m, ...)
+            where `a` is the angle in radians and `m` the module
+
+    """
+    # Parse jobs
+    jobs_to_run = []
+    for job in jobs:
+        settings = remove_simulation_kwargs(kwargs)
+        filepath = job.get(
+            "filepath",
+            get_sparameters_path(
+                component=job["component"],
+                dirpath=dirpath,
+                layer_stack=layer_stack,
+                **settings,
+            ),
+        )
+        if filepath.exists():
+            job.update(**kwargs)
+            if job.get("overwrite", kwargs.get("overwrite", False)):
+                pathlib.Path.unlink(filepath)
+                logger.info(
+                    f"Simulation {filepath!r} found and overwrite is True. "
+                    "Deleting file and adding it to the queue."
+                )
+                jobs_to_run.append(job)
+            else:
+                logger.info(
+                    f"Simulation {filepath!r} found exists and "
+                    "overwrite is False. Removing it from the queue."
+                )
+        else:
+            logger.info(f"Simulation {filepath!r} not found. Adding it to the queue")
+            jobs_to_run.append(job)
+
+    jobs = jobs_to_run
+
+    batches = int(np.ceil(cores_per_run * len(jobs) / total_cores))
+    jobs_per_batch = int(np.floor(total_cores / cores_per_run))
+    njobs = len(jobs)
+    logger.info(f"Running {njobs} simulations")
+    logger.info(f"total_cores = {total_cores} with cores_per_run = {cores_per_run}")
+    logger.info(f"Running {batches} batches with up to {jobs_per_batch} jobs each.")
+
+    i = 0
+    # For each batch in the pool
+    for j in tqdm(range(batches)):
+        filepaths = []
+
+        # For each job in the batch
+        for k in range(jobs_per_batch):
+            if i >= njobs:
+                continue
+            logger.info(f"Task {k} of batch {j} is job {i}")
+
+            # Obtain current job
+            simulations_settings = jobs[i]
+
+            pprint(simulations_settings)
+
+            filepath = write_sparameters_meep_mpi(
+                cores=cores_per_run,
+                temp_dir=temp_dir,
+                temp_file_str=f"write_sparameters_meep_mpi_{i}",
+                wait_to_finish=False,
+                **simulations_settings,
+            )
+            filepaths.append(filepath)
+
+            # Increment task number
+            i += 1
+
+        # Wait for batch to end
+        done = False
+        num_pool_jobs = len(filepaths)
+        while not done:
+            # Check if all jobs finished
+            jobs_done = 0
+            for filepath in filepaths:
+                if filepath.exists():
+                    jobs_done += 1
+            if jobs_done == num_pool_jobs:
+                done = True
+            else:
+                time.sleep(1)
+
+    if delete_temp_files:
+        shutil.rmtree(temp_dir)
+    return filepaths
+
+
+write_sparameters_meep_mpi_pool_lr = gf.partial(
+    write_sparameters_meep_mpi_pool, ymargin_top=3, ymargin_bot=3
+)
+
+write_sparameters_meep_mpi_pool_lt = gf.partial(
+    write_sparameters_meep_mpi_pool, ymargin_bot=3, xmargin_right=3
+)
+
+
+if __name__ == "__main__":
+    jobs = [
+        {
+            "component": gf.components.straight(length=i),
+            "run": True,
+            "overwrite": True,
+            "lazy_parallelism": False,
+            "ymargin": 3,
+        }
+        for i in range(1, 4)
+    ]
+
+    filepaths = write_sparameters_meep_mpi_pool(
+        jobs=jobs,
+        cores_per_run=4,
+        total_cores=8,
+    )
