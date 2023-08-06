@@ -1,0 +1,100 @@
+Metadata-Version: 2.1
+Name: KS-BOT-Client-Python
+Version: 1.0.2
+Summary: Python framework for interacting with KS-BOT, without any app
+Home-page: https://github.com/KidsSMIT/KS-BOT-Client-Python
+Author: Kids SMIT
+Author-email: codingwithcn@gmail.com
+License: MIT
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Description: # KS-BOT-Client-Python
+        
+        ### Python framework for interacting with KS-BOT, without any app
+        
+        __To get started simply install ks-bot-client, with the following command__
+        ```Python
+        
+        python -m pip install KS-BOT-Client-Python
+        
+        ```
+        
+        ## After Installation:
+        
+        - Simple import ks-bot-client
+        
+        ```Python
+        import ks_bot_client
+        ```
+        
+        - Next create a custom Bot class by inherenting from ks_bot_client.bot class
+        
+        ```Python
+        
+        class CustomBot(ks_bot_client.Bot):
+          
+          def __init__(self, name:str, password:str):
+            """
+              :param {string} name - Either Username, First Name of user or email of user
+              :param {string} password - User password
+            """
+        
+            super().__init__(name, password)
+        
+        
+          def WelcomeMessage(self, data):
+            """
+              This event gives you, your previous messages with ks-bot.
+              
+              > Feel free to customize it
+            """
+            print("KS-BOT said 'welcome'")
+        
+        
+          def BotProcessReply(self, data):
+            """
+              Returns bot reply to the message you sent it
+        
+              > Feel free to customize it
+            """
+            print("KS-BOT said: ", data)
+            
+        
+          def TimerOver(self, data):
+            """
+              Handles Event Server sends when timer is over
+        
+              > Feel free to customize it
+            """
+        
+            print("KS-BOT said: Timer is over, Timer: ", data)
+        ```
+        
+        - Once your custom bot class is ready all that is left is for you to initialize your bot
+        
+        ```Python
+        bot = CustomBot("<your name>", "<your password>")
+        ```
+        
+        - Last but not list all you have to do is run the bot, so it can get and recieve messages from Server
+        
+        ```Python
+        bot.run()
+        ```
+        
+        - Now that your bot is recieving messages from server and can send message to server, Send your first message!
+        
+        ```Python
+        bot.send_command("<your message>", "<the timeZone you want to send the message from, default timeZone is your actual timeZone>")
+        ```
+        
+        ## Developer Notes:
+        
+        > -  Feel Free to reach us at: codingwithcn@gmail.com, for question
+        - But for issues and feature adding, we ask that you do that all on github
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
