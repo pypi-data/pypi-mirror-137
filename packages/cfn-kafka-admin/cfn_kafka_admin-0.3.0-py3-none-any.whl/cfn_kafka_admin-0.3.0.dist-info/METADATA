@@ -1,0 +1,86 @@
+Metadata-Version: 2.1
+Name: cfn-kafka-admin
+Version: 0.3.0
+Summary: AWS CloudFormation Resources to manage Kafka
+License: MPL-2.0
+Author: johnpreston
+Author-email: john@compose-x.io
+Requires-Python: >=3.7,<4.0
+Classifier: License :: OSI Approved
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: PyYAML (>=6.0,<7.0)
+Requires-Dist: aws-cfn-custom-resource-resolve-parser (>=0.2.1,<0.3.0)
+Requires-Dist: cfn-resource-provider (>=1.0.7,<2.0.0)
+Requires-Dist: compose-x-common[aws] (>=0.2.3,<0.3.0)
+Requires-Dist: datamodel-code-generator[http] (>=0.11.17,<0.12.0)
+Requires-Dist: importlib-resources (>=5.4.0,<6.0.0)
+Requires-Dist: jsonschema (>=4.4.0,<5.0.0)
+Requires-Dist: kafka-python (>=2.0.2,<3.0.0)
+Requires-Dist: kafka-schema-registry-admin (>=0.1.0,<0.2.0)
+Requires-Dist: troposphere (>=3.2.2,<4.0.0)
+Description-Content-Type: text/x-rst
+
+===============
+cfn-kafka-admin
+===============
+
+------------------------------------------------------------------------------
+CLI Tool and Lambda Functions to CRUD Kafka resources via AWS CloudFormation
+------------------------------------------------------------------------------
+
+
+|PYPI_VERSION|
+
+|FOSSA| |PYPI_LICENSE|
+
+|CODE_STYLE| |TDD|
+
+.. image:: https://codebuild.eu-west-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiY2xwc0NER1JuU1J3MThYczhFMDJLWlQxWGpoRnhNWHNtbGN1NGpVMVNTMk12UlQxdWVlZ2w5YnhPQzhkMnV4cTI0S0tIdTRyTmRHWWErWXJPNWFpcWlzPSIsIml2UGFyYW1ldGVyU3BlYyI6IkxaRGZCMW1KbVE1RWRJYjciLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main
+        :target: https://eu-west-1.codebuild.aws.amazon.com/project/eyJlbmNyeXB0ZWREYXRhIjoibVAvWVBBNjZlNWFwTWEwSEdWcGx6MWpudy9KeEZTb1lXdWFuQ3FwbjJCRTBnc1lyZm41eHRqV2k0bDN6UTBmaEpJMGd0Y3I3Vm5kTGtZQzc1b25Uckxxd3hERzlpSzJndVFOekJUR0NMM0V0YXljSWx4Yjc2YmJpUzlZM01RPT0iLCJpdlBhcmFtZXRlclNwZWMiOiI3bnllb1dlbU8rZis1ekh5IiwibWF0ZXJpYWxTZXRTZXJpYWwiOjF9
+
+
+Manage Kafka resources via AWS CFN
+===================================
+
+* Topics
+* ACLs
+* Schemas (non AWS Glue Schema)
+
+
+* Free software: MPL-2.0
+* Documentation: https://cfn-kafka-admin.readthedocs.io.
+
+.. |PYPI_VERSION| image:: https://img.shields.io/pypi/v/cfn-kafka-admin.svg
+        :target: https://pypi.python.org/pypi/cfn-kafka-admin
+
+.. |PYPI_LICENSE| image:: https://img.shields.io/pypi/l/cfn-kafka-admin
+    :alt: PyPI - License
+    :target: https://github.com/compose-x/cfn-kafka-admin/blob/master/LICENSE
+
+.. |PYPI_PYVERS| image:: https://img.shields.io/pypi/pyversions/cfn-kafka-admin
+    :alt: PyPI - Python Version
+    :target: https://pypi.python.org/pypi/cfn-kafka-admin
+
+.. |PYPI_WHEEL| image:: https://img.shields.io/pypi/wheel/cfn-kafka-admin
+    :alt: PyPI - Wheel
+    :target: https://pypi.python.org/pypi/cfn-kafka-admin
+
+.. |FOSSA| image:: https://app.fossa.com/api/projects/git%2Bgithub.com%2Fcompose-x%2Fcfn-kafka-admin.svg?type=shield
+
+.. |CODE_STYLE| image:: https://img.shields.io/badge/codestyle-black-black
+    :alt: CodeStyle
+    :target: https://pypi.org/project/black/
+
+.. |TDD| image:: https://img.shields.io/badge/tdd-pytest-black
+    :alt: TDD with pytest
+    :target: https://docs.pytest.org/en/latest/contents.html
+
+.. |BDD| image:: https://img.shields.io/badge/bdd-behave-black
+    :alt: BDD with Behave
+    :target: https://behave.readthedocs.io/en/latest/
+
