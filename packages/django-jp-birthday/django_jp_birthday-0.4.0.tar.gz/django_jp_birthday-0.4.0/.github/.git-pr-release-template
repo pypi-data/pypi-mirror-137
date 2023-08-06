@@ -1,0 +1,5 @@
+<%= ENV['PACKAGE_VERSION'] %>
+(<%= Time.now.strftime("%Y-%m-%d") %>)
+<% pull_requests.each do |pr| -%>
+<%= pr.to_checklist_item %>
+<% end -%>
