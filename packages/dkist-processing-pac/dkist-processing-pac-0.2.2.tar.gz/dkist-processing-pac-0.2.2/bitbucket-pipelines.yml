@@ -1,0 +1,47 @@
+image: python:3.8
+definitions:
+  services:
+  steps:
+    - step: &scan
+        caches:
+          - pip
+        name: Scan
+        script:
+          - pip install .
+          - pip install safety
+          - safety check --full-report ${SAFETY_IGNORE}
+    - step: &test
+        caches:
+          - pip
+        name: Test
+        script:
+          - pip install .[test]
+          - pytest -v --cov -m "not development" dkist_processing_pac
+    - step: &docs
+        name: Build Docs
+        caches:
+          - pip
+        script:
+          - apt update && apt -y install graphviz
+          - pip install .[docs]
+          - sphinx-build --color -W --keep-going -b html docs docs/_build/html
+    - step: &push
+        caches:
+          - pip
+        name: Push
+        script:
+          - python setup.py sdist
+          - pip install twine
+          - twine upload dist/*
+
+pipelines:
+  default:
+    - step: *scan
+    - step: *test
+    - step: *docs
+  tags:
+    'v*':
+      - step: *scan
+      - step: *test
+      - step: *docs
+      - step: *push
