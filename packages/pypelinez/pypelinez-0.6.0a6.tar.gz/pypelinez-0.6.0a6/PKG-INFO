@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: pypelinez
+Version: 0.6.0a6
+Summary: 
+Author: thecb4
+Author-email: cavelle@thecb4.io
+Requires-Python: >=3.10,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: chuy (>=1.4.0,<2.0.0)
+Requires-Dist: click (>=8.0.3,<9.0.0)
+Requires-Dist: colorama (>=0.4.4,<0.5.0)
+Requires-Dist: semantic-version (>=2.8.5,<3.0.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Description-Content-Type: text/markdown
+
+# Pypelines
+
+## Description
+Python command line tool to support CI/CD for various platforms
+
+[![pipeline status](https://gitlab.com/thecb4/pypelinez/badges/main/pipeline.svg)](https://gitlab.com/thecb4/pypelinez/-/commits/main)
+
+-- images --
+
+## Installation
+pip install pypelinez
+
+## Usage
+```shell
+$ pypelinez feature start <feature/feature-name>
+```
+
+Current commands:
+* feature start
+* feature add-commit
+* feature submit
+* feature finish
+* release start <version>
+* release add-commit
+* release submit
+* release finish
+* release publish-start
+
+
+
+## Support
+
+## Roadmap
+
+## Contributing
+
+## Authors and Acknowledgements
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
