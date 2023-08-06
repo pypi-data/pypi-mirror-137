@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "req_project"
+version = "0.1.2"
+description = ""
+authors = ["Michael Naderhirn <m.naderhirn@nmrobotic.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+strictdoc = "^0.0.18"
+toml = "^0.10.2"
+GitPython = "^3.1.26"
+platformdirs = "^2.4.1"
+lxml = "^4.7.1"
+MarkupSafe = "^2.0.1"
+Pillow = "^9.0.0"
+svgwrite = "^1.4.1"
+pandas = "^1.4.0"
+openpyxl = "^3.0.9"
+textX = "^2.3.0"
+# capellambse = { git = "https://github.com/DSD-DBS/py-capellambse.git" , tag = "v0.4.6" }
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^21.12b0"
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
