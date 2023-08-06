@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: bcdi
+Version: 0.2.3
+Summary: BCDI: tools for pre(post)-processing Bragg and
+     forward coherent X-ray diffraction imaging data
+Home-page: https://github.com/carnisj/bcdi
+Author: Jerome Carnis
+Author-email: carnis_jerome@yahoo.fr
+License: CeCILL-B
+Project-URL: Documentation, https://bcdi.readthedocs.io/en/latest/
+Description: 
+                BCDI: tools for pre(post)-processing Bragg and forward coherent X-ray
+                diffraction imaging data.
+        
+                BCDI stands for *Bragg coherent X-ray diffraction imaging*.
+        
+                It can be used for:
+        
+                 1. Pre-processing BCDI and forward CDI data (masking aliens, detector gaps)
+                    before phase retrieval.
+                 2. Post-processing phased data (phase offset and phase ramp removal,
+                    averaging, apodization...).
+                 3. Data analysis on diffraction data (stereographic projection,
+                    angular cross correlation analysis, domain orientation fitting ...).
+                 4. Data analysis on phased data (resolution calculation, statistics on the
+                    retrieved strain...).
+                 5. Simulation of diffraction intensity (including noise, detector gaps,
+                    displacement...).
+                 6. Creating figures for publication using templates.
+Keywords: BCDI Bragg coherent X-rays diffraction imaging
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: CeCILL-B Free Software License Agreement (CECILL-B)
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6*
+Description-Content-Type: text/x-rst
+Provides-Extra: doc
+Provides-Extra: dev
