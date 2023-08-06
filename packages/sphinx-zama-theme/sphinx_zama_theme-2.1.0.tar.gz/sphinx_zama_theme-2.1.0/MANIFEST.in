@@ -1,0 +1,16 @@
+include MANIFEST.in
+include README.md
+include setup.py
+include requirements.txt
+
+recursive-exclude docs *
+recursive-include *
+
+graft sphinx_zama_theme
+
+# Patterns to exclude from any directory
+global-exclude *~
+global-exclude *.py[cod]
+global-exclude .git
+global-exclude .ipynb_checkpoints
+global-exclude .DS_Store
