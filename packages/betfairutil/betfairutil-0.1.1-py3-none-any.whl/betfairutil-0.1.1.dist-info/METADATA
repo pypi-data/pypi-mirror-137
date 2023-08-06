@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: betfairutil
+Version: 0.1.1
+Summary: Utility functions for working with Betfair data
+Home-page: https://github.com/mberk/betfairutil
+Author: Maurice Berk
+Author-email: maurice@mauriceberk.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: betfairlightweight
+Requires-Dist: pandas
+Provides-Extra: files
+Requires-Dist: betfairlightweight (>=2.12.0) ; extra == 'files'
+Requires-Dist: smart-open ; extra == 'files'
+
+# betfairutil
+
+Utility functions for working with Betfair data
+
+# Dependencies
+
+* [betfairlightweight](https://github.com/liampauling/betfair)
+* pandas
+
+Optionally, for working with Betfair prices files:
+
+* smart_open
+
+# Installation
+
+Requires Python 3.5 or above.
+
+If working with Betfair prices files:
+
+```
+pip install betfairutil[files]
+```
+
+Otherwise:
+
+```
+pip install betfairutil
+```
+
+# See Also
+
+* There is some inevitable overlap between this package and [flumine's](https://github.com/liampauling/flumine) own
+  [utils module](https://github.com/liampauling/flumine/blob/master/flumine/utils.py). However, that module
+  understandably conflates utility functions for Betfair data structures, flumine, and general purposes. The betfairutil
+  package:
+    * Has a much tighter scope than flumine and is therefore a lighter weight solution for those who are not flumine
+    users
+    * It is hoped will ultimately provide a wider range of functions and therefore provide value to flumine users as 
+    well
+
+
