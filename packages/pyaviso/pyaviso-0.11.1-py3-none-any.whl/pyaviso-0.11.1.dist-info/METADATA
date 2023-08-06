@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: pyaviso
+Version: 0.11.1
+Summary: Time-critical notification system designed to trigger users' workflows across HPC and Cloud systems
+Home-page: https://github.com/ecmwf/aviso
+Author: ECMWF
+Author-email: software.support@ecmwf.int
+License: Apache 2.0
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/markdown
+Requires-Dist: Click
+Requires-Dist: etcd3 (>=0.11.1)
+Requires-Dist: PyYAML
+Requires-Dist: python-json-logger
+Requires-Dist: requests
+Requires-Dist: parse
+Requires-Dist: pyinotify
+Requires-Dist: cloudevents (>=1.2.0)
+Requires-Dist: boto3
+
+# Aviso
+
+Aviso is a software developed by ECMWF that allows the notification of  **time-critical events** across HPC and Cloud systems in 
+order to enable workflows among multiple domains.
+
+It allows users to:
+
+* Define events that require notification
+* Define triggers to be executed once a notification is received
+* Send and receive notifications
+
+This enables the creation of automatic workflows, timely triggered as events are notified.
+
+
+The documentation can be found at https://pyaviso.readthedocs.io/
+
+Note: the package *pyaviso* is a beta version, please carefully test it before using it in an operational setting.
+We are looking forward to having your feedback.
+
