@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: zhaws
+Version: 2022.2.2
+Summary: Library implementing a Zigbee websocket server
+Home-page: https://github.com/zigpy/zha-websocket-server
+Author: David F. Mulcahey
+Author-email: david.mulcahey@icloud.com
+License: GPL-3.0
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: colorlog
+Requires-Dist: pydantic
+Requires-Dist: websockets
+Requires-Dist: voluptuous
+Requires-Dist: zigpy (==0.43.0)
+Requires-Dist: bellows (==0.29.0)
+Requires-Dist: zha-quirks (==0.0.66)
+Requires-Dist: zigpy-deconz (==0.14.0)
+Requires-Dist: zigpy-xbee (==0.14.0)
+Requires-Dist: zigpy-zigate (==0.7.4)
+Requires-Dist: zigpy-znp (==0.7.0)
+Provides-Extra: server
+Requires-Dist: uvloop ; extra == 'server'
+
+# zha-websocket-server
+
+## Running the server
+
+Checkout the code and open a terminal at the root of the project. Then run the following commands:
+
+```bash
+script/setup
+script/run
+```
+
+Open another terminal at the root of the project and run the following command:
+
+```bash
+script/run_client
+```
+
+To start the server modify the content of the `start_network.json` file in the examples directory to match your radio and paste it as a single line into the console and press return / enter
+
+to stop the server paste the content of the `stop_network.json` file into the prompt in the console as a single line and press return / enter
+
+
