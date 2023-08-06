@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "robox"
+version = "0.1.0"
+description = "Robox is a simple library for exploring/scraping the web or testing a website you’re developing."
+authors = ["Dan Claudiu Pop <danclaudiupop@gmail.com>"]
+license = "BSD 3"
+readme = "README.md"
+repository = "https://github.com/danclaudiupop/robox"
+homepage = "https://github.com/danclaudiupop/robox"
+keywords = ["httpx", "scraping", "testing"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Topic :: Internet :: WWW/HTTP",
+  "Framework :: AsyncIO",
+  "Framework :: Trio",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3 :: Only",
+]
+include = ["LICENSE"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+httpx = "^0.21.1"
+beautifulsoup4 = "^4.9.3"
+aiofiles = "^0.8.0"
+httpx-cache = "^0.4.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+pytest-asyncio = "^0.17.2"
+respx = "^0.19.2"
+black = "^22.1"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+pre-commit = "^2.17.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
