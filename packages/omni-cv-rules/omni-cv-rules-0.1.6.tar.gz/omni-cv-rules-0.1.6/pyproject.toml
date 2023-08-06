@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "omni-cv-rules"
+version = "0.1.6"
+description = ""
+authors = ["Kento Masui <nameissoap@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+py-omni-converter="*"
+numpy = "*"
+Pillow = "*"
+frozendict = "*"
+ipywidgets = "*"
+pprintpp = "*"
+pandas = "*"
+bqplot = "*"
+attrs = "*"
+[tool.poetry.dev-dependencies]
+coconut = "*"
+invoke = "*"
+pytest = "*"
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
