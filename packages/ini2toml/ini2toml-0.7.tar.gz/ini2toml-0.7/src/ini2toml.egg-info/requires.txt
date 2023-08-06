@@ -1,0 +1,31 @@
+packaging>=20.7
+
+[all]
+configupdater<4,>=3.0.1
+atoml<2,>=1.1.1
+tomli-w<2,>=0.4.0
+
+[full]
+configupdater<4,>=3.0.1
+atoml<2,>=1.1.1
+
+[full:python_version < "3.8"]
+importlib-metadata
+
+[lite]
+tomli-w<2,>=0.4.0
+
+[lite:python_version < "3.8"]
+importlib-metadata
+
+[testing]
+setuptools
+tomli
+pytest
+pytest-cov
+validate-pyproject<2,>=0.3.2
+
+[typechecking]
+
+[typechecking:python_version < "3.8"]
+typing-extensions
