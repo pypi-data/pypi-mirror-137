@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: shadho
+Version: 0.4.3
+Summary: Hyperparameter optimizer with distributed hardware at heart
+Home-page: https://github.com/jeffkinnison/shadho
+Author: Jeff Kinnison
+Author-email: jkinniso@nd.edu
+License: UNKNOWN
+Keywords: machine_learning hyperparameters distributed_computing
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# `shadho` - Scalable Hardware-Aware Distributed Hyperparameter Optimizer
+
+`shadho` is framework for distributed hyperparameter optimization developed for
+machine/deep learning applications.
+
+- Website/Documentation: <https://shadho.readthedocs.io>
+- Bug Reports: <https://github.com/jeffkinnison/shadho/issues>
+
+# Installation
+
+**Note:** The post-install step may look like it hangs, but it is just
+compiling Work Queue behind the scenes and may take a few minutes.
+
+```
+$ pip install shadho
+$ python -m shadho.installers.workqueue
+```
+
+## Installing on a Shared System
+
+The owner of the shared installation should follow the steps above. Then,
+another user installs with
+
+```
+$ pip install shadho
+$ python -m shadho.installers.workqueue --prefix <path to shared install>
+```
+
+# Dependencies
+
+- numpy
+- scipy
+- [pyrameter](https://github.com/jeffkinnison/pyrameter)
+- [Work Queue](http://ccl.cse.nd.edu/software/workqueue/) (Built and installed by setup.py)
+
+
