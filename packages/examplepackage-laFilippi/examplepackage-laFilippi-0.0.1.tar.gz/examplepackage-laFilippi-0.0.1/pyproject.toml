@@ -1,0 +1,10 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel",
+    "gTTS",
+    "googletrans==4.0.0-rc1",
+    "torch torchvision torchaudio",
+    "git+git://github.com/jaidedai/easyocr.git"
+]
+build-backend = "setuptools.build_meta"
