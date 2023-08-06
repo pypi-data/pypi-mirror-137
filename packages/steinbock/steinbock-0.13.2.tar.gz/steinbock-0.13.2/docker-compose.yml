@@ -1,0 +1,86 @@
+version: '3.4'
+services:
+  steinbock:
+    image: ghcr.io/bodenmillergroup/steinbock:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/data:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ~/.Xauthority:/home/steinbock/.Xauthority:ro
+    environment:
+      - DISPLAY
+  steinbock-gpu:
+    image: ghcr.io/bodenmillergroup/steinbock-gpu:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - TENSORFLOW_SUFFIX=-gpu
+    volumes:
+      - ./data:/data:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ~/.Xauthority:/home/steinbock/.Xauthority:ro
+    environment:
+      - DISPLAY
+  steinbock-debug:
+    image: ghcr.io/bodenmillergroup/steinbock:latest
+    volumes:
+      - ./data:/data:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ~/.Xauthority:/home/steinbock/.Xauthority:ro
+    environment:
+      - DISPLAY
+    entrypoint: /bin/bash
+    command: ['-c', 'python -m pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m steinbock']
+    ports:
+      - '5678:5678'
+  steinbock-debug-gpu:
+    image: ghcr.io/bodenmillergroup/steinbock-gpu:latest
+    volumes:
+      - ./data:/data:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ~/.Xauthority:/home/steinbock/.Xauthority:ro
+    environment:
+      - DISPLAY
+    entrypoint: /bin/bash
+    command: ['-c', 'python -m pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m steinbock']
+    ports:
+      - '5678:5678'
+  pytest:
+    image: ghcr.io/bodenmillergroup/steinbock:latest
+    volumes:
+      - .:/app/steinbock
+    entrypoint: /bin/bash
+    command: ['-c', 'python -m pip install -r requirements_test.txt && python -m pytest tests --cov=steinbock --cov-report xml:coverage.xml']
+    working_dir: /app/steinbock
+    user: root
+  pytest-gpu:
+    image: ghcr.io/bodenmillergroup/steinbock-gpu:latest
+    volumes:
+      - .:/app/steinbock
+    entrypoint: /bin/bash
+    command: ['-c', 'python -m pip install -r requirements_test.txt && python -m pytest tests --cov=steinbock --cov-report xml:coverage.xml']
+    working_dir: /app/steinbock
+    user: root
+  pytest-debug:
+    image: ghcr.io/bodenmillergroup/steinbock:latest
+    volumes:
+      - .:/app/steinbock
+    entrypoint: /bin/bash
+    command: ['-c', 'python -m pip install debugpy -t /tmp && python -m pip install -r requirements_test.txt && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m pytest tests --cov=steinbock --cov-report xml:coverage.xml']
+    ports:
+      - '5678:5678'
+    working_dir: /app/steinbock
+    user: root
+  pytest-debug-gpu:
+    image: ghcr.io/bodenmillergroup/steinbock-gpu:latest
+    volumes:
+      - .:/app/steinbock
+    entrypoint: /bin/bash
+    command: ['-c', 'python -m pip install debugpy -t /tmp && python -m pip install -r requirements_test.txt && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m pytest tests --cov=steinbock --cov-report xml:coverage.xml']
+    ports:
+      - '5678:5678'
+    working_dir: /app/steinbock
+    user: root
