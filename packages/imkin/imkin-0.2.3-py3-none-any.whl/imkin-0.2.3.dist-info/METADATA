@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: imkin
+Version: 0.2.3
+Summary: Lightweight a movie and TV series data parser from imdb.com and kinopoisk.ru
+Home-page: https://bitbucket.org/shllw/imkin/
+Author: shllw
+Author-email: shllw@yahoo.com
+License: UNKNOWN
+Keywords: parser imdb kinopoisk
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: POSIX :: Linux
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+Lightweight a movie and TV series data parser like title, alternate title, release date, runtime, age rating and episode titles for TV series from imdb.com and kinopoisk.ru without using third-party packages. Wget will be used for the kinopoisk parser, so Linux like only.
+
+Install:
+
+    pip install imkin
+
+Examples:
+
+    import imkin
+    
+    film = imkin.new('https://www.imdb.com/title/tt0068646/')
+    
+    print(film)
+    
+    print(film.title)
+    
+    print(film.alternate)
+    
+    print(film.year)
+    
+    print(film.time)
+    
+    print(film.age)
+    
+    print(film.isfilm)
+    
+    print(film.url)
+    
+    
+    film = imkin.new('https://www.imdb.com/title/tt2356777/')
+    
+    print(film.title)
+    
+    titles = imkin.gettitles(film.url)
+    
+    print(titles[1][1])
+    
+    
+    result = imkin.search('Fargo')
+    
+    print(result)
+
+
