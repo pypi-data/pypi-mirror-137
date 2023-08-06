@@ -1,0 +1,63 @@
+Metadata-Version: 2.1
+Name: vprolog
+Version: 0.1.0
+Summary: Incomplete Prolog interpreter in Python
+Home-page: https://github.com/Vekteur/vprolog
+Author: Victor Dheur
+Author-email: vic.dheur@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+## VProlog
+
+An implementation of a subset of the Prolog programming language made for fun.
+The language is parsed using [Lark](https://github.com/lark-parser/lark).
+
+### Installation
+
+```
+pip install vprolog
+```
+
+### Usage
+
+To run vprolog, use
+```
+vprolog [<input_file>]
+```
+where the argument is an optional input file containing facts and rules.
+
+Example input files can be found in [examples](/examples).
+
+### Example
+
+To run the examples, just clone the repository first:
+```
+git clone https://github.com/Vekteur/vprolog.git
+cd vprolog/examples/
+```
+
+```
+$ vprolog example1.pl
+?- cousin(bernard, X).
+X = pierre
+X = veronique
+```
+
+```
+$ vprolog example5.pl
+?- inverse([1, 2, 3], L).
+L = [3, 2, 1]
+```
+
+```
+$ vprolog example7.pl
+?- gcd2(8, 12, X).
+X = 4
+```
+
