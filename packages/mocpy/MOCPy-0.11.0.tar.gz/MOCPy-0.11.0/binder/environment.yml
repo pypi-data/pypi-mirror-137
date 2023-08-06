@@ -1,0 +1,14 @@
+name: mocpy-dev
+
+channels:
+- defaults
+- conda-forge
+
+dependencies:
+- maturin
+- astropy
+- astroquery
+- astropy-healpix # Optional dependency for boundaries notebook
+- requests
+- matplotlib # Used in fill and border
+- networkx>=2.5 # Used in get_boundaries
