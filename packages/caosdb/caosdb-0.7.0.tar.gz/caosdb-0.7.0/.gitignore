@@ -1,0 +1,18 @@
+# -*- mode:conf; -*-
+
+# dot files
+.*
+!/.gitignore
+!/.gitlab-ci.yml
+
+# compiled python and dist stuff
+*.egg
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+src/caosdb/version.py
+
+# documentation
+_apidoc

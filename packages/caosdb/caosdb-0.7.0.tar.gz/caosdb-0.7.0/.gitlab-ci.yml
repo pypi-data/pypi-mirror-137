@@ -1,0 +1,113 @@
+#
+# This file is a part of the CaosDB Project.
+#
+# Copyright (C) 2018 Research Group Biomedical Physics,
+# Max-Planck-Institute for Dynamics and Self-Organization Göttingen
+# Copyright (C) 2019 Henrik tom Wörden
+# Copyright (C) 2020 Indiscale GmbH <info@indiscale.com>
+# Copyright (C) 2020 Daniel Hornung <d.hornung@indiscale.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+variables:
+  DEPLOY_REF: dev
+  CI_REGISTRY_IMAGE: $CI_REGISTRY/caosdb/src/caosdb-pylib/testenv:latest
+  # When using dind, it's wise to use the overlayfs driver for
+  # improved performance.
+
+image: $CI_REGISTRY_IMAGE
+
+stages:
+  - code_style
+  - linting
+  - setup
+  - test
+  - deploy
+
+# check code style
+code_style:
+  tags: [ docker ]
+  stage: code_style
+  script:
+    - make style
+  allow_failure: true
+
+# pylint tests for pycaosdb
+pylint:
+  tags: [ docker ]
+  stage: linting
+  script:
+    - make lint
+  allow_failure: true
+
+# run tests
+test:
+  tags: [ docker ]
+  stage: test
+  script:
+    - touch ~/.pycaosdb.ini
+    - tox -r 
+
+# Trigger building of server image and integration tests
+trigger_build:
+  tags: [ docker ]
+  stage: deploy
+  script:
+    - /usr/bin/curl -X POST
+      -F token=$CI_JOB_TOKEN
+      -F "variables[F_BRANCH]=$CI_COMMIT_REF_NAME"
+      -F "variables[PYLIB]=$CI_COMMIT_REF_NAME"
+      -F "variables[TriggerdBy]=PYLIB"
+      -F "variables[TriggerdByHash]=$CI_COMMIT_SHORT_SHA"
+      -F ref=$DEPLOY_REF https://gitlab.indiscale.com/api/v4/projects/14/trigger/pipeline
+
+# Build a docker image in which tests for this repository can run
+build-testenv:
+  tags: [ cached-dind ]
+  image: docker:19.03
+  stage: setup
+  only:
+      - schedules
+  script: 
+    - cd unittests/docker
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+      # use here general latest or specific branch latest...
+    - docker pull $CI_REGISTRY_IMAGE|| true
+    - docker build 
+      --pull
+      --build-arg COMMIT=$CI_COMMIT_SHORT_SHA
+      --cache-from $CI_REGISTRY_IMAGE
+      -t $CI_REGISTRY_IMAGE .
+    - docker push $CI_REGISTRY_IMAGE
+
+# Build the sphinx documentation and make it ready for deployment by Gitlab Pages
+# Special job for serving a static website. See https://docs.gitlab.com/ee/ci/yaml/README.html#pages
+pages_prepare: &pages_prepare
+  tags: [ cached-dind ]
+  stage: deploy
+  only:
+    refs:
+      - /^release-.*$/i
+  script:
+    - echo "Deploying"
+    - make doc
+    - cp -r build/doc/html public
+  artifacts:
+    paths:
+      - public
+pages:
+  <<: *pages_prepare
+  only:
+    refs:
+      - main
