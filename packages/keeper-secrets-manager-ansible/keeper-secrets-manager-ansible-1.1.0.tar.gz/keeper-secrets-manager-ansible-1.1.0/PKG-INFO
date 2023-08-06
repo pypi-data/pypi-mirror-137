@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: keeper-secrets-manager-ansible
+Version: 1.1.0
+Summary: Keeper Secrets Manager plugins for Ansible.
+Home-page: https://github.com/Keeper-Security/secrets-manager
+Author: Keeper Security
+Author-email: ops@keepersecurity.com
+License: MIT
+Project-URL: Bug Tracker, https://github.com/Keeper-Security/secrets-manager/issues
+Project-URL: Documentation, https://app.gitbook.com/@keeper-security/s/secrets-manager/secrets-manager/integrations/ansible-plugin
+Project-URL: Source Code, https://github.com/Keeper-Security/secrets-manager
+Keywords: Keeper Secrets Manager SDK Ansible
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Security
+Classifier: Topic :: System :: Installation/Setup
+Classifier: Topic :: System :: Systems Administration
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# Keeper Secrets Manager Ansible
+
+This module contains plugins that allow your Ansible automations to use Keeper Secrets Manager. 
+
+* `keeper_copy` - Similar to `ansible.builtin.copy`. Uses the KSM vault for the source/content.
+* `keeper_get` - Retrieve secrets from a record.
+* `keeper_set` - Update an existing record from Ansible information.
+* `keeper_init` - Initialize a KSM configuration from a one-time access token.
+* `keeper_cleanup` - Remove the cache file, if being used.
+* `keeper_lookup` - Retrieve secrets from a record using Ansible's lookup.
+* `keeper_redact` - Stdout Callback plugin to redact secrets from logs.
+
+For more information see our official documentation page https://docs.keeper.io/secrets-manager/secrets-manager/integrations/ansible-plugin
+
+
