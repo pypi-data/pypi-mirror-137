@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: galo_method_decorators
+Version: 0.1.0
+Summary: A library that allows you to use decorators for instance methods without affecting the methods in
+Author-email: Maxim Sakhno <maxim.sakhno@gmail.com>
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Typing :: Typed
+Requires-Dist: mypy==0.931 ; extra == "dev"
+Requires-Dist: flake8==4.0.1 ; extra == "dev"
+Requires-Dist: flake8-quotes==3.3.1 ; extra == "dev"
+Requires-Dist: autoflake==1.4 ; extra == "dev"
+Requires-Dist: black==21.12b0 ; extra == "dev"
+Requires-Dist: isort==5.10.1 ; extra == "dev"
+Requires-Dist: bandit==1.7.1 ; extra == "dev"
+Requires-Dist: pytest==6.2.5 ; extra == "dev"
+Requires-Dist: pytest-asyncio==0.17.0 ; extra == "dev"
+Requires-Dist: pytest-cov==3.0.0 ; extra == "dev"
+Project-URL: Source, https://github.com/maximsakhno/galo-method-decorators
+Provides-Extra: dev
+
+# Galo-MethodDecorators
+
+![Test workflow](https://github.com/maximsakhno/galo-method-decorators/actions/workflows/test.yml/badge.svg)
+[![codecov](https://codecov.io/gh/maximsakhno/galo-method-decorators/branch/master/graph/badge.svg?token=Z5ZDJ3N02S)](https://codecov.io/gh/maximsakhno/galo-method-decorators)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/galo_mehtod_decorators)](https://pypi.org/project/galo_method_decorators/)
+[![PyPI](https://img.shields.io/pypi/v/galo_method_decorators)](https://pypi.org/project/galo_method_decorators/)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+
+A Python library that allows you to use decorators for instance methods without affecting the methods in the class.
+
+## Installation
+
+The package is available on the [PyPi](https://pypi.org/project/galo_method_decorators/):
+
+```commandline
+pip install galo_method_decorators
+```
+
