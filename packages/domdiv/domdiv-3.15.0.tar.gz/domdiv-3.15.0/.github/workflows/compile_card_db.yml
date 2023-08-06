@@ -1,0 +1,30 @@
+name: Compile Card DB
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  compile_card_db:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: |
+          pip install -r requirements.txt
+          pip install .
+      - name: Update Languages
+        run: doit update_languages
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          base: HEAD
+          filters: |
+            cardb_target:
+              - src/domdiv/card_db/**
+      - name: Create Artifact
+        uses: actions/upload-artifact@v2
+        if: steps.filter.outputs.cardb_target == 'true'
+        with:
+          name: card_db
+          path: src/domdiv/card_db/

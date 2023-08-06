@@ -1,0 +1,55 @@
+name: Make Card DB PR
+
+on:
+  workflow_run:
+    workflows:
+      - Compile Card DB
+    types:
+      - completed
+
+jobs:
+  make_pr:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/github-script@v3.1.0
+        id: get-artifact
+        with:
+          result-encoding: string
+          script: |
+            var artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            var matchArtifacts = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "card_db"
+            });
+            if (matchArtifacts.length > 0) {
+              var matchArtifact = matchArtifacts[0];
+              var download = await github.actions.downloadArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: matchArtifact.id,
+                archive_format: 'zip',
+              });
+              var fs = require('fs');
+              fs.writeFileSync('${{github.workspace}}/card_db.zip', Buffer.from(download.data));
+              return 'found_artifact';
+            } else {
+              return 'no_artifact'
+            }
+      - run: unzip -o -d src/domdiv/card_db card_db.zip
+        if: steps.get-artifact.outputs.result == 'found_artifact'
+      - run: rm -f card_db.zip
+        if: steps.get-artifact.outputs.result == 'found_artifact'
+      - name: Make PR
+        if: steps.get-artifact.outputs.result == 'found_artifact'
+        uses: peter-evans/create-pull-request@v3
+        with:
+          body: |
+            Auto-generate package card DB to from source card DB
+          delete-branch: true
+          reviewers: sumpfork
+          assignees: sumpfork
