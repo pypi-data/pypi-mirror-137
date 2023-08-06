@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: ghbot
+Version: 0.1.0
+Summary: Github Follow Bot to Get More Followers in Python.
+Home-page: https://github.com/clivern/ghbot/
+Author: Clivern
+Author-email: hello@clivern.com
+License: MIT
+Project-URL: Documentation, https://github.com/clivern/ghbot/
+Project-URL: Source, https://github.com/clivern/ghbot/
+Project-URL: Changelog, https://github.com/clivern/ghbot/blob/main/CHANGELOG.rst
+Project-URL: Tracker, https://github.com/clivern/ghbot/issues
+Project-URL: Download, https://pypi.org/project/ghbot/#files
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python
+Classifier: License :: OSI Approved :: MIT License
+Description-Content-Type: text/x-rst; charset=UTF-8
+License-File: LICENSE.txt
+Requires-Dist: PyGithub
+Requires-Dist: importlib-metadata ; python_version < "3.8"
+
+.. image:: https://img.shields.io/pypi/v/ghbot.svg
+    :alt: PyPI-Server
+    :target: https://pypi.org/project/ghbot/
+.. image:: https://github.com/Clivern/ghbot/actions/workflows/ci.yml/badge.svg
+    :alt: Build Status
+    :target: https://github.com/Clivern/ghbot/actions/workflows/ci.yml
+
+|
+
+==========
+Github Bot
+==========
+
+    Github Follow Bot to Get More Followers in Python
+
+
+
+To Use the bot, follow the following steps
+
+1. Create a Python virtual environment
+
+.. code-block::
+
+    $ python3 -m venv venv
+    $ source venv/bin/activate
+
+
+2. Install ghbot package with pip
+
+.. code-block::
+
+    $ pip install ghbot
+
+
+3. Create access token https://github.com/settings/tokens/new with required user permissions (`read:user`, `user:email`, `user:follow`)
+
+
+4. Run the bot with the access token and the number of followers.
+
+.. code-block::
+
+    $ python -m ghbot.cli $access-token-here 1000 -v
+
+
+5. Then wait or run as a background process.
+
+
