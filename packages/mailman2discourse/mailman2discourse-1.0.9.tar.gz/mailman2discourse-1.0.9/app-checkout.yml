@@ -1,0 +1,6 @@
+
+    - exec:
+        cd: $home
+        cmd:
+          - git fetch --depth=1 origin tag VERSION --no-tags
+          - git checkout VERSION
