@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: hcai-models-nightly
+Version: 0.1.1.dev202202071410
+Summary: !Alpha Version! - This repository contains code to easy access trained models of the chair or train new ones yourself.
+Home-page: https://github.com/pypa/sampleproject
+Author: Dominik Schiller
+Author-email: dominik.schiller@uni-a.de
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.6, <4
+Description-Content-Type: text/markdown
+Requires-Dist: tensorflow (>=2.1)
+
+[![documentation](https://github.com/hcmlab/hcai-models/actions/workflows/documentation.yml/badge.svg)](https://github.com/hcmlab/hcai-models/actions/workflows/documentation.yml)
+
+### Description
+This repository contains code to make readly deploy pretrained machine learning model from the Chair for [Human-Centered Artificial Intelligence at the University of Augsburg](https://www.uni-augsburg.de/en/fakultaet/fai/informatik/prof/hcm/)
+
+### Currently available Models
+
+#### Image Models
+
+| Model                                                             | Status | Weights  | Url
+| :-------------                                                    |:------:| :-------------:| :-----|
+| [EfficientNetB0](hcai_models/models/image/hcai_efficient_net)     | ✅     | imagenet | https://keras.io/api/applications/ |
+| [EfficientNetB2](hcai_models/models/image/hcai_efficient_net)     | ✅     | imagenet | https://keras.io/api/applications/ |
+| [EfficientNetB1](hcai_models/models/image/hcai_efficient_net)     | ✅     | imagenet | https://keras.io/api/applications/ |
+| [EfficientNetB3](hcai_models/models/image/hcai_efficient_net)     | ✅     | imagenet | https://keras.io/api/applications/ |
+| [EfficientNetB4](hcai_models/models/image/hcai_efficient_net)     | ✅     | imagenet | https://keras.io/api/applications/ |
+| [EfficientNetB5](hcai_models/models/image/hcai_efficient_net)     | ✅     | imagenet | https://keras.io/api/applications/ |
+| [EfficientNetB6](hcai_models/models/image/hcai_efficient_net)     | ✅     | imagenet | https://keras.io/api/applications/ |
+| [EfficientNetB7](hcai_models/models/image/hcai_efficient_net)     | ✅     | imagenet | https://keras.io/api/applications/ |
+| [InceptionV3](hcai_models/models/image/hcai_inception_v3)         | ✅     | imagenet | https://keras.io/api/applications/ |
+| [BlazeFace](hcai_models/models/image/hcai_blaze_face)             | ✅     | ls3d-w   | https://arxiv.org/abs/1907.05047   |
+| [S3FD](hcai_models/models/image/hcai_sfd)                         | ✅     | ls3d-w   | https://arxiv.org/abs/1708.05237   |
+
+
+
+
