@@ -1,0 +1,31 @@
+VIRTUALENV_NAME=operatorai.example.$(shell pwd | rev | cut -d '/' -f 1 | rev)
+REPO_ROOT=$(shell cd ../../ && pwd)
+
+.PHONY: name pyenv pyenv-local pyenv-prod pyenv-test pyenv-uninstall refresh-test
+
+name:
+	echo $(VIRTUALENV_NAME)
+
+pyenv:
+	#@$(REPO_ROOT)/bin/_setup_brew
+	@$(REPO_ROOT)/bin/_setup_pyenv $(VIRTUALENV_NAME)
+
+pyenv-local: pyenv-uninstall pyenv
+	pip uninstall -y modelstore
+	pip install -e $(REPO_ROOT)
+
+pyenv-test: pyenv-uninstall pyenv
+	pip uninstall -y modelstore
+	pip install --no-cache-dir -i https://test.pypi.org/simple/ modelstore==0.0.73
+
+pyenv-prod: pyenv-uninstall pyenv
+	pip uninstall -y modelstore
+	pip install --no-cache-dir --upgrade modelstore
+
+pyenv-uninstall:
+	@$(REPO_ROOT)/bin/_remove_pyenv
+
+refresh:
+	pip install --upgrade pip setuptools wheel	
+	pip uninstall -y modelstore
+	pip install --no-cache-dir -e $(REPO_ROOT)
