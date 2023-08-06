@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "amaz3dpy"
+version = "0.1.2"
+description = "Python SDK for AMAZ3D - Powered By Adapta Studio"
+authors = ["Adapta Studio <support@adapta.studio>", "Federico S. Sangiorgio <federico.sangiorgio@adapta.studio>"]
+readme = "README.rst"
+
+[tool.poetry.dependencies]
+python = "^3.9.1"
+gql = {version = ">=3.0.0", extras = ["all"], allow-prereleases = true}
+pydantic = "1.9.0"
+pyjwt = {version = "2.3.0", extras = ["crypto"], allow-prereleases = true}
+appdirs = "1.4.4"
+python-dateutil = "2.8.2"
+timeago = "1.0.15"
+pyfiglet = "0.7.2"
+InquirerPy = "0.3.2"
+clint = "0.5.1"
+columnar = "1.4.1"
+click = "8.0.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[tool.poetry.scripts]
+amaz3d = "amaz3dpy:amaz3d"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
