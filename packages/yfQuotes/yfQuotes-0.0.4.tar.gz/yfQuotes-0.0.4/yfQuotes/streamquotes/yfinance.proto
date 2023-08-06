@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package streamquotes;
+
+/* message defines the overall structure. Think of it as almost defining a 
+class, and within it we're defining fields */
+message PricingData{
+    /* enum basically expects input to be from a set list, 
+    and converts corresponding values into a number */
+    enum QuoteType {
+        /* enum's first constant maps to 0 - this is required b/c -
+        1. there must be zero value so that 0 can be used as numeric default
+        2. zero value needs to be first element for compatibility with proto2 semantics where
+        first val is always default */
+        NONE = 0;
+        ALTSYMBOL = 5;
+        HEARTBEAT = 7;
+        EQUITY = 8;
+        INDEX = 9;
+        MUTUALFUND = 11;
+        MONEYMARKET = 12;
+        OPTION = 13;
+        CURRENCY = 14;
+        WARRANT = 15;
+        BOND = 17;
+        FUTURE = 18;
+        ETF = 20;
+        COMMODITY = 23;
+        ECNQUOTE = 28;
+        CRYPTOCURRENCY = 41;
+        INDICATOR = 42;
+        INDUSTRY = 1000;
+    };
+
+    enum MarketHours {
+        PRE_MARKET = 0;
+        REGULAR_MARKET = 1;
+        POST_MARKET = 2;
+        EXTENDED_HOURS_MARKET = 3;
+    };
+
+    enum OptionType {
+        CALL = 0;
+        PUT = 1;
+    };
+
+    /* defining other fields 
+    sidenote when reading js file - 
+    -- the object.prototype simply allows adding a new property to object constructors - 
+    -- switch statements: depending on the input value, the corresponding code block will run, kind of like
+    in comet64. switch statements are faster to execute? I think compared to an equivalent if else block -- 
+    The below fields are read from switch blocks that look like this:
+    case 11: <-- tag number
+    m.dayLow = r.float(); <-- field name and field type
+    break;
+    */
+    string id = 1;
+    float price = 2;
+    sint64 time = 3;
+    string currency = 4;
+    string exchange = 5;
+    /* previously defined enum QuoteType can be considered a self defined field type to be used here -- */
+    QuoteType quoteType = 6;
+    MarketHours marketHours = 7;
+    float changePercent = 8;
+    sint64 dayVolume = 9;
+    float dayHigh = 10;
+    float dayLow = 11;
+    float change = 12;
+    string shortName = 13;
+    sint64 expireDate = 14;
+    float openPrice = 15;
+    float previousClose = 16;
+    float strikePrice = 17;
+    string underlyingSymbol = 18;
+    sint64 openInterest = 19;
+    sint64 optionsType = 20;
+    sint64 miniOption = 21;
+    sint64 lastSize = 22;
+    float bid = 23;
+    sint64 bidSize = 24;
+    float ask = 25;
+    sint64 askSize = 26;
+    sint64 priceHint = 27;
+    sint64 vol_24hr = 28;
+    sint64 volAllCurrencies = 29;
+    string fromcurrency = 30;
+    string lastMarket = 31;
+    double circulatingSupply = 32;
+    double marketcap = 33;
+
+};
+
+/* other message defined in the js file, but the first message should be the main one  */
+message StaticData {
+    
+    string id = 1;
+    string displayName = 2;
+    string currency = 3;
+    string exchange = 4;
+    float openPrice = 5;
+    float closePrice = 6;
+    float fiftytwoWkMovingAvgPrice = 7;
+    float twohundredDataMovingAvgPrice = 8;
+
+};
+
