@@ -1,0 +1,45 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 8
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v1
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install software
+        run: |
+          python -m pip install --upgrade pip --use-feature=2020-resolver
+          python -m pip install coveralls --use-feature=2020-resolver
+          python -m pip install .[dev] --use-feature=2020-resolver
+          python -m pip install https://github.com/bboe/coveralls-python/archive/github_actions.zip
+      - name: Configure
+        run: |
+          mkdir ~/.aws
+          touch ~/.aws/credentials
+          printf "[aws]\nconfigured = True\n" > ~/.aws/cloudknot
+      - name: Lint with flake8
+        run: |
+          flake8
+          black --check .
+          pydocstyle
+      - name: Test
+        run: |
+          pytest --pyargs cloudknot --cov-report term-missing --cov-config .coveragerc --cov=cloudknot
+      - name: Coveralls Parallel
+        run: |
+          coveralls
+        if: matrix.python-version == 3.8
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
