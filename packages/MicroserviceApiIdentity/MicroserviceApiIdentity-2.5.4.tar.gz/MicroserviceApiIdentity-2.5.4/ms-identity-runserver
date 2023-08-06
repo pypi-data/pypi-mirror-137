@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+PATH=$PATH:$HOME/.local/bin
+APP_NAME=identity
+APP_CONFIG=${UWSGI_CONFIG-/etc/microservice/${APP_NAME}/${APP_NAME}.ini}
+UWSGI_CONFIG=${UWSGI_CONFIG-/etc/microservice/${APP_NAME}/uwsgi.ini}
+uwsgi --ini ${UWSGI_CONFIG}
