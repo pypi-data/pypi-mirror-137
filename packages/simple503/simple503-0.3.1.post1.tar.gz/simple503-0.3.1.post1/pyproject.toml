@@ -1,0 +1,197 @@
+[build-system]
+requires = [ "whey",]
+build-backend = "whey"
+
+[project]
+name = "simple503"
+version = "0.3.1.post1"
+description = "PEP 503 Python package repository generator."
+readme = "README.rst"
+keywords = [ "pep503", "pep658", "pip", "pypi",]
+dynamic = []
+dependencies = [
+    "airium>=0.2.2",
+    "apeye>=1.0.1",
+    "click>=8.0.1",
+    "consolekit>=1.2.2",
+    'dataclasses>=0.8; python_version == "3.6"',
+    "dist-meta>=0.1.0",
+    "dom-toml>=0.5.1",
+    "domdf-python-tools>=2.9.1",
+    "natsort>=7.1.1",
+    "shippinglabel>=0.15.0",
+    "typing-extensions>=3.7.4.1",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: System :: Archiving :: Packaging",
+    "Typing :: Typed",
+]
+requires-python = ">=3.6"
+
+[[project.authors]]
+name = "Dominic Davis-Foster"
+email = "dominic@davis-foster.co.uk"
+
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Homepage = "https://github.com/repo-helper/simple503"
+"Issue Tracker" = "https://github.com/repo-helper/simple503/issues"
+"Source Code" = "https://github.com/repo-helper/simple503"
+Documentation = "https://simple503.readthedocs.io/en/latest"
+
+[project.scripts]
+simple503 = "simple503.__main__:main"
+
+[project.optional-dependencies]
+incremental = [ "beautifulsoup4>=4.9.3",]
+all = [ "beautifulsoup4>=4.9.3",]
+
+[tool.sphinx-pyproject]
+github_username = "repo-helper"
+github_repository = "simple503"
+author = "Dominic Davis-Foster"
+project = "simple503"
+copyright = "2021 Dominic Davis-Foster"
+language = "en"
+package_root = "simple503"
+extensions = [
+    "sphinx_toolbox",
+    "sphinx_toolbox.more_autodoc",
+    "sphinx_toolbox.more_autosummary",
+    "sphinx_toolbox.documentation_summary",
+    "sphinx_toolbox.tweaks.param_dash",
+    "sphinx_toolbox.tweaks.latex_layout",
+    "sphinx_toolbox.tweaks.latex_toc",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
+    "sphinxcontrib.extras_require",
+    "sphinx.ext.todo",
+    "sphinxemoji.sphinxemoji",
+    "notfound.extension",
+    "sphinx_copybutton",
+    "sphinxcontrib.default_values",
+    "sphinxcontrib.toctree_plus",
+    "sphinx_debuginfo",
+    "sphinx_licenseinfo",
+    "seed_intersphinx_mapping",
+    "html_section",
+    "sphinx_click",
+    "sphinx_toolbox_experimental.needspace",
+    "sphinx_toolbox_experimental.peps",
+    "sphinx_toolbox_experimental.missing_xref",
+    "local_extension",
+    "sphinx_packaging",
+]
+sphinxemoji_style = "twemoji"
+gitstamp_fmt = "%d %b %Y"
+templates_path = [ "_templates",]
+html_static_path = [ "_static",]
+source_suffix = ".rst"
+master_doc = "index"
+suppress_warnings = [ "image.nonlocal_uri",]
+pygments_style = "default"
+html_theme = "furo"
+html_theme_path = [ "../..",]
+html_show_sourcelink = true
+toctree_plus_types = [
+    "class",
+    "confval",
+    "data",
+    "directive",
+    "enum",
+    "exception",
+    "flag",
+    "function",
+    "namedtuple",
+    "protocol",
+    "role",
+    "typeddict",
+]
+add_module_names = false
+hide_none_rtype = true
+all_typevars = true
+overloads_location = "bottom"
+html_codeblock_linenos_style = "table"
+autodoc_exclude_members = [
+    "__dict__",
+    "__class__",
+    "__dir__",
+    "__weakref__",
+    "__module__",
+    "__annotations__",
+    "__orig_bases__",
+    "__parameters__",
+    "__subclasshook__",
+    "__init_subclass__",
+    "__attrs_attrs__",
+    "__init__",
+    "__new__",
+    "__getnewargs__",
+    "__abstractmethods__",
+    "__hash__",
+]
+
+[tool.whey]
+base-classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Topic :: System :: Archiving :: Packaging",
+    "Typing :: Typed",
+]
+python-versions = [ "3.6", "3.7", "3.8", "3.9", "3.10",]
+python-implementations = [ "CPython", "PyPy",]
+platforms = [ "Windows", "macOS", "Linux",]
+license-key = "MIT"
+
+[tool.dep_checker]
+allowed_unused = [ "dataclasses",]
+
+[tool.mypy]
+python_version = "3.6"
+namespace_packages = true
+check_untyped_defs = true
+warn_unused_ignores = true
+no_implicit_optional = true
+show_error_codes = true
+
+[tool.snippet-fmt]
+directives = [ "code-block",]
+
+[tool.dependency-dash."requirements.txt"]
+order = 10
+
+[tool.dependency-dash."tests/requirements.txt"]
+order = 20
+include = false
+
+[tool.dependency-dash."doc-source/requirements.txt"]
+order = 30
+include = false
+
+[tool.snippet-fmt.languages.python]
+reformat = true
+
+[tool.snippet-fmt.languages.TOML]
+reformat = true
+
+[tool.snippet-fmt.languages.ini]
+
+[tool.snippet-fmt.languages.json]
