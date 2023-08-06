@@ -1,0 +1,59 @@
+locators:
+  inclusions:
+    -
+  exclusions:
+    -
+actions:
+  - verb: ''
+    name: ''
+    locators:
+      - mode: ''
+        value: ''
+        index: 0
+        uses: 0
+  - verb: fill
+    name: phone
+    locators:
+      - mode: id
+        value: ltkpopup-phone
+        index: 0
+        uses: 17
+      - mode: id
+        value: ltkpopup-mobile
+        index: 0
+        uses: 9
+  - verb: click
+    name: submit
+    locators:
+      - mode: id
+        value: ltkpopup-submit
+        index: 0
+        uses: 88
+  - verb: fill
+    name: email_address
+    locators:
+      - mode: id
+        value: ltkpopup-email
+        index: 0
+        uses: 2
+  - verb: click
+    name: activate_offer
+    locators:
+      - mode: value
+        value: Activate Offer
+        index: 0
+        uses: 2
+  - verb: click
+    name: get_mobile_alerts
+    locators:
+      - mode: text
+        value: Get Mobile Alerts
+        index: 0
+        uses: 2
+  - verb: click
+    name: continue_shopping
+    locators:
+      - mode: text
+        value: Continue Shopping
+        index: 0
+        uses: 2
