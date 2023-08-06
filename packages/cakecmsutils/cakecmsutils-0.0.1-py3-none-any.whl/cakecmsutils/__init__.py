@@ -1,0 +1,1 @@
+from .extendedcakecms import ExtendedCakeCMS
