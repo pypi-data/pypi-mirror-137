@@ -1,0 +1,13 @@
+# meta
+include LICENSE
+include MANIFEST.in
+include README.rst
+include requirements.txt
+
+# local data
+include cmif/standard/odd/cmi-customization.xml
+include cmif/standard/schema/cmi-customization.rng
+include cmif/standard/LICENSE*
+
+# python byte code
+global-exclude *.pyc
