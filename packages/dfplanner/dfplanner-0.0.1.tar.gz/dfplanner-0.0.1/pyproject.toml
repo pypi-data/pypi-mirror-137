@@ -1,0 +1,45 @@
+[build-system]
+requires = ['flit_core >=3.2,<4']
+build-backend = 'flit_core.buildapi'
+
+[tool.flit.metadata]
+module = 'dfplanner'
+author = 'Stephen Macke'
+author-email = 'stephen.macke@gmail.com'
+home-page = 'https://github.com/smacke/dfplanner'
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Operating System :: OS Independent',
+    'Intended Audience :: Developers',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'License :: OSI Approved :: BSD License',
+    ]
+requires = [
+    'numexpr',
+    'numpy',
+    'pandas',
+    'pyccolo',
+]
+description-file = 'README.md'
+requires-python = '>=3.6'
+
+[tool.flit.metadata.requires-extra]
+dev = [
+    'black',
+    'coverage',
+    'flake8',
+    'mypy',
+    'pytest',
+    'pytest-cov',
+]
+
+[tool.pytest.ini_options]
+markers = ['integration: mark a test as an integration test.']
+filterwarnings = [
+    'ignore::DeprecationWarning',
+    'ignore::pytest.PytestAssertRewriteWarning',
+]

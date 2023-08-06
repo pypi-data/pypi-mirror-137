@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: dfplanner
+Version: 0.0.1
+Summary: Using Pyccolo to optimize Pandas query plans holistically
+Home-page: https://github.com/smacke/dfplanner
+Author: Stephen Macke
+Author-email: stephen.macke@gmail.com
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Classifier: Development Status :: 3 - Alpha
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: BSD License
+Requires-Dist: numexpr
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: pyccolo
+Requires-Dist: black ; extra == "dev"
+Requires-Dist: coverage ; extra == "dev"
+Requires-Dist: flake8 ; extra == "dev"
+Requires-Dist: mypy ; extra == "dev"
+Requires-Dist: pytest ; extra == "dev"
+Requires-Dist: pytest-cov ; extra == "dev"
+Provides-Extra: dev
+
+dfplanner
+=========
+
+This project uses flit. To get started with an editable install:
+
+```bash
+python -m pip --upgrade pip
+python -m pip install flit
+flit install -s --extras dev
+```
+
