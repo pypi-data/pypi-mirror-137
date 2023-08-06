@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: pymwalib
+Version: 0.13.0
+Summary: A python wrapper for mwalib to work with raw data from the Murchison Widefield Array (MWA)
+Home-page: https://github.com/MWATelescope/pymwalib
+Author: Greg Sleap
+Author-email: greg.sleap@curtin.edu.au
+License: 'mpl-2.0'
+Project-URL: Bug Tracker, https://github.com/MWATelescope/pymwalib/issues
+Keywords: MWA,radioastronomy
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# pymwalib
+![Tests](https://github.com/MWATelescope/pymwalib/workflows/Code%20Coverage/badge.svg)
+[![codecov](https://codecov.io/gh/MWATelescope/pymwalib/branch/master/graph/badge.svg)](https://codecov.io/gh/MWATelescope/pymwalib)
+A Python interface for [MWATelescope/mwalib](https://github.com/MWATelescope/mwalib) that provides a simple
+interface for reading MWA correlator raw visibilities, recombined voltages and exposing the relevant metadata. pymwalib and mwalib
+both support reading data produced by the existing (legacy) MWA and the new MWAX systems.
+
+See [pymwalib Wiki](https://github.com/MWATelescope/pymwalib/wiki) for installation and usage infomation.
+
+
