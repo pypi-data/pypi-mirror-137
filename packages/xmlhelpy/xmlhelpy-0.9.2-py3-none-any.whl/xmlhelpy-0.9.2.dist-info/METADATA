@@ -1,0 +1,300 @@
+Metadata-Version: 2.1
+Name: xmlhelpy
+Version: 0.9.2
+Summary: CLI wrapper for the xmlhelp interface.
+Home-page: https://gitlab.com/iam-cms/workflows/xmlhelpy
+Author: Karlsruhe Institute of Technology
+License: Apache-2.0
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: AUTHORS.md
+Requires-Dist: click (<9.0.0,>=7.0.0)
+Requires-Dist: lxml (<5.0.0)
+Provides-Extra: dev
+Requires-Dist: black (==22.1.0) ; extra == 'dev'
+Requires-Dist: build (<1.0.0) ; extra == 'dev'
+Requires-Dist: pre-commit (<3.0.0) ; extra == 'dev'
+Requires-Dist: pylint (<2.13.0) ; extra == 'dev'
+Requires-Dist: pytest (<7.0.0) ; extra == 'dev'
+Requires-Dist: tox (<4.0.0) ; extra == 'dev'
+Requires-Dist: twine (<4.0.0) ; extra == 'dev'
+
+# xmlhelpy
+
+**xmlhelpy** is a wrapper library based on
+[Click](https://github.com/pallets/click). Its main goal is to easily provide
+the *xmlhelp* interface to any Python CLI tool. This interface can be used to
+obtain a machine readable XML representation of tools and their parameters. The
+XML representation can be used, for example, to generate GUIs on top of any
+tool that provides it.
+
+## Installation
+
+xmlhelpy can be installed using `pip`, note that Python version >=3.6 is
+required.
+
+```
+pip install xmlhelpy
+```
+
+When installing xmlhelpy from source for development, it is recommended to
+install it in editable mode and to install all additional development
+dependencies as defined in `setup.py`.
+
+```
+pip install -e .[dev]
+```
+
+Performing the development installation inside a virtual environment is
+recommended, see [Virtualenv](https://virtualenv.pypa.io/en/latest
+"Virtualenv") for more information.
+
+## Usage
+
+### Quickstart
+
+In essence, xmlhelpy works very similarly to Click, as the following example
+taken from the Click documentation shows:
+
+```python
+import click
+import xmlhelpy
+
+
+@xmlhelpy.command()
+@xmlhelpy.argument(
+    "count",
+    description="Number of greetings.",
+    param_type=xmlhelpy.Integer,
+)
+@xmlhelpy.option(
+    "name",
+    description="Your name.",
+    default="me",
+)
+def hello(count, name):
+    """Simple program that greets NAME for a total of COUNT times.
+
+    A slightly modified example taken from Click.
+    """
+    for x in range(count):
+        click.echo(f"Hello {name}!")
+
+
+if __name__ == "__main__":
+    hello()
+```
+
+And when running it, assuming the code above was saved as `hello.py`:
+
+```
+$ python hello.py 2
+Hello me!
+Hello me!
+```
+
+The main functionality xmlhelpy provides on top of the usual Click
+functionality is the `--xmlhelp` option:
+
+```xml
+$ python hello.py --xmlhelp
+<?xml version='1.0' encoding='UTF-8'?>
+<program name="hello" description="Simple program that greets NAME for a total of COUNT times.">
+  <param description="Number of greetings." type="long" name="arg0" positional="true" required="true"/>
+  <param description="Your name." type="string" name="name" default="me"/>
+</program>
+
+```
+
+With this option, a machine readable representation of the `hello` command and
+its parameters can be obtained without writing any additional code.
+
+The rest of this documentation focuses on the specific functionality that
+xmlhelpy provides. Please refer to the
+[Click](https://click.palletsprojects.com) documentation for more general
+usage.
+
+### Builtin options
+
+Besides the usual `--help` option that Click provides, xmlhelpy provides the
+following:
+
+* `--xmlhelp`: Prints a machine readable representation of a command or
+  environment and their parameters.
+* `--version`: Prints the version of a group, command or environment, if
+  specified.
+* `--commands`: Prints a list of all subcommands a group contains.
+
+### Commands
+
+xmlhelpy provides three different command types: *groups*, regular *commands*
+and *environments*.
+
+Similar to Click, groups can be used to easily group related commands into
+multiple subcommands. Environments, on the other hand, are commands that are
+meant to wrap other commands, e.g. an *ssh* tool to execute another command on
+a remote machine. Environments are almost identical to regular commands, with
+the exception that they also contain the required `--env-exec` option, which
+specifies one or more command strings to be executed inside the environment.
+
+The following code shows an example of each command type:
+
+```python
+@xmlhelpy.group(
+    name=None,
+    version=None,
+    cls=xmlhelpy.Group,
+)
+def my_group():
+    """My group."""
+
+
+@my_group.command(
+    name=None,
+    version=None,
+    description=None,
+    example=None,
+    cls=xmlhelpy.Command,
+)
+def my_command():
+    """My command."""
+
+
+@my_group.environment(
+    name=None,
+    version=None,
+    description=None,
+    example=None,
+    cls=xmlhelpy.Environment,
+)
+def my_environment(env_exec):
+    """My environment."""
+```
+
+All command types provide the following parameters:
+
+* `name`: The name of the command, which defaults to the name of the function
+  with underscores replaced by dashes.
+* `version`: The version of the command. Subcommands can override the version
+  of their parent groups, otherwise it is inherited.
+* `cls`: A custom command class to customize the command behaviour.
+
+Commands and environments additionally provide the following parameters:
+
+* `description`: The description of the command to be shown in the xmlhelp.
+  Defaults to the first line of the docstring of the function.
+* `example`: An example parametrization of using the command.
+
+### Parameters
+
+Similar to Click, xmlhelpy provides *argument* and *option* parameters.
+Arguments are required, positional parameters, while options are always given
+by their name.
+
+The following code shows an example of each parameter type:
+
+```python
+@xmlhelpy.command()
+@xmlhelpy.argument(
+    "arg",
+    description="",
+    nargs=1,
+    param_type=xmlhelpy.String,
+    required=True,
+    default=None,
+    exclude_from_xml=False,
+)
+@xmlhelpy.option(
+    "opt",
+    description="",
+    nargs=1,
+    param_type=xmlhelpy.String,
+    required=False,
+    default=None,
+    exclude_from_xml=False,
+    char=None,
+    var_name=None,
+    is_flag=False,
+    requires=None,
+    excludes=None,
+)
+def my_command(**kwargs):
+    pass
+```
+
+Both parameter types provide the following parameters:
+
+* `name`: The name of the parameter, which will also be used for the variable
+  name, with dashes replaced by underscores. The names of options have to be
+  given as `--<name> <value>`.
+* `description`: The description of the parameter.
+* `nargs`: The number of arguments (separated by spaces) to expect. For
+  arguments, `-1` can be specified for a single argument to allow for an
+  unlimited number of values.
+* `param_type`: The type of the parameter, either as class or instance.
+* `required`: Whether the parameter is required or not. Defaults to `True` for
+  arguments.
+* `default`: The default value to take if the parameter is not given.
+* `exclude_from_xml`: Flag indicating whether the parameter should be excluded
+  from the xmlhelp output.
+
+Options additionally provide the following parameters:
+
+* `char`: A shorthand for an option consisting of a single ASCII letter, which
+  has to be given as `-<char> <value>`.
+* `var_name`: A custom variable name to use instead of the parameter name.
+* `is_flag`: Whether the option is a flag. Flags do not require a value. They
+  always use boolean types and `False` as default value. Additionally, their
+  type is specified as `flag` in the xmlhelp.
+* `requires`: A list of option names which should be required when using this
+  option.
+* `excludes`: A list of option names which should be excluded when using this
+  option.
+
+### Parameter types
+
+xmlhelpy wraps most of the parameter types that also exist in Click. All types
+can be specified for both arguments and options. Types can either be given as
+classes or as instances.
+
+The following code shows an example of the different parameter types:
+
+```python
+@xmlhelpy.command()
+@xmlhelpy.argument("string", param_type=xmlhelpy.String)
+@xmlhelpy.argument("tokenlist", param_type=xmlhelpy.TokenList(separator=","))
+@xmlhelpy.argument("bool", param_type=xmlhelpy.Bool)
+@xmlhelpy.argument("long", param_type=xmlhelpy.Integer)
+@xmlhelpy.argument("long_range", param_type=xmlhelpy.IntRange(min=None, max=None))
+@xmlhelpy.argument("real", param_type=xmlhelpy.Float)
+@xmlhelpy.argument("real_range", param_type=xmlhelpy.FloatRange(min=None, max=None))
+@xmlhelpy.argument("choice", param_type=xmlhelpy.Choice(["a", "b"], case_sensitive=False))
+@xmlhelpy.argument("path", param_type=xmlhelpy.Path(path_type=None, exists=False))
+def my_command(**kwargs):
+    pass
+```
+
+The provided types can be used for the following cases:
+
+* `String`: For simple string values.
+* `TokenList`: For string values that should be converted to a list according
+  to a given separator.
+* `Bool`: For simple boolean values.
+* `Integer`: For simple integer values.
+* `IntRange`: For integer values in a certain range.
+* `Float`: For simple float values.
+* `FloatRange`: For float values in a certain range.
+* `Choice`: For string values that can be selected from a specific list, either
+  case sensitive or insensitive.
+* `Path`: For path values that can optionally be checked for whether they
+  actually exist. The given path type can optionally be set to either `file` or
+  `directory`, which sets the type in the xmlhelp accordingly and is also
+  relevant for the check mentioned above.
+
+
