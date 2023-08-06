@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: cancelable-py
+Version: 0.0.1
+Summary: A package that allows to cancel, certain functions that can be a pain, when working with threading.
+Home-page: https://github.com/jona799t/Cancelable
+Author: jona799t
+License: UNKNOWN
+Keywords: python,threading,sleep,cancelable
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Usage
+Without the normal time package:
+```python
+from cancelable import time
+import threading
+
+def count():
+  i = 1
+  while True:
+    time.sleep(1)
+    print(i)
+    i += 1
+
+threading._start_new_thread(count, ())
+
+input("Click enter to cancel counting\n")
+
+time.cancel()
+```
+With the normal time package:
+```python
+from cancelable import time as cancelableTime
+import threading
+
+def count():
+  i = 1
+  while True:
+    cancelableTime.sleep(1)
+    print(i)
+    i += 1
+
+threading._start_new_thread(count, ())
+
+input("Click enter to cancel counting\n")
+
+cancelableTime.cancel()
+```
+
+# To do
+Add more functions such as input()
+
