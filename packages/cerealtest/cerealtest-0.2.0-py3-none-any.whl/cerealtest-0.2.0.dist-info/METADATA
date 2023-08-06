@@ -1,0 +1,28 @@
+Metadata-Version: 2.1
+Name: cerealtest
+Version: 0.2.0
+Summary: Serial Port Test Automation
+Home-page: https://github.com/guigarma/cerealtest
+Author: Guillermo Eduardo Garcia Maynez
+Author-email: garciamaynezg@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/guigarma/cerealtest/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# CerealTest (WIP)
+
+This tool automates serial tests via a JSON configuration file where you specify port settings and the array of tests that will be run.
+
+You can specify the message to send as text or as hexadecimal data,  expected answer via a regular expression, or you can set a Python script to compute the message to send as well as a reception script that can process the answer for maximum flexibility.
+
+
+## Contributions
+This repository is open to contributions, however code must be compatible with Python 3.8, the latest version that runs on Windows 7.
+
+
