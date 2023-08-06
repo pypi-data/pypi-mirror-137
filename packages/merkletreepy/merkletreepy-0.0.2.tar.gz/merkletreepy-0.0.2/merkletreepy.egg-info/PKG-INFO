@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: merkletreepy
+Version: 0.0.2
+Summary: Python port of merkletreejs
+Home-page: https://github.com/callistachang/merkletreepy
+Author: Callista Chang
+Author-email: changcallista@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/callistachang/merkletreepy/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# merkletreepy
+
+Python port of merkletreejs. Currently unstable.
+
+## Installation
+
+```
+pip install merkletreepy
+```
+
+## Usage
+
+```py
+from merkletreepy import MerkleTree
+import Web3
+
+def hash_function(x):
+    return Web3.keccak(text=x).hex()
+
+leaves = [hash_function(leaf) for leaf in "abc"]
+tree = MerkleTree(leaves, sha256)
+root = tree.get_root()
+leaf = sha256("a")
+bad_leaf = sha256("x")
+proof = tree.get_proof(leaf)
+tree.verify(proof, leaf, root)      # returns True
+tree.verify(proof, bad_leaf, root)  # returns False
+```
+
+
