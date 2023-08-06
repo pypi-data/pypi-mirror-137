@@ -1,0 +1,31 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "crabnet"
+authors = [
+    {name = "Sterling G. Baird", email = "sterling.baird@utah.edu"},
+    {name = "Anthony Yu-Tung Wang", email = "aytwang@alumni.uwaterloo.ca"}
+]
+readme = "README.md"
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version", "description"]
+
+requires-python = ">=3.7,<3.10"
+
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "scipy",
+    "matplotlib",
+    "seaborn",
+    "tqdm",
+    "colorama",
+    "joblib",
+    "psutil",
+]
+
+[project.urls]
+Home = "https://github.com/sparks-baird/CrabNet"
