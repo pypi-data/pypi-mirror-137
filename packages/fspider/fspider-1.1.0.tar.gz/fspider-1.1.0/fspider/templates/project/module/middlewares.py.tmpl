@@ -1,0 +1,64 @@
+from typing import Union
+from fspider.downloadermiddlewares import DownloaderMiddleware
+from fspider.http.request import Request
+from fspider.http.response import Response
+from fspider.spidermiddlewares import SpiderMiddleware
+from fspider.utils.type import SpiderResult
+
+
+class ${ProjectName}SpiderMiddleware(SpiderMiddleware):
+    async def process_start_requests(self, result: SpiderResult) -> SpiderResult:
+        async for r in result:
+            print('process_start_requests',r)
+            yield r
+
+    async def process_spider_exception(self, response: Response, exception: Exception):
+        # Called when a spider or process_spider_input() method
+        # (from other spider middleware) raises an exception.
+
+        # Should return either None or an iterable of Request or item objects.
+        pass
+
+    async def process_spider_input(self, response: Response):
+        return None
+
+    async def process_spider_output(self, response: Response, result: SpiderResult) -> SpiderResult:
+        # Called with the results returned from the Spider, after
+        # it has processed the response.
+
+        # Must return an iterable of Request, or item objects.
+        async for i in result:
+            print('process_spider_output',i)
+            yield i
+
+class ${ProjectName}DownloaderMiddleware(DownloaderMiddleware):
+    async def process_request(self, request: Request) -> Union[Request, Response, None]:
+        # Called for each request that goes through the downloader
+        # middleware.
+
+        # Must either:
+        # - return None: continue processing this request
+        # - or return a Response object
+        # - or return a Request object
+        # - or raise IgnoreRequest: process_exception() methods of
+        #   installed downloader middleware will be called
+        return None
+
+    async def process_response(self, request: Request, response: Response) -> Union[Request, Response]:
+        # Called with the response returned from the downloader.
+
+        # Must either;
+        # - return a Response object
+        # - return a Request object
+        # - or raise IgnoreRequest
+        return response
+
+    async def process_exception(self, request, exception, spider):
+        # Called when a download handler or a process_request()
+        # (from other downloader middleware) raises an exception.
+
+        # Must either:
+        # - return None: continue processing this exception
+        # - return a Response object: stops process_exception() chain
+        # - return a Request object: stops process_exception() chain
+        pass
